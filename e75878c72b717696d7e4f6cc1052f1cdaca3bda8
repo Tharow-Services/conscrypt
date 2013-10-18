@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "def0a8a0_bd2a4b9e",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:35:54Z",
+      "side": 0,
+      "message": "i\u0027m worried this is over simplifying things. you could be blocked in read, waiting for data. but the peer may not send data, because its waiting for you to write something. if there is only one lock, read and write can\u0027t happen in two threads, which is a common pattern.",
+      "revId": "e75878c72b717696d7e4f6cc1052f1cdaca3bda8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

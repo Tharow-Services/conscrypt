@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe0bac5e_04fea4e0",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:35:54Z",
+      "side": 1,
+      "message": "libcore doesn\u0027t do all the frameworks formatting rules. just sort and no white space. apparently static imports were an exception though.",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "def0a8a0_5d5d274a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:35:54Z",
+      "side": 1,
+      "message": "debug left on",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "def0a8a0_88558bff",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:35:54Z",
+      "side": 1,
+      "message": "IIRC, cut through is trying to optimize for http where you want to piggy back the last handshake packet with the HTTP request application data. however, in non-http cases, you\u0027ll want to let people read, such as if they are expecting the server to speak first.",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "def0a8a0_48e0c344",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:35:54Z",
+      "side": 1,
+      "message": "\"swallow\" seems like the wrong term, since you do rethrow it.",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe0bac5e_645a102d",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:35:54Z",
+      "side": 1,
+      "message": "so presumably if it is closed after we enter SSL_read it will still work? so is the explicit state check necessary? (similar below)\n\nah, i see, this works because await pending ops called from close() takes the readLock. and it relies on the state check before going into native.",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe0bac5e_c4801c47",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:35:54Z",
+      "side": 1,
+      "message": "in all paths, you set \"state \u003d STATE_CLOSED\", it might be clearer for analysis if you did this after the first check for close, so its clear that no matter what, we are moving to STATE_CLOSED",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e02a442_ba76d008",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:35:54Z",
+      "side": 1,
+      "message": "this code predates me as well, but i believe it is required. if you wrapped another Socket and were told to autoclose it, doesn\u0027t it make sense that we close it when the wrapper is closed?",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "def0a8a0_883c6bd5",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1269,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:35:54Z",
+      "side": 1,
+      "message": "nice",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
