@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe0bac5e_c4b2dc26",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:37:40Z",
+      "side": 1,
+      "message": "debug still on",
+      "revId": "d0445ede3bf77538ec75eb8c0257a78bf2a363c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "def0a8a0_c84e7370",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1293,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-18T16:37:40Z",
+      "side": 1,
+      "message": "ah, i meant to check for notifyAll when I saw the wait, but apparently forgot because here it is in PS3",
+      "revId": "d0445ede3bf77538ec75eb8c0257a78bf2a363c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
