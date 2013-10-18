@@ -16,6 +16,24 @@
       "revId": "e75878c72b717696d7e4f6cc1052f1cdaca3bda8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ecbd865_a5b26825",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2013-10-18T17:01:51Z",
+      "side": 0,
+      "message": "I haven\u0027t gotten rid of separate locks for reading and writing. These locks are moved inside SSLinputStream \u0026 SSLOutputStream respectively. We never require them to be held together like the earlier implementation did.",
+      "parentUuid": "def0a8a0_bd2a4b9e",
+      "revId": "e75878c72b717696d7e4f6cc1052f1cdaca3bda8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
