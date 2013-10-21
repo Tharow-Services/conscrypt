@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9e1390a0_eac083cc",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2013-10-21T13:24:32Z",
+      "side": 1,
+      "message": "Done. I\u0027ve moved the static imports to the bottom of the list like the rest of libcore.\n\n[ Looks like I have to find out how to set up intellij to use two different formatting styles depending on the path of the file being edited ]",
+      "parentUuid": "fe0bac5e_04fea4e0",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "def0a8a0_5d5d274a",
         "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2013-10-18T16:35:54Z",
       "side": 1,
       "message": "debug left on",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e1390a0_cabdc754",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2013-10-21T13:24:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "def0a8a0_5d5d274a",
       "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9e1390a0_2a7c5bbd",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2013-10-21T13:24:32Z",
+      "side": 1,
+      "message": "Ack. (removed comment)",
+      "parentUuid": "def0a8a0_88558bff",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "def0a8a0_48e0c344",
         "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2013-10-18T16:35:54Z",
       "side": 1,
       "message": "\"swallow\" seems like the wrong term, since you do rethrow it.",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e1390a0_0a819f93",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 496,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2013-10-21T13:24:32Z",
+      "side": 1,
+      "message": "we rethrow it only if state !\u003d STATE_CLOSED",
+      "parentUuid": "def0a8a0_48e0c344",
       "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -104,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "5ecbd865_4837f3f2",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1255,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2013-10-21T13:24:32Z",
+      "side": 1,
+      "message": "Well, I did think about doing that before I sent this change out. That would require me to store a local copy of this.state before i change it. Probably worth the trouble though, it does make the code clearer.",
+      "parentUuid": "fe0bac5e_c4801c47",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e02a442_ba76d008",
         "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
         "patchSetId": 1
@@ -115,6 +205,24 @@
       "writtenOn": "2013-10-18T16:35:54Z",
       "side": 1,
       "message": "this code predates me as well, but i believe it is required. if you wrapped another Socket and were told to autoclose it, doesn\u0027t it make sense that we close it when the wrapper is closed?",
+      "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e1390a0_aa8fabbb",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1258,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2013-10-21T13:24:32Z",
+      "side": 1,
+      "message": "Ack. Rewrote code comment to include your CL comment.",
+      "parentUuid": "3e02a442_ba76d008",
       "revId": "5691258bce00b670cb70eb6e2459d6e66a357e71",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
