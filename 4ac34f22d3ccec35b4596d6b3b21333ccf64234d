@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ee8f0cc_df2adfed",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-10-21T17:02:42Z",
+      "side": 1,
+      "message": "closed.",
+      "revId": "4ac34f22d3ccec35b4596d6b3b21333ccf64234d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
