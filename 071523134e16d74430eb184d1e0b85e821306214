@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fea72cbd_988f79bc",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 751,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-10-22T23:31:30Z",
+      "side": 0,
+      "message": "Please comment above describing reasons not to include suites.",
+      "revId": "071523134e16d74430eb184d1e0b85e821306214",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
