@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9efb90cd_c727407b",
+        "filename": "src/main/java/org/conscrypt/ConnectionStateSSLv3.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-23T16:46:04Z",
+      "side": 1,
+      "message": "hmm, my editor is sorting java.* before javax.* (its just doing ascii sorting)",
+      "revId": "adad4496b6f055f701021f2c1b113ceb4842cf14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fe41ecd7_ff3bdff3",
+        "filename": "src/main/java/org/conscrypt/ConnectionStateSSLv3.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-23T16:46:04Z",
+      "side": 1,
+      "message": "nit: \"this array\" doesn\u0027t clearly refer to the mac_material_part array. (it\u0027s fine above)",
+      "revId": "adad4496b6f055f701021f2c1b113ceb4842cf14",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
