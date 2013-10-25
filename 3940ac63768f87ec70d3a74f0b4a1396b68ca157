@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fed48c7e_2af4df01",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 732,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-10-25T20:19:35Z",
+      "side": 1,
+      "message": "previously",
+      "revId": "3940ac63768f87ec70d3a74f0b4a1396b68ca157",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
