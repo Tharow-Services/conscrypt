@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e69c4a2_7f0ea7f6",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 726,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-10-25T19:06:45Z",
+      "side": 1,
+      "message": "I think you need to note that removing a default can break apps. This has happened before, so it needs to be done with caution.",
+      "revId": "64a9016cf3cfc1269ec0733970c65fe64200f14c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
