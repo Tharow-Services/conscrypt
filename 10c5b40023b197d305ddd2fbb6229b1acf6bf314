@@ -16,6 +16,24 @@
       "revId": "10c5b40023b197d305ddd2fbb6229b1acf6bf314",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e32f8d3_2ac6bf58",
+        "filename": "src/main/java/org/conscrypt/CipherSuite.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 733,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-10-31T22:43:32Z",
+      "side": 1,
+      "message": "Done. I\u0027m also wondering whether this list should rather be obtained by filtering the one from NativeCrypto.",
+      "parentUuid": "dec988ea_daacf596",
+      "revId": "10c5b40023b197d305ddd2fbb6229b1acf6bf314",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
