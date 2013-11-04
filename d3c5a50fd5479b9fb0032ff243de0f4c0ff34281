@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "5e32f8d3_9ba53448",
+        "filename": "src/main/java/org/conscrypt/CipherSuite.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-04T21:53:06Z",
+      "side": 1,
+      "message": "Good point. Adding it for the other 8-byte block ciphers DES and 3DES.",
+      "parentUuid": "5ef1194f_66ec8a7a",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ef1194f_e689baca",
         "filename": "src/main/java/org/conscrypt/CipherSuite.java",
         "patchSetId": 3
