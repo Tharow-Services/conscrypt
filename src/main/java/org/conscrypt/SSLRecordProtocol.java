@@ -86,6 +86,8 @@ public class SSLRecordProtocol {
     // connection state holding object
     private ConnectionState
         activeReadState, activeWriteState, pendingConnectionState;
+    // Data was sent via the wrap() call before.
+    private boolean sentOutputData;
 
     // logger
     private Logger.Stream logger = Logger.getStream("record");
@@ -181,7 +183,16 @@ public class SSLRecordProtocol {
      * @return  ssl packet created over the current connection state
      */
     protected byte[] wrap(byte content_type, DataStream dataStream) {
-        byte[] fragment = dataStream.getData(MAX_DATA_LENGTH);
+        final int dataLength;
+        if (!sentOutputData && session != null
+                && (session.protocol == ProtocolVersion.SSLv3
+                    || session.protocol == ProtocolVersion.TLSv1)
+                && session.cipherSuite.isInitialRecordSplit()) {
+            dataLength = 1;
+        } else {
+            dataLength = MAX_DATA_LENGTH;
+        }
+        byte[] fragment = dataStream.getData(dataLength);
         return wrap(content_type, fragment, 0, fragment.length);
     }
 
