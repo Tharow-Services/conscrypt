@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5e32f8d3_3b636847",
+        "filename": "src/main/java/org/conscrypt/CipherSuite.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-04T21:42:34Z",
+      "side": 1,
+      "message": "See the note from Bodo at:\nhttp://rt.openssl.org/Ticket/Display.html?id\u003d2635#txn-33784",
+      "parentUuid": "be1a1565_59b5e3fd",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ef1194f_e689baca",
         "filename": "src/main/java/org/conscrypt/CipherSuite.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-04T21:35:29Z",
       "side": 1,
       "message": "\"is\" initial record split? needsInitialRecordSplit?",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e3704c5_a1be494d",
+        "filename": "src/main/java/org/conscrypt/CipherSuite.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-04T21:42:34Z",
+      "side": 1,
+      "message": "Yeah, I was just trying to stay with the Java convention for boolean return. I agree it sounds/looks better without \"is\"",
+      "parentUuid": "5ef1194f_e689baca",
       "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "5e32f8d3_bbd758ae",
+        "filename": "src/main/java/org/conscrypt/SSLRecordProtocol.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-04T21:42:34Z",
+      "side": 1,
+      "message": "Ah, yes.",
+      "parentUuid": "be1a1565_19af6bae",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be1a1565_39aa279e",
         "filename": "src/main/java/org/conscrypt/SSLRecordProtocol.java",
         "patchSetId": 3
@@ -64,6 +118,24 @@
       "writtenOn": "2013-11-04T21:35:29Z",
       "side": 1,
       "message": "The len argument isn\u0027t really a length, it\u0027s max_len, no?",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e2c007a_88fb2cef",
+        "filename": "src/main/java/org/conscrypt/SSLRecordProtocol.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-04T21:42:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be1a1565_39aa279e",
       "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
