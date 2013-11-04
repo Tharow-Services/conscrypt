@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "5ef1194f_66ec8a7a",
+        "filename": "src/main/java/org/conscrypt/CipherSuite.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2013-11-04T21:46:49Z",
+      "side": 1,
+      "message": "Bodo is arguing that 0/n splitting is better for 3DES because 2**56 bits of MAC in the block isn\u0027t that much. That\u0027s an interesting point, but it\u0027s moot here: here we\u0027re choosing between 1/n-1 and nothing, and I think 1/n-1 wins :)",
+      "parentUuid": "5e32f8d3_3b636847",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ef1194f_e689baca",
         "filename": "src/main/java/org/conscrypt/CipherSuite.java",
         "patchSetId": 3
