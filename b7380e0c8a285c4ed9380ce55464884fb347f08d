@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ee71194_28c40fda",
+        "filename": "src/main/java/org/conscrypt/CipherSuite.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-11-04T19:28:33Z",
+      "side": 1,
+      "message": "add comment that this is currently enabled for AES?\n\ni don\u0027t think that jumps out from the large if/then/else cascade.",
+      "revId": "b7380e0c8a285c4ed9380ce55464884fb347f08d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
