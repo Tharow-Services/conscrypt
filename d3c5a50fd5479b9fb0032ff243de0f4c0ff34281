@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be1a1565_59b5e3fd",
+        "filename": "src/main/java/org/conscrypt/CipherSuite.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2013-11-04T21:35:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure why splitting 3DES is wrong. We certainly do it in, say, NSS.",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ef1194f_e689baca",
+        "filename": "src/main/java/org/conscrypt/CipherSuite.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1088,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2013-11-04T21:35:29Z",
+      "side": 1,
+      "message": "\"is\" initial record split? needsInitialRecordSplit?",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be1a1565_19af6bae",
+        "filename": "src/main/java/org/conscrypt/SSLRecordProtocol.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2013-11-04T21:35:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure about the context here, but this object appears to handle several SSL records. Each SSL record needs to be split, not just the first on a connection.",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be1a1565_39aa279e",
+        "filename": "src/main/java/org/conscrypt/SSLRecordProtocol.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2013-11-04T21:35:29Z",
+      "side": 1,
+      "message": "The len argument isn\u0027t really a length, it\u0027s max_len, no?",
+      "revId": "d3c5a50fd5479b9fb0032ff243de0f4c0ff34281",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
