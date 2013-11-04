@@ -78,6 +78,13 @@ public class CipherSuite {
     final private int hashSize;
 
     /**
+     * Whether this cipher needs BEAST mitigation or not. This is currently only
+     * enabled for AES in CBC mode. 3DES has a block size that is too small to
+     * be able to safely use 1/n-1 record splitting.
+     */
+    final private boolean needInitialRecordSplit;
+
+    /**
      * key exchange values
      */
     static final int KEY_EXCHANGE_RSA = 1;
@@ -869,6 +876,7 @@ public class CipherSuite {
             effectiveKeyBytes = 0;
             ivSize = 0;
             blockSize = 0;
+            needInitialRecordSplit = false;
         // BEGIN android-removed
         // } else if ("IDEA_CBC".equals(cipherName)) {
         //     this.cipherName = "IDEA/CBC/NoPadding";
@@ -892,6 +900,7 @@ public class CipherSuite {
             effectiveKeyBytes = 5;
             ivSize = 0;
             blockSize = 0;
+            needInitialRecordSplit = false;
         } else if ("RC4_128".equals(cipherName)) {
             this.cipherName = "RC4";
             keyMaterial = 16;
@@ -899,6 +908,7 @@ public class CipherSuite {
             effectiveKeyBytes = 16;
             ivSize = 0;
             blockSize = 0;
+            needInitialRecordSplit = false;
         } else if ("DES40_CBC".equals(cipherName)) {
             this.cipherName = "DES/CBC/NoPadding";
             keyMaterial = 5;
@@ -906,6 +916,7 @@ public class CipherSuite {
             effectiveKeyBytes = 5;
             ivSize = 8;
             blockSize = 8;
+            needInitialRecordSplit = false;
         } else if ("DES_CBC".equals(cipherName)) {
             this.cipherName = "DES/CBC/NoPadding";
             keyMaterial = 8;
@@ -913,6 +924,7 @@ public class CipherSuite {
             effectiveKeyBytes = 7;
             ivSize = 8;
             blockSize = 8;
+            needInitialRecordSplit = false;
         } else if ("3DES_EDE_CBC".equals(cipherName)) {
             this.cipherName = "DESede/CBC/NoPadding";
             keyMaterial = 24;
@@ -920,6 +932,7 @@ public class CipherSuite {
             effectiveKeyBytes = 24;
             ivSize = 8;
             blockSize = 8;
+            needInitialRecordSplit = false;
         } else if ("AES_128_CBC".equals(cipherName)) {
             this.cipherName = "AES/CBC/NoPadding";
             keyMaterial = 16;
@@ -927,6 +940,7 @@ public class CipherSuite {
             effectiveKeyBytes = 16;
             ivSize = 16;
             blockSize = 16;
+            needInitialRecordSplit = true;
         } else if ("AES_256_CBC".equals(cipherName)) {
             this.cipherName = "AES/CBC/NoPadding";
             keyMaterial = 32;
@@ -934,6 +948,7 @@ public class CipherSuite {
             effectiveKeyBytes = 32;
             ivSize = 16;
             blockSize = 16;
+            needInitialRecordSplit = true;
         } else {
             this.cipherName = cipherName;
             keyMaterial = 0;
@@ -941,6 +956,7 @@ public class CipherSuite {
             effectiveKeyBytes = 0;
             ivSize = 0;
             blockSize = 0;
+            needInitialRecordSplit = false;
         }
 
         if ("MD5".equals(hash)) {
@@ -1063,6 +1079,14 @@ public class CipherSuite {
      */
     public boolean isExportable() {
         return isExportable;
+    }
+
+    /**
+     * Indicates whether this cipher suite needs the initial record split to
+     * mitigate the BEAST attack.
+     */
+    public boolean isInitialRecordSplit() {
+        return needInitialRecordSplit;
     }
 
     static final String KEY_TYPE_RSA = "RSA";
