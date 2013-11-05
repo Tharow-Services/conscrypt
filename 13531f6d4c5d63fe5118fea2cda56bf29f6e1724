@@ -16,6 +16,24 @@
       "revId": "13531f6d4c5d63fe5118fea2cda56bf29f6e1724",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5e583941_ae9dc380",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-05T20:50:19Z",
+      "side": 1,
+      "message": "Fair point. Removed.",
+      "parentUuid": "fe256da9_025258f8",
+      "revId": "13531f6d4c5d63fe5118fea2cda56bf29f6e1724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
