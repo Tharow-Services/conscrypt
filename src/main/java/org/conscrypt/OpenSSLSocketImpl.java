@@ -393,6 +393,16 @@ public class OpenSSLSocketImpl
                 NativeCrypto.SSL_set_tlsext_host_name(sslNativePointer, hostname);
             }
 
+            // BEAST attack mitigation (1/n-1 record splitting).
+            // Only needs to be enabled in client mode.
+            if (client) {
+                NativeCrypto.SSL_set_mode(
+                        sslNativePointer, NativeCrypto.SSL_MODE_CBC_RECORD_SPLITTING);
+            } else {
+                NativeCrypto.SSL_clear_mode(
+                        sslNativePointer, NativeCrypto.SSL_MODE_CBC_RECORD_SPLITTING);
+            }
+
             boolean enableSessionCreation = sslParameters.getEnableSessionCreation();
             if (!enableSessionCreation) {
                 NativeCrypto.SSL_set_session_creation_enabled(sslNativePointer,
