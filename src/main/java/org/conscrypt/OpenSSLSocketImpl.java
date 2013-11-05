@@ -18,6 +18,7 @@ package org.conscrypt;
 
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import dalvik.system.VMRuntime;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
@@ -391,6 +392,19 @@ public class OpenSSLSocketImpl
             }
             if (hostname != null) {
                 NativeCrypto.SSL_set_tlsext_host_name(sslNativePointer, hostname);
+            }
+
+            // BEAST attack mitigation (1/n-1 record splitting for cipher suites using CBC in TLSv1
+            // and lower).
+            // A side effect of this mitigation is that SSLSocket.read(byte[]) will return at most
+            // one byte on first read. This will break applications that incorrectly assume that
+            // such reads are guaranteed to return exactly the chunks written by the sender.
+            // Thus, this mitigation is enabled only for apps that target API Level 20 and newer.
+            // This should surface any issues prior to public launches of apps or their updates.
+            int targetSdkVersion = VMRuntime.getRuntime().getTargetSdkVersion();
+            if ((targetSdkVersion >= 20) || (targetSdkVersion == 0)) {
+                NativeCrypto.SSL_set_mode(
+                        sslNativePointer, NativeCrypto.SSL_MODE_CBC_RECORD_SPLITTING);
             }
 
             boolean enableSessionCreation = sslParameters.getEnableSessionCreation();
