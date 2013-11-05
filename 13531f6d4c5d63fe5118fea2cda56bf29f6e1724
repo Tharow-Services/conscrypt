@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe256da9_025258f8",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-11-05T20:44:29Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be unnecessary? if we want to be sure its off by default, we should add something to NativeCrypto to test that. (and I see that you did)",
+      "revId": "13531f6d4c5d63fe5118fea2cda56bf29f6e1724",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
