@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3eb9c5aa_4762ceef",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2013-11-06T09:47:05Z",
+      "side": 1,
+      "message": "Do you want to inspect the return value ? (Doesn\u0027t look like this operation can ever fail, though).",
+      "revId": "ed33b5fe88fc926c930839169a6bbb1623cf623f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
