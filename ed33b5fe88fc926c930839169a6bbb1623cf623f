@@ -16,6 +16,24 @@
       "revId": "ed33b5fe88fc926c930839169a6bbb1623cf623f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "becbf53b_fa4ef551",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 398,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-06T21:52:42Z",
+      "side": 1,
+      "message": "No need -- the contract of this method is that the return value is the original value ORed with the value provided as the argument.",
+      "parentUuid": "3eb9c5aa_4762ceef",
+      "revId": "ed33b5fe88fc926c930839169a6bbb1623cf623f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
