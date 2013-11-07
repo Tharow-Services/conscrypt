@@ -46,6 +46,7 @@ abstract class AbstractSessionContext implements SSLSessionContext {
     /** Identifies OpenSSL sessions. */
     static final int OPEN_SSL = 1;
 
+    @SuppressWarnings("serial")
     private final Map<ByteArray, SSLSession> sessions
             = new LinkedHashMap<ByteArray, SSLSession>() {
         @Override
