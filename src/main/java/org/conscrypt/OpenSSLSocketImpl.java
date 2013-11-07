@@ -319,7 +319,8 @@ public class OpenSSLSocketImpl
      * verified if the correspondent property in java.Security is set. All
      * listeners are notified at the end of the TLS/SSL handshake.
      */
-    @Override public void startHandshake() throws IOException {
+    @Override
+    public void startHandshake() throws IOException {
         checkOpen();
         synchronized (stateLock) {
             if (state == STATE_NEW) {
@@ -671,6 +672,7 @@ public class OpenSSLSocketImpl
         NativeCrypto.SSL_check_private_key(sslNativePointer);
     }
 
+    @Override
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks / client_cert_cb
     public void clientCertificateRequested(byte[] keyTypeBytes, byte[][] asn1DerEncodedPrincipals)
             throws CertificateEncodingException, SSLException {
@@ -692,6 +694,7 @@ public class OpenSSLSocketImpl
         setCertificate(sslParameters.getKeyManager().chooseClientAlias(keyTypes, issuers, this));
     }
 
+    @Override
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks / info_callback
     public void handshakeCompleted() {
         synchronized (stateLock) {
@@ -757,7 +760,8 @@ public class OpenSSLSocketImpl
     }
 
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks
-    @Override public void verifyCertificateChain(long[] certRefs, String authMethod)
+    @Override
+    public void verifyCertificateChain(long[] certRefs, String authMethod)
             throws CertificateException {
         try {
             if (certRefs == null || certRefs.length == 0) {
@@ -789,7 +793,8 @@ public class OpenSSLSocketImpl
         }
     }
 
-    @Override public InputStream getInputStream() throws IOException {
+    @Override
+    public InputStream getInputStream() throws IOException {
         checkOpen();
 
         InputStream returnVal;
@@ -812,7 +817,8 @@ public class OpenSSLSocketImpl
         return returnVal;
     }
 
-    @Override public OutputStream getOutputStream() throws IOException {
+    @Override
+    public OutputStream getOutputStream() throws IOException {
         checkOpen();
 
         OutputStream returnVal;
@@ -1001,7 +1007,8 @@ public class OpenSSLSocketImpl
     }
 
 
-    @Override public SSLSession getSession() {
+    @Override
+    public SSLSession getSession() {
         if (sslSession == null) {
             try {
                 waitForHandshake();
@@ -1014,7 +1021,8 @@ public class OpenSSLSocketImpl
         return sslSession;
     }
 
-    @Override public void addHandshakeCompletedListener(
+    @Override
+    public void addHandshakeCompletedListener(
             HandshakeCompletedListener listener) {
         if (listener == null) {
             throw new IllegalArgumentException("Provided listener is null");
@@ -1025,7 +1033,8 @@ public class OpenSSLSocketImpl
         listeners.add(listener);
     }
 
-    @Override public void removeHandshakeCompletedListener(
+    @Override
+    public void removeHandshakeCompletedListener(
             HandshakeCompletedListener listener) {
         if (listener == null) {
             throw new IllegalArgumentException("Provided listener is null");
@@ -1040,35 +1049,43 @@ public class OpenSSLSocketImpl
         }
     }
 
-    @Override public boolean getEnableSessionCreation() {
+    @Override
+    public boolean getEnableSessionCreation() {
         return sslParameters.getEnableSessionCreation();
     }
 
-    @Override public void setEnableSessionCreation(boolean flag) {
+    @Override
+    public void setEnableSessionCreation(boolean flag) {
         sslParameters.setEnableSessionCreation(flag);
     }
 
-    @Override public String[] getSupportedCipherSuites() {
+    @Override
+    public String[] getSupportedCipherSuites() {
         return NativeCrypto.getSupportedCipherSuites();
     }
 
-    @Override public String[] getEnabledCipherSuites() {
+    @Override
+    public String[] getEnabledCipherSuites() {
         return enabledCipherSuites.clone();
     }
 
-    @Override public void setEnabledCipherSuites(String[] suites) {
+    @Override
+    public void setEnabledCipherSuites(String[] suites) {
         enabledCipherSuites = NativeCrypto.checkEnabledCipherSuites(suites);
     }
 
-    @Override public String[] getSupportedProtocols() {
+    @Override
+    public String[] getSupportedProtocols() {
         return NativeCrypto.getSupportedProtocols();
     }
 
-    @Override public String[] getEnabledProtocols() {
+    @Override
+    public String[] getEnabledProtocols() {
         return enabledProtocols.clone();
     }
 
-    @Override public void setEnabledProtocols(String[] protocols) {
+    @Override
+    public void setEnabledProtocols(String[] protocols) {
         enabledProtocols = NativeCrypto.checkEnabledProtocols(protocols);
     }
 
@@ -1176,11 +1193,13 @@ public class OpenSSLSocketImpl
         }
     }
 
-    @Override public boolean getUseClientMode() {
+    @Override
+    public boolean getUseClientMode() {
         return sslParameters.getUseClientMode();
     }
 
-    @Override public void setUseClientMode(boolean mode) {
+    @Override
+    public void setUseClientMode(boolean mode) {
         synchronized (stateLock) {
             if (state != STATE_NEW) {
                 throw new IllegalArgumentException(
@@ -1190,36 +1209,44 @@ public class OpenSSLSocketImpl
         sslParameters.setUseClientMode(mode);
     }
 
-    @Override public boolean getWantClientAuth() {
+    @Override
+    public boolean getWantClientAuth() {
         return sslParameters.getWantClientAuth();
     }
 
-    @Override public boolean getNeedClientAuth() {
+    @Override
+    public boolean getNeedClientAuth() {
         return sslParameters.getNeedClientAuth();
     }
 
-    @Override public void setNeedClientAuth(boolean need) {
+    @Override
+    public void setNeedClientAuth(boolean need) {
         sslParameters.setNeedClientAuth(need);
     }
 
-    @Override public void setWantClientAuth(boolean want) {
+    @Override
+    public void setWantClientAuth(boolean want) {
         sslParameters.setWantClientAuth(want);
     }
 
-    @Override public void sendUrgentData(int data) throws IOException {
+    @Override
+    public void sendUrgentData(int data) throws IOException {
         throw new SocketException("Method sendUrgentData() is not supported.");
     }
 
-    @Override public void setOOBInline(boolean on) throws SocketException {
+    @Override
+    public void setOOBInline(boolean on) throws SocketException {
         throw new SocketException("Methods sendUrgentData, setOOBInline are not supported.");
     }
 
-    @Override public void setSoTimeout(int readTimeoutMilliseconds) throws SocketException {
+    @Override
+    public void setSoTimeout(int readTimeoutMilliseconds) throws SocketException {
         super.setSoTimeout(readTimeoutMilliseconds);
         this.readTimeoutMilliseconds = readTimeoutMilliseconds;
     }
 
-    @Override public int getSoTimeout() throws SocketException {
+    @Override
+    public int getSoTimeout() throws SocketException {
         return readTimeoutMilliseconds;
     }
 
@@ -1252,7 +1279,8 @@ public class OpenSSLSocketImpl
         this.handshakeTimeoutMilliseconds = handshakeTimeoutMilliseconds;
     }
 
-    @Override public void close() throws IOException {
+    @Override
+    public void close() throws IOException {
         // TODO: Close SSL sockets using a background thread so they close gracefully.
 
         SSLInputStream sslInputStream = null;
@@ -1352,7 +1380,8 @@ public class OpenSSLSocketImpl
         guard.close();
     }
 
-    @Override protected void finalize() throws Throwable {
+    @Override
+    protected void finalize() throws Throwable {
         try {
             /*
              * Just worry about our own state. Notably we do not try and
