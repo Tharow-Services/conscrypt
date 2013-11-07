@@ -25,7 +25,7 @@ public class OpenSSLSocketImplTest extends TestCase {
     byte b = Byte.MIN_VALUE;
     do {
       String byteString = Byte.toString(b);
-      String keyType = OpenSSLSocketImpl.getClientKeyType(b);
+      String keyType = SSLParametersImpl.getClientKeyType(b);
       switch (b) {
         case 1:
           assertEquals(byteString, "RSA", keyType);
