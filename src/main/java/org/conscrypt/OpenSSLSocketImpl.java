@@ -143,7 +143,7 @@ public class OpenSSLSocketImpl
     private byte[] npnProtocols;
     private byte[] alpnProtocols;
     private boolean useSessionTickets;
-    private String hostname;
+    private String sniHostname;
 
     /**
      * Whether the TLS Channel ID extension is enabled. This field is
@@ -269,12 +269,12 @@ public class OpenSSLSocketImpl
      * Gets the suitable session reference from the session cache container.
      */
     private OpenSSLSessionImpl getCachedClientSession(ClientSessionContext sessionContext) {
-        String hostName = getPeerHostName();
-        int port = getPeerPort();
-        if (hostName == null) {
+        String hostname = sniHostname != null ? sniHostname : getPeerHostName();
+        if (hostname == null) {
             return null;
         }
-        OpenSSLSessionImpl session = (OpenSSLSessionImpl) sessionContext.getSession(hostName, port);
+        int port = getPeerPort();
+        OpenSSLSessionImpl session = (OpenSSLSessionImpl) sessionContext.getSession(hostname, port);
         if (session == null) {
             return null;
         }
@@ -390,8 +390,8 @@ public class OpenSSLSocketImpl
             if (useSessionTickets) {
                 NativeCrypto.SSL_clear_options(sslNativePointer, NativeCrypto.SSL_OP_NO_TICKET);
             }
-            if (hostname != null) {
-                NativeCrypto.SSL_set_tlsext_host_name(sslNativePointer, hostname);
+            if (sniHostname != null) {
+                NativeCrypto.SSL_set_tlsext_host_name(sslNativePointer, sniHostname);
             }
 
             // BEAST attack mitigation (1/n-1 record splitting for CBC cipher suites with TLSv1 and
@@ -1109,7 +1109,7 @@ public class OpenSSLSocketImpl
      * @param hostname the desired SNI hostname, or null to disable
      */
     public void setHostname(String hostname) {
-        this.hostname = hostname;
+        sniHostname = hostname;
     }
 
     /**
