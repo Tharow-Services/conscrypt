@@ -30,11 +30,8 @@ import java.security.PrivateKey;
 import java.security.SecureRandom;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 import javax.net.ssl.HandshakeCompletedEvent;
 import javax.net.ssl.HandshakeCompletedListener;
 import javax.net.ssl.SSLException;
@@ -141,31 +138,6 @@ public class OpenSSLSocketImpl
     private final SSLParametersImpl sslParameters;
     private final CloseGuard guard = CloseGuard.get();
 
-    private String[] enabledProtocols;
-    private String[] enabledCipherSuites;
-    private byte[] npnProtocols;
-    private byte[] alpnProtocols;
-    private boolean useSessionTickets;
-    private boolean useSni;
-
-    /**
-     * Whether the TLS Channel ID extension is enabled. This field is
-     * server-side only.
-     */
-    private boolean channelIdEnabled;
-
-    /**
-     * Private key for the TLS Channel ID extension. This field is
-     * client-side only. Set during startHandshake.
-     */
-    private OpenSSLKey channelIdPrivateKey;
-
-    /** Set during startHandshake. */
-    private OpenSSLSessionImpl sslSession;
-
-    /** Used during handshake callbacks. */
-    private OpenSSLSessionImpl handshakeSession;
-
     private ArrayList<HandshakeCompletedListener> listeners;
 
     /**
@@ -185,8 +157,8 @@ public class OpenSSLSocketImpl
         this.wrappedPort = -1;
         this.autoClose = false;
         this.sslParameters = sslParameters;
-        this.enabledProtocols = NativeCrypto.getDefaultProtocols();
-        this.enabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
+        this.sslParameters.openSslEnabledProtocols = NativeCrypto.getDefaultProtocols();
+        this.sslParameters.openSslEnabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
     }
 
     protected OpenSSLSocketImpl(SSLParametersImpl sslParameters,
@@ -197,8 +169,8 @@ public class OpenSSLSocketImpl
         this.wrappedPort = -1;
         this.autoClose = false;
         this.sslParameters = sslParameters;
-        this.enabledProtocols = enabledProtocols;
-        this.enabledCipherSuites = enabledCipherSuites;
+        this.sslParameters.openSslEnabledProtocols = enabledProtocols;
+        this.sslParameters.openSslEnabledCipherSuites = enabledCipherSuites;
     }
 
     protected OpenSSLSocketImpl(String host, int port, SSLParametersImpl sslParameters)
@@ -209,8 +181,8 @@ public class OpenSSLSocketImpl
         this.wrappedPort = -1;
         this.autoClose = false;
         this.sslParameters = sslParameters;
-        this.enabledProtocols = NativeCrypto.getDefaultProtocols();
-        this.enabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
+        this.sslParameters.openSslEnabledProtocols = NativeCrypto.getDefaultProtocols();
+        this.sslParameters.openSslEnabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
     }
 
     protected OpenSSLSocketImpl(InetAddress address, int port, SSLParametersImpl sslParameters)
@@ -221,8 +193,8 @@ public class OpenSSLSocketImpl
         this.wrappedPort = -1;
         this.autoClose = false;
         this.sslParameters = sslParameters;
-        this.enabledProtocols = NativeCrypto.getDefaultProtocols();
-        this.enabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
+        this.sslParameters.openSslEnabledProtocols = NativeCrypto.getDefaultProtocols();
+        this.sslParameters.openSslEnabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
     }
 
 
@@ -235,8 +207,8 @@ public class OpenSSLSocketImpl
         this.wrappedPort = -1;
         this.autoClose = false;
         this.sslParameters = sslParameters;
-        this.enabledProtocols = NativeCrypto.getDefaultProtocols();
-        this.enabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
+        this.sslParameters.openSslEnabledProtocols = NativeCrypto.getDefaultProtocols();
+        this.sslParameters.openSslEnabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
     }
 
     protected OpenSSLSocketImpl(InetAddress address, int port,
@@ -248,8 +220,8 @@ public class OpenSSLSocketImpl
         this.wrappedPort = -1;
         this.autoClose = false;
         this.sslParameters = sslParameters;
-        this.enabledProtocols = NativeCrypto.getDefaultProtocols();
-        this.enabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
+        this.sslParameters.openSslEnabledProtocols = NativeCrypto.getDefaultProtocols();
+        this.sslParameters.openSslEnabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
     }
 
     /**
@@ -263,53 +235,12 @@ public class OpenSSLSocketImpl
         this.wrappedPort = port;
         this.autoClose = autoClose;
         this.sslParameters = sslParameters;
-        this.enabledProtocols = NativeCrypto.getDefaultProtocols();
-        this.enabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
+        this.sslParameters.openSslEnabledProtocols = NativeCrypto.getDefaultProtocols();
+        this.sslParameters.openSslEnabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
 
         // this.timeout is not set intentionally.
         // OpenSSLSocketImplWrapper.getSoTimeout will delegate timeout
         // to wrapped socket
-    }
-
-    /**
-     * Gets the suitable session reference from the session cache container.
-     */
-    private OpenSSLSessionImpl getCachedClientSession(ClientSessionContext sessionContext) {
-        String hostname = getPeerHostName();
-        if (hostname == null) {
-            return null;
-        }
-        int port = getPeerPort();
-        OpenSSLSessionImpl session = (OpenSSLSessionImpl) sessionContext.getSession(hostname, port);
-        if (session == null) {
-            return null;
-        }
-
-        String protocol = session.getProtocol();
-        boolean protocolFound = false;
-        for (String enabledProtocol : enabledProtocols) {
-            if (protocol.equals(enabledProtocol)) {
-                protocolFound = true;
-                break;
-            }
-        }
-        if (!protocolFound) {
-            return null;
-        }
-
-        String cipherSuite = session.getCipherSuite();
-        boolean cipherSuiteFound = false;
-        for (String enabledCipherSuite : enabledCipherSuites) {
-            if (cipherSuite.equals(enabledCipherSuite)) {
-                cipherSuiteFound = true;
-                break;
-            }
-        }
-        if (!cipherSuiteFound) {
-            return null;
-        }
-
-        return session;
     }
 
     private void checkOpen() throws SocketException {
@@ -349,118 +280,20 @@ public class OpenSSLSocketImpl
 
         final boolean client = sslParameters.getUseClientMode();
 
-        final long sslCtxNativePointer = (client) ?
-                sslParameters.getClientSessionContext().sslCtxNativePointer :
-                sslParameters.getServerSessionContext().sslCtxNativePointer;
-
         sslNativePointer = 0;
         boolean releaseResources = true;
         try {
+            final AbstractSessionContext sessionContext = sslParameters.getSessionContext();
+            final long sslCtxNativePointer = sessionContext.sslCtxNativePointer;
             sslNativePointer = NativeCrypto.SSL_new(sslCtxNativePointer);
             guard.open("close");
 
-            if (npnProtocols != null) {
-                NativeCrypto.SSL_CTX_enable_npn(sslCtxNativePointer);
-            }
-
-            if (client && alpnProtocols != null) {
-                NativeCrypto.SSL_set_alpn_protos(sslNativePointer, alpnProtocols);
-            }
-
-            NativeCrypto.setEnabledProtocols(sslNativePointer, enabledProtocols);
-            NativeCrypto.setEnabledCipherSuites(sslNativePointer, enabledCipherSuites);
-            if (useSessionTickets) {
-                NativeCrypto.SSL_clear_options(sslNativePointer, NativeCrypto.SSL_OP_NO_TICKET);
-            }
-            if (useSni) {
-                NativeCrypto.SSL_set_tlsext_host_name(sslNativePointer, getPeerHostName());
-            }
-
-            // BEAST attack mitigation (1/n-1 record splitting for CBC cipher suites with TLSv1 and
-            // SSLv3).
-            NativeCrypto.SSL_set_mode(
-                    sslNativePointer, NativeCrypto.SSL_MODE_CBC_RECORD_SPLITTING);
-
-            boolean enableSessionCreation = sslParameters.getEnableSessionCreation();
-            if (!enableSessionCreation) {
-                NativeCrypto.SSL_set_session_creation_enabled(sslNativePointer,
-                                                              enableSessionCreation);
-            }
-
-            AbstractSessionContext sessionContext;
-            OpenSSLSessionImpl sessionToReuse;
-            if (client) {
-                // look for client session to reuse
-                ClientSessionContext clientSessionContext = sslParameters.getClientSessionContext();
-                sessionContext = clientSessionContext;
-                sessionToReuse = getCachedClientSession(clientSessionContext);
-                if (sessionToReuse != null) {
-                    NativeCrypto.SSL_set_session(sslNativePointer,
-                                                 sessionToReuse.sslSessionNativePointer);
-                }
-            } else {
-                sessionContext = sslParameters.getServerSessionContext();
-                sessionToReuse = null;
-            }
-
-            // setup server certificates and private keys.
-            // clients will receive a call back to request certificates.
-            if (!client) {
-                Set<String> keyTypes = new HashSet<String>();
-                for (long sslCipherNativePointer : NativeCrypto.SSL_get_ciphers(sslNativePointer)) {
-                    String keyType = getServerKeyType(sslCipherNativePointer);
-                    if (keyType != null) {
-                        keyTypes.add(keyType);
-                    }
-                }
-                X509KeyManager x509KeyManager = sslParameters.getX509KeyManager();
-                if (x509KeyManager != null) {
-                    for (String keyType : keyTypes) {
-                        try {
-                            setCertificate(
-                                    x509KeyManager.chooseServerAlias(keyType, null, this));
-                        } catch (CertificateEncodingException e) {
-                            throw new IOException(e);
-                        }
-                    }
-                }
-            }
-
-            // setup peer certificate verification
-            if (!client) {
-                // needing client auth takes priority...
-                boolean certRequested;
-                if (sslParameters.getNeedClientAuth()) {
-                    NativeCrypto.SSL_set_verify(sslNativePointer,
-                                                NativeCrypto.SSL_VERIFY_PEER
-                                                | NativeCrypto.SSL_VERIFY_FAIL_IF_NO_PEER_CERT);
-                    certRequested = true;
-                // ... over just wanting it...
-                } else if (sslParameters.getWantClientAuth()) {
-                    NativeCrypto.SSL_set_verify(sslNativePointer,
-                                                NativeCrypto.SSL_VERIFY_PEER);
-                    certRequested = true;
-                // ... and it defaults properly so don't call SSL_set_verify in the common case.
-                } else {
-                    certRequested = false;
-                }
-
-                if (certRequested) {
-                    X509TrustManager x509TrustManager = sslParameters.getX509TrustManager();
-                    if (x509TrustManager != null) {
-                        X509Certificate[] issuers = x509TrustManager.getAcceptedIssuers();
-                        if (issuers != null && issuers.length != 0) {
-                            byte[][] issuersBytes;
-                            try {
-                                issuersBytes = encodeIssuerX509Principals(issuers);
-                            } catch (CertificateEncodingException e) {
-                                throw new IOException("Problem encoding principals", e);
-                            }
-                            NativeCrypto.SSL_set_client_CA_list(sslNativePointer, issuersBytes);
-                        }
-                    }
-                }
-            }
+            final OpenSSLSessionImpl sessionToReuse = sslParameters.getSessionToReuse(
+                    sslNativePointer, getPeerHostName(), getPeerPort());
+            sslParameters.setSslParameters(sslCtxNativePointer, sslNativePointer, this,
+                    getPeerHostName());
+            sslParameters.setCertificateValidation(sslNativePointer);
+            sslParameters.setTlsChannelId(sslNativePointer);
 
             // Temporarily use a different timeout for the handshake process
             int savedReadTimeoutMilliseconds = getSoTimeout();
@@ -468,21 +301,6 @@ public class OpenSSLSocketImpl
             if (handshakeTimeoutMilliseconds >= 0) {
                 setSoTimeout(handshakeTimeoutMilliseconds);
                 setSoWriteTimeout(handshakeTimeoutMilliseconds);
-            }
-
-            // TLS Channel ID
-            if (channelIdEnabled) {
-                if (client) {
-                    // Client-side TLS Channel ID
-                    if (channelIdPrivateKey == null) {
-                        throw new SSLHandshakeException("Invalid TLS channel ID key specified");
-                    }
-                    NativeCrypto.SSL_set1_tls_channel_id(sslNativePointer,
-                            channelIdPrivateKey.getPkeyContext());
-                } else {
-                    // Server-side TLS Channel ID
-                    NativeCrypto.SSL_enable_tls_channel_id(sslNativePointer);
-                }
             }
 
             synchronized (stateLock) {
@@ -494,8 +312,8 @@ public class OpenSSLSocketImpl
             long sslSessionNativePointer;
             try {
                 sslSessionNativePointer = NativeCrypto.SSL_do_handshake(sslNativePointer,
-                        socket.getFileDescriptor$(), this, getSoTimeout(), client, npnProtocols,
-                        client ? null : alpnProtocols);
+                        socket.getFileDescriptor$(), this, getSoTimeout(), client,
+                        sslParameters.npnProtocols, client ? null : sslParameters.alpnProtocols);
             } catch (CertificateException e) {
                 SSLHandshakeException wrapper = new SSLHandshakeException(e.getMessage());
                 wrapper.initCause(e);
@@ -526,27 +344,8 @@ public class OpenSSLSocketImpl
                 }
             }
 
-            byte[] sessionId = NativeCrypto.SSL_SESSION_session_id(sslSessionNativePointer);
-            if (sessionToReuse != null && Arrays.equals(sessionToReuse.getId(), sessionId)) {
-                this.sslSession = sessionToReuse;
-                sslSession.lastAccessedTime = System.currentTimeMillis();
-                NativeCrypto.SSL_SESSION_free(sslSessionNativePointer);
-            } else {
-                if (!enableSessionCreation) {
-                    // Should have been prevented by NativeCrypto.SSL_set_session_creation_enabled
-                    throw new IllegalStateException("SSL Session may not be created");
-                }
-                X509Certificate[] localCertificates
-                        = createCertChain(NativeCrypto.SSL_get_certificate(sslNativePointer));
-                X509Certificate[] peerCertificates
-                        = createCertChain(NativeCrypto.SSL_get_peer_cert_chain(sslNativePointer));
-                this.sslSession = new OpenSSLSessionImpl(sslSessionNativePointer, localCertificates,
-                        peerCertificates, getPeerHostName(), getPeerPort(), sessionContext);
-                // if not, putSession later in handshakeCompleted() callback
-                if (handshakeCompleted) {
-                    sessionContext.putSession(sslSession);
-                }
-            }
+            sslParameters.setupSession(sslSessionNativePointer, sslNativePointer,
+                    sessionToReuse, getPeerHostName(), getPeerPort(), handshakeCompleted);
 
             // Restore the original timeout now that the handshake is complete
             if (handshakeTimeoutMilliseconds >= 0) {
@@ -598,15 +397,6 @@ public class OpenSSLSocketImpl
         }
     }
 
-    private static byte[][] encodeIssuerX509Principals(X509Certificate[] certificates)
-            throws CertificateEncodingException {
-        byte[][] principalBytes = new byte[certificates.length][];
-        for (int i = 0; i < certificates.length; i++) {
-            principalBytes[i] = certificates[i].getIssuerX500Principal().getEncoded();
-        }
-        return principalBytes;
-    }
-
     String getPeerHostName() {
         if (wrappedHost != null) {
             return wrappedHost;
@@ -622,70 +412,6 @@ public class OpenSSLSocketImpl
         return wrappedHost == null ? super.getPort() : wrappedPort;
     }
 
-    /**
-     * Return a possibly null array of X509Certificates given the
-     * possibly null array of DER encoded bytes.
-     */
-    private static OpenSSLX509Certificate[] createCertChain(long[] certificateRefs)
-            throws IOException {
-        if (certificateRefs == null) {
-            return null;
-        }
-        OpenSSLX509Certificate[] certificates = new OpenSSLX509Certificate[certificateRefs.length];
-        for (int i = 0; i < certificateRefs.length; i++) {
-            certificates[i] = new OpenSSLX509Certificate(certificateRefs[i]);
-        }
-        return certificates;
-    }
-
-    private void setCertificate(String alias) throws CertificateEncodingException, SSLException {
-        if (alias == null) {
-            return;
-        }
-        X509KeyManager keyManager = sslParameters.getX509KeyManager();
-        if (keyManager == null) {
-            return;
-        }
-        PrivateKey privateKey = keyManager.getPrivateKey(alias);
-        if (privateKey == null) {
-            return;
-        }
-        X509Certificate[] certificates =
-                keyManager.getCertificateChain(alias);
-        if (certificates == null) {
-            return;
-        }
-
-        /*
-         * Make sure we keep a reference to the OpenSSLX509Certificate by using
-         * this array. Otherwise, if they're not OpenSSLX509Certificate
-         * instances originally, they may be garbage collected before we complete
-         * our JNI calls.
-         */
-        OpenSSLX509Certificate[] openSslCerts = new OpenSSLX509Certificate[certificates.length];
-        long[] x509refs = new long[certificates.length];
-        for (int i = 0; i < certificates.length; i++) {
-            OpenSSLX509Certificate openSslCert = OpenSSLX509Certificate
-                    .fromCertificate(certificates[i]);
-            openSslCerts[i] = openSslCert;
-            x509refs[i] = openSslCert.getContext();
-        }
-
-        // Note that OpenSSL says to use SSL_use_certificate before SSL_use_PrivateKey.
-        NativeCrypto.SSL_use_certificate(sslNativePointer, x509refs);
-
-        try {
-            final OpenSSLKey key = OpenSSLKey.fromPrivateKey(privateKey);
-            NativeCrypto.SSL_use_PrivateKey(sslNativePointer, key.getPkeyContext());
-        } catch (InvalidKeyException e) {
-            throw new SSLException(e);
-        }
-
-        // checks the last installed private key and certificate,
-        // so need to do this once per loop iteration
-        NativeCrypto.SSL_check_private_key(sslNativePointer);
-    }
-
     @Override
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks / client_cert_cb
     public void clientCertificateRequested(byte[] keyTypeBytes, byte[][] asn1DerEncodedPrincipals)
@@ -693,7 +419,7 @@ public class OpenSSLSocketImpl
 
         String[] keyTypes = new String[keyTypeBytes.length];
         for (int i = 0; i < keyTypeBytes.length; i++) {
-            keyTypes[i] = getClientKeyType(keyTypeBytes[i]);
+            keyTypes[i] = SSLParametersImpl.getClientKeyType(keyTypeBytes[i]);
         }
 
         X500Principal[] issuers;
@@ -708,7 +434,7 @@ public class OpenSSLSocketImpl
         X509KeyManager keyManager = sslParameters.getX509KeyManager();
         String alias =
                 (keyManager != null) ? keyManager.chooseClientAlias(keyTypes, issuers, this) : null;
-        setCertificate(alias);
+        sslParameters.setCertificate(sslNativePointer, alias);
     }
 
     @Override
@@ -736,6 +462,7 @@ public class OpenSSLSocketImpl
 
         // reset session id from the native pointer and update the
         // appropriate cache.
+        OpenSSLSessionImpl sslSession = sslParameters.getSession();
         sslSession.resetId();
         AbstractSessionContext sessionContext =
             (sslParameters.getUseClientMode())
@@ -759,7 +486,7 @@ public class OpenSSLSocketImpl
         if (listeners != null && !listeners.isEmpty()) {
             // notify the listeners
             HandshakeCompletedEvent event =
-                new HandshakeCompletedEvent(this, sslSession);
+                new HandshakeCompletedEvent(this, sslParameters.getSession());
             for (HandshakeCompletedListener listener : listeners) {
                 try {
                     listener.handshakeCompleted(event);
@@ -794,7 +521,7 @@ public class OpenSSLSocketImpl
             }
 
             // Used for verifyCertificateChain callback
-            handshakeSession = new OpenSSLSessionImpl(sslSessionNativePtr, null, peerCertChain,
+            sslParameters.handshakeSession = new OpenSSLSessionImpl(sslSessionNativePtr, null, peerCertChain,
                     getPeerHostName(), getPeerPort(), null);
 
             boolean client = sslParameters.getUseClientMode();
@@ -820,7 +547,7 @@ public class OpenSSLSocketImpl
             throw new CertificateException(e);
         } finally {
             // Clear this before notifying handshake completed listeners
-            handshakeSession = null;
+            sslParameters.handshakeSession = null;
         }
     }
 
@@ -1040,9 +767,11 @@ public class OpenSSLSocketImpl
 
     @Override
     public SSLSession getSession() {
+        OpenSSLSessionImpl sslSession = sslParameters.getSession();
         if (sslSession == null) {
             try {
                 waitForHandshake();
+                sslSession = sslParameters.getSession();
             } catch (IOException e) {
                 // return an invalid session with
                 // invalid cipher suite of "SSL_NULL_WITH_NULL_NULL"
@@ -1054,7 +783,7 @@ public class OpenSSLSocketImpl
 
     @Override
     public SSLSession getHandshakeSession() {
-        return handshakeSession;
+        return sslParameters.handshakeSession;
     }
 
     @Override
@@ -1102,12 +831,12 @@ public class OpenSSLSocketImpl
 
     @Override
     public String[] getEnabledCipherSuites() {
-        return enabledCipherSuites.clone();
+        return sslParameters.openSslEnabledCipherSuites.clone();
     }
 
     @Override
     public void setEnabledCipherSuites(String[] suites) {
-        enabledCipherSuites = NativeCrypto.checkEnabledCipherSuites(suites);
+        sslParameters.openSslEnabledCipherSuites = NativeCrypto.checkEnabledCipherSuites(suites);
     }
 
     @Override
@@ -1117,12 +846,12 @@ public class OpenSSLSocketImpl
 
     @Override
     public String[] getEnabledProtocols() {
-        return enabledProtocols.clone();
+        return sslParameters.openSslEnabledProtocols.clone();
     }
 
     @Override
     public void setEnabledProtocols(String[] protocols) {
-        enabledProtocols = NativeCrypto.checkEnabledProtocols(protocols);
+        sslParameters.openSslEnabledProtocols = NativeCrypto.checkEnabledProtocols(protocols);
     }
 
     /**
@@ -1131,7 +860,7 @@ public class OpenSSLSocketImpl
      * @param useSessionTickets True to enable session tickets
      */
     public void setUseSessionTickets(boolean useSessionTickets) {
-        this.useSessionTickets = useSessionTickets;
+        sslParameters.useSessionTickets = useSessionTickets;
     }
 
     /**
@@ -1140,7 +869,7 @@ public class OpenSSLSocketImpl
      * @param hostname the desired SNI hostname, or null to disable
      */
     public void setHostname(String hostname) {
-        useSni = hostname != null;
+        sslParameters.setUseSni(hostname != null);
         wrappedHost = hostname;
     }
 
@@ -1165,7 +894,7 @@ public class OpenSSLSocketImpl
                                 + " begun.");
             }
         }
-        this.channelIdEnabled = enabled;
+        sslParameters.channelIdEnabled = enabled;
     }
 
     /**
@@ -1218,12 +947,12 @@ public class OpenSSLSocketImpl
         }
 
         if (privateKey == null) {
-            this.channelIdEnabled = false;
-            this.channelIdPrivateKey = null;
+            sslParameters.channelIdEnabled = false;
+            sslParameters.channelIdPrivateKey = null;
         } else {
-            this.channelIdEnabled = true;
+            sslParameters.channelIdEnabled = true;
             try {
-                this.channelIdPrivateKey = OpenSSLKey.fromPrivateKey(privateKey);
+                sslParameters.channelIdPrivateKey = OpenSSLKey.fromPrivateKey(privateKey);
             } catch (InvalidKeyException e) {
                 // Will have error in startHandshake
             }
@@ -1483,7 +1212,7 @@ public class OpenSSLSocketImpl
         if (npnProtocols != null && npnProtocols.length == 0) {
             throw new IllegalArgumentException("npnProtocols.length == 0");
         }
-        this.npnProtocols = npnProtocols;
+        sslParameters.npnProtocols = npnProtocols;
     }
 
     /**
@@ -1500,98 +1229,7 @@ public class OpenSSLSocketImpl
         if (alpnProtocols != null && alpnProtocols.length == 0) {
             throw new IllegalArgumentException("alpnProtocols.length == 0");
         }
-        this.alpnProtocols = alpnProtocols;
-    }
-
-    /** Key type: RSA. */
-    private static final String KEY_TYPE_RSA = "RSA";
-
-    /** Key type: DSA. */
-    private static final String KEY_TYPE_DSA = "DSA";
-
-    /** Key type: Diffie-Hellman with RSA signature. */
-    private static final String KEY_TYPE_DH_RSA = "DH_RSA";
-
-    /** Key type: Diffie-Hellman with DSA signature. */
-    private static final String KEY_TYPE_DH_DSA = "DH_DSA";
-
-    /** Key type: Elliptic Curve. */
-    private static final String KEY_TYPE_EC = "EC";
-
-    /** Key type: Eliiptic Curve with ECDSA signature. */
-    private static final String KEY_TYPE_EC_EC = "EC_EC";
-
-    /** Key type: Eliiptic Curve with RSA signature. */
-    private static final String KEY_TYPE_EC_RSA = "EC_RSA";
-
-    /**
-     * Returns key type constant suitable for calling X509KeyManager.chooseServerAlias or
-     * X509ExtendedKeyManager.chooseEngineServerAlias. Returns {@code null} for anonymous key
-     * exchanges.
-     */
-    private static String getServerKeyType(long sslCipherNative) throws SSLException {
-        int algorithm_mkey = NativeCrypto.get_SSL_CIPHER_algorithm_mkey(sslCipherNative);
-        int algorithm_auth = NativeCrypto.get_SSL_CIPHER_algorithm_auth(sslCipherNative);
-        switch (algorithm_mkey) {
-            case NativeCrypto.SSL_kRSA:
-                return KEY_TYPE_RSA;
-            case NativeCrypto.SSL_kEDH:
-                switch (algorithm_auth) {
-                    case NativeCrypto.SSL_aDSS:
-                        return KEY_TYPE_DSA;
-                    case NativeCrypto.SSL_aRSA:
-                        return KEY_TYPE_RSA;
-                    case NativeCrypto.SSL_aNULL:
-                        return null;
-                }
-                break;
-            case NativeCrypto.SSL_kECDHr:
-                return KEY_TYPE_EC_RSA;
-            case NativeCrypto.SSL_kECDHe:
-                return KEY_TYPE_EC_EC;
-            case NativeCrypto.SSL_kEECDH:
-                switch (algorithm_auth) {
-                    case NativeCrypto.SSL_aECDSA:
-                        return KEY_TYPE_EC_EC;
-                    case NativeCrypto.SSL_aRSA:
-                        return KEY_TYPE_RSA;
-                    case NativeCrypto.SSL_aNULL:
-                        return null;
-                }
-                break;
-        }
-
-        throw new SSLException("Unsupported key exchange. "
-                + "mkey: 0x" + Long.toHexString(algorithm_mkey & 0xffffffffL)
-                + ", auth: 0x" + Long.toHexString(algorithm_auth & 0xffffffffL));
-    }
-
-    /**
-     * Similar to getServerKeyType, but returns value given TLS
-     * ClientCertificateType byte values from a CertificateRequest
-     * message for use with X509KeyManager.chooseClientAlias or
-     * X509ExtendedKeyManager.chooseEngineClientAlias.
-     */
-    public static String getClientKeyType(byte keyType) {
-        // See also http://www.ietf.org/assignments/tls-parameters/tls-parameters.xml
-        switch (keyType) {
-            case NativeCrypto.TLS_CT_RSA_SIGN:
-                return KEY_TYPE_RSA; // RFC rsa_sign
-            case NativeCrypto.TLS_CT_DSS_SIGN:
-                return KEY_TYPE_DSA; // RFC dss_sign
-            case NativeCrypto.TLS_CT_RSA_FIXED_DH:
-                return KEY_TYPE_DH_RSA; // RFC rsa_fixed_dh
-            case NativeCrypto.TLS_CT_DSS_FIXED_DH:
-                return KEY_TYPE_DH_DSA; // RFC dss_fixed_dh
-            case NativeCrypto.TLS_CT_ECDSA_SIGN:
-                return KEY_TYPE_EC; // RFC ecdsa_sign
-            case NativeCrypto.TLS_CT_RSA_FIXED_ECDH:
-                return KEY_TYPE_EC_RSA; // RFC rsa_fixed_ecdh
-            case NativeCrypto.TLS_CT_ECDSA_FIXED_ECDH:
-                return KEY_TYPE_EC_EC; // RFC ecdsa_fixed_ecdh
-            default:
-                return null;
-        }
+        sslParameters.alpnProtocols = alpnProtocols;
     }
 
     @Override
