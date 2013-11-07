@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e5dfd5e_480ee790",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 736,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-07T21:32:19Z",
+      "side": 1,
+      "message": "Any reason why we\u0027re not preferring forward-secrecy? It seems like the order should be ECDH, ECDHE, DHE, RSA",
+      "revId": "2a8db490ab83165520a6b4f0bf07a4e6e1add86d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
