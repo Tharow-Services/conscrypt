@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e570543_6660401b",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 606,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-11-07T21:40:16Z",
+      "side": 1,
+      "message": "maybe we should fix this to use the sniHostname? actually, perhaps setHostname should just set the wrappedHost?",
+      "revId": "93593ce5748673d3ea2139b8d482141ce444faba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
