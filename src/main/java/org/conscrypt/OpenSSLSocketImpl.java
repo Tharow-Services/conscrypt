@@ -671,6 +671,7 @@ public class OpenSSLSocketImpl
         NativeCrypto.SSL_check_private_key(sslNativePointer);
     }
 
+    @Override
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks / client_cert_cb
     public void clientCertificateRequested(byte[] keyTypeBytes, byte[][] asn1DerEncodedPrincipals)
             throws CertificateEncodingException, SSLException {
@@ -692,6 +693,7 @@ public class OpenSSLSocketImpl
         setCertificate(sslParameters.getKeyManager().chooseClientAlias(keyTypes, issuers, this));
     }
 
+    @Override
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks / info_callback
     public void handshakeCompleted() {
         synchronized (stateLock) {

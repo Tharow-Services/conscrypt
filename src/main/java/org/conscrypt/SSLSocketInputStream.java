@@ -137,6 +137,7 @@ public final class SSLSocketInputStream extends InputStream {
          * This method could be implemented in the outer class
          * itself, but it could be insecure.
          */
+        @Override
         public void append(byte[] src) {
             int length = src.length;
             if (BUFFER_SIZE - (end - pos) < length) {

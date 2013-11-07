@@ -47,6 +47,7 @@ public class ClientSessionContext extends AbstractSessionContext {
         this.persistentCache = persistentCache;
     }
 
+    @Override
     protected void sessionRemoved(SSLSession session) {
         String host = session.getPeerHost();
         int port = session.getPeerPort();
