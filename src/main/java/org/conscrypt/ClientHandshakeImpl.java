@@ -461,6 +461,8 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
                 Key key = kp.getPublic();
                 if (clientCert != null
                         && serverCert != null
+                        && clientCert.certs.length > 0
+                        && serverCert.certs.length > 0
                         && (session.cipherSuite.keyExchange == CipherSuite.KEY_EXCHANGE_DHE_RSA
                                 || session.cipherSuite.keyExchange == CipherSuite.KEY_EXCHANGE_DHE_DSS)) {
                     PublicKey client_pk = clientCert.certs[0].getPublicKey();
