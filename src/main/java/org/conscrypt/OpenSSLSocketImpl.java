@@ -133,6 +133,7 @@ public class OpenSSLSocketImpl
     private SSLOutputStream os;
 
     private final Socket socket;
+    private final OpenSSLEngineImpl engine;
     private final boolean autoClose;
     private String wrappedHost;
     private final int wrappedPort;
@@ -154,6 +155,7 @@ public class OpenSSLSocketImpl
 
     protected OpenSSLSocketImpl(SSLParametersImpl sslParameters) throws IOException {
         this.socket = this;
+        this.engine = null;
         this.wrappedHost = null;
         this.wrappedPort = -1;
         this.autoClose = false;
@@ -166,6 +168,7 @@ public class OpenSSLSocketImpl
                                 String[] enabledProtocols,
                                 String[] enabledCipherSuites) throws IOException {
         this.socket = this;
+        this.engine = null;
         this.wrappedHost = null;
         this.wrappedPort = -1;
         this.autoClose = false;
@@ -178,6 +181,7 @@ public class OpenSSLSocketImpl
             throws IOException {
         super(host, port);
         this.socket = this;
+        this.engine = null;
         this.wrappedHost = null;
         this.wrappedPort = -1;
         this.autoClose = false;
@@ -190,6 +194,7 @@ public class OpenSSLSocketImpl
             throws IOException {
         super(address, port);
         this.socket = this;
+        this.engine = null;
         this.wrappedHost = null;
         this.wrappedPort = -1;
         this.autoClose = false;
@@ -204,6 +209,7 @@ public class OpenSSLSocketImpl
                                 SSLParametersImpl sslParameters) throws IOException {
         super(host, port, clientAddress, clientPort);
         this.socket = this;
+        this.engine = null;
         this.wrappedHost = null;
         this.wrappedPort = -1;
         this.autoClose = false;
@@ -217,6 +223,7 @@ public class OpenSSLSocketImpl
                                 SSLParametersImpl sslParameters) throws IOException {
         super(address, port, clientAddress, clientPort);
         this.socket = this;
+        this.engine = null;
         this.wrappedHost = null;
         this.wrappedPort = -1;
         this.autoClose = false;
@@ -232,9 +239,31 @@ public class OpenSSLSocketImpl
     protected OpenSSLSocketImpl(Socket socket, String host, int port,
             boolean autoClose, SSLParametersImpl sslParameters) throws IOException {
         this.socket = socket;
+        this.engine = null;
         this.wrappedHost = host;
         this.wrappedPort = port;
         this.autoClose = autoClose;
+        this.sslParameters = sslParameters;
+        this.sslParameters.openSslEnabledProtocols = NativeCrypto.getDefaultProtocols();
+        this.sslParameters.openSslEnabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
+
+        // this.timeout is not set intentionally.
+        // OpenSSLSocketImplWrapper.getSoTimeout will delegate timeout
+        // to wrapped socket
+    }
+
+
+    /**
+     * Create an SSL socket that wraps another socket. Invoked by
+     * OpenSSLSocketImplWrapper constructor.
+     */
+    protected OpenSSLSocketImpl(OpenSSLEngineImpl engine, String host, int port,
+           SSLParametersImpl sslParameters) throws IOException {
+        this.socket = null;
+        this.engine = engine;
+        this.wrappedHost = host;
+        this.wrappedPort = port;
+        this.autoClose = false;
         this.sslParameters = sslParameters;
         this.sslParameters.openSslEnabledProtocols = NativeCrypto.getDefaultProtocols();
         this.sslParameters.openSslEnabledCipherSuites = NativeCrypto.getDefaultCipherSuites();
@@ -446,7 +475,11 @@ public class OpenSSLSocketImpl
 
     @Override
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks / info_callback
-    public void handshakeCompleted() {
+    public void onSSLStateChange(long sslSessionNativePtr, int type, int val) {
+        if (type != NativeCrypto.SSL_CB_HANDSHAKE_DONE) {
+            return;
+        }
+
         synchronized (stateLock) {
             if (state == STATE_HANDSHAKE_STARTED) {
                 // If sslSession is null, the handshake was completed during
@@ -759,7 +792,6 @@ public class OpenSSLSocketImpl
             }
         }
 
-
         public void awaitPendingOps() {
             if (DBG_STATE) {
                 synchronized (stateLock) {
@@ -838,12 +870,12 @@ public class OpenSSLSocketImpl
 
     @Override
     public String[] getEnabledCipherSuites() {
-        return sslParameters.openSslEnabledCipherSuites.clone();
+        return sslParameters.getEnabledCipherSuites();
     }
 
     @Override
     public void setEnabledCipherSuites(String[] suites) {
-        sslParameters.openSslEnabledCipherSuites = NativeCrypto.checkEnabledCipherSuites(suites);
+        sslParameters.setEnabledCipherSuites(suites);
     }
 
     @Override
