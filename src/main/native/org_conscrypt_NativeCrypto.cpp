@@ -1090,11 +1090,19 @@ static int bio_stream_destroy(BIO *b) {
 }
 
 static int bio_stream_read(BIO *b, char *buf, int len) {
+    BIO_clear_retry_flags(b);
     BIO_InputStream* stream = static_cast<BIO_InputStream*>(b->ptr);
-    return stream->read(buf, len);
+    int ret = stream->read(buf, len);
+    if (ret == 0) {
+        // EOF is indicated by -1 with a BIO flag.
+        BIO_set_retry_read(b);
+        return -1;
+    }
+    return ret;
 }
 
 static int bio_stream_write(BIO *b, const char *buf, int len) {
+    BIO_clear_retry_flags(b);
     BIO_OutputStream* stream = static_cast<BIO_OutputStream*>(b->ptr);
     return stream->write(buf, len);
 }
@@ -5674,9 +5682,12 @@ class AppData {
      */
     bool setCallbackState(JNIEnv* e, jobject shc, jobject fd, jbyteArray npnProtocols,
             jbyteArray alpnProtocols) {
-        NetFd netFd(e, fd);
-        if (netFd.isClosed()) {
-            return false;
+        UniquePtr<NetFd> netFd;
+        if (fd != NULL) {
+            netFd.reset(new NetFd(e, fd));
+            if (netFd->isClosed()) {
+                return false;
+            }
         }
         env = e;
         sslHandshakeCallbacks = shc;
@@ -5896,12 +5907,12 @@ static int cert_verify_callback(X509_STORE_CTX* x509_store_ctx, void* arg __attr
  * for SSL_MODE_HANDSHAKE_CUTTHROUGH support, since SSL_do_handshake
  * returns before the handshake is completed in this case.
  */
-static void info_callback(const SSL* ssl, int where, int ret __attribute__ ((unused))) {
+static void info_callback(const SSL* ssl, int where, int ret) {
     JNI_TRACE("ssl=%p info_callback where=0x%x ret=%d", ssl, where, ret);
 #ifdef WITH_JNI_TRACE
     info_callback_LOG(ssl, where, ret);
 #endif
-    if (!(where & SSL_CB_HANDSHAKE_DONE)) {
+    if (!(where & SSL_CB_HANDSHAKE_DONE) && !(where & SSL_CB_HANDSHAKE_START)) {
         JNI_TRACE("ssl=%p info_callback ignored", ssl);
         return;
     }
@@ -5921,10 +5932,10 @@ static void info_callback(const SSL* ssl, int where, int ret __attribute__ ((unu
     jobject sslHandshakeCallbacks = appData->sslHandshakeCallbacks;
 
     jclass cls = env->GetObjectClass(sslHandshakeCallbacks);
-    jmethodID methodID = env->GetMethodID(cls, "handshakeCompleted", "()V");
+    jmethodID methodID = env->GetMethodID(cls, "onSSLStateChange", "(JII)V");
 
-    JNI_TRACE("ssl=%p info_callback calling handshakeCompleted", ssl);
-    env->CallVoidMethod(sslHandshakeCallbacks, methodID);
+    JNI_TRACE("ssl=%p info_callback calling onSSLStateChange", ssl);
+    env->CallVoidMethod(sslHandshakeCallbacks, methodID, reinterpret_cast<jlong>(ssl), where, ret);
 
     if (env->ExceptionCheck()) {
         JNI_TRACE("ssl=%p info_callback exception", ssl);
@@ -6726,6 +6737,24 @@ static void NativeCrypto_SSL_set_cipher_lists(JNIEnv* env, jclass,
     }
 }
 
+static void NativeCrypto_SSL_set_accept_state(JNIEnv* env, jclass, jlong sslRef) {
+    SSL* ssl = to_SSL(env, sslRef, true);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_set_accept_state", ssl);
+    if (ssl == NULL) {
+      return;
+    }
+    SSL_set_accept_state(ssl);
+}
+
+static void NativeCrypto_SSL_set_connect_state(JNIEnv* env, jclass, jlong sslRef) {
+    SSL* ssl = to_SSL(env, sslRef, true);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_set_connect_state", ssl);
+    if (ssl == NULL) {
+      return;
+    }
+    SSL_set_connect_state(ssl);
+}
+
 /**
  * Sets certificate expectations, especially for server to request client auth
  */
@@ -7059,6 +7088,110 @@ static void debug_print_session_key(SSL_SESSION* session)
     free(keyline);
 }
 #endif /* WITH_JNI_TRACE_KEYS */
+
+/**
+ * Perform SSL handshake
+ */
+static jint NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_address,
+        jlongArray sessionArray, jlong rbioRef, jlong wbioRef, jobject shc, jboolean client_mode,
+        jbyteArray npnProtocols, jbyteArray alpnProtocols) {
+    SSL* ssl = to_SSL(env, ssl_address, true);
+    BIO* rbio = reinterpret_cast<BIO*>(rbioRef);
+    BIO* wbio = reinterpret_cast<BIO*>(wbioRef);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio sessionArray=%p rbio=%p wbio=%p shc=%p client_mode=%d npn=%p",
+              ssl, sessionArray, rbio, wbio, shc, client_mode, npnProtocols);
+    if (ssl == NULL) {
+        return 0;
+    }
+    if (shc == NULL) {
+        jniThrowNullPointerException(env, "sslHandshakeCallbacks == null");
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio sslHandshakeCallbacks == null => 0", ssl);
+        return 0;
+    }
+
+    if (rbio == NULL || wbio == NULL) {
+        jniThrowNullPointerException(env, "rbio == null");
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio => rbio == NULL || wbio == NULL", ssl);
+        return 0;
+    }
+
+    SSL_set_bio(ssl, rbio, wbio);
+    CRYPTO_add(&rbio->references,1,CRYPTO_LOCK_BIO);
+    CRYPTO_add(&wbio->references,1,CRYPTO_LOCK_BIO);
+
+    /*
+     * Create our special application data.
+     */
+    AppData* appData = AppData::create();
+    if (appData == NULL) {
+        throwSSLExceptionStr(env, "Unable to create application data");
+        SSL_clear(ssl);
+        freeOpenSslErrorState();
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio appData => 0", ssl);
+        return 0;
+    }
+
+    SSL_set_app_data(ssl, reinterpret_cast<char*>(appData));
+    JNI_TRACE("ssl=%p AppData::create => %p", ssl, appData);
+
+    if (!client_mode && alpnProtocols != NULL) {
+        SSL_CTX_set_alpn_select_cb(SSL_get_SSL_CTX(ssl), alpn_select_callback, NULL);
+    }
+
+    int ret = 0;
+    errno = 0;
+
+    if (!appData->setCallbackState(env, shc, NULL, npnProtocols, alpnProtocols)) {
+        SSL_clear(ssl);
+        freeOpenSslErrorState();
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio setCallbackState => 0", ssl);
+        return 0;
+    }
+    ret = SSL_do_handshake(ssl);
+    appData->clearCallbackState();
+    // cert_verify_callback threw exception
+    if (env->ExceptionCheck()) {
+        SSL_clear(ssl);
+        freeOpenSslErrorState();
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio exception => 0", ssl);
+        return 0;
+    }
+
+    if (ret <= 0) { // error. See SSL_do_handshake(3SSL) man page.
+        // error case
+        int sslError = SSL_get_error(ssl, ret);
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio ret=%d errno=%d sslError=%d",
+                  ssl, ret, errno, sslError);
+
+        /*
+         * If SSL_do_handshake doesn't succeed due to the socket being
+         * either unreadable or unwritable, we need to exit to allow
+         * the SSLEngine code to wrap or unwrap.
+         */
+        if (sslError == SSL_ERROR_NONE || (sslError == SSL_ERROR_SYSCALL && errno == 0)) {
+            throwSSLHandshakeExceptionStr(env, "Connection closed by peer");
+            SSL_clear(ssl);
+            freeOpenSslErrorState();
+        } else if (sslError != SSL_ERROR_WANT_READ && sslError != SSL_ERROR_WANT_WRITE) {
+            throwSSLExceptionWithSslErrors(env, ssl, sslError, "SSL handshake terminated",
+                    throwSSLHandshakeExceptionStr);
+            SSL_clear(ssl);
+            freeOpenSslErrorState();
+        }
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio error => 0", ssl);
+        return 0;
+    }
+
+    // success. handshake completed
+    SSL_SESSION* ssl_session = SSL_get1_session(ssl);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio => ssl_session=%p", ssl, ssl_session);
+#ifdef WITH_JNI_TRACE_KEYS
+    debug_print_session_key(ssl_session);
+#endif
+    ScopedLongArrayRW sessions(env, sessionArray);
+    sessions[0] = reinterpret_cast<jlong>(ssl_session);
+    return 1;
+}
 
 /**
  * Perform SSL handshake
@@ -7868,6 +8001,19 @@ static void NativeCrypto_SSL_shutdown(JNIEnv* env, jclass, jlong ssl_address,
     freeOpenSslErrorState();
 }
 
+static jint NativeCrypto_SSL_get_shutdown(JNIEnv* env, jclass, jlong ssl_address) {
+    const SSL* ssl = to_SSL(env, ssl_address, true);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_shutdown", ssl);
+    if (ssl == NULL) {
+        jniThrowNullPointerException(env, "ssl == null");
+        return 0;
+    }
+
+    int status = SSL_get_shutdown(ssl);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_shutdown => %d", ssl, status);
+    return static_cast<jint>(status);
+}
+
 /**
  * public static native void SSL_free(long ssl);
  */
@@ -8214,12 +8360,15 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, SSL_get_ciphers, "(J)[J"),
     NATIVE_METHOD(NativeCrypto, get_SSL_CIPHER_algorithm_auth, "(J)I"),
     NATIVE_METHOD(NativeCrypto, get_SSL_CIPHER_algorithm_mkey, "(J)I"),
+    NATIVE_METHOD(NativeCrypto, SSL_set_accept_state, "(J)V"),
+    NATIVE_METHOD(NativeCrypto, SSL_set_connect_state, "(J)V"),
     NATIVE_METHOD(NativeCrypto, SSL_set_verify, "(JI)V"),
     NATIVE_METHOD(NativeCrypto, SSL_set_session, "(JJ)V"),
     NATIVE_METHOD(NativeCrypto, SSL_set_session_creation_enabled, "(JZ)V"),
     NATIVE_METHOD(NativeCrypto, SSL_set_tlsext_host_name, "(JLjava/lang/String;)V"),
     NATIVE_METHOD(NativeCrypto, SSL_get_servername, "(J)Ljava/lang/String;"),
     NATIVE_METHOD(NativeCrypto, SSL_do_handshake, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "IZ[B[B)J"),
+    NATIVE_METHOD(NativeCrypto, SSL_do_handshake_bio, "(J[JJJ" SSL_CALLBACKS "Z[B[B)I"),
     NATIVE_METHOD(NativeCrypto, SSL_renegotiate, "(J)V"),
     NATIVE_METHOD(NativeCrypto, SSL_get_certificate, "(J)[J"),
     NATIVE_METHOD(NativeCrypto, SSL_get_peer_cert_chain, "(J)[J"),
@@ -8227,6 +8376,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, SSL_write, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "[BIII)V"),
     NATIVE_METHOD(NativeCrypto, SSL_interrupt, "(J)V"),
     NATIVE_METHOD(NativeCrypto, SSL_shutdown, "(J" FILE_DESCRIPTOR SSL_CALLBACKS ")V"),
+    NATIVE_METHOD(NativeCrypto, SSL_get_shutdown, "(J)I"),
     NATIVE_METHOD(NativeCrypto, SSL_free, "(J)V"),
     NATIVE_METHOD(NativeCrypto, SSL_SESSION_session_id, "(J)[B"),
     NATIVE_METHOD(NativeCrypto, SSL_SESSION_get_time, "(J)J"),
