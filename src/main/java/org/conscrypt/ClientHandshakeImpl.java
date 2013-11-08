@@ -461,6 +461,8 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
                 Key key = kp.getPublic();
                 if (clientCert != null
                         && serverCert != null
+                        && clientCert.certs.length > 0
+                        && serverCert.certs.length > 0
                         && (session.cipherSuite.keyExchange == CipherSuite.KEY_EXCHANGE_DHE_RSA
                                 || session.cipherSuite.keyExchange == CipherSuite.KEY_EXCHANGE_DHE_DSS)) {
                     PublicKey client_pk = clientCert.certs[0].getPublicKey();
@@ -477,9 +479,9 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
                             clientKeyExchange = new ClientKeyExchange(); // empty
                         }
                     }
-                } else {
-                    clientKeyExchange = new ClientKeyExchange(
-                            ((DHPublicKey) key).getY());
+                }
+                if (clientKeyExchange == null) {
+                    clientKeyExchange = new ClientKeyExchange(((DHPublicKey) key).getY());
                 }
                 key = kp.getPrivate();
                 agreement.init(key);
@@ -499,7 +501,8 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
 
         // send certificate verify for all certificates except those containing
         // fixed DH parameters
-        if (clientCert != null && clientCert.certs.length > 0 && !clientKeyExchange.isEmpty()) {
+        if (clientCert != null && clientCert.certs.length > 0 && clientKeyExchange != null
+                && !clientKeyExchange.isEmpty()) {
             // Certificate verify
             String authType = clientKey.getAlgorithm();
             DigitalSignature ds = new DigitalSignature(authType);
