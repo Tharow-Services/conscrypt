@@ -75,6 +75,9 @@ public class SSLParametersImpl implements Cloneable {
     // source of random numbers
     private SecureRandom secureRandom;
 
+    // protocols available for SSL connection
+    private String[] enabledProtocols = NativeCrypto.getDefaultProtocols();
+
     // if the peer with this parameters tuned to work in client mode
     private boolean client_mode = true;
     // if the peer with this parameters tuned to require client authentication
@@ -227,6 +230,35 @@ public class SSLParametersImpl implements Cloneable {
      */
     protected SecureRandom getSecureRandomMember() {
         return secureRandom;
+    }
+
+    /**
+     * @return the names of enabled cipher suites
+     */
+    protected String[] getEnabledCipherSuites() {
+        return openSslEnabledCipherSuites.clone();
+    }
+
+    /**
+     * Sets the enabled cipher suites after filtering through OpenSSL.
+     */
+    protected void setEnabledCipherSuites(String[] cipherSuites) {
+        openSslEnabledCipherSuites = NativeCrypto.checkEnabledCipherSuites(cipherSuites);
+    }
+
+    /**
+     * @return the set of enabled protocols
+     */
+    protected String[] getEnabledProtocols() {
+        return enabledProtocols.clone();
+    }
+
+    /**
+     * Sets the set of available protocols for use in SSL connection.
+     * @param protocols String[]
+     */
+    protected void setEnabledProtocols(String[] protocols) {
+        enabledProtocols = NativeCrypto.checkEnabledProtocols(protocols);
     }
 
     /**
