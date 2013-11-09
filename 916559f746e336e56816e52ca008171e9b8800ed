@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de65092b_25fbd160",
+        "filename": "src/main/java/org/conscrypt/DigitalSignature.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-09T18:13:23Z",
+      "side": 1,
+      "message": "I should probably fix this as well.",
+      "revId": "916559f746e336e56816e52ca008171e9b8800ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
