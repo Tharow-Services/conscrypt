@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e5dfd5e_87246443",
+        "filename": "src/main/java/org/conscrypt/ClientHandshakeImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 483,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-09T01:23:32Z",
+      "side": 1,
+      "message": "As discussed, this is technically a hack as DHE_... key exchange does not / should not contain DH keys in certs and thus the code above is bogus. I\u0027m fine with a proper fix in a separate CL though.",
+      "revId": "3b0eb0236a3750eb175cc0f1211a855c0eb31bda",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
