@@ -20,6 +20,7 @@ package org.conscrypt;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.KeyFactory;
+import java.security.PublicKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.RSAPublicKeySpec;
 
@@ -45,7 +46,7 @@ public class ServerKeyExchange extends Message {
     /**
      * Signature
      */
-    final byte[] hash;
+    final byte[] signature;
 
     private RSAPublicKey key;
 
@@ -54,22 +55,22 @@ public class ServerKeyExchange extends Message {
      * @param par1 rsa_modulus or dh_p
      * @param par2 rsa_exponent or dh_g
      * @param par3 dh_Ys for ServerDHParams; should be null for ServerRSAParams
-     * @param hash should be null for anonymous SignatureAlgorithm
+     * @param signature should be null for anonymous SignatureAlgorithm
      */
     public ServerKeyExchange(BigInteger par1, BigInteger par2, BigInteger par3,
-            byte[] hash) {
+            byte[] signature) {
         this.par1 = par1;
         this.par2 = par2;
         this.par3 = par3;
-        this.hash = hash;
+        this.signature = signature;
 
         bytes1 = toUnsignedByteArray(this.par1);
 
         bytes2 = toUnsignedByteArray(this.par2);
 
         length = 4 + bytes1.length + bytes2.length;
-        if (hash != null) {
-            length += 2 + hash.length;
+        if (signature != null) {
+            length += 2 + signature.length;
         }
         if (par3 == null) {
             bytes3 = null;
@@ -96,6 +97,60 @@ public class ServerKeyExchange extends Message {
         } else {
             return bb;
         }
+    }
+
+    public static void updateSignatureRsa(DigitalSignature ds, BigInteger modulus,
+            BigInteger publicExponent) {
+        byte[] tmp;
+        byte[] tmpLength = new byte[2];
+        tmp = ServerKeyExchange.toUnsignedByteArray(modulus);
+        tmpLength[0] = (byte) ((tmp.length & 0xFF00) >>> 8);
+        tmpLength[1] = (byte) (tmp.length & 0xFF);
+        ds.update(tmpLength);
+        ds.update(tmp);
+        tmp = ServerKeyExchange.toUnsignedByteArray(publicExponent);
+        tmpLength[0] = (byte) ((tmp.length & 0xFF00) >>> 8);
+        tmpLength[1] = (byte) (tmp.length & 0xFF);
+        ds.update(tmpLength);
+        ds.update(tmp);
+    }
+
+    public static void updateSignatureDh(DigitalSignature ds, BigInteger p, BigInteger g,
+            BigInteger y) {
+        byte[] tmp;
+        byte[] tmpLength = new byte[2];
+        tmp = ServerKeyExchange.toUnsignedByteArray(p);
+        tmpLength[0] = (byte) ((tmp.length & 0xFF00) >>> 8);
+        tmpLength[1] = (byte) (tmp.length & 0xFF);
+        ds.update(tmpLength);
+        ds.update(tmp);
+        tmp = ServerKeyExchange.toUnsignedByteArray(g);
+        tmpLength[0] = (byte) ((tmp.length & 0xFF00) >>> 8);
+        tmpLength[1] = (byte) (tmp.length & 0xFF);
+        ds.update(tmpLength);
+        ds.update(tmp);
+        tmp = ServerKeyExchange.toUnsignedByteArray(y);
+        tmpLength[0] = (byte) ((tmp.length & 0xFF00) >>> 8);
+        tmpLength[1] = (byte) (tmp.length & 0xFF);
+        ds.update(tmpLength);
+        ds.update(tmp);
+    }
+
+    public boolean verifySignature(DigitalSignature ds) {
+        if (par3 != null) {
+            updateSignatureDh(ds, par1, par2, par3);
+        } else {
+            updateSignatureRsa(ds, par1, par2);
+        }
+        return ds.verifySignature(signature);
+    }
+
+    /**
+     * Will return {@code true} if the signature is {@code null} since this is
+     * considered anonymous.
+     */
+    public boolean isAnonymous() {
+        return signature == null;
     }
 
     /**
@@ -128,10 +183,10 @@ public class ServerKeyExchange extends Message {
         if (keyExchange != CipherSuite.KEY_EXCHANGE_DH_anon_EXPORT
                 && keyExchange != CipherSuite.KEY_EXCHANGE_DH_anon) {
             size = in.readUint16();
-            hash = in.read(size);
-            this.length += 2 + hash.length;
+            signature = in.read(size);
+            this.length += 2 + signature.length;
         } else {
-            hash = null;
+            signature = null;
         }
         if (this.length != length) {
             fatalAlert(AlertProtocol.DECODE_ERROR,
@@ -153,17 +208,15 @@ public class ServerKeyExchange extends Message {
             out.writeUint16(bytes3.length);
             out.write(bytes3);
         }
-        if (hash != null) {
-            out.writeUint16(hash.length);
-            out.write(hash);
+        if (signature != null) {
+            out.writeUint16(signature.length);
+            out.write(signature);
         }
     }
 
     /**
      * Returns RSAPublicKey generated using ServerRSAParams
      * (rsa_modulus and rsa_exponent).
-     *
-     * @return
      */
     public RSAPublicKey getRSAPublicKey() {
         if (key != null) {
@@ -181,7 +234,6 @@ public class ServerKeyExchange extends Message {
 
     /**
      * Returns message type
-     * @return
      */
     @Override
     public int getType() {
