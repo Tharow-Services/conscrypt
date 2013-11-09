@@ -24,7 +24,6 @@ import java.security.PrivateKey;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.security.cert.Certificate;
-import java.util.Arrays;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
@@ -211,6 +210,9 @@ public class DigitalSignature {
     public boolean verifySignature(byte[] data) {
         if (signature != null) {
             try {
+                if (sha_hash == null) {
+                    sha_hash = sha.digest();
+                }
                 signature.update(sha_hash);
                 return signature.verify(data);
             } catch (SignatureException e) {
@@ -229,6 +231,12 @@ public class DigitalSignature {
             }
 
             final byte[] md5_sha;
+            if (sha != null && sha_hash == null) {
+                sha_hash = sha.digest();
+            }
+            if (md5 != null && md5_hash == null) {
+                md5_hash = md5.digest();
+            }
             if (md5_hash != null && sha_hash != null) {
                 md5_sha = new byte[md5_hash.length + sha_hash.length];
                 System.arraycopy(md5_hash, 0, md5_sha, 0, md5_hash.length);
@@ -239,7 +247,14 @@ public class DigitalSignature {
                 md5_sha = sha_hash;
             }
 
-            return Arrays.equals(decrypt, md5_sha);
+            if (decrypt.length != md5_sha.length) {
+                return false;
+            }
+            int difference = 0;
+            for (int i = 0; i < decrypt.length; i++) {
+                difference |= md5_sha[i] ^ decrypt[i];
+            }
+            return difference == 0;
         } else if (data == null || data.length == 0) {
             return true;
         } else {
