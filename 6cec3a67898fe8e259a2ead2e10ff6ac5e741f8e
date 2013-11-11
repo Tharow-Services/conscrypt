@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de65092b_e6a0c0ba",
+        "filename": "src/main/java/org/conscrypt/ClientHandshakeImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T18:20:07Z",
+      "side": 1,
+      "message": "For safety reasons, I\u0027d suggest explicitly checking session.cipherSuite.keyExchange against DHE_RSA, DHE_DSS, and DH_anon.",
+      "revId": "6cec3a67898fe8e259a2ead2e10ff6ac5e741f8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_7002a89a",
+        "filename": "src/main/java/org/conscrypt/ClientHandshakeImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T18:20:07Z",
+      "side": 1,
+      "message": "The error message is misleading when session.cipherSuite.isAnonymous returns true.",
+      "revId": "6cec3a67898fe8e259a2ead2e10ff6ac5e741f8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_d02c541b",
+        "filename": "src/main/java/org/conscrypt/ServerHandshakeImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T18:20:07Z",
+      "side": 1,
+      "message": "For a follow-up CL: Bleichenbacher/Klima attack mitigation is implemented incorrectly here (see TLS 1.2 RFC 5246 section 7.4.7.1): 1. the random preMasterSecret needs to be generated regardless of whether the unwrap succeeds. 2. the mitigation needs to be applied even if unwrap fails instead of raising an alert.",
+      "revId": "6cec3a67898fe8e259a2ead2e10ff6ac5e741f8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e5dfd5e_d07a9406",
+        "filename": "src/main/java/org/conscrypt/ServerHandshakeImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-11T18:20:07Z",
+      "side": 1,
+      "message": "Unrelated to this CL: If I\u0027m not mistaken, it should still perform a DH key exchange using the DH public key from the cert...",
+      "revId": "6cec3a67898fe8e259a2ead2e10ff6ac5e741f8e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
