@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3edaa533_df13bb70",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5516,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2013-11-11T12:27:36Z",
+      "side": 1,
+      "message": "This is now obsolete.",
+      "revId": "df32037861e5de1155d4b4070a8ddf649490f363",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
