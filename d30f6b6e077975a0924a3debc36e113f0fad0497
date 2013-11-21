@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be6e95ae_d3617499",
+        "filename": "src/main/java/org/conscrypt/CipherSuite.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-21T21:06:04Z",
+      "side": 1,
+      "message": "Just make these all HashMap instead of Map. That way you can avoid the virtual method dispatch overhead. This isn\u0027t an API.",
+      "revId": "d30f6b6e077975a0924a3debc36e113f0fad0497",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
