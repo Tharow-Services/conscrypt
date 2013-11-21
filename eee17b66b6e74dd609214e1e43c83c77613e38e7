@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e8fa1ae_ded50583",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1484,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-21T21:23:25Z",
+      "side": 1,
+      "message": "Why not replace all these with calls to look at SSL_CIPHER instances? NativeCrypto#get_SSL_CIPHER_algorithm_mkey\n\nI think you have to have an SSL* to get the list, but they should be static once you have a single reference to it..",
+      "revId": "eee17b66b6e74dd609214e1e43c83c77613e38e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
