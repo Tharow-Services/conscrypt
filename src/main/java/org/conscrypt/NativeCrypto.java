@@ -718,6 +718,20 @@ public final class NativeCrypto {
     public static final long SSL_OP_NO_TLSv1_1                             = 0x10000000L;
     public static final long SSL_OP_NO_TLSv1_2                             = 0x08000000L;
 
+    /**
+     * Client certificate types as defined in
+     * TLS 1.0 spec., 7.4.4. Certificate request.
+     * EC constants from RFC 4492.
+     * Names match openssl constants.
+     */
+    public static final byte TLS_CT_RSA_SIGN = 1;
+    public static final byte TLS_CT_DSS_SIGN = 2;
+    public static final byte TLS_CT_RSA_FIXED_DH = 3;
+    public static final byte TLS_CT_DSS_FIXED_DH = 4;
+    public static final byte TLS_CT_ECDSA_SIGN = 64;
+    public static final byte TLS_CT_RSA_FIXED_ECDH = 65;
+    public static final byte TLS_CT_ECDSA_FIXED_ECDH = 66;
+
     public static native long SSL_CTX_new();
 
     public static String[] getDefaultCipherSuites() {

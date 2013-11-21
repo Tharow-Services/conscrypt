@@ -33,7 +33,9 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import javax.net.ssl.HandshakeCompletedEvent;
 import javax.net.ssl.HandshakeCompletedListener;
@@ -369,7 +371,9 @@ public class OpenSSLSocketImpl
                     if (enabledCipherSuite.equals(NativeCrypto.TLS_EMPTY_RENEGOTIATION_INFO_SCSV)) {
                         continue;
                     }
-                    String keyType = CipherSuite.getByName(enabledCipherSuite).getServerKeyType();
+
+                    String keyExchange = getCipherSuiteKeyExchange(enabledCipherSuite);
+                    String keyType = getServerKeyType(keyExchange);
                     if (keyType != null) {
                         keyTypes.add(keyType);
                     }
@@ -684,7 +688,7 @@ public class OpenSSLSocketImpl
 
         String[] keyTypes = new String[keyTypeBytes.length];
         for (int i = 0; i < keyTypeBytes.length; i++) {
-            keyTypes[i] = CipherSuite.getClientKeyType(keyTypeBytes[i]);
+            keyTypes[i] = getClientKeyType(keyTypeBytes[i]);
         }
 
         X500Principal[] issuers;
@@ -1470,5 +1474,109 @@ public class OpenSSLSocketImpl
             throw new IllegalArgumentException("alpnProtocols.length == 0");
         }
         this.alpnProtocols = alpnProtocols;
+    }
+
+    /**
+     * Gets the key exchange algorithm used by the specified cipher suite.
+     *
+     * @throws SSLException if the key exchange algorithm could not be determined.
+     */
+    static String getCipherSuiteKeyExchange(String cipherSuite) throws SSLException {
+        if (cipherSuite == null) {
+            throw new NullPointerException();
+        }
+        if ((!cipherSuite.startsWith("TLS_")) && (!cipherSuite.startsWith("SSL_"))) {
+            throw new SSLException("Invalid cipher suite: " + cipherSuite);
+        }
+
+        // Example: TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+        String remainder = cipherSuite.substring("TLS_".length());
+        int delimiterIndex = remainder.indexOf("_WITH_");
+        if (delimiterIndex == -1) {
+            throw new SSLException("Cipher suite name missing WITH delimiter: " + cipherSuite);
+        }
+        // Example: ECDHE_ECDSA
+        String keyExchange = remainder.substring(0, delimiterIndex);
+        return keyExchange;
+    }
+
+    /** Key type: RSA. */
+    public static final String KEY_TYPE_RSA = "RSA";
+
+    /** Key type: DSA. */
+    public static final String KEY_TYPE_DSA = "DSA";
+
+    /** Key type: Diffie-Hellman with RSA signature. */
+    public static final String KEY_TYPE_DH_RSA = "DH_RSA";
+
+    /** Key type: Diffie-Hellman with DSA signature. */
+    public static final String KEY_TYPE_DH_DSA = "DH_DSA";
+
+    /** Key type: Elliptic Curve. */
+    public static final String KEY_TYPE_EC = "EC";
+
+    /** Key type: Eliiptic Curve with ECDSA signature. */
+    public static final String KEY_TYPE_EC_EC = "EC_EC";
+
+    /** Key type: Eliiptic Curve with RSA signature. */
+    public static final String KEY_TYPE_EC_RSA = "EC_RSA";
+
+    private static final Map<String, String> SERVER_KEY_TYPE_BY_KEY_EXCHANGE;
+    static {
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE = new HashMap<String, String>();
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("DHE_RSA", KEY_TYPE_RSA);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("DHE_RSA_EXPORT", KEY_TYPE_RSA);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("ECDHE_RSA", KEY_TYPE_RSA);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("RSA", KEY_TYPE_RSA);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("RSA_EXPORT", KEY_TYPE_RSA);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("DHE_DSS", KEY_TYPE_DSA);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("DHE_DSS_EXPORT", KEY_TYPE_DSA);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("ECDH_ECDSA", KEY_TYPE_EC_EC);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("ECDHE_ECDSA", KEY_TYPE_EC_EC);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("ECDH_RSA", KEY_TYPE_EC_RSA);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("DH_anon", null);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("DH_anon_EXPORT", null);
+        SERVER_KEY_TYPE_BY_KEY_EXCHANGE.put("ECDH_anon", null);
+    }
+
+    /**
+     * Returns key type constant suitable for calling X509KeyManager.chooseServerAlias or
+     * X509ExtendedKeyManager.chooseEngineServerAlias. Returns {@code null} for anonymous key
+     * exchanges.
+     */
+    static String getServerKeyType(String keyExchange) throws SSLException {
+        String type = SERVER_KEY_TYPE_BY_KEY_EXCHANGE.get(keyExchange);
+        if ((type == null) && (!SERVER_KEY_TYPE_BY_KEY_EXCHANGE.containsKey(keyExchange))) {
+            throw new SSLException("Unsupported key exchange: " + keyExchange);
+        }
+        return type;
+    }
+
+    /**
+     * Similar to getServerKeyType, but returns value given TLS
+     * ClientCertificateType byte values from a CertificateRequest
+     * message for use with X509KeyManager.chooseClientAlias or
+     * X509ExtendedKeyManager.chooseEngineClientAlias.
+     */
+    static String getClientKeyType(byte keyType) {
+        // See also http://www.ietf.org/assignments/tls-parameters/tls-parameters.xml
+        switch (keyType) {
+            case NativeCrypto.TLS_CT_RSA_SIGN:
+                return KEY_TYPE_RSA; // RFC rsa_sign
+            case NativeCrypto.TLS_CT_DSS_SIGN:
+                return KEY_TYPE_DSA; // RFC dss_sign
+            case NativeCrypto.TLS_CT_RSA_FIXED_DH:
+                return KEY_TYPE_DH_RSA; // RFC rsa_fixed_dh
+            case NativeCrypto.TLS_CT_DSS_FIXED_DH:
+                return KEY_TYPE_DH_DSA; // RFC dss_fixed_dh
+            case NativeCrypto.TLS_CT_ECDSA_SIGN:
+                return KEY_TYPE_EC; // RFC ecdsa_sign
+            case NativeCrypto.TLS_CT_RSA_FIXED_ECDH:
+                return KEY_TYPE_EC_RSA; // RFC rsa_fixed_ecdh
+            case NativeCrypto.TLS_CT_ECDSA_FIXED_ECDH:
+                return KEY_TYPE_EC_EC; // RFC ecdsa_fixed_ecdh
+            default:
+                return null;
+        }
     }
 }

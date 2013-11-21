@@ -200,7 +200,8 @@ public class OpenSSLServerSocketImpl extends javax.net.ssl.SSLServerSocket {
             if (enabledCipherSuite.equals(NativeCrypto.TLS_EMPTY_RENEGOTIATION_INFO_SCSV)) {
                 continue;
             }
-            String keyType = CipherSuite.getByName(enabledCipherSuite).getServerKeyType();
+            String keyExchange = OpenSSLSocketImpl.getCipherSuiteKeyExchange(enabledCipherSuite);
+            String keyType = OpenSSLSocketImpl.getServerKeyType(keyExchange);
             if (keyType == null) {
                 // anonymous always work
                 return;
