@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be6e95ae_39ee079f",
+        "filename": "src/main/java/org/conscrypt/OpenSSLServerSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-22T19:11:56Z",
+      "side": 0,
+      "message": "Was this just not needed?",
+      "revId": "efb9c8d7970bce0dbb449b9e1d7c573bf516421d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

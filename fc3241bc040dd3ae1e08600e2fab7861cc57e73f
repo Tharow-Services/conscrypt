@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e8fa1ae_44ba02f6",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-22T19:11:56Z",
+      "side": 1,
+      "message": "... OpenSSL constants in ss/tls1.h",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be6e95ae_195cebdb",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-22T19:11:56Z",
+      "side": 1,
+      "message": "... defined in OpenSSL ssl/ssl_locl.h",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be6e95ae_3959a7ec",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-22T19:11:56Z",
+      "side": 1,
+      "message": "... defined in OpenSSL ssl/ssl_locl.h",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be6e95ae_595663bb",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-22T19:11:56Z",
+      "side": 1,
+      "message": "I\u0027ve been giving these names prefixed with \"get_\" to indicate they\u0027re not OpenSSL API ... \"get_SSL_CIPHER_algorithm_mkey\"",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3e8aa59d_85c7a6d2",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1498,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-22T19:11:56Z",
+      "side": 1,
+      "message": "Hm, looks suspiciously the same as SSL_CIPHER_authentication_method that is added by jsse.patch. Can we leverage that somehow?",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
