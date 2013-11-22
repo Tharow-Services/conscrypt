@@ -16,6 +16,24 @@
       "revId": "eee17b66b6e74dd609214e1e43c83c77613e38e7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7e809d79_849ec8d0",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1484,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-22T00:14:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e8fa1ae_ded50583",
+      "revId": "eee17b66b6e74dd609214e1e43c83c77613e38e7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
