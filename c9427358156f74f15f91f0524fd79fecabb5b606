@@ -16,6 +16,24 @@
       "revId": "c9427358156f74f15f91f0524fd79fecabb5b606",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bea77522_5da6393e",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1482,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-25T20:59:31Z",
+      "side": 1,
+      "message": "Done. I added OpenSSLSocketImpl.testGetClientKeyType, similar to CipherSuite.test_getClientKeyType.",
+      "parentUuid": "bea77522_195b2671",
+      "revId": "c9427358156f74f15f91f0524fd79fecabb5b606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
