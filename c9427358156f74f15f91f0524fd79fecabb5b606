@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bea77522_195b2671",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1482,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-25T19:43:24Z",
+      "side": 1,
+      "message": "I don\u0027t think there are any tests for this type. Could you add some for DH_RSA and DH_DSA?",
+      "revId": "c9427358156f74f15f91f0524fd79fecabb5b606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
