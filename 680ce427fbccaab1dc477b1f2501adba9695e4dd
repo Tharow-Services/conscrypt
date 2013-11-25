@@ -16,6 +16,24 @@
       "revId": "680ce427fbccaab1dc477b1f2501adba9695e4dd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5ed03988_fa2c47b4",
+        "filename": "src/main/java/org/conscrypt/OpenSSLContextImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-25T22:27:15Z",
+      "side": 1,
+      "message": "See the comments in DefaultSSLContextImpl.\u003cinit\u003e()",
+      "parentUuid": "5ed03988_9405216e",
+      "revId": "680ce427fbccaab1dc477b1f2501adba9695e4dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
