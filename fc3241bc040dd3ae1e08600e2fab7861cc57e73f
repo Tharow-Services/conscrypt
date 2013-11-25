@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "deaa69eb_24eeb830",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-25T17:46:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1e8fa1ae_44ba02f6",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be6e95ae_195cebdb",
         "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2013-11-22T19:11:56Z",
       "side": 1,
       "message": "... defined in OpenSSL ssl/ssl_locl.h",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "deaa69eb_c4fd34e4",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 900,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-25T17:46:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be6e95ae_195cebdb",
       "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "deaa69eb_e40af039",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-25T17:46:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be6e95ae_3959a7ec",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "be6e95ae_595663bb",
         "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
         "patchSetId": 3
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "deaa69eb_24051827",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-25T17:46:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be6e95ae_595663bb",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3e8aa59d_85c7a6d2",
         "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
         "patchSetId": 3
@@ -81,6 +153,24 @@
       "writtenOn": "2013-11-22T19:11:56Z",
       "side": 1,
       "message": "Hm, looks suspiciously the same as SSL_CIPHER_authentication_method that is added by jsse.patch. Can we leverage that somehow?",
+      "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "deaa69eb_c49ed47a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1498,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-11-25T17:46:27Z",
+      "side": 1,
+      "message": "Unfortunately, SSL_CIPHER_authentication_method returns a string whose result is not used anywhere. Thus, relying on parsing that string to figure out the keyType is a bit dangerous (OpenSSL could change the format or the contents of that string without us noticing). algorithm_mkey and algorithm_auth are a bit more reliable because they are actually used by OpenSSL to determine how to handshake.",
+      "parentUuid": "3e8aa59d_85c7a6d2",
       "revId": "fc3241bc040dd3ae1e08600e2fab7861cc57e73f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
