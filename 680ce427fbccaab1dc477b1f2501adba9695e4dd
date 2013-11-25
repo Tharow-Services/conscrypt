@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ed03988_9405216e",
+        "filename": "src/main/java/org/conscrypt/OpenSSLContextImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2013-11-25T22:08:22Z",
+      "side": 1,
+      "message": "Is this necessary? Can it move to DefaultSSLContextImpl?",
+      "revId": "680ce427fbccaab1dc477b1f2501adba9695e4dd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
