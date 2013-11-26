@@ -149,11 +149,6 @@ public abstract class HandshakeProtocol {
     public SSLEngineImpl engineOwner;
 
     /**
-     * SSLSocket owning this HandshakeProtocol
-     */
-    public SSLSocketImpl socketOwner;
-
-    /**
      * Creates HandshakeProtocol instance
      * @param owner
      */
@@ -162,11 +157,6 @@ public abstract class HandshakeProtocol {
             engineOwner = (SSLEngineImpl) owner;
             nonBlocking = true;
             this.parameters = engineOwner.sslParameters;
-        }
-        else if (owner instanceof SSLSocketImpl) {
-            socketOwner = (SSLSocketImpl) owner;
-            nonBlocking = false;
-            this.parameters = socketOwner.sslParameters;
         }
     }
 

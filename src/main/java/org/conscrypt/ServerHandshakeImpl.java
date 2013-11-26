@@ -406,8 +406,6 @@ public class ServerHandshakeImpl extends HandshakeProtocol {
             session = new SSLSessionImpl(cipher_suite, parameters.getSecureRandom());
             if (engineOwner != null) {
                 session.setPeer(engineOwner.getPeerHost(), engineOwner.getPeerPort());
-            } else {
-                session.setPeer(socketOwner.getInetAddress().getHostName(), socketOwner.getPort());
             }
         }
 
@@ -438,18 +436,13 @@ public class ServerHandshakeImpl extends HandshakeProtocol {
             X509KeyManager km = parameters.getKeyManager();
             if (km instanceof X509ExtendedKeyManager) {
                 X509ExtendedKeyManager ekm = (X509ExtendedKeyManager)km;
-                if (this.socketOwner != null) {
-                    alias = ekm.chooseServerAlias(certType, null,
-                            this.socketOwner);
-                } else {
-                    alias = ekm.chooseEngineServerAlias(certType, null,
-                            this.engineOwner);
-                }
+                alias = ekm.chooseEngineServerAlias(certType, null,
+                        this.engineOwner);
                 if (alias != null) {
                     certs = ekm.getCertificateChain(alias);
                 }
             } else {
-                alias = km.chooseServerAlias(certType, null, this.socketOwner);
+                alias = km.chooseServerAlias(certType, null, null);
                 if (alias != null) {
                     certs = km.getCertificateChain(alias);
                 }
