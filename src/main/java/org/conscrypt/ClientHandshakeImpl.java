@@ -87,8 +87,6 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
             session = new SSLSessionImpl(parameters.getSecureRandom());
             if (engineOwner != null) {
                 session.setPeer(engineOwner.getPeerHost(), engineOwner.getPeerPort());
-            } else {
-                session.setPeer(socketOwner.getPeerHostName(), socketOwner.getPeerPort());
             }
             session.protocol = ProtocolVersion.getLatestVersion(parameters.getEnabledProtocols());
             recordProtocol.setVersion(session.protocol.version);
@@ -108,8 +106,6 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
             session = new SSLSessionImpl(parameters.getSecureRandom());
             if (engineOwner != null) {
                 session.setPeer(engineOwner.getPeerHost(), engineOwner.getPeerPort());
-            } else {
-                session.setPeer(socketOwner.getPeerHostName(), socketOwner.getPeerPort());
             }
             session.protocol = ProtocolVersion.getLatestVersion(parameters.getEnabledProtocols());
             recordProtocol.setVersion(session.protocol.version);
@@ -388,16 +384,12 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
             X509KeyManager km = parameters.getKeyManager();
             if (km instanceof X509ExtendedKeyManager) {
                 X509ExtendedKeyManager ekm = (X509ExtendedKeyManager)km;
-                if (this.socketOwner != null) {
-                    alias = ekm.chooseClientAlias(certTypes, issuers, this.socketOwner);
-                } else {
-                    alias = ekm.chooseEngineClientAlias(certTypes, issuers, this.engineOwner);
-                }
+                alias = ekm.chooseEngineClientAlias(certTypes, issuers, this.engineOwner);
                 if (alias != null) {
                     certs = ekm.getCertificateChain(alias);
                 }
             } else {
-                alias = km.chooseClientAlias(certTypes, issuers, this.socketOwner);
+                alias = km.chooseClientAlias(certTypes, issuers, null);
                 if (alias != null) {
                     certs = km.getCertificateChain(alias);
                 }
@@ -533,9 +525,6 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
         String hostname = null;
         if (engineOwner != null) {
             hostname = engineOwner.getPeerHost();
-        } else {
-            // we don't want to do an inet address lookup here in case we're talking to a proxy
-            hostname = socketOwner.getWrappedHostName();
         }
         try {
             X509TrustManager x509tm = parameters.getTrustManager();
@@ -574,9 +563,6 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
         if (engineOwner != null) {
             host = engineOwner.getPeerHost();
             port = engineOwner.getPeerPort();
-        } else {
-            host = socketOwner.getPeerHostName();
-            port = socketOwner.getPeerPort();
         }
         if (host == null || port == -1) {
             return null; // starts new session
