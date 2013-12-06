@@ -16,16 +16,26 @@
 
 package org.conscrypt;
 
+import java.lang.reflect.Method;
 import junit.framework.TestCase;
 
 public class OpenSSLSocketImplTest extends TestCase {
+  private Method meth_OpenSSLSocketImplTest_getClientKeyType;
+
+  @Override
+  protected void setUp() throws Exception {
+    // Needed for CTS to access the method.
+    meth_OpenSSLSocketImplTest_getClientKeyType = OpenSSLSocketImpl.class
+            .getDeclaredMethod("getClientKeyType", byte.class);
+    meth_OpenSSLSocketImplTest_getClientKeyType.setAccessible(true);
+  }
 
   public void testGetClientKeyType() throws Exception {
     // See http://www.ietf.org/assignments/tls-parameters/tls-parameters.xml
     byte b = Byte.MIN_VALUE;
     do {
       String byteString = Byte.toString(b);
-      String keyType = OpenSSLSocketImpl.getClientKeyType(b);
+      String keyType = (String) meth_OpenSSLSocketImplTest_getClientKeyType.invoke(null, b);
       switch (b) {
         case 1:
           assertEquals(byteString, "RSA", keyType);

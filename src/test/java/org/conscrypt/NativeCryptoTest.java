@@ -21,6 +21,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -78,6 +79,28 @@ public class NativeCryptoTest extends TestCase {
     private static byte[][] CA_PRINCIPALS;
     private static OpenSSLKey CHANNEL_ID_PRIVATE_KEY;
     private static byte[] CHANNEL_ID;
+
+    private static Method meth_OpenSSLX509Certificate_getContext;
+    static {
+        // Needed for CTS to access the method.
+        try {
+            meth_OpenSSLX509Certificate_getContext = OpenSSLX509Certificate.class
+                    .getDeclaredMethod("getContext");
+            meth_OpenSSLX509Certificate_getContext.setAccessible(true);
+        } catch (NoSuchMethodException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Method meth_OpenSSLSocketImplTest_getClientKeyType;
+
+    @Override
+    protected void setUp() throws Exception {
+        // Needed for CTS to access the method.
+        meth_OpenSSLSocketImplTest_getClientKeyType = OpenSSLSocketImpl.class
+                .getDeclaredMethod("getClientKeyType", byte.class);
+        meth_OpenSSLSocketImplTest_getClientKeyType.setAccessible(true);
+    }
 
     @Override
     protected void tearDown() throws Exception {
@@ -143,10 +166,10 @@ public class NativeCryptoTest extends TestCase {
         }
     }
 
-    private static long[] getCertificateReferences(OpenSSLX509Certificate[] certs) {
+    private static long[] getCertificateReferences(OpenSSLX509Certificate[] certs) throws Exception {
         final long[] certRefs = new long[certs.length];
         for (int i = 0; i < certs.length; i++) {
-            certRefs[i] = certs[i].getContext();
+            certRefs[i] = (Long) meth_OpenSSLX509Certificate_getContext.invoke(certs[i]);
         }
         return certRefs;
     }
@@ -923,9 +946,12 @@ public class NativeCryptoTest extends TestCase {
         // this depends on the SSL_set_cipher_lists call in beforeHandshake
         // the three returned are the non-ephemeral cases.
         assertEquals(3, clientCallback.keyTypes.length);
-        assertEquals("RSA", OpenSSLSocketImpl.getClientKeyType(clientCallback.keyTypes[0]));
-        assertEquals("DSA", OpenSSLSocketImpl.getClientKeyType(clientCallback.keyTypes[1]));
-        assertEquals("EC", OpenSSLSocketImpl.getClientKeyType(clientCallback.keyTypes[2]));
+        assertEquals("RSA", meth_OpenSSLSocketImplTest_getClientKeyType.invoke(null,
+                clientCallback.keyTypes[0]));
+        assertEquals("DSA", meth_OpenSSLSocketImplTest_getClientKeyType.invoke(null,
+                clientCallback.keyTypes[1]));
+        assertEquals("EC", meth_OpenSSLSocketImplTest_getClientKeyType.invoke(null,
+                clientCallback.keyTypes[2]));
         assertEqualPrincipals(getCaPrincipals(),
                               clientCallback.asn1DerEncodedX500Principals);
         assertFalse(serverCallback.clientCertificateRequestedCalled);
