@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "28ab4b9f_a1243841",
+        "filename": "src/main/java/org/conscrypt/HandshakeProtocol.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2013-12-14T01:03:27Z",
+      "side": 1,
+      "message": "if you change owner to SSLEngineImpl, it lets you drop a bit more code (checks if engineOwner !\u003d null in other files too)\n\nI know we are trying to minimize diffs here, but this seems a bit cleaner.\n\n(also engineOwner can be final too, right?)",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 45
+      },
+      "revId": "418b07f4d333530f4e07f52998983ae9c869e08a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
