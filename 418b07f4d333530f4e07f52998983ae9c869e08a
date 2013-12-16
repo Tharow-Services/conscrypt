@@ -22,6 +22,30 @@
       "revId": "418b07f4d333530f4e07f52998983ae9c869e08a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c86c6f4a_f2c7b62b",
+        "filename": "src/main/java/org/conscrypt/HandshakeProtocol.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2013-12-16T17:43:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "28ab4b9f_a1243841",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 45
+      },
+      "revId": "418b07f4d333530f4e07f52998983ae9c869e08a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
