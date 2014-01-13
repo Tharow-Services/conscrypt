@@ -22,6 +22,30 @@
       "revId": "8b75c43fbbe0723f12511bf14626accd811a80c3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d30bd7d_b6034826",
+        "filename": "src/test/java/org/conscrypt/CipherSuiteTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-01-13T21:12:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d1635de_58f0dd0a",
+      "range": {
+        "startLine": 34,
+        "startChar": 41,
+        "endLine": 34,
+        "endChar": 54
+      },
+      "revId": "8b75c43fbbe0723f12511bf14626accd811a80c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
