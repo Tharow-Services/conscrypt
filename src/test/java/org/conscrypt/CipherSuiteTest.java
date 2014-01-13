@@ -30,6 +30,9 @@ public class CipherSuiteTest extends TestCase {
         for (String name : StandardNames.CIPHER_SUITES) {
             if (name.equals(StandardNames.CIPHER_SUITE_SECURE_RENEGOTIATION)) {
                 assertNull(CipherSuite.getByName(name));
+            } else if ((name.endsWith("_SHA256")) || (name.endsWith("_SHA384"))) {
+                // TLSv1.2 cipher suites not supported
+                assertNull(CipherSuite.getByName(name));
             } else {
                 test_CipherSuite(name);
             }
