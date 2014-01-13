@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d1635de_58f0dd0a",
+        "filename": "src/test/java/org/conscrypt/CipherSuiteTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-01-13T20:52:08Z",
+      "side": 1,
+      "message": "I\u0027d expand this to point out this is only used for SSLEngine",
+      "range": {
+        "startLine": 34,
+        "startChar": 41,
+        "endLine": 34,
+        "endChar": 54
+      },
+      "revId": "8b75c43fbbe0723f12511bf14626accd811a80c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
