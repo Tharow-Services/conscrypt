@@ -1,0 +1,8 @@
+Code-Review+2: Kenny Root <kroot@android.com>
+Verified+1: Kenny Root <kroot@android.com>
+Code-Review+1: Alex Klyubin <klyubin@google.com>
+Submitted-by: Kenny Root <kroot@android.com>
+Submitted-at: Thu, 16 Jan 2014 21:34:05 +0000
+Reviewed-on: https://android-review.googlesource.com/79283
+Project: platform/external/conscrypt
+Branch: refs/heads/master
