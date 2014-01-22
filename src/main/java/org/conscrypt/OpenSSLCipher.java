@@ -64,6 +64,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
     protected static enum Padding {
         NOPADDING,
         PKCS5PADDING,
+        PKCS7PADDING,
         ISO10126PADDING,
     }
 
@@ -287,9 +288,13 @@ public abstract class OpenSSLCipher extends CipherSpi {
                     encrypting);
         }
 
-        // OpenSSL only supports PKCS5 Padding.
+        // OpenSSL only supports PKCS7 padding. PKCS5 padding is also supported because it's a
+        // special case of PKCS7 for 64-bit blocks. PKCS5 technically supports only 64-bit blocks
+        // and won't produce the same result as PKCS7 for blocks that are not 64 bits long. However,
+        // everybody assumes PKCS7 when they say PKCS5. For example, lots of code uses PKCS5 with
+        // AES whose blocks are longer than 64 bits.
         NativeCrypto.EVP_CIPHER_CTX_set_padding(cipherCtx.getContext(),
-                padding == Padding.PKCS5PADDING);
+                (padding == Padding.PKCS5PADDING) || (padding == Padding.PKCS7PADDING));
         modeBlockSize = NativeCrypto.EVP_CIPHER_CTX_block_size(cipherCtx.getContext());
         calledUpdate = false;
     }
@@ -544,6 +549,12 @@ public abstract class OpenSSLCipher extends CipherSpi {
                     super(Padding.PKCS5PADDING);
                 }
             }
+
+            public static class PKCS7Padding extends CBC {
+                public PKCS7Padding() {
+                    super(Padding.PKCS7PADDING);
+                }
+            }
         }
 
         public static class CFB extends AES {
@@ -572,6 +583,12 @@ public abstract class OpenSSLCipher extends CipherSpi {
             public static class PKCS5Padding extends ECB {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                }
+            }
+
+            public static class PKCS7Padding extends ECB {
+                public PKCS7Padding() {
+                    super(Padding.PKCS7PADDING);
                 }
             }
         }
@@ -616,6 +633,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
             switch (padding) {
                 case NOPADDING:
                 case PKCS5PADDING:
+                case PKCS7PADDING:
                     return;
                 default:
                     throw new NoSuchPaddingException("Unsupported padding " + padding.toString());
@@ -661,6 +679,12 @@ public abstract class OpenSSLCipher extends CipherSpi {
                     super(Padding.PKCS5PADDING);
                 }
             }
+
+            public static class PKCS7Padding extends CBC {
+                public PKCS7Padding() {
+                    super(Padding.PKCS7PADDING);
+                }
+            }
         }
 
         public static class CFB extends DESEDE {
@@ -683,6 +707,12 @@ public abstract class OpenSSLCipher extends CipherSpi {
             public static class PKCS5Padding extends ECB {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                }
+            }
+
+            public static class PKCS7Padding extends ECB {
+                public PKCS7Padding() {
+                    super(Padding.PKCS7PADDING);
                 }
             }
         }
@@ -741,6 +771,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
             switch (padding) {
                 case NOPADDING:
                 case PKCS5PADDING:
+                case PKCS7PADDING:
                     return;
                 default:
                     throw new NoSuchPaddingException("Unsupported padding " + padding.toString());
