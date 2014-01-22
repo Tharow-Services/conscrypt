@@ -194,6 +194,17 @@ public final class OpenSSLProvider extends Provider {
         put("Cipher.RSA/ECB/PKCS1Padding", prefix + "OpenSSLCipherRSA$PKCS1");
         put("Alg.Alias.Cipher.RSA/None/PKCS1Padding", "RSA/ECB/PKCS1Padding");
 
+        // OpenSSL only supports PKCS#7 padding. PKCS#5 padding is also supported because it's a
+        // special case of PKCS#7 for 64-bit blocks. PKCS#5 technically supports only 64-bit blocks
+        // and won't produce the same result as PKCS#7 for blocks that are not 64 bits long.
+        // However, everybody assumes PKCS#7 when they say PKCS#5. For example, lots of code uses
+        // PKCS#5 with AES whose blocks are longer than 64 bits.
+        // We solve this confusion by making PKCS7Padding an alias for PKCS7Padding.
+        put("Alg.Alias.Cipher.AES/ECB/PKCS7Padding", "AES/ECB/PKCS5Padding");
+        put("Alg.Alias.Cipher.AES/CBC/PKCS7Padding", "AES/CBC/PKCS5Padding");
+        put("Alg.Alias.Cipher.DESEDE/ECB/PKCS7Padding", "DESEDE/ECB/PKCS5Padding");
+        put("Alg.Alias.Cipher.DESEDE/CBC/PKCS7Padding", "DESEDE/CBC/PKCS5Padding");
+
         /*
          * OpenSSL only supports a subset of modes, so we'll name them
          * explicitly here.
