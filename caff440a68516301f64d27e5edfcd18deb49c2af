@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12dcfa2e_bd46ffdb",
+        "filename": "src/test/java/org/conscrypt/TrustedCertificateStoreTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-01-28T09:30:09Z",
+      "side": 1,
+      "message": "See a similar failure in https://b.corp.google.com/issue?id\u003d12491159 (and the explanation there).\n\nCould this be because InstrumentationCtsTestRunner sets \"java.io.tmpdir\" by hand ? Wouldn\u0027t that make the actual value dependent on class initialization order ?",
+      "revId": "caff440a68516301f64d27e5edfcd18deb49c2af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
