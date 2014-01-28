@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "32df3e25_c1120473",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-01-28T19:20:22Z",
+      "side": 1,
+      "message": "I\u0027m afraid I don\u0027t understand this test. Why should the highest byte be 1 ? (as opposed to the highest bit)\n\nWhat does X509_get_serialNumber return, exactly ?",
+      "revId": "0a97d659b889de0207e7b33423c5f345203c7f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
