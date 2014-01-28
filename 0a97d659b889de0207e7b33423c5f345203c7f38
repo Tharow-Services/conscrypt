@@ -34,6 +34,24 @@
       "revId": "0a97d659b889de0207e7b33423c5f345203c7f38",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f2fa0681_acf33852",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-01-28T19:28:41Z",
+      "side": 1,
+      "message": "Well, this is from the bignumToArray code.. maybe it should be changed to be more useful, but hereis the code:\n\n    // Set the sign for the Java code.\n    if (BN_is_negative(source)) {\n        *tmp \u003d 0xFF;\n    } else {\n        *tmp \u003d 0x00;\n    }",
+      "parentUuid": "f213e69e_4ad7178e",
+      "revId": "0a97d659b889de0207e7b33423c5f345203c7f38",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
