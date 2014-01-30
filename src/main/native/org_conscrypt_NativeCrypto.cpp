@@ -698,9 +698,9 @@ static SSL_CIPHER* to_SSL_CIPHER(JNIEnv* env, jlong ssl_cipher_address, bool thr
 }
 
 /**
- * Converts a Java byte[] to an OpenSSL BIGNUM, allocating the BIGNUM on the
- * fly. Returns true on success. If the return value is false, there is a
- * pending exception.
+ * Converts a Java byte[] two's complement to an OpenSSL BIGNUM, allocating
+ * the BIGNUM on the fly. Returns true on success. If the return value is
+ * false, there is a pending exception.
  */
 static bool arrayToBignum(JNIEnv* env, jbyteArray source, BIGNUM** dest) {
     JNI_TRACE("arrayToBignum(%p, %p)", source, *dest);
@@ -710,21 +710,39 @@ static bool arrayToBignum(JNIEnv* env, jbyteArray source, BIGNUM** dest) {
         JNI_TRACE("arrayToBignum(%p) => NULL", source);
         return false;
     }
-    *dest = BN_bin2bn(reinterpret_cast<const unsigned char*>(sourceBytes.get()),
-                           sourceBytes.size(),
-                           NULL);
-    if (*dest == NULL) {
+    const unsigned char* tmp = reinterpret_cast<const unsigned char*>(sourceBytes.get());
+    size_t tmpSize = sourceBytes.size();
+    UniquePtr<unsigned char[]> twosComplement;
+    bool negative = (tmp[0] & 0x80) != 0;
+    if (negative) {
+        // Need to convert to two's complement.
+        twosComplement.reset(new unsigned char[tmpSize]);
+        unsigned char* twosBytes = reinterpret_cast<unsigned char*>(twosComplement.get());
+        memcpy(twosBytes, tmp, tmpSize);
+        tmp = twosBytes;
+
+        bool carry;
+        for (ssize_t i = tmpSize - 1, carry = true; i >= 0; i--) {
+            twosBytes[i] ^= 0xFF;
+            if (carry) {
+                carry = (++twosBytes[i]) == 0;
+            }
+        }
+    }
+    BIGNUM *ret = BN_bin2bn(tmp, tmpSize, *dest);
+    if (ret == NULL) {
         jniThrowRuntimeException(env, "Conversion to BIGNUM failed");
         JNI_TRACE("arrayToBignum(%p) => threw exception", source);
         return false;
     }
+    BN_set_negative(ret, negative ? 1 : 0);
 
-    JNI_TRACE("arrayToBignum(%p) => %p", source, *dest);
+    JNI_TRACE("arrayToBignum(%p) => %p", source, ret);
     return true;
 }
 
 /**
- * Converts an OpenSSL BIGNUM to a Java byte[] array.
+ * Converts an OpenSSL BIGNUM to a Java byte[] array in two's complement.
  */
 static jbyteArray bignumToArray(JNIEnv* env, const BIGNUM* source, const char* sourceName) {
     JNI_TRACE("bignumToArray(%p, %s)", source, sourceName);
@@ -734,7 +752,8 @@ static jbyteArray bignumToArray(JNIEnv* env, const BIGNUM* source, const char* s
         return NULL;
     }
 
-    jbyteArray javaBytes = env->NewByteArray(BN_num_bytes(source) + 1);
+    size_t numBytes = BN_num_bytes(source) + 1;
+    jbyteArray javaBytes = env->NewByteArray(numBytes);
     ScopedByteArrayRW bytes(env, javaBytes);
     if (bytes.get() == NULL) {
         JNI_TRACE("bignumToArray(%p, %s) => NULL", source, sourceName);
@@ -742,17 +761,23 @@ static jbyteArray bignumToArray(JNIEnv* env, const BIGNUM* source, const char* s
     }
 
     unsigned char* tmp = reinterpret_cast<unsigned char*>(bytes.get());
-
-    // Set the sign for the Java code.
-    if (BN_is_negative(source)) {
-        *tmp = 0xFF;
-    } else {
-        *tmp = 0x00;
-    }
-
     if (BN_num_bytes(source) > 0 && BN_bn2bin(source, tmp + 1) <= 0) {
         throwExceptionIfNecessary(env, "bignumToArray");
         return NULL;
+    }
+
+    // Set the sign and convert to two's complement if necessary for the Java code.
+    if (BN_is_negative(source)) {
+        bool carry;
+        for (ssize_t i = numBytes - 1, carry = true; i >= 0; i--) {
+            tmp[i] ^= 0xFF;
+            if (carry) {
+                carry = (++tmp[i]) == 0;
+            }
+        }
+        *tmp |= 0x80;
+    } else {
+        *tmp = 0x00;
     }
 
     JNI_TRACE("bignumToArray(%p, %s) => %p", source, sourceName, javaBytes);
