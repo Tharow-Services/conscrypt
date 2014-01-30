@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "52811216_69ebdccd",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 728,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-01-30T21:52:37Z",
+      "side": 1,
+      "message": "Whoops, forgot to set the \"tmp \u003d twosBytes;\" here but it passes all the tests.. there is a test missing!",
+      "range": {
+        "startLine": 728,
+        "startChar": 8,
+        "endLine": 728,
+        "endChar": 9
+      },
+      "revId": "27cb1146c8fe5cfcbdcccb027813395c932dd7a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
