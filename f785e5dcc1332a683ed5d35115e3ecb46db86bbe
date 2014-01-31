@@ -22,6 +22,30 @@
       "revId": "f785e5dcc1332a683ed5d35115e3ecb46db86bbe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7208d6ab_c8b86ff6",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-01-31T21:48:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12ff9ab9_65276697",
+      "range": {
+        "startLine": 206,
+        "startChar": 13,
+        "endLine": 206,
+        "endChar": 29
+      },
+      "revId": "f785e5dcc1332a683ed5d35115e3ecb46db86bbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
