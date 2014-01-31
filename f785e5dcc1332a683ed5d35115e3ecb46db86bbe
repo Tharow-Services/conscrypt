@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "12ff9ab9_65276697",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-01-31T21:31:50Z",
+      "side": 1,
+      "message": "Not sure if order matters here, but I\u0027d usually put this after the Cipher. declarations it references.",
+      "range": {
+        "startLine": 206,
+        "startChar": 13,
+        "endLine": 206,
+        "endChar": 29
+      },
+      "revId": "f785e5dcc1332a683ed5d35115e3ecb46db86bbe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
