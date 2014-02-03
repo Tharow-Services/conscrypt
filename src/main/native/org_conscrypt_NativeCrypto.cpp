@@ -2214,6 +2214,20 @@ static jobjectArray NativeCrypto_get_DSA_params(JNIEnv* env, jclass, jlong pkeyR
     return joa;
 }
 
+static void NativeCrypto_set_DSA_flag_nonce_from_hash(JNIEnv* env, jclass, jlong pkeyRef)
+{
+    EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
+    JNI_TRACE("set_DSA_flag_nonce_from_hash(%p)", pkey);
+
+    Unique_DSA dsa(EVP_PKEY_get1_DSA(pkey));
+    if (dsa.get() == NULL) {
+        throwExceptionIfNecessary(env, "set_DSA_flag_nonce_from_hash failed");
+        return;
+    }
+
+    dsa->flags |= DSA_FLAG_NONCE_FROM_HASH;
+}
+
 #define EC_CURVE_GFP 1
 #define EC_CURVE_GF2M 2
 
@@ -2860,6 +2874,21 @@ static jlong NativeCrypto_EC_KEY_get_public_key(JNIEnv* env, jclass, jlong pkeyR
 
     JNI_TRACE("EC_KEY_get_public_key(%p) => %p", pkey, dup.get());
     return reinterpret_cast<uintptr_t>(dup.release());
+}
+
+static void NativeCrypto_EC_KEY_set_nonce_from_hash(JNIEnv* env, jclass, jlong pkeyRef,
+        jboolean enabled)
+{
+    EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
+    JNI_TRACE("EC_KEY_set_nonce_from_hash(%p, %d)", pkey, enabled ? 1 : 0);
+
+    Unique_EC_KEY eckey(EVP_PKEY_get1_EC_KEY(pkey));
+    if (eckey.get() == NULL) {
+        throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY");
+        return;
+    }
+
+    EC_KEY_set_nonce_from_hash(eckey.get(), enabled ? 1 : 0);
 }
 
 static jint NativeCrypto_ECDH_compute_key(JNIEnv* env, jclass,
@@ -8039,6 +8068,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, get_RSA_public_params, "(J)[[B"),
     NATIVE_METHOD(NativeCrypto, DSA_generate_key, "(I[B[B[B[B)J"),
     NATIVE_METHOD(NativeCrypto, get_DSA_params, "(J)[[B"),
+    NATIVE_METHOD(NativeCrypto, set_DSA_flag_nonce_from_hash, "(J)V"),
     NATIVE_METHOD(NativeCrypto, EC_GROUP_new_by_curve_name, "(Ljava/lang/String;)J"),
     NATIVE_METHOD(NativeCrypto, EC_GROUP_new_curve, "(I[B[B[B)J"),
     NATIVE_METHOD(NativeCrypto, EC_GROUP_dup, "(J)J"),
@@ -8063,6 +8093,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, EC_KEY_get0_group, "(J)J"),
     NATIVE_METHOD(NativeCrypto, EC_KEY_get_private_key, "(J)[B"),
     NATIVE_METHOD(NativeCrypto, EC_KEY_get_public_key, "(J)J"),
+    NATIVE_METHOD(NativeCrypto, EC_KEY_set_nonce_from_hash, "(JZ)V"),
     NATIVE_METHOD(NativeCrypto, ECDH_compute_key, "([BIJJ)I"),
     NATIVE_METHOD(NativeCrypto, EVP_MD_CTX_create, "()J"),
     NATIVE_METHOD(NativeCrypto, EVP_MD_CTX_init, "(J)V"),
