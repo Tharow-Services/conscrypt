@@ -182,6 +182,28 @@ public class OpenSSLSignature extends Signature {
         } else {
             throw new InvalidKeyException("Need DSA or RSA or EC private key");
         }
+
+        enableDSASignatureNonceHardeningIfApplicable();
+    }
+
+    /**
+     * Enables a mitigation against private key leakage through DSA and ECDSA signatures when weak
+     * nonces are used. To mitigate the issue a hash of private key and message being signed is
+     * mixed into the nonce (k).
+     *
+     * <p>Does nothing for signatures that are neither DSA nor ECDSA.
+     */
+    private void enableDSASignatureNonceHardeningIfApplicable() {
+        switch (engineType) {
+            case DSA:
+                NativeCrypto.set_DSA_flag_nonce_from_hash(key.getPkeyContext());
+                break;
+            case EC:
+                NativeCrypto.EC_KEY_set_nonce_from_hash(key.getPkeyContext(), true);
+                break;
+            default:
+              // Hardening not applicable
+        }
     }
 
     @Override
