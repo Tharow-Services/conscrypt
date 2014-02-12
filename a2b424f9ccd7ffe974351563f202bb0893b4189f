@@ -93,6 +93,30 @@
       "revId": "a2b424f9ccd7ffe974351563f202bb0893b4189f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "afcbc564_823abaa7",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2885,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-02-12T22:23:26Z",
+      "side": 1,
+      "message": "They should also do null checks.",
+      "parentUuid": "cf10f997_a3bfdadf",
+      "range": {
+        "startLine": 2885,
+        "startChar": 24,
+        "endLine": 2885,
+        "endChar": 50
+      },
+      "revId": "a2b424f9ccd7ffe974351563f202bb0893b4189f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
