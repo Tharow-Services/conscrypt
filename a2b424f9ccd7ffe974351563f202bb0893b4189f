@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cff71998_8e747b5d",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2222,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-02-12T22:06:48Z",
+      "side": 1,
+      "message": "The existing method NativeCrypto_get_DSA_params does not perform such a check. What\u0027s the correct approach?",
+      "parentUuid": "cf62b923_198bab9a",
+      "range": {
+        "startLine": 2222,
+        "startChar": 19,
+        "endLine": 2222,
+        "endChar": 42
+      },
+      "revId": "a2b424f9ccd7ffe974351563f202bb0893b4189f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f6c3514_ff74d3a4",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2014-02-12T18:19:10Z",
       "side": 1,
       "message": "Need NULL check for pkey here as well.",
+      "range": {
+        "startLine": 2885,
+        "startChar": 24,
+        "endLine": 2885,
+        "endChar": 50
+      },
+      "revId": "a2b424f9ccd7ffe974351563f202bb0893b4189f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf10f997_a3bfdadf",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2885,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-02-12T22:06:48Z",
+      "side": 1,
+      "message": "Existing methods, such as NativeCrypto_EC_KEY_get_private_key, do not perform this check. What\u0027s the correct approach?",
+      "parentUuid": "2f6c3514_ff74d3a4",
       "range": {
         "startLine": 2885,
         "startChar": 24,
