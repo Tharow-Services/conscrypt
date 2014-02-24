@@ -257,11 +257,11 @@ public final class NativeCrypto {
 
     public static native void EVP_MD_CTX_destroy(long ctx);
 
-    public static native long EVP_MD_CTX_copy(long ctx);
+    public static native int EVP_MD_CTX_copy(long dst_ctx, long src_ctx);
 
     // --- Digest handling functions -------------------------------------------
 
-    public static native long EVP_DigestInit(long evp_md);
+    public static native int EVP_DigestInit(long ctx, long evp_md);
 
     public static native void EVP_DigestUpdate(long ctx, byte[] buffer, int offset, int length);
 
@@ -277,14 +277,14 @@ public final class NativeCrypto {
 
     // --- Signature handling functions ----------------------------------------
 
-    public static native long EVP_SignInit(String algorithm);
+    public static native int EVP_SignInit(long ctx, long evpRef);
 
     public static native void EVP_SignUpdate(long ctx, byte[] buffer,
                                                int offset, int length);
 
     public static native int EVP_SignFinal(long ctx, byte[] signature, int offset, long key);
 
-    public static native long EVP_VerifyInit(String algorithm);
+    public static native int EVP_VerifyInit(long ctx, long evpRef);
 
     public static native void EVP_VerifyUpdate(long ctx, byte[] buffer,
                                                int offset, int length);
