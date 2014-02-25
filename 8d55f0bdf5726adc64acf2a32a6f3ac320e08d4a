@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cf89137_bf9f2ad0",
+        "filename": "src/main/java/org/conscrypt/OpenSSLNativeReference.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-02-25T21:26:09Z",
+      "side": 1,
+      "message": "package readable on purpose for performance? because I saw the subclass added an accessor. Seems like it should be one way or the other?",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 23
+      },
+      "revId": "8d55f0bdf5726adc64acf2a32a6f3ac320e08d4a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
