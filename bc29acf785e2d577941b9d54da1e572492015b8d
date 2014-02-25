@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "bce78593_655c806a",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-02-25T17:23:29Z",
+      "side": 1,
+      "message": "No, this just no longer returns a native handle.",
+      "parentUuid": "3cfb9535_980a4df0",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 28
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cf89137_8c9c4f5c",
         "filename": "src/main/java/org/conscrypt/OpenSSLMac.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-02-25T01:36:01Z",
       "side": 1,
       "message": "this just seems cosmetic. it just pulls the access of this.ctx up a line",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 50
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bce78593_25667836",
+        "filename": "src/main/java/org/conscrypt/OpenSSLMac.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-02-25T17:23:29Z",
+      "side": 1,
+      "message": "No, this is to prevent garbage collection of the reference. The finalizer running concurrently with the EVP_DigestUpdate would cause a segmentation fault.",
+      "parentUuid": "1cf89137_8c9c4f5c",
       "range": {
         "startLine": 113,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7cf18d4f_26c44250",
+        "filename": "src/main/java/org/conscrypt/OpenSSLMessageDigestJDK.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-02-25T17:23:29Z",
+      "side": 1,
+      "message": "I\u0027ll change it to ctxLocal everywhere.",
+      "parentUuid": "5cf6894a_b9998f1d",
+      "range": {
+        "startLine": 54,
+        "startChar": 29,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cfb9535_78a1c18d",
         "filename": "src/main/java/org/conscrypt/OpenSSLMessageDigestJDK.java",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2014-02-25T01:36:01Z",
       "side": 1,
       "message": "but again, when there is only one reference, it doesn\u0027t matter to have the local. if you just want it consistent for style, its probably worth commenting on in th cases like above where it matters?",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 42
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc35c5d3_12cf4c48",
+        "filename": "src/main/java/org/conscrypt/OpenSSLMessageDigestJDK.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-02-25T17:23:29Z",
+      "side": 1,
+      "message": "This is just to hold onto a reference to the OpenSSLDigestContext instance. resetContext() replaces the ctx field, so having the finalizer run for that object while EVP_DigestUpdate() is running would cause a segmentation fault.",
+      "parentUuid": "3cfb9535_78a1c18d",
       "range": {
         "startLine": 78,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7cf18d4f_c6d23610",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3024,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-02-25T17:23:29Z",
+      "side": 1,
+      "message": "No, it\u0027s a status code. The destination context reference is now an arg.",
+      "parentUuid": "3cfb9535_788c2124",
+      "range": {
+        "startLine": 3024,
+        "startChar": 7,
+        "endLine": 3024,
+        "endChar": 11
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1cf89137_ac582be8",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2014-02-25T01:36:01Z",
       "side": 1,
       "message": "jboolean here and below?",
+      "range": {
+        "startLine": 3076,
+        "startChar": 6,
+        "endLine": 3076,
+        "endChar": 11
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bce78593_45385c00",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3076,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-02-25T17:23:29Z",
+      "side": 1,
+      "message": "We haven\u0027t done this with other OpenSSL APIs that return 0 or 1. I think it could presumably return -1 as well.",
+      "parentUuid": "1cf89137_ac582be8",
       "range": {
         "startLine": 3076,
         "startChar": 6,
