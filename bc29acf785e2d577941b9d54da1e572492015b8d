@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3cfb9535_980a4df0",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-02-25T01:36:01Z",
+      "side": 1,
+      "message": "did you just lose a bunch of 64-bit fixes?",
+      "range": {
+        "startLine": 260,
+        "startChar": 4,
+        "endLine": 260,
+        "endChar": 28
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cf89137_8c9c4f5c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLMac.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-02-25T01:36:01Z",
+      "side": 1,
+      "message": "this just seems cosmetic. it just pulls the access of this.ctx up a line",
+      "range": {
+        "startLine": 113,
+        "startChar": 8,
+        "endLine": 113,
+        "endChar": 50
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cf6894a_b9998f1d",
+        "filename": "src/main/java/org/conscrypt/OpenSSLMessageDigestJDK.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-02-25T01:36:01Z",
+      "side": 1,
+      "message": "in the last file, you used \"ctx\" and then \"this.ctx \u003d ctx\". I think having something like ctxLocal (or ctxRef) makes it clearer that the next lines aren\u0027t using the instance field, so I\u0027d probably change the other file to be the same convention.",
+      "range": {
+        "startLine": 54,
+        "startChar": 29,
+        "endLine": 54,
+        "endChar": 35
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cfb9535_78a1c18d",
+        "filename": "src/main/java/org/conscrypt/OpenSSLMessageDigestJDK.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-02-25T01:36:01Z",
+      "side": 1,
+      "message": "but again, when there is only one reference, it doesn\u0027t matter to have the local. if you just want it consistent for style, its probably worth commenting on in th cases like above where it matters?",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 78,
+        "endChar": 42
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cfb9535_788c2124",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3024,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-02-25T01:36:01Z",
+      "side": 1,
+      "message": "result is pointer so jlong?",
+      "range": {
+        "startLine": 3024,
+        "startChar": 7,
+        "endLine": 3024,
+        "endChar": 11
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1cf89137_ac582be8",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3076,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-02-25T01:36:01Z",
+      "side": 1,
+      "message": "jboolean here and below?",
+      "range": {
+        "startLine": 3076,
+        "startChar": 6,
+        "endLine": 3076,
+        "endChar": 11
+      },
+      "revId": "bc29acf785e2d577941b9d54da1e572492015b8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
