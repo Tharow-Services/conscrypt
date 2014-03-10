@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5cda0934_df5bbbe3",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5674,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-03-10T18:34:25Z",
+      "side": 1,
+      "message": "Does this need a NewGlobalRef ?",
+      "range": {
+        "startLine": 5674,
+        "startChar": 32,
+        "endLine": 5674,
+        "endChar": 44
+      },
+      "revId": "fc7924bc78afc46c3c75722a735fe4db65c33304",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5cda0934_ff587fe9",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5683,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-03-10T18:34:25Z",
+      "side": 1,
+      "message": "Does this need a NewGlobalRef?",
+      "range": {
+        "startLine": 5683,
+        "startChar": 33,
+        "endLine": 5683,
+        "endChar": 46
+      },
+      "revId": "fc7924bc78afc46c3c75722a735fe4db65c33304",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
