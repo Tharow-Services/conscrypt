@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dcf7d997_4511ce38",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5674,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-03-10T18:54:16Z",
+      "side": 1,
+      "message": "I thought we did clearCallbackState on the way out after every setCallbackState to make sure we were not holding state between calls. maybe this should be made a scoped pattern somehow.",
+      "parentUuid": "5cda0934_df5bbbe3",
+      "range": {
+        "startLine": 5674,
+        "startChar": 32,
+        "endLine": 5674,
+        "endChar": 44
+      },
+      "revId": "fc7924bc78afc46c3c75722a735fe4db65c33304",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5cda0934_ff587fe9",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 1
