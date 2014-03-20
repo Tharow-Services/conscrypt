@@ -39,8 +39,10 @@ import javax.net.ssl.HandshakeCompletedEvent;
 import javax.net.ssl.HandshakeCompletedListener;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
+import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLProtocolException;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.security.auth.x500.X500Principal;
 import libcore.io.ErrnoException;
@@ -159,6 +161,9 @@ public class OpenSSLSocketImpl
 
     /** Set during startHandshake. */
     private OpenSSLSessionImpl sslSession;
+
+    /** Used during handshake callbacks. */
+    private OpenSSLSessionImpl handshakeSession;
 
     private ArrayList<HandshakeCompletedListener> listeners;
 
@@ -728,6 +733,9 @@ public class OpenSSLSocketImpl
                 : sslParameters.getServerSessionContext();
         sessionContext.putSession(sslSession);
 
+        // Clear this before notifying handshake completed listeners
+        handshakeSession = null;
+
         // let listeners know we are finally done
         notifyHandshakeCompletedListeners();
 
@@ -763,7 +771,7 @@ public class OpenSSLSocketImpl
 
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks
     @Override
-    public void verifyCertificateChain(long[] certRefs, String authMethod)
+    public void verifyCertificateChain(long sslSessionNativePtr, long[] certRefs, String authMethod)
             throws CertificateException {
         try {
             if (certRefs == null || certRefs.length == 0) {
@@ -773,21 +781,20 @@ public class OpenSSLSocketImpl
             for (int i = 0; i < certRefs.length; i++) {
                 peerCertChain[i] = new OpenSSLX509Certificate(certRefs[i]);
             }
-            boolean client = sslParameters.getUseClientMode();
-            if (client) {
-                X509TrustManager x509tm = sslParameters.getTrustManager();
-                if (x509tm instanceof TrustManagerImpl) {
-                    TrustManagerImpl tm = (TrustManagerImpl) x509tm;
-                    tm.checkServerTrusted(peerCertChain, authMethod, getPeerHostName());
-                } else {
-                    x509tm.checkServerTrusted(peerCertChain, authMethod);
-                }
-            } else {
-                String authType = peerCertChain[0].getPublicKey().getAlgorithm();
-                sslParameters.getTrustManager().checkClientTrusted(peerCertChain,
-                                                                   authType);
-            }
 
+            // Used for verifyCertificateChain callback
+            handshakeSession = new OpenSSLSessionImpl(sslSessionNativePtr, null, peerCertChain,
+                    getPeerHostName(), getPeerPort(), null);
+
+            boolean client = sslParameters.getUseClientMode();
+            String authType = client ? authMethod : peerCertChain[0].getPublicKey().getAlgorithm();
+            X509TrustManager x509tm = sslParameters.getTrustManager();
+            if (x509tm instanceof X509ExtendedTrustManager) {
+                X509ExtendedTrustManager tm = (X509ExtendedTrustManager) x509tm;
+                tm.checkServerTrusted(peerCertChain, authType, this);
+            } else {
+                x509tm.checkServerTrusted(peerCertChain, authType);
+            }
         } catch (CertificateException e) {
             throw e;
         } catch (Exception e) {
@@ -1021,6 +1028,11 @@ public class OpenSSLSocketImpl
             }
         }
         return sslSession;
+    }
+
+    @Override
+    public SSLSession getHandshakeSession() {
+        return handshakeSession;
     }
 
     @Override
@@ -1558,5 +1570,19 @@ public class OpenSSLSocketImpl
             default:
                 return null;
         }
+    }
+
+    @Override
+    public SSLParameters getSSLParameters() {
+        SSLParameters params = super.getSSLParameters();
+        params.setEndpointIdentificationAlgorithm(
+                sslParameters.getEndpointIdentificationAlgorithm());
+        return params;
+    }
+
+    @Override
+    public void setSSLParameters(SSLParameters p) {
+        super.setSSLParameters(p);
+        sslParameters.setEndpointIdentificationAlgorithm(p.getEndpointIdentificationAlgorithm());
     }
 }

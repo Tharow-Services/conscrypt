@@ -28,6 +28,7 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
 
@@ -44,7 +45,7 @@ public class SSLParametersImpl implements Cloneable {
     // default source of authentication keys
     private static volatile X509KeyManager defaultKeyManager;
     // default source of authentication trust decisions
-    private static volatile X509TrustManager defaultTrustManager;
+    private static volatile X509ExtendedTrustManager defaultTrustManager;
     // default source of random numbers
     private static volatile SecureRandom defaultSecureRandom;
     // default SSL parameters
@@ -59,7 +60,7 @@ public class SSLParametersImpl implements Cloneable {
     // source of authentication keys
     private X509KeyManager keyManager;
     // source of authentication trust decisions
-    private X509TrustManager trustManager;
+    private X509ExtendedTrustManager trustManager;
     // source of random numbers
     private SecureRandom secureRandom;
 
@@ -79,6 +80,7 @@ public class SSLParametersImpl implements Cloneable {
     private boolean want_client_auth = false;
     // if the peer with this parameters allowed to cteate new SSL session
     private boolean enable_session_creation = true;
+    private String endpointIdentificationAlgorithm;
 
     protected CipherSuite[] getEnabledCipherSuitesMember() {
         if (enabledCipherSuites == null) {
@@ -176,7 +178,7 @@ public class SSLParametersImpl implements Cloneable {
     /**
      * @return trust manager
      */
-    protected X509TrustManager getTrustManager() {
+    protected X509ExtendedTrustManager getTrustManager() {
         return trustManager;
     }
 
@@ -219,8 +221,7 @@ public class SSLParametersImpl implements Cloneable {
 
     /**
      * Sets the set of available cipher suites for use in SSL connection.
-     * @param   suites: String[]
-     * @return
+     * @param suites String[]
      */
     protected void setEnabledCipherSuites(String[] suites) {
         if (suites == null) {
@@ -385,21 +386,23 @@ public class SSLParametersImpl implements Cloneable {
      *
      * TODO: Move this to a published API under dalvik.system.
      */
-    public static X509TrustManager getDefaultTrustManager() throws KeyManagementException {
-        X509TrustManager result = defaultTrustManager;
+    public static X509ExtendedTrustManager getDefaultTrustManager() throws KeyManagementException {
+        X509ExtendedTrustManager result = defaultTrustManager;
         if (result == null) {
             // single-check idiom
             defaultTrustManager = result = createDefaultTrustManager();
         }
         return result;
     }
-    private static X509TrustManager createDefaultTrustManager() throws KeyManagementException {
+
+    private static X509ExtendedTrustManager createDefaultTrustManager()
+            throws KeyManagementException {
         try {
             String algorithm = TrustManagerFactory.getDefaultAlgorithm();
             TrustManagerFactory tmf = TrustManagerFactory.getInstance(algorithm);
             tmf.init((KeyStore) null);
             TrustManager[] tms = tmf.getTrustManagers();
-            X509TrustManager trustManager = findX509TrustManager(tms);
+            X509ExtendedTrustManager trustManager = findX509TrustManager(tms);
             return trustManager;
         } catch (NoSuchAlgorithmException e) {
             throw new KeyManagementException(e);
@@ -407,12 +410,27 @@ public class SSLParametersImpl implements Cloneable {
             throw new KeyManagementException(e);
         }
     }
-    private static X509TrustManager findX509TrustManager(TrustManager[] tms) throws KeyManagementException {
+
+    private static X509ExtendedTrustManager findX509TrustManager(TrustManager[] tms)
+            throws KeyManagementException {
         for (TrustManager tm : tms) {
+            if (tm instanceof X509ExtendedTrustManager) {
+                return (X509ExtendedTrustManager) tm;
+            }
             if (tm instanceof X509TrustManager) {
-                return (X509TrustManager)tm;
+                return new X509ExtendedTrustManagerWrapper((X509TrustManager) tm);
             }
         }
-        throw new KeyManagementException("Failed to find an X509TrustManager in " +  Arrays.toString(tms));
+        throw new KeyManagementException(
+                "Failed to find a X509ExtendedTrustManager or X509TrustManager in "
+                        + Arrays.toString(tms));
+    }
+
+    public String getEndpointIdentificationAlgorithm() {
+        return endpointIdentificationAlgorithm;
+    }
+
+    public void setEndpointIdentificationAlgorithm(String endpointIdentificationAlgorithm) {
+        this.endpointIdentificationAlgorithm = endpointIdentificationAlgorithm;
     }
 }

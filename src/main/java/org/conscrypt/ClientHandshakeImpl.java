@@ -528,12 +528,11 @@ public class ClientHandshakeImpl extends HandshakeProtocol {
         if (authType == null) {
             return;
         }
-        String hostname = engineOwner.getPeerHost();
         try {
             X509TrustManager x509tm = parameters.getTrustManager();
             if (x509tm instanceof TrustManagerImpl) {
                 TrustManagerImpl tm = (TrustManagerImpl) x509tm;
-                tm.checkServerTrusted(serverCert.certs, authType, hostname);
+                tm.checkServerTrusted(serverCert.certs, authType, engineOwner);
             } else {
                 x509tm.checkServerTrusted(serverCert.certs, authType);
             }
