@@ -22,6 +22,30 @@
       "revId": "e95e95e3bf8b1c289c298eab4080fc9be8119398",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c0d61ec_1c5e79ae",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 428,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-03-21T22:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c5e35d0_503d21ca",
+      "range": {
+        "startLine": 425,
+        "startChar": 12,
+        "endLine": 428,
+        "endChar": 13
+      },
+      "revId": "e95e95e3bf8b1c289c298eab4080fc9be8119398",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
