@@ -22,6 +22,30 @@
       "revId": "8d63ff1384e46407a7618df2b79b2b455795c396",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3cf3951c_3e16c9d6",
+        "filename": "src/main/java/org/conscrypt/ClientHandshakeImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-03-21T16:47:27Z",
+      "side": 1,
+      "message": "Not here. Both the old and the new code work fine if \"certs\" and \"clientKey\" end up being null (except that the old code blew up with an NPE on line 388 if KeyManager was null) -- the condition on line 504 will be false and that whole block will be skipped.\n\nHowever, there\u0027s still an issue with \"certs\" being assigned at least one cert here while clientKey being assigned null. In that case, the code on 504+ will still blow up with an NPE, same as before. This is an unrelated issue and I\u0027ll mail a separate fix shortly.",
+      "parentUuid": "dcf999ff_5ecab18b",
+      "range": {
+        "startLine": 381,
+        "startChar": 16,
+        "endLine": 381,
+        "endChar": 26
+      },
+      "revId": "8d63ff1384e46407a7618df2b79b2b455795c396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
