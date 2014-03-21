@@ -423,8 +423,9 @@ public class OpenSSLSocketImpl
 
             // setup peer certificate verification
             if (client) {
-                // TODO support for anonymous cipher would require us to
-                // conditionally use SSL_VERIFY_NONE
+                // Anonymous cipher suites can return no error in the
+                // verifyCertificateChain callback
+                NativeCrypto.SSL_set_verify(sslNativePointer, NativeCrypto.SSL_VERIFY_PEER);
             } else {
                 // needing client auth takes priority...
                 boolean certRequested;
