@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcf999ff_5ecab18b",
+        "filename": "src/main/java/org/conscrypt/ClientHandshakeImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-03-21T16:24:18Z",
+      "side": 1,
+      "message": "Should this just throw if there is no X509KeyManager? I\u0027m not sure what is expected to happen later if there were certs but no clientKey.\n\nIn fact, it appears that an invariant is established that if clientCerts !\u003d null then clientKey !\u003d null. See line 504-508 where that assumption comes out.",
+      "range": {
+        "startLine": 381,
+        "startChar": 16,
+        "endLine": 381,
+        "endChar": 26
+      },
+      "revId": "8d63ff1384e46407a7618df2b79b2b455795c396",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
