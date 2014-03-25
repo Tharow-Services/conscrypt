@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9c0d61ec_224514d3",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1058,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-03-25T00:17:52Z",
+      "side": 1,
+      "message": "No, it just returns null.",
+      "parentUuid": "1cf0910e_06574095",
+      "range": {
+        "startLine": 1056,
+        "startChar": 4,
+        "endLine": 1058,
+        "endChar": 5
+      },
+      "revId": "48f57e9a2e3e27472dbe795d47858a8d1db190ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dca7d921_abd8c997",
         "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "9c0d61ec_824220c9",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1603,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-03-25T00:17:52Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s a weird API. I guess they expect tight coupling between TrustManager and SSLSocket implementation.",
+      "parentUuid": "dca7d921_abd8c997",
+      "revId": "48f57e9a2e3e27472dbe795d47858a8d1db190ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9cdba1ac_493de1ca",
         "filename": "src/main/java/org/conscrypt/TrustManagerImpl.java",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2014-03-25T00:13:44Z",
       "side": 1,
       "message": "is this right? should setDefaultHostnameVerifier affect the TrustManagerImpl behavior?",
+      "range": {
+        "startLine": 286,
+        "startChar": 40,
+        "endLine": 286,
+        "endChar": 85
+      },
+      "revId": "48f57e9a2e3e27472dbe795d47858a8d1db190ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc0865da_ae2f4fa3",
+        "filename": "src/main/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-03-25T00:17:52Z",
+      "side": 1,
+      "message": "That\u0027s true. I think I should really implement the HTTPS and LDAP parsing in Conscrypt.",
+      "parentUuid": "9cdba1ac_493de1ca",
       "range": {
         "startLine": 286,
         "startChar": 40,
