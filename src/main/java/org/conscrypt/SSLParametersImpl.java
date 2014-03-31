@@ -216,29 +216,6 @@ public class SSLParametersImpl implements Cloneable {
     }
 
     /**
-     * Sets the set of available cipher suites for use in SSL connection.
-     * @param suites String[]
-     */
-    protected void setEnabledCipherSuites(String[] suites) {
-        if (suites == null) {
-            throw new IllegalArgumentException("suites == null");
-        }
-        CipherSuite[] cipherSuites = new CipherSuite[suites.length];
-        for (int i=0; i<suites.length; i++) {
-            String suite = suites[i];
-            if (suite == null) {
-                throw new IllegalArgumentException("suites[" + i + "] == null");
-            }
-            cipherSuites[i] = CipherSuite.getByName(suite);
-            if (cipherSuites[i] == null || !cipherSuites[i].supported) {
-                throw new IllegalArgumentException(suite + " is not supported.");
-            }
-        }
-        enabledCipherSuites = cipherSuites;
-        enabledCipherSuiteNames = suites;
-    }
-
-    /**
      * @return the set of enabled protocols
      */
     protected String[] getEnabledProtocols() {
