@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "99349308_03fb2528",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1073,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-04-02T19:02:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19ab4358_7981af3a",
+      "range": {
+        "startLine": 1073,
+        "startChar": 49,
+        "endLine": 1073,
+        "endChar": 56
+      },
+      "revId": "2ce5f2e47321082f01f22b07f9595d5cb6b514e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19ab4358_3952572d",
         "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
         "patchSetId": 2
@@ -36,6 +60,24 @@
       "writtenOn": "2014-04-01T15:49:53Z",
       "side": 1,
       "message": "This needs to change as well. SSLSocket instances should not be changing SSL_CTX which is currently shared between all SSLSocket instances created by their SSLContext/SSLSocketFactory.",
+      "revId": "2ce5f2e47321082f01f22b07f9595d5cb6b514e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f9a74f88_dda3da4e",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-04-02T19:02:43Z",
+      "side": 1,
+      "message": "There\u0027s no non-context call for this.\n\nAt any rate, it\u0027s okay since it only sets the callback function and not any data like SSL_set_alpn_protos does (notice there are no meaningful arguments like \"npnProtocols\" itself being passed in).",
+      "parentUuid": "19ab4358_3952572d",
       "revId": "2ce5f2e47321082f01f22b07f9595d5cb6b514e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
