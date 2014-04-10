@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9128b0d_f332d0d0",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-04-10T22:08:44Z",
+      "side": 1,
+      "message": "Would you like to follow the policy where any @SuppressWarnings has to followed by a comment explaining why it\u0027s fine to suppress it?",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
