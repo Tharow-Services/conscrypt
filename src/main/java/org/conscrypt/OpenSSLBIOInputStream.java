@@ -25,7 +25,7 @@ import java.io.InputStream;
  * InputStream. It allows an OpenSSL API to read directly from something more
  * flexible interface than a byte array.
  */
-public class OpenSSLBIOInputStream extends FilterInputStream {
+public class OpenSSLBIOInputStream extends FilterInputStream implements AutoCloseable {
     private long ctx;
 
     public OpenSSLBIOInputStream(InputStream is) {
@@ -36,6 +36,13 @@ public class OpenSSLBIOInputStream extends FilterInputStream {
 
     public long getBioContext() {
         return ctx;
+    }
+
+    /**
+     * Frees the BIO resource, but never closes the underlying InputStream.
+     */
+    public void close() {
+        NativeCrypto.BIO_free_all(ctx);
     }
 
     /**
