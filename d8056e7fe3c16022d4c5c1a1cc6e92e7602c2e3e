@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f97e6f24_ecb1e077",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOInputStream.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-04-10T23:04:11Z",
+      "side": 1,
+      "message": "Why not close()? It can then follow the Java \u003cinit\u003e - close() pattern for resource management and will work great in try-with-resources.",
+      "revId": "d8056e7fe3c16022d4c5c1a1cc6e92e7602c2e3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
