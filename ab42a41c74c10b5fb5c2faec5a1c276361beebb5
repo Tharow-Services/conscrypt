@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79e99f2a_a350049f",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOSink.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-04-11T08:19:15Z",
+      "side": 1,
+      "message": "public final ?",
+      "revId": "ab42a41c74c10b5fb5c2faec5a1c276361beebb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39f3a71c_a1b8f8c9",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOSink.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-04-11T08:19:15Z",
+      "side": 1,
+      "message": "NIT: getInstance usually implies a singleton. Try newInstance or create instead.",
+      "revId": "ab42a41c74c10b5fb5c2faec5a1c276361beebb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39f3a71c_01be0cb4",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOSource.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-04-11T08:19:15Z",
+      "side": 1,
+      "message": "private final",
+      "revId": "ab42a41c74c10b5fb5c2faec5a1c276361beebb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79e99f2a_03561099",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOSource.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-04-11T08:19:15Z",
+      "side": 1,
+      "message": "Why is this the only synchronized method in this class ?",
+      "revId": "ab42a41c74c10b5fb5c2faec5a1c276361beebb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59ee9b35_22c5104c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-04-11T08:19:15Z",
+      "side": 1,
+      "message": "This *sounds* like something that should be in the first iteration.",
+      "revId": "ab42a41c74c10b5fb5c2faec5a1c276361beebb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39f3a71c_e1c20046",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-04-11T08:19:15Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "ab42a41c74c10b5fb5c2faec5a1c276361beebb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59ee9b35_62cf186a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 936,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-04-11T08:19:15Z",
+      "side": 1,
+      "message": "SSL* const ssl_ ?",
+      "revId": "ab42a41c74c10b5fb5c2faec5a1c276361beebb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
