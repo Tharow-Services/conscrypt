@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39a1e70c_02fbbae5",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOInputStream.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-04-11T19:22:12Z",
+      "side": 1,
+      "message": "Why does this not close the underlying input stream? If you want to keep this contract, then this method cannot be named close because it breaks the contract of its superclass\u0027s close which says that it closes the underlying input stream .",
+      "revId": "37daa03ac623db19b0747b08db34464b73b98bac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99dbb3ac_c9cf1144",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOInputStream.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-04-11T19:22:12Z",
+      "side": 1,
+      "message": "@Override?",
+      "revId": "37daa03ac623db19b0747b08db34464b73b98bac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
