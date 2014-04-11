@@ -16,6 +16,24 @@
       "revId": "d8056e7fe3c16022d4c5c1a1cc6e92e7602c2e3e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39a1e70c_54a8e46c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOInputStream.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-04-11T17:34:57Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "f97e6f24_ecb1e077",
+      "revId": "d8056e7fe3c16022d4c5c1a1cc6e92e7602c2e3e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
