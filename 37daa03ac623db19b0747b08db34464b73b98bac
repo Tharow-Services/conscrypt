@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b9df977e_764078c2",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOInputStream.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-04-11T19:57:42Z",
+      "side": 1,
+      "message": "For some reason, I knew you were going to say that. How about I just use the first patchset in which this is named release since that\u0027s what it is doing.\n\nI basically can\u0027t close the underlying stream since that would break the CertificateFactory, et al., that use this.",
+      "parentUuid": "39a1e70c_02fbbae5",
+      "revId": "37daa03ac623db19b0747b08db34464b73b98bac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "99dbb3ac_c9cf1144",
         "filename": "src/main/java/org/conscrypt/OpenSSLBIOInputStream.java",
         "patchSetId": 2
