@@ -22,6 +22,98 @@
       "revId": "42e9a44c2610be778b819c4460801cc187d63024",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "198c23b9_038632ba",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-04-15T00:45:24Z",
+      "side": 1,
+      "message": "|sort",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 52
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "198c23b9_a6290ca2",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-04-15T00:45:24Z",
+      "side": 1,
+      "message": "WS",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "198c23b9_4644c867",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-04-15T00:45:24Z",
+      "side": 1,
+      "message": "ServerAliasChooser? I was wondering why it wasn\u0027t symetric as well (\"why is there no chooseClientAlias?\") but that is clearer on inspection, but perhaps worth a comment?",
+      "range": {
+        "startLine": 604,
+        "startChar": 4,
+        "endLine": 604,
+        "endChar": 35
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9980137b_fb664f3e",
+        "filename": "src/test/java/org/conscrypt/OpenSSLSocketImplTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-04-15T00:45:24Z",
+      "side": 1,
+      "message": "This looks like\n\nSSLParametersImplTest now?",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
