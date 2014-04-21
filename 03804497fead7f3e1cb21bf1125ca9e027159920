@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a59dab27_9e65795a",
+        "filename": "src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2014-04-21T19:02:42Z",
+      "side": 1,
+      "message": "Not introduced by this change, but this CertSelector and the one in findIssuer don\u0027t assert that the subject matches, so I think there may be hash collisions. Some of the others implicitly do by doing a cert.equals().\n\nMight want to just to add a check in the findCert loop since it\u0027s being passed the subject anyway, so not every CertSelector has to remember this.",
+      "range": {
+        "startLine": 331,
+        "startChar": 16,
+        "endLine": 331,
+        "endChar": 22
+      },
+      "revId": "03804497fead7f3e1cb21bf1125ca9e027159920",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
