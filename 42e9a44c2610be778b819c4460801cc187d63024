@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c5a0df5c_1c3ad507",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-04-21T16:31:40Z",
+      "side": 1,
+      "message": "No, I\u0027ve removed this.",
+      "parentUuid": "d9128b0d_f332d0d0",
+      "range": {
+        "startLine": 49,
+        "startChar": 5,
+        "endLine": 49,
+        "endChar": 21
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "198c23b9_038632ba",
         "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2014-04-15T00:45:24Z",
       "side": 1,
       "message": "|sort",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 52
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c5a0df5c_dc330d2f",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-04-21T16:31:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "198c23b9_038632ba",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a59dab27_bb53a748",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-04-21T16:31:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "198c23b9_a6290ca2",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 0
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "198c23b9_4644c867",
         "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "a59dab27_5b406369",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-04-21T16:31:40Z",
+      "side": 1,
+      "message": "I need to add that, but I haven\u0027t had to factor out the client certificate choosing code yet.",
+      "parentUuid": "198c23b9_4644c867",
+      "range": {
+        "startLine": 604,
+        "startChar": 4,
+        "endLine": 604,
+        "endChar": 35
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9980137b_fb664f3e",
         "filename": "src/test/java/org/conscrypt/OpenSSLSocketImplTest.java",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2014-04-15T00:45:24Z",
       "side": 1,
       "message": "This looks like\n\nSSLParametersImplTest now?",
+      "range": {
+        "startLine": 21,
+        "startChar": 13,
+        "endLine": 21,
+        "endChar": 34
+      },
+      "revId": "42e9a44c2610be778b819c4460801cc187d63024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5932316_207d248f",
+        "filename": "src/test/java/org/conscrypt/OpenSSLSocketImplTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-04-21T16:31:40Z",
+      "side": 1,
+      "message": "True. Renamed.",
+      "parentUuid": "9980137b_fb664f3e",
       "range": {
         "startLine": 21,
         "startChar": 13,
