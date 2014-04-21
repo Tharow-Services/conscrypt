@@ -22,6 +22,30 @@
       "revId": "03804497fead7f3e1cb21bf1125ca9e027159920",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "856c27f2_0999359b",
+        "filename": "src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-04-21T19:09:44Z",
+      "side": 1,
+      "message": "we went to comparing public keys and not the full cert bytes to deal with reissued certificates. but yes, we should probably check name and public key, not just public key.",
+      "parentUuid": "a59dab27_9e65795a",
+      "range": {
+        "startLine": 331,
+        "startChar": 16,
+        "endLine": 331,
+        "endChar": 22
+      },
+      "revId": "03804497fead7f3e1cb21bf1125ca9e027159920",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
