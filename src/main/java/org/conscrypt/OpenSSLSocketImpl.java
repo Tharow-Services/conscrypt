@@ -16,6 +16,8 @@
 
 package org.conscrypt;
 
+import android.os.ErrnoException;
+import android.os.StructTimeval;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
 import java.io.FileDescriptor;
@@ -43,10 +45,8 @@ import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
 import javax.security.auth.x500.X500Principal;
-import libcore.io.ErrnoException;
 import libcore.io.Libcore;
 import libcore.io.Streams;
-import libcore.io.StructTimeval;
 
 import static libcore.io.OsConstants.SOL_SOCKET;
 import static libcore.io.OsConstants.SO_SNDTIMEO;
