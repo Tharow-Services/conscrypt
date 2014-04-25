@@ -201,7 +201,7 @@ public class TrustedCertificateStoreTest extends TestCase {
     }
 
     private void createStore() {
-        store = new TrustedCertificateStore(DIR_SYSTEM, DIR_ADDED, DIR_DELETED);
+        store = new TrustedCertificateStore(DIR_ADDED, DIR_DELETED, DIR_SYSTEM);
     }
 
     @Override protected void tearDown() {
