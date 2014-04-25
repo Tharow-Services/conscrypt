@@ -116,10 +116,10 @@ public final class TrustedCertificateStore {
         this(CA_CERTS_DIR_SYSTEM, CA_CERTS_DIR_ADDED, CA_CERTS_DIR_DELETED);
     }
 
-    public TrustedCertificateStore(File systemDir, File addedDir, File deletedDir) {
-        this.systemDir = systemDir;
-        this.addedDir = addedDir;
-        this.deletedDir = deletedDir;
+    public TrustedCertificateStore(File addedDir, File deletedDir, File systemDir) {
+        this.systemDir = (systemDir != null) ? systemDir : CA_CERTS_DIR_SYSTEM;
+        this.addedDir = (addedDir != null) ? addedDir : CA_CERTS_DIR_ADDED;
+        this.deletedDir = (deletedDir != null) ? deletedDir : CA_CERTS_DIR_DELETED;
     }
 
     public Certificate getCertificate(String alias) {
