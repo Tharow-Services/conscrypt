@@ -19,7 +19,7 @@ package org.conscrypt;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.List;
-import libcore.io.Base64;
+import libcore.util.Base64;
 import libcore.io.DropBox;
 
 public class PinFailureLogger {
@@ -53,7 +53,7 @@ public class PinFailureLogger {
         sb.append("|");
         for (X509Certificate cert : chain) {
             try {
-                sb.append(Base64.encode(cert.getEncoded()));
+                sb.append(Base64.encodeToString(cert.getEncoded()));
             } catch (CertificateEncodingException e) {
                 sb.append("Error: could not encode certificate");
             }
