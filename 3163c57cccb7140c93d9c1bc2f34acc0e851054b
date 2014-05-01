@@ -22,6 +22,30 @@
       "revId": "3163c57cccb7140c93d9c1bc2f34acc0e851054b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2a442856_cf311d29",
+        "filename": "src/main/java/org/conscrypt/PinFailureLogger.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2014-05-01T16:50:59Z",
+      "side": 1,
+      "message": "sort: Will do.\n\njava.util.Base64: This is a first step for adding java.util.Base64. Right now, the plan is that java.util.Base64 will use libcore.util.Base64 internally.\n\njava.util.Base64 would be more wordy to do the same thing so I was assuming this is as far as I would go internally.",
+      "parentUuid": "8a5ef429_aa2ecfc2",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "3163c57cccb7140c93d9c1bc2f34acc0e851054b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
