@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8a5ef429_aa2ecfc2",
+        "filename": "src/main/java/org/conscrypt/PinFailureLogger.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-05-01T16:40:01Z",
+      "side": 1,
+      "message": "|sort\n\nI thought I saw there was a Java 8 API for this, can we just switch to that internally?",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 26
+      },
+      "revId": "3163c57cccb7140c93d9c1bc2f34acc0e851054b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
