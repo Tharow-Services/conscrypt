@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6a346007_87b0eacf",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509CertPath.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-05-05T20:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a346007_6170365e",
+      "range": {
+        "startLine": 36,
+        "startChar": 75,
+        "endLine": 37,
+        "endChar": 32
+      },
+      "revId": "39355d55ced4df2ac1c83a14d182c2b58fde4cfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a346007_a1619e8f",
         "filename": "src/main/java/org/conscrypt/OpenSSLX509CertificateFactory.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2014-05-05T18:30:01Z",
       "side": 1,
       "message": "ditto",
+      "range": {
+        "startLine": 38,
+        "startChar": 75,
+        "endLine": 39,
+        "endChar": 32
+      },
+      "revId": "39355d55ced4df2ac1c83a14d182c2b58fde4cfc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8aba749a_74477534",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509CertificateFactory.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-05-05T20:22:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6a346007_a1619e8f",
       "range": {
         "startLine": 38,
         "startChar": 75,
