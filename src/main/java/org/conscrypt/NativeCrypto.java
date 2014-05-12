@@ -97,6 +97,8 @@ public final class NativeCrypto {
 
     public static native String EVP_PKEY_print_private(long pkeyRef);
 
+    public static native byte[] EVP_PKEY_derive(long pkeyRef, long peerKeyRef);
+
     public static native void EVP_PKEY_free(long pkey);
 
     public static native int EVP_PKEY_cmp(long pkey1, long pkey2);

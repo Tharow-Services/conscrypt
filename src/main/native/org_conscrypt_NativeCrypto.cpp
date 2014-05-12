@@ -200,6 +200,13 @@ struct EVP_PKEY_Delete {
 };
 typedef UniquePtr<EVP_PKEY, EVP_PKEY_Delete> Unique_EVP_PKEY;
 
+struct EVP_PKEY_CTX_Delete {
+    void operator()(EVP_PKEY_CTX* p) const {
+        EVP_PKEY_CTX_free(p);
+    }
+};
+typedef UniquePtr<EVP_PKEY_CTX, EVP_PKEY_CTX_Delete> Unique_EVP_PKEY_CTX;
+
 struct PKCS8_PRIV_KEY_INFO_Delete {
     void operator()(PKCS8_PRIV_KEY_INFO* p) const {
         PKCS8_PRIV_KEY_INFO_free(p);
@@ -1840,6 +1847,67 @@ static jstring NativeCrypto_EVP_PKEY_print_private(JNIEnv* env, jclass, jlong pk
 
     JNI_TRACE("EVP_PKEY_print_private(%p) => \"%s\"", pkey, tmp);
     return description;
+}
+
+static jbyteArray NativeCrypto_EVP_PKEY_derive(JNIEnv* env, jclass, jlong pkeyRef,
+        jlong peerKeyRef) {
+    EVP_PKEY* peerKey = reinterpret_cast<EVP_PKEY*>(peerKeyRef);
+    EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
+    JNI_TRACE("EVP_PKEY_derive(%p, %d, %p, %p)", outArray, outOffset, pkey, peerKey);
+
+    if (peerKey == NULL) {
+        jniThrowNullPointerException(env, "peerKey == null");
+        return NULL;
+    }
+
+    Unique_EVP_PKEY_CTX ctx(EVP_PKEY_CTX_new(pkey, NULL));
+    if (ctx.get() == NULL) {
+        JNI_TRACE("EVP_PKEY_derive(%p) => unable to create EVP_PKEY_CTX", pkey);
+        return NULL;
+    }
+
+    if (EVP_PKEY_derive_init(ctx.get()) <= 0) {
+        JNI_TRACE("EVP_PKEY_derive(%p) => unable to EVP_PKEY_derive_init", pkey);
+        throwExceptionIfNecessary(env, "EVP_PKEY_derive_init");
+        return NULL;
+    }
+
+    if (EVP_PKEY_derive_set_peer(ctx.get(), peerKey) <= 0) {
+        JNI_TRACE("EVP_PKEY_derive(%p) => unable to EVP_PKEY_derive_init", pkey);
+        throwExceptionIfNecessary(env, "EVP_PKEY_derive_set_peer");
+        return NULL;
+    }
+
+    size_t expectedSize;
+    if (EVP_PKEY_derive(ctx.get(), NULL, &expectedSize) <= 0) {
+        JNI_TRACE("EVP_PKEY_derive(%p) => unable to determine output length", pkey);
+        throwExceptionIfNecessary(env, "EVP_PKEY_derive");
+        return NULL;
+    }
+
+    ScopedLocalRef<jbyteArray> outJavaBytes(env, env->NewByteArray(expectedSize));
+    if (outJavaBytes.get() == NULL) {
+        return NULL;
+    }
+    ScopedByteArrayRW outBytes(env, outJavaBytes.get());
+    if (outBytes.get() == NULL) {
+        return NULL;
+    }
+    unsigned char *tmp = reinterpret_cast<unsigned char*>(outBytes.get());
+    size_t actualSize = expectedSize;
+    if (EVP_PKEY_derive(ctx.get(), tmp, &actualSize) <= 0) {
+        JNI_TRACE("EVP_PKEY_derive(%p) => unable to derive actual key", pkey);
+        throwExceptionIfNecessary(env, "EVP_PKEY_derive");
+        return NULL;
+    }
+
+    if (actualSize != expectedSize) {
+        jniThrowRuntimeException(env, "derived key expected size changed");
+        return NULL;
+    }
+
+    JNI_TRACE("EVP_PKEY_derive(%p) => %d bytes", pkey, actualSize);
+    return outJavaBytes.release();
 }
 
 static void NativeCrypto_EVP_PKEY_free(JNIEnv*, jclass, jlong pkeyRef) {
@@ -8666,6 +8734,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, EVP_PKEY_size, "(J)I"),
     NATIVE_METHOD(NativeCrypto, EVP_PKEY_print_public, "(J)Ljava/lang/String;"),
     NATIVE_METHOD(NativeCrypto, EVP_PKEY_print_private, "(J)Ljava/lang/String;"),
+    NATIVE_METHOD(NativeCrypto, EVP_PKEY_derive, "(JJ)[B"),
     NATIVE_METHOD(NativeCrypto, EVP_PKEY_free, "(J)V"),
     NATIVE_METHOD(NativeCrypto, EVP_PKEY_cmp, "(JJ)I"),
     NATIVE_METHOD(NativeCrypto, i2d_PKCS8_PRIV_KEY_INFO, "(J)[B"),

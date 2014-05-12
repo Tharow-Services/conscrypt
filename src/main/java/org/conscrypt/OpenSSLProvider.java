@@ -100,7 +100,9 @@ public final class OpenSSLProvider extends Provider {
         put("KeyFactory.EC", prefix + "OpenSSLECKeyFactory");
 
         /* == KeyAgreement == */
-        put("KeyAgreement.ECDH", prefix + "OpenSSLECDHKeyAgreement");
+        put("KeyAgreement.DH", prefix + "OpenSSLKeyAgreement");
+
+        put("KeyAgreement.ECDH", prefix + "OpenSSLKeyAgreement");
 
         /* == Signatures == */
         put("Signature.MD5WithRSA", prefix + "OpenSSLSignature$MD5RSA");
