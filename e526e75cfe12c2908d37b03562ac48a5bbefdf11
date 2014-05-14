@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aaf9f8ff_61943262",
+        "filename": "src/main/java/org/conscrypt/OpenSSLDHPrivateKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-05-14T16:53:19Z",
+      "side": 1,
+      "message": "m?",
+      "range": {
+        "startLine": 44,
+        "startChar": 29,
+        "endLine": 44,
+        "endChar": 31
+      },
+      "revId": "e526e75cfe12c2908d37b03562ac48a5bbefdf11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
