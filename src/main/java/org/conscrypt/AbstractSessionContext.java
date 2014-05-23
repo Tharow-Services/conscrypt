@@ -224,10 +224,8 @@ abstract class AbstractSessionContext implements SSLSessionContext {
 
             return baos.toByteArray();
         } catch (IOException e) {
-            log(e);
             return null;
         } catch (CertificateEncodingException e) {
-            log(e);
             return null;
         }
     }
@@ -243,7 +241,6 @@ abstract class AbstractSessionContext implements SSLSessionContext {
         try {
             int type = dais.readInt();
             if (type != OPEN_SSL) {
-                log(new AssertionError("Unexpected type ID: " + type));
                 return null;
             }
 
@@ -262,7 +259,6 @@ abstract class AbstractSessionContext implements SSLSessionContext {
 
             return new OpenSSLSessionImpl(sessionData, host, port, certs, this);
         } catch (IOException e) {
-            log(e);
             return null;
         }
     }
@@ -292,10 +288,6 @@ abstract class AbstractSessionContext implements SSLSessionContext {
         synchronized (sessions) {
             sessions.put(key, session);
         }
-    }
-
-    static void log(Throwable t) {
-        System.logW("Error converting session.", t);
     }
 
     @Override
