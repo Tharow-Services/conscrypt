@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fb968aa_b6f17674",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-05-24T02:52:48Z",
+      "side": 1,
+      "message": "nit: why is this upper case but unbundled_src_files lower? just use lower for our local vars? I thought maybe EXCLUDE_SRC_FILES was something special",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 17
+      },
+      "revId": "ebfb92daf0b686f18b478b8f22a82a3cb68fb867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fb968aa_561efaf8",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-05-24T02:52:48Z",
+      "side": 1,
+      "message": "I can\u0027t guess what this is from the name",
+      "range": {
+        "startLine": 219,
+        "startChar": 39,
+        "endLine": 219,
+        "endChar": 56
+      },
+      "revId": "ebfb92daf0b686f18b478b8f22a82a3cb68fb867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffad7469_60724e68",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 677,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-05-24T02:52:48Z",
+      "side": 1,
+      "message": "so, we have to build with some old java 6 or something?",
+      "range": {
+        "startLine": 677,
+        "startChar": 3,
+        "endLine": 677,
+        "endChar": 19
+      },
+      "revId": "ebfb92daf0b686f18b478b8f22a82a3cb68fb867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ffad7469_4071525d",
+        "filename": "src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-05-24T02:52:48Z",
+      "side": 1,
+      "message": "such whitespace\nmuch frameworks\nwow",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 38
+      },
+      "revId": "ebfb92daf0b686f18b478b8f22a82a3cb68fb867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

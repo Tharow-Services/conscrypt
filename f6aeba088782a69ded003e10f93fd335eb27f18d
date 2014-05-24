@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fb968aa_d6118ae2",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-05-24T02:52:48Z",
+      "side": 0,
+      "message": "this could just use System.out.println() followed by t.printStackTrace() which would preserve the logging to logcat in frameworks apps",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 20
+      },
+      "revId": "f6aeba088782a69ded003e10f93fd335eb27f18d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
