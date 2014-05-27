@@ -22,6 +22,30 @@
       "revId": "f6aeba088782a69ded003e10f93fd335eb27f18d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bffa1c80_ecf26b07",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-05-27T17:05:18Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "1fb968aa_d6118ae2",
+      "range": {
+        "startLine": 298,
+        "startChar": 8,
+        "endLine": 298,
+        "endChar": 20
+      },
+      "revId": "f6aeba088782a69ded003e10f93fd335eb27f18d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
