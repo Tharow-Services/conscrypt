@@ -22,10 +22,15 @@ import java.io.OutputStream;
 import java.net.SocketTimeoutException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.Signature;
 import java.security.SignatureException;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateParsingException;
+import java.security.interfaces.DSAPrivateKey;
+import java.security.interfaces.ECPrivateKey;
+import java.security.interfaces.RSAPrivateKey;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -33,7 +38,9 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.net.ssl.SSLException;
 import javax.security.auth.x500.X500Principal;
 
@@ -108,6 +115,78 @@ public final class NativeCrypto {
     public static native byte[] i2d_PUBKEY(long pkey);
 
     public static native long d2i_PUBKEY(byte[] data);
+
+    public static native long getRSAPrivateKeyWrapper(RSAPrivateKey key, byte[] modulus);
+
+    public static native long getDSAPrivateKeyWrapper(DSAPrivateKey key);
+
+    public static native long getECPrivateKeyWrapper(ECPrivateKey key, long ecGroupRef);
+
+    public static byte[] rawSignDigestWithPrivateKey(PrivateKey javaKey, byte[] message) {
+        // Get the Signature for this key.
+        Signature signature = null;
+        // Hint: Algorithm names come from:
+        // http://docs.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html
+        try {
+            if (javaKey instanceof RSAPrivateKey) {
+                // IMPORTANT: Due to a platform bug, this will throw NoSuchAlgorithmException
+                // on Android 4.0.x and 4.1.x. Fixed in 4.2 and higher.
+                // See https://android-review.googlesource.com/#/c/40352/
+                signature = Signature.getInstance("NONEwithRSA");
+            } else if (javaKey instanceof DSAPrivateKey) {
+                signature = Signature.getInstance("NONEwithDSA");
+            } else if (javaKey instanceof ECPrivateKey) {
+                signature = Signature.getInstance("NONEwithECDSA");
+            }
+        } catch (NoSuchAlgorithmException e) {
+            ;
+        }
+
+        if (signature == null) {
+            System.err.println("Unsupported private key algorithm: " + javaKey.getAlgorithm());
+            return null;
+        }
+
+        // Sign the message.
+        try {
+            signature.initSign(javaKey);
+            signature.update(message);
+            return signature.sign();
+        } catch (Exception e) {
+            System.err.println("Exception while signing message with " + javaKey.getAlgorithm() +
+                        " private key: " + e);
+            return null;
+        }
+    }
+
+    public static byte[] rawDecryptWithPrivateKey(PrivateKey javaKey, byte[] ciphertext) {
+        if (!(javaKey instanceof RSAPrivateKey)) {
+            System.err.println("Unsupported key type: " + javaKey.toString());
+            return null;
+        }
+
+        Cipher c = null;
+        try {
+            c = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        } catch (NoSuchAlgorithmException e) {
+            ;
+        } catch (NoSuchPaddingException e) {
+            ;
+        }
+
+        if (c == null) {
+            System.err.println("Unsupported private key algorithm: " + javaKey.getAlgorithm());
+        }
+
+        try {
+            c.init(Cipher.DECRYPT_MODE, javaKey);
+            return c.doFinal(ciphertext);
+        } catch (Exception e) {
+            System.err.println("Exception while signing message with " + javaKey.getAlgorithm()
+                    + " private key: " + e);
+            return null;
+        }
+    }
 
     public static native long RSA_generate_key_ex(int modulusBits, byte[] publicExponent);
 
