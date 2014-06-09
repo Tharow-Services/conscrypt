@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bf505ca5_1779bc07",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-06-09T05:59:44Z",
+      "side": 1,
+      "message": "kroot, want this in general?",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 184,
+        "endChar": 19
+      },
+      "revId": "2c72cff31b97848f8cf793188e95f9a1854de13f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
