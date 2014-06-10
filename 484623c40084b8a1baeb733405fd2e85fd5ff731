@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bffcdced_1165b625",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-06-10T06:27:05Z",
+      "side": 1,
+      "message": "scared about what you are including from outside external/openssl/include",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 1
+      },
+      "revId": "484623c40084b8a1baeb733405fd2e85fd5ff731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff5d74d3_669e6385",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-06-10T06:27:05Z",
+      "side": 1,
+      "message": "hmm, this hurts our ability to test on RI. can we just use more generic logging?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "484623c40084b8a1baeb733405fd2e85fd5ff731",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
