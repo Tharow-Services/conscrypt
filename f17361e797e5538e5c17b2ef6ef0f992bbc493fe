@@ -1,0 +1,7 @@
+Code-Review+2: Brian Carlstrom <bdc@google.com>
+Verified+1: Alex Klyubin <klyubin@google.com>
+Submitted-by: Alex Klyubin <klyubin@google.com>
+Submitted-at: Thu, 19 Jun 2014 18:23:53 +0000
+Reviewed-on: https://android-review.googlesource.com/98669
+Project: platform/external/conscrypt
+Branch: refs/heads/master
