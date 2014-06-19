@@ -22,6 +22,30 @@
       "revId": "ae2ecac00779167b0381c48da7c612567d1c646f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4ce254b_066cce45",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-06-19T15:38:30Z",
+      "side": 1,
+      "message": "Cleanup change: https://android-review.googlesource.com/#/c/98669/",
+      "parentUuid": "84d18de4_15ccf69c",
+      "range": {
+        "startLine": 139,
+        "startChar": 8,
+        "endLine": 156,
+        "endChar": 28
+      },
+      "revId": "ae2ecac00779167b0381c48da7c612567d1c646f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
