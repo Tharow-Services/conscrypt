@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1980a8c3_4be2c538",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 4128,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-07-11T16:42:50Z",
+      "side": 1,
+      "message": "Yes, OpenSSL APIs are (barring irregularities) 1 on success, 0 on failure, and -1 on error (with the reasons being pushed onto the OpenSSL error stack).",
+      "parentUuid": "996c98f2_fdb603db",
+      "revId": "fc880369fbe4588d02c609a6ca31df21c832c0fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f993d415_60f1ec76",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2014-07-11T16:08:54Z",
       "side": 1,
       "message": "ditto",
+      "revId": "fc880369fbe4588d02c609a6ca31df21c832c0fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1980a8c3_ebe6314a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 4142,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-07-11T16:42:50Z",
+      "side": 1,
+      "message": "also ditto answer",
+      "parentUuid": "f993d415_60f1ec76",
       "revId": "fc880369fbe4588d02c609a6ca31df21c832c0fc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
