@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "996c98f2_fdb603db",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 4128,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-07-11T16:08:54Z",
+      "side": 1,
+      "message": "Just checking that \"1\" is what you want. I couldn\u0027t figure out what this method was specified to return from the header.",
+      "revId": "fc880369fbe4588d02c609a6ca31df21c832c0fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f993d415_60f1ec76",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 4142,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-07-11T16:08:54Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "fc880369fbe4588d02c609a6ca31df21c832c0fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
