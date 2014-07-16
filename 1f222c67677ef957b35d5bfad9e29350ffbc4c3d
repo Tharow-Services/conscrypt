@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "19d4282d_16c0dc5d",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 386,
+      "author": {
+        "id": 1005584
+      },
+      "writtenOn": "2014-07-16T20:53:23Z",
+      "side": 1,
+      "message": "I\u0027ll revert the behavior scope of this change. I will change it to check the entire range for nulls, but only check the sum of the valid range (for the later underflow throw).",
+      "parentUuid": "79c52478_6d6f3dc7",
+      "range": {
+        "startLine": 386,
+        "startChar": 13,
+        "endLine": 386,
+        "endChar": 27
+      },
+      "revId": "1f222c67677ef957b35d5bfad9e29350ffbc4c3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19c8a874_ccb86803",
         "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2014-07-16T20:48:19Z",
       "side": 1,
       "message": "This isn\u0027t being released. Leak?",
+      "range": {
+        "startLine": 439,
+        "startChar": 8,
+        "endLine": 439,
+        "endChar": 70
+      },
+      "revId": "1f222c67677ef957b35d5bfad9e29350ffbc4c3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "19d4282d_f6ab20a6",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1005584
+      },
+      "writtenOn": "2014-07-16T20:53:23Z",
+      "side": 1,
+      "message": "You are correct, will fix.",
+      "parentUuid": "19c8a874_ccb86803",
       "range": {
         "startLine": 439,
         "startChar": 8,
