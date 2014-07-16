@@ -412,7 +412,10 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
                         source.getContext(), handshakeSink.getContext(), this, getUseClientMode(),
                         sslParameters.npnProtocols, sslParameters.alpnProtocols);
                 if (sslSessionCtx != 0) {
-                    sslSession = sslParameters.setupSession(sslSessionCtx, sslNativePointer, null,
+                    if (sslSession != null && engineState == EngineState.HANDSHAKE_STARTED) {
+                        engineState = EngineState.READY_HANDSHAKE_CUT_THROUGH;
+                    }
+                    sslSession = sslParameters.setupSession(sslSessionCtx, sslNativePointer, sslSession,
                             getPeerHost(), getPeerPort(), true);
                 }
                 int bytesWritten = handshakeSink.position();
@@ -501,8 +504,11 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
                             getUseClientMode(), sslParameters.npnProtocols,
                             sslParameters.alpnProtocols);
                     if (sslSessionCtx != 0) {
-                        sslSession = sslParameters.setupSession(sslSessionCtx, sslNativePointer,
-                                null, null, getPeerPort(), true);
+                        if (sslSession != null && engineState == EngineState.HANDSHAKE_STARTED) {
+                            engineState = EngineState.READY_HANDSHAKE_CUT_THROUGH;
+                        }
+                        sslSession = sslParameters.setupSession(sslSessionCtx, sslNativePointer, sslSession,
+                                getPeerHost(), getPeerPort(), true);
                     }
                 } catch (Exception e) {
                     throw (SSLHandshakeException) new SSLHandshakeException("Handshake failed")
@@ -589,7 +595,8 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
         synchronized (stateLock) {
             switch (type) {
                 case NativeCrypto.SSL_CB_HANDSHAKE_DONE:
-                    if (engineState != EngineState.HANDSHAKE_STARTED) {
+                    if (engineState != EngineState.HANDSHAKE_STARTED &&
+                        engineState != EngineState.READY_HANDSHAKE_CUT_THROUGH) {
                         throw new IllegalStateException("Completed handshake while in mode "
                                 + engineState);
                     }
