@@ -17,8 +17,10 @@
 package org.conscrypt;
 
 import org.conscrypt.util.Arrays;
+
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,12 +34,14 @@ import java.security.SecureRandom;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
+
 import javax.crypto.SecretKey;
 import javax.net.ssl.HandshakeCompletedEvent;
 import javax.net.ssl.HandshakeCompletedListener;
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
-import javax.net.ssl.SSLParameters;
+import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLProtocolException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509KeyManager;
@@ -139,6 +143,21 @@ public class OpenSSLSocketImpl
      * only. Set during startHandshake.
      */
     OpenSSLKey channelIdPrivateKey;
+
+    /**
+     * {@link HostnameVerifier} to use during the handshake on the client to verify that server's
+     * hostname {@link #hostnameVerifierHostname} matches the server's identity (typically an X.509
+     * certificate), or {@code null} to skip hostname verification. The latter is the default
+     * because hostname verification is not part of TLS/SSL -- verification is performed (if
+     * necessary) by higher-level protocols (e.g., HTTPS) running on top of TLS/SSL.
+     */
+    private HostnameVerifier hostnameVerifier;
+
+    /**
+     * Hostname parameter with which to invoke {@link #hostnameVerifier} during the client-side
+     * handshake.
+     */
+    private String hostnameVerifierHostname;
 
     /** Set during startHandshake. */
     private OpenSSLSessionImpl sslSession;
@@ -332,8 +351,11 @@ public class OpenSSLSocketImpl
                 }
             }
 
-            sslSession = sslParameters.setupSession(sslSessionNativePointer, sslNativePointer,
-                    sessionToReuse, getPeerHostName(), getPeerPort(), handshakeCompleted);
+            OpenSSLSessionImpl sslSession = sslParameters.setupSession(sslSessionNativePointer,
+                    sslNativePointer, sessionToReuse, getPeerHostName(), getPeerPort(),
+                    handshakeCompleted);
+            verifyServerIdentity(sslSession);
+            this.sslSession = sslSession;
 
             // Restore the original timeout now that the handshake is complete
             if (handshakeTimeoutMilliseconds >= 0) {
@@ -610,6 +632,30 @@ public class OpenSSLSocketImpl
     }
 
     /**
+     * Checks that the socket's hostname matches the TLS identity (typically an X.509 certificate)
+     * presented by the server during the handshake. Does nothing if the {@code hostnameVerifier}
+     * is not set.
+     *
+     * @throws SSLPeerUnverifiedException if the identity needed to be verified but could not be
+     *         verified.
+     */
+    private void verifyServerIdentity(SSLSession session)
+            throws SSLPeerUnverifiedException {
+        if (!sslParameters.getUseClientMode()) {
+            return;
+        }
+        HostnameVerifier hostnameVerifier = this.hostnameVerifier;
+        if (hostnameVerifier == null) {
+            return;
+        }
+
+        if (!hostnameVerifier.verify(hostnameVerifierHostname, session)) {
+            throw new SSLPeerUnverifiedException("Server identity does not match hostname: "
+                    + hostnameVerifierHostname);
+        }
+    }
+
+    /**
      * This inner class provides input data stream functionality
      * for the OpenSSL native implementation. It is used to
      * read data received via SSL protocol.
@@ -845,6 +891,23 @@ public class OpenSSLSocketImpl
     public void setHostname(String hostname) {
         sslParameters.setUseSni(hostname != null);
         wrappedHost = hostname;
+    }
+
+    /**
+     * Requests to verify that the provided hostname matches the identity presented by server
+     * (typically an X.509 certificate) during the handshake. The verification is guaranteed to take
+     * place before any application level data is read or written via the socket, and before the
+     * {@code SSLSession} instance is returned to the user of this socket.
+     *
+     * <p>Note: This method has no effect on sockets in server mode.
+     *
+     * @param hostnameVerifier verifier to invoke or {@code null} to skip verification.
+     * @param hostname hostname to pass in as the parameter to the {@code hostnameVerifier}. This
+     *        is typically the hostname to which this socket is connected.
+     */
+    public void setHostnameVerifier(HostnameVerifier hostnameVerifier, String hostname) {
+        this.hostnameVerifier = hostnameVerifier;
+        this.hostnameVerifierHostname = hostname;
     }
 
     /**
