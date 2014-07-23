@@ -22,6 +22,46 @@
       "revId": "8917c515f98032c482a87eb0474cdcd4ba7c47cf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f93914b5_d32a4c99",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1005584
+      },
+      "writtenOn": "2014-07-23T21:06:54Z",
+      "side": 1,
+      "message": "Also need to add arrayOffset()? not sure how ScopedByteArrayRW handles a ByteBuffer that wraps a subset of an array.",
+      "range": {
+        "startLine": 465,
+        "startChar": 42,
+        "endLine": 465,
+        "endChar": 51
+      },
+      "revId": "8917c515f98032c482a87eb0474cdcd4ba7c47cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d9461042_f2a4a0a4",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8682,
+      "author": {
+        "id": 1005584
+      },
+      "writtenOn": "2014-07-23T21:06:54Z",
+      "side": 1,
+      "message": "Does this take into account arrayOffset of the wrapped byte array?",
+      "revId": "8917c515f98032c482a87eb0474cdcd4ba7c47cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
