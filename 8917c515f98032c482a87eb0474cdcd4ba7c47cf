@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79b2845d_69dee0f2",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 462,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-07-23T16:53:47Z",
+      "side": 1,
+      "message": "This is just dst.remaining()",
+      "range": {
+        "startLine": 462,
+        "startChar": 16,
+        "endLine": 462,
+        "endChar": 61
+      },
+      "revId": "8917c515f98032c482a87eb0474cdcd4ba7c47cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
