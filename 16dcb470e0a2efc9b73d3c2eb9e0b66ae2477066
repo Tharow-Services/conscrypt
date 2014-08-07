@@ -46,6 +46,30 @@
       "revId": "16dcb470e0a2efc9b73d3c2eb9e0b66ae2477066",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6eda3ca_2d490d7a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-08-07T00:02:58Z",
+      "side": 1,
+      "message": "Completing the SSL handshake fully and then sending reset.\n\nIf there are other modes (I assume this is PSK), we should probably have a callback in OpenSSL after the relevant data we\u0027re checking against is exchanged.",
+      "parentUuid": "16aeb765_5a45c57d",
+      "range": {
+        "startLine": 351,
+        "startChar": 12,
+        "endLine": 355,
+        "endChar": 41
+      },
+      "revId": "16dcb470e0a2efc9b73d3c2eb9e0b66ae2477066",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
