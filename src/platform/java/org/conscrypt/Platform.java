@@ -122,4 +122,11 @@ class Platform {
     public static OpenSSLKey wrapRsaKey(PrivateKey key) {
         return null;
     }
+
+    /**
+     * For the platform-bundled library, we currently don't enable SNI by default.
+     */
+    public static boolean isSniEnabledByDefault() {
+        return false;
+    }
 }
