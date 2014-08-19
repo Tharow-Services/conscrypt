@@ -87,8 +87,46 @@ public class Platform {
         }
     }
 
+    /*
+     * Call Os.setsockoptTimeval via reflection.
+     */
     public static void setSocketTimeout(Socket s, long timeoutMillis) {
-        // TODO: implement this for unbundled
+        try {
+            Class<?> c_structTimeval = Class.forName("android.system.StructTimeval");
+            if (c_structTimeval == null) {
+                c_structTimeval = Class.forName("libcore.io.StructTimeval");
+                if (c_structTimeval == null) {
+                    System.out.println("cannot find StructTimeval");
+                    return;
+                }
+            }
+
+            Method m_fromMillis = c_structTimeval.getDeclaredMethod("fromMillis", long.class);
+            Object timeval = m_fromMillis.invoke(null, timeoutMillis);
+
+            Class<?> c_Libcore = Class.forName("libcore.io.Libcore");
+            if (c_Libcore == null) {
+                System.out.println("cannot find Libcore");
+                return;
+            }
+
+            Field f_os = c_Libcore.getField("os");
+            Object instance_os = f_os.get(null);
+
+            Class<?> c_osConstants = Class.forName("libcore.io.OsConstants");
+            Field f_SOL_SOCKET = c_osConstants.getField("SOL_SOCKET");
+            Field f_SO_SNDTIMEO = c_osConstants.getField("SO_SNDTIMEO");
+
+            Method m_setsockoptTimeval = instance_os.getClass().getMethod("setsockoptTimeval",
+                    FileDescriptor.class, int.class, int.class, c_structTimeval);
+
+            m_setsockoptTimeval.invoke(instance_os, getFileDescriptor(s), f_SOL_SOCKET.get(null),
+                    f_SO_SNDTIMEO.get(null), timeval);
+        } catch (Exception e) {
+            System.out.println("Cannot set socket timeout:");
+            e.printStackTrace();
+        }
+        System.out.println("succeeded to set timeout");
     }
 
     public static void setEndpointIdentificationAlgorithm(SSLParameters params,
