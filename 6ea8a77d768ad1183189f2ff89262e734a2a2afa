@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13fb2935_a168382e",
+        "filename": "src/platform/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1000678
+      },
+      "writtenOn": "2014-08-19T04:49:52Z",
+      "side": 1,
+      "message": "Why not?",
+      "range": {
+        "startLine": 127,
+        "startChar": 41,
+        "endLine": 127,
+        "endChar": 81
+      },
+      "revId": "6ea8a77d768ad1183189f2ff89262e734a2a2afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
