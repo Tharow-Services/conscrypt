@@ -87,8 +87,54 @@ public class Platform {
         }
     }
 
+    /*
+     * Call Os.setsockoptTimeval via reflection.
+     */
     public static void setSocketTimeout(Socket s, long timeoutMillis) {
-        // TODO: implement this for unbundled
+        try {
+            Class<?> c_structTimeval = getClass("android.system.StructTimeval",
+                    "libcore.io.StructTimeval");
+            if (c_structTimeval == null) {
+                System.out.println("cannot find StructTimeval");
+                return;
+            }
+
+            Method m_fromMillis = c_structTimeval.getDeclaredMethod("fromMillis", long.class);
+            Object timeval = m_fromMillis.invoke(null, timeoutMillis);
+
+            Class<?> c_os = getClass("libcore.io.Posix", "android.system.Os");
+            if (c_os == null) {
+                System.out.println("cannot find Posix / Os");
+                return;
+            }
+
+            Class<?> c_osConstants = getClass("libcore.io.OsConstants",
+                    "android.system.OsConstants");
+            Field f_SOL_SOCKET = c_osConstants.getField("SOL_SOCKET");
+            Field f_SO_SNDTIMEO = c_osConstants.getField("SO_SNDTIMEO");
+
+            Method m_setsockoptTimeval = c_os.getMethod("setsockoptTimeval", FileDescriptor.class,
+                    int.class, int.class, c_structTimeval);
+
+            m_setsockoptTimeval.invoke(null, getFileDescriptor(s), f_SOL_SOCKET.get(null),
+                    f_SO_SNDTIMEO.get(null), timeval);
+        } catch (Exception e) {
+            System.out.println("Cannot set socket timeout:");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Tries to return a Class reference of one of the supplied class names.
+     */
+    private static Class<?> getClass(String... klasses) {
+        for (String klass : klasses) {
+            try {
+                return Class.forName(klass);
+            } catch (Exception ignored) {
+            }
+        }
+        return null;
     }
 
     public static void setEndpointIdentificationAlgorithm(SSLParameters params,
