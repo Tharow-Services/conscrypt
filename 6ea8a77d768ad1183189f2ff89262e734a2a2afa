@@ -22,6 +22,30 @@
       "revId": "6ea8a77d768ad1183189f2ff89262e734a2a2afa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "13296985_4e1e5354",
+        "filename": "src/platform/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-08-19T16:26:39Z",
+      "side": 1,
+      "message": "To avoid breaking apps. I\u0027ll probably go back and enable it based on targetSdkVersion.",
+      "parentUuid": "13fb2935_a168382e",
+      "range": {
+        "startLine": 127,
+        "startChar": 41,
+        "endLine": 127,
+        "endChar": 81
+      },
+      "revId": "6ea8a77d768ad1183189f2ff89262e734a2a2afa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
