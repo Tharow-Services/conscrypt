@@ -28,6 +28,7 @@ import java.security.PrivateKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.spec.ECParameterSpec;
+import java.util.regex.Pattern;
 
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
@@ -39,7 +40,17 @@ import javax.net.ssl.X509TrustManager;
 public class Platform {
     private static final String TAG = "Conscrypt";
 
+    /*
+     * Regex that matches valid IPv4 and IPv6 addresses. Must be applied
+     * case-insensitive because of the IPv6 part.
+     */
+    private static final String IP_PATTERN = "^((25[0-5]|2[0-4]\\d|[01]\\d\\d\\.){3}(25[0-5]|2[0-4]\\d|[01]\\d\\d)|"
+            + "(([\\dA-F]{1,4}:)+:?[\\dA-F]?|::([\\dA-F]{1,4}:)*[\\dA-F])";
+
     private static Method m_getCurveName;
+
+    private static Pattern ipPattern;
+
     static {
         try {
             m_getCurveName = ECParameterSpec.class.getDeclaredMethod("getCurveName");
@@ -215,7 +226,12 @@ public class Platform {
         } catch (Exception ignored) {
         }
 
-        return false;
+        /* This is here for backwards compatibility for pre-Honeycomb devices. */
+        Pattern ipPattern = Platform.ipPattern;
+        if (ipPattern == null) {
+            Platform.ipPattern = ipPattern = Pattern.compile(IP_PATTERN);
+        }
+        return ipPattern.matcher(hostname).matches();
     }
 
     /**
