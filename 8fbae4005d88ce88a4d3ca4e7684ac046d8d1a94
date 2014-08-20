@@ -22,6 +22,30 @@
       "revId": "8fbae4005d88ce88a4d3ca4e7684ac046d8d1a94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "736385f2_8f60b985",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-08-20T20:46:28Z",
+      "side": 1,
+      "message": "Right, I renamed the method to reflect that as well.",
+      "parentUuid": "d33271f0_5bc28f40",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 52
+      },
+      "revId": "8fbae4005d88ce88a4d3ca4e7684ac046d8d1a94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
