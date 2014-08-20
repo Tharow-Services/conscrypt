@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "33f66d4a_218b05d3",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-08-20T20:50:06Z",
+      "side": 1,
+      "message": "Oh, this should use getHostname()",
+      "range": {
+        "startLine": 541,
+        "startChar": 79,
+        "endLine": 541,
+        "endChar": 91
+      },
+      "revId": "de26197266416e40ab357eb56183d804ee933cb1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
