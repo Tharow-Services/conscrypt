@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "13524923_26f3364e",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-08-20T21:48:56Z",
+      "side": 1,
+      "message": "Should use getUseSni()",
+      "range": {
+        "startLine": 517,
+        "startChar": 12,
+        "endLine": 517,
+        "endChar": 18
+      },
+      "revId": "39783f8efbfac31eb3ae902d128590dbf72f73db",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
