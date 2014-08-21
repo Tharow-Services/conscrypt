@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d3a7d188_077858ff",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-08-21T17:34:59Z",
+      "side": 1,
+      "message": "you can add (?i) to make part of a pattern case-insensitive regardless, which might be safer than a comment.",
+      "revId": "81b2fcce0bdc6802f4909fa7c6bdaa47cd656ee6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d3a7d188_c7aec01d",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-08-21T17:34:59Z",
+      "side": 1,
+      "message": "is this right? why the {3} and then the extra copy?",
+      "revId": "81b2fcce0bdc6802f4909fa7c6bdaa47cd656ee6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
