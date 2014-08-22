@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "53076152_1f28afa2",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-08-22T16:53:44Z",
+      "side": 1,
+      "message": "Interesting, I\u0027ll do that.",
+      "parentUuid": "d3a7d188_077858ff",
+      "revId": "81b2fcce0bdc6802f4909fa7c6bdaa47cd656ee6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d3a7d188_c7aec01d",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 3
@@ -30,6 +48,24 @@
       "writtenOn": "2014-08-21T17:34:59Z",
       "side": 1,
       "message": "is this right? why the {3} and then the extra copy?",
+      "revId": "81b2fcce0bdc6802f4909fa7c6bdaa47cd656ee6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "53076152_df02a728",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-08-22T16:53:44Z",
+      "side": 1,
+      "message": "The first three have a period after them.",
+      "parentUuid": "d3a7d188_c7aec01d",
       "revId": "81b2fcce0bdc6802f4909fa7c6bdaa47cd656ee6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
