@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "131a49b4_0c925bd5",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-08-22T20:07:47Z",
+      "side": 1,
+      "message": "yeah, good point. \\d matches any Unicode \"Nd\" character. you\u0027ll want to say 0-9 instead.",
+      "revId": "d5d1cabf41ccd49a181f70a37b924252048475ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
