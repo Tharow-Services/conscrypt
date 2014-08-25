@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f3c4d562_ea6b4b29",
+        "filename": "src/test/java/org/conscrypt/AddressUtilsTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2014-08-25T21:19:07Z",
+      "side": 1,
+      "message": "ah, yes, didn\u0027t see them in with the others.",
+      "revId": "bcc9bc8e43ac584b2ad2c70324114b35dcc4cd9d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
