@@ -1336,11 +1336,11 @@ int RsaMethodPubEnc(int /* flen */,
     return -1;
 }
 
-int RsaMethodPubDec(int flen,
-                    const unsigned char* from,
-                    unsigned char* to,
-                    RSA* rsa,
-                    int padding) {
+int RsaMethodPubDec(int /* flen */,
+                    const unsigned char* /* from */,
+                    unsigned char* /* to */,
+                    RSA* /* rsa */,
+                    int /* padding */) {
     RSAerr(RSA_F_RSA_PUBLIC_DECRYPT, RSA_R_RSA_OPERATIONS_NOT_SUPPORTED);
     return -1;
 }
@@ -9785,6 +9785,9 @@ static jclass getGlobalRefToClass(JNIEnv* env, const char* className) {
     return globalRef;
 }
 
+#ifdef __clang__
+#pragma clang diagnostic ignored "-Wunused-function"
+#endif
 static jmethodID getStaticMethodRef(JNIEnv* env, jclass clazz, const char* name, const char* sig) {
     jmethodID localMethod = env->GetStaticMethodID(clazz, name, sig);
     if (localMethod == NULL) {
