@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f35a15dc_cd2c0bb9",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9791,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-08-29T17:56:46Z",
+      "side": 1,
+      "message": "Just remove this if it\u0027s not used.",
+      "range": {
+        "startLine": 9791,
+        "startChar": 0,
+        "endLine": 9791,
+        "endChar": 99
+      },
+      "revId": "d8d5bc51f64f90329e0cb1080da19c2577153bf0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
