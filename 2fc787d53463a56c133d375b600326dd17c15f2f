@@ -115,6 +115,24 @@
       "revId": "2fc787d53463a56c133d375b600326dd17c15f2f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b31c1d53_7735f8e9",
+        "filename": "src/test/java/org/conscrypt/ChainStrengthAnalyzerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-09-03T00:46:09Z",
+      "side": 1,
+      "message": "Ideally, we should indeed move to the 112-bit symmetric strength equivalent as the minimum. However, this would mean rejecting 1024 bit RSA certs which are supposedly still in use quite often.",
+      "parentUuid": "1378896e_9fe8df5e",
+      "revId": "2fc787d53463a56c133d375b600326dd17c15f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
