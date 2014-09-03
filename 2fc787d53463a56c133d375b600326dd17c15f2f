@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b31c1d53_37e2a038",
+        "filename": "src/main/java/org/conscrypt/ChainStrengthAnalyzer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-09-03T00:43:15Z",
+      "side": 1,
+      "message": "Interesting. If I recall correctly, there\u0027s a non-trivial amount of traffic from Android apps that ends up handshaking to DHE_DSS key exchange.",
+      "parentUuid": "1378896e_ff7c73f5",
+      "revId": "2fc787d53463a56c133d375b600326dd17c15f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "535e81fe_21897469",
         "filename": "src/main/java/org/conscrypt/ChainStrengthAnalyzer.java",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2014-09-03T00:33:40Z",
       "side": 1,
       "message": "doesn\u0027t matter, but the parens aren\u0027t needed.",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "2fc787d53463a56c133d375b600326dd17c15f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b31c1d53_57ef1c1f",
+        "filename": "src/main/java/org/conscrypt/ChainStrengthAnalyzer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-09-03T00:43:15Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "535e81fe_21897469",
       "range": {
         "startLine": 65,
         "startChar": 16,
