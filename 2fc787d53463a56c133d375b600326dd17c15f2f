@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1378896e_ff7c73f5",
+        "filename": "src/main/java/org/conscrypt/ChainStrengthAnalyzer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-09-03T00:33:40Z",
+      "side": 1,
+      "message": "(BoringSSL will be removing support for DSA certificates.)",
+      "revId": "2fc787d53463a56c133d375b600326dd17c15f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "535e81fe_21897469",
+        "filename": "src/main/java/org/conscrypt/ChainStrengthAnalyzer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-09-03T00:33:40Z",
+      "side": 1,
+      "message": "doesn\u0027t matter, but the parens aren\u0027t needed.",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 17
+      },
+      "revId": "2fc787d53463a56c133d375b600326dd17c15f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3363cdc5_9de8e35e",
+        "filename": "src/test/java/org/conscrypt/ChainStrengthAnalyzerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-09-03T00:33:40Z",
+      "side": 1,
+      "message": "This\u0027ll be rejected with BoringSSL because secp160r1 has been removed. P-224 is the smallest supported.",
+      "revId": "2fc787d53463a56c133d375b600326dd17c15f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1378896e_9fe8df5e",
+        "filename": "src/test/java/org/conscrypt/ChainStrengthAnalyzerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-09-03T00:33:40Z",
+      "side": 1,
+      "message": "BoringSSL won\u0027t load this.",
+      "revId": "2fc787d53463a56c133d375b600326dd17c15f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
