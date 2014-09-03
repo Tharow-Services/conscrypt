@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3363cdc5_9de1c362",
+        "filename": "src/main/java/org/conscrypt/ChainStrengthAnalyzer.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-09-03T00:55:31Z",
+      "side": 1,
+      "message": "We\u0027ll see when Chrome switches to BoringSSL :)",
+      "parentUuid": "b31c1d53_37e2a038",
+      "revId": "2fc787d53463a56c133d375b600326dd17c15f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "535e81fe_21897469",
         "filename": "src/main/java/org/conscrypt/ChainStrengthAnalyzer.java",
         "patchSetId": 1
