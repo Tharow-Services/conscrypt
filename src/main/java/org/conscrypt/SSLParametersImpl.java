@@ -522,6 +522,9 @@ public class SSLParametersImpl implements Cloneable {
         // with TLSv1 and SSLv3).
         NativeCrypto.SSL_set_mode(sslNativePointer, NativeCrypto.SSL_MODE_CBC_RECORD_SPLITTING);
 
+        // Always retry socket operations with a blocking transport.
+        NativeCrypto.SSL_set_mode(sslNativePointer, NativeCrypto.SSL_MODE_AUTO_RETRY);
+
         boolean enableSessionCreation = getEnableSessionCreation();
         if (!enableSessionCreation) {
             NativeCrypto.SSL_set_session_creation_enabled(sslNativePointer, enableSessionCreation);
