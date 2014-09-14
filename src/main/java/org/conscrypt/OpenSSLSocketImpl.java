@@ -879,7 +879,6 @@ public class OpenSSLSocketImpl
      *
      * @throws IllegalStateException if this is a client socket or if the handshake has already
      *         started.
-
      */
     public void setChannelIdEnabled(boolean enabled) {
         if (getUseClientMode()) {
