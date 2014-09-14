@@ -20,6 +20,7 @@ import android.os.Build;
 import android.util.Log;
 import java.io.FileDescriptor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -151,19 +152,48 @@ public class Platform {
         return null;
     }
 
+    /** Lock that protects the cache mechanism. */
+    private static final Object checkServerTrusted_lock = new Object();
+
+    /** Last used X509TrustManager class. */
+    private static Class<?> checkServerTrusted_lastClass;
+
+    /** Reference to Method from the last used X509TrustManager class. */
+    private static Method checkServerTrusted_cachedMethod;
+
     public static void checkServerTrusted(X509TrustManager x509tm, X509Certificate[] chain,
             String authType, String host) throws CertificateException {
-        // TODO: use reflection to find whether we have TrustManagerImpl
         /*
-        if (x509tm instanceof TrustManagerImpl) {
-            TrustManagerImpl tm = (TrustManagerImpl) x509tm;
-            tm.checkServerTrusted(chain, authType, host);
-        } else {
-        */
-            x509tm.checkServerTrusted(chain, authType);
-        /*
+         * For unbundled versions of Conscrypt, TrustManagerImpl is hidden.
+         * Instead try to get a handle via reflection to the method that we
+         * would normally call on it.
+         */
+        try {
+            final Method m_checkServerTrusted;
+            synchronized (checkServerTrusted_lock) {
+                Class<?> x509tm_class = x509tm.getClass();
+                if (x509tm_class.equals(checkServerTrusted_lastClass)) {
+                    m_checkServerTrusted = checkServerTrusted_cachedMethod;
+                } else {
+                    m_checkServerTrusted = checkServerTrusted_cachedMethod = x509tm_class
+                            .getMethod("checkServerTrusted",
+                    X509Certificate[].class, String.class, String.class);
+                }
+            }
+            m_checkServerTrusted.invoke(x509tm, chain, authType, host);
+            return;
+        } catch (IllegalArgumentException ignored) {
+        } catch (NoSuchMethodException ignored) {
+        } catch (IllegalAccessException ignored) {
+        } catch (InvocationTargetException e) {
+            Throwable cause = e.getTargetException();
+            if (cause instanceof CertificateException) {
+                throw (CertificateException) cause;
+            }
         }
-        */
+
+        // If the above fails, fall-through to the non-hostname verification.
+        x509tm.checkServerTrusted(chain, authType);
     }
 
     /**
