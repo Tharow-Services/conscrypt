@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "f0c4cb62_9c5f6d9f",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-09-15T16:21:32Z",
+      "side": 1,
+      "message": "Please provide more justification for this change. Is it improving the existing status quo (i.e., part of the duck-typing-for-unbundling effort), or is this a new feature?\n\nIf it\u0027s a new feature, I presume this variant of checkServerTrusted adds value over its more standard version. However, users of Conscrypt are free to provide their own implementation of X509TrustManager. It feels like they will miss on whatever this new variant of checkServerTrusted offers. What exactly will they be missing out on? Is that acceptable?",
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "709e1b6e_899f2454",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -43,6 +60,40 @@
         "endLine": 164,
         "endChar": 73
       },
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "709e1b6e_a4c88f35",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-09-15T16:21:32Z",
+      "side": 1,
+      "message": "Nit: Consider using multi-catch syntax.",
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0933369_174c3754",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-09-15T16:21:32Z",
+      "side": 1,
+      "message": "I think you shouldn\u0027t ignore this exception. It means that the method was invoked, but it threw an exception. Falling back to another variant of this method is probably wrong in this scenario.",
       "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
