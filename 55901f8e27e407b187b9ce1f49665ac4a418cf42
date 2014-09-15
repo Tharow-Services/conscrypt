@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "709e1b6e_899f2454",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-09-15T05:59:45Z",
+      "side": 1,
+      "message": "do the method lookup once and cache it.",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 73
+      },
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0c4cb62_79e8e3c5",
+        "filename": "src/platform/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-09-15T05:59:45Z",
+      "side": 1,
+      "message": "same here",
+      "range": {
+        "startLine": 122,
+        "startChar": 1,
+        "endLine": 123,
+        "endChar": 77
+      },
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
