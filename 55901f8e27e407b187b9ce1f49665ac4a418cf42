@@ -66,6 +66,30 @@
     },
     {
       "key": {
+        "uuid": "70437c81_d2df5490",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-10-02T07:05:04Z",
+      "side": 1,
+      "message": "sorry, I didn\u0027t even really mean a cache. I just meant a static field.",
+      "parentUuid": "709e1b6e_c457538a",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 73
+      },
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "709e1b6e_a4c88f35",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -94,6 +118,24 @@
       "writtenOn": "2014-09-15T16:21:32Z",
       "side": 1,
       "message": "I think you shouldn\u0027t ignore this exception. It means that the method was invoked, but it threw an exception. Falling back to another variant of this method is probably wrong in this scenario.",
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d05d0861_592c03c0",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-10-02T07:05:04Z",
+      "side": 1,
+      "message": "agreed. you should use getTargetException and rethrow based on instanceof. otherwise you\u0027ll never get the failure exception.",
+      "parentUuid": "b0933369_174c3754",
       "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
