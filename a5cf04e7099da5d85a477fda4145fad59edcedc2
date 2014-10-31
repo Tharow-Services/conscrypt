@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95a622d2_9f33d39a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-10-31T17:00:51Z",
+      "side": 1,
+      "message": "I\u0027d like to just put this as the tls12SSLContext as well, but the Standard Names document seems to call out \"SSL\" specifically. What do you guys think?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "a5cf04e7099da5d85a477fda4145fad59edcedc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
