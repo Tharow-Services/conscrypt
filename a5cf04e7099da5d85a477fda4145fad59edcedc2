@@ -22,6 +22,30 @@
       "revId": "a5cf04e7099da5d85a477fda4145fad59edcedc2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f582fe17_24066e10",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-10-31T17:45:32Z",
+      "side": 1,
+      "message": "I suppose you have to comply with the Standard Names document. So, ssl3SSLContext is correct here.",
+      "parentUuid": "95a622d2_9f33d39a",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "a5cf04e7099da5d85a477fda4145fad59edcedc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
