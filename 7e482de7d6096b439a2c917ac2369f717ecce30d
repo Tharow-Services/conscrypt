@@ -22,6 +22,30 @@
       "revId": "7e482de7d6096b439a2c917ac2369f717ecce30d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d587ba27_b2c7014f",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-10-31T17:21:14Z",
+      "side": 1,
+      "message": "Why not? We\u0027ve been doing this for years and the Standard Names document doesn\u0027t say it\u0027s not permitted.",
+      "parentUuid": "95a622d2_1f34631c",
+      "range": {
+        "startLine": 932,
+        "startChar": 8,
+        "endLine": 932,
+        "endChar": 35
+      },
+      "revId": "7e482de7d6096b439a2c917ac2369f717ecce30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
