@@ -118,6 +118,30 @@
       "revId": "7e482de7d6096b439a2c917ac2369f717ecce30d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f582fe17_bf2fcbf8",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-10-31T19:17:07Z",
+      "side": 1,
+      "message": "We can always add JavaDoc to the SSLContext class mentioning setEnabledProtocols",
+      "parentUuid": "f582fe17_a4d17ede",
+      "range": {
+        "startLine": 932,
+        "startChar": 8,
+        "endLine": 932,
+        "endChar": 35
+      },
+      "revId": "7e482de7d6096b439a2c917ac2369f717ecce30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
