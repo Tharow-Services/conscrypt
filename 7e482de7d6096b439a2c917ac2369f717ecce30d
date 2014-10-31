@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "95a622d2_1f34631c",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2014-10-31T17:19:36Z",
+      "side": 1,
+      "message": "i was guessing we wouldn\u0027t include 1.2 in this case?",
+      "range": {
+        "startLine": 932,
+        "startChar": 8,
+        "endLine": 932,
+        "endChar": 35
+      },
+      "revId": "7e482de7d6096b439a2c917ac2369f717ecce30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
