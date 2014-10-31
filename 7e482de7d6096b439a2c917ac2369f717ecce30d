@@ -46,6 +46,30 @@
       "revId": "7e482de7d6096b439a2c917ac2369f717ecce30d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d587ba27_524885f8",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-10-31T17:33:50Z",
+      "side": 1,
+      "message": "Yeah, it\u0027s already giving you TLSv1.2 when you request this, so I\u0027d rather just keep it that way.",
+      "parentUuid": "d587ba27_b2c7014f",
+      "range": {
+        "startLine": 932,
+        "startChar": 8,
+        "endLine": 932,
+        "endChar": 35
+      },
+      "revId": "7e482de7d6096b439a2c917ac2369f717ecce30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
