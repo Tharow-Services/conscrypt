@@ -94,6 +94,30 @@
       "revId": "7e482de7d6096b439a2c917ac2369f717ecce30d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f582fe17_a4d17ede",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 932,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-10-31T18:01:45Z",
+      "side": 1,
+      "message": "The Standard Names document permits us to include just the protocol that\u0027s corresponding to the protocol parameter to SSLContext.init. However, for years Android has been including SSLv3 and TLSv1 regardless of the requested protocol, and more recently (a couple of years ago) also threw in TLSv1.1 and TLSv1.2. Trimming down the list will cause compatibility issues.\n\nI believe the design of SSLContext.getInstance is broken. It shouldn\u0027t have a protocol parameter at all. It\u0027s a very weak and unpredictable mechanism of controlling what protocol versions should be enabled on resulting SSLSocket* and SSLEngine instances. Developers who need control over what protocols are actually enabled, will in any case need to create their own SSLSocketFactory and/or invoke SSLSocket.setEnabledProtocols.\n\nSince we\u0027re stuck with this API, we\u0027ll have to continue balancing compatibility and sane/surpriseless defaults.",
+      "parentUuid": "95a622d2_05f776f2",
+      "range": {
+        "startLine": 932,
+        "startChar": 8,
+        "endLine": 932,
+        "endChar": 35
+      },
+      "revId": "7e482de7d6096b439a2c917ac2369f717ecce30d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
