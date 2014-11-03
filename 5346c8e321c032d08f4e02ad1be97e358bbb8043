@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d5c5fa79_4847c715",
+        "filename": "src/test/java/org/conscrypt/DuckTypedPSKKeyManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-03T19:10:58Z",
+      "side": 1,
+      "message": "Good catch!",
+      "parentUuid": "55a82aa2_060c20dc",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 59
+      },
+      "revId": "5346c8e321c032d08f4e02ad1be97e358bbb8043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55a82aa2_4678e831",
         "filename": "src/test/java/org/conscrypt/DuckTypedPSKKeyManagerTest.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-10-31T22:26:40Z",
       "side": 1,
       "message": "What about one that has a subclass that it returns? This is checked in your duck typing proxy at least.",
+      "range": {
+        "startLine": 208,
+        "startChar": 15,
+        "endLine": 208,
+        "endChar": 24
+      },
+      "revId": "5346c8e321c032d08f4e02ad1be97e358bbb8043",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55d10a3e_f569d8ea",
+        "filename": "src/test/java/org/conscrypt/DuckTypedPSKKeyManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-03T19:10:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55a82aa2_4678e831",
       "range": {
         "startLine": 208,
         "startChar": 15,
