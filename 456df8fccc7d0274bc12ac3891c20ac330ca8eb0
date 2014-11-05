@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "950d42be_27c05a24",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1043845
+      },
+      "writtenOn": "2014-11-05T04:53:39Z",
+      "side": 1,
+      "message": "LOCAL_SDK_VERSION and LOCAL_CXX_STL are incompatible. You\u0027ll have to use LOCAL_NDK_STL_VARIANT here.",
+      "revId": "456df8fccc7d0274bc12ac3891c20ac330ca8eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "950d42be_07bd56a8",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1043845
+      },
+      "writtenOn": "2014-11-05T04:53:39Z",
+      "side": 1,
+      "message": "Here too.",
+      "revId": "456df8fccc7d0274bc12ac3891c20ac330ca8eb0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
