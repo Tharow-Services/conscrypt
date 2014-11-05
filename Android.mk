@@ -109,6 +109,7 @@ LOCAL_SHARED_LIBRARIES := libcrypto libjavacore liblog libnativehelper libssl li
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libjavacrypto
 LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+LOCAL_CXX_STL := libc++
 include $(BUILD_SHARED_LIBRARY)
 
 # Unbundled Conscrypt jar
@@ -139,6 +140,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libconscrypt_jni
 LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
 LOCAL_SDK_VERSION := 9
+LOCAL_CXX_STL := libc++
 include $(BUILD_SHARED_LIBRARY)
 
 # Static unbundled Conscrypt crypto JNI library
@@ -156,6 +158,7 @@ LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libconscrypt_static
 LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
 LOCAL_SDK_VERSION := 9
+LOCAL_CXX_STL := libc++
 include $(BUILD_STATIC_LIBRARY)
 
 #
@@ -216,6 +219,7 @@ LOCAL_CFLAGS += -DJNI_JARJAR_PREFIX="com/android/"
 LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
 LOCAL_SHARED_LIBRARIES := libcrypto-host libjavacore liblog libnativehelper libssl-host
 LOCAL_MULTILIB := both
+LOCAL_CXX_STL := libc++
 include $(BUILD_HOST_SHARED_LIBRARY)
 
 # Conscrypt native library for nojarjar'd version
@@ -237,5 +241,6 @@ ifeq (,$(TARGET_BUILD_APPS))
     LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
     LOCAL_SHARED_LIBRARIES := libcrypto-host libjavacore liblog libnativehelper libssl-host
     LOCAL_MULTILIB := both
+    LOCAL_CXX_STL := libc++
     include $(BUILD_HOST_SHARED_LIBRARY)
 endif

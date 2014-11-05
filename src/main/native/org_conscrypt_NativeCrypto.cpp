@@ -41,6 +41,8 @@
 
 #include <jni.h>
 
+#include <memory>
+
 #include <openssl/asn1t.h>
 #include <openssl/dsa.h>
 #include <openssl/engine.h>
@@ -87,7 +89,6 @@
 #include "ScopedLocalRef.h"
 #include "ScopedPrimitiveArray.h"
 #include "ScopedUtfChars.h"
-#include "UniquePtr.h"
 #include "NetFd.h"
 
 #undef WITH_JNI_TRACE
@@ -152,154 +153,154 @@ struct OPENSSL_Delete {
         OPENSSL_free(p);
     }
 };
-typedef UniquePtr<unsigned char, OPENSSL_Delete> Unique_OPENSSL_str;
+typedef std::unique_ptr<unsigned char, OPENSSL_Delete> Unique_OPENSSL_str;
 
 struct BIO_Delete {
     void operator()(BIO* p) const {
         BIO_free_all(p);
     }
 };
-typedef UniquePtr<BIO, BIO_Delete> Unique_BIO;
+typedef std::unique_ptr<BIO, BIO_Delete> Unique_BIO;
 
 struct BIGNUM_Delete {
     void operator()(BIGNUM* p) const {
         BN_free(p);
     }
 };
-typedef UniquePtr<BIGNUM, BIGNUM_Delete> Unique_BIGNUM;
+typedef std::unique_ptr<BIGNUM, BIGNUM_Delete> Unique_BIGNUM;
 
 struct ASN1_INTEGER_Delete {
     void operator()(ASN1_INTEGER* p) const {
         ASN1_INTEGER_free(p);
     }
 };
-typedef UniquePtr<ASN1_INTEGER, ASN1_INTEGER_Delete> Unique_ASN1_INTEGER;
+typedef std::unique_ptr<ASN1_INTEGER, ASN1_INTEGER_Delete> Unique_ASN1_INTEGER;
 
 struct DH_Delete {
     void operator()(DH* p) const {
         DH_free(p);
     }
 };
-typedef UniquePtr<DH, DH_Delete> Unique_DH;
+typedef std::unique_ptr<DH, DH_Delete> Unique_DH;
 
 struct DSA_Delete {
     void operator()(DSA* p) const {
         DSA_free(p);
     }
 };
-typedef UniquePtr<DSA, DSA_Delete> Unique_DSA;
+typedef std::unique_ptr<DSA, DSA_Delete> Unique_DSA;
 
 struct EC_GROUP_Delete {
     void operator()(EC_GROUP* p) const {
         EC_GROUP_clear_free(p);
     }
 };
-typedef UniquePtr<EC_GROUP, EC_GROUP_Delete> Unique_EC_GROUP;
+typedef std::unique_ptr<EC_GROUP, EC_GROUP_Delete> Unique_EC_GROUP;
 
 struct EC_POINT_Delete {
     void operator()(EC_POINT* p) const {
         EC_POINT_clear_free(p);
     }
 };
-typedef UniquePtr<EC_POINT, EC_POINT_Delete> Unique_EC_POINT;
+typedef std::unique_ptr<EC_POINT, EC_POINT_Delete> Unique_EC_POINT;
 
 struct EC_KEY_Delete {
     void operator()(EC_KEY* p) const {
         EC_KEY_free(p);
     }
 };
-typedef UniquePtr<EC_KEY, EC_KEY_Delete> Unique_EC_KEY;
+typedef std::unique_ptr<EC_KEY, EC_KEY_Delete> Unique_EC_KEY;
 
 struct EVP_MD_CTX_Delete {
     void operator()(EVP_MD_CTX* p) const {
         EVP_MD_CTX_destroy(p);
     }
 };
-typedef UniquePtr<EVP_MD_CTX, EVP_MD_CTX_Delete> Unique_EVP_MD_CTX;
+typedef std::unique_ptr<EVP_MD_CTX, EVP_MD_CTX_Delete> Unique_EVP_MD_CTX;
 
 struct EVP_CIPHER_CTX_Delete {
     void operator()(EVP_CIPHER_CTX* p) const {
         EVP_CIPHER_CTX_free(p);
     }
 };
-typedef UniquePtr<EVP_CIPHER_CTX, EVP_CIPHER_CTX_Delete> Unique_EVP_CIPHER_CTX;
+typedef std::unique_ptr<EVP_CIPHER_CTX, EVP_CIPHER_CTX_Delete> Unique_EVP_CIPHER_CTX;
 
 struct EVP_PKEY_Delete {
     void operator()(EVP_PKEY* p) const {
         EVP_PKEY_free(p);
     }
 };
-typedef UniquePtr<EVP_PKEY, EVP_PKEY_Delete> Unique_EVP_PKEY;
+typedef std::unique_ptr<EVP_PKEY, EVP_PKEY_Delete> Unique_EVP_PKEY;
 
 struct PKCS8_PRIV_KEY_INFO_Delete {
     void operator()(PKCS8_PRIV_KEY_INFO* p) const {
         PKCS8_PRIV_KEY_INFO_free(p);
     }
 };
-typedef UniquePtr<PKCS8_PRIV_KEY_INFO, PKCS8_PRIV_KEY_INFO_Delete> Unique_PKCS8_PRIV_KEY_INFO;
+typedef std::unique_ptr<PKCS8_PRIV_KEY_INFO, PKCS8_PRIV_KEY_INFO_Delete> Unique_PKCS8_PRIV_KEY_INFO;
 
 struct RSA_Delete {
     void operator()(RSA* p) const {
         RSA_free(p);
     }
 };
-typedef UniquePtr<RSA, RSA_Delete> Unique_RSA;
+typedef std::unique_ptr<RSA, RSA_Delete> Unique_RSA;
 
 struct ASN1_BIT_STRING_Delete {
     void operator()(ASN1_BIT_STRING* p) const {
         ASN1_BIT_STRING_free(p);
     }
 };
-typedef UniquePtr<ASN1_BIT_STRING, ASN1_BIT_STRING_Delete> Unique_ASN1_BIT_STRING;
+typedef std::unique_ptr<ASN1_BIT_STRING, ASN1_BIT_STRING_Delete> Unique_ASN1_BIT_STRING;
 
 struct ASN1_OBJECT_Delete {
     void operator()(ASN1_OBJECT* p) const {
         ASN1_OBJECT_free(p);
     }
 };
-typedef UniquePtr<ASN1_OBJECT, ASN1_OBJECT_Delete> Unique_ASN1_OBJECT;
+typedef std::unique_ptr<ASN1_OBJECT, ASN1_OBJECT_Delete> Unique_ASN1_OBJECT;
 
 struct ASN1_GENERALIZEDTIME_Delete {
     void operator()(ASN1_GENERALIZEDTIME* p) const {
         ASN1_GENERALIZEDTIME_free(p);
     }
 };
-typedef UniquePtr<ASN1_GENERALIZEDTIME, ASN1_GENERALIZEDTIME_Delete> Unique_ASN1_GENERALIZEDTIME;
+typedef std::unique_ptr<ASN1_GENERALIZEDTIME, ASN1_GENERALIZEDTIME_Delete> Unique_ASN1_GENERALIZEDTIME;
 
 struct SSL_Delete {
     void operator()(SSL* p) const {
         SSL_free(p);
     }
 };
-typedef UniquePtr<SSL, SSL_Delete> Unique_SSL;
+typedef std::unique_ptr<SSL, SSL_Delete> Unique_SSL;
 
 struct SSL_CTX_Delete {
     void operator()(SSL_CTX* p) const {
         SSL_CTX_free(p);
     }
 };
-typedef UniquePtr<SSL_CTX, SSL_CTX_Delete> Unique_SSL_CTX;
+typedef std::unique_ptr<SSL_CTX, SSL_CTX_Delete> Unique_SSL_CTX;
 
 struct X509_Delete {
     void operator()(X509* p) const {
         X509_free(p);
     }
 };
-typedef UniquePtr<X509, X509_Delete> Unique_X509;
+typedef std::unique_ptr<X509, X509_Delete> Unique_X509;
 
 struct X509_NAME_Delete {
     void operator()(X509_NAME* p) const {
         X509_NAME_free(p);
     }
 };
-typedef UniquePtr<X509_NAME, X509_NAME_Delete> Unique_X509_NAME;
+typedef std::unique_ptr<X509_NAME, X509_NAME_Delete> Unique_X509_NAME;
 
 struct PKCS7_Delete {
     void operator()(PKCS7* p) const {
         PKCS7_free(p);
     }
 };
-typedef UniquePtr<PKCS7, PKCS7_Delete> Unique_PKCS7;
+typedef std::unique_ptr<PKCS7, PKCS7_Delete> Unique_PKCS7;
 
 struct sk_SSL_CIPHER_Delete {
     void operator()(STACK_OF(SSL_CIPHER)* p) const {
@@ -307,35 +308,35 @@ struct sk_SSL_CIPHER_Delete {
         sk_SSL_CIPHER_free(p);
     }
 };
-typedef UniquePtr<STACK_OF(SSL_CIPHER), sk_SSL_CIPHER_Delete> Unique_sk_SSL_CIPHER;
+typedef std::unique_ptr<STACK_OF(SSL_CIPHER), sk_SSL_CIPHER_Delete> Unique_sk_SSL_CIPHER;
 
 struct sk_X509_Delete {
     void operator()(STACK_OF(X509)* p) const {
         sk_X509_pop_free(p, X509_free);
     }
 };
-typedef UniquePtr<STACK_OF(X509), sk_X509_Delete> Unique_sk_X509;
+typedef std::unique_ptr<STACK_OF(X509), sk_X509_Delete> Unique_sk_X509;
 
 struct sk_X509_NAME_Delete {
     void operator()(STACK_OF(X509_NAME)* p) const {
         sk_X509_NAME_pop_free(p, X509_NAME_free);
     }
 };
-typedef UniquePtr<STACK_OF(X509_NAME), sk_X509_NAME_Delete> Unique_sk_X509_NAME;
+typedef std::unique_ptr<STACK_OF(X509_NAME), sk_X509_NAME_Delete> Unique_sk_X509_NAME;
 
 struct sk_ASN1_OBJECT_Delete {
     void operator()(STACK_OF(ASN1_OBJECT)* p) const {
         sk_ASN1_OBJECT_pop_free(p, ASN1_OBJECT_free);
     }
 };
-typedef UniquePtr<STACK_OF(ASN1_OBJECT), sk_ASN1_OBJECT_Delete> Unique_sk_ASN1_OBJECT;
+typedef std::unique_ptr<STACK_OF(ASN1_OBJECT), sk_ASN1_OBJECT_Delete> Unique_sk_ASN1_OBJECT;
 
 struct sk_GENERAL_NAME_Delete {
     void operator()(STACK_OF(GENERAL_NAME)* p) const {
         sk_GENERAL_NAME_pop_free(p, GENERAL_NAME_free);
     }
 };
-typedef UniquePtr<STACK_OF(GENERAL_NAME), sk_GENERAL_NAME_Delete> Unique_sk_GENERAL_NAME;
+typedef std::unique_ptr<STACK_OF(GENERAL_NAME), sk_GENERAL_NAME_Delete> Unique_sk_GENERAL_NAME;
 
 /**
  * Many OpenSSL APIs take ownership of an argument on success but don't free the argument
@@ -630,12 +631,12 @@ static void throwSSLProtocolExceptionStr(JNIEnv* env, const char* message) {
 static void throwSSLExceptionWithSslErrors(JNIEnv* env, SSL* ssl, int sslErrorCode,
         const char* message, void (*actualThrow)(JNIEnv*, const char*) = throwSSLExceptionStr) {
 
-    if (message == NULL) {
+    if (message == nullptr) {
         message = "SSL error";
     }
 
     // First consult the SSL error code for the general message.
-    const char* sslErrorStr = NULL;
+    const char* sslErrorStr = nullptr;
     switch (sslErrorCode) {
         case SSL_ERROR_NONE:
             if (ERR_peek_error() == 0) {
@@ -701,7 +702,7 @@ static void throwSSLExceptionWithSslErrors(JNIEnv* env, SSL* ssl, int sslErrorCo
             ERR_error_string_n(err, errStr, sizeof(errStr));
 
             int ret = asprintf(&str, "%s\n%s (%s:%d %p:0x%08x)",
-                               (allocStr == NULL) ? "" : allocStr,
+                               (allocStr == nullptr) ? "" : allocStr,
                                errStr,
                                file,
                                line,
@@ -755,7 +756,7 @@ static void throwSSLExceptionWithSslErrors(JNIEnv* env, SSL* ssl, int sslErrorCo
  */
 static SSL_CTX* to_SSL_CTX(JNIEnv* env, jlong ssl_ctx_address, bool throwIfNull) {
     SSL_CTX* ssl_ctx = reinterpret_cast<SSL_CTX*>(static_cast<uintptr_t>(ssl_ctx_address));
-    if ((ssl_ctx == NULL) && throwIfNull) {
+    if ((ssl_ctx == nullptr) && throwIfNull) {
         JNI_TRACE("ssl_ctx == null");
         jniThrowNullPointerException(env, "ssl_ctx == null");
     }
@@ -764,7 +765,7 @@ static SSL_CTX* to_SSL_CTX(JNIEnv* env, jlong ssl_ctx_address, bool throwIfNull)
 
 static SSL* to_SSL(JNIEnv* env, jlong ssl_address, bool throwIfNull) {
     SSL* ssl = reinterpret_cast<SSL*>(static_cast<uintptr_t>(ssl_address));
-    if ((ssl == NULL) && throwIfNull) {
+    if ((ssl == nullptr) && throwIfNull) {
         JNI_TRACE("ssl == null");
         jniThrowNullPointerException(env, "ssl == null");
     }
@@ -774,7 +775,7 @@ static SSL* to_SSL(JNIEnv* env, jlong ssl_address, bool throwIfNull) {
 static SSL_SESSION* to_SSL_SESSION(JNIEnv* env, jlong ssl_session_address, bool throwIfNull) {
     SSL_SESSION* ssl_session
         = reinterpret_cast<SSL_SESSION*>(static_cast<uintptr_t>(ssl_session_address));
-    if ((ssl_session == NULL) && throwIfNull) {
+    if ((ssl_session == nullptr) && throwIfNull) {
         JNI_TRACE("ssl_session == null");
         jniThrowNullPointerException(env, "ssl_session == null");
     }
@@ -784,7 +785,7 @@ static SSL_SESSION* to_SSL_SESSION(JNIEnv* env, jlong ssl_session_address, bool 
 static SSL_CIPHER* to_SSL_CIPHER(JNIEnv* env, jlong ssl_cipher_address, bool throwIfNull) {
     SSL_CIPHER* ssl_cipher
         = reinterpret_cast<SSL_CIPHER*>(static_cast<uintptr_t>(ssl_cipher_address));
-    if ((ssl_cipher == NULL) && throwIfNull) {
+    if ((ssl_cipher == nullptr) && throwIfNull) {
         JNI_TRACE("ssl_cipher == null");
         jniThrowNullPointerException(env, "ssl_cipher == null");
     }
@@ -794,7 +795,7 @@ static SSL_CIPHER* to_SSL_CIPHER(JNIEnv* env, jlong ssl_cipher_address, bool thr
 template<typename T>
 static T* fromContextObject(JNIEnv* env, jobject contextObject) {
     T* ref = reinterpret_cast<T*>(env->GetLongField(contextObject, openSslNativeReference_context));
-    if (ref == NULL) {
+    if (ref == nullptr) {
         JNI_TRACE("ctx == null");
         jniThrowNullPointerException(env, "ctx == null");
     }
@@ -808,7 +809,7 @@ static T* fromContextObject(JNIEnv* env, jobject contextObject) {
  */
 static bool arrayToBignum(JNIEnv* env, jbyteArray source, BIGNUM** dest) {
     JNI_TRACE("arrayToBignum(%p, %p)", source, dest);
-    if (dest == NULL) {
+    if (dest == nullptr) {
         JNI_TRACE("arrayToBignum(%p, %p) => dest is null!", source, dest);
         jniThrowNullPointerException(env, "dest == null");
         return false;
@@ -816,7 +817,7 @@ static bool arrayToBignum(JNIEnv* env, jbyteArray source, BIGNUM** dest) {
     JNI_TRACE("arrayToBignum(%p, %p) *dest == %p", source, dest, *dest);
 
     ScopedByteArrayRO sourceBytes(env, source);
-    if (sourceBytes.get() == NULL) {
+    if (sourceBytes.get() == nullptr) {
         JNI_TRACE("arrayToBignum(%p, %p) => NULL", source, dest);
         return false;
     }
@@ -825,14 +826,14 @@ static bool arrayToBignum(JNIEnv* env, jbyteArray source, BIGNUM** dest) {
 
     /* if the array is empty, it is zero. */
     if (tmpSize == 0) {
-        if (*dest == NULL) {
+        if (*dest == nullptr) {
             *dest = BN_new();
         }
         BN_zero(*dest);
         return true;
     }
 
-    UniquePtr<unsigned char[]> twosComplement;
+    std::unique_ptr<unsigned char[]> twosComplement;
     bool negative = (tmp[0] & 0x80) != 0;
     if (negative) {
         // Need to convert to two's complement.
@@ -850,7 +851,7 @@ static bool arrayToBignum(JNIEnv* env, jbyteArray source, BIGNUM** dest) {
         }
     }
     BIGNUM *ret = BN_bin2bn(tmp, tmpSize, *dest);
-    if (ret == NULL) {
+    if (ret == nullptr) {
         jniThrowRuntimeException(env, "Conversion to BIGNUM failed");
         JNI_TRACE("arrayToBignum(%p, %p) => threw exception", source, dest);
         return false;
@@ -868,23 +869,23 @@ static bool arrayToBignum(JNIEnv* env, jbyteArray source, BIGNUM** dest) {
 static jbyteArray bignumToArray(JNIEnv* env, const BIGNUM* source, const char* sourceName) {
     JNI_TRACE("bignumToArray(%p, %s)", source, sourceName);
 
-    if (source == NULL) {
+    if (source == nullptr) {
         jniThrowNullPointerException(env, sourceName);
-        return NULL;
+        return nullptr;
     }
 
     size_t numBytes = BN_num_bytes(source) + 1;
     jbyteArray javaBytes = env->NewByteArray(numBytes);
     ScopedByteArrayRW bytes(env, javaBytes);
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("bignumToArray(%p, %s) => NULL", source, sourceName);
-        return NULL;
+        return nullptr;
     }
 
     unsigned char* tmp = reinterpret_cast<unsigned char*>(bytes.get());
     if (BN_num_bytes(source) > 0 && BN_bn2bin(source, tmp + 1) <= 0) {
         throwExceptionIfNecessary(env, "bignumToArray");
-        return NULL;
+        return nullptr;
     }
 
     // Set the sign and convert to two's complement if necessary for the Java code.
@@ -912,29 +913,29 @@ static jbyteArray bignumToArray(JNIEnv* env, const BIGNUM* source, const char* s
  */
 template<typename T, int (*i2d_func)(T*, unsigned char**)>
 jbyteArray ASN1ToByteArray(JNIEnv* env, T* obj) {
-    if (obj == NULL) {
+    if (obj == nullptr) {
         jniThrowNullPointerException(env, "ASN1 input == null");
         JNI_TRACE("ASN1ToByteArray(%p) => null input", obj);
-        return NULL;
+        return nullptr;
     }
 
-    int derLen = i2d_func(obj, NULL);
+    int derLen = i2d_func(obj, nullptr);
     if (derLen < 0) {
         throwExceptionIfNecessary(env, "ASN1ToByteArray");
         JNI_TRACE("ASN1ToByteArray(%p) => measurement failed", obj);
-        return NULL;
+        return nullptr;
     }
 
     ScopedLocalRef<jbyteArray> byteArray(env, env->NewByteArray(derLen));
-    if (byteArray.get() == NULL) {
+    if (byteArray.get() == nullptr) {
         JNI_TRACE("ASN1ToByteArray(%p) => creating byte array failed", obj);
-        return NULL;
+        return nullptr;
     }
 
     ScopedByteArrayRW bytes(env, byteArray.get());
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("ASN1ToByteArray(%p) => using byte array failed", obj);
-        return NULL;
+        return nullptr;
     }
 
     unsigned char* p = reinterpret_cast<unsigned char*>(bytes.get());
@@ -942,7 +943,7 @@ jbyteArray ASN1ToByteArray(JNIEnv* env, T* obj) {
     if (ret < 0) {
         throwExceptionIfNecessary(env, "ASN1ToByteArray");
         JNI_TRACE("ASN1ToByteArray(%p) => final conversion failed", obj);
-        return NULL;
+        return nullptr;
     }
 
     JNI_TRACE("ASN1ToByteArray(%p) => success (%d bytes written)", obj, ret);
@@ -952,13 +953,13 @@ jbyteArray ASN1ToByteArray(JNIEnv* env, T* obj) {
 template<typename T, T* (*d2i_func)(T**, const unsigned char**, long)>
 T* ByteArrayToASN1(JNIEnv* env, jbyteArray byteArray) {
     ScopedByteArrayRO bytes(env, byteArray);
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("ByteArrayToASN1(%p) => using byte array failed", byteArray);
         return 0;
     }
 
     const unsigned char* tmp = reinterpret_cast<const unsigned char*>(bytes.get());
-    return d2i_func(NULL, &tmp, bytes.size());
+    return d2i_func(nullptr, &tmp, bytes.size());
 }
 
 /**
@@ -971,8 +972,8 @@ jbooleanArray ASN1BitStringToBooleanArray(JNIEnv* env, ASN1_BIT_STRING* bitStr) 
     }
 
     ScopedLocalRef<jbooleanArray> bitsRef(env, env->NewBooleanArray(size));
-    if (bitsRef.get() == NULL) {
-        return NULL;
+    if (bitsRef.get() == nullptr) {
+        return nullptr;
     }
 
     ScopedBooleanArrayRW bitsArray(env, bitsRef.get());
@@ -987,8 +988,8 @@ jbooleanArray ASN1BitStringToBooleanArray(JNIEnv* env, ASN1_BIT_STRING* bitStr) 
  * To avoid the round-trip to ASN.1 and back in X509_dup, we just up the reference count.
  */
 static X509* X509_dup_nocopy(X509* x509) {
-    if (x509 == NULL) {
-        return NULL;
+    if (x509 == nullptr) {
+        return nullptr;
     }
     CRYPTO_add(&x509->references, 1, CRYPTO_LOCK_X509);
     return x509;
@@ -1007,7 +1008,7 @@ public:
     }
 
     ~ScopedSslBio() {
-        SSL_set_bio(ssl_, NULL, NULL);
+        SSL_set_bio(ssl_, nullptr, nullptr);
     }
 
 private:
@@ -1019,9 +1020,9 @@ private:
  */
 static JNIEnv* getJNIEnv() {
     JNIEnv* env;
-    if (gJavaVM->AttachCurrentThread(&env, NULL) < 0) {
+    if (gJavaVM->AttachCurrentThread(&env, nullptr) < 0) {
         ALOGE("Could not attach JavaVM to find current JNIEnv");
-        return NULL;
+        return nullptr;
     }
     return env;
 }
@@ -1050,7 +1051,7 @@ public:
 
     int flush() {
         JNIEnv* env = getJNIEnv();
-        if (env == NULL) {
+        if (env == nullptr) {
             return -1;
         }
 
@@ -1105,7 +1106,7 @@ public:
 private:
     int read_internal(char *buf, int len, jmethodID method) {
         JNIEnv* env = getJNIEnv();
-        if (env == NULL) {
+        if (env == nullptr) {
             JNI_TRACE("BIO_InputStream::read could not get JNIEnv");
             return -1;
         }
@@ -1116,7 +1117,7 @@ private:
         }
 
         ScopedLocalRef<jbyteArray> javaBytes(env, env->NewByteArray(len));
-        if (javaBytes.get() == NULL) {
+        if (javaBytes.get() == nullptr) {
             JNI_TRACE("BIO_InputStream::read failed call to NewByteArray");
             return -1;
         }
@@ -1151,7 +1152,7 @@ public:
 
     int write(const char *buf, int len) {
         JNIEnv* env = getJNIEnv();
-        if (env == NULL) {
+        if (env == nullptr) {
             JNI_TRACE("BIO_OutputStream::write => could not get JNIEnv");
             return -1;
         }
@@ -1162,7 +1163,7 @@ public:
         }
 
         ScopedLocalRef<jbyteArray> javaBytes(env, env->NewByteArray(len));
-        if (javaBytes.get() == NULL) {
+        if (javaBytes.get() == nullptr) {
             JNI_TRACE("BIO_OutputStream::write => failed call to NewByteArray");
             return -1;
         }
@@ -1182,19 +1183,19 @@ public:
 static int bio_stream_create(BIO *b) {
     b->init = 1;
     b->num = 0;
-    b->ptr = NULL;
+    b->ptr = nullptr;
     b->flags = 0;
     return 1;
 }
 
 static int bio_stream_destroy(BIO *b) {
-    if (b == NULL) {
+    if (b == nullptr) {
         return 0;
     }
 
-    if (b->ptr != NULL) {
+    if (b->ptr != nullptr) {
         delete static_cast<BIO_Stream*>(b->ptr);
-        b->ptr = NULL;
+        b->ptr = nullptr;
     }
 
     b->init = 0;
@@ -1257,7 +1258,7 @@ static BIO_METHOD stream_bio_method = {
         bio_stream_ctrl, /* bio_ctrl */
         bio_stream_create, /* bio_create */
         bio_stream_destroy, /* bio_free */
-        NULL, /* no bio_callback_ctrl */
+        nullptr, /* no bio_callback_ctrl */
 };
 
 static jbyteArray rawSignDigestWithPrivateKey(JNIEnv* env, jobject privateKey,
@@ -1265,14 +1266,14 @@ static jbyteArray rawSignDigestWithPrivateKey(JNIEnv* env, jobject privateKey,
     ScopedLocalRef<jbyteArray> messageArray(env, env->NewByteArray(message_len));
     if (env->ExceptionCheck()) {
         JNI_TRACE("rawSignDigestWithPrivateKey(%p) => threw exception", privateKey);
-        return NULL;
+        return nullptr;
     }
 
     {
         ScopedByteArrayRW messageBytes(env, messageArray.get());
-        if (messageBytes.get() == NULL) {
+        if (messageBytes.get() == nullptr) {
             JNI_TRACE("rawSignDigestWithPrivateKey(%p) => using byte array failed", privateKey);
-            return NULL;
+            return nullptr;
         }
 
         memcpy(messageBytes.get(), message, message_len);
@@ -1280,9 +1281,9 @@ static jbyteArray rawSignDigestWithPrivateKey(JNIEnv* env, jobject privateKey,
 
     jmethodID rawSignMethod = env->GetStaticMethodID(cryptoUpcallsClass,
             "rawSignDigestWithPrivateKey", "(Ljava/security/PrivateKey;[B)[B");
-    if (rawSignMethod == NULL) {
+    if (rawSignMethod == nullptr) {
         ALOGE("Could not find rawSignDigestWithPrivateKey");
-        return NULL;
+        return nullptr;
     }
 
     return reinterpret_cast<jbyteArray>(env->CallStaticObjectMethod(
@@ -1294,14 +1295,14 @@ static jbyteArray rawCipherWithPrivateKey(JNIEnv* env, jobject privateKey, jbool
     ScopedLocalRef<jbyteArray> ciphertextArray(env, env->NewByteArray(ciphertext_len));
     if (env->ExceptionCheck()) {
         JNI_TRACE("rawCipherWithPrivateKey(%p) => threw exception", privateKey);
-        return NULL;
+        return nullptr;
     }
 
     {
         ScopedByteArrayRW ciphertextBytes(env, ciphertextArray.get());
-        if (ciphertextBytes.get() == NULL) {
+        if (ciphertextBytes.get() == nullptr) {
             JNI_TRACE("rawCipherWithPrivateKey(%p) => using byte array failed", privateKey);
-            return NULL;
+            return nullptr;
         }
 
         memcpy(ciphertextBytes.get(), ciphertext, ciphertext_len);
@@ -1309,9 +1310,9 @@ static jbyteArray rawCipherWithPrivateKey(JNIEnv* env, jobject privateKey, jbool
 
     jmethodID rawCipherMethod = env->GetStaticMethodID(cryptoUpcallsClass,
             "rawCipherWithPrivateKey", "(Ljava/security/PrivateKey;Z[B)[B");
-    if (rawCipherMethod == NULL) {
+    if (rawCipherMethod == nullptr) {
         ALOGE("Could not find rawCipherWithPrivateKey");
-        return NULL;
+        return nullptr;
     }
 
     return reinterpret_cast<jbyteArray>(env->CallStaticObjectMethod(
@@ -1374,7 +1375,7 @@ int RsaMethodPrivEnc(int flen,
     }
 
     JNIEnv* env = getJNIEnv();
-    if (env == NULL) {
+    if (env == nullptr) {
         return -1;
     }
 
@@ -1383,7 +1384,7 @@ int RsaMethodPrivEnc(int flen,
     ScopedLocalRef<jbyteArray> signature(
             env, rawSignDigestWithPrivateKey(env, private_key,
                                          reinterpret_cast<const char*>(from), flen));
-    if (signature.get() == NULL) {
+    if (signature.get() == nullptr) {
         ALOGE("Could not sign message in RsaMethodPrivEnc!");
         RSAerr(RSA_F_RSA_PRIVATE_ENCRYPT, ERR_R_INTERNAL_ERROR);
         return -1;
@@ -1426,7 +1427,7 @@ int RsaMethodPrivDec(int flen,
     }
 
     JNIEnv* env = getJNIEnv();
-    if (env == NULL) {
+    if (env == nullptr) {
         return -1;
     }
 
@@ -1434,7 +1435,7 @@ int RsaMethodPrivDec(int flen,
     // PKCS#1 padding.
     ScopedLocalRef<jbyteArray> cleartext(env, rawCipherWithPrivateKey(env, private_key, false,
                                          reinterpret_cast<const char*>(from), flen));
-    if (cleartext.get() == NULL) {
+    if (cleartext.get() == nullptr) {
         ALOGE("Could not decrypt message in RsaMethodPrivDec!");
         RSAerr(RSA_F_RSA_PRIVATE_DECRYPT, ERR_R_INTERNAL_ERROR);
         return -1;
@@ -1463,8 +1464,8 @@ int RsaMethodFinish(RSA* rsa) {
     // Ensure the global JNI reference created with this wrapper is
     // properly destroyed with it.
     jobject key = reinterpret_cast<jobject>(RSA_get_app_data(rsa));
-    if (key != NULL) {
-        RSA_set_app_data(rsa, NULL);
+    if (key != nullptr) {
+        RSA_set_app_data(rsa, nullptr);
         JNIEnv* env = getJNIEnv();
         env->DeleteGlobalRef(key);
     }
@@ -1479,18 +1480,18 @@ const RSA_METHOD android_rsa_method = {
         /* .rsa_pub_dec = */ RsaMethodPubDec,
         /* .rsa_priv_enc = */ RsaMethodPrivEnc,
         /* .rsa_priv_dec = */ RsaMethodPrivDec,
-        /* .rsa_mod_exp = */ NULL,
-        /* .bn_mod_exp = */ NULL,
+        /* .rsa_mod_exp = */ nullptr,
+        /* .bn_mod_exp = */ nullptr,
         /* .init = */ RsaMethodInit,
         /* .finish = */ RsaMethodFinish,
         // This flag is necessary to tell OpenSSL to avoid checking the content
         // (i.e. internal fields) of the private key. Otherwise, it will complain
         // it's not valid for the certificate.
         /* .flags = */ RSA_METHOD_FLAG_NO_CHECK,
-        /* .app_data = */ NULL,
-        /* .rsa_sign = */ NULL,
-        /* .rsa_verify = */ NULL,
-        /* .rsa_keygen = */ NULL,
+        /* .app_data = */ nullptr,
+        /* .rsa_sign = */ nullptr,
+        /* .rsa_verify = */ nullptr,
+        /* .rsa_keygen = */ nullptr,
 };
 
 // Custom DSA_METHOD that uses the platform APIs.
@@ -1508,20 +1509,20 @@ DSA_SIG* DsaMethodDoSign(const unsigned char* dgst,
                          DSA* dsa) {
     // Extract the JNI reference to the PrivateKey object.
     jobject private_key = reinterpret_cast<jobject>(DSA_get_ex_data(dsa, 0));
-    if (private_key == NULL) return NULL;
+    if (private_key == nullptr) return nullptr;
 
     JNIEnv* env = getJNIEnv();
-    if (env == NULL) {
-        return NULL;
+    if (env == nullptr) {
+        return nullptr;
     }
 
     // Sign the message with it, calling platform APIs.
     ScopedLocalRef<jbyteArray> signature(
             env, rawSignDigestWithPrivateKey(env, private_key, reinterpret_cast<const char*>(dgst),
                                              dlen));
-    if (signature.get() == NULL) {
+    if (signature.get() == nullptr) {
         ALOGE("Could not sign message in DsaMethodDoSign!");
-        return NULL;
+        return nullptr;
     }
 
     ScopedByteArrayRO signatureBytes(env, signature.get());
@@ -1530,13 +1531,13 @@ DSA_SIG* DsaMethodDoSign(const unsigned char* dgst,
     if (signatureBytes.size() > max_expected_size) {
         ALOGE("DSA Signature size mismatch, actual: %zd, expected <= %zd", signatureBytes.size(),
               max_expected_size);
-        return NULL;
+        return nullptr;
     }
 
     // Convert the signature into a DSA_SIG object.
     const unsigned char* sigbuf = reinterpret_cast<const unsigned char*>(signatureBytes.get());
     int siglen = static_cast<size_t>(signatureBytes.size());
-    DSA_SIG* dsa_sig = d2i_DSA_SIG(NULL, &sigbuf, siglen);
+    DSA_SIG* dsa_sig = d2i_DSA_SIG(nullptr, &sigbuf, siglen);
     return dsa_sig;
 }
 
@@ -1562,8 +1563,8 @@ int DsaMethodFinish(DSA* dsa) {
     // Free the global JNI reference that was created with this
     // wrapper key.
     jobject key = reinterpret_cast<jobject>(DSA_get_ex_data(dsa, 0));
-    if (key != NULL) {
-        DSA_set_ex_data(dsa, 0, NULL);
+    if (key != nullptr) {
+        DSA_set_ex_data(dsa, 0, nullptr);
         JNIEnv* env = getJNIEnv();
         env->DeleteGlobalRef(key);
     }
@@ -1577,14 +1578,14 @@ const DSA_METHOD android_dsa_method = {
         /* .dsa_do_sign = */ DsaMethodDoSign,
         /* .dsa_sign_setup = */ DsaMethodSignSetup,
         /* .dsa_do_verify = */ DsaMethodDoVerify,
-        /* .dsa_mod_exp = */ NULL,
-        /* .bn_mod_exp = */ NULL,
-        /* .init = */ NULL,  // nothing to do here.
+        /* .dsa_mod_exp = */ nullptr,
+        /* .bn_mod_exp = */ nullptr,
+        /* .init = */ nullptr,  // nothing to do here.
         /* .finish = */ DsaMethodFinish,
         /* .flags = */ 0,
-        /* .app_data = */ NULL,
-        /* .dsa_paramgem = */ NULL,
-        /* .dsa_keygen = */ NULL};
+        /* .app_data = */ nullptr,
+        /* .dsa_paramgem = */ nullptr,
+        /* .dsa_keygen = */ nullptr};
 
 // Used to ensure that the global JNI reference associated with a custom
 // EC_KEY + ECDSA_METHOD wrapper is released when its EX_DATA is destroyed
@@ -1596,9 +1597,9 @@ void ExDataFree(void* /* parent */,
                 long /* argl */,
                 void* /* argp */) {
     jobject private_key = reinterpret_cast<jobject>(ptr);
-    if (private_key == NULL) return;
+    if (private_key == nullptr) return;
 
-    CRYPTO_set_ex_data(ad, idx, NULL);
+    CRYPTO_set_ex_data(ad, idx, nullptr);
     JNIEnv* env = getJNIEnv();
     env->DeleteGlobalRef(private_key);
 }
@@ -1628,7 +1629,7 @@ class EcdsaExDataIndex {
 
   private:
     EcdsaExDataIndex() {
-        ex_data_index_ = ECDSA_get_ex_new_index(0, NULL, NULL, ExDataDup, ExDataFree);
+        ex_data_index_ = ECDSA_get_ex_new_index(0, nullptr, nullptr, ExDataDup, ExDataFree);
     }
     EcdsaExDataIndex(EcdsaExDataIndex const&);
     ~EcdsaExDataIndex() {}
@@ -1650,20 +1651,20 @@ ECDSA_SIG* EcdsaMethodDoSign(const unsigned char* dgst, int dgst_len, const BIGN
             reinterpret_cast<jobject>(ECDSA_get_ex_data(eckey, EcdsaGetExDataIndex()));
     if (!private_key) {
         ALOGE("Null JNI reference passed to EcdsaMethodDoSign!");
-        return NULL;
+        return nullptr;
     }
     JNIEnv* env = getJNIEnv();
-    if (env == NULL) {
-        return NULL;
+    if (env == nullptr) {
+        return nullptr;
     }
 
     // Sign message with it through JNI.
     ScopedLocalRef<jbyteArray> signature(
             env, rawSignDigestWithPrivateKey(env, private_key, reinterpret_cast<const char*>(dgst),
                                              dgst_len));
-    if (signature.get() == NULL) {
+    if (signature.get() == nullptr) {
         ALOGE("Could not sign message in EcdsaMethodDoSign!");
-        return NULL;
+        return nullptr;
     }
 
     ScopedByteArrayRO signatureBytes(env, signature.get());
@@ -1673,13 +1674,13 @@ ECDSA_SIG* EcdsaMethodDoSign(const unsigned char* dgst, int dgst_len, const BIGN
     if (signatureBytes.size() > max_expected_size) {
         ALOGE("ECDSA Signature size mismatch, actual: %zd, expected <= %zd", signatureBytes.size(),
               max_expected_size);
-        return NULL;
+        return nullptr;
     }
 
     // Convert signature to ECDSA_SIG object
     const unsigned char* sigbuf = reinterpret_cast<const unsigned char*>(signatureBytes.get());
     long siglen = static_cast<long>(signatureBytes.size());
-    return d2i_ECDSA_SIG(NULL, &sigbuf, siglen);
+    return d2i_ECDSA_SIG(nullptr, &sigbuf, siglen);
 }
 
 int EcdsaMethodSignSetup(EC_KEY* /* eckey */,
@@ -1706,7 +1707,7 @@ const ECDSA_METHOD android_ecdsa_method = {
         /* .ecdsa_sign_setup = */ EcdsaMethodSignSetup,
         /* .ecdsa_do_verify = */ EcdsaMethodDoVerify,
         /* .flags = */ 0,
-        /* .app_data = */ NULL,
+        /* .app_data = */ nullptr,
 };
 
 #ifdef CONSCRYPT_UNBUNDLED
@@ -1718,19 +1719,19 @@ const ECDSA_METHOD android_ecdsa_method = {
  */
 typedef void (*acm_ctor_func)(void*, int);
 typedef void (*acm_dtor_func)(void*);
-static acm_ctor_func async_close_monitor_ctor = NULL;
-static acm_dtor_func async_close_monitor_dtor = NULL;
+static acm_ctor_func async_close_monitor_ctor = nullptr;
+static acm_dtor_func async_close_monitor_dtor = nullptr;
 
 class CompatibilityCloseMonitor {
 public:
     CompatibilityCloseMonitor(int fd) {
-        if (async_close_monitor_ctor != NULL) {
+        if (async_close_monitor_ctor != nullptr) {
             async_close_monitor_ctor(objBuffer, fd);
         }
     }
 
     ~CompatibilityCloseMonitor() {
-        if (async_close_monitor_dtor != NULL) {
+        if (async_close_monitor_dtor != nullptr) {
             async_close_monitor_dtor(objBuffer);
         }
     }
@@ -1744,7 +1745,7 @@ private:
 
 static void findAsynchronousCloseMonitorFuncs() {
     void *lib = dlopen("libjavacore.so", RTLD_NOW);
-    if (lib != NULL) {
+    if (lib != nullptr) {
         async_close_monitor_ctor = (acm_ctor_func) dlsym(lib, "_ZN24AsynchronousCloseMonitorC1Ei");
         async_close_monitor_dtor = (acm_dtor_func) dlsym(lib, "_ZN24AsynchronousCloseMonitorD1Ev");
     }
@@ -1776,7 +1777,7 @@ static bool setBlocking(int fd, bool blocking) {
  * isomorphism).
  */
 #define MUTEX_TYPE pthread_mutex_t
-#define MUTEX_SETUP(x) pthread_mutex_init(&(x), NULL)
+#define MUTEX_SETUP(x) pthread_mutex_init(&(x), nullptr)
 #define MUTEX_CLEANUP(x) pthread_mutex_destroy(&(x))
 #define MUTEX_LOCK(x) pthread_mutex_lock(&(x))
 #define MUTEX_UNLOCK(x) pthread_mutex_unlock(&(x))
@@ -1785,7 +1786,7 @@ static bool setBlocking(int fd, bool blocking) {
 #define THROW_SOCKETTIMEOUTEXCEPTION (-3)
 #define THROWN_EXCEPTION (-4)
 
-static MUTEX_TYPE* mutex_buf = NULL;
+static MUTEX_TYPE* mutex_buf = nullptr;
 
 static void locking_function(int mode, int n, const char*, int) {
     if (mode & CRYPTO_LOCK) {
@@ -1820,15 +1821,15 @@ int THREAD_cleanup(void) {
         return 0;
     }
 
-    CRYPTO_set_id_callback(NULL);
-    CRYPTO_set_locking_callback(NULL);
+    CRYPTO_set_id_callback(nullptr);
+    CRYPTO_set_locking_callback(nullptr);
 
     for (int i = 0; i < CRYPTO_num_locks( ); i++) {
         MUTEX_CLEANUP(mutex_buf[i]);
     }
 
     free(mutex_buf);
-    mutex_buf = NULL;
+    mutex_buf = nullptr;
 
     return 1;
 }
@@ -1856,14 +1857,14 @@ static jlong NativeCrypto_ENGINE_by_id(JNIEnv* env, jclass, jstring idJava) {
     JNI_TRACE("ENGINE_by_id(%p)", idJava);
 
     ScopedUtfChars id(env, idJava);
-    if (id.c_str() == NULL) {
+    if (id.c_str() == nullptr) {
         JNI_TRACE("ENGINE_by_id(%p) => id == null", idJava);
         return 0;
     }
     JNI_TRACE("ENGINE_by_id(\"%s\")", id.c_str());
 
     ENGINE* e = ENGINE_by_id(id.c_str());
-    if (e == NULL) {
+    if (e == nullptr) {
         freeOpenSslErrorState();
     }
 
@@ -1875,7 +1876,7 @@ static jint NativeCrypto_ENGINE_add(JNIEnv* env, jclass, jlong engineRef) {
     ENGINE* e = reinterpret_cast<ENGINE*>(static_cast<uintptr_t>(engineRef));
     JNI_TRACE("ENGINE_add(%p)", e);
 
-    if (e == NULL) {
+    if (e == nullptr) {
         jniThrowException(env, "java/lang/IllegalArgumentException", "engineRef == 0");
         return 0;
     }
@@ -1896,7 +1897,7 @@ static jint NativeCrypto_ENGINE_init(JNIEnv* env, jclass, jlong engineRef) {
     ENGINE* e = reinterpret_cast<ENGINE*>(static_cast<uintptr_t>(engineRef));
     JNI_TRACE("ENGINE_init(%p)", e);
 
-    if (e == NULL) {
+    if (e == nullptr) {
         jniThrowException(env, "java/lang/IllegalArgumentException", "engineRef == 0");
         return 0;
     }
@@ -1910,7 +1911,7 @@ static jint NativeCrypto_ENGINE_finish(JNIEnv* env, jclass, jlong engineRef) {
     ENGINE* e = reinterpret_cast<ENGINE*>(static_cast<uintptr_t>(engineRef));
     JNI_TRACE("ENGINE_finish(%p)", e);
 
-    if (e == NULL) {
+    if (e == nullptr) {
         jniThrowException(env, "java/lang/IllegalArgumentException", "engineRef == 0");
         return 0;
     }
@@ -1924,7 +1925,7 @@ static jint NativeCrypto_ENGINE_free(JNIEnv* env, jclass, jlong engineRef) {
     ENGINE* e = reinterpret_cast<ENGINE*>(static_cast<uintptr_t>(engineRef));
     JNI_TRACE("ENGINE_free(%p)", e);
 
-    if (e == NULL) {
+    if (e == nullptr) {
         jniThrowException(env, "java/lang/IllegalArgumentException", "engineRef == 0");
         return 0;
     }
@@ -1940,13 +1941,13 @@ static jlong NativeCrypto_ENGINE_load_private_key(JNIEnv* env, jclass, jlong eng
     JNI_TRACE("ENGINE_load_private_key(%p, %p)", e, idJava);
 
     ScopedUtfChars id(env, idJava);
-    if (id.c_str() == NULL) {
+    if (id.c_str() == nullptr) {
         jniThrowException(env, "java/lang/IllegalArgumentException", "id == NULL");
         return 0;
     }
 
-    Unique_EVP_PKEY pkey(ENGINE_load_private_key(e, id.c_str(), NULL, NULL));
-    if (pkey.get() == NULL) {
+    Unique_EVP_PKEY pkey(ENGINE_load_private_key(e, id.c_str(), nullptr, nullptr));
+    if (pkey.get() == nullptr) {
         throwExceptionIfNecessary(env, "ENGINE_load_private_key");
         return 0;
     }
@@ -1960,10 +1961,10 @@ static jstring NativeCrypto_ENGINE_get_id(JNIEnv* env, jclass, jlong engineRef)
     ENGINE* e = reinterpret_cast<ENGINE*>(static_cast<uintptr_t>(engineRef));
     JNI_TRACE("ENGINE_get_id(%p)", e);
 
-    if (e == NULL) {
+    if (e == nullptr) {
         jniThrowNullPointerException(env, "engine == null");
         JNI_TRACE("ENGINE_get_id(%p) => engine == null", e);
-        return NULL;
+        return nullptr;
     }
 
     const char *id = ENGINE_get_id(e);
@@ -1979,7 +1980,7 @@ static jint NativeCrypto_ENGINE_ctrl_cmd_string(JNIEnv* env, jclass, jlong engin
     ENGINE* e = reinterpret_cast<ENGINE*>(static_cast<uintptr_t>(engineRef));
     JNI_TRACE("ENGINE_ctrl_cmd_string(%p, %p, %p, %d)", e, cmdJava, argJava, cmd_optional);
 
-    if (e == NULL) {
+    if (e == nullptr) {
         jniThrowNullPointerException(env, "engine == null");
         JNI_TRACE("ENGINE_ctrl_cmd_string(%p, %p, %p, %d) => engine == null", e, cmdJava, argJava,
                 cmd_optional);
@@ -1987,16 +1988,16 @@ static jint NativeCrypto_ENGINE_ctrl_cmd_string(JNIEnv* env, jclass, jlong engin
     }
 
     ScopedUtfChars cmdChars(env, cmdJava);
-    if (cmdChars.c_str() == NULL) {
+    if (cmdChars.c_str() == nullptr) {
         return 0;
     }
 
-    UniquePtr<ScopedUtfChars> arg;
-    const char* arg_c_str = NULL;
-    if (argJava != NULL) {
+    std::unique_ptr<ScopedUtfChars> arg;
+    const char* arg_c_str = nullptr;
+    if (argJava != nullptr) {
         arg.reset(new ScopedUtfChars(env, argJava));
         arg_c_str = arg->c_str();
-        if (arg_c_str == NULL) {
+        if (arg_c_str == nullptr) {
             return 0;
         }
     }
@@ -2023,7 +2024,7 @@ static jlong NativeCrypto_EVP_PKEY_new_DH(JNIEnv* env, jclass,
               p, g, pub_key, priv_key);
 
     Unique_DH dh(DH_new());
-    if (dh.get() == NULL) {
+    if (dh.get() == nullptr) {
         jniThrowRuntimeException(env, "DH_new failed");
         return 0;
     }
@@ -2036,23 +2037,23 @@ static jlong NativeCrypto_EVP_PKEY_new_DH(JNIEnv* env, jclass,
         return 0;
     }
 
-    if (pub_key != NULL && !arrayToBignum(env, pub_key, &dh->pub_key)) {
+    if (pub_key != nullptr && !arrayToBignum(env, pub_key, &dh->pub_key)) {
         return 0;
     }
 
-    if (priv_key != NULL && !arrayToBignum(env, priv_key, &dh->priv_key)) {
+    if (priv_key != nullptr && !arrayToBignum(env, priv_key, &dh->priv_key)) {
         return 0;
     }
 
-    if (dh->p == NULL || dh->g == NULL
-            || (pub_key != NULL && dh->pub_key == NULL)
-            || (priv_key != NULL && dh->priv_key == NULL)) {
+    if (dh->p == nullptr || dh->g == nullptr
+            || (pub_key != nullptr && dh->pub_key == nullptr)
+            || (priv_key != nullptr && dh->priv_key == nullptr)) {
         jniThrowRuntimeException(env, "Unable to convert BigInteger to BIGNUM");
         return 0;
     }
 
     /* The public key can be recovered if the private key is available. */
-    if (dh->pub_key == NULL && dh->priv_key != NULL) {
+    if (dh->pub_key == nullptr && dh->priv_key != nullptr) {
         if (!DH_generate_key(dh.get())) {
             jniThrowRuntimeException(env, "EVP_PKEY_new_DH failed during pub_key generation");
             return 0;
@@ -2060,7 +2061,7 @@ static jlong NativeCrypto_EVP_PKEY_new_DH(JNIEnv* env, jclass,
     }
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         jniThrowRuntimeException(env, "EVP_PKEY_new failed");
         return 0;
     }
@@ -2085,7 +2086,7 @@ static jlong NativeCrypto_EVP_PKEY_new_DSA(JNIEnv* env, jclass,
               p, q, g, pub_key, priv_key);
 
     Unique_DSA dsa(DSA_new());
-    if (dsa.get() == NULL) {
+    if (dsa.get() == nullptr) {
         jniThrowRuntimeException(env, "DSA_new failed");
         return 0;
     }
@@ -2102,22 +2103,22 @@ static jlong NativeCrypto_EVP_PKEY_new_DSA(JNIEnv* env, jclass,
         return 0;
     }
 
-    if (pub_key != NULL && !arrayToBignum(env, pub_key, &dsa->pub_key)) {
+    if (pub_key != nullptr && !arrayToBignum(env, pub_key, &dsa->pub_key)) {
         return 0;
     }
 
-    if (priv_key != NULL && !arrayToBignum(env, priv_key, &dsa->priv_key)) {
+    if (priv_key != nullptr && !arrayToBignum(env, priv_key, &dsa->priv_key)) {
         return 0;
     }
 
-    if (dsa->p == NULL || dsa->q == NULL || dsa->g == NULL
-            || (dsa->pub_key == NULL && dsa->priv_key == NULL)) {
+    if (dsa->p == nullptr || dsa->q == nullptr || dsa->g == nullptr
+            || (dsa->pub_key == nullptr && dsa->priv_key == nullptr)) {
         jniThrowRuntimeException(env, "Unable to convert BigInteger to BIGNUM");
         return 0;
     }
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         jniThrowRuntimeException(env, "EVP_PKEY_new failed");
         return 0;
     }
@@ -2143,12 +2144,12 @@ static jlong NativeCrypto_EVP_PKEY_new_RSA(JNIEnv* env, jclass,
             n, e, d, p, q, dmp1, dmq1, iqmp);
 
     Unique_RSA rsa(RSA_new());
-    if (rsa.get() == NULL) {
+    if (rsa.get() == nullptr) {
         jniThrowRuntimeException(env, "RSA_new failed");
         return 0;
     }
 
-    if (e == NULL && d == NULL) {
+    if (e == nullptr && d == nullptr) {
         jniThrowException(env, "java/lang/IllegalArgumentException", "e == NULL && d == NULL");
         JNI_TRACE("NativeCrypto_EVP_PKEY_new_RSA => e == NULL && d == NULL");
         return 0;
@@ -2158,42 +2159,42 @@ static jlong NativeCrypto_EVP_PKEY_new_RSA(JNIEnv* env, jclass,
         return 0;
     }
 
-    if (e != NULL && !arrayToBignum(env, e, &rsa->e)) {
+    if (e != nullptr && !arrayToBignum(env, e, &rsa->e)) {
         return 0;
     }
 
-    if (d != NULL && !arrayToBignum(env, d, &rsa->d)) {
+    if (d != nullptr && !arrayToBignum(env, d, &rsa->d)) {
         return 0;
     }
 
-    if (p != NULL && !arrayToBignum(env, p, &rsa->p)) {
+    if (p != nullptr && !arrayToBignum(env, p, &rsa->p)) {
         return 0;
     }
 
-    if (q != NULL && !arrayToBignum(env, q, &rsa->q)) {
+    if (q != nullptr && !arrayToBignum(env, q, &rsa->q)) {
         return 0;
     }
 
-    if (dmp1 != NULL && !arrayToBignum(env, dmp1, &rsa->dmp1)) {
+    if (dmp1 != nullptr && !arrayToBignum(env, dmp1, &rsa->dmp1)) {
         return 0;
     }
 
-    if (dmq1 != NULL && !arrayToBignum(env, dmq1, &rsa->dmq1)) {
+    if (dmq1 != nullptr && !arrayToBignum(env, dmq1, &rsa->dmq1)) {
         return 0;
     }
 
-    if (iqmp != NULL && !arrayToBignum(env, iqmp, &rsa->iqmp)) {
+    if (iqmp != nullptr && !arrayToBignum(env, iqmp, &rsa->iqmp)) {
         return 0;
     }
 
 #ifdef WITH_JNI_TRACE
-    if (p != NULL && q != NULL) {
+    if (p != nullptr && q != nullptr) {
         int check = RSA_check_key(rsa.get());
         JNI_TRACE("EVP_PKEY_new_RSA(...) RSA_check_key returns %d", check);
     }
 #endif
 
-    if (rsa->n == NULL || (rsa->e == NULL && rsa->d == NULL)) {
+    if (rsa->n == nullptr || (rsa->e == nullptr && rsa->d == nullptr)) {
         jniThrowRuntimeException(env, "Unable to convert BigInteger to BIGNUM");
         return 0;
     }
@@ -2203,10 +2204,10 @@ static jlong NativeCrypto_EVP_PKEY_new_RSA(JNIEnv* env, jclass,
      * operations. If the public exponent is also available, OpenSSL will do RSA
      * blinding. Enable it if possible.
      */
-    if (rsa->d != NULL) {
-        if (rsa->e != NULL) {
+    if (rsa->d != nullptr) {
+        if (rsa->e != nullptr) {
             JNI_TRACE("EVP_PKEY_new_RSA(...) enabling RSA blinding => %p", rsa.get());
-            RSA_blinding_on(rsa.get(), NULL);
+            RSA_blinding_on(rsa.get(), nullptr);
         } else {
             JNI_TRACE("EVP_PKEY_new_RSA(...) disabling RSA blinding => %p", rsa.get());
             RSA_blinding_off(rsa.get());
@@ -2214,7 +2215,7 @@ static jlong NativeCrypto_EVP_PKEY_new_RSA(JNIEnv* env, jclass,
     }
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         jniThrowRuntimeException(env, "EVP_PKEY_new failed");
         return 0;
     }
@@ -2234,9 +2235,9 @@ static jlong NativeCrypto_EVP_PKEY_new_EC_KEY(JNIEnv* env, jclass, jlong groupRe
     const EC_POINT* pubkey = reinterpret_cast<const EC_POINT*>(pubkeyRef);
     JNI_TRACE("EVP_PKEY_new_EC_KEY(%p, %p, %p)", group, pubkey, keyJavaBytes);
 
-    Unique_BIGNUM key(NULL);
-    if (keyJavaBytes != NULL) {
-        BIGNUM* keyRef = NULL;
+    Unique_BIGNUM key(nullptr);
+    if (keyJavaBytes != nullptr) {
+        BIGNUM* keyRef = nullptr;
         if (!arrayToBignum(env, keyJavaBytes, &keyRef)) {
             return 0;
         }
@@ -2244,7 +2245,7 @@ static jlong NativeCrypto_EVP_PKEY_new_EC_KEY(JNIEnv* env, jclass, jlong groupRe
     }
 
     Unique_EC_KEY eckey(EC_KEY_new());
-    if (eckey.get() == NULL) {
+    if (eckey.get() == nullptr) {
         jniThrowRuntimeException(env, "EC_KEY_new failed");
         return 0;
     }
@@ -2256,7 +2257,7 @@ static jlong NativeCrypto_EVP_PKEY_new_EC_KEY(JNIEnv* env, jclass, jlong groupRe
         return 0;
     }
 
-    if (pubkey != NULL) {
+    if (pubkey != nullptr) {
         if (EC_KEY_set_public_key(eckey.get(), pubkey) != 1) {
             JNI_TRACE("EVP_PKEY_new_EC_KEY(%p, %p, %p) => EC_KEY_set_private_key failed", group,
                     pubkey, keyJavaBytes);
@@ -2265,16 +2266,16 @@ static jlong NativeCrypto_EVP_PKEY_new_EC_KEY(JNIEnv* env, jclass, jlong groupRe
         }
     }
 
-    if (key.get() != NULL) {
+    if (key.get() != nullptr) {
         if (EC_KEY_set_private_key(eckey.get(), key.get()) != 1) {
             JNI_TRACE("EVP_PKEY_new_EC_KEY(%p, %p, %p) => EC_KEY_set_private_key failed", group,
                     pubkey, keyJavaBytes);
             throwExceptionIfNecessary(env, "EC_KEY_set_private_key");
             return 0;
         }
-        if (pubkey == NULL) {
+        if (pubkey == nullptr) {
             Unique_EC_POINT calcPubkey(EC_POINT_new(group));
-            if (!EC_POINT_mul(group, calcPubkey.get(), key.get(), NULL, NULL, NULL)) {
+            if (!EC_POINT_mul(group, calcPubkey.get(), key.get(), nullptr, nullptr, nullptr)) {
                 JNI_TRACE("EVP_PKEY_new_EC_KEY(%p, %p, %p) => can't calulate public key", group,
                         pubkey, keyJavaBytes);
                 throwExceptionIfNecessary(env, "EC_KEY_set_private_key");
@@ -2291,7 +2292,7 @@ static jlong NativeCrypto_EVP_PKEY_new_EC_KEY(JNIEnv* env, jclass, jlong groupRe
     }
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         JNI_TRACE("EVP_PKEY_new_EC(%p, %p, %p) => threw error", group, pubkey, keyJavaBytes);
         throwExceptionIfNecessary(env, "EVP_PKEY_new failed");
         return 0;
@@ -2313,13 +2314,13 @@ static jlong NativeCrypto_EVP_PKEY_new_mac_key(JNIEnv* env, jclass, jint pkeyTyp
     JNI_TRACE("EVP_PKEY_new_mac_key(%d, %p)", pkeyType, keyJavaBytes);
 
     ScopedByteArrayRO key(env, keyJavaBytes);
-    if (key.get() == NULL) {
+    if (key.get() == nullptr) {
         return 0;
     }
 
     const unsigned char* tmp = reinterpret_cast<const unsigned char*>(key.get());
-    Unique_EVP_PKEY pkey(EVP_PKEY_new_mac_key(pkeyType, (ENGINE *) NULL, tmp, key.size()));
-    if (pkey.get() == NULL) {
+    Unique_EVP_PKEY pkey(EVP_PKEY_new_mac_key(pkeyType, (ENGINE *) nullptr, tmp, key.size()));
+    if (pkey.get() == nullptr) {
         JNI_TRACE("EVP_PKEY_new_mac_key(%d, %p) => threw error", pkeyType, keyJavaBytes);
         throwExceptionIfNecessary(env, "ENGINE_load_private_key");
         return 0;
@@ -2333,8 +2334,8 @@ static int NativeCrypto_EVP_PKEY_type(JNIEnv* env, jclass, jlong pkeyRef) {
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EVP_PKEY_type(%p)", pkey);
 
-    if (pkey == NULL) {
-        jniThrowNullPointerException(env, NULL);
+    if (pkey == nullptr) {
+        jniThrowNullPointerException(env, nullptr);
         return -1;
     }
 
@@ -2350,8 +2351,8 @@ static int NativeCrypto_EVP_PKEY_size(JNIEnv* env, jclass, jlong pkeyRef) {
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EVP_PKEY_size(%p)", pkey);
 
-    if (pkey == NULL) {
-        jniThrowNullPointerException(env, NULL);
+    if (pkey == nullptr) {
+        jniThrowNullPointerException(env, nullptr);
         return -1;
     }
 
@@ -2364,20 +2365,20 @@ static jstring NativeCrypto_EVP_PKEY_print_public(JNIEnv* env, jclass, jlong pke
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EVP_PKEY_print_public(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
-        return NULL;
+        return nullptr;
     }
 
     Unique_BIO buffer(BIO_new(BIO_s_mem()));
-    if (buffer.get() == NULL) {
+    if (buffer.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate BIO");
-        return NULL;
+        return nullptr;
     }
 
-    if (EVP_PKEY_print_public(buffer.get(), pkey, 0, (ASN1_PCTX*) NULL) != 1) {
+    if (EVP_PKEY_print_public(buffer.get(), pkey, 0, (ASN1_PCTX*) nullptr) != 1) {
         throwExceptionIfNecessary(env, "EVP_PKEY_print_public");
-        return NULL;
+        return nullptr;
     }
     // Null terminate this
     BIO_write(buffer.get(), "\0", 1);
@@ -2394,20 +2395,20 @@ static jstring NativeCrypto_EVP_PKEY_print_private(JNIEnv* env, jclass, jlong pk
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EVP_PKEY_print_private(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
-        return NULL;
+        return nullptr;
     }
 
     Unique_BIO buffer(BIO_new(BIO_s_mem()));
-    if (buffer.get() == NULL) {
+    if (buffer.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate BIO");
-        return NULL;
+        return nullptr;
     }
 
-    if (EVP_PKEY_print_private(buffer.get(), pkey, 0, (ASN1_PCTX*) NULL) != 1) {
+    if (EVP_PKEY_print_private(buffer.get(), pkey, 0, (ASN1_PCTX*) nullptr) != 1) {
         throwExceptionIfNecessary(env, "EVP_PKEY_print_private");
-        return NULL;
+        return nullptr;
     }
     // Null terminate this
     BIO_write(buffer.get(), "\0", 1);
@@ -2424,7 +2425,7 @@ static void NativeCrypto_EVP_PKEY_free(JNIEnv*, jclass, jlong pkeyRef) {
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EVP_PKEY_free(%p)", pkey);
 
-    if (pkey != NULL) {
+    if (pkey != nullptr) {
         EVP_PKEY_free(pkey);
     }
 }
@@ -2434,11 +2435,11 @@ static jint NativeCrypto_EVP_PKEY_cmp(JNIEnv* env, jclass, jlong pkey1Ref, jlong
     EVP_PKEY* pkey2 = reinterpret_cast<EVP_PKEY*>(pkey2Ref);
     JNI_TRACE("EVP_PKEY_cmp(%p, %p)", pkey1, pkey2);
 
-    if (pkey1 == NULL) {
+    if (pkey1 == nullptr) {
         JNI_TRACE("EVP_PKEY_cmp(%p, %p) => failed pkey1 == NULL", pkey1, pkey2);
         jniThrowNullPointerException(env, "pkey1 == NULL");
         return -1;
-    } else if (pkey2 == NULL) {
+    } else if (pkey2 == nullptr) {
         JNI_TRACE("EVP_PKEY_cmp(%p, %p) => failed pkey2 == NULL", pkey1, pkey2);
         jniThrowNullPointerException(env, "pkey2 == NULL");
         return -1;
@@ -2456,16 +2457,16 @@ static jbyteArray NativeCrypto_i2d_PKCS8_PRIV_KEY_INFO(JNIEnv* env, jclass, jlon
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("i2d_PKCS8_PRIV_KEY_INFO(%p)", pkey);
 
-    if (pkey == NULL) {
-        jniThrowNullPointerException(env, NULL);
-        return NULL;
+    if (pkey == nullptr) {
+        jniThrowNullPointerException(env, nullptr);
+        return nullptr;
     }
 
     Unique_PKCS8_PRIV_KEY_INFO pkcs8(EVP_PKEY2PKCS8(pkey));
-    if (pkcs8.get() == NULL) {
+    if (pkcs8.get() == nullptr) {
         throwExceptionIfNecessary(env, "NativeCrypto_i2d_PKCS8_PRIV_KEY_INFO");
         JNI_TRACE("key=%p i2d_PKCS8_PRIV_KEY_INFO => error from key to PKCS8", pkey);
-        return NULL;
+        return nullptr;
     }
 
     return ASN1ToByteArray<PKCS8_PRIV_KEY_INFO, i2d_PKCS8_PRIV_KEY_INFO>(env, pkcs8.get());
@@ -2478,21 +2479,21 @@ static jlong NativeCrypto_d2i_PKCS8_PRIV_KEY_INFO(JNIEnv* env, jclass, jbyteArra
     JNI_TRACE("d2i_PKCS8_PRIV_KEY_INFO(%p)", keyJavaBytes);
 
     ScopedByteArrayRO bytes(env, keyJavaBytes);
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("bytes=%p d2i_PKCS8_PRIV_KEY_INFO => threw exception", keyJavaBytes);
         return 0;
     }
 
     const unsigned char* tmp = reinterpret_cast<const unsigned char*>(bytes.get());
-    Unique_PKCS8_PRIV_KEY_INFO pkcs8(d2i_PKCS8_PRIV_KEY_INFO(NULL, &tmp, bytes.size()));
-    if (pkcs8.get() == NULL) {
+    Unique_PKCS8_PRIV_KEY_INFO pkcs8(d2i_PKCS8_PRIV_KEY_INFO(nullptr, &tmp, bytes.size()));
+    if (pkcs8.get() == nullptr) {
         throwExceptionIfNecessary(env, "d2i_PKCS8_PRIV_KEY_INFO");
         JNI_TRACE("ssl=%p d2i_PKCS8_PRIV_KEY_INFO => error from DER to PKCS8", keyJavaBytes);
         return 0;
     }
 
     Unique_EVP_PKEY pkey(EVP_PKCS82PKEY(pkcs8.get()));
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         throwExceptionIfNecessary(env, "d2i_PKCS8_PRIV_KEY_INFO");
         JNI_TRACE("ssl=%p d2i_PKCS8_PRIV_KEY_INFO => error from PKCS8 to key", keyJavaBytes);
         return 0;
@@ -2518,14 +2519,14 @@ static jlong NativeCrypto_d2i_PUBKEY(JNIEnv* env, jclass, jbyteArray javaBytes) 
     JNI_TRACE("d2i_PUBKEY(%p)", javaBytes);
 
     ScopedByteArrayRO bytes(env, javaBytes);
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("d2i_PUBKEY(%p) => threw error", javaBytes);
         return 0;
     }
 
     const unsigned char* tmp = reinterpret_cast<const unsigned char*>(bytes.get());
-    Unique_EVP_PKEY pkey(d2i_PUBKEY(NULL, &tmp, bytes.size()));
-    if (pkey.get() == NULL) {
+    Unique_EVP_PKEY pkey(d2i_PUBKEY(nullptr, &tmp, bytes.size()));
+    if (pkey.get() == nullptr) {
         JNI_TRACE("bytes=%p d2i_PUBKEY => threw exception", javaBytes);
         throwExceptionIfNecessary(env, "d2i_PUBKEY");
         return 0;
@@ -2539,7 +2540,7 @@ static jlong NativeCrypto_getRSAPrivateKeyWrapper(JNIEnv* env, jclass, jobject j
     JNI_TRACE("getRSAPrivateKeyWrapper(%p, %p)", javaKey, modulusBytes);
 
     Unique_RSA rsa(RSA_new());
-    if (rsa.get() == NULL) {
+    if (rsa.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate RSA key");
         return 0;
     }
@@ -2553,7 +2554,7 @@ static jlong NativeCrypto_getRSAPrivateKeyWrapper(JNIEnv* env, jclass, jobject j
     RSA_set_app_data(rsa.get(), env->NewGlobalRef(javaKey));
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         JNI_TRACE("getRSAPrivateKeyWrapper failed");
         jniThrowRuntimeException(env, "NativeCrypto_getRSAPrivateKeyWrapper failed");
         freeOpenSslErrorState();
@@ -2573,7 +2574,7 @@ static jlong NativeCrypto_getDSAPrivateKeyWrapper(JNIEnv* env, jclass, jobject j
     JNI_TRACE("getDSAPrivateKeyWrapper(%p, %p)", javaKey, qBytes);
 
     Unique_DSA dsa(DSA_new());
-    if (dsa.get() == NULL) {
+    if (dsa.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate DSA key");
         return 0;
     }
@@ -2586,7 +2587,7 @@ static jlong NativeCrypto_getDSAPrivateKeyWrapper(JNIEnv* env, jclass, jobject j
     DSA_set_ex_data(dsa.get(), 0, env->NewGlobalRef(javaKey));
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         JNI_TRACE("getDSAPrivateKeyWrapper failed");
         jniThrowRuntimeException(env, "NativeCrypto_getDSAPrivateKeyWrapper failed");
         freeOpenSslErrorState();
@@ -2606,14 +2607,14 @@ static jlong NativeCrypto_getECPrivateKeyWrapper(JNIEnv* env, jclass, jobject ja
     JNI_TRACE("getECPrivateKeyWrapper(%p, %p)", javaKey, group);
 
     Unique_EC_KEY ecKey(EC_KEY_new());
-    if (ecKey.get() == NULL) {
+    if (ecKey.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate EC key");
         return 0;
     }
 
     JNI_TRACE("EC_GROUP_get_curve_name(%p)", group);
 
-    if (group == NULL) {
+    if (group == nullptr) {
         JNI_TRACE("EC_GROUP_get_curve_name => group == NULL");
         jniThrowNullPointerException(env, "group == NULL");
         return 0;
@@ -2625,7 +2626,7 @@ static jlong NativeCrypto_getECPrivateKeyWrapper(JNIEnv* env, jclass, jobject ja
     ECDSA_set_ex_data(ecKey.get(), EcdsaGetExDataIndex(), env->NewGlobalRef(javaKey));
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         JNI_TRACE("getDSAPrivateKeyWrapper failed");
         jniThrowRuntimeException(env, "NativeCrypto_getDSAPrivateKeyWrapper failed");
         freeOpenSslErrorState();
@@ -2647,25 +2648,25 @@ static jlong NativeCrypto_RSA_generate_key_ex(JNIEnv* env, jclass, jint modulusB
         jbyteArray publicExponent) {
     JNI_TRACE("RSA_generate_key_ex(%d, %p)", modulusBits, publicExponent);
 
-    BIGNUM* eRef = NULL;
+    BIGNUM* eRef = nullptr;
     if (!arrayToBignum(env, publicExponent, &eRef)) {
         return 0;
     }
     Unique_BIGNUM e(eRef);
 
     Unique_RSA rsa(RSA_new());
-    if (rsa.get() == NULL) {
+    if (rsa.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate RSA key");
         return 0;
     }
 
-    if (RSA_generate_key_ex(rsa.get(), modulusBits, e.get(), NULL) < 0) {
+    if (RSA_generate_key_ex(rsa.get(), modulusBits, e.get(), nullptr) < 0) {
         throwExceptionIfNecessary(env, "RSA_generate_key_ex");
         return 0;
     }
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         jniThrowRuntimeException(env, "RSA_generate_key_ex failed");
         return 0;
     }
@@ -2684,13 +2685,13 @@ static jint NativeCrypto_RSA_size(JNIEnv* env, jclass, jlong pkeyRef) {
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("RSA_size(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         return 0;
     }
 
     Unique_RSA rsa(EVP_PKEY_get1_RSA(pkey));
-    if (rsa.get() == NULL) {
+    if (rsa.get() == nullptr) {
         jniThrowRuntimeException(env, "RSA_size failed");
         return 0;
     }
@@ -2707,23 +2708,23 @@ static jint RSA_crypt_operation(RSACryptOperation operation,
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("%s(%d, %p, %p, %p)", caller, flen, fromJavaBytes, toJavaBytes, pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         return -1;
     }
 
     Unique_RSA rsa(EVP_PKEY_get1_RSA(pkey));
-    if (rsa.get() == NULL) {
+    if (rsa.get() == nullptr) {
         return -1;
     }
 
     ScopedByteArrayRO from(env, fromJavaBytes);
-    if (from.get() == NULL) {
+    if (from.get() == nullptr) {
         return -1;
     }
 
     ScopedByteArrayRW to(env, toJavaBytes);
-    if (to.get() == NULL) {
+    if (to.get() == nullptr) {
         return -1;
     }
 
@@ -2769,31 +2770,31 @@ static jobjectArray NativeCrypto_get_RSA_public_params(JNIEnv* env, jclass, jlon
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("get_RSA_public_params(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         return 0;
     }
 
     Unique_RSA rsa(EVP_PKEY_get1_RSA(pkey));
-    if (rsa.get() == NULL) {
+    if (rsa.get() == nullptr) {
         throwExceptionIfNecessary(env, "get_RSA_public_params failed");
         return 0;
     }
 
-    jobjectArray joa = env->NewObjectArray(2, byteArrayClass, NULL);
-    if (joa == NULL) {
-        return NULL;
+    jobjectArray joa = env->NewObjectArray(2, byteArrayClass, nullptr);
+    if (joa == nullptr) {
+        return nullptr;
     }
 
     jbyteArray n = bignumToArray(env, rsa->n, "n");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
     env->SetObjectArrayElement(joa, 0, n);
 
     jbyteArray e = bignumToArray(env, rsa->e, "e");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
     env->SetObjectArrayElement(joa, 1, e);
 
@@ -2807,80 +2808,80 @@ static jobjectArray NativeCrypto_get_RSA_private_params(JNIEnv* env, jclass, jlo
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("get_RSA_public_params(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         return 0;
     }
 
     Unique_RSA rsa(EVP_PKEY_get1_RSA(pkey));
-    if (rsa.get() == NULL) {
+    if (rsa.get() == nullptr) {
         throwExceptionIfNecessary(env, "get_RSA_public_params failed");
         return 0;
     }
 
-    jobjectArray joa = env->NewObjectArray(8, byteArrayClass, NULL);
-    if (joa == NULL) {
-        return NULL;
+    jobjectArray joa = env->NewObjectArray(8, byteArrayClass, nullptr);
+    if (joa == nullptr) {
+        return nullptr;
     }
 
     jbyteArray n = bignumToArray(env, rsa->n, "n");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
     env->SetObjectArrayElement(joa, 0, n);
 
-    if (rsa->e != NULL) {
+    if (rsa->e != nullptr) {
         jbyteArray e = bignumToArray(env, rsa->e, "e");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 1, e);
     }
 
-    if (rsa->d != NULL) {
+    if (rsa->d != nullptr) {
         jbyteArray d = bignumToArray(env, rsa->d, "d");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 2, d);
     }
 
-    if (rsa->p != NULL) {
+    if (rsa->p != nullptr) {
         jbyteArray p = bignumToArray(env, rsa->p, "p");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 3, p);
     }
 
-    if (rsa->q != NULL) {
+    if (rsa->q != nullptr) {
         jbyteArray q = bignumToArray(env, rsa->q, "q");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 4, q);
     }
 
-    if (rsa->dmp1 != NULL) {
+    if (rsa->dmp1 != nullptr) {
         jbyteArray dmp1 = bignumToArray(env, rsa->dmp1, "dmp1");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 5, dmp1);
     }
 
-    if (rsa->dmq1 != NULL) {
+    if (rsa->dmq1 != nullptr) {
         jbyteArray dmq1 = bignumToArray(env, rsa->dmq1, "dmq1");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 6, dmq1);
     }
 
-    if (rsa->iqmp != NULL) {
+    if (rsa->iqmp != nullptr) {
         jbyteArray iqmp = bignumToArray(env, rsa->iqmp, "iqmp");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 7, iqmp);
     }
@@ -2896,11 +2897,11 @@ static jlong NativeCrypto_DSA_generate_key(JNIEnv* env, jclass, jint primeBits,
     JNI_TRACE("DSA_generate_key(%d, %p, %p, %p, %p)", primeBits, seedJavaBytes,
             gBytes, pBytes, qBytes);
 
-    UniquePtr<unsigned char[]> seedPtr;
+    std::unique_ptr<unsigned char[]> seedPtr;
     unsigned long seedSize = 0;
-    if (seedJavaBytes != NULL) {
+    if (seedJavaBytes != nullptr) {
         ScopedByteArrayRO seed(env, seedJavaBytes);
-        if (seed.get() == NULL) {
+        if (seed.get() == nullptr) {
             return 0;
         }
 
@@ -2911,14 +2912,14 @@ static jlong NativeCrypto_DSA_generate_key(JNIEnv* env, jclass, jint primeBits,
     }
 
     Unique_DSA dsa(DSA_new());
-    if (dsa.get() == NULL) {
+    if (dsa.get() == nullptr) {
         JNI_TRACE("DSA_generate_key failed");
         jniThrowOutOfMemory(env, "Unable to allocate DSA key");
         freeOpenSslErrorState();
         return 0;
     }
 
-    if (gBytes != NULL && pBytes != NULL && qBytes != NULL) {
+    if (gBytes != nullptr && pBytes != nullptr && qBytes != nullptr) {
         JNI_TRACE("DSA_generate_key parameters specified");
 
         if (!arrayToBignum(env, gBytes, &dsa->g)) {
@@ -2935,7 +2936,7 @@ static jlong NativeCrypto_DSA_generate_key(JNIEnv* env, jclass, jint primeBits,
     } else {
         JNI_TRACE("DSA_generate_key generating parameters");
 
-        if (!DSA_generate_parameters_ex(dsa.get(), primeBits, seedPtr.get(), seedSize, NULL, NULL, NULL)) {
+        if (!DSA_generate_parameters_ex(dsa.get(), primeBits, seedPtr.get(), seedSize, nullptr, nullptr, nullptr)) {
             JNI_TRACE("DSA_generate_key => param generation failed");
             throwExceptionIfNecessary(env, "NativeCrypto_DSA_generate_parameters_ex failed");
             return 0;
@@ -2949,7 +2950,7 @@ static jlong NativeCrypto_DSA_generate_key(JNIEnv* env, jclass, jint primeBits,
     }
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         JNI_TRACE("DSA_generate_key failed");
         jniThrowRuntimeException(env, "NativeCrypto_DSA_generate_key failed");
         freeOpenSslErrorState();
@@ -2974,58 +2975,58 @@ static jobjectArray NativeCrypto_get_DSA_params(JNIEnv* env, jclass, jlong pkeyR
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("get_DSA_params(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
-        return NULL;
+        return nullptr;
     }
 
     Unique_DSA dsa(EVP_PKEY_get1_DSA(pkey));
-    if (dsa.get() == NULL) {
+    if (dsa.get() == nullptr) {
         throwExceptionIfNecessary(env, "get_DSA_params failed");
         return 0;
     }
 
-    jobjectArray joa = env->NewObjectArray(5, byteArrayClass, NULL);
-    if (joa == NULL) {
-        return NULL;
+    jobjectArray joa = env->NewObjectArray(5, byteArrayClass, nullptr);
+    if (joa == nullptr) {
+        return nullptr;
     }
 
-    if (dsa->g != NULL) {
+    if (dsa->g != nullptr) {
         jbyteArray g = bignumToArray(env, dsa->g, "g");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 0, g);
     }
 
-    if (dsa->p != NULL) {
+    if (dsa->p != nullptr) {
         jbyteArray p = bignumToArray(env, dsa->p, "p");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 1, p);
     }
 
-    if (dsa->q != NULL) {
+    if (dsa->q != nullptr) {
         jbyteArray q = bignumToArray(env, dsa->q, "q");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 2, q);
     }
 
-    if (dsa->pub_key != NULL) {
+    if (dsa->pub_key != nullptr) {
         jbyteArray pub_key = bignumToArray(env, dsa->pub_key, "pub_key");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 3, pub_key);
     }
 
-    if (dsa->priv_key != NULL) {
+    if (dsa->priv_key != nullptr) {
         jbyteArray priv_key = bignumToArray(env, dsa->priv_key, "priv_key");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 4, priv_key);
     }
@@ -3038,13 +3039,13 @@ static void NativeCrypto_set_DSA_flag_nonce_from_hash(JNIEnv* env, jclass, jlong
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("set_DSA_flag_nonce_from_hash(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         return;
     }
 
     Unique_DSA dsa(EVP_PKEY_get1_DSA(pkey));
-    if (dsa.get() == NULL) {
+    if (dsa.get() == nullptr) {
         throwExceptionIfNecessary(env, "set_DSA_flag_nonce_from_hash failed");
         return;
     }
@@ -3056,7 +3057,7 @@ static jlong NativeCrypto_DH_generate_parameters_ex(JNIEnv* env, jclass, jint pr
     JNI_TRACE("DH_generate_parameters_ex(%d, %lld)", primeBits, (long long) generator);
 
     Unique_DH dh(DH_new());
-    if (dh.get() == NULL) {
+    if (dh.get() == nullptr) {
         JNI_TRACE("DH_generate_parameters_ex failed");
         jniThrowOutOfMemory(env, "Unable to allocate DH key");
         freeOpenSslErrorState();
@@ -3065,14 +3066,14 @@ static jlong NativeCrypto_DH_generate_parameters_ex(JNIEnv* env, jclass, jint pr
 
     JNI_TRACE("DH_generate_parameters_ex generating parameters");
 
-    if (!DH_generate_parameters_ex(dh.get(), primeBits, generator, NULL)) {
+    if (!DH_generate_parameters_ex(dh.get(), primeBits, generator, nullptr)) {
         JNI_TRACE("DH_generate_parameters_ex => param generation failed");
         throwExceptionIfNecessary(env, "NativeCrypto_DH_generate_parameters_ex failed");
         return 0;
     }
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         JNI_TRACE("DH_generate_parameters_ex failed");
         jniThrowRuntimeException(env, "NativeCrypto_DH_generate_parameters_ex failed");
         freeOpenSslErrorState();
@@ -3095,12 +3096,12 @@ static void NativeCrypto_DH_generate_key(JNIEnv* env, jclass, jlong pkeyRef) {
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("DH_generate_key(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
     }
 
     Unique_DH dh(EVP_PKEY_get1_DH(pkey));
-    if (dh.get() == NULL) {
+    if (dh.get() == nullptr) {
         JNI_TRACE("DH_generate_key failed");
         throwExceptionIfNecessary(env, "Unable to get DH key");
         freeOpenSslErrorState();
@@ -3116,50 +3117,50 @@ static jobjectArray NativeCrypto_get_DH_params(JNIEnv* env, jclass, jlong pkeyRe
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("get_DH_params(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
-        return NULL;
+        return nullptr;
     }
 
     Unique_DH dh(EVP_PKEY_get1_DH(pkey));
-    if (dh.get() == NULL) {
+    if (dh.get() == nullptr) {
         throwExceptionIfNecessary(env, "get_DH_params failed");
         return 0;
     }
 
-    jobjectArray joa = env->NewObjectArray(4, byteArrayClass, NULL);
-    if (joa == NULL) {
-        return NULL;
+    jobjectArray joa = env->NewObjectArray(4, byteArrayClass, nullptr);
+    if (joa == nullptr) {
+        return nullptr;
     }
 
-    if (dh->p != NULL) {
+    if (dh->p != nullptr) {
         jbyteArray p = bignumToArray(env, dh->p, "p");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 0, p);
     }
 
-    if (dh->g != NULL) {
+    if (dh->g != nullptr) {
         jbyteArray g = bignumToArray(env, dh->g, "g");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 1, g);
     }
 
-    if (dh->pub_key != NULL) {
+    if (dh->pub_key != nullptr) {
         jbyteArray pub_key = bignumToArray(env, dh->pub_key, "pub_key");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 2, pub_key);
     }
 
-    if (dh->priv_key != NULL) {
+    if (dh->priv_key != nullptr) {
         jbyteArray priv_key = bignumToArray(env, dh->priv_key, "priv_key");
         if (env->ExceptionCheck()) {
-            return NULL;
+            return nullptr;
         }
         env->SetObjectArrayElement(joa, 3, priv_key);
     }
@@ -3193,7 +3194,7 @@ static jlong NativeCrypto_EC_GROUP_new_by_curve_name(JNIEnv* env, jclass, jstrin
     JNI_TRACE("EC_GROUP_new_by_curve_name(%p)", curveNameJava);
 
     ScopedUtfChars curveName(env, curveNameJava);
-    if (curveName.c_str() == NULL) {
+    if (curveName.c_str() == nullptr) {
         return 0;
     }
     JNI_TRACE("EC_GROUP_new_by_curve_name(%s)", curveName.c_str());
@@ -3205,7 +3206,7 @@ static jlong NativeCrypto_EC_GROUP_new_by_curve_name(JNIEnv* env, jclass, jstrin
     }
 
     EC_GROUP* group = EC_GROUP_new_by_curve_name(nid);
-    if (group == NULL) {
+    if (group == nullptr) {
         JNI_TRACE("EC_GROUP_new_by_curve_name(%s) => unknown NID %d", curveName.c_str(), nid);
         freeOpenSslErrorState();
         return 0;
@@ -3221,7 +3222,7 @@ static void NativeCrypto_EC_GROUP_set_asn1_flag(JNIEnv* env, jclass, jlong group
     EC_GROUP* group = reinterpret_cast<EC_GROUP*>(groupRef);
     JNI_TRACE("EC_GROUP_set_asn1_flag(%p, %d)", group, flag);
 
-    if (group == NULL) {
+    if (group == nullptr) {
         JNI_TRACE("EC_GROUP_set_asn1_flag => group == NULL");
         jniThrowNullPointerException(env, "group == NULL");
         return;
@@ -3237,7 +3238,7 @@ static void NativeCrypto_EC_GROUP_set_point_conversion_form(JNIEnv* env, jclass,
     EC_GROUP* group = reinterpret_cast<EC_GROUP*>(groupRef);
     JNI_TRACE("EC_GROUP_set_point_conversion_form(%p, %d)", group, form);
 
-    if (group == NULL) {
+    if (group == nullptr) {
         JNI_TRACE("EC_GROUP_set_point_conversion_form => group == NULL");
         jniThrowNullPointerException(env, "group == NULL");
         return;
@@ -3252,19 +3253,19 @@ static jlong NativeCrypto_EC_GROUP_new_curve(JNIEnv* env, jclass, jint type, jby
 {
     JNI_TRACE("EC_GROUP_new_curve(%d, %p, %p, %p)", type, pJava, aJava, bJava);
 
-    BIGNUM* pRef = NULL;
+    BIGNUM* pRef = nullptr;
     if (!arrayToBignum(env, pJava, &pRef)) {
         return 0;
     }
     Unique_BIGNUM p(pRef);
 
-    BIGNUM* aRef = NULL;
+    BIGNUM* aRef = nullptr;
     if (!arrayToBignum(env, aJava, &aRef)) {
         return 0;
     }
     Unique_BIGNUM a(aRef);
 
-    BIGNUM* bRef = NULL;
+    BIGNUM* bRef = nullptr;
     if (!arrayToBignum(env, bJava, &bRef)) {
         return 0;
     }
@@ -3273,17 +3274,17 @@ static jlong NativeCrypto_EC_GROUP_new_curve(JNIEnv* env, jclass, jint type, jby
     EC_GROUP* group;
     switch (type) {
     case EC_CURVE_GFP:
-        group = EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), (BN_CTX*) NULL);
+        group = EC_GROUP_new_curve_GFp(p.get(), a.get(), b.get(), (BN_CTX*) nullptr);
         break;
     case EC_CURVE_GF2M:
-        group = EC_GROUP_new_curve_GF2m(p.get(), a.get(), b.get(), (BN_CTX*) NULL);
+        group = EC_GROUP_new_curve_GF2m(p.get(), a.get(), b.get(), (BN_CTX*) nullptr);
         break;
     default:
         jniThrowRuntimeException(env, "invalid group");
         return 0;
     }
 
-    if (group == NULL) {
+    if (group == nullptr) {
         throwExceptionIfNecessary(env, "EC_GROUP_new_curve");
     }
 
@@ -3295,7 +3296,7 @@ static jlong NativeCrypto_EC_GROUP_dup(JNIEnv* env, jclass, jlong groupRef) {
     const EC_GROUP* group = reinterpret_cast<const EC_GROUP*>(groupRef);
     JNI_TRACE("EC_GROUP_dup(%p)", group);
 
-    if (group == NULL) {
+    if (group == nullptr) {
          JNI_TRACE("EC_GROUP_dup => group == NULL");
          jniThrowNullPointerException(env, "group == NULL");
          return 0;
@@ -3310,7 +3311,7 @@ static jstring NativeCrypto_EC_GROUP_get_curve_name(JNIEnv* env, jclass, jlong g
     const EC_GROUP* group = reinterpret_cast<const EC_GROUP*>(groupRef);
     JNI_TRACE("EC_GROUP_get_curve_name(%p)", group);
 
-    if (group == NULL) {
+    if (group == nullptr) {
         JNI_TRACE("EC_GROUP_get_curve_name => group == NULL");
         jniThrowNullPointerException(env, "group == NULL");
         return 0;
@@ -3319,7 +3320,7 @@ static jstring NativeCrypto_EC_GROUP_get_curve_name(JNIEnv* env, jclass, jlong g
     int nid = EC_GROUP_get_curve_name(group);
     if (nid == NID_undef) {
         JNI_TRACE("EC_GROUP_get_curve_name(%p) => unnamed curve", group);
-        return NULL;
+        return nullptr;
     }
 
     const char* shortName = OBJ_nid2sn(nid);
@@ -3339,40 +3340,40 @@ static jobjectArray NativeCrypto_EC_GROUP_get_curve(JNIEnv* env, jclass, jlong g
     int ret;
     switch (get_EC_GROUP_type(group)) {
     case EC_CURVE_GFP:
-        ret = EC_GROUP_get_curve_GFp(group, p.get(), a.get(), b.get(), (BN_CTX*) NULL);
+        ret = EC_GROUP_get_curve_GFp(group, p.get(), a.get(), b.get(), (BN_CTX*) nullptr);
         break;
     case EC_CURVE_GF2M:
-        ret = EC_GROUP_get_curve_GF2m(group, p.get(), a.get(), b.get(), (BN_CTX*)NULL);
+        ret = EC_GROUP_get_curve_GF2m(group, p.get(), a.get(), b.get(), (BN_CTX*)nullptr);
         break;
     default:
         jniThrowRuntimeException(env, "invalid group");
-        return NULL;
+        return nullptr;
     }
     if (ret != 1) {
         throwExceptionIfNecessary(env, "EC_GROUP_get_curve");
-        return NULL;
+        return nullptr;
     }
 
-    jobjectArray joa = env->NewObjectArray(3, byteArrayClass, NULL);
-    if (joa == NULL) {
-        return NULL;
+    jobjectArray joa = env->NewObjectArray(3, byteArrayClass, nullptr);
+    if (joa == nullptr) {
+        return nullptr;
     }
 
     jbyteArray pArray = bignumToArray(env, p.get(), "p");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
     env->SetObjectArrayElement(joa, 0, pArray);
 
     jbyteArray aArray = bignumToArray(env, a.get(), "a");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
     env->SetObjectArrayElement(joa, 1, aArray);
 
     jbyteArray bArray = bignumToArray(env, b.get(), "b");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
     env->SetObjectArrayElement(joa, 2, bArray);
 
@@ -3386,21 +3387,21 @@ static jbyteArray NativeCrypto_EC_GROUP_get_order(JNIEnv* env, jclass, jlong gro
     JNI_TRACE("EC_GROUP_get_order(%p)", group);
 
     Unique_BIGNUM order(BN_new());
-    if (order.get() == NULL) {
+    if (order.get() == nullptr) {
         JNI_TRACE("EC_GROUP_get_order(%p) => can't create BN", group);
         jniThrowOutOfMemory(env, "BN_new");
-        return NULL;
+        return nullptr;
     }
 
-    if (EC_GROUP_get_order(group, order.get(), NULL) != 1) {
+    if (EC_GROUP_get_order(group, order.get(), nullptr) != 1) {
         JNI_TRACE("EC_GROUP_get_order(%p) => threw error", group);
         throwExceptionIfNecessary(env, "EC_GROUP_get_order");
-        return NULL;
+        return nullptr;
     }
 
     jbyteArray orderArray = bignumToArray(env, order.get(), "order");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
 
     JNI_TRACE("EC_GROUP_get_order(%p) => %p", group, orderArray);
@@ -3429,21 +3430,21 @@ static jbyteArray NativeCrypto_EC_GROUP_get_cofactor(JNIEnv* env, jclass, jlong 
     JNI_TRACE("EC_GROUP_get_cofactor(%p)", group);
 
     Unique_BIGNUM cofactor(BN_new());
-    if (cofactor.get() == NULL) {
+    if (cofactor.get() == nullptr) {
         JNI_TRACE("EC_GROUP_get_cofactor(%p) => can't create BN", group);
         jniThrowOutOfMemory(env, "BN_new");
-        return NULL;
+        return nullptr;
     }
 
-    if (EC_GROUP_get_cofactor(group, cofactor.get(), NULL) != 1) {
+    if (EC_GROUP_get_cofactor(group, cofactor.get(), nullptr) != 1) {
         JNI_TRACE("EC_GROUP_get_cofactor(%p) => threw error", group);
         throwExceptionIfNecessary(env, "EC_GROUP_get_cofactor");
-        return NULL;
+        return nullptr;
     }
 
     jbyteArray cofactorArray = bignumToArray(env, cofactor.get(), "cofactor");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
 
     JNI_TRACE("EC_GROUP_get_cofactor(%p) => %p", group, cofactorArray);
@@ -3470,7 +3471,7 @@ static void NativeCrypto_EC_GROUP_clear_free(JNIEnv* env, jclass, jlong groupRef
     EC_GROUP* group = reinterpret_cast<EC_GROUP*>(groupRef);
     JNI_TRACE("EC_GROUP_clear_free(%p)", group);
 
-    if (group == NULL) {
+    if (group == nullptr) {
         JNI_TRACE("EC_GROUP_clear_free => group == NULL");
         jniThrowNullPointerException(env, "group == NULL");
         return;
@@ -3486,13 +3487,13 @@ static jboolean NativeCrypto_EC_GROUP_cmp(JNIEnv* env, jclass, jlong group1Ref, 
     const EC_GROUP* group2 = reinterpret_cast<const EC_GROUP*>(group2Ref);
     JNI_TRACE("EC_GROUP_cmp(%p, %p)", group1, group2);
 
-    if (group1 == NULL || group2 == NULL) {
+    if (group1 == nullptr || group2 == nullptr) {
         JNI_TRACE("EC_GROUP_cmp(%p, %p) => group1 == null || group2 == null", group1, group2);
         jniThrowNullPointerException(env, "group1 == null || group2 == null");
         return false;
     }
 
-    int ret = EC_GROUP_cmp(group1, group2, (BN_CTX*)NULL);
+    int ret = EC_GROUP_cmp(group1, group2, (BN_CTX*)nullptr);
 
     JNI_TRACE("ECP_GROUP_cmp(%p, %p) => %d", group1, group2, ret);
     return ret == 0;
@@ -3504,20 +3505,20 @@ static void NativeCrypto_EC_GROUP_set_generator(JNIEnv* env, jclass, jlong group
     const EC_POINT* point = reinterpret_cast<const EC_POINT*>(pointRef);
     JNI_TRACE("EC_GROUP_set_generator(%p, %p, %p, %p)", group, point, njavaBytes, hjavaBytes);
 
-    if (group == NULL || point == NULL) {
+    if (group == nullptr || point == nullptr) {
         JNI_TRACE("EC_GROUP_set_generator(%p, %p, %p, %p) => group == null || point == null",
                 group, point, njavaBytes, hjavaBytes);
         jniThrowNullPointerException(env, "group == null || point == null");
         return;
     }
 
-    BIGNUM* nRef = NULL;
+    BIGNUM* nRef = nullptr;
     if (!arrayToBignum(env, njavaBytes, &nRef)) {
         return;
     }
     Unique_BIGNUM n(nRef);
 
-    BIGNUM* hRef = NULL;
+    BIGNUM* hRef = nullptr;
     if (!arrayToBignum(env, hjavaBytes, &hRef)) {
         return;
     }
@@ -3536,7 +3537,7 @@ static jlong NativeCrypto_EC_GROUP_get_generator(JNIEnv* env, jclass, jlong grou
     const EC_GROUP* group = reinterpret_cast<const EC_GROUP*>(groupRef);
     JNI_TRACE("EC_GROUP_get_generator(%p)", group);
 
-    if (group == NULL) {
+    if (group == nullptr) {
         JNI_TRACE("EC_POINT_get_generator(%p) => group == null", group);
         jniThrowNullPointerException(env, "group == null");
         return 0;
@@ -3545,7 +3546,7 @@ static jlong NativeCrypto_EC_GROUP_get_generator(JNIEnv* env, jclass, jlong grou
     const EC_POINT* generator = EC_GROUP_get0_generator(group);
 
     Unique_EC_POINT dup(EC_POINT_dup(generator, group));
-    if (dup.get() == NULL) {
+    if (dup.get() == nullptr) {
         JNI_TRACE("EC_GROUP_get_generator(%p) => oom error", group);
         jniThrowOutOfMemory(env, "unable to dupe generator");
         return 0;
@@ -3560,14 +3561,14 @@ static jlong NativeCrypto_EC_POINT_new(JNIEnv* env, jclass, jlong groupRef)
     const EC_GROUP* group = reinterpret_cast<const EC_GROUP*>(groupRef);
     JNI_TRACE("EC_POINT_new(%p)", group);
 
-    if (group == NULL) {
+    if (group == nullptr) {
         JNI_TRACE("EC_POINT_new(%p) => group == null", group);
         jniThrowNullPointerException(env, "group == null");
         return 0;
     }
 
     EC_POINT* point = EC_POINT_new(group);
-    if (point == NULL) {
+    if (point == nullptr) {
         jniThrowOutOfMemory(env, "Unable create an EC_POINT");
         return 0;
     }
@@ -3579,7 +3580,7 @@ static void NativeCrypto_EC_POINT_clear_free(JNIEnv* env, jclass, jlong groupRef
     EC_POINT* group = reinterpret_cast<EC_POINT*>(groupRef);
     JNI_TRACE("EC_POINT_clear_free(%p)", group);
 
-    if (group == NULL) {
+    if (group == nullptr) {
         JNI_TRACE("EC_POINT_clear_free => group == NULL");
         jniThrowNullPointerException(env, "group == NULL");
         return;
@@ -3596,14 +3597,14 @@ static jboolean NativeCrypto_EC_POINT_cmp(JNIEnv* env, jclass, jlong groupRef, j
     const EC_POINT* point2 = reinterpret_cast<const EC_POINT*>(point2Ref);
     JNI_TRACE("EC_POINT_cmp(%p, %p, %p)", group, point1, point2);
 
-    if (group == NULL || point1 == NULL || point2 == NULL) {
+    if (group == nullptr || point1 == nullptr || point2 == nullptr) {
         JNI_TRACE("EC_POINT_cmp(%p, %p, %p) => group == null || point1 == null || point2 == null",
                 group, point1, point2);
         jniThrowNullPointerException(env, "group == null || point1 == null || point2 == null");
         return false;
     }
 
-    int ret = EC_POINT_cmp(group, point1, point2, (BN_CTX*)NULL);
+    int ret = EC_POINT_cmp(group, point1, point2, (BN_CTX*)nullptr);
 
     JNI_TRACE("ECP_GROUP_cmp(%p, %p) => %d", point1, point2, ret);
     return ret == 0;
@@ -3617,20 +3618,20 @@ static void NativeCrypto_EC_POINT_set_affine_coordinates(JNIEnv* env, jclass,
     JNI_TRACE("EC_POINT_set_affine_coordinates(%p, %p, %p, %p)", group, point, xjavaBytes,
             yjavaBytes);
 
-    if (group == NULL || point == NULL) {
+    if (group == nullptr || point == nullptr) {
         JNI_TRACE("EC_POINT_set_affine_coordinates(%p, %p, %p, %p) => group == null || point == null",
                 group, point, xjavaBytes, yjavaBytes);
         jniThrowNullPointerException(env, "group == null || point == null");
         return;
     }
 
-    BIGNUM* xRef = NULL;
+    BIGNUM* xRef = nullptr;
     if (!arrayToBignum(env, xjavaBytes, &xRef)) {
         return;
     }
     Unique_BIGNUM x(xRef);
 
-    BIGNUM* yRef = NULL;
+    BIGNUM* yRef = nullptr;
     if (!arrayToBignum(env, yjavaBytes, &yRef)) {
         return;
     }
@@ -3639,10 +3640,10 @@ static void NativeCrypto_EC_POINT_set_affine_coordinates(JNIEnv* env, jclass,
     int ret;
     switch (get_EC_GROUP_type(group)) {
     case EC_CURVE_GFP:
-        ret = EC_POINT_set_affine_coordinates_GFp(group, point, x.get(), y.get(), NULL);
+        ret = EC_POINT_set_affine_coordinates_GFp(group, point, x.get(), y.get(), nullptr);
         break;
     case EC_CURVE_GF2M:
-        ret = EC_POINT_set_affine_coordinates_GF2m(group, point, x.get(), y.get(), NULL);
+        ret = EC_POINT_set_affine_coordinates_GF2m(group, point, x.get(), y.get(), nullptr);
         break;
     default:
         jniThrowRuntimeException(env, "invalid curve type");
@@ -3670,35 +3671,35 @@ static jobjectArray NativeCrypto_EC_POINT_get_affine_coordinates(JNIEnv* env, jc
     int ret;
     switch (get_EC_GROUP_type(group)) {
     case EC_CURVE_GFP:
-        ret = EC_POINT_get_affine_coordinates_GFp(group, point, x.get(), y.get(), NULL);
+        ret = EC_POINT_get_affine_coordinates_GFp(group, point, x.get(), y.get(), nullptr);
         break;
     case EC_CURVE_GF2M:
-        ret = EC_POINT_get_affine_coordinates_GF2m(group, point, x.get(), y.get(), NULL);
+        ret = EC_POINT_get_affine_coordinates_GF2m(group, point, x.get(), y.get(), nullptr);
         break;
     default:
         jniThrowRuntimeException(env, "invalid curve type");
-        return NULL;
+        return nullptr;
     }
     if (ret != 1) {
         JNI_TRACE("EC_POINT_get_affine_coordinates(%p, %p)", group, point);
         throwExceptionIfNecessary(env, "EC_POINT_get_affine_coordinates");
-        return NULL;
+        return nullptr;
     }
 
-    jobjectArray joa = env->NewObjectArray(2, byteArrayClass, NULL);
-    if (joa == NULL) {
-        return NULL;
+    jobjectArray joa = env->NewObjectArray(2, byteArrayClass, nullptr);
+    if (joa == nullptr) {
+        return nullptr;
     }
 
     jbyteArray xBytes = bignumToArray(env, x.get(), "x");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
     env->SetObjectArrayElement(joa, 0, xBytes);
 
     jbyteArray yBytes = bignumToArray(env, y.get(), "y");
     if (env->ExceptionCheck()) {
-        return NULL;
+        return nullptr;
     }
     env->SetObjectArrayElement(joa, 1, yBytes);
 
@@ -3712,7 +3713,7 @@ static jlong NativeCrypto_EC_KEY_generate_key(JNIEnv* env, jclass, jlong groupRe
     JNI_TRACE("EC_KEY_generate_key(%p)", group);
 
     Unique_EC_KEY eckey(EC_KEY_new());
-    if (eckey.get() == NULL) {
+    if (eckey.get() == nullptr) {
         JNI_TRACE("EC_KEY_generate_key(%p) => EC_KEY_new() oom", group);
         jniThrowOutOfMemory(env, "Unable to create an EC_KEY");
         return 0;
@@ -3731,7 +3732,7 @@ static jlong NativeCrypto_EC_KEY_generate_key(JNIEnv* env, jclass, jlong groupRe
     }
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         JNI_TRACE("EC_KEY_generate_key(%p) => threw error", group);
         throwExceptionIfNecessary(env, "EC_KEY_generate_key");
         return 0;
@@ -3751,7 +3752,7 @@ static jlong NativeCrypto_EC_KEY_get0_group(JNIEnv* env, jclass, jlong pkeyRef)
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EC_KEY_get0_group(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         JNI_TRACE("EC_KEY_get0_group(%p) => pkey == null", pkey);
         return 0;
@@ -3774,15 +3775,15 @@ static jbyteArray NativeCrypto_EC_KEY_get_private_key(JNIEnv* env, jclass, jlong
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EC_KEY_get_private_key(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
-        return NULL;
+        return nullptr;
     }
 
     Unique_EC_KEY eckey(EVP_PKEY_get1_EC_KEY(pkey));
-    if (eckey.get() == NULL) {
+    if (eckey.get() == nullptr) {
         throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY");
-        return NULL;
+        return nullptr;
     }
 
     const BIGNUM *privkey = EC_KEY_get0_private_key(eckey.get());
@@ -3790,7 +3791,7 @@ static jbyteArray NativeCrypto_EC_KEY_get_private_key(JNIEnv* env, jclass, jlong
     jbyteArray privBytes = bignumToArray(env, privkey, "privkey");
     if (env->ExceptionCheck()) {
         JNI_TRACE("EC_KEY_get_private_key(%p) => threw error", pkey);
-        return NULL;
+        return nullptr;
     }
 
     JNI_TRACE("EC_KEY_get_private_key(%p) => %p", pkey, privBytes);
@@ -3802,20 +3803,20 @@ static jlong NativeCrypto_EC_KEY_get_public_key(JNIEnv* env, jclass, jlong pkeyR
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EC_KEY_get_public_key(%p)", pkey);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         return 0;
     }
 
     Unique_EC_KEY eckey(EVP_PKEY_get1_EC_KEY(pkey));
-    if (eckey.get() == NULL) {
+    if (eckey.get() == nullptr) {
         throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY");
         return 0;
     }
 
     Unique_EC_POINT dup(EC_POINT_dup(EC_KEY_get0_public_key(eckey.get()),
             EC_KEY_get0_group(eckey.get())));
-    if (dup.get() == NULL) {
+    if (dup.get() == nullptr) {
         JNI_TRACE("EC_KEY_get_public_key(%p) => can't dup public key", pkey);
         jniThrowRuntimeException(env, "EC_POINT_dup");
         return 0;
@@ -3831,13 +3832,13 @@ static void NativeCrypto_EC_KEY_set_nonce_from_hash(JNIEnv* env, jclass, jlong p
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EC_KEY_set_nonce_from_hash(%p, %d)", pkey, enabled ? 1 : 0);
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         return;
     }
 
     Unique_EC_KEY eckey(EVP_PKEY_get1_EC_KEY(pkey));
-    if (eckey.get() == NULL) {
+    if (eckey.get() == nullptr) {
         throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY");
         return;
     }
@@ -3853,43 +3854,43 @@ static jint NativeCrypto_ECDH_compute_key(JNIEnv* env, jclass,
     JNI_TRACE("ECDH_compute_key(%p, %d, %p, %p)", outArray, outOffset, pubPkey, privPkey);
 
     ScopedByteArrayRW out(env, outArray);
-    if (out.get() == NULL) {
+    if (out.get() == nullptr) {
         JNI_TRACE("ECDH_compute_key(%p, %d, %p, %p) can't get output buffer",
                 outArray, outOffset, pubPkey, privPkey);
         return -1;
     }
 
     if ((outOffset < 0) || ((size_t) outOffset >= out.size())) {
-        jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", NULL);
+        jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", nullptr);
         return -1;
     }
 
-    if (pubPkey == NULL) {
+    if (pubPkey == nullptr) {
         jniThrowNullPointerException(env, "pubPkey == null");
         return -1;
     }
 
     Unique_EC_KEY pubkey(EVP_PKEY_get1_EC_KEY(pubPkey));
-    if (pubkey.get() == NULL) {
+    if (pubkey.get() == nullptr) {
         JNI_TRACE("ECDH_compute_key(%p) => can't get public key", pubPkey);
         throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY public");
         return -1;
     }
 
     const EC_POINT* pubkeyPoint = EC_KEY_get0_public_key(pubkey.get());
-    if (pubkeyPoint == NULL) {
+    if (pubkeyPoint == nullptr) {
         JNI_TRACE("ECDH_compute_key(%p) => can't get public key point", pubPkey);
         throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY public");
         return -1;
     }
 
-    if (privPkey == NULL) {
+    if (privPkey == nullptr) {
         jniThrowNullPointerException(env, "privPkey == null");
         return -1;
     }
 
     Unique_EC_KEY privkey(EVP_PKEY_get1_EC_KEY(privPkey));
-    if (privkey.get() == NULL) {
+    if (privkey.get() == nullptr) {
         throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY private");
         return -1;
     }
@@ -3899,7 +3900,7 @@ static jint NativeCrypto_ECDH_compute_key(JNIEnv* env, jclass,
             out.size() - outOffset,
             pubkeyPoint,
             privkey.get(),
-            NULL // No KDF
+            nullptr // No KDF
             );
     if (outputLength == -1) {
         throwExceptionIfNecessary(env, "ECDH_compute_key");
@@ -3913,7 +3914,7 @@ static jlong NativeCrypto_EVP_MD_CTX_create(JNIEnv* env, jclass) {
     JNI_TRACE_MD("EVP_MD_CTX_create()");
 
     Unique_EVP_MD_CTX ctx(EVP_MD_CTX_create());
-    if (ctx.get() == NULL) {
+    if (ctx.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable create a EVP_MD_CTX");
         return 0;
     }
@@ -3926,7 +3927,7 @@ static void NativeCrypto_EVP_MD_CTX_init(JNIEnv* env, jclass, jobject ctxRef) {
     EVP_MD_CTX* ctx = fromContextObject<EVP_MD_CTX>(env, ctxRef);
     JNI_TRACE_MD("EVP_MD_CTX_init(%p)", ctx);
 
-    if (ctx != NULL) {
+    if (ctx != nullptr) {
         EVP_MD_CTX_init(ctx);
     }
 }
@@ -3935,7 +3936,7 @@ static void NativeCrypto_EVP_MD_CTX_destroy(JNIEnv*, jclass, jlong ctxRef) {
     EVP_MD_CTX* ctx = reinterpret_cast<EVP_MD_CTX*>(ctxRef);
     JNI_TRACE_MD("EVP_MD_CTX_destroy(%p)", ctx);
 
-    if (ctx != NULL) {
+    if (ctx != nullptr) {
         EVP_MD_CTX_destroy(ctx);
     }
 }
@@ -3945,9 +3946,9 @@ static jint NativeCrypto_EVP_MD_CTX_copy(JNIEnv* env, jclass, jobject dstCtxRef,
     const EVP_MD_CTX* src_ctx = fromContextObject<EVP_MD_CTX>(env, srcCtxRef);
     JNI_TRACE_MD("EVP_MD_CTX_copy(%p. %p)", dst_ctx, src_ctx);
 
-    if (src_ctx == NULL) {
+    if (src_ctx == nullptr) {
         return 0;
-    } else if (dst_ctx == NULL) {
+    } else if (dst_ctx == nullptr) {
         return 0;
     }
 
@@ -3969,15 +3970,15 @@ static jint NativeCrypto_EVP_DigestFinal(JNIEnv* env, jclass, jobject ctxRef, jb
     EVP_MD_CTX* ctx = fromContextObject<EVP_MD_CTX>(env, ctxRef);
     JNI_TRACE_MD("EVP_DigestFinal(%p, %p, %d)", ctx, hash, offset);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         return -1;
-    } else if (hash == NULL) {
+    } else if (hash == nullptr) {
         jniThrowNullPointerException(env, "ctx == null || hash == null");
         return -1;
     }
 
     ScopedByteArrayRW hashBytes(env, hash);
-    if (hashBytes.get() == NULL) {
+    if (hashBytes.get() == nullptr) {
         return -1;
     }
     unsigned int bytesWritten = -1;
@@ -3998,14 +3999,14 @@ static jint evpInit(JNIEnv* env, jobject evpMdCtxRef, jlong evpMdRef, const char
     const EVP_MD* evp_md = reinterpret_cast<const EVP_MD*>(evpMdRef);
     JNI_TRACE_MD("%s(%p, %p)", jniName, ctx, evp_md);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         return 0;
-    } else if (evp_md == NULL) {
+    } else if (evp_md == nullptr) {
         jniThrowNullPointerException(env, "evp_md == null");
         return 0;
     }
 
-    int ok = init_func(ctx, evp_md, NULL);
+    int ok = init_func(ctx, evp_md, nullptr);
     if (ok == 0) {
         bool exception = throwExceptionIfNecessary(env, jniName);
         if (exception) {
@@ -4035,19 +4036,19 @@ static jint NativeCrypto_EVP_VerifyInit(JNIEnv* env, jclass, jobject evpMdCtxRef
 static jlong NativeCrypto_EVP_get_digestbyname(JNIEnv* env, jclass, jstring algorithm) {
     JNI_TRACE("NativeCrypto_EVP_get_digestbyname(%p)", algorithm);
 
-    if (algorithm == NULL) {
-        jniThrowNullPointerException(env, NULL);
+    if (algorithm == nullptr) {
+        jniThrowNullPointerException(env, nullptr);
         return -1;
     }
 
     ScopedUtfChars algorithmChars(env, algorithm);
-    if (algorithmChars.c_str() == NULL) {
+    if (algorithmChars.c_str() == nullptr) {
         return 0;
     }
     JNI_TRACE("NativeCrypto_EVP_get_digestbyname(%s)", algorithmChars.c_str());
 
     const EVP_MD* evp_md = EVP_get_digestbyname(algorithmChars.c_str());
-    if (evp_md == NULL) {
+    if (evp_md == nullptr) {
         jniThrowRuntimeException(env, "Hash algorithm not found");
         return 0;
     }
@@ -4063,8 +4064,8 @@ static jint NativeCrypto_EVP_MD_size(JNIEnv* env, jclass, jlong evpMdRef) {
     EVP_MD* evp_md = reinterpret_cast<EVP_MD*>(evpMdRef);
     JNI_TRACE("NativeCrypto_EVP_MD_size(%p)", evp_md);
 
-    if (evp_md == NULL) {
-        jniThrowNullPointerException(env, NULL);
+    if (evp_md == nullptr) {
+        jniThrowNullPointerException(env, nullptr);
         return -1;
     }
 
@@ -4080,8 +4081,8 @@ static jint NativeCrypto_EVP_MD_block_size(JNIEnv* env, jclass, jlong evpMdRef) 
     EVP_MD* evp_md = reinterpret_cast<EVP_MD*>(evpMdRef);
     JNI_TRACE("NativeCrypto_EVP_MD_block_size(%p)", evp_md);
 
-    if (evp_md == NULL) {
-        jniThrowNullPointerException(env, NULL);
+    if (evp_md == nullptr) {
+        jniThrowNullPointerException(env, nullptr);
         return -1;
     }
 
@@ -4097,21 +4098,21 @@ static void NativeCrypto_EVP_DigestSignInit(JNIEnv* env, jclass, jobject evpMdCt
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("EVP_DigestSignInit(%p, %p, %p)", mdCtx, md, pkey);
 
-    if (mdCtx == NULL) {
+    if (mdCtx == nullptr) {
          return;
     }
 
-    if (md == NULL) {
+    if (md == nullptr) {
          jniThrowNullPointerException(env, "md == null");
          return;
     }
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
          jniThrowNullPointerException(env, "pkey == null");
          return;
     }
 
-    if (EVP_DigestSignInit(mdCtx, (EVP_PKEY_CTX **) NULL, md, (ENGINE *) NULL, pkey) <= 0) {
+    if (EVP_DigestSignInit(mdCtx, (EVP_PKEY_CTX **) nullptr, md, (ENGINE *) nullptr, pkey) <= 0) {
         JNI_TRACE("ctx=%p EVP_DigestSignInit => threw exception", mdCtx);
         throwExceptionIfNecessary(env, "EVP_DigestSignInit");
         return;
@@ -4127,12 +4128,12 @@ static void evpUpdate(JNIEnv* env, jobject evpMdCtxRef, jbyteArray inJavaBytes, 
     EVP_MD_CTX* mdCtx = fromContextObject<EVP_MD_CTX>(env, evpMdCtxRef);
     JNI_TRACE_MD("%s(%p, %p, %d, %d)", jniName, mdCtx, inJavaBytes, inOffset, inLength);
 
-    if (mdCtx == NULL) {
+    if (mdCtx == nullptr) {
          return;
     }
 
     ScopedByteArrayRO inBytes(env, inJavaBytes);
-    if (inBytes.get() == NULL) {
+    if (inBytes.get() == nullptr) {
         return;
     }
 
@@ -4179,23 +4180,23 @@ static jbyteArray NativeCrypto_EVP_DigestSignFinal(JNIEnv* env, jclass, jobject 
     EVP_MD_CTX* mdCtx = fromContextObject<EVP_MD_CTX>(env, evpMdCtxRef);
     JNI_TRACE("EVP_DigestSignFinal(%p)", mdCtx);
 
-    if (mdCtx == NULL) {
-         return NULL;
+    if (mdCtx == nullptr) {
+         return nullptr;
     }
 
     size_t len;
-    if (EVP_DigestSignFinal(mdCtx, NULL, &len) != 1) {
+    if (EVP_DigestSignFinal(mdCtx, nullptr, &len) != 1) {
         JNI_TRACE("ctx=%p EVP_DigestSignFinal => threw exception", mdCtx);
         throwExceptionIfNecessary(env, "EVP_DigestSignFinal");
         return 0;
     }
     ScopedLocalRef<jbyteArray> outJavaBytes(env, env->NewByteArray(len));
-    if (outJavaBytes.get() == NULL) {
-        return NULL;
+    if (outJavaBytes.get() == nullptr) {
+        return nullptr;
     }
     ScopedByteArrayRW outBytes(env, outJavaBytes.get());
-    if (outBytes.get() == NULL) {
-        return NULL;
+    if (outBytes.get() == nullptr) {
+        return nullptr;
     }
     unsigned char *tmp = reinterpret_cast<unsigned char*>(outBytes.get());
     if (EVP_DigestSignFinal(mdCtx, tmp, &len) != 1) {
@@ -4217,15 +4218,15 @@ static jint NativeCrypto_EVP_SignFinal(JNIEnv* env, jclass, jobject ctxRef, jbyt
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("NativeCrypto_EVP_SignFinal(%p, %p, %d, %p)", ctx, signature, offset, pkey);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         return -1;
-    } else if (pkey == NULL) {
-        jniThrowNullPointerException(env, NULL);
+    } else if (pkey == nullptr) {
+        jniThrowNullPointerException(env, nullptr);
         return -1;
     }
 
     ScopedByteArrayRW signatureBytes(env, signature);
-    if (signatureBytes.get() == NULL) {
+    if (signatureBytes.get() == nullptr) {
         return -1;
     }
     unsigned int bytesWritten = -1;
@@ -4250,24 +4251,24 @@ static void NativeCrypto_EVP_VerifyUpdate(JNIEnv* env, jclass, jobject ctxRef,
     EVP_MD_CTX* ctx = fromContextObject<EVP_MD_CTX>(env, ctxRef);
     JNI_TRACE("NativeCrypto_EVP_VerifyUpdate(%p, %p, %d, %d)", ctx, buffer, offset, length);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         return;
-    } else if (buffer == NULL) {
-        jniThrowNullPointerException(env, NULL);
+    } else if (buffer == nullptr) {
+        jniThrowNullPointerException(env, nullptr);
         return;
     }
 
     if (offset < 0 || length < 0) {
-        jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", NULL);
+        jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", nullptr);
         return;
     }
 
     ScopedByteArrayRO bufferBytes(env, buffer);
-    if (bufferBytes.get() == NULL) {
+    if (bufferBytes.get() == nullptr) {
         return;
     }
     if (bufferBytes.size() < static_cast<size_t>(offset + length)) {
-        jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", NULL);
+        jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", nullptr);
         return;
     }
 
@@ -4289,15 +4290,15 @@ static jint NativeCrypto_EVP_VerifyFinal(JNIEnv* env, jclass, jobject ctxRef, jb
     JNI_TRACE("NativeCrypto_EVP_VerifyFinal(%p, %p, %d, %d, %p)",
               ctx, buffer, offset, length, pkey);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         return -1;
-    } else if (buffer == NULL || pkey == NULL) {
-        jniThrowNullPointerException(env, NULL);
+    } else if (buffer == nullptr || pkey == nullptr) {
+        jniThrowNullPointerException(env, nullptr);
         return -1;
     }
 
     ScopedByteArrayRO bufferBytes(env, buffer);
-    if (bufferBytes.get() == NULL) {
+    if (bufferBytes.get() == nullptr) {
         return -1;
     }
     int ok = EVP_VerifyFinal(ctx,
@@ -4322,20 +4323,20 @@ static jint NativeCrypto_EVP_VerifyFinal(JNIEnv* env, jclass, jobject ctxRef, jb
 
 static jlong NativeCrypto_EVP_get_cipherbyname(JNIEnv* env, jclass, jstring algorithm) {
     JNI_TRACE("EVP_get_cipherbyname(%p)", algorithm);
-    if (algorithm == NULL) {
+    if (algorithm == nullptr) {
         JNI_TRACE("EVP_get_cipherbyname(%p) => threw exception algorithm == null", algorithm);
-        jniThrowNullPointerException(env, NULL);
+        jniThrowNullPointerException(env, nullptr);
         return -1;
     }
 
     ScopedUtfChars algorithmChars(env, algorithm);
-    if (algorithmChars.c_str() == NULL) {
+    if (algorithmChars.c_str() == nullptr) {
         return 0;
     }
     JNI_TRACE("EVP_get_cipherbyname(%p) => algorithm = %s", algorithm, algorithmChars.c_str());
 
     const EVP_CIPHER* evp_cipher = EVP_get_cipherbyname(algorithmChars.c_str());
-    if (evp_cipher == NULL) {
+    if (evp_cipher == nullptr) {
         freeOpenSslErrorState();
     }
 
@@ -4350,17 +4351,17 @@ static void NativeCrypto_EVP_CipherInit_ex(JNIEnv* env, jclass, jlong ctxRef, jl
     JNI_TRACE("EVP_CipherInit_ex(%p, %p, %p, %p, %d)", ctx, evpCipher, keyArray, ivArray,
             encrypting ? 1 : 0);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         jniThrowNullPointerException(env, "ctx == null");
         JNI_TRACE("EVP_CipherUpdate => ctx == null");
         return;
     }
 
     // The key can be null if we need to set extra parameters.
-    UniquePtr<unsigned char[]> keyPtr;
-    if (keyArray != NULL) {
+    std::unique_ptr<unsigned char[]> keyPtr;
+    if (keyArray != nullptr) {
         ScopedByteArrayRO keyBytes(env, keyArray);
-        if (keyBytes.get() == NULL) {
+        if (keyBytes.get() == nullptr) {
             return;
         }
 
@@ -4369,10 +4370,10 @@ static void NativeCrypto_EVP_CipherInit_ex(JNIEnv* env, jclass, jlong ctxRef, jl
     }
 
     // The IV can be null if we're using ECB.
-    UniquePtr<unsigned char[]> ivPtr;
-    if (ivArray != NULL) {
+    std::unique_ptr<unsigned char[]> ivPtr;
+    if (ivArray != nullptr) {
         ScopedByteArrayRO ivBytes(env, ivArray);
-        if (ivBytes.get() == NULL) {
+        if (ivBytes.get() == nullptr) {
             return;
         }
 
@@ -4380,7 +4381,7 @@ static void NativeCrypto_EVP_CipherInit_ex(JNIEnv* env, jclass, jlong ctxRef, jl
         memcpy(ivPtr.get(), ivBytes.get(), ivBytes.size());
     }
 
-    if (!EVP_CipherInit_ex(ctx, evpCipher, NULL, keyPtr.get(), ivPtr.get(), encrypting ? 1 : 0)) {
+    if (!EVP_CipherInit_ex(ctx, evpCipher, nullptr, keyPtr.get(), ivPtr.get(), encrypting ? 1 : 0)) {
         throwExceptionIfNecessary(env, "EVP_CipherInit_ex");
         JNI_TRACE("EVP_CipherInit_ex => error initializing cipher");
         return;
@@ -4399,14 +4400,14 @@ static jint NativeCrypto_EVP_CipherUpdate(JNIEnv* env, jclass, jlong ctxRef, jby
     EVP_CIPHER_CTX* ctx = reinterpret_cast<EVP_CIPHER_CTX*>(ctxRef);
     JNI_TRACE("EVP_CipherUpdate(%p, %p, %d, %p, %d)", ctx, outArray, outOffset, inArray, inOffset);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         jniThrowNullPointerException(env, "ctx == null");
         JNI_TRACE("ctx=%p EVP_CipherUpdate => ctx == null", ctx);
         return 0;
     }
 
     ScopedByteArrayRO inBytes(env, inArray);
-    if (inBytes.get() == NULL) {
+    if (inBytes.get() == nullptr) {
         return 0;
     }
     const size_t inSize = inBytes.size();
@@ -4417,7 +4418,7 @@ static jint NativeCrypto_EVP_CipherUpdate(JNIEnv* env, jclass, jlong ctxRef, jby
     }
 
     ScopedByteArrayRW outBytes(env, outArray);
-    if (outBytes.get() == NULL) {
+    if (outBytes.get() == nullptr) {
         return 0;
     }
     const size_t outSize = outBytes.size();
@@ -4450,14 +4451,14 @@ static jint NativeCrypto_EVP_CipherFinal_ex(JNIEnv* env, jclass, jlong ctxRef, j
     EVP_CIPHER_CTX* ctx = reinterpret_cast<EVP_CIPHER_CTX*>(ctxRef);
     JNI_TRACE("EVP_CipherFinal_ex(%p, %p, %d)", ctx, outArray, outOffset);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         jniThrowNullPointerException(env, "ctx == null");
         JNI_TRACE("ctx=%p EVP_CipherFinal_ex => ctx == null", ctx);
         return 0;
     }
 
     ScopedByteArrayRW outBytes(env, outArray);
-    if (outBytes.get() == NULL) {
+    if (outBytes.get() == nullptr) {
         return 0;
     }
 
@@ -4478,7 +4479,7 @@ static jint NativeCrypto_EVP_CIPHER_iv_length(JNIEnv* env, jclass, jlong evpCiph
     const EVP_CIPHER* evpCipher = reinterpret_cast<const EVP_CIPHER*>(evpCipherRef);
     JNI_TRACE("EVP_CIPHER_iv_length(%p)", evpCipher);
 
-    if (evpCipher == NULL) {
+    if (evpCipher == nullptr) {
         jniThrowNullPointerException(env, "evpCipher == null");
         JNI_TRACE("EVP_CIPHER_iv_length => evpCipher == null");
         return 0;
@@ -4493,7 +4494,7 @@ static jlong NativeCrypto_EVP_CIPHER_CTX_new(JNIEnv* env, jclass) {
     JNI_TRACE("EVP_CIPHER_CTX_new()");
 
     Unique_EVP_CIPHER_CTX ctx(EVP_CIPHER_CTX_new());
-    if (ctx.get() == NULL) {
+    if (ctx.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate cipher context");
         JNI_TRACE("EVP_CipherInit_ex => context allocation error");
         return 0;
@@ -4507,7 +4508,7 @@ static jint NativeCrypto_EVP_CIPHER_CTX_block_size(JNIEnv* env, jclass, jlong ct
     EVP_CIPHER_CTX* ctx = reinterpret_cast<EVP_CIPHER_CTX*>(ctxRef);
     JNI_TRACE("EVP_CIPHER_CTX_block_size(%p)", ctx);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         jniThrowNullPointerException(env, "ctx == null");
         JNI_TRACE("ctx=%p EVP_CIPHER_CTX_block_size => ctx == null", ctx);
         return 0;
@@ -4522,7 +4523,7 @@ static jint NativeCrypto_get_EVP_CIPHER_CTX_buf_len(JNIEnv* env, jclass, jlong c
     EVP_CIPHER_CTX* ctx = reinterpret_cast<EVP_CIPHER_CTX*>(ctxRef);
     JNI_TRACE("get_EVP_CIPHER_CTX_buf_len(%p)", ctx);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         jniThrowNullPointerException(env, "ctx == null");
         JNI_TRACE("ctx=%p get_EVP_CIPHER_CTX_buf_len => ctx == null", ctx);
         return 0;
@@ -4538,7 +4539,7 @@ static void NativeCrypto_EVP_CIPHER_CTX_set_padding(JNIEnv* env, jclass, jlong c
     jint enablePadding = enablePaddingBool ? 1 : 0;
     JNI_TRACE("EVP_CIPHER_CTX_set_padding(%p, %d)", ctx, enablePadding);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         jniThrowNullPointerException(env, "ctx == null");
         JNI_TRACE("ctx=%p EVP_CIPHER_CTX_set_padding => ctx == null", ctx);
         return;
@@ -4553,7 +4554,7 @@ static void NativeCrypto_EVP_CIPHER_CTX_set_key_length(JNIEnv* env, jclass, jlon
     EVP_CIPHER_CTX* ctx = reinterpret_cast<EVP_CIPHER_CTX*>(ctxRef);
     JNI_TRACE("EVP_CIPHER_CTX_set_key_length(%p, %d)", ctx, keySizeBits);
 
-    if (ctx == NULL) {
+    if (ctx == nullptr) {
         jniThrowNullPointerException(env, "ctx == null");
         JNI_TRACE("ctx=%p EVP_CIPHER_CTX_set_key_length => ctx == null", ctx);
         return;
@@ -4571,7 +4572,7 @@ static void NativeCrypto_EVP_CIPHER_CTX_cleanup(JNIEnv* env, jclass, jlong ctxRe
     EVP_CIPHER_CTX* ctx = reinterpret_cast<EVP_CIPHER_CTX*>(ctxRef);
     JNI_TRACE("EVP_CIPHER_CTX_cleanup(%p)", ctx);
 
-    if (ctx != NULL) {
+    if (ctx != nullptr) {
         if (!EVP_CIPHER_CTX_cleanup(ctx)) {
             throwExceptionIfNecessary(env, "EVP_CIPHER_CTX_cleanup");
             JNI_TRACE("EVP_CIPHER_CTX_cleanup => threw error");
@@ -4587,7 +4588,7 @@ static void NativeCrypto_EVP_CIPHER_CTX_cleanup(JNIEnv* env, jclass, jlong ctxRe
 static void NativeCrypto_RAND_seed(JNIEnv* env, jclass, jbyteArray seed) {
     JNI_TRACE("NativeCrypto_RAND_seed seed=%p", seed);
     ScopedByteArrayRO randseed(env, seed);
-    if (randseed.get() == NULL) {
+    if (randseed.get() == nullptr) {
         return;
     }
     RAND_seed(randseed.get(), randseed.size());
@@ -4596,7 +4597,7 @@ static void NativeCrypto_RAND_seed(JNIEnv* env, jclass, jbyteArray seed) {
 static jint NativeCrypto_RAND_load_file(JNIEnv* env, jclass, jstring filename, jlong max_bytes) {
     JNI_TRACE("NativeCrypto_RAND_load_file filename=%p max_bytes=%lld", filename, max_bytes);
     ScopedUtfChars file(env, filename);
-    if (file.c_str() == NULL) {
+    if (file.c_str() == nullptr) {
         return -1;
     }
     int result = RAND_load_file(file.c_str(), max_bytes);
@@ -4608,7 +4609,7 @@ static void NativeCrypto_RAND_bytes(JNIEnv* env, jclass, jbyteArray output) {
     JNI_TRACE("NativeCrypto_RAND_bytes(%p)", output);
 
     ScopedByteArrayRW outputBytes(env, output);
-    if (outputBytes.get() == NULL) {
+    if (outputBytes.get() == nullptr) {
         return;
     }
 
@@ -4626,7 +4627,7 @@ static jint NativeCrypto_OBJ_txt2nid(JNIEnv* env, jclass, jstring oidStr) {
     JNI_TRACE("OBJ_txt2nid(%p)", oidStr);
 
     ScopedUtfChars oid(env, oidStr);
-    if (oid.c_str() == NULL) {
+    if (oid.c_str() == nullptr) {
         return 0;
     }
 
@@ -4639,8 +4640,8 @@ static jstring NativeCrypto_OBJ_txt2nid_longName(JNIEnv* env, jclass, jstring oi
     JNI_TRACE("OBJ_txt2nid_longName(%p)", oidStr);
 
     ScopedUtfChars oid(env, oidStr);
-    if (oid.c_str() == NULL) {
-        return NULL;
+    if (oid.c_str() == nullptr) {
+        return nullptr;
     }
 
     JNI_TRACE("OBJ_txt2nid_longName(%s)", oid.c_str());
@@ -4649,7 +4650,7 @@ static jstring NativeCrypto_OBJ_txt2nid_longName(JNIEnv* env, jclass, jstring oi
     if (nid == NID_undef) {
         JNI_TRACE("OBJ_txt2nid_longName(%s) => NID_undef", oid.c_str());
         freeOpenSslErrorState();
-        return NULL;
+        return nullptr;
     }
 
     const char* longName = OBJ_nid2ln(nid);
@@ -4667,10 +4668,10 @@ static jstring ASN1_OBJECT_to_OID_string(JNIEnv* env, ASN1_OBJECT* obj) {
     int ret = OBJ_obj2txt(output, sizeof(output), obj, 1);
     if (ret < 0) {
         throwExceptionIfNecessary(env, "ASN1_OBJECT_to_OID_string");
-        return NULL;
+        return nullptr;
     } else if (size_t(ret) >= sizeof(output)) {
         jniThrowRuntimeException(env, "ASN1_OBJECT_to_OID_string buffer too small");
-        return NULL;
+        return nullptr;
     }
 
     JNI_TRACE("ASN1_OBJECT_to_OID_string(%p) => %s", obj, output);
@@ -4680,13 +4681,13 @@ static jstring ASN1_OBJECT_to_OID_string(JNIEnv* env, ASN1_OBJECT* obj) {
 static jlong NativeCrypto_create_BIO_InputStream(JNIEnv* env, jclass, jobject streamObj) {
     JNI_TRACE("create_BIO_InputStream(%p)", streamObj);
 
-    if (streamObj == NULL) {
+    if (streamObj == nullptr) {
         jniThrowNullPointerException(env, "stream == null");
         return 0;
     }
 
     Unique_BIO bio(BIO_new(&stream_bio_method));
-    if (bio.get() == NULL) {
+    if (bio.get() == nullptr) {
         return 0;
     }
 
@@ -4699,13 +4700,13 @@ static jlong NativeCrypto_create_BIO_InputStream(JNIEnv* env, jclass, jobject st
 static jlong NativeCrypto_create_BIO_OutputStream(JNIEnv* env, jclass, jobject streamObj) {
     JNI_TRACE("create_BIO_OutputStream(%p)", streamObj);
 
-    if (streamObj == NULL) {
+    if (streamObj == nullptr) {
         jniThrowNullPointerException(env, "stream == null");
         return 0;
     }
 
     Unique_BIO bio(BIO_new(&stream_bio_method));
-    if (bio.get() == NULL) {
+    if (bio.get() == nullptr) {
         return 0;
     }
 
@@ -4719,7 +4720,7 @@ static int NativeCrypto_BIO_read(JNIEnv* env, jclass, jlong bioRef, jbyteArray o
     BIO* bio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(bioRef));
     JNI_TRACE("BIO_read(%p, %p)", bio, outputJavaBytes);
 
-    if (outputJavaBytes == NULL) {
+    if (outputJavaBytes == nullptr) {
         jniThrowNullPointerException(env, "output == null");
         JNI_TRACE("BIO_read(%p, %p) => output == null", bio, outputJavaBytes);
         return 0;
@@ -4727,8 +4728,8 @@ static int NativeCrypto_BIO_read(JNIEnv* env, jclass, jlong bioRef, jbyteArray o
 
     int outputSize = env->GetArrayLength(outputJavaBytes);
 
-    UniquePtr<unsigned char[]> buffer(new unsigned char[outputSize]);
-    if (buffer.get() == NULL) {
+    std::unique_ptr<unsigned char[]> buffer(new unsigned char[outputSize]);
+    if (buffer.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate buffer for read");
         return 0;
     }
@@ -4750,7 +4751,7 @@ static void NativeCrypto_BIO_write(JNIEnv* env, jclass, jlong bioRef, jbyteArray
     BIO* bio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(bioRef));
     JNI_TRACE("BIO_write(%p, %p, %d, %d)", bio, inputJavaBytes, offset, length);
 
-    if (inputJavaBytes == NULL) {
+    if (inputJavaBytes == nullptr) {
         jniThrowNullPointerException(env, "input == null");
         return;
     }
@@ -4769,8 +4770,8 @@ static void NativeCrypto_BIO_write(JNIEnv* env, jclass, jlong bioRef, jbyteArray
         return;
     }
 
-    UniquePtr<unsigned char[]> buffer(new unsigned char[length]);
-    if (buffer.get() == NULL) {
+    std::unique_ptr<unsigned char[]> buffer(new unsigned char[length]);
+    if (buffer.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate buffer for write");
         return;
     }
@@ -4790,7 +4791,7 @@ static void NativeCrypto_BIO_free_all(JNIEnv* env, jclass, jlong bioRef) {
     BIO* bio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(bioRef));
     JNI_TRACE("BIO_free_all(%p)", bio);
 
-    if (bio == NULL) {
+    if (bio == nullptr) {
         jniThrowNullPointerException(env, "bio == null");
         return;
     }
@@ -4802,10 +4803,10 @@ static jstring X509_NAME_to_jstring(JNIEnv* env, X509_NAME* name, unsigned long 
     JNI_TRACE("X509_NAME_to_jstring(%p)", name);
 
     Unique_BIO buffer(BIO_new(BIO_s_mem()));
-    if (buffer.get() == NULL) {
+    if (buffer.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate BIO");
         JNI_TRACE("X509_NAME_to_jstring(%p) => threw error", name);
-        return NULL;
+        return nullptr;
     }
 
     /* Don't interpret the string. */
@@ -4843,7 +4844,7 @@ static jobject GENERAL_NAME_to_jobject(JNIEnv* env, GENERAL_NAME* gen) {
             jniThrowException(env, "java/security/cert/CertificateParsingException",
                     "Invalid dNSName encoding");
             JNI_TRACE("GENERAL_NAME_to_jobject(%p) => Email/DNS/URI invalid", gen);
-            return NULL;
+            return nullptr;
         }
     }
     case GEN_DIRNAME:
@@ -4853,8 +4854,8 @@ static jobject GENERAL_NAME_to_jobject(JNIEnv* env, GENERAL_NAME* gen) {
         const void *ip = reinterpret_cast<const void *>(gen->d.ip->data);
         if (gen->d.ip->length == 4) {
             // IPv4
-            UniquePtr<char[]> buffer(new char[INET_ADDRSTRLEN]);
-            if (inet_ntop(AF_INET, ip, buffer.get(), INET_ADDRSTRLEN) != NULL) {
+            std::unique_ptr<char[]> buffer(new char[INET_ADDRSTRLEN]);
+            if (inet_ntop(AF_INET, ip, buffer.get(), INET_ADDRSTRLEN) != nullptr) {
                 JNI_TRACE("GENERAL_NAME_to_jobject(%p) => IPv4 %s", gen, buffer.get());
                 return env->NewStringUTF(buffer.get());
             } else {
@@ -4862,8 +4863,8 @@ static jobject GENERAL_NAME_to_jobject(JNIEnv* env, GENERAL_NAME* gen) {
             }
         } else if (gen->d.ip->length == 16) {
             // IPv6
-            UniquePtr<char[]> buffer(new char[INET6_ADDRSTRLEN]);
-            if (inet_ntop(AF_INET6, ip, buffer.get(), INET6_ADDRSTRLEN) != NULL) {
+            std::unique_ptr<char[]> buffer(new char[INET6_ADDRSTRLEN]);
+            if (inet_ntop(AF_INET6, ip, buffer.get(), INET6_ADDRSTRLEN) != nullptr) {
                 JNI_TRACE("GENERAL_NAME_to_jobject(%p) => IPv6 %s", gen, buffer.get());
                 return env->NewStringUTF(buffer.get());
             } else {
@@ -4872,7 +4873,7 @@ static jobject GENERAL_NAME_to_jobject(JNIEnv* env, GENERAL_NAME* gen) {
         }
 
         /* Invalid IP encodings are pruned out without throwing an exception. */
-        return NULL;
+        return nullptr;
     }
     case GEN_RID:
         return ASN1_OBJECT_to_OID_string(env, gen->d.registeredID);
@@ -4882,7 +4883,7 @@ static jobject GENERAL_NAME_to_jobject(JNIEnv* env, GENERAL_NAME* gen) {
         return ASN1ToByteArray<GENERAL_NAME, i2d_GENERAL_NAME>(env, gen);
     }
 
-    return NULL;
+    return nullptr;
 }
 
 #define GN_STACK_SUBJECT_ALT_NAME 1
@@ -4893,10 +4894,10 @@ static jobjectArray NativeCrypto_get_X509_GENERAL_NAME_stack(JNIEnv* env, jclass
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_GENERAL_NAME_stack(%p, %d)", x509, type);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_GENERAL_NAME_stack(%p, %d) => x509 == null", x509, type);
-        return NULL;
+        return nullptr;
     }
 
     X509_check_ca(x509);
@@ -4908,17 +4909,17 @@ static jobjectArray NativeCrypto_get_X509_GENERAL_NAME_stack(JNIEnv* env, jclass
     } else if (type == GN_STACK_ISSUER_ALT_NAME) {
         stackHolder.reset(
                 static_cast<STACK_OF(GENERAL_NAME)*>(X509_get_ext_d2i(x509, NID_issuer_alt_name,
-                        NULL, NULL)));
+                        nullptr, nullptr)));
         gn_stack = stackHolder.get();
     } else {
         JNI_TRACE("get_X509_GENERAL_NAME_stack(%p, %d) => unknown type", x509, type);
-        return NULL;
+        return nullptr;
     }
 
     int count = sk_GENERAL_NAME_num(gn_stack);
     if (count <= 0) {
         JNI_TRACE("get_X509_GENERAL_NAME_stack(%p, %d) => null (no entries)", x509, type);
-        return NULL;
+        return nullptr;
     }
 
     /*
@@ -4927,27 +4928,27 @@ static jobjectArray NativeCrypto_get_X509_GENERAL_NAME_stack(JNIEnv* env, jclass
      */
     const int origCount = count;
 
-    ScopedLocalRef<jobjectArray> joa(env, env->NewObjectArray(count, objectArrayClass, NULL));
+    ScopedLocalRef<jobjectArray> joa(env, env->NewObjectArray(count, objectArrayClass, nullptr));
     for (int i = 0, j = 0; i < origCount; i++, j++) {
         GENERAL_NAME* gen = sk_GENERAL_NAME_value(gn_stack, i);
         ScopedLocalRef<jobject> val(env, GENERAL_NAME_to_jobject(env, gen));
         if (env->ExceptionCheck()) {
             JNI_TRACE("get_X509_GENERAL_NAME_stack(%p, %d) => threw exception parsing gen name",
                     x509, type);
-            return NULL;
+            return nullptr;
         }
 
         /*
          * If it's NULL, we'll have to skip this, reduce the number of total
          * entries, and fix up the array later.
          */
-        if (val.get() == NULL) {
+        if (val.get() == nullptr) {
             j--;
             count--;
             continue;
         }
 
-        ScopedLocalRef<jobjectArray> item(env, env->NewObjectArray(2, objectClass, NULL));
+        ScopedLocalRef<jobjectArray> item(env, env->NewObjectArray(2, objectClass, nullptr));
 
         ScopedLocalRef<jobject> type(env, env->CallStaticObjectMethod(integerClass,
                 integer_valueOfMethod, gen->type));
@@ -4960,13 +4961,13 @@ static jobjectArray NativeCrypto_get_X509_GENERAL_NAME_stack(JNIEnv* env, jclass
     if (count == 0) {
         JNI_TRACE("get_X509_GENERAL_NAME_stack(%p, %d) shrunk from %d to 0; returning NULL",
                 x509, type, origCount);
-        joa.reset(NULL);
+        joa.reset(nullptr);
     } else if (origCount != count) {
         JNI_TRACE("get_X509_GENERAL_NAME_stack(%p, %d) shrunk from %d to %d", x509, type,
                 origCount, count);
 
         ScopedLocalRef<jobjectArray> joa_copy(env, env->NewObjectArray(count, objectArrayClass,
-                NULL));
+                nullptr));
 
         for (int i = 0; i < count; i++) {
             ScopedLocalRef<jobject> item(env, env->GetObjectArrayElement(joa.get(), i));
@@ -4984,7 +4985,7 @@ static jlong NativeCrypto_X509_get_notBefore(JNIEnv* env, jclass, jlong x509Ref)
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("X509_get_notBefore(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("X509_get_notBefore(%p) => x509 == null", x509);
         return 0;
@@ -4999,7 +5000,7 @@ static jlong NativeCrypto_X509_get_notAfter(JNIEnv* env, jclass, jlong x509Ref) 
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("X509_get_notAfter(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("X509_get_notAfter(%p) => x509 == null", x509);
         return 0;
@@ -5023,23 +5024,23 @@ template<typename T>
 static jbyteArray get_X509Type_serialNumber(JNIEnv* env, T* x509Type, ASN1_INTEGER* (*get_serial_func)(T*)) {
     JNI_TRACE("get_X509Type_serialNumber(%p)", x509Type);
 
-    if (x509Type == NULL) {
+    if (x509Type == nullptr) {
         jniThrowNullPointerException(env, "x509Type == null");
         JNI_TRACE("get_X509Type_serialNumber(%p) => x509Type == null", x509Type);
-        return NULL;
+        return nullptr;
     }
 
     ASN1_INTEGER* serialNumber = get_serial_func(x509Type);
-    Unique_BIGNUM serialBn(ASN1_INTEGER_to_BN(serialNumber, NULL));
-    if (serialBn.get() == NULL) {
+    Unique_BIGNUM serialBn(ASN1_INTEGER_to_BN(serialNumber, nullptr));
+    if (serialBn.get() == nullptr) {
         JNI_TRACE("X509_get_serialNumber(%p) => threw exception", x509Type);
-        return NULL;
+        return nullptr;
     }
 
     ScopedLocalRef<jbyteArray> serialArray(env, bignumToArray(env, serialBn.get(), "serialBn"));
     if (env->ExceptionCheck()) {
         JNI_TRACE("X509_get_serialNumber(%p) => threw exception", x509Type);
-        return NULL;
+        return nullptr;
     }
 
     JNI_TRACE("X509_get_serialNumber(%p) => %p", x509Type, serialArray.get());
@@ -5070,13 +5071,13 @@ static void NativeCrypto_X509_verify(JNIEnv* env, jclass, jlong x509Ref, jlong p
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("X509_verify(%p, %p)", x509, pkey);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("X509_verify(%p, %p) => x509 == null", x509, pkey);
         return;
     }
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         JNI_TRACE("X509_verify(%p, %p) => pkey == null", x509, pkey);
         return;
@@ -5100,7 +5101,7 @@ static jint NativeCrypto_get_X509_ex_flags(JNIEnv* env, jclass, jlong x509Ref) {
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_ex_flags(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_ex_flags(%p) => x509 == null", x509);
         return 0;
@@ -5133,10 +5134,10 @@ template<typename T>
 static jbyteArray get_X509Type_signature(JNIEnv* env, T* x509Type, void (*get_signature_func)(T*, ASN1_BIT_STRING**)) {
     JNI_TRACE("get_X509Type_signature(%p)", x509Type);
 
-    if (x509Type == NULL) {
+    if (x509Type == nullptr) {
         jniThrowNullPointerException(env, "x509Type == null");
         JNI_TRACE("get_X509Type_signature(%p) => x509Type == null", x509Type);
-        return NULL;
+        return nullptr;
     }
 
     ASN1_BIT_STRING* signature;
@@ -5145,13 +5146,13 @@ static jbyteArray get_X509Type_signature(JNIEnv* env, T* x509Type, void (*get_si
     ScopedLocalRef<jbyteArray> signatureArray(env, env->NewByteArray(signature->length));
     if (env->ExceptionCheck()) {
         JNI_TRACE("get_X509Type_signature(%p) => threw exception", x509Type);
-        return NULL;
+        return nullptr;
     }
 
     ScopedByteArrayRW signatureBytes(env, signatureArray.get());
-    if (signatureBytes.get() == NULL) {
+    if (signatureBytes.get() == nullptr) {
         JNI_TRACE("get_X509Type_signature(%p) => using byte array failed", x509Type);
-        return NULL;
+        return nullptr;
     }
 
     memcpy(signatureBytes.get(), signature->data, signature->length);
@@ -5178,17 +5179,17 @@ static jlong NativeCrypto_X509_CRL_get0_by_cert(JNIEnv* env, jclass, jlong x509c
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("X509_CRL_get0_by_cert(%p, %p)", x509crl, x509);
 
-    if (x509crl == NULL) {
+    if (x509crl == nullptr) {
         jniThrowNullPointerException(env, "x509crl == null");
         JNI_TRACE("X509_CRL_get0_by_cert(%p, %p) => x509crl == null", x509crl, x509);
         return 0;
-    } else if (x509 == NULL) {
+    } else if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("X509_CRL_get0_by_cert(%p, %p) => x509 == null", x509crl, x509);
         return 0;
     }
 
-    X509_REVOKED* revoked = NULL;
+    X509_REVOKED* revoked = nullptr;
     int ret = X509_CRL_get0_by_cert(x509crl, &revoked, x509);
     if (ret == 0) {
         JNI_TRACE("X509_CRL_get0_by_cert(%p, %p) => none", x509crl, x509);
@@ -5203,14 +5204,14 @@ static jlong NativeCrypto_X509_CRL_get0_by_serial(JNIEnv* env, jclass, jlong x50
     X509_CRL* x509crl = reinterpret_cast<X509_CRL*>(static_cast<uintptr_t>(x509crlRef));
     JNI_TRACE("X509_CRL_get0_by_serial(%p, %p)", x509crl, serialArray);
 
-    if (x509crl == NULL) {
+    if (x509crl == nullptr) {
         jniThrowNullPointerException(env, "x509crl == null");
         JNI_TRACE("X509_CRL_get0_by_serial(%p, %p) => crl == null", x509crl, serialArray);
         return 0;
     }
 
     Unique_BIGNUM serialBn(BN_new());
-    if (serialBn.get() == NULL) {
+    if (serialBn.get() == nullptr) {
         JNI_TRACE("X509_CRL_get0_by_serial(%p, %p) => BN allocation failed", x509crl, serialArray);
         return 0;
     }
@@ -5224,13 +5225,13 @@ static jlong NativeCrypto_X509_CRL_get0_by_serial(JNIEnv* env, jclass, jlong x50
         return 0;
     }
 
-    Unique_ASN1_INTEGER serialInteger(BN_to_ASN1_INTEGER(serialBn.get(), NULL));
-    if (serialInteger.get() == NULL) {
+    Unique_ASN1_INTEGER serialInteger(BN_to_ASN1_INTEGER(serialBn.get(), nullptr));
+    if (serialInteger.get() == nullptr) {
         JNI_TRACE("X509_CRL_get0_by_serial(%p, %p) => BN conversion failed", x509crl, serialArray);
         return 0;
     }
 
-    X509_REVOKED* revoked = NULL;
+    X509_REVOKED* revoked = nullptr;
     int ret = X509_CRL_get0_by_serial(x509crl, &revoked, serialInteger.get());
     if (ret == 0) {
         JNI_TRACE("X509_CRL_get0_by_serial(%p, %p) => none", x509crl, serialArray);
@@ -5253,15 +5254,15 @@ static jlongArray NativeCrypto_X509_CRL_get_REVOKED(JNIEnv* env, jclass, jlong x
     X509_CRL* crl = reinterpret_cast<X509_CRL*>(static_cast<uintptr_t>(x509CrlRef));
     JNI_TRACE("X509_CRL_get_REVOKED(%p)", crl);
 
-    if (crl == NULL) {
+    if (crl == nullptr) {
         jniThrowNullPointerException(env, "crl == null");
-        return NULL;
+        return nullptr;
     }
 
     STACK_OF(X509_REVOKED)* stack = X509_CRL_get_REVOKED(crl);
-    if (stack == NULL) {
+    if (stack == nullptr) {
         JNI_TRACE("X509_CRL_get_REVOKED(%p) => stack is null", crl);
-        return NULL;
+        return nullptr;
     }
 
     size_t size = sk_X509_REVOKED_num(stack);
@@ -5287,7 +5288,7 @@ static void NativeCrypto_X509_CRL_free(JNIEnv* env, jclass, jlong x509CrlRef) {
     X509_CRL* crl = reinterpret_cast<X509_CRL*>(static_cast<uintptr_t>(x509CrlRef));
     JNI_TRACE("X509_CRL_free(%p)", crl);
 
-    if (crl == NULL) {
+    if (crl == nullptr) {
         jniThrowNullPointerException(env, "crl == null");
         JNI_TRACE("X509_CRL_free(%p) => crl == null", crl);
         return;
@@ -5301,13 +5302,13 @@ static void NativeCrypto_X509_CRL_print(JNIEnv* env, jclass, jlong bioRef, jlong
     X509_CRL* crl = reinterpret_cast<X509_CRL*>(static_cast<uintptr_t>(x509CrlRef));
     JNI_TRACE("X509_CRL_print(%p, %p)", bio, crl);
 
-    if (bio == NULL) {
+    if (bio == nullptr) {
         jniThrowNullPointerException(env, "bio == null");
         JNI_TRACE("X509_CRL_print(%p, %p) => bio == null", bio, crl);
         return;
     }
 
-    if (crl == NULL) {
+    if (crl == nullptr) {
         jniThrowNullPointerException(env, "crl == null");
         JNI_TRACE("X509_CRL_print(%p, %p) => crl == null", bio, crl);
         return;
@@ -5325,10 +5326,10 @@ static jstring NativeCrypto_get_X509_CRL_sig_alg_oid(JNIEnv* env, jclass, jlong 
     X509_CRL* crl = reinterpret_cast<X509_CRL*>(static_cast<uintptr_t>(x509CrlRef));
     JNI_TRACE("get_X509_CRL_sig_alg_oid(%p)", crl);
 
-    if (crl == NULL || crl->sig_alg == NULL) {
+    if (crl == nullptr || crl->sig_alg == nullptr) {
         jniThrowNullPointerException(env, "crl == NULL || crl->sig_alg == NULL");
         JNI_TRACE("get_X509_CRL_sig_alg_oid(%p) => crl == NULL", crl);
-        return NULL;
+        return nullptr;
     }
 
     return ASN1_OBJECT_to_OID_string(env, crl->sig_alg->algorithm);
@@ -5338,15 +5339,15 @@ static jbyteArray NativeCrypto_get_X509_CRL_sig_alg_parameter(JNIEnv* env, jclas
     X509_CRL* crl = reinterpret_cast<X509_CRL*>(static_cast<uintptr_t>(x509CrlRef));
     JNI_TRACE("get_X509_CRL_sig_alg_parameter(%p)", crl);
 
-    if (crl == NULL) {
+    if (crl == nullptr) {
         jniThrowNullPointerException(env, "crl == null");
         JNI_TRACE("get_X509_CRL_sig_alg_parameter(%p) => crl == null", crl);
-        return NULL;
+        return nullptr;
     }
 
-    if (crl->sig_alg->parameter == NULL) {
+    if (crl->sig_alg->parameter == nullptr) {
         JNI_TRACE("get_X509_CRL_sig_alg_parameter(%p) => null", crl);
-        return NULL;
+        return nullptr;
     }
 
     return ASN1ToByteArray<ASN1_TYPE, i2d_ASN1_TYPE>(env, crl->sig_alg->parameter);
@@ -5372,27 +5373,27 @@ template<typename T, int (*get_ext_by_OBJ_func)(T*, ASN1_OBJECT*, int),
 static X509_EXTENSION *X509Type_get_ext(JNIEnv* env, T* x509Type, jstring oidString) {
     JNI_TRACE("X509Type_get_ext(%p)", x509Type);
 
-    if (x509Type == NULL) {
+    if (x509Type == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
-        return NULL;
+        return nullptr;
     }
 
     ScopedUtfChars oid(env, oidString);
-    if (oid.c_str() == NULL) {
-        return NULL;
+    if (oid.c_str() == nullptr) {
+        return nullptr;
     }
 
     Unique_ASN1_OBJECT asn1(OBJ_txt2obj(oid.c_str(), 1));
-    if (asn1.get() == NULL) {
+    if (asn1.get() == nullptr) {
         JNI_TRACE("X509Type_get_ext(%p, %s) => oid conversion failed", x509Type, oid.c_str());
         freeOpenSslErrorState();
-        return NULL;
+        return nullptr;
     }
 
     int extIndex = get_ext_by_OBJ_func(x509Type, asn1.get(), -1);
     if (extIndex == -1) {
         JNI_TRACE("X509Type_get_ext(%p, %s) => ext not found", x509Type, oid.c_str());
-        return NULL;
+        return nullptr;
     }
 
     X509_EXTENSION* ext = get_ext_func(x509Type, extIndex);
@@ -5405,9 +5406,9 @@ template<typename T, int (*get_ext_by_OBJ_func)(T*, ASN1_OBJECT*, int),
 static jbyteArray X509Type_get_ext_oid(JNIEnv* env, T* x509Type, jstring oidString) {
     X509_EXTENSION* ext = X509Type_get_ext<T, get_ext_by_OBJ_func, get_ext_func>(env, x509Type,
             oidString);
-    if (ext == NULL) {
+    if (ext == nullptr) {
         JNI_TRACE("X509Type_get_ext_oid(%p, %p) => fetching extension failed", x509Type, oidString);
-        return NULL;
+        return nullptr;
     }
 
     JNI_TRACE("X509Type_get_ext_oid(%p, %p) => %p", x509Type, oidString, ext->value);
@@ -5437,7 +5438,7 @@ static jlong NativeCrypto_X509_REVOKED_dup(JNIEnv* env, jclass, jlong x509Revoke
     X509_REVOKED* revoked = reinterpret_cast<X509_REVOKED*>(static_cast<uintptr_t>(x509RevokedRef));
     JNI_TRACE("X509_REVOKED_dup(%p)", revoked);
 
-    if (revoked == NULL) {
+    if (revoked == nullptr) {
         jniThrowNullPointerException(env, "revoked == null");
         JNI_TRACE("X509_REVOKED_dup(%p) => revoked == null", revoked);
         return 0;
@@ -5452,7 +5453,7 @@ static jlong NativeCrypto_get_X509_REVOKED_revocationDate(JNIEnv* env, jclass, j
     X509_REVOKED* revoked = reinterpret_cast<X509_REVOKED*>(static_cast<uintptr_t>(x509RevokedRef));
     JNI_TRACE("get_X509_REVOKED_revocationDate(%p)", revoked);
 
-    if (revoked == NULL) {
+    if (revoked == nullptr) {
         jniThrowNullPointerException(env, "revoked == null");
         JNI_TRACE("get_X509_REVOKED_revocationDate(%p) => revoked == null", revoked);
         return 0;
@@ -5469,13 +5470,13 @@ static void NativeCrypto_X509_REVOKED_print(JNIEnv* env, jclass, jlong bioRef, j
     X509_REVOKED* revoked = reinterpret_cast<X509_REVOKED*>(static_cast<uintptr_t>(x509RevokedRef));
     JNI_TRACE("X509_REVOKED_print(%p, %p)", bio, revoked);
 
-    if (bio == NULL) {
+    if (bio == nullptr) {
         jniThrowNullPointerException(env, "bio == null");
         JNI_TRACE("X509_REVOKED_print(%p, %p) => bio == null", bio, revoked);
         return;
     }
 
-    if (revoked == NULL) {
+    if (revoked == nullptr) {
         jniThrowNullPointerException(env, "revoked == null");
         JNI_TRACE("X509_REVOKED_print(%p, %p) => revoked == null", bio, revoked);
         return;
@@ -5501,13 +5502,13 @@ static void NativeCrypto_X509_CRL_verify(JNIEnv* env, jclass, jlong x509CrlRef, 
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("X509_CRL_verify(%p, %p)", crl, pkey);
 
-    if (crl == NULL) {
+    if (crl == nullptr) {
         jniThrowNullPointerException(env, "crl == null");
         JNI_TRACE("X509_CRL_verify(%p, %p) => crl == null", crl, pkey);
         return;
     }
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         JNI_TRACE("X509_CRL_verify(%p, %p) => pkey == null", crl, pkey);
         return;
@@ -5525,7 +5526,7 @@ static jlong NativeCrypto_X509_CRL_get_lastUpdate(JNIEnv* env, jclass, jlong x50
     X509_CRL* crl = reinterpret_cast<X509_CRL*>(static_cast<uintptr_t>(x509CrlRef));
     JNI_TRACE("X509_CRL_get_lastUpdate(%p)", crl);
 
-    if (crl == NULL) {
+    if (crl == nullptr) {
         jniThrowNullPointerException(env, "crl == null");
         JNI_TRACE("X509_CRL_get_lastUpdate(%p) => crl == null", crl);
         return 0;
@@ -5540,7 +5541,7 @@ static jlong NativeCrypto_X509_CRL_get_nextUpdate(JNIEnv* env, jclass, jlong x50
     X509_CRL* crl = reinterpret_cast<X509_CRL*>(static_cast<uintptr_t>(x509CrlRef));
     JNI_TRACE("X509_CRL_get_nextUpdate(%p)", crl);
 
-    if (crl == NULL) {
+    if (crl == nullptr) {
         jniThrowNullPointerException(env, "crl == null");
         JNI_TRACE("X509_CRL_get_nextUpdate(%p) => crl == null", crl);
         return 0;
@@ -5561,7 +5562,7 @@ static jbyteArray NativeCrypto_i2d_X509_REVOKED(JNIEnv* env, jclass, jlong x509R
 static jint NativeCrypto_X509_supported_extension(JNIEnv* env, jclass, jlong x509ExtensionRef) {
     X509_EXTENSION* ext = reinterpret_cast<X509_EXTENSION*>(static_cast<uintptr_t>(x509ExtensionRef));
 
-    if (ext == NULL) {
+    if (ext == nullptr) {
         jniThrowNullPointerException(env, "ext == NULL");
         return 0;
     }
@@ -5581,18 +5582,18 @@ static void NativeCrypto_ASN1_TIME_to_Calendar(JNIEnv* env, jclass, jlong asn1Ti
     ASN1_TIME* asn1Time = reinterpret_cast<ASN1_TIME*>(static_cast<uintptr_t>(asn1TimeRef));
     JNI_TRACE("ASN1_TIME_to_Calendar(%p, %p)", asn1Time, calendar);
 
-    if (asn1Time == NULL) {
+    if (asn1Time == nullptr) {
         jniThrowNullPointerException(env, "asn1Time == null");
         return;
     }
 
-    Unique_ASN1_GENERALIZEDTIME gen(ASN1_TIME_to_generalizedtime(asn1Time, NULL));
-    if (gen.get() == NULL) {
+    Unique_ASN1_GENERALIZEDTIME gen(ASN1_TIME_to_generalizedtime(asn1Time, nullptr));
+    if (gen.get() == nullptr) {
         jniThrowNullPointerException(env, "asn1Time == null");
         return;
     }
 
-    if (gen->length < 14 || gen->data == NULL) {
+    if (gen->length < 14 || gen->data == nullptr) {
         jniThrowNullPointerException(env, "gen->length < 14 || gen->data == NULL");
         return;
     }
@@ -5615,8 +5616,8 @@ static jstring NativeCrypto_OBJ_txt2nid_oid(JNIEnv* env, jclass, jstring oidStr)
     JNI_TRACE("OBJ_txt2nid_oid(%p)", oidStr);
 
     ScopedUtfChars oid(env, oidStr);
-    if (oid.c_str() == NULL) {
-        return NULL;
+    if (oid.c_str() == nullptr) {
+        return nullptr;
     }
 
     JNI_TRACE("OBJ_txt2nid_oid(%s)", oid.c_str());
@@ -5625,13 +5626,13 @@ static jstring NativeCrypto_OBJ_txt2nid_oid(JNIEnv* env, jclass, jstring oidStr)
     if (nid == NID_undef) {
         JNI_TRACE("OBJ_txt2nid_oid(%s) => NID_undef", oid.c_str());
         freeOpenSslErrorState();
-        return NULL;
+        return nullptr;
     }
 
     Unique_ASN1_OBJECT obj(OBJ_nid2obj(nid));
-    if (obj.get() == NULL) {
+    if (obj.get() == nullptr) {
         throwExceptionIfNecessary(env, "OBJ_nid2obj");
-        return NULL;
+        return nullptr;
     }
 
     ScopedLocalRef<jstring> ouputStr(env, ASN1_OBJECT_to_OID_string(env, obj.get()));
@@ -5644,10 +5645,10 @@ static jstring NativeCrypto_X509_NAME_print_ex(JNIEnv* env, jclass, jlong x509Na
     unsigned long flags = static_cast<unsigned long>(jflags);
     JNI_TRACE("X509_NAME_print_ex(%p, %ld)", x509name, flags);
 
-    if (x509name == NULL) {
+    if (x509name == nullptr) {
         jniThrowNullPointerException(env, "x509name == null");
         JNI_TRACE("X509_NAME_print_ex(%p, %ld) => x509name == null", x509name, flags);
-        return NULL;
+        return nullptr;
     }
 
     return X509_NAME_to_jstring(env, x509name, flags);
@@ -5658,13 +5659,13 @@ static jlong d2i_ASN1Object_to_jlong(JNIEnv* env, jlong bioRef) {
     BIO* bio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(bioRef));
     JNI_TRACE("d2i_ASN1Object_to_jlong(%p)", bio);
 
-    if (bio == NULL) {
+    if (bio == nullptr) {
         jniThrowNullPointerException(env, "bio == null");
         return 0;
     }
 
-    T* x = d2i_func(bio, NULL);
-    if (x == NULL) {
+    T* x = d2i_func(bio, nullptr);
+    if (x == nullptr) {
         throwExceptionIfNecessary(env, "d2i_ASN1Object_to_jlong");
         return 0;
     }
@@ -5703,14 +5704,14 @@ static jlong PEM_ASN1Object_to_jlong(JNIEnv* env, jlong bioRef) {
     BIO* bio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(bioRef));
     JNI_TRACE("PEM_ASN1Object_to_jlong(%p)", bio);
 
-    if (bio == NULL) {
+    if (bio == nullptr) {
         jniThrowNullPointerException(env, "bio == null");
         JNI_TRACE("PEM_ASN1Object_to_jlong(%p) => bio == null", bio);
         return 0;
     }
 
-    T* x = PEM_read_func(bio, NULL, NULL, NULL);
-    if (x == NULL) {
+    T* x = PEM_read_func(bio, nullptr, nullptr, nullptr);
+    if (x == nullptr) {
         throwExceptionIfNecessary(env, "PEM_ASN1Object_to_jlong");
         // Sometimes the PEM functions fail without pushing an error
         if (!env->ExceptionCheck()) {
@@ -5741,7 +5742,7 @@ static STACK_OF(X509)* PKCS7_get_certs(PKCS7* pkcs7) {
         return pkcs7->d.signed_and_enveloped->cert;
     } else {
         JNI_TRACE("PKCS7_get_certs(%p) => unknown PKCS7 type", pkcs7);
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -5752,18 +5753,18 @@ static STACK_OF(X509_CRL)* PKCS7_get_CRLs(PKCS7* pkcs7) {
         return pkcs7->d.signed_and_enveloped->crl;
     } else {
         JNI_TRACE("PKCS7_get_CRLs(%p) => unknown PKCS7 type", pkcs7);
-        return NULL;
+        return nullptr;
     }
 }
 
 template <typename T, typename T_stack>
 static jlongArray PKCS7_to_ItemArray(JNIEnv* env, T_stack* stack, T* (*dup_func)(T*))
 {
-    if (stack == NULL) {
-        return NULL;
+    if (stack == nullptr) {
+        return nullptr;
     }
 
-    ScopedLocalRef<jlongArray> ref_array(env, NULL);
+    ScopedLocalRef<jlongArray> ref_array(env, nullptr);
     size_t size = sk_num(reinterpret_cast<_STACK*>(stack));
     ref_array.reset(env->NewLongArray(size));
     ScopedLongArrayRW items(env, ref_array.get());
@@ -5783,14 +5784,14 @@ static jlongArray NativeCrypto_PEM_read_bio_PKCS7(JNIEnv* env, jclass, jlong bio
     BIO* bio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(bioRef));
     JNI_TRACE("PEM_read_bio_PKCS7_CRLs(%p)", bio);
 
-    if (bio == NULL) {
+    if (bio == nullptr) {
         jniThrowNullPointerException(env, "bio == null");
         JNI_TRACE("PEM_read_bio_PKCS7_CRLs(%p) => bio == null", bio);
         return 0;
     }
 
-    Unique_PKCS7 pkcs7(PEM_read_bio_PKCS7(bio, NULL, NULL, NULL));
-    if (pkcs7.get() == NULL) {
+    Unique_PKCS7 pkcs7(PEM_read_bio_PKCS7(bio, nullptr, nullptr, nullptr));
+    if (pkcs7.get() == nullptr) {
         throwExceptionIfNecessary(env, "PEM_read_bio_PKCS7_CRLs");
         JNI_TRACE("PEM_read_bio_PKCS7_CRLs(%p) => threw exception", bio);
         return 0;
@@ -5804,7 +5805,7 @@ static jlongArray NativeCrypto_PEM_read_bio_PKCS7(JNIEnv* env, jclass, jlong bio
                 X509_CRL_dup);
     default:
         jniThrowRuntimeException(env, "unknown PKCS7 field");
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -5812,14 +5813,14 @@ static jlongArray NativeCrypto_d2i_PKCS7_bio(JNIEnv* env, jclass, jlong bioRef, 
     BIO* bio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(bioRef));
     JNI_TRACE("d2i_PKCS7_bio(%p, %d)", bio, which);
 
-    if (bio == NULL) {
+    if (bio == nullptr) {
         jniThrowNullPointerException(env, "bio == null");
         JNI_TRACE("d2i_PKCS7_bio(%p, %d) => bio == null", bio, which);
         return 0;
     }
 
-    Unique_PKCS7 pkcs7(d2i_PKCS7_bio(bio, NULL));
-    if (pkcs7.get() == NULL) {
+    Unique_PKCS7 pkcs7(d2i_PKCS7_bio(bio, nullptr));
+    if (pkcs7.get() == nullptr) {
         throwExceptionIfNecessary(env, "d2i_PKCS7_bio");
         JNI_TRACE("d2i_PKCS7_bio(%p, %d) => threw exception", bio, which);
         return 0;
@@ -5833,7 +5834,7 @@ static jlongArray NativeCrypto_d2i_PKCS7_bio(JNIEnv* env, jclass, jlong bioRef, 
                 X509_CRL_dup);
     default:
         jniThrowRuntimeException(env, "unknown PKCS7 field");
-        return NULL;
+        return nullptr;
     }
 }
 
@@ -5841,15 +5842,15 @@ static jbyteArray NativeCrypto_i2d_PKCS7(JNIEnv* env, jclass, jlongArray certsAr
     JNI_TRACE("i2d_PKCS7(%p)", certsArray);
 
     Unique_PKCS7 pkcs7(PKCS7_new());
-    if (pkcs7.get() == NULL) {
+    if (pkcs7.get() == nullptr) {
         jniThrowNullPointerException(env, "pkcs7 == null");
         JNI_TRACE("i2d_PKCS7(%p) => pkcs7 == null", certsArray);
-        return NULL;
+        return nullptr;
     }
 
     if (PKCS7_set_type(pkcs7.get(), NID_pkcs7_signed) != 1) {
         throwExceptionIfNecessary(env, "PKCS7_set_type");
-        return NULL;
+        return nullptr;
     }
 
     ScopedLongArrayRO certs(env, certsArray);
@@ -5857,7 +5858,7 @@ static jbyteArray NativeCrypto_i2d_PKCS7(JNIEnv* env, jclass, jlongArray certsAr
         X509* item = reinterpret_cast<X509*>(certs[i]);
         if (PKCS7_add_certificate(pkcs7.get(), item) != 1) {
             throwExceptionIfNecessary(env, "i2d_PKCS7");
-            return NULL;
+            return nullptr;
         }
     }
 
@@ -5875,10 +5876,10 @@ static jlongArray NativeCrypto_ASN1_seq_unpack_X509_bio(JNIEnv* env, jclass, jlo
     BIO* bio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(bioRef));
     JNI_TRACE("ASN1_seq_unpack_X509_bio(%p)", bio);
 
-    Unique_sk_X509 path((PKIPATH*) ASN1_item_d2i_bio(ASN1_ITEM_rptr(PKIPATH), bio, NULL));
-    if (path.get() == NULL) {
+    Unique_sk_X509 path((PKIPATH*) ASN1_item_d2i_bio(ASN1_ITEM_rptr(PKIPATH), bio, nullptr));
+    if (path.get() == nullptr) {
         throwExceptionIfNecessary(env, "ASN1_seq_unpack_X509_bio");
-        return NULL;
+        return nullptr;
     }
 
     size_t size = sk_X509_num(path.get());
@@ -5897,15 +5898,15 @@ static jlongArray NativeCrypto_ASN1_seq_unpack_X509_bio(JNIEnv* env, jclass, jlo
 static jbyteArray NativeCrypto_ASN1_seq_pack_X509(JNIEnv* env, jclass, jlongArray certs) {
     JNI_TRACE("ASN1_seq_pack_X509(%p)", certs);
     ScopedLongArrayRO certsArray(env, certs);
-    if (certsArray.get() == NULL) {
+    if (certsArray.get() == nullptr) {
         JNI_TRACE("ASN1_seq_pack_X509(%p) => failed to get certs array", certs);
-        return NULL;
+        return nullptr;
     }
 
     Unique_sk_X509 certStack(sk_X509_new_null());
-    if (certStack.get() == NULL) {
+    if (certStack.get() == nullptr) {
         JNI_TRACE("ASN1_seq_pack_X509(%p) => failed to make cert stack", certs);
-        return NULL;
+        return nullptr;
     }
 
     for (size_t i = 0; i < certsArray.size(); i++) {
@@ -5917,22 +5918,22 @@ static jbyteArray NativeCrypto_ASN1_seq_pack_X509(JNIEnv* env, jclass, jlongArra
     Unique_OPENSSL_str encoded(ASN1_seq_pack(
                     reinterpret_cast<STACK_OF(OPENSSL_BLOCK)*>(
                             reinterpret_cast<uintptr_t>(certStack.get())),
-                    reinterpret_cast<int (*)(void*, unsigned char**)>(i2d_X509), NULL, &len));
-    if (encoded.get() == NULL) {
+                    reinterpret_cast<int (*)(void*, unsigned char**)>(i2d_X509), nullptr, &len));
+    if (encoded.get() == nullptr) {
         JNI_TRACE("ASN1_seq_pack_X509(%p) => trouble encoding", certs);
-        return NULL;
+        return nullptr;
     }
 
     ScopedLocalRef<jbyteArray> byteArray(env, env->NewByteArray(len));
-    if (byteArray.get() == NULL) {
+    if (byteArray.get() == nullptr) {
         JNI_TRACE("ASN1_seq_pack_X509(%p) => creating byte array failed", certs);
-        return NULL;
+        return nullptr;
     }
 
     ScopedByteArrayRW bytes(env, byteArray.get());
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("ASN1_seq_pack_X509(%p) => using byte array failed", certs);
-        return NULL;
+        return nullptr;
     }
 
     unsigned char* p = reinterpret_cast<unsigned char*>(bytes.get());
@@ -5945,7 +5946,7 @@ static void NativeCrypto_X509_free(JNIEnv* env, jclass, jlong x509Ref) {
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("X509_free(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("X509_free(%p) => x509 == null", x509);
         return;
@@ -5959,13 +5960,13 @@ static jint NativeCrypto_X509_cmp(JNIEnv* env, jclass, jlong x509Ref1, jlong x50
     X509* x509_2 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref2));
     JNI_TRACE("X509_cmp(%p, %p)", x509_1, x509_2);
 
-    if (x509_1 == NULL) {
+    if (x509_1 == nullptr) {
         jniThrowNullPointerException(env, "x509_1 == null");
         JNI_TRACE("X509_cmp(%p, %p) => x509_1 == null", x509_1, x509_2);
         return -1;
     }
 
-    if (x509_2 == NULL) {
+    if (x509_2 == nullptr) {
         jniThrowNullPointerException(env, "x509_2 == null");
         JNI_TRACE("X509_cmp(%p, %p) => x509_2 == null", x509_1, x509_2);
         return -1;
@@ -5979,7 +5980,7 @@ static jint NativeCrypto_X509_cmp(JNIEnv* env, jclass, jlong x509Ref1, jlong x50
 static jint NativeCrypto_get_X509_hashCode(JNIEnv* env, jclass, jlong x509Ref) {
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_hashCode(%p) => x509 == null", x509);
         return 0;
@@ -6003,13 +6004,13 @@ static void NativeCrypto_X509_print_ex(JNIEnv* env, jclass, jlong bioRef, jlong 
     long certflag = static_cast<long>(certflagJava);
     JNI_TRACE("X509_print_ex(%p, %p, %ld, %ld)", bio, x509, nmflag, certflag);
 
-    if (bio == NULL) {
+    if (bio == nullptr) {
         jniThrowNullPointerException(env, "bio == null");
         JNI_TRACE("X509_print_ex(%p, %p, %ld, %ld) => bio == null", bio, x509, nmflag, certflag);
         return;
     }
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("X509_print_ex(%p, %p, %ld, %ld) => x509 == null", bio, x509, nmflag, certflag);
         return;
@@ -6027,14 +6028,14 @@ static jlong NativeCrypto_X509_get_pubkey(JNIEnv* env, jclass, jlong x509Ref) {
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("X509_get_pubkey(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("X509_get_pubkey(%p) => x509 == null", x509);
         return 0;
     }
 
     Unique_EVP_PKEY pkey(X509_get_pubkey(x509));
-    if (pkey.get() == NULL) {
+    if (pkey.get() == nullptr) {
         throwExceptionIfNecessary(env, "X509_get_pubkey");
         return 0;
     }
@@ -6059,10 +6060,10 @@ static jstring NativeCrypto_get_X509_pubkey_oid(JNIEnv* env, jclass, jlong x509R
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_pubkey_oid(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_pubkey_oid(%p) => x509 == null", x509);
-        return NULL;
+        return nullptr;
     }
 
     X509_PUBKEY* pubkey = X509_get_X509_PUBKEY(x509);
@@ -6073,10 +6074,10 @@ static jstring NativeCrypto_get_X509_sig_alg_oid(JNIEnv* env, jclass, jlong x509
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_sig_alg_oid(%p)", x509);
 
-    if (x509 == NULL || x509->sig_alg == NULL) {
+    if (x509 == nullptr || x509->sig_alg == nullptr) {
         jniThrowNullPointerException(env, "x509 == NULL || x509->sig_alg == NULL");
         JNI_TRACE("get_X509_sig_alg_oid(%p) => x509 == NULL", x509);
-        return NULL;
+        return nullptr;
     }
 
     return ASN1_OBJECT_to_OID_string(env, x509->sig_alg->algorithm);
@@ -6086,15 +6087,15 @@ static jbyteArray NativeCrypto_get_X509_sig_alg_parameter(JNIEnv* env, jclass, j
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_sig_alg_parameter(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_sig_alg_parameter(%p) => x509 == null", x509);
-        return NULL;
+        return nullptr;
     }
 
-    if (x509->sig_alg->parameter == NULL) {
+    if (x509->sig_alg->parameter == nullptr) {
         JNI_TRACE("get_X509_sig_alg_parameter(%p) => null", x509);
-        return NULL;
+        return nullptr;
     }
 
     return ASN1ToByteArray<ASN1_TYPE, i2d_ASN1_TYPE>(env, x509->sig_alg->parameter);
@@ -6104,15 +6105,15 @@ static jbooleanArray NativeCrypto_get_X509_issuerUID(JNIEnv* env, jclass, jlong 
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_issuerUID(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_issuerUID(%p) => x509 == null", x509);
-        return NULL;
+        return nullptr;
     }
 
-    if (x509->cert_info->issuerUID == NULL) {
+    if (x509->cert_info->issuerUID == nullptr) {
         JNI_TRACE("get_X509_issuerUID(%p) => null", x509);
-        return NULL;
+        return nullptr;
     }
 
     return ASN1BitStringToBooleanArray(env, x509->cert_info->issuerUID);
@@ -6121,15 +6122,15 @@ static jbooleanArray NativeCrypto_get_X509_subjectUID(JNIEnv* env, jclass, jlong
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_subjectUID(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_subjectUID(%p) => x509 == null", x509);
-        return NULL;
+        return nullptr;
     }
 
-    if (x509->cert_info->subjectUID == NULL) {
+    if (x509->cert_info->subjectUID == nullptr) {
         JNI_TRACE("get_X509_subjectUID(%p) => null", x509);
-        return NULL;
+        return nullptr;
     }
 
     return ASN1BitStringToBooleanArray(env, x509->cert_info->subjectUID);
@@ -6139,17 +6140,17 @@ static jbooleanArray NativeCrypto_get_X509_ex_kusage(JNIEnv* env, jclass, jlong 
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_ex_kusage(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_ex_kusage(%p) => x509 == null", x509);
-        return NULL;
+        return nullptr;
     }
 
     Unique_ASN1_BIT_STRING bitStr(static_cast<ASN1_BIT_STRING*>(
-            X509_get_ext_d2i(x509, NID_key_usage, NULL, NULL)));
-    if (bitStr.get() == NULL) {
+            X509_get_ext_d2i(x509, NID_key_usage, nullptr, nullptr)));
+    if (bitStr.get() == nullptr) {
         JNI_TRACE("get_X509_ex_kusage(%p) => null", x509);
-        return NULL;
+        return nullptr;
     }
 
     return ASN1BitStringToBooleanArray(env, bitStr.get());
@@ -6159,23 +6160,23 @@ static jobjectArray NativeCrypto_get_X509_ex_xkusage(JNIEnv* env, jclass, jlong 
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_ex_xkusage(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_ex_xkusage(%p) => x509 == null", x509);
-        return NULL;
+        return nullptr;
     }
 
     Unique_sk_ASN1_OBJECT objArray(static_cast<STACK_OF(ASN1_OBJECT)*>(
-            X509_get_ext_d2i(x509, NID_ext_key_usage, NULL, NULL)));
-    if (objArray.get() == NULL) {
+            X509_get_ext_d2i(x509, NID_ext_key_usage, nullptr, nullptr)));
+    if (objArray.get() == nullptr) {
         JNI_TRACE("get_X509_ex_xkusage(%p) => null", x509);
-        return NULL;
+        return nullptr;
     }
 
     size_t size = sk_ASN1_OBJECT_num(objArray.get());
-    ScopedLocalRef<jobjectArray> exKeyUsage(env, env->NewObjectArray(size, stringClass, NULL));
-    if (exKeyUsage.get() == NULL) {
-        return NULL;
+    ScopedLocalRef<jobjectArray> exKeyUsage(env, env->NewObjectArray(size, stringClass, nullptr));
+    if (exKeyUsage.get() == nullptr) {
+        return nullptr;
     }
 
     for (size_t i = 0; i < size; i++) {
@@ -6192,7 +6193,7 @@ static jint NativeCrypto_get_X509_ex_pathlen(JNIEnv* env, jclass, jlong x509Ref)
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_ex_pathlen(%p)", x509);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509_ex_pathlen(%p) => x509 == null", x509);
         return 0;
@@ -6233,10 +6234,10 @@ static jobjectArray get_X509Type_ext_oids(JNIEnv* env, jlong x509Ref, jint criti
     T* x509 = reinterpret_cast<T*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509Type_ext_oids(%p, %d)", x509, critical);
 
-    if (x509 == NULL) {
+    if (x509 == nullptr) {
         jniThrowNullPointerException(env, "x509 == null");
         JNI_TRACE("get_X509Type_ext_oids(%p, %d) => x509 == null", x509, critical);
-        return NULL;
+        return nullptr;
     }
 
     int lastPos = -1;
@@ -6247,10 +6248,10 @@ static jobjectArray get_X509Type_ext_oids(JNIEnv* env, jlong x509Ref, jint criti
 
     JNI_TRACE("get_X509Type_ext_oids(%p, %d) has %d entries", x509, critical, count);
 
-    ScopedLocalRef<jobjectArray> joa(env, env->NewObjectArray(count, stringClass, NULL));
-    if (joa.get() == NULL) {
+    ScopedLocalRef<jobjectArray> joa(env, env->NewObjectArray(count, stringClass, nullptr));
+    if (joa.get() == nullptr) {
         JNI_TRACE("get_X509Type_ext_oids(%p, %d) => fail to allocate result array", x509, critical);
-        return NULL;
+        return nullptr;
     }
 
     lastPos = -1;
@@ -6259,9 +6260,9 @@ static jobjectArray get_X509Type_ext_oids(JNIEnv* env, jlong x509Ref, jint criti
         X509_EXTENSION* ext = get_ext_func(x509, lastPos);
 
         ScopedLocalRef<jstring> extOid(env, ASN1_OBJECT_to_OID_string(env, ext->object));
-        if (extOid.get() == NULL) {
+        if (extOid.get() == nullptr) {
             JNI_TRACE("get_X509Type_ext_oids(%p) => couldn't get OID", x509);
-            return NULL;
+            return nullptr;
         }
 
         env->SetObjectArrayElement(joa.get(), count++, extOid.get());
@@ -6351,18 +6352,18 @@ static void info_callback_LOG(const SSL* s __attribute__ ((unused)), int where, 
  */
 static jlongArray getCertificateRefs(JNIEnv* env, const STACK_OF(X509)* chain)
 {
-    if (chain == NULL) {
+    if (chain == nullptr) {
         // Chain can be NULL if the associated cipher doesn't do certs.
-        return NULL;
+        return nullptr;
     }
     ssize_t count = sk_X509_num(chain);
     if (count <= 0) {
-        return NULL;
+        return nullptr;
     }
     ScopedLocalRef<jlongArray> refArray(env, env->NewLongArray(count));
     ScopedLongArrayRW refs(env, refArray.get());
-    if (refs.get() == NULL) {
-        return NULL;
+    if (refs.get() == nullptr) {
+        return nullptr;
     }
     for (ssize_t i = 0; i < count; i++) {
         refs[i] = reinterpret_cast<uintptr_t>(X509_dup_nocopy(sk_X509_value(chain, i)));
@@ -6375,18 +6376,18 @@ static jlongArray getCertificateRefs(JNIEnv* env, const STACK_OF(X509)* chain)
  */
 static jobjectArray getPrincipalBytes(JNIEnv* env, const STACK_OF(X509_NAME)* names)
 {
-    if (names == NULL) {
-        return NULL;
+    if (names == nullptr) {
+        return nullptr;
     }
 
     int count = sk_X509_NAME_num(names);
     if (count <= 0) {
-        return NULL;
+        return nullptr;
     }
 
-    ScopedLocalRef<jobjectArray> joa(env, env->NewObjectArray(count, byteArrayClass, NULL));
-    if (joa.get() == NULL) {
-        return NULL;
+    ScopedLocalRef<jobjectArray> joa(env, env->NewObjectArray(count, byteArrayClass, nullptr));
+    if (joa.get() == nullptr) {
+        return nullptr;
     }
 
     for (int i = 0; i < count; i++) {
@@ -6394,8 +6395,8 @@ static jobjectArray getPrincipalBytes(JNIEnv* env, const STACK_OF(X509_NAME)* na
 
         ScopedLocalRef<jbyteArray> byteArray(env, ASN1ToByteArray<X509_NAME, i2d_X509_NAME>(env,
                 principal));
-        if (byteArray.get() == NULL) {
-            return NULL;
+        if (byteArray.get() == nullptr) {
+            return nullptr;
         }
         env->SetObjectArrayElement(joa.get(), i, byteArray.get());
     }
@@ -6500,18 +6501,18 @@ class AppData {
      */
   public:
     static AppData* create() {
-        UniquePtr<AppData> appData(new AppData());
+        std::unique_ptr<AppData> appData(new AppData());
         if (pipe(appData.get()->fdsEmergency) == -1) {
             ALOGE("AppData::create pipe(2) failed: %s", strerror(errno));
-            return NULL;
+            return nullptr;
         }
         if (!setBlocking(appData.get()->fdsEmergency[0], false)) {
             ALOGE("AppData::create fcntl(2) failed: %s", strerror(errno));
-            return NULL;
+            return nullptr;
         }
         if (MUTEX_SETUP(appData.get()->mutex) == -1) {
             ALOGE("pthread_mutex_init(3) failed: %s", strerror(errno));
-            return NULL;
+            return nullptr;
         }
         return appData.release();
     }
@@ -6532,16 +6533,16 @@ class AppData {
     AppData() :
             aliveAndKicking(1),
             waitingThreads(0),
-            env(NULL),
-            sslHandshakeCallbacks(NULL),
-            npnProtocolsArray(NULL),
-            npnProtocolsData(NULL),
+            env(nullptr),
+            sslHandshakeCallbacks(nullptr),
+            npnProtocolsArray(nullptr),
+            npnProtocolsData(nullptr),
             npnProtocolsLength(-1),
-            alpnProtocolsArray(NULL),
-            alpnProtocolsData(NULL),
+            alpnProtocolsArray(nullptr),
+            alpnProtocolsData(nullptr),
             alpnProtocolsLength(-1),
-            ephemeralRsa(NULL),
-            ephemeralEc(NULL) {
+            ephemeralRsa(nullptr),
+            ephemeralEc(nullptr) {
         fdsEmergency[0] = -1;
         fdsEmergency[1] = -1;
     }
@@ -6564,8 +6565,8 @@ class AppData {
      */
     bool setCallbackState(JNIEnv* e, jobject shc, jobject fd, jbyteArray npnProtocols,
             jbyteArray alpnProtocols) {
-        UniquePtr<NetFd> netFd;
-        if (fd != NULL) {
+        std::unique_ptr<NetFd> netFd;
+        if (fd != nullptr) {
             netFd.reset(new NetFd(e, fd));
             if (netFd->isClosed()) {
                 JNI_TRACE("appData=%p setCallbackState => netFd->isClosed() == true", this);
@@ -6574,9 +6575,9 @@ class AppData {
         }
         env = e;
         sslHandshakeCallbacks = shc;
-        if (npnProtocols != NULL) {
-            npnProtocolsData = e->GetByteArrayElements(npnProtocols, NULL);
-            if (npnProtocolsData == NULL) {
+        if (npnProtocols != nullptr) {
+            npnProtocolsData = e->GetByteArrayElements(npnProtocols, nullptr);
+            if (npnProtocolsData == nullptr) {
                 clearCallbackState();
                 JNI_TRACE("appData=%p setCallbackState => npnProtocolsData == NULL", this);
                 return false;
@@ -6584,9 +6585,9 @@ class AppData {
             npnProtocolsArray = npnProtocols;
             npnProtocolsLength = e->GetArrayLength(npnProtocols);
         }
-        if (alpnProtocols != NULL) {
-            alpnProtocolsData = e->GetByteArrayElements(alpnProtocols, NULL);
-            if (alpnProtocolsData == NULL) {
+        if (alpnProtocols != nullptr) {
+            alpnProtocolsData = e->GetByteArrayElements(alpnProtocols, nullptr);
+            if (alpnProtocolsData == nullptr) {
                 clearCallbackState();
                 JNI_TRACE("appData=%p setCallbackState => alpnProtocolsData == NULL", this);
                 return false;
@@ -6598,20 +6599,20 @@ class AppData {
     }
 
     void clearCallbackState() {
-        sslHandshakeCallbacks = NULL;
-        if (npnProtocolsArray != NULL) {
+        sslHandshakeCallbacks = nullptr;
+        if (npnProtocolsArray != nullptr) {
             env->ReleaseByteArrayElements(npnProtocolsArray, npnProtocolsData, JNI_ABORT);
-            npnProtocolsArray = NULL;
-            npnProtocolsData = NULL;
+            npnProtocolsArray = nullptr;
+            npnProtocolsData = nullptr;
             npnProtocolsLength = -1;
         }
-        if (alpnProtocolsArray != NULL) {
+        if (alpnProtocolsArray != nullptr) {
             env->ReleaseByteArrayElements(alpnProtocolsArray, alpnProtocolsData, JNI_ABORT);
-            alpnProtocolsArray = NULL;
-            alpnProtocolsData = NULL;
+            alpnProtocolsArray = nullptr;
+            alpnProtocolsData = nullptr;
             alpnProtocolsLength = -1;
         }
-        env = NULL;
+        env = nullptr;
     }
 
 };
@@ -6677,7 +6678,7 @@ static int sslSelect(JNIEnv* env, int type, jobject fdObject, AppData* appData, 
             tv.tv_usec = (timeout_millis % 1000) * 1000;
             ptv = &tv;
         } else {
-            ptv = NULL;
+            ptv = nullptr;
         }
 
 #ifndef CONSCRYPT_UNBUNDLED
@@ -6685,7 +6686,7 @@ static int sslSelect(JNIEnv* env, int type, jobject fdObject, AppData* appData, 
 #else
         CompatibilityCloseMonitor monitor(intFd);
 #endif
-        result = select(maxFd + 1, &rfds, &wfds, NULL, ptv);
+        result = select(maxFd + 1, &rfds, &wfds, nullptr, ptv);
         JNI_TRACE("sslSelect %s fd=%d appData=%p timeout_millis=%d => %d",
                   (type == SSL_ERROR_WANT_READ) ? "READ" : "WRITE",
                   fd.get(), appData, timeout_millis, result);
@@ -6765,7 +6766,7 @@ static int cert_verify_callback(X509_STORE_CTX* x509_store_ctx, void* arg __attr
 
     AppData* appData = toAppData(ssl);
     JNIEnv* env = appData->env;
-    if (env == NULL) {
+    if (env == nullptr) {
         ALOGE("AppData->env missing in cert_verify_callback");
         JNI_TRACE("ssl=%p cert_verify_callback => 0", ssl);
         return 0;
@@ -6808,7 +6809,7 @@ static void info_callback(const SSL* ssl, int where, int ret) {
 
     AppData* appData = toAppData(ssl);
     JNIEnv* env = appData->env;
-    if (env == NULL) {
+    if (env == nullptr) {
         ALOGE("AppData->env missing in info_callback");
         JNI_TRACE("ssl=%p info_callback env error", ssl);
         return;
@@ -6843,12 +6844,12 @@ static int client_cert_cb(SSL* ssl, X509** x509Out, EVP_PKEY** pkeyOut) {
     JNI_TRACE("ssl=%p client_cert_cb x509Out=%p pkeyOut=%p", ssl, x509Out, pkeyOut);
 
     /* Clear output of key and certificate in case of early exit due to error. */
-    *x509Out = NULL;
-    *pkeyOut = NULL;
+    *x509Out = nullptr;
+    *pkeyOut = nullptr;
 
     AppData* appData = toAppData(ssl);
     JNIEnv* env = appData->env;
-    if (env == NULL) {
+    if (env == nullptr) {
         ALOGE("AppData->env missing in client_cert_cb");
         JNI_TRACE("ssl=%p client_cert_cb env error => 0", ssl);
         return 0;
@@ -6865,9 +6866,9 @@ static int client_cert_cb(SSL* ssl, X509** x509Out, EVP_PKEY** pkeyOut) {
 
     // Call Java callback which can use SSL_use_certificate and SSL_use_PrivateKey to set values
     char ssl2_ctype = SSL3_CT_RSA_SIGN;
-    const char* ctype = NULL;
+    const char* ctype = nullptr;
     int ctype_num = 0;
-    jobjectArray issuers = NULL;
+    jobjectArray issuers = nullptr;
     switch (ssl->version) {
         case SSL2_VERSION:
             ctype = &ssl2_ctype;
@@ -6890,7 +6891,7 @@ static int client_cert_cb(SSL* ssl, X509** x509Out, EVP_PKEY** pkeyOut) {
 #endif
 
     jbyteArray keyTypes = env->NewByteArray(ctype_num);
-    if (keyTypes == NULL) {
+    if (keyTypes == nullptr) {
         JNI_TRACE("ssl=%p client_cert_cb bytes == null => 0", ssl);
         return 0;
     }
@@ -6909,7 +6910,7 @@ static int client_cert_cb(SSL* ssl, X509** x509Out, EVP_PKEY** pkeyOut) {
     X509*     certificate = SSL_get_certificate(ssl);
     EVP_PKEY* privatekey  = SSL_get_privatekey(ssl);
     int result = 0;
-    if (certificate != NULL && privatekey != NULL) {
+    if (certificate != nullptr && privatekey != nullptr) {
         *x509Out = certificate;
         *pkeyOut = privatekey;
         result = 1;
@@ -6931,7 +6932,7 @@ static unsigned int psk_client_callback(SSL* ssl, const char *hint,
 
     AppData* appData = toAppData(ssl);
     JNIEnv* env = appData->env;
-    if (env == NULL) {
+    if (env == nullptr) {
         ALOGE("AppData->env missing in psk_client_callback");
         JNI_TRACE("ssl=%p psk_client_callback env error", ssl);
         return 0;
@@ -6948,14 +6949,14 @@ static unsigned int psk_client_callback(SSL* ssl, const char *hint,
     JNI_TRACE("ssl=%p psk_client_callback calling clientPSKKeyRequested", ssl);
     ScopedLocalRef<jstring> identityHintJava(
             env,
-            (hint != NULL) ? env->NewStringUTF(hint) : NULL);
+            (hint != nullptr) ? env->NewStringUTF(hint) : nullptr);
     ScopedLocalRef<jbyteArray> identityJava(env, env->NewByteArray(max_identity_len));
-    if (identityJava.get() == NULL) {
+    if (identityJava.get() == nullptr) {
         JNI_TRACE("ssl=%p psk_client_callback failed to allocate identity bufffer", ssl);
         return 0;
     }
     ScopedLocalRef<jbyteArray> keyJava(env, env->NewByteArray(max_psk_len));
-    if (keyJava.get() == NULL) {
+    if (keyJava.get() == nullptr) {
         JNI_TRACE("ssl=%p psk_client_callback failed to allocate key bufffer", ssl);
         return 0;
     }
@@ -6973,14 +6974,14 @@ static unsigned int psk_client_callback(SSL* ssl, const char *hint,
         return 0;
     }
     ScopedByteArrayRO keyJavaRo(env, keyJava.get());
-    if (keyJavaRo.get() == NULL) {
+    if (keyJavaRo.get() == nullptr) {
         JNI_TRACE("ssl=%p psk_client_callback failed to get key bytes", ssl);
         return 0;
     }
     memcpy(psk, keyJavaRo.get(), keyLen);
 
     ScopedByteArrayRO identityJavaRo(env, identityJava.get());
-    if (identityJavaRo.get() == NULL) {
+    if (identityJavaRo.get() == nullptr) {
         JNI_TRACE("ssl=%p psk_client_callback failed to get identity bytes", ssl);
         return 0;
     }
@@ -6999,7 +7000,7 @@ static unsigned int psk_server_callback(SSL* ssl, const char *identity,
 
     AppData* appData = toAppData(ssl);
     JNIEnv* env = appData->env;
-    if (env == NULL) {
+    if (env == nullptr) {
         ALOGE("AppData->env missing in psk_server_callback");
         JNI_TRACE("ssl=%p psk_server_callback env error", ssl);
         return 0;
@@ -7015,16 +7016,16 @@ static unsigned int psk_server_callback(SSL* ssl, const char *identity,
             cls, "serverPSKKeyRequested", "(Ljava/lang/String;Ljava/lang/String;[B)I");
     JNI_TRACE("ssl=%p psk_server_callback calling serverPSKKeyRequested", ssl);
     const char* identityHint = SSL_get_psk_identity_hint(ssl);
-    // identityHint = NULL;
-    // identity = NULL;
+    // identityHint = nullptr;
+    // identity = nullptr;
     ScopedLocalRef<jstring> identityHintJava(
             env,
-            (identityHint != NULL) ? env->NewStringUTF(identityHint) : NULL);
+            (identityHint != nullptr) ? env->NewStringUTF(identityHint) : nullptr);
     ScopedLocalRef<jstring> identityJava(
             env,
-            (identity != NULL) ? env->NewStringUTF(identity) : NULL);
+            (identity != nullptr) ? env->NewStringUTF(identity) : nullptr);
     ScopedLocalRef<jbyteArray> keyJava(env, env->NewByteArray(max_psk_len));
-    if (keyJava.get() == NULL) {
+    if (keyJava.get() == nullptr) {
         JNI_TRACE("ssl=%p psk_server_callback failed to allocate key bufffer", ssl);
         return 0;
     }
@@ -7042,7 +7043,7 @@ static unsigned int psk_server_callback(SSL* ssl, const char *identity,
         return 0;
     }
     ScopedByteArrayRO keyJavaRo(env, keyJava.get());
-    if (keyJavaRo.get() == NULL) {
+    if (keyJavaRo.get() == nullptr) {
         JNI_TRACE("ssl=%p psk_server_callback failed to get key bytes", ssl);
         return 0;
     }
@@ -7054,20 +7055,20 @@ static unsigned int psk_server_callback(SSL* ssl, const char *identity,
 
 static RSA* rsaGenerateKey(int keylength) {
     Unique_BIGNUM bn(BN_new());
-    if (bn.get() == NULL) {
-        return NULL;
+    if (bn.get() == nullptr) {
+        return nullptr;
     }
     int setWordResult = BN_set_word(bn.get(), RSA_F4);
     if (setWordResult != 1) {
-        return NULL;
+        return nullptr;
     }
     Unique_RSA rsa(RSA_new());
-    if (rsa.get() == NULL) {
-        return NULL;
+    if (rsa.get() == nullptr) {
+        return nullptr;
     }
-    int generateResult = RSA_generate_key_ex(rsa.get(), keylength, bn.get(), NULL);
+    int generateResult = RSA_generate_key_ex(rsa.get(), keylength, bn.get(), nullptr);
     if (generateResult != 1) {
-        return NULL;
+        return nullptr;
     }
     return rsa.release();
 }
@@ -7081,7 +7082,7 @@ static RSA* tmp_rsa_callback(SSL* ssl __attribute__ ((unused)),
     JNI_TRACE("ssl=%p tmp_rsa_callback is_export=%d keylength=%d", ssl, is_export, keylength);
 
     AppData* appData = toAppData(ssl);
-    if (appData->ephemeralRsa.get() == NULL) {
+    if (appData->ephemeralRsa.get() == nullptr) {
         JNI_TRACE("ssl=%p tmp_rsa_callback generating ephemeral RSA key", ssl);
         appData->ephemeralRsa.reset(rsaGenerateKey(keylength));
     }
@@ -7106,15 +7107,15 @@ static DH* dhGenerateParameters(int keylength) {
 #if 0
     // Slow path that takes minutes but could be cached
     Unique_DH dh(DH_new());
-    if (!DH_generate_parameters_ex(dh.get(), keylength, 2, NULL)) {
-        return NULL;
+    if (!DH_generate_parameters_ex(dh.get(), keylength, 2, nullptr)) {
+        return nullptr;
     }
     return dh.release();
 #else
     // Faster path but must have SSL_OP_SINGLE_DH_USE set
     Unique_DSA dsa(DSA_new());
-    if (!DSA_generate_parameters_ex(dsa.get(), keylength, NULL, 0, NULL, NULL, NULL)) {
-        return NULL;
+    if (!DSA_generate_parameters_ex(dsa.get(), keylength, nullptr, 0, nullptr, nullptr, nullptr)) {
+        return nullptr;
     }
     DH* dh = DSA_dup_DH(dsa.get());
     return dh;
@@ -7136,8 +7137,8 @@ static DH* tmp_dh_callback(SSL* ssl __attribute__ ((unused)),
 static EC_KEY* ecGenerateKey(int keylength __attribute__ ((unused))) {
     // TODO selected curve based on keylength
     Unique_EC_KEY ec(EC_KEY_new_by_curve_name(NID_X9_62_prime256v1));
-    if (ec.get() == NULL) {
-        return NULL;
+    if (ec.get() == nullptr) {
+        return nullptr;
     }
     return ec.release();
 }
@@ -7150,7 +7151,7 @@ static EC_KEY* tmp_ecdh_callback(SSL* ssl __attribute__ ((unused)),
                                  int keylength) {
     JNI_TRACE("ssl=%p tmp_ecdh_callback is_export=%d keylength=%d", ssl, is_export, keylength);
     AppData* appData = toAppData(ssl);
-    if (appData->ephemeralEc.get() == NULL) {
+    if (appData->ephemeralEc.get() == nullptr) {
         JNI_TRACE("ssl=%p tmp_ecdh_callback generating ephemeral EC key", ssl);
         appData->ephemeralEc.reset(ecGenerateKey(keylength));
     }
@@ -7163,7 +7164,7 @@ static EC_KEY* tmp_ecdh_callback(SSL* ssl __attribute__ ((unused)),
  */
 static jlong NativeCrypto_SSL_CTX_new(JNIEnv* env, jclass) {
     Unique_SSL_CTX sslCtx(SSL_CTX_new(SSLv23_method()));
-    if (sslCtx.get() == NULL) {
+    if (sslCtx.get() == nullptr) {
         throwExceptionIfNecessary(env, "SSL_CTX_new");
         return 0;
     }
@@ -7197,7 +7198,7 @@ static jlong NativeCrypto_SSL_CTX_new(JNIEnv* env, jclass) {
 
     SSL_CTX_set_mode(sslCtx.get(), mode);
 
-    SSL_CTX_set_cert_verify_callback(sslCtx.get(), cert_verify_callback, NULL);
+    SSL_CTX_set_cert_verify_callback(sslCtx.get(), cert_verify_callback, nullptr);
     SSL_CTX_set_info_callback(sslCtx.get(), info_callback);
     SSL_CTX_set_client_cert_cb(sslCtx.get(), client_cert_cb);
     SSL_CTX_set_tmp_rsa_callback(sslCtx.get(), tmp_rsa_callback);
@@ -7219,7 +7220,7 @@ static void NativeCrypto_SSL_CTX_free(JNIEnv* env,
 {
     SSL_CTX* ssl_ctx = to_SSL_CTX(env, ssl_ctx_address, true);
     JNI_TRACE("ssl_ctx=%p NativeCrypto_SSL_CTX_free", ssl_ctx);
-    if (ssl_ctx == NULL) {
+    if (ssl_ctx == nullptr) {
         return;
     }
     SSL_CTX_free(ssl_ctx);
@@ -7230,12 +7231,12 @@ static void NativeCrypto_SSL_CTX_set_session_id_context(JNIEnv* env, jclass,
 {
     SSL_CTX* ssl_ctx = to_SSL_CTX(env, ssl_ctx_address, true);
     JNI_TRACE("ssl_ctx=%p NativeCrypto_SSL_CTX_set_session_id_context sid_ctx=%p", ssl_ctx, sid_ctx);
-    if (ssl_ctx == NULL) {
+    if (ssl_ctx == nullptr) {
         return;
     }
 
     ScopedByteArrayRO buf(env, sid_ctx);
-    if (buf.get() == NULL) {
+    if (buf.get() == nullptr) {
         JNI_TRACE("ssl_ctx=%p NativeCrypto_SSL_CTX_set_session_id_context => threw exception", ssl_ctx);
         return;
     }
@@ -7263,12 +7264,12 @@ static jlong NativeCrypto_SSL_new(JNIEnv* env, jclass, jlong ssl_ctx_address)
 {
     SSL_CTX* ssl_ctx = to_SSL_CTX(env, ssl_ctx_address, true);
     JNI_TRACE("ssl_ctx=%p NativeCrypto_SSL_new", ssl_ctx);
-    if (ssl_ctx == NULL) {
+    if (ssl_ctx == nullptr) {
         return 0;
     }
     Unique_SSL ssl(SSL_new(ssl_ctx));
-    if (ssl.get() == NULL) {
-        throwSSLExceptionWithSslErrors(env, NULL, SSL_ERROR_NONE,
+    if (ssl.get() == nullptr) {
+        throwSSLExceptionWithSslErrors(env, nullptr, SSL_ERROR_NONE,
                 "Unable to create SSL structure");
         JNI_TRACE("ssl_ctx=%p NativeCrypto_SSL_new => NULL", ssl_ctx);
         return 0;
@@ -7278,7 +7279,7 @@ static jlong NativeCrypto_SSL_new(JNIEnv* env, jclass, jlong ssl_ctx_address)
      * Create our special application data.
      */
     AppData* appData = AppData::create();
-    if (appData == NULL) {
+    if (appData == nullptr) {
         throwSSLExceptionStr(env, "Unable to create application data");
         freeOpenSslErrorState();
         JNI_TRACE("ssl_ctx=%p NativeCrypto_SSL_new appData => 0", ssl_ctx);
@@ -7293,7 +7294,7 @@ static jlong NativeCrypto_SSL_new(JNIEnv* env, jclass, jlong ssl_ctx_address)
      * SSL_VERIFY_NONE means don't send alerts and anything else means send
      * alerts.
      */
-    SSL_set_verify(ssl.get(), SSL_VERIFY_PEER, NULL);
+    SSL_set_verify(ssl.get(), SSL_VERIFY_PEER, nullptr);
 
     JNI_TRACE("ssl_ctx=%p NativeCrypto_SSL_new => ssl=%p appData=%p", ssl_ctx, ssl.get(), appData);
     return (jlong) ssl.release();
@@ -7304,13 +7305,13 @@ static void NativeCrypto_SSL_enable_tls_channel_id(JNIEnv* env, jclass, jlong ss
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_NativeCrypto_SSL_enable_tls_channel_id", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
 
     long ret = SSL_enable_tls_channel_id(ssl);
     if (ret != 1L) {
-        ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
+        ALOGE("%s", ERR_error_string(ERR_peek_error(), nullptr));
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error enabling Channel ID");
         SSL_clear(ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_enable_tls_channel_id => error", ssl);
@@ -7322,17 +7323,17 @@ static jbyteArray NativeCrypto_SSL_get_tls_channel_id(JNIEnv* env, jclass, jlong
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_NativeCrypto_SSL_get_tls_channel_id", ssl);
-    if (ssl == NULL) {
-        return NULL;
+    if (ssl == nullptr) {
+        return nullptr;
     }
 
     // Channel ID is 64 bytes long. Unfortunately, OpenSSL doesn't declare this length
     // as a constant anywhere.
     jbyteArray javaBytes = env->NewByteArray(64);
     ScopedByteArrayRW bytes(env, javaBytes);
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("NativeCrypto_SSL_get_tls_channel_id(%p) => NULL", ssl);
-        return NULL;
+        return nullptr;
     }
 
     unsigned char* tmp = reinterpret_cast<unsigned char*>(bytes.get());
@@ -7343,13 +7344,13 @@ static jbyteArray NativeCrypto_SSL_get_tls_channel_id(JNIEnv* env, jclass, jlong
     if (ret == 0) {
         // Channel ID either not set or did not verify
         JNI_TRACE("NativeCrypto_SSL_get_tls_channel_id(%p) => not available", ssl);
-        return NULL;
+        return nullptr;
     } else if (ret != 64) {
-        ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
+        ALOGE("%s", ERR_error_string(ERR_peek_error(), nullptr));
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error getting Channel ID");
         SSL_clear(ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_get_tls_channel_id => error, returned %ld", ssl, ret);
-        return NULL;
+        return nullptr;
     }
 
     JNI_TRACE("ssl=%p NativeCrypto_NativeCrypto_SSL_get_tls_channel_id() => %p", ssl, javaBytes);
@@ -7362,11 +7363,11 @@ static void NativeCrypto_SSL_set1_tls_channel_id(JNIEnv* env, jclass,
     SSL* ssl = to_SSL(env, ssl_address, true);
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("ssl=%p SSL_set1_tls_channel_id privatekey=%p", ssl, pkey);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         JNI_TRACE("ssl=%p SSL_set1_tls_channel_id => pkey == null", ssl);
         return;
@@ -7379,7 +7380,7 @@ static void NativeCrypto_SSL_set1_tls_channel_id(JNIEnv* env, jclass,
     long ret = SSL_set1_tls_channel_id(ssl, pkey);
 
     if (ret != 1L) {
-        ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
+        ALOGE("%s", ERR_error_string(ERR_peek_error(), nullptr));
         throwSSLExceptionWithSslErrors(
                 env, ssl, SSL_ERROR_NONE, "Error setting private key for Channel ID");
         SSL_clear(ssl);
@@ -7398,11 +7399,11 @@ static void NativeCrypto_SSL_use_PrivateKey(JNIEnv* env, jclass, jlong ssl_addre
     SSL* ssl = to_SSL(env, ssl_address, true);
     EVP_PKEY* pkey = reinterpret_cast<EVP_PKEY*>(pkeyRef);
     JNI_TRACE("ssl=%p SSL_use_PrivateKey privatekey=%p", ssl, pkey);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
 
-    if (pkey == NULL) {
+    if (pkey == nullptr) {
         jniThrowNullPointerException(env, "pkey == null");
         JNI_TRACE("ssl=%p SSL_use_PrivateKey => pkey == null", ssl);
         return;
@@ -7410,7 +7411,7 @@ static void NativeCrypto_SSL_use_PrivateKey(JNIEnv* env, jclass, jlong ssl_addre
 
     int ret = SSL_use_PrivateKey(ssl, pkey);
     if (ret != 1) {
-        ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
+        ALOGE("%s", ERR_error_string(ERR_peek_error(), nullptr));
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error setting private key");
         SSL_clear(ssl);
         JNI_TRACE("ssl=%p SSL_use_PrivateKey => error", ssl);
@@ -7429,11 +7430,11 @@ static void NativeCrypto_SSL_use_certificate(JNIEnv* env, jclass,
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate certificates=%p", ssl, certificatesJava);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
 
-    if (certificatesJava == NULL) {
+    if (certificatesJava == nullptr) {
         jniThrowNullPointerException(env, "certificates == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate => certificates == null", ssl);
         return;
@@ -7447,14 +7448,14 @@ static void NativeCrypto_SSL_use_certificate(JNIEnv* env, jclass,
     }
 
     ScopedLongArrayRO certificates(env, certificatesJava);
-    if (certificates.get() == NULL) {
+    if (certificates.get() == nullptr) {
         JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate => certificates == null", ssl);
         return;
     }
 
     Unique_X509 serverCert(
             X509_dup_nocopy(reinterpret_cast<X509*>(static_cast<uintptr_t>(certificates[0]))));
-    if (serverCert.get() == NULL) {
+    if (serverCert.get() == nullptr) {
         // Note this shouldn't happen since we checked the number of certificates above.
         jniThrowOutOfMemory(env, "Unable to allocate local certificate chain");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate => chain allocation error", ssl);
@@ -7462,7 +7463,7 @@ static void NativeCrypto_SSL_use_certificate(JNIEnv* env, jclass,
     }
 
     Unique_sk_X509 chain(sk_X509_new_null());
-    if (chain.get() == NULL) {
+    if (chain.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate local certificate chain");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate => chain allocation error", ssl);
         return;
@@ -7471,8 +7472,8 @@ static void NativeCrypto_SSL_use_certificate(JNIEnv* env, jclass,
     for (size_t i = 1; i < length; i++) {
         Unique_X509 cert(
                 X509_dup_nocopy(reinterpret_cast<X509*>(static_cast<uintptr_t>(certificates[i]))));
-        if (cert.get() == NULL || !sk_X509_push(chain.get(), cert.get())) {
-            ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
+        if (cert.get() == nullptr || !sk_X509_push(chain.get(), cert.get())) {
+            ALOGE("%s", ERR_error_string(ERR_peek_error(), nullptr));
             throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error parsing certificate");
             SSL_clear(ssl);
             JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate => certificates parsing error", ssl);
@@ -7483,7 +7484,7 @@ static void NativeCrypto_SSL_use_certificate(JNIEnv* env, jclass,
 
     int ret = SSL_use_certificate(ssl, serverCert.get());
     if (ret != 1) {
-        ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
+        ALOGE("%s", ERR_error_string(ERR_peek_error(), nullptr));
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error setting certificate");
         SSL_clear(ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate => SSL_use_certificate error", ssl);
@@ -7507,7 +7508,7 @@ static void NativeCrypto_SSL_check_private_key(JNIEnv* env, jclass, jlong ssl_ad
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_check_private_key", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
     int ret = SSL_check_private_key(ssl);
@@ -7525,11 +7526,11 @@ static void NativeCrypto_SSL_set_client_CA_list(JNIEnv* env, jclass,
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_client_CA_list principals=%p", ssl, principals);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
 
-    if (principals == NULL) {
+    if (principals == nullptr) {
         jniThrowNullPointerException(env, "principals == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_set_client_CA_list => principals == null", ssl);
         return;
@@ -7543,7 +7544,7 @@ static void NativeCrypto_SSL_set_client_CA_list(JNIEnv* env, jclass,
     }
 
     Unique_sk_X509_NAME principalsStack(sk_X509_NAME_new_null());
-    if (principalsStack.get() == NULL) {
+    if (principalsStack.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate principal stack");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_set_client_CA_list => stack allocation error", ssl);
         return;
@@ -7551,22 +7552,22 @@ static void NativeCrypto_SSL_set_client_CA_list(JNIEnv* env, jclass,
     for (int i = 0; i < length; i++) {
         ScopedLocalRef<jbyteArray> principal(env,
                 reinterpret_cast<jbyteArray>(env->GetObjectArrayElement(principals, i)));
-        if (principal.get() == NULL) {
+        if (principal.get() == nullptr) {
             jniThrowNullPointerException(env, "principals element == null");
             JNI_TRACE("ssl=%p NativeCrypto_SSL_set_client_CA_list => principals element null", ssl);
             return;
         }
 
         ScopedByteArrayRO buf(env, principal.get());
-        if (buf.get() == NULL) {
+        if (buf.get() == nullptr) {
             JNI_TRACE("ssl=%p NativeCrypto_SSL_set_client_CA_list => threw exception", ssl);
             return;
         }
         const unsigned char* tmp = reinterpret_cast<const unsigned char*>(buf.get());
-        Unique_X509_NAME principalX509Name(d2i_X509_NAME(NULL, &tmp, buf.size()));
+        Unique_X509_NAME principalX509Name(d2i_X509_NAME(nullptr, &tmp, buf.size()));
 
-        if (principalX509Name.get() == NULL) {
-            ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
+        if (principalX509Name.get() == nullptr) {
+            ALOGE("%s", ERR_error_string(ERR_peek_error(), nullptr));
             throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error parsing principal");
             SSL_clear(ssl);
             JNI_TRACE("ssl=%p NativeCrypto_SSL_set_client_CA_list => principals parsing error",
@@ -7591,7 +7592,7 @@ static void NativeCrypto_SSL_set_client_CA_list(JNIEnv* env, jclass,
 static jlong NativeCrypto_SSL_get_mode(JNIEnv* env, jclass, jlong ssl_address) {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_mode", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
       return 0;
     }
     long mode = SSL_get_mode(ssl);
@@ -7606,7 +7607,7 @@ static jlong NativeCrypto_SSL_set_mode(JNIEnv* env, jclass,
         jlong ssl_address, jlong mode) {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_mode mode=0x%llx", ssl, mode);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
       return 0;
     }
     long result = SSL_set_mode(ssl, mode);
@@ -7621,7 +7622,7 @@ static jlong NativeCrypto_SSL_clear_mode(JNIEnv* env, jclass,
         jlong ssl_address, jlong mode) {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_clear_mode mode=0x%llx", ssl, mode);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
       return 0;
     }
     long result = SSL_clear_mode(ssl, mode);
@@ -7636,7 +7637,7 @@ static jlong NativeCrypto_SSL_get_options(JNIEnv* env, jclass,
         jlong ssl_address) {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_options", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
       return 0;
     }
     long options = SSL_get_options(ssl);
@@ -7651,7 +7652,7 @@ static jlong NativeCrypto_SSL_set_options(JNIEnv* env, jclass,
         jlong ssl_address, jlong options) {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_options options=0x%llx", ssl, options);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
       return 0;
     }
     long result = SSL_set_options(ssl, options);
@@ -7666,7 +7667,7 @@ static jlong NativeCrypto_SSL_clear_options(JNIEnv* env, jclass,
         jlong ssl_address, jlong options) {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_clear_options options=0x%llx", ssl, options);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
       return 0;
     }
     long result = SSL_clear_options(ssl, options);
@@ -7681,16 +7682,16 @@ static void NativeCrypto_SSL_use_psk_identity_hint(JNIEnv* env, jclass,
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_use_psk_identity_hint identityHint=%p",
             ssl, identityHintJava);
-    if (ssl == NULL)  {
+    if (ssl == nullptr)  {
         return;
     }
 
     int ret;
-    if (identityHintJava == NULL) {
-        ret = SSL_use_psk_identity_hint(ssl, NULL);
+    if (identityHintJava == nullptr) {
+        ret = SSL_use_psk_identity_hint(ssl, nullptr);
     } else {
         ScopedUtfChars identityHint(env, identityHintJava);
-        if (identityHint.c_str() == NULL) {
+        if (identityHint.c_str() == nullptr) {
             throwSSLExceptionStr(env, "Failed to obtain identityHint bytes");
             return;
         }
@@ -7710,11 +7711,11 @@ static void NativeCrypto_set_SSL_psk_client_callback_enabled(JNIEnv* env, jclass
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_set_SSL_psk_client_callback_enabled(%d)",
             ssl, enabled);
-    if (ssl == NULL)  {
+    if (ssl == nullptr)  {
         return;
     }
 
-    SSL_set_psk_client_callback(ssl, (enabled) ? psk_client_callback : NULL);
+    SSL_set_psk_client_callback(ssl, (enabled) ? psk_client_callback : nullptr);
 }
 
 static void NativeCrypto_set_SSL_psk_server_callback_enabled(JNIEnv* env, jclass,
@@ -7723,11 +7724,11 @@ static void NativeCrypto_set_SSL_psk_server_callback_enabled(JNIEnv* env, jclass
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_set_SSL_psk_server_callback_enabled(%d)",
             ssl, enabled);
-    if (ssl == NULL)  {
+    if (ssl == nullptr)  {
         return;
     }
 
-    SSL_set_psk_server_callback(ssl, (enabled) ? psk_server_callback : NULL);
+    SSL_set_psk_server_callback(ssl, (enabled) ? psk_server_callback : nullptr);
 }
 
 static jlongArray NativeCrypto_SSL_get_ciphers(JNIEnv* env, jclass, jlong ssl_address)
@@ -7736,7 +7737,7 @@ static jlongArray NativeCrypto_SSL_get_ciphers(JNIEnv* env, jclass, jlong ssl_ad
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_ciphers", ssl);
 
     STACK_OF(SSL_CIPHER)* cipherStack = SSL_get_ciphers(ssl);
-    int count = (cipherStack != NULL) ? sk_SSL_CIPHER_num(cipherStack) : 0;
+    int count = (cipherStack != nullptr) ? sk_SSL_CIPHER_num(cipherStack) : 0;
     ScopedLocalRef<jlongArray> ciphersArray(env, env->NewLongArray(count));
     ScopedLongArrayRW ciphers(env, ciphersArray.get());
     for (int i = 0; i < count; i++) {
@@ -7771,16 +7772,16 @@ static void NativeCrypto_SSL_set_cipher_lists(JNIEnv* env, jclass,
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_cipher_lists cipherSuites=%p", ssl, cipherSuites);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
-    if (cipherSuites == NULL) {
+    if (cipherSuites == nullptr) {
         jniThrowNullPointerException(env, "cipherSuites == null");
         return;
     }
 
     Unique_sk_SSL_CIPHER cipherstack(sk_SSL_CIPHER_new_null());
-    if (cipherstack.get() == NULL) {
+    if (cipherstack.get() == nullptr) {
         jniThrowRuntimeException(env, "sk_SSL_CIPHER_new_null failed");
         return;
     }
@@ -7794,7 +7795,7 @@ static void NativeCrypto_SSL_set_cipher_lists(JNIEnv* env, jclass,
         ScopedLocalRef<jstring> cipherSuite(env,
                 reinterpret_cast<jstring>(env->GetObjectArrayElement(cipherSuites, i)));
         ScopedUtfChars c(env, cipherSuite.get());
-        if (c.c_str() == NULL) {
+        if (c.c_str() == nullptr) {
             return;
         }
         JNI_TRACE("ssl=%p NativeCrypto_SSL_set_cipher_lists cipherSuite=%s", ssl, c.c_str());
@@ -7831,7 +7832,7 @@ static void NativeCrypto_SSL_set_cipher_lists(JNIEnv* env, jclass,
 static void NativeCrypto_SSL_set_accept_state(JNIEnv* env, jclass, jlong sslRef) {
     SSL* ssl = to_SSL(env, sslRef, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_accept_state", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
       return;
     }
     SSL_set_accept_state(ssl);
@@ -7840,7 +7841,7 @@ static void NativeCrypto_SSL_set_accept_state(JNIEnv* env, jclass, jlong sslRef)
 static void NativeCrypto_SSL_set_connect_state(JNIEnv* env, jclass, jlong sslRef) {
     SSL* ssl = to_SSL(env, sslRef, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_connect_state", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
       return;
     }
     SSL_set_connect_state(ssl);
@@ -7854,10 +7855,10 @@ static void NativeCrypto_SSL_set_verify(JNIEnv* env,
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_verify mode=%x", ssl, mode);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
       return;
     }
-    SSL_set_verify(ssl, (int)mode, NULL);
+    SSL_set_verify(ssl, (int)mode, nullptr);
 }
 
 /**
@@ -7869,7 +7870,7 @@ static void NativeCrypto_SSL_set_session(JNIEnv* env, jclass,
     SSL* ssl = to_SSL(env, ssl_address, true);
     SSL_SESSION* ssl_session = to_SSL_SESSION(env, ssl_session_address, false);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_session ssl_session=%p", ssl, ssl_session);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
 
@@ -7896,7 +7897,7 @@ static void NativeCrypto_SSL_set_session_creation_enabled(JNIEnv* env, jclass,
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_session_creation_enabled creation_enabled=%d",
               ssl, creation_enabled);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
     SSL_set_session_creation_enabled(ssl, creation_enabled);
@@ -7908,12 +7909,12 @@ static void NativeCrypto_SSL_set_tlsext_host_name(JNIEnv* env, jclass,
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_tlsext_host_name hostname=%p",
               ssl, hostname);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
 
     ScopedUtfChars hostnameChars(env, hostname);
-    if (hostnameChars.c_str() == NULL) {
+    if (hostnameChars.c_str() == nullptr) {
         return;
     }
     JNI_TRACE("ssl=%p NativeCrypto_SSL_set_tlsext_host_name hostnameChars=%s",
@@ -7932,8 +7933,8 @@ static void NativeCrypto_SSL_set_tlsext_host_name(JNIEnv* env, jclass,
 static jstring NativeCrypto_SSL_get_servername(JNIEnv* env, jclass, jlong ssl_address) {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_servername", ssl);
-    if (ssl == NULL) {
-        return NULL;
+    if (ssl == nullptr) {
+        return nullptr;
     }
     const char* servername = SSL_get_servername(ssl, TLSEXT_NAMETYPE_host_name);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_servername => %s", ssl, servername);
@@ -7949,7 +7950,7 @@ static int proto_select(SSL* ssl __attribute__ ((unused)),
         unsigned char **out, unsigned char *outLength,
         const unsigned char *primary, const unsigned int primaryLength,
         const unsigned char *secondary, const unsigned int secondaryLength) {
-    if (primary != NULL) {
+    if (primary != nullptr) {
         JNI_TRACE("primary=%p, length=%d", primary, primaryLength);
 
         int status = SSL_select_next_proto(out, outLength, primary, primaryLength, secondary,
@@ -7967,8 +7968,8 @@ static int proto_select(SSL* ssl __attribute__ ((unused)),
             break;
         }
     } else {
-        if (out != NULL && outLength != NULL) {
-            *out = NULL;
+        if (out != nullptr && outLength != nullptr) {
+            *out = nullptr;
             *outLength = 0;
         }
         JNI_TRACE("protocols=NULL");
@@ -8020,12 +8021,12 @@ static int next_protos_advertised_callback(SSL* ssl,
     JNI_TRACE("ssl=%p next_protos_advertised_callback", ssl);
     AppData* appData = toAppData(ssl);
     unsigned char* npnProtocols = reinterpret_cast<unsigned char*>(appData->npnProtocolsData);
-    if (npnProtocols != NULL) {
+    if (npnProtocols != nullptr) {
         *out = npnProtocols;
         *outlen = appData->npnProtocolsLength;
         return SSL_TLSEXT_ERR_OK;
     } else {
-        *out = NULL;
+        *out = nullptr;
         *outlen = 0;
         return SSL_TLSEXT_ERR_NOACK;
     }
@@ -8034,21 +8035,21 @@ static int next_protos_advertised_callback(SSL* ssl,
 static void NativeCrypto_SSL_CTX_enable_npn(JNIEnv* env, jclass, jlong ssl_ctx_address)
 {
     SSL_CTX* ssl_ctx = to_SSL_CTX(env, ssl_ctx_address, true);
-    if (ssl_ctx == NULL) {
+    if (ssl_ctx == nullptr) {
         return;
     }
-    SSL_CTX_set_next_proto_select_cb(ssl_ctx, next_proto_select_callback, NULL); // client
-    SSL_CTX_set_next_protos_advertised_cb(ssl_ctx, next_protos_advertised_callback, NULL); // server
+    SSL_CTX_set_next_proto_select_cb(ssl_ctx, next_proto_select_callback, nullptr); // client
+    SSL_CTX_set_next_protos_advertised_cb(ssl_ctx, next_protos_advertised_callback, nullptr); // server
 }
 
 static void NativeCrypto_SSL_CTX_disable_npn(JNIEnv* env, jclass, jlong ssl_ctx_address)
 {
     SSL_CTX* ssl_ctx = to_SSL_CTX(env, ssl_ctx_address, true);
-    if (ssl_ctx == NULL) {
+    if (ssl_ctx == nullptr) {
         return;
     }
-    SSL_CTX_set_next_proto_select_cb(ssl_ctx, NULL, NULL); // client
-    SSL_CTX_set_next_protos_advertised_cb(ssl_ctx, NULL, NULL); // server
+    SSL_CTX_set_next_proto_select_cb(ssl_ctx, nullptr, nullptr); // client
+    SSL_CTX_set_next_protos_advertised_cb(ssl_ctx, nullptr, nullptr); // server
 }
 
 static jbyteArray NativeCrypto_SSL_get_npn_negotiated_protocol(JNIEnv* env, jclass,
@@ -8056,17 +8057,17 @@ static jbyteArray NativeCrypto_SSL_get_npn_negotiated_protocol(JNIEnv* env, jcla
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_npn_negotiated_protocol", ssl);
-    if (ssl == NULL) {
-        return NULL;
+    if (ssl == nullptr) {
+        return nullptr;
     }
     const jbyte* npn;
     unsigned npnLength;
     SSL_get0_next_proto_negotiated(ssl, reinterpret_cast<const unsigned char**>(&npn), &npnLength);
     if (npnLength == 0) {
-        return NULL;
+        return nullptr;
     }
     jbyteArray result = env->NewByteArray(npnLength);
-    if (result != NULL) {
+    if (result != nullptr) {
         env->SetByteArrayRegion(result, 0, npnLength, npn);
     }
     return result;
@@ -8075,19 +8076,19 @@ static jbyteArray NativeCrypto_SSL_get_npn_negotiated_protocol(JNIEnv* env, jcla
 static int NativeCrypto_SSL_set_alpn_protos(JNIEnv* env, jclass, jlong ssl_address,
         jbyteArray protos) {
     SSL* ssl = to_SSL(env, ssl_address, true);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return 0;
     }
 
     JNI_TRACE("ssl=%p SSL_set_alpn_protos protos=%p", ssl, protos);
 
-    if (protos == NULL) {
+    if (protos == nullptr) {
         JNI_TRACE("ssl=%p SSL_set_alpn_protos protos=NULL", ssl);
         return 1;
     }
 
     ScopedByteArrayRO protosBytes(env, protos);
-    if (protosBytes.get() == NULL) {
+    if (protosBytes.get() == nullptr) {
         JNI_TRACE("ssl=%p SSL_set_alpn_protos protos=%p => protosBytes == NULL", ssl,
                 protos);
         return 0;
@@ -8104,17 +8105,17 @@ static jbyteArray NativeCrypto_SSL_get0_alpn_selected(JNIEnv* env, jclass,
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p SSL_get0_alpn_selected", ssl);
-    if (ssl == NULL) {
-        return NULL;
+    if (ssl == nullptr) {
+        return nullptr;
     }
     const jbyte* npn;
     unsigned npnLength;
     SSL_get0_alpn_selected(ssl, reinterpret_cast<const unsigned char**>(&npn), &npnLength);
     if (npnLength == 0) {
-        return NULL;
+        return nullptr;
     }
     jbyteArray result = env->NewByteArray(npnLength);
-    if (result != NULL) {
+    if (result != nullptr) {
         env->SetByteArrayRegion(result, 0, npnLength, npn);
     }
     return result;
@@ -8191,16 +8192,16 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
     BIO* wbio = reinterpret_cast<BIO*>(wbioRef);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio rbio=%p wbio=%p shc=%p client_mode=%d npn=%p",
               ssl, rbio, wbio, shc, client_mode, npnProtocols);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return 0;
     }
-    if (shc == NULL) {
+    if (shc == nullptr) {
         jniThrowNullPointerException(env, "sslHandshakeCallbacks == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio sslHandshakeCallbacks == null => 0", ssl);
         return 0;
     }
 
-    if (rbio == NULL || wbio == NULL) {
+    if (rbio == nullptr || wbio == nullptr) {
         jniThrowNullPointerException(env, "rbio == null || wbio == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio => rbio == null || wbio == NULL", ssl);
         return 0;
@@ -8209,21 +8210,21 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
     ScopedSslBio sslBio(ssl, rbio, wbio);
 
     AppData* appData = toAppData(ssl);
-    if (appData == NULL) {
+    if (appData == nullptr) {
         throwSSLExceptionStr(env, "Unable to retrieve application data");
         SSL_clear(ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake appData => 0", ssl);
         return 0;
     }
 
-    if (!client_mode && alpnProtocols != NULL) {
-        SSL_CTX_set_alpn_select_cb(SSL_get_SSL_CTX(ssl), alpn_select_callback, NULL);
+    if (!client_mode && alpnProtocols != nullptr) {
+        SSL_CTX_set_alpn_select_cb(SSL_get_SSL_CTX(ssl), alpn_select_callback, nullptr);
     }
 
     int ret = 0;
     errno = 0;
 
-    if (!appData->setCallbackState(env, shc, NULL, npnProtocols, alpnProtocols)) {
+    if (!appData->setCallbackState(env, shc, nullptr, npnProtocols, alpnProtocols)) {
         SSL_clear(ssl);
         freeOpenSslErrorState();
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio setCallbackState => 0", ssl);
@@ -8282,15 +8283,15 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake fd=%p shc=%p timeout_millis=%d client_mode=%d npn=%p",
               ssl, fdObject, shc, timeout_millis, client_mode, npnProtocols);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return 0;
     }
-    if (fdObject == NULL) {
+    if (fdObject == nullptr) {
         jniThrowNullPointerException(env, "fd == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake fd == null => 0", ssl);
         return 0;
     }
-    if (shc == NULL) {
+    if (shc == nullptr) {
         jniThrowNullPointerException(env, "sslHandshakeCallbacks == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake sslHandshakeCallbacks == null => 0", ssl);
         return 0;
@@ -8327,7 +8328,7 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
     }
 
     AppData* appData = toAppData(ssl);
-    if (appData == NULL) {
+    if (appData == nullptr) {
         throwSSLExceptionStr(env, "Unable to retrieve application data");
         SSL_clear(ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake appData => 0", ssl);
@@ -8338,8 +8339,8 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
         SSL_set_connect_state(ssl);
     } else {
         SSL_set_accept_state(ssl);
-        if (alpnProtocols != NULL) {
-            SSL_CTX_set_alpn_select_cb(SSL_get_SSL_CTX(ssl), alpn_select_callback, NULL);
+        if (alpnProtocols != nullptr) {
+            SSL_CTX_set_alpn_select_cb(SSL_get_SSL_CTX(ssl), alpn_select_callback, nullptr);
         }
     }
 
@@ -8460,7 +8461,7 @@ static void NativeCrypto_SSL_renegotiate(JNIEnv* env, jclass, jlong ssl_address)
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_renegotiate", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
     int result = SSL_renegotiate(ssl);
@@ -8489,34 +8490,34 @@ static jlongArray NativeCrypto_SSL_get_certificate(JNIEnv* env, jclass, jlong ss
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate", ssl);
-    if (ssl == NULL) {
-        return NULL;
+    if (ssl == nullptr) {
+        return nullptr;
     }
     X509* certificate = SSL_get_certificate(ssl);
-    if (certificate == NULL) {
+    if (certificate == nullptr) {
         JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => NULL", ssl);
         // SSL_get_certificate can return NULL during an error as well.
         freeOpenSslErrorState();
-        return NULL;
+        return nullptr;
     }
 
     Unique_sk_X509 chain(sk_X509_new_null());
-    if (chain.get() == NULL) {
+    if (chain.get() == nullptr) {
         jniThrowOutOfMemory(env, "Unable to allocate local certificate chain");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => threw exception", ssl);
-        return NULL;
+        return nullptr;
     }
     if (!sk_X509_push(chain.get(), X509_dup_nocopy(certificate))) {
         jniThrowOutOfMemory(env, "Unable to push local certificate");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => NULL", ssl);
-        return NULL;
+        return nullptr;
     }
     STACK_OF(X509)* cert_chain = SSL_get_certificate_chain(ssl, certificate);
     for (int i=0; i<sk_X509_num(cert_chain); i++) {
         if (!sk_X509_push(chain.get(), X509_dup_nocopy(sk_X509_value(cert_chain, i)))) {
             jniThrowOutOfMemory(env, "Unable to push local certificate chain");
             JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => NULL", ssl);
-            return NULL;
+            return nullptr;
         }
     }
 
@@ -8530,35 +8531,35 @@ static jlongArray NativeCrypto_SSL_get_peer_cert_chain(JNIEnv* env, jclass, jlon
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_peer_cert_chain", ssl);
-    if (ssl == NULL) {
-        return NULL;
+    if (ssl == nullptr) {
+        return nullptr;
     }
     STACK_OF(X509)* chain = SSL_get_peer_cert_chain(ssl);
-    Unique_sk_X509 chain_copy(NULL);
+    Unique_sk_X509 chain_copy(nullptr);
     if (ssl->server) {
         X509* x509 = SSL_get_peer_certificate(ssl);
-        if (x509 == NULL) {
+        if (x509 == nullptr) {
             JNI_TRACE("ssl=%p NativeCrypto_SSL_get_peer_cert_chain => NULL", ssl);
-            return NULL;
+            return nullptr;
         }
         chain_copy.reset(sk_X509_new_null());
-        if (chain_copy.get() == NULL) {
+        if (chain_copy.get() == nullptr) {
             jniThrowOutOfMemory(env, "Unable to allocate peer certificate chain");
             JNI_TRACE("ssl=%p NativeCrypto_SSL_get_peer_cert_chain => certificate dup error", ssl);
-            return NULL;
+            return nullptr;
         }
         size_t chain_size = sk_X509_num(chain);
         for (size_t i = 0; i < chain_size; i++) {
             if (!sk_X509_push(chain_copy.get(), X509_dup_nocopy(sk_X509_value(chain, i)))) {
                 jniThrowOutOfMemory(env, "Unable to push server's peer certificate chain");
                 JNI_TRACE("ssl=%p NativeCrypto_SSL_get_peer_cert_chain => certificate chain push error", ssl);
-                return NULL;
+                return nullptr;
             }
         }
         if (!sk_X509_push(chain_copy.get(), X509_dup_nocopy(x509))) {
             jniThrowOutOfMemory(env, "Unable to push server's peer certificate");
             JNI_TRACE("ssl=%p NativeCrypto_SSL_get_peer_cert_chain => certificate push error", ssl);
-            return NULL;
+            return nullptr;
         }
         chain = chain_copy.get();
     }
@@ -8581,7 +8582,7 @@ static int sslRead(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, char* b
 
     AppData* appData = toAppData(ssl);
     JNI_TRACE("ssl=%p sslRead appData=%p", ssl, appData);
-    if (appData == NULL) {
+    if (appData == nullptr) {
         return THROW_SSLEXCEPTION;
     }
 
@@ -8602,7 +8603,7 @@ static int sslRead(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, char* b
 
         unsigned int bytesMoved = BIO_number_read(rbio) + BIO_number_written(wbio);
 
-        if (!appData->setCallbackState(env, shc, fdObject, NULL, NULL)) {
+        if (!appData->setCallbackState(env, shc, fdObject, nullptr, nullptr)) {
             MUTEX_UNLOCK(appData->mutex);
             return THROWN_EXCEPTION;
         }
@@ -8705,22 +8706,22 @@ static jint NativeCrypto_SSL_read_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     BIO* wbio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(sinkBioRef));
     JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO dest=%p sourceBio=%p sinkBio=%p shc=%p",
               ssl, destJava, rbio, wbio, shc);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return 0;
     }
-    if (rbio == NULL || wbio == NULL) {
+    if (rbio == nullptr || wbio == nullptr) {
         jniThrowNullPointerException(env, "rbio == null || wbio == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO => rbio == null || wbio == null", ssl);
         return -1;
     }
-    if (shc == NULL) {
+    if (shc == nullptr) {
         jniThrowNullPointerException(env, "sslHandshakeCallbacks == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO => sslHandshakeCallbacks == null", ssl);
         return -1;
     }
 
     ScopedByteArrayRW dest(env, destJava);
-    if (dest.get() == NULL) {
+    if (dest.get() == nullptr) {
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO => threw exception", ssl);
         return -1;
     }
@@ -8728,12 +8729,12 @@ static jint NativeCrypto_SSL_read_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
             || destLength > (ssize_t) dest.size() - destOffset) {
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO => destOffset=%d, destLength=%d, size=%zd",
                   destOffset, destLength, dest.size());
-        jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", NULL);
+        jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", nullptr);
         return -1;
     }
 
     AppData* appData = toAppData(ssl);
-    if (appData == NULL) {
+    if (appData == nullptr) {
         throwSSLExceptionStr(env, "Unable to retrieve application data");
         SSL_clear(ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO => appData == NULL", ssl);
@@ -8746,7 +8747,7 @@ static jint NativeCrypto_SSL_read_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
         return -1;
     }
 
-    if (!appData->setCallbackState(env, shc, NULL, NULL, NULL)) {
+    if (!appData->setCallbackState(env, shc, nullptr, nullptr, nullptr)) {
         MUTEX_UNLOCK(appData->mutex);
         throwSSLExceptionStr(env, "Unable to set callback state");
         SSL_clear(ssl);
@@ -8834,22 +8835,22 @@ static jint NativeCrypto_SSL_read(JNIEnv* env, jclass, jlong ssl_address, jobjec
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_read fd=%p shc=%p b=%p offset=%d len=%d read_timeout_millis=%d",
               ssl, fdObject, shc, b, offset, len, read_timeout_millis);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return 0;
     }
-    if (fdObject == NULL) {
+    if (fdObject == nullptr) {
         jniThrowNullPointerException(env, "fd == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read => fd == null", ssl);
         return 0;
     }
-    if (shc == NULL) {
+    if (shc == nullptr) {
         jniThrowNullPointerException(env, "sslHandshakeCallbacks == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read => sslHandshakeCallbacks == null", ssl);
         return 0;
     }
 
     ScopedByteArrayRW bytes(env, b);
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read => threw exception", ssl);
         return 0;
     }
@@ -8898,7 +8899,7 @@ static int sslWrite(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, const 
 
     AppData* appData = toAppData(ssl);
     JNI_TRACE("ssl=%p sslWrite appData=%p", ssl, appData);
-    if (appData == NULL) {
+    if (appData == nullptr) {
         return THROW_SSLEXCEPTION;
     }
 
@@ -8921,7 +8922,7 @@ static int sslWrite(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, const 
 
         unsigned int bytesMoved = BIO_number_read(rbio) + BIO_number_written(wbio);
 
-        if (!appData->setCallbackState(env, shc, fdObject, NULL, NULL)) {
+        if (!appData->setCallbackState(env, shc, fdObject, nullptr, nullptr)) {
             MUTEX_UNLOCK(appData->mutex);
             return THROWN_EXCEPTION;
         }
@@ -9034,22 +9035,22 @@ static int NativeCrypto_SSL_write_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     BIO* wbio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(sinkBioRef));
     JNI_TRACE("ssl=%p NativeCrypto_SSL_write_BIO source=%p len=%d wbio=%p shc=%p",
               ssl, sourceJava, len, wbio, shc);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return -1;
     }
-    if (wbio == NULL) {
+    if (wbio == nullptr) {
         jniThrowNullPointerException(env, "wbio == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write_BIO => wbio == null", ssl);
         return -1;
     }
-    if (shc == NULL) {
+    if (shc == nullptr) {
         jniThrowNullPointerException(env, "sslHandshakeCallbacks == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write_BIO => sslHandshakeCallbacks == null", ssl);
         return -1;
     }
 
     AppData* appData = toAppData(ssl);
-    if (appData == NULL) {
+    if (appData == nullptr) {
         throwSSLExceptionStr(env, "Unable to retrieve application data");
         SSL_clear(ssl);
         freeOpenSslErrorState();
@@ -9063,7 +9064,7 @@ static int NativeCrypto_SSL_write_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
         return 0;
     }
 
-    if (!appData->setCallbackState(env, shc, NULL, NULL, NULL)) {
+    if (!appData->setCallbackState(env, shc, nullptr, nullptr, nullptr)) {
         MUTEX_UNLOCK(appData->mutex);
         throwSSLExceptionStr(env, "Unable to set appdata callback");
         SSL_clear(ssl);
@@ -9073,7 +9074,7 @@ static int NativeCrypto_SSL_write_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     }
 
     ScopedByteArrayRO source(env, sourceJava);
-    if (source.get() == NULL) {
+    if (source.get() == nullptr) {
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write_BIO => threw exception", ssl);
         return -1;
     }
@@ -9151,22 +9152,22 @@ static void NativeCrypto_SSL_write(JNIEnv* env, jclass, jlong ssl_address, jobje
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_write fd=%p shc=%p b=%p offset=%d len=%d write_timeout_millis=%d",
               ssl, fdObject, shc, b, offset, len, write_timeout_millis);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
-    if (fdObject == NULL) {
+    if (fdObject == nullptr) {
         jniThrowNullPointerException(env, "fd == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write => fd == null", ssl);
         return;
     }
-    if (shc == NULL) {
+    if (shc == nullptr) {
         jniThrowNullPointerException(env, "sslHandshakeCallbacks == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write => sslHandshakeCallbacks == null", ssl);
         return;
     }
 
     ScopedByteArrayRO bytes(env, b);
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write => threw exception", ssl);
         return;
     }
@@ -9197,7 +9198,7 @@ static void NativeCrypto_SSL_interrupt(
         JNIEnv* env, jclass, jlong ssl_address) {
     SSL* ssl = to_SSL(env, ssl_address, false);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_interrupt", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
 
@@ -9206,7 +9207,7 @@ static void NativeCrypto_SSL_interrupt(
      * file descriptor, so any blocking select() calls are woken up.
      */
     AppData* appData = toAppData(ssl);
-    if (appData != NULL) {
+    if (appData != nullptr) {
         appData->aliveAndKicking = 0;
 
         // At most two threads can be waiting.
@@ -9222,23 +9223,23 @@ static void NativeCrypto_SSL_shutdown(JNIEnv* env, jclass, jlong ssl_address,
                                       jobject fdObject, jobject shc) {
     SSL* ssl = to_SSL(env, ssl_address, false);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_shutdown fd=%p shc=%p", ssl, fdObject, shc);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
-    if (fdObject == NULL) {
+    if (fdObject == nullptr) {
         jniThrowNullPointerException(env, "fd == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_shutdown => fd == null", ssl);
         return;
     }
-    if (shc == NULL) {
+    if (shc == nullptr) {
         jniThrowNullPointerException(env, "sslHandshakeCallbacks == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_shutdown => sslHandshakeCallbacks == null", ssl);
         return;
     }
 
     AppData* appData = toAppData(ssl);
-    if (appData != NULL) {
-        if (!appData->setCallbackState(env, shc, fdObject, NULL, NULL)) {
+    if (appData != nullptr) {
+        if (!appData->setCallbackState(env, shc, fdObject, nullptr, nullptr)) {
             // SocketException thrown by NetFd.isClosed
             SSL_clear(ssl);
             freeOpenSslErrorState();
@@ -9304,23 +9305,23 @@ static void NativeCrypto_SSL_shutdown_BIO(JNIEnv* env, jclass, jlong ssl_address
     BIO* rbio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(rbioRef));
     BIO* wbio = reinterpret_cast<BIO*>(static_cast<uintptr_t>(wbioRef));
     JNI_TRACE("ssl=%p NativeCrypto_SSL_shutdown rbio=%p wbio=%p shc=%p", ssl, rbio, wbio, shc);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
-    if (rbio == NULL || wbio == NULL) {
+    if (rbio == nullptr || wbio == nullptr) {
         jniThrowNullPointerException(env, "rbio == null || wbio == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_shutdown => rbio == null || wbio == null", ssl);
         return;
     }
-    if (shc == NULL) {
+    if (shc == nullptr) {
         jniThrowNullPointerException(env, "sslHandshakeCallbacks == null");
         JNI_TRACE("ssl=%p NativeCrypto_SSL_shutdown => sslHandshakeCallbacks == null", ssl);
         return;
     }
 
     AppData* appData = toAppData(ssl);
-    if (appData != NULL) {
-        if (!appData->setCallbackState(env, shc, NULL, NULL, NULL)) {
+    if (appData != nullptr) {
+        if (!appData->setCallbackState(env, shc, nullptr, nullptr, nullptr)) {
             // SocketException thrown by NetFd.isClosed
             SSL_clear(ssl);
             freeOpenSslErrorState();
@@ -9373,7 +9374,7 @@ static void NativeCrypto_SSL_shutdown_BIO(JNIEnv* env, jclass, jlong ssl_address
 static jint NativeCrypto_SSL_get_shutdown(JNIEnv* env, jclass, jlong ssl_address) {
     const SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_shutdown", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         jniThrowNullPointerException(env, "ssl == null");
         return 0;
     }
@@ -9390,12 +9391,12 @@ static void NativeCrypto_SSL_free(JNIEnv* env, jclass, jlong ssl_address)
 {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_free", ssl);
-    if (ssl == NULL) {
+    if (ssl == nullptr) {
         return;
     }
 
     AppData* appData = toAppData(ssl);
-    SSL_set_app_data(ssl, NULL);
+    SSL_set_app_data(ssl, nullptr);
     delete appData;
     SSL_free(ssl);
 }
@@ -9407,11 +9408,11 @@ static jbyteArray NativeCrypto_SSL_SESSION_session_id(JNIEnv* env, jclass,
                                                       jlong ssl_session_address) {
     SSL_SESSION* ssl_session = to_SSL_SESSION(env, ssl_session_address, true);
     JNI_TRACE("ssl_session=%p NativeCrypto_SSL_SESSION_session_id", ssl_session);
-    if (ssl_session == NULL) {
-        return NULL;
+    if (ssl_session == nullptr) {
+        return nullptr;
     }
     jbyteArray result = env->NewByteArray(ssl_session->session_id_length);
-    if (result != NULL) {
+    if (result != nullptr) {
         jbyte* src = reinterpret_cast<jbyte*>(ssl_session->session_id);
         env->SetByteArrayRegion(result, 0, ssl_session->session_id_length, src);
     }
@@ -9427,7 +9428,7 @@ static jbyteArray NativeCrypto_SSL_SESSION_session_id(JNIEnv* env, jclass,
 static jlong NativeCrypto_SSL_SESSION_get_time(JNIEnv* env, jclass, jlong ssl_session_address) {
     SSL_SESSION* ssl_session = to_SSL_SESSION(env, ssl_session_address, true);
     JNI_TRACE("ssl_session=%p NativeCrypto_SSL_SESSION_get_time", ssl_session);
-    if (ssl_session == NULL) {
+    if (ssl_session == nullptr) {
         return 0;
     }
     // result must be jlong, not long or *1000 will overflow
@@ -9444,8 +9445,8 @@ static jlong NativeCrypto_SSL_SESSION_get_time(JNIEnv* env, jclass, jlong ssl_se
 static jstring NativeCrypto_SSL_SESSION_get_version(JNIEnv* env, jclass, jlong ssl_session_address) {
     SSL_SESSION* ssl_session = to_SSL_SESSION(env, ssl_session_address, true);
     JNI_TRACE("ssl_session=%p NativeCrypto_SSL_SESSION_get_version", ssl_session);
-    if (ssl_session == NULL) {
-        return NULL;
+    if (ssl_session == nullptr) {
+        return nullptr;
     }
     const char* protocol = SSL_SESSION_get_version(ssl_session);
     JNI_TRACE("ssl_session=%p NativeCrypto_SSL_SESSION_get_version => %s", ssl_session, protocol);
@@ -9458,8 +9459,8 @@ static jstring NativeCrypto_SSL_SESSION_get_version(JNIEnv* env, jclass, jlong s
 static jstring NativeCrypto_SSL_SESSION_cipher(JNIEnv* env, jclass, jlong ssl_session_address) {
     SSL_SESSION* ssl_session = to_SSL_SESSION(env, ssl_session_address, true);
     JNI_TRACE("ssl_session=%p NativeCrypto_SSL_SESSION_cipher", ssl_session);
-    if (ssl_session == NULL) {
-        return NULL;
+    if (ssl_session == nullptr) {
+        return nullptr;
     }
     const SSL_CIPHER* cipher = ssl_session->cipher;
     const char* name = SSL_CIPHER_get_name(cipher);
@@ -9473,7 +9474,7 @@ static jstring NativeCrypto_SSL_SESSION_cipher(JNIEnv* env, jclass, jlong ssl_se
 static void NativeCrypto_SSL_SESSION_free(JNIEnv* env, jclass, jlong ssl_session_address) {
     SSL_SESSION* ssl_session = to_SSL_SESSION(env, ssl_session_address, true);
     JNI_TRACE("ssl_session=%p NativeCrypto_SSL_SESSION_free", ssl_session);
-    if (ssl_session == NULL) {
+    if (ssl_session == nullptr) {
         return;
     }
     SSL_SESSION_free(ssl_session);
@@ -9488,8 +9489,8 @@ static void NativeCrypto_SSL_SESSION_free(JNIEnv* env, jclass, jlong ssl_session
 static jbyteArray NativeCrypto_i2d_SSL_SESSION(JNIEnv* env, jclass, jlong ssl_session_address) {
     SSL_SESSION* ssl_session = to_SSL_SESSION(env, ssl_session_address, true);
     JNI_TRACE("ssl_session=%p NativeCrypto_i2d_SSL_SESSION", ssl_session);
-    if (ssl_session == NULL) {
-        return NULL;
+    if (ssl_session == nullptr) {
+        return nullptr;
     }
     return ASN1ToByteArray<SSL_SESSION, i2d_SSL_SESSION>(env, ssl_session);
 }
@@ -9501,15 +9502,15 @@ static jlong NativeCrypto_d2i_SSL_SESSION(JNIEnv* env, jclass, jbyteArray javaBy
     JNI_TRACE("NativeCrypto_d2i_SSL_SESSION bytes=%p", javaBytes);
 
     ScopedByteArrayRO bytes(env, javaBytes);
-    if (bytes.get() == NULL) {
+    if (bytes.get() == nullptr) {
         JNI_TRACE("NativeCrypto_d2i_SSL_SESSION => threw exception");
         return 0;
     }
     const unsigned char* ucp = reinterpret_cast<const unsigned char*>(bytes.get());
-    SSL_SESSION* ssl_session = d2i_SSL_SESSION(NULL, &ucp, bytes.size());
+    SSL_SESSION* ssl_session = d2i_SSL_SESSION(nullptr, &ucp, bytes.size());
 
     // Initialize SSL_SESSION cipher field based on cipher_id http://b/7091840
-    if (ssl_session != NULL) {
+    if (ssl_session != nullptr) {
         // based on ssl_get_prev_session
         uint32_t cipher_id_network_order = htonl(ssl_session->cipher_id);
         uint8_t* cipher_id_byte_pointer = reinterpret_cast<uint8_t*>(&cipher_id_network_order);
@@ -9778,7 +9779,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
 static jclass getGlobalRefToClass(JNIEnv* env, const char* className) {
     ScopedLocalRef<jclass> localClass(env, env->FindClass(className));
     jclass globalRef = reinterpret_cast<jclass>(env->NewGlobalRef(localClass.get()));
-    if (globalRef == NULL) {
+    if (globalRef == nullptr) {
         ALOGE("failed to find class %s", className);
         abort();
     }
@@ -9787,7 +9788,7 @@ static jclass getGlobalRefToClass(JNIEnv* env, const char* className) {
 
 static jmethodID getMethodRef(JNIEnv* env, jclass clazz, const char* name, const char* sig) {
     jmethodID localMethod = env->GetMethodID(clazz, name, sig);
-    if (localMethod == NULL) {
+    if (localMethod == nullptr) {
         ALOGE("could not find method %s", name);
         abort();
     }
@@ -9796,7 +9797,7 @@ static jmethodID getMethodRef(JNIEnv* env, jclass clazz, const char* name, const
 
 static jfieldID getFieldRef(JNIEnv* env, jclass clazz, const char* name, const char* sig) {
     jfieldID localField = env->GetFieldID(clazz, name, sig);
-    if (localField == NULL) {
+    if (localField == nullptr) {
         ALOGE("could not find field %s", name);
         abort();
     }
@@ -9833,7 +9834,7 @@ static void initialize_conscrypt(JNIEnv* env) {
 static jclass findClass(JNIEnv* env, const char* name) {
     ScopedLocalRef<jclass> localClass(env, env->FindClass(name));
     jclass result = reinterpret_cast<jclass>(env->NewGlobalRef(localClass.get()));
-    if (result == NULL) {
+    if (result == nullptr) {
         ALOGE("failed to find class '%s'", name);
         abort();
     }
