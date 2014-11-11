@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5572ea58_c12ab2a3",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T23:34:09Z",
+      "side": 1,
+      "message": "Conscrypt",
+      "range": {
+        "startLine": 142,
+        "startChar": 54,
+        "endLine": 142,
+        "endChar": 63
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "357f3623_5b3d4f02",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T23:34:09Z",
+      "side": 1,
+      "message": "Conscrypt",
+      "range": {
+        "startLine": 225,
+        "startChar": 54,
+        "endLine": 225,
+        "endChar": 63
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5572ea58_810d8a56",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T23:34:09Z",
+      "side": 1,
+      "message": "Conscrypt",
+      "range": {
+        "startLine": 250,
+        "startChar": 58,
+        "endLine": 250,
+        "endChar": 67
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3acf2349_75c0da5a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 6364,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T23:34:09Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this need to clear the error stack?",
+      "range": {
+        "startLine": 6364,
+        "startChar": 12,
+        "endLine": 6364,
+        "endChar": 41
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aabf756_451c0ad7",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9029,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T23:34:09Z",
+      "side": 1,
+      "message": "Yes, should be.",
+      "range": {
+        "startLine": 9029,
+        "startChar": 0,
+        "endLine": 9029,
+        "endChar": 63
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

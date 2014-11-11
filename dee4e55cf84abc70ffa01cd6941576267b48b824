@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aaefb66_49f5052d",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8373,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T23:34:09Z",
+      "side": 0,
+      "message": "Did you do this or is an artifact of rebasing?",
+      "range": {
+        "startLine": 8373,
+        "startChar": 8,
+        "endLine": 8373,
+        "endChar": 40
+      },
+      "revId": "dee4e55cf84abc70ffa01cd6941576267b48b824",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
