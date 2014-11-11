@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f0c4cb62_5cf95527",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T00:04:56Z",
+      "side": 1,
+      "message": "No, it\u0027s exactly what this comment says. This is for the unbundled version where it can\u0027t call this method variant on TrustManagerImpl directly since it\u0027s not public.",
+      "parentUuid": "f0c4cb62_9c5f6d9f",
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "709e1b6e_899f2454",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -90,6 +108,30 @@
     },
     {
       "key": {
+        "uuid": "5a4f777e_3ad7c552",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T00:04:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "70437c81_d2df5490",
+      "range": {
+        "startLine": 163,
+        "startChar": 0,
+        "endLine": 164,
+        "endChar": 73
+      },
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "709e1b6e_a4c88f35",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -101,6 +143,24 @@
       "writtenOn": "2014-09-15T16:21:32Z",
       "side": 1,
       "message": "Nit: Consider using multi-catch syntax.",
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0933369_f7b24be4",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T00:04:56Z",
+      "side": 1,
+      "message": "I\u0027ll look into this after I make sure it won\u0027t break unbundled builds.",
+      "parentUuid": "709e1b6e_a4c88f35",
       "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -136,6 +196,24 @@
       "side": 1,
       "message": "agreed. you should use getTargetException and rethrow based on instanceof. otherwise you\u0027ll never get the failure exception.",
       "parentUuid": "b0933369_174c3754",
+      "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a4f777e_baea9509",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-11T00:04:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d05d0861_592c03c0",
       "revId": "55901f8e27e407b187b9ce1f49665ac4a418cf42",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
