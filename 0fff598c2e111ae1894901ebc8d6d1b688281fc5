@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ac51b23_a285a667",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-11T16:59:08Z",
+      "side": 1,
+      "message": "Nit: Please mention which cache mechanism.",
+      "revId": "0fff598c2e111ae1894901ebc8d6d1b688281fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac51b23_c2ab12e5",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-11T16:59:08Z",
+      "side": 1,
+      "message": "Style: Java naming conventions prohibit underscores in field names unless these fields are constants in which case they should be in upper-case. (here and below)",
+      "revId": "0fff598c2e111ae1894901ebc8d6d1b688281fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1acc1f53_6e248fdb",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-11T16:59:08Z",
+      "side": 1,
+      "message": "Would it be safer to use a WeakReference to the Class and the Method? Just wondering.",
+      "revId": "0fff598c2e111ae1894901ebc8d6d1b688281fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac51b23_7df9a3e0",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-11T16:59:08Z",
+      "side": 1,
+      "message": "Consider extracting this lookup + cache + invocation logic into a small class (more generic) or at least a separate method (less generic, but quicker). It\u0027s growing larger and is distracting from the actual high-level logic of this method.",
+      "revId": "0fff598c2e111ae1894901ebc8d6d1b688281fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac51b23_82966aac",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-11T16:59:08Z",
+      "side": 1,
+      "message": "Style: Naming conventions prohibit underscores in variable names. (here and below)",
+      "revId": "0fff598c2e111ae1894901ebc8d6d1b688281fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac51b23_a2ae06f6",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-11T16:59:08Z",
+      "side": 1,
+      "message": "I\u0027d suggest checking that the method\u0027s return type is as expected (java.util.List, I believe).",
+      "revId": "0fff598c2e111ae1894901ebc8d6d1b688281fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1acc1f53_4bee654f",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-11T16:59:08Z",
+      "side": 1,
+      "message": "What\u0027s the reason for consuming exceptions other than CertificateException? In addition to your handling of CertificateException, I suggest rethrowing RuntimeExceptions (and subclasses) as is, and wrapping other exceptions into a CertificateException or RuntimeException.",
+      "revId": "0fff598c2e111ae1894901ebc8d6d1b688281fc5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
