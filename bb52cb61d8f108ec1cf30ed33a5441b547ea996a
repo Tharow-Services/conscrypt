@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ac5b75b_69302d8c",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-11-13T20:04:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5572ea58_c12ab2a3",
+      "range": {
+        "startLine": 142,
+        "startChar": 54,
+        "endLine": 142,
+        "endChar": 63
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "357f3623_5b3d4f02",
         "filename": "Android.mk",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2014-11-11T23:34:09Z",
       "side": 1,
       "message": "Conscrypt",
+      "range": {
+        "startLine": 225,
+        "startChar": 54,
+        "endLine": 225,
+        "endChar": 63
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7adfdb23_525fa4e2",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-11-13T20:04:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "357f3623_5b3d4f02",
       "range": {
         "startLine": 225,
         "startChar": 54,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3ac2c357_1d9297e2",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-11-13T20:04:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5572ea58_810d8a56",
+      "range": {
+        "startLine": 250,
+        "startChar": 58,
+        "endLine": 250,
+        "endChar": 67
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3acf2349_75c0da5a",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 1
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3ac2c357_3dccb3f7",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 6364,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-11-13T20:04:33Z",
+      "side": 1,
+      "message": "Yes, thanks.",
+      "parentUuid": "3acf2349_75c0da5a",
+      "range": {
+        "startLine": 6364,
+        "startChar": 12,
+        "endLine": 6364,
+        "endChar": 41
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aabf756_451c0ad7",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 1
@@ -105,6 +201,30 @@
       "writtenOn": "2014-11-11T23:34:09Z",
       "side": 1,
       "message": "Yes, should be.",
+      "range": {
+        "startLine": 9029,
+        "startChar": 0,
+        "endLine": 9029,
+        "endChar": 63
+      },
+      "revId": "bb52cb61d8f108ec1cf30ed33a5441b547ea996a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7adfdb23_32e4d8bb",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9029,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2014-11-13T20:04:33Z",
+      "side": 1,
+      "message": "Thanks, done.",
+      "parentUuid": "5aabf756_451c0ad7",
       "range": {
         "startLine": 9029,
         "startChar": 0,
