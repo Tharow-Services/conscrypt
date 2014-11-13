@@ -919,14 +919,8 @@ public class SSLParametersImpl implements Cloneable {
     /** Key type: RSA. */
     private static final String KEY_TYPE_RSA = "RSA";
 
-    /** Key type: DSA. */
-    private static final String KEY_TYPE_DSA = "DSA";
-
     /** Key type: Diffie-Hellman with RSA signature. */
     private static final String KEY_TYPE_DH_RSA = "DH_RSA";
-
-    /** Key type: Diffie-Hellman with DSA signature. */
-    private static final String KEY_TYPE_DH_DSA = "DH_DSA";
 
     /** Key type: Elliptic Curve. */
     private static final String KEY_TYPE_EC = "EC";
@@ -950,8 +944,6 @@ public class SSLParametersImpl implements Cloneable {
                 return KEY_TYPE_RSA;
             case NativeCrypto.SSL_kEDH:
                 switch (algorithm_auth) {
-                    case NativeCrypto.SSL_aDSS:
-                        return KEY_TYPE_DSA;
                     case NativeCrypto.SSL_aRSA:
                         return KEY_TYPE_RSA;
                     case NativeCrypto.SSL_aNULL:
@@ -994,12 +986,8 @@ public class SSLParametersImpl implements Cloneable {
         switch (keyType) {
             case NativeCrypto.TLS_CT_RSA_SIGN:
                 return KEY_TYPE_RSA; // RFC rsa_sign
-            case NativeCrypto.TLS_CT_DSS_SIGN:
-                return KEY_TYPE_DSA; // RFC dss_sign
             case NativeCrypto.TLS_CT_RSA_FIXED_DH:
                 return KEY_TYPE_DH_RSA; // RFC rsa_fixed_dh
-            case NativeCrypto.TLS_CT_DSS_FIXED_DH:
-                return KEY_TYPE_DH_DSA; // RFC dss_fixed_dh
             case NativeCrypto.TLS_CT_ECDSA_SIGN:
                 return KEY_TYPE_EC; // RFC ecdsa_sign
             case NativeCrypto.TLS_CT_RSA_FIXED_ECDH:
