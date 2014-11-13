@@ -46,6 +46,30 @@
       "revId": "dee4e55cf84abc70ffa01cd6941576267b48b824",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7adfdb23_f2a8b01c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8373,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-13T20:22:57Z",
+      "side": 0,
+      "message": "No, I just didn\u0027t know if this changed conflicted with the addition of OpenSslError which happened relatively recently.",
+      "parentUuid": "3ac2c357_9dba2742",
+      "range": {
+        "startLine": 8373,
+        "startChar": 8,
+        "endLine": 8373,
+        "endChar": 40
+      },
+      "revId": "dee4e55cf84abc70ffa01cd6941576267b48b824",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
