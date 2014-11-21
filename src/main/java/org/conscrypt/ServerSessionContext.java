@@ -24,10 +24,16 @@ import javax.net.ssl.SSLSession;
  */
 public class ServerSessionContext extends AbstractSessionContext {
 
+    /**
+     * Maximum lifetime of a session (in seconds) after which it's considered invalid and should not
+     * be used to for new connections.
+     */
+    private static final int DEFAULT_SESSION_TIMEOUT_SECONDS = 8 * 60 * 60;
+
     private SSLServerSessionCache persistentCache;
 
     public ServerSessionContext() {
-        super(100, 0);
+        super(100, DEFAULT_SESSION_TIMEOUT_SECONDS);
 
         // TODO make sure SSL_CTX does not automaticaly clear sessions we want it to cache
         // SSL_CTX_set_session_cache_mode(sslCtxNativePointer, SSL_SESS_CACHE_NO_AUTO_CLEAR);

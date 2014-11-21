@@ -27,6 +27,12 @@ import javax.net.ssl.SSLSession;
 public class ClientSessionContext extends AbstractSessionContext {
 
     /**
+     * Maximum lifetime of a session (in seconds) after which it's considered invalid and should not
+     * be used to for new connections.
+     */
+    private static final int DEFAULT_SESSION_TIMEOUT_SECONDS = 8 * 60 * 60;
+
+    /**
      * Sessions indexed by host and port. Protect from concurrent
      * access by holding a lock on sessionsByHostAndPort.
      */
@@ -36,7 +42,7 @@ public class ClientSessionContext extends AbstractSessionContext {
     private SSLClientSessionCache persistentCache;
 
     public ClientSessionContext() {
-        super(10, 0);
+        super(10, DEFAULT_SESSION_TIMEOUT_SECONDS);
     }
 
     public int size() {
