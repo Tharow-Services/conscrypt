@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1f9ed122_dbcf9337",
+        "filename": "src/main/java/org/conscrypt/ClientSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-21T23:20:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f97cd02_8daf8d27",
+      "range": {
+        "startLine": 29,
+        "startChar": 5,
+        "endLine": 33,
+        "endChar": 75
+      },
+      "revId": "f13a57b85a7ae5e6d2d4b2d53caeaff530c76944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f97cd02_ed9df1f6",
         "filename": "src/main/java/org/conscrypt/ClientSessionContext.java",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7f97cd02_184c1d3a",
+        "filename": "src/main/java/org/conscrypt/ClientSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-21T23:20:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f97cd02_ed9df1f6",
+      "range": {
+        "startLine": 45,
+        "startChar": 18,
+        "endLine": 45,
+        "endChar": 49
+      },
+      "revId": "f13a57b85a7ae5e6d2d4b2d53caeaff530c76944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f97cd02_0d529da6",
         "filename": "src/main/java/org/conscrypt/ServerSessionContext.java",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2014-11-21T22:56:41Z",
       "side": 1,
       "message": "Move this up to the parent. I don\u0027t see any benefit in having it in server and client.",
+      "range": {
+        "startLine": 27,
+        "startChar": 3,
+        "endLine": 31,
+        "endChar": 75
+      },
+      "revId": "f13a57b85a7ae5e6d2d4b2d53caeaff530c76944",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f9ed122_fbcccf44",
+        "filename": "src/main/java/org/conscrypt/ServerSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-21T23:20:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f97cd02_0d529da6",
       "range": {
         "startLine": 27,
         "startChar": 3,
