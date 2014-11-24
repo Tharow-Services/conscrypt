@@ -1,0 +1,8 @@
+Code-Review+1: Bernhard Rosenkränzer <Bernhard.Rosenkranzer@linaro.org>
+Code-Review+2: Kenny Root <kroot@android.com>
+Verified+1: Kenny Root <kroot@android.com>
+Submitted-by: Kenny Root <kroot@android.com>
+Submitted-at: Mon, 24 Nov 2014 18:59:23 +0000
+Reviewed-on: https://android-review.googlesource.com/115973
+Project: platform/external/conscrypt
+Branch: refs/heads/master
