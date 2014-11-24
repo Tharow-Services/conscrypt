@@ -921,6 +921,7 @@ static bool arrayToBignum(JNIEnv* env, jbyteArray source, BIGNUM** dest) {
     return true;
 }
 
+#if defined(OPENSSL_IS_BORINGSSL)
 /**
  * arrayToBignumSize sets |*out_size| to the size of the big-endian number
  * contained in |source|. It returns true on success and sets an exception and
@@ -956,6 +957,7 @@ static bool arrayToBignumSize(JNIEnv* env, jbyteArray source, size_t* out_size) 
     *out_size = tmpSize;
     return true;
 }
+#endif
 
 /**
  * Converts an OpenSSL BIGNUM to a Java byte[] array in two's complement.
@@ -2941,12 +2943,6 @@ static jlong NativeCrypto_getRSAPrivateKeyWrapper(JNIEnv* env, jclass, jobject j
     }
     OWNERSHIP_TRANSFERRED(rsa);
     return reinterpret_cast<uintptr_t>(pkey.release());
-}
-
-static jlong NativeCrypto_getDSAPrivateKeyWrapper(JNIEnv* env, jclass, jobject javaKey,
-        jbyteArray qBytes) {
-    jniThrowRuntimeException(env, "DSA keys not supported");
-    return 0;
 }
 
 static jlong NativeCrypto_getECPrivateKeyWrapper(JNIEnv* env, jclass, jobject javaKey, jlong groupRef) {
@@ -8167,9 +8163,6 @@ static void NativeCrypto_SSL_set_cipher_lists(JNIEnv* env, jclass,
         return;
     }
 
-    const SSL_METHOD* ssl_method = ssl->method;
-    int num_ciphers = ssl_method->num_ciphers();
-
     int length = env->GetArrayLength(cipherSuites);
     static const char noSSLv2[] = "!SSLv2";
     size_t cipherStringLen = strlen(noSSLv2);
@@ -10004,7 +9997,6 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, i2d_PUBKEY, "(J)[B"),
     NATIVE_METHOD(NativeCrypto, d2i_PUBKEY, "([B)J"),
     NATIVE_METHOD(NativeCrypto, getRSAPrivateKeyWrapper, "(Ljava/security/interfaces/RSAPrivateKey;[B)J"),
-    NATIVE_METHOD(NativeCrypto, getDSAPrivateKeyWrapper, "(Ljava/security/interfaces/DSAPrivateKey;)J"),
     NATIVE_METHOD(NativeCrypto, getECPrivateKeyWrapper, "(Ljava/security/interfaces/ECPrivateKey;J)J"),
     NATIVE_METHOD(NativeCrypto, RSA_generate_key_ex, "(I[B)J"),
     NATIVE_METHOD(NativeCrypto, RSA_size, "(J)I"),
