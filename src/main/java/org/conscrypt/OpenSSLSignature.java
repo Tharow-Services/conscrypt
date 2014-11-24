@@ -252,12 +252,6 @@ public class OpenSSLSignature extends SignatureSpi {
             super(EVP_MD, EngineType.RSA);
         }
     }
-    public static final class SHA1ECDSA extends OpenSSLSignature {
-        private static final long EVP_MD = NativeCrypto.EVP_get_digestbyname("SHA1");
-        public SHA1ECDSA() throws NoSuchAlgorithmException {
-            super(EVP_MD, EngineType.EC);
-        }
-    }
     public static final class SHA224ECDSA extends OpenSSLSignature {
         private static final long EVP_MD = NativeCrypto.EVP_get_digestbyname("SHA224");
         public SHA224ECDSA() throws NoSuchAlgorithmException {
