@@ -16,6 +16,24 @@
       "revId": "3b5ddf4085f432ed5dd3eb56b36b58bcc8f964c4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f4d55af_c2e2e65c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-25T23:54:54Z",
+      "side": 1,
+      "message": "No. Removed.",
+      "parentUuid": "1fcc1153_e0b3a8dd",
+      "revId": "3b5ddf4085f432ed5dd3eb56b36b58bcc8f964c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

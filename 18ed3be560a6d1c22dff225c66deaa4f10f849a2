@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1f4a5199_01a84e18",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-25T23:54:54Z",
+      "side": 0,
+      "message": "They\u0027ll go to Bouncycastle.",
+      "parentUuid": "7f526d24_7a4b01a9",
+      "revId": "18ed3be560a6d1c22dff225c66deaa4f10f849a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1fcc1153_60a01889",
         "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "1f4a5199_6192f2e1",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-25T23:54:54Z",
+      "side": 0,
+      "message": "I think the SignatureSpi just skips this if it can\u0027t get an instance.",
+      "parentUuid": "1fcc1153_60a01889",
+      "revId": "18ed3be560a6d1c22dff225c66deaa4f10f849a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f3e41e9_25af5a29",
         "filename": "src/main/java/org/conscrypt/OpenSSLSignature.java",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2014-11-25T21:02:33Z",
       "side": 0,
       "message": "This looks like an accidental removal of ECDSAwithSHA1 which is not supposed to be what this CL is about.",
+      "revId": "18ed3be560a6d1c22dff225c66deaa4f10f849a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff581d71_9d27a754",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSignature.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-25T23:54:54Z",
+      "side": 0,
+      "message": "Reverted.",
+      "parentUuid": "9f3e41e9_25af5a29",
       "revId": "18ed3be560a6d1c22dff225c66deaa4f10f849a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
