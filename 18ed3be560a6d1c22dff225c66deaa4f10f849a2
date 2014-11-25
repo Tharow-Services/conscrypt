@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f526d24_7a4b01a9",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-11-25T10:23:14Z",
+      "side": 0,
+      "message": "hmm, there\u0027s code in the frameworks (PackageParser) that attempts KeyFactory.getInstance(\"DSA\"). do we expect app certs signed with DSA ? (or do they go to a different provider)",
+      "revId": "18ed3be560a6d1c22dff225c66deaa4f10f849a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
