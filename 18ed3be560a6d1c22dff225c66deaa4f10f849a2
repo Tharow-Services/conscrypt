@@ -16,6 +16,40 @@
       "revId": "18ed3be560a6d1c22dff225c66deaa4f10f849a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1fcc1153_60a01889",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-25T21:02:33Z",
+      "side": 0,
+      "message": "There\u0027s no OpenSSLSignature.SHA1DSA class. How did this even work before this CL?",
+      "revId": "18ed3be560a6d1c22dff225c66deaa4f10f849a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f3e41e9_25af5a29",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSignature.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-25T21:02:33Z",
+      "side": 0,
+      "message": "This looks like an accidental removal of ECDSAwithSHA1 which is not supposed to be what this CL is about.",
+      "revId": "18ed3be560a6d1c22dff225c66deaa4f10f849a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
