@@ -16,6 +16,24 @@
       "revId": "4757cdbe3c9e06f243a8cb07086ced5537d69af2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f0c8179_6f731112",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-26T20:17:05Z",
+      "side": 1,
+      "message": "Since _free can\u0027t take a reference to the object (it would be in a finalization state), I decided to leave these returning long to be symmetric. In another change I can rearrange the order to have the creation and deletion APIs next to eachother for clarity.",
+      "parentUuid": "ff581d71_efaa61e0",
+      "revId": "4757cdbe3c9e06f243a8cb07086ced5537d69af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
