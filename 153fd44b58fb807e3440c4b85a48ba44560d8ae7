@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1ff89189_0bfa3dd5",
+        "filename": "src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 2814,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-26T20:31:19Z",
+      "side": 0,
+      "message": "I think you still need to call cleanup because finalizers are not guaranteed to be ever invoked.",
+      "revId": "153fd44b58fb807e3440c4b85a48ba44560d8ae7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
