@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df027941_1409ba1e",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-26T18:05:45Z",
+      "side": 1,
+      "message": "Signatures of these methods might look neater if you statically imported NativeRef.EVP_PKEY.",
+      "revId": "587d6c5eeefd86a9fc9ba294e944182c28635e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f692905_29773578",
+        "filename": "src/main/java/org/conscrypt/OpenSSLKey.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-26T18:05:45Z",
+      "side": 1,
+      "message": "If you want to preserve the native pointer-based equality, you\u0027ll need to override equals and hashCode in NativeRef accordingly. In its current form, this CL breaks the native pointer-based equality.",
+      "revId": "587d6c5eeefd86a9fc9ba294e944182c28635e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
