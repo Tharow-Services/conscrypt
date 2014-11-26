@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ffb9587_acf8635a",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-26T20:39:11Z",
+      "side": 1,
+      "message": "Why the change from get0_group to get1_group? Internally it still calls get0_group.",
+      "revId": "9895cd67e771dbe0466e55bf91672f574b81387a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ffb9587_0cc1b70f",
+        "filename": "src/main/java/org/conscrypt/OpenSSLECPointContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-26T20:39:11Z",
+      "side": 1,
+      "message": "Might be cleaner if the OpenSSLECPointContext constructor took a NativeRef.EC_POINT instead of being responsible for wrapping it.",
+      "revId": "9895cd67e771dbe0466e55bf91672f574b81387a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
