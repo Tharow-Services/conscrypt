@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "ff581d71_49a0ad88",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-26T16:57:17Z",
+      "side": 0,
+      "message": "Looks like OpenSSLSignature.SHA1DSA class was removed in de5225d1ebe7b3a5f3565539685fcd95348ae815. You\u0027re right, if the class doesn\u0027t exist, JCA moves on to the next provider that offers this signature algorithm.",
+      "parentUuid": "1f4a5199_6192f2e1",
+      "revId": "18ed3be560a6d1c22dff225c66deaa4f10f849a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9f3e41e9_25af5a29",
         "filename": "src/main/java/org/conscrypt/OpenSSLSignature.java",
         "patchSetId": 1
