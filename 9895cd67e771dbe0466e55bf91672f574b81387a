@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3ffb9587_acb9834f",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-26T21:18:03Z",
+      "side": 1,
+      "message": "To be clear that it dups the EC_GROUP that it gives back so the caller owns it.",
+      "parentUuid": "3ffb9587_acf8635a",
+      "revId": "9895cd67e771dbe0466e55bf91672f574b81387a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ffb9587_0cc1b70f",
         "filename": "src/main/java/org/conscrypt/OpenSSLECPointContext.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2014-11-26T20:39:11Z",
       "side": 1,
       "message": "Might be cleaner if the OpenSSLECPointContext constructor took a NativeRef.EC_POINT instead of being responsible for wrapping it.",
+      "revId": "9895cd67e771dbe0466e55bf91672f574b81387a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1ff89189_0b77dd77",
+        "filename": "src/main/java/org/conscrypt/OpenSSLECPointContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-26T21:18:03Z",
+      "side": 1,
+      "message": "Agreed. I felt kind of bad about this.",
+      "parentUuid": "3ffb9587_0cc1b70f",
       "revId": "9895cd67e771dbe0466e55bf91672f574b81387a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
