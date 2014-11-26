@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ff581d71_d401f4a5",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-26T18:41:44Z",
+      "side": 1,
+      "message": "Maybe, but I have a big stack of changes now. I suppose I could create a separate cosmetic change.",
+      "parentUuid": "df027941_1409ba1e",
+      "revId": "587d6c5eeefd86a9fc9ba294e944182c28635e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f692905_29773578",
         "filename": "src/main/java/org/conscrypt/OpenSSLKey.java",
         "patchSetId": 5
@@ -30,6 +48,24 @@
       "writtenOn": "2014-11-26T18:05:45Z",
       "side": 1,
       "message": "If you want to preserve the native pointer-based equality, you\u0027ll need to override equals and hashCode in NativeRef accordingly. In its current form, this CL breaks the native pointer-based equality.",
+      "revId": "587d6c5eeefd86a9fc9ba294e944182c28635e75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "df027941_f4dcf699",
+        "filename": "src/main/java/org/conscrypt/OpenSSLKey.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-11-26T18:41:44Z",
+      "side": 1,
+      "message": "Done. Rebased this on top of a change that adds equals and hashCode.",
+      "parentUuid": "5f692905_29773578",
       "revId": "587d6c5eeefd86a9fc9ba294e944182c28635e75",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
