@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff581d71_efaa61e0",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 326,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-11-26T20:07:26Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be returning an instance of NativeRef.EVP_CIPHER_CTX?",
+      "revId": "4757cdbe3c9e06f243a8cb07086ced5537d69af2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
