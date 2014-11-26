@@ -27,10 +27,19 @@ import java.security.spec.ECPoint;
 import java.security.spec.EllipticCurve;
 
 public final class OpenSSLECGroupContext {
-    private final long groupCtx;
+    private final NativeRef.EC_GROUP groupCtx;
 
     public OpenSSLECGroupContext(long groupCtx) {
-        this.groupCtx = groupCtx;
+        this.groupCtx = new NativeRef.EC_GROUP(groupCtx);
+    }
+
+    private OpenSSLECGroupContext(long groupCtx, int pointConversionForm, int asn1Flags) {
+        NativeRef.EC_GROUP groupRef = new NativeRef.EC_GROUP(groupCtx);
+
+        NativeCrypto.EC_GROUP_set_point_conversion_form(groupRef, pointConversionForm);
+        NativeCrypto.EC_GROUP_set_asn1_flag(groupRef, asn1Flags);
+
+        this.groupCtx = groupRef;
     }
 
     public static OpenSSLECGroupContext getCurveByName(String curveName) {
@@ -47,22 +56,8 @@ public final class OpenSSLECGroupContext {
             return null;
         }
 
-        NativeCrypto.EC_GROUP_set_point_conversion_form(ctx,
-                NativeCrypto.POINT_CONVERSION_UNCOMPRESSED);
-        NativeCrypto.EC_GROUP_set_asn1_flag(ctx, NativeCrypto.OPENSSL_EC_NAMED_CURVE);
-
-        return new OpenSSLECGroupContext(ctx);
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        try {
-            if (groupCtx != 0) {
-                NativeCrypto.EC_GROUP_clear_free(groupCtx);
-            }
-        } finally {
-            super.finalize();
-        }
+        return new OpenSSLECGroupContext(ctx, NativeCrypto.POINT_CONVERSION_UNCOMPRESSED,
+                NativeCrypto.OPENSSL_EC_NAMED_CURVE);
     }
 
     @Override
@@ -81,7 +76,7 @@ public final class OpenSSLECGroupContext {
         return super.hashCode();
     }
 
-    public long getContext() {
+    public NativeRef.EC_GROUP getNativeRef() {
         return groupCtx;
     }
 
