@@ -654,17 +654,17 @@ static void throwSocketTimeoutException(JNIEnv* env, const char* message) {
 /**
  * Throws a javax.net.ssl.SSLException with the given string as a message.
  */
-static void throwSSLHandshakeExceptionStr(JNIEnv* env, const char* message) {
+static int throwSSLHandshakeExceptionStr(JNIEnv* env, const char* message) {
     JNI_TRACE("throwSSLExceptionStr %s", message);
-    jniThrowException(env, "javax/net/ssl/SSLHandshakeException", message);
+    return jniThrowException(env, "javax/net/ssl/SSLHandshakeException", message);
 }
 
 /**
  * Throws a javax.net.ssl.SSLException with the given string as a message.
  */
-static void throwSSLExceptionStr(JNIEnv* env, const char* message) {
+static int throwSSLExceptionStr(JNIEnv* env, const char* message) {
     JNI_TRACE("throwSSLExceptionStr %s", message);
-    jniThrowException(env, "javax/net/ssl/SSLException", message);
+    return jniThrowException(env, "javax/net/ssl/SSLException", message);
 }
 
 /**
@@ -686,7 +686,7 @@ static void throwSSLProtocolExceptionStr(JNIEnv* env, const char* message) {
  * @param message null-ok; general error message
  */
 static void throwSSLExceptionWithSslErrors(JNIEnv* env, SSL* ssl, int sslErrorCode,
-        const char* message, void (*actualThrow)(JNIEnv*, const char*) = throwSSLExceptionStr) {
+        const char* message, int (*actualThrow)(JNIEnv*, const char*) = throwSSLExceptionStr) {
 
     if (message == NULL) {
         message = "SSL error";
@@ -1077,6 +1077,27 @@ jbooleanArray ASN1BitStringToBooleanArray(JNIEnv* env, ASN1_BIT_STRING* bitStr) 
     }
 
     return bitsRef.release();
+}
+
+/**
+ * Safely clear SSL sessions and throw an error if there was something already
+ * in the error stack.
+ */
+static void safeSslClear(JNIEnv* env, SSL* ssl) {
+    SSL_clear(ssl);
+    unsigned long error = ERR_peek_last_error();
+    if (error == 0 || (ERR_GET_LIB(error) == ERR_LIB_SSL && ERR_GET_FUNC(error) == SSL_F_SSL_CLEAR)) {
+        freeOpenSslErrorState();
+    } else {
+        const char* msg;
+        if (env->ExceptionCheck()) {
+            env->ExceptionClear();
+            msg = "Error during clearing SSL state with pending exception";
+        } else {
+            msg = "Error during clearing SSL state";
+        }
+        throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, msg, jniThrowRuntimeException);
+    }
 }
 
 /**
@@ -7498,7 +7519,7 @@ static void NativeCrypto_SSL_enable_tls_channel_id(JNIEnv* env, jclass, jlong ss
     if (ret != 1L) {
         ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error enabling Channel ID");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_enable_tls_channel_id => error", ssl);
         return;
     }
@@ -7533,7 +7554,7 @@ static jbyteArray NativeCrypto_SSL_get_tls_channel_id(JNIEnv* env, jclass, jlong
     } else if (ret != 64) {
         ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error getting Channel ID");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_get_tls_channel_id => error, returned %ld", ssl, ret);
         return NULL;
     }
@@ -7568,7 +7589,7 @@ static void NativeCrypto_SSL_set1_tls_channel_id(JNIEnv* env, jclass,
         ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
         throwSSLExceptionWithSslErrors(
                 env, ssl, SSL_ERROR_NONE, "Error setting private key for Channel ID");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p SSL_set1_tls_channel_id => error", ssl);
         return;
     }
@@ -7599,7 +7620,7 @@ static void NativeCrypto_SSL_use_PrivateKey(JNIEnv* env, jclass, jlong ssl_addre
     if (ret != 1) {
         ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error setting private key");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p SSL_use_PrivateKey => error", ssl);
         return;
     }
@@ -7652,7 +7673,7 @@ static void NativeCrypto_SSL_use_certificate(JNIEnv* env, jclass,
     if (ret != 1) {
         ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error setting certificate");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate => SSL_use_certificate error", ssl);
         return;
     }
@@ -7672,7 +7693,7 @@ static void NativeCrypto_SSL_use_certificate(JNIEnv* env, jclass,
         if (cert.get() == NULL || !sk_X509_push(chain.get(), cert.get())) {
             ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
             throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error parsing certificate");
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
             JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate => certificates parsing error", ssl);
             return;
         }
@@ -7694,7 +7715,7 @@ static void NativeCrypto_SSL_use_certificate(JNIEnv* env, jclass,
         if (cert.get() == NULL || !SSL_add0_chain_cert(ssl, cert.get())) {
             ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
             throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error parsing certificate");
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
             JNI_TRACE("ssl=%p NativeCrypto_SSL_use_certificate => certificates parsing error", ssl);
             return;
         }
@@ -7715,7 +7736,7 @@ static void NativeCrypto_SSL_check_private_key(JNIEnv* env, jclass, jlong ssl_ad
     int ret = SSL_check_private_key(ssl);
     if (ret != 1) {
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error checking private key");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_check_private_key => error", ssl);
         return;
     }
@@ -7770,7 +7791,7 @@ static void NativeCrypto_SSL_set_client_CA_list(JNIEnv* env, jclass,
         if (principalX509Name.get() == NULL) {
             ALOGE("%s", ERR_error_string(ERR_peek_error(), NULL));
             throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error parsing principal");
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
             JNI_TRACE("ssl=%p NativeCrypto_SSL_set_client_CA_list => principals parsing error",
                       ssl);
             return;
@@ -7902,7 +7923,7 @@ static void NativeCrypto_SSL_use_psk_identity_hint(JNIEnv* env, jclass,
     if (ret != 1) {
         int sslErrorCode = SSL_get_error(ssl, ret);
         throwSSLExceptionWithSslErrors(env, ssl, sslErrorCode, "Failed to set PSK identity hint");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
     }
 }
 
@@ -8102,7 +8123,7 @@ static void NativeCrypto_SSL_set_session(JNIEnv* env, jclass,
         int sslErrorCode = SSL_get_error(ssl, ret);
         if (sslErrorCode != SSL_ERROR_ZERO_RETURN) {
             throwSSLExceptionWithSslErrors(env, ssl, sslErrorCode, "SSL session set");
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
         }
     }
 }
@@ -8151,7 +8172,7 @@ static void NativeCrypto_SSL_set_tlsext_host_name(JNIEnv* env, jclass,
     int ret = SSL_set_tlsext_host_name(ssl, hostnameChars.c_str());
     if (ret != 1) {
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE, "Error setting host name");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_set_tlsext_host_name => error", ssl);
         return;
     }
@@ -8440,7 +8461,7 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
     AppData* appData = toAppData(ssl);
     if (appData == NULL) {
         throwSSLExceptionStr(env, "Unable to retrieve application data");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake appData => 0", ssl);
         return 0;
     }
@@ -8453,8 +8474,7 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
     errno = 0;
 
     if (!appData->setCallbackState(env, shc, NULL, npnProtocols, alpnProtocols)) {
-        SSL_clear(ssl);
-        freeOpenSslErrorState();
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio setCallbackState => 0", ssl);
         return 0;
     }
@@ -8462,8 +8482,8 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
     appData->clearCallbackState();
     // cert_verify_callback threw exception
     if (env->ExceptionCheck()) {
-        SSL_clear(ssl);
         freeOpenSslErrorState();
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio exception => 0", ssl);
         return 0;
     }
@@ -8482,12 +8502,12 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
         if (sslError.get() == SSL_ERROR_NONE ||
                 (sslError.get() == SSL_ERROR_SYSCALL && errno == 0)) {
             throwSSLHandshakeExceptionStr(env, "Connection closed by peer");
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
         } else if (sslError.get() != SSL_ERROR_WANT_READ &&
                 sslError.get() != SSL_ERROR_WANT_WRITE) {
             throwSSLExceptionWithSslErrors(env, ssl, sslError.release(),
                     "SSL handshake terminated", throwSSLHandshakeExceptionStr);
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
         }
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio error => 0", ssl);
         return 0;
@@ -8528,7 +8548,7 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
     NetFd fd(env, fdObject);
     if (fd.isClosed()) {
         // SocketException thrown by NetFd.isClosed
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake fd.isClosed() => 0", ssl);
         return 0;
     }
@@ -8539,7 +8559,7 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
     if (ret != 1) {
         throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_NONE,
                                        "Error setting the file descriptor");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake SSL_set_fd => 0", ssl);
         return 0;
     }
@@ -8550,7 +8570,7 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
      */
     if (!setBlocking(fd.get(), false)) {
         throwSSLExceptionStr(env, "Unable to make socket non blocking");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake setBlocking => 0", ssl);
         return 0;
     }
@@ -8558,7 +8578,7 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
     AppData* appData = toAppData(ssl);
     if (appData == NULL) {
         throwSSLExceptionStr(env, "Unable to retrieve application data");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake appData => 0", ssl);
         return 0;
     }
@@ -8579,7 +8599,7 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
 
         if (!appData->setCallbackState(env, shc, fdObject, npnProtocols, alpnProtocols)) {
             // SocketException thrown by NetFd.isClosed
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
             JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake setCallbackState => 0", ssl);
             return 0;
         }
@@ -8587,7 +8607,8 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
         appData->clearCallbackState();
         // cert_verify_callback threw exception
         if (env->ExceptionCheck()) {
-            SSL_clear(ssl);
+            freeOpenSslErrorState();
+            safeSslClear(env, ssl);
             JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake exception => 0", ssl);
             return 0;
         }
@@ -8618,21 +8639,20 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
 
             if (selectResult == THROWN_EXCEPTION) {
                 // SocketException thrown by NetFd.isClosed
-                SSL_clear(ssl);
+                safeSslClear(env, ssl);
                 JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake sslSelect => 0", ssl);
                 return 0;
             }
             if (selectResult == -1) {
                 throwSSLExceptionWithSslErrors(env, ssl, SSL_ERROR_SYSCALL, "handshake error",
                         throwSSLHandshakeExceptionStr);
-                SSL_clear(ssl);
+                safeSslClear(env, ssl);
                 JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake selectResult == -1 => 0", ssl);
                 return 0;
             }
             if (selectResult == 0) {
                 throwSocketTimeoutException(env, "SSL handshake timed out");
-                SSL_clear(ssl);
-                freeOpenSslErrorState();
+                safeSslClear(env, ssl);
                 JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake selectResult == 0 => 0", ssl);
                 return 0;
             }
@@ -8656,7 +8676,7 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
             throwSSLExceptionWithSslErrors(env, ssl, sslError.release(),
                     "SSL handshake terminated", throwSSLHandshakeExceptionStr);
         }
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake clean error => 0", ssl);
         return 0;
     }
@@ -8669,7 +8689,7 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
          */
         throwSSLExceptionWithSslErrors(env, ssl, sslError.release(), "SSL handshake aborted",
                 throwSSLHandshakeExceptionStr);
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake unclean error => 0", ssl);
         return 0;
     }
@@ -8856,7 +8876,7 @@ static int sslRead(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, char* b
         appData->clearCallbackState();
         // callbacks can happen if server requests renegotiation
         if (env->ExceptionCheck()) {
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
             JNI_TRACE("ssl=%p sslRead => THROWN_EXCEPTION", ssl);
             MUTEX_UNLOCK(appData->mutex);
             return THROWN_EXCEPTION;
@@ -8982,7 +9002,7 @@ static jint NativeCrypto_SSL_read_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     AppData* appData = toAppData(ssl);
     if (appData == NULL) {
         throwSSLExceptionStr(env, "Unable to retrieve application data");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO => appData == NULL", ssl);
         return -1;
     }
@@ -8996,7 +9016,7 @@ static jint NativeCrypto_SSL_read_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     if (!appData->setCallbackState(env, shc, NULL, NULL, NULL)) {
         MUTEX_UNLOCK(appData->mutex);
         throwSSLExceptionStr(env, "Unable to set callback state");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO => set callback state failed", ssl);
         return -1;
     }
@@ -9007,7 +9027,7 @@ static jint NativeCrypto_SSL_read_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     appData->clearCallbackState();
     // callbacks can happen if server requests renegotiation
     if (env->ExceptionCheck()) {
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO => threw exception", ssl);
         return THROWN_EXCEPTION;
     }
@@ -9177,7 +9197,7 @@ static int sslWrite(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, const 
         appData->clearCallbackState();
         // callbacks can happen if server requests renegotiation
         if (env->ExceptionCheck()) {
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
             JNI_TRACE("ssl=%p sslWrite exception => THROWN_EXCEPTION", ssl);
             return THROWN_EXCEPTION;
         }
@@ -9298,7 +9318,7 @@ static int NativeCrypto_SSL_write_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     AppData* appData = toAppData(ssl);
     if (appData == NULL) {
         throwSSLExceptionStr(env, "Unable to retrieve application data");
-        SSL_clear(ssl);
+        safeSslClear(env, ssl);
         freeOpenSslErrorState();
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write_BIO appData => NULL", ssl);
         return -1;
@@ -9313,8 +9333,7 @@ static int NativeCrypto_SSL_write_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     if (!appData->setCallbackState(env, shc, NULL, NULL, NULL)) {
         MUTEX_UNLOCK(appData->mutex);
         throwSSLExceptionStr(env, "Unable to set appdata callback");
-        SSL_clear(ssl);
-        freeOpenSslErrorState();
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write_BIO => appData can't set callback", ssl);
         return -1;
     }
@@ -9332,8 +9351,7 @@ static int NativeCrypto_SSL_write_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     appData->clearCallbackState();
     // callbacks can happen if server requests renegotiation
     if (env->ExceptionCheck()) {
-        SSL_clear(ssl);
-        freeOpenSslErrorState();
+        safeSslClear(env, ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write_BIO exception => exception pending (reneg)", ssl);
         return -1;
     }
@@ -9487,8 +9505,7 @@ static void NativeCrypto_SSL_shutdown(JNIEnv* env, jclass, jlong ssl_address,
     if (appData != NULL) {
         if (!appData->setCallbackState(env, shc, fdObject, NULL, NULL)) {
             // SocketException thrown by NetFd.isClosed
-            SSL_clear(ssl);
-            freeOpenSslErrorState();
+            safeSslClear(env, ssl);
             return;
         }
 
@@ -9505,7 +9522,7 @@ static void NativeCrypto_SSL_shutdown(JNIEnv* env, jclass, jlong ssl_address,
         appData->clearCallbackState();
         // callbacks can happen if server requests renegotiation
         if (env->ExceptionCheck()) {
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
             JNI_TRACE("ssl=%p NativeCrypto_SSL_shutdown => exception", ssl);
             return;
         }
@@ -9538,8 +9555,7 @@ static void NativeCrypto_SSL_shutdown(JNIEnv* env, jclass, jlong ssl_address,
         }
     }
 
-    SSL_clear(ssl);
-    freeOpenSslErrorState();
+    safeSslClear(env, ssl);
 }
 
 /**
@@ -9569,8 +9585,7 @@ static void NativeCrypto_SSL_shutdown_BIO(JNIEnv* env, jclass, jlong ssl_address
     if (appData != NULL) {
         if (!appData->setCallbackState(env, shc, NULL, NULL, NULL)) {
             // SocketException thrown by NetFd.isClosed
-            SSL_clear(ssl);
-            freeOpenSslErrorState();
+            safeSslClear(env, ssl);
             return;
         }
 
@@ -9580,7 +9595,7 @@ static void NativeCrypto_SSL_shutdown_BIO(JNIEnv* env, jclass, jlong ssl_address
         appData->clearCallbackState();
         // callbacks can happen if server requests renegotiation
         if (env->ExceptionCheck()) {
-            SSL_clear(ssl);
+            safeSslClear(env, ssl);
             JNI_TRACE("ssl=%p NativeCrypto_SSL_shutdown => exception", ssl);
             return;
         }
@@ -9613,8 +9628,7 @@ static void NativeCrypto_SSL_shutdown_BIO(JNIEnv* env, jclass, jlong ssl_address
         }
     }
 
-    SSL_clear(ssl);
-    freeOpenSslErrorState();
+    safeSslClear(env, ssl);
 }
 
 static jint NativeCrypto_SSL_get_shutdown(JNIEnv* env, jclass, jlong ssl_address) {
