@@ -80,7 +80,8 @@ import libcore.io.IoUtils;
  */
 public final class TrustedCertificateStore {
 
-    private static final String PREFIX_SYSTEM = "system:";
+    // @VisibleForTesting
+    static final String PREFIX_SYSTEM = "system:";
     private static final String PREFIX_USER = "user:";
 
     public static final boolean isSystem(String alias) {
@@ -310,8 +311,10 @@ public final class TrustedCertificateStore {
      * or where it should be installed if it does not exist. The
      * caller can disambiguate these cases by calling {@code
      * File.exists()} on the result.
+     *
+     * @VisibleForTesting
      */
-    private File getCertificateFile(File dir, final X509Certificate x) {
+    File getCertificateFile(File dir, final X509Certificate x) {
         // compare X509Certificate.getEncoded values
         CertSelector selector = new CertSelector() {
             @Override
