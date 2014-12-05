@@ -22,6 +22,30 @@
       "revId": "bfaa60ea2aaa29531a003985920fd7f93f7bf975",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf5ea5fb_5bd497f8",
+        "filename": "src/test/java/org/conscrypt/TrustedCertificateStoreTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2014-12-05T19:26:04Z",
+      "side": 1,
+      "message": "Can I mark this test to not run as part of host-based tests? I\u0027d like to avoid relying too much on what aliases() does. Ideally, I\u0027d like to check that all files in cacerts directory are actually seen and used by the class under test.",
+      "parentUuid": "7f78ad6f_798ec33a",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 565,
+        "endChar": 85
+      },
+      "revId": "bfaa60ea2aaa29531a003985920fd7f93f7bf975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
