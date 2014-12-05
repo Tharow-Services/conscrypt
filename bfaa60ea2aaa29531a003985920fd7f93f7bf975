@@ -46,6 +46,30 @@
       "revId": "bfaa60ea2aaa29531a003985920fd7f93f7bf975",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7f78ad6f_1cca1d59",
+        "filename": "src/test/java/org/conscrypt/TrustedCertificateStoreTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-12-05T19:49:57Z",
+      "side": 1,
+      "message": "Okay, how about checking for ANDROID_PRODUCT_OUT if ANDROID_ROOT is undefined and failing the test if neither are defined?",
+      "parentUuid": "bf5ea5fb_5bd497f8",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 565,
+        "endChar": 85
+      },
+      "revId": "bfaa60ea2aaa29531a003985920fd7f93f7bf975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
