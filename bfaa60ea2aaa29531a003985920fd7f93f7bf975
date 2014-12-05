@@ -70,6 +70,30 @@
       "revId": "bfaa60ea2aaa29531a003985920fd7f93f7bf975",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bf5ea5fb_9b61cf37",
+        "filename": "src/test/java/org/conscrypt/TrustedCertificateStoreTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 565,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-12-05T19:53:27Z",
+      "side": 1,
+      "message": "Vogar seems to set this to an acceptable value, so this is fine.",
+      "parentUuid": "7f78ad6f_1cca1d59",
+      "range": {
+        "startLine": 565,
+        "startChar": 0,
+        "endLine": 565,
+        "endChar": 85
+      },
+      "revId": "bfaa60ea2aaa29531a003985920fd7f93f7bf975",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
