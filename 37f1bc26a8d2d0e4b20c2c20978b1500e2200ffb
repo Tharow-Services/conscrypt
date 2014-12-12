@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84bc3633_120aea42",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2198,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-12-12T21:14:58Z",
+      "side": 1,
+      "message": "I just erase the name, but the part from above (EVP methods) was from the Chrome for Android source.",
+      "range": {
+        "startLine": 2198,
+        "startChar": 23,
+        "endLine": 2198,
+        "endChar": 51
+      },
+      "revId": "37f1bc26a8d2d0e4b20c2c20978b1500e2200ffb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
