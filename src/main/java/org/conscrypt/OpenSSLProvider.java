@@ -193,6 +193,8 @@ public final class OpenSSLProvider extends Provider {
         put("Alg.Alias.Cipher.RSA/None/NoPadding", "RSA/ECB/NoPadding");
         put("Cipher.RSA/ECB/PKCS1Padding", prefix + "OpenSSLCipherRSA$PKCS1");
         put("Alg.Alias.Cipher.RSA/None/PKCS1Padding", "RSA/ECB/PKCS1Padding");
+        put("Cipher.RSA/ECB/OAEPPadding", prefix + "OpenSSLCipherRSA$OAEP");
+        put("Alg.Alias.Cipher.RSA/None/OAEPPadding", "RSA/ECB/OAEPPadding");
 
         /*
          * OpenSSL only supports a subset of modes, so we'll name them

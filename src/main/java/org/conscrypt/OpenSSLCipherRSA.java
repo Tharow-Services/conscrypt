@@ -30,6 +30,8 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.InvalidParameterSpecException;
+import java.security.spec.MGF1ParameterSpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
@@ -40,6 +42,8 @@ import javax.crypto.CipherSpi;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.ShortBufferException;
+import javax.crypto.spec.OAEPParameterSpec;
+import javax.crypto.spec.PSource;
 import javax.crypto.spec.SecretKeySpec;
 import org.conscrypt.util.EmptyArray;
 
@@ -97,6 +101,10 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
     @Override
     protected void engineSetPadding(String padding) throws NoSuchPaddingException {
         final String paddingUpper = padding.toUpperCase(Locale.ROOT);
+        if ("OAEPWITHSHA1ANDMGF1PADDING".equals(paddingUpper)) {
+            this.padding = NativeCrypto.RSA_PKCS1_OAEP_PADDING;
+            return;
+        }
         if ("PKCS1PADDING".equals(paddingUpper)) {
             this.padding = NativeCrypto.RSA_PKCS1_PADDING;
             return;
@@ -126,9 +134,9 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
     }
 
     private int paddedBlockSizeBytes() {
-        int paddedBlockSizeBytes = keySizeBytes();
-        if (padding == NativeCrypto.RSA_PKCS1_PADDING) {
-            paddedBlockSizeBytes--;  // for 0 prefix
+        int paddedBlockSizeBytes = keySizeBytes() - 1;
+        if (padding == NativeCrypto.RSA_PKCS1_PADDING
+                || padding == NativeCrypto.RSA_PKCS1_OAEP_PADDING) {
             paddedBlockSizeBytes -= 10;  // PKCS1 padding header length
         }
         return paddedBlockSizeBytes;
@@ -148,6 +156,21 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
 
     @Override
     protected AlgorithmParameters engineGetParameters() {
+        if (padding == NativeCrypto.RSA_PKCS1_OAEP_PADDING) {
+            AlgorithmParameters params;
+            try {
+                params = AlgorithmParameters.getInstance("OAEP");
+            } catch (NoSuchAlgorithmException e1) {
+                throw new RuntimeException("OAEP not provided by the platform");
+            }
+            try {
+                params.init(OAEPParameterSpec.DEFAULT);
+            } catch (InvalidParameterSpecException e) {
+                throw new RuntimeException("Default OAEP parameter spec isn't valid");
+            }
+            return params;
+        }
+
         return null;
     }
 
@@ -193,10 +216,35 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         engineInitInternal(opmode, key);
     }
 
+    private void throwInvalidOAEPParams() throws InvalidAlgorithmParameterException {
+        throw new InvalidAlgorithmParameterException(
+                "Only supports SHA-1 with MGF-1 SHA-1 and empty PSource");
+    }
+
     @Override
     protected void engineInit(int opmode, Key key, AlgorithmParameterSpec params,
             SecureRandom random) throws InvalidKeyException, InvalidAlgorithmParameterException {
-        if (params != null) {
+        if (params instanceof OAEPParameterSpec) {
+            OAEPParameterSpec spec = (OAEPParameterSpec) params;
+
+            // OpenSSL only support SHA-1 with MGF1(SHA-1) and an empty
+            // P-source. Check that we're passed those parameters.
+
+            if (!(spec.getPSource() instanceof PSource.PSpecified)) {
+                throwInvalidOAEPParams();
+            }
+
+            String mdNameUpper = spec.getDigestAlgorithm().toUpperCase(Locale.US);
+            String mgfNameUpper = spec.getMGFAlgorithm().toUpperCase(Locale.US);
+            String mgfMdNameUpper = ((MGF1ParameterSpec) spec.getMGFParameters())
+                    .getDigestAlgorithm().toUpperCase(Locale.US);
+
+            if (!("SHA1".equals(mdNameUpper) || "SHA-1".equals(mdNameUpper))
+                    || !"MGF1".equals(mgfNameUpper)
+                    || !("SHA1".equals(mgfMdNameUpper) || "SHA-1".equals(mgfMdNameUpper))) {
+                throwInvalidOAEPParams();
+            }
+        } else if (params != null) {
             throw new InvalidAlgorithmParameterException("unknown param type: "
                     + params.getClass().getName());
         }
@@ -208,8 +256,14 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
     protected void engineInit(int opmode, Key key, AlgorithmParameters params, SecureRandom random)
             throws InvalidKeyException, InvalidAlgorithmParameterException {
         if (params != null) {
-            throw new InvalidAlgorithmParameterException("unknown param type: "
-                    + params.getClass().getName());
+            try {
+                OAEPParameterSpec spec = params.getParameterSpec(OAEPParameterSpec.class);
+                engineInit(opmode, key, spec, random);
+                return;
+            } catch (InvalidParameterSpecException e) {
+                throw new InvalidAlgorithmParameterException("invalid param type: "
+                        + e.getMessage());
+            }
         }
 
         engineInitInternal(opmode, key);
@@ -340,6 +394,12 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
             throw new InvalidKeyException(e);
         } catch (InvalidKeySpecException e) {
             throw new InvalidKeyException(e);
+        }
+    }
+
+    public static class OAEP extends OpenSSLCipherRSA {
+        public OAEP() {
+            super(NativeCrypto.RSA_PKCS1_OAEP_PADDING);
         }
     }
 

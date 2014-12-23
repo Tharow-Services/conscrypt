@@ -774,8 +774,9 @@ public final class NativeCrypto {
     public static final int EVP_PKEY_CMAC = 894; // NID_cmac
 
     // RSA padding modes from rsa.h
-    public static final int RSA_PKCS1_PADDING = 1;
-    public static final int RSA_NO_PADDING    = 3;
+    public static final int RSA_PKCS1_PADDING      = 1;
+    public static final int RSA_NO_PADDING         = 3;
+    public static final int RSA_PKCS1_OAEP_PADDING = 4;
 
     // SSL mode from ssl.h
     public static final long SSL_MODE_SEND_FALLBACK_SCSV   = 0x00000080L;
