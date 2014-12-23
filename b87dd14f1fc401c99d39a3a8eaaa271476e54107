@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "019678c9_e44070d7",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipherRSA.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2014-12-23T16:46:17Z",
+      "side": 1,
+      "message": "I should put this in another change. This isn\u0027t directly related.",
+      "range": {
+        "startLine": 137,
+        "startChar": 49,
+        "endLine": 137,
+        "endChar": 54
+      },
+      "revId": "b87dd14f1fc401c99d39a3a8eaaa271476e54107",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
