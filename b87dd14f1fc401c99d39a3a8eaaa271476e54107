@@ -22,6 +22,64 @@
       "revId": "b87dd14f1fc401c99d39a3a8eaaa271476e54107",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21c45cd1_24725252",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipherRSA.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-12-24T10:05:07Z",
+      "side": 1,
+      "message": "don\u0027t forget :)",
+      "parentUuid": "019678c9_e44070d7",
+      "range": {
+        "startLine": 137,
+        "startChar": 49,
+        "endLine": 137,
+        "endChar": 54
+      },
+      "revId": "b87dd14f1fc401c99d39a3a8eaaa271476e54107",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "21c45cd1_046f5666",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipherRSA.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-12-24T10:05:07Z",
+      "side": 1,
+      "message": "supports",
+      "revId": "b87dd14f1fc401c99d39a3a8eaaa271476e54107",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c180e07b_81523aa9",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipherRSA.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-12-24T10:05:07Z",
+      "side": 1,
+      "message": "Locale.ROOT here and in two other places below",
+      "revId": "b87dd14f1fc401c99d39a3a8eaaa271476e54107",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
