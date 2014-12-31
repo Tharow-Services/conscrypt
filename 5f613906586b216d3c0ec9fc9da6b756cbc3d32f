@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c180e07b_aa563323",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2568,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2014-12-31T09:17:19Z",
+      "side": 1,
+      "message": "nit: this looks a bit odd because the rest of this function and this file uses NULL",
+      "revId": "5f613906586b216d3c0ec9fc9da6b756cbc3d32f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
