@@ -461,6 +461,8 @@ static void throwForAsn1Error(JNIEnv* env, int reason, const char *message) {
     case ASN1_R_UNABLE_TO_DECODE_RSA_PRIVATE_KEY:
     case ASN1_R_UNKNOWN_PUBLIC_KEY_TYPE:
     case ASN1_R_UNSUPPORTED_PUBLIC_KEY_TYPE:
+    case ASN1_R_TOO_LONG:
+    case ASN1_R_HEADER_TOO_LONG:
     // These #if sections can be removed once BoringSSL is landed.
 #if defined(ASN1_R_WRONG_PUBLIC_KEY_TYPE)
     case ASN1_R_WRONG_PUBLIC_KEY_TYPE:
@@ -2321,7 +2323,7 @@ static jlong NativeCrypto_ENGINE_load_private_key(JNIEnv* env, jclass, jlong eng
 #else
     Unique_EVP_PKEY pkey(EVP_PKEY_from_keystore(id.c_str()));
     if (pkey.get() == NULL) {
-        jniThrowRuntimeException(env, "Failed to find named key in keystore");
+        throwInvalidKeyException(env, "Failed to find named key in keystore");
         return 0;
     }
     return reinterpret_cast<uintptr_t>(pkey.release());
