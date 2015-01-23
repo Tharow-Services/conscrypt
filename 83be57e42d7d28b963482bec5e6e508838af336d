@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cb871f28_0ff189f6",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-01-23T10:55:08Z",
+      "side": 1,
+      "message": "do we need to add the flavor.mk files to LOCAL_ADDITIONAL_DEPENDENCIES ?",
+      "revId": "83be57e42d7d28b963482bec5e6e508838af336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
