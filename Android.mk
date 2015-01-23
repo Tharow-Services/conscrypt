@@ -95,15 +95,17 @@ endif
 
 # Platform conscrypt crypto JNI library
 include $(CLEAR_VARS)
-include $(TOP)/external/openssl/flavor.mk
+ifneq (,$(wildcard $(TOP)/external/boringssl/flavor.mk))
+	include $(TOP)/external/boringssl/flavor.mk
+else
+	include $(TOP)/external/openssl/flavor.mk
+endif
 LOCAL_CFLAGS += $(core_cflags)
 LOCAL_CFLAGS += -DJNI_JARJAR_PREFIX="com/android/"
 LOCAL_CPPFLAGS += $(core_cppflags)
 LOCAL_SRC_FILES := \
         src/main/native/org_conscrypt_NativeCrypto.cpp
 LOCAL_C_INCLUDES += \
-        external/openssl/include \
-        external/openssl \
         libcore/include \
         libcore/luni/src/main/native
 LOCAL_SHARED_LIBRARIES := libcrypto libjavacore liblog libnativehelper libssl libz
@@ -136,8 +138,6 @@ LOCAL_SRC_FILES := \
         src/main/native/org_conscrypt_NativeCrypto.cpp \
         src/compat/native/JNIHelp.cpp
 LOCAL_C_INCLUDES += \
-        external/openssl/include \
-        external/openssl \
         external/conscrypt/src/compat/native
 # NO_KEYSTORE_ENGINE instructs the BoringSSL build of Conscrypt not to support
 # the keystore ENGINE. It is not available in this build configuration.
@@ -158,8 +158,6 @@ LOCAL_SRC_FILES := \
         src/main/native/org_conscrypt_NativeCrypto.cpp \
         src/compat/native/JNIHelp.cpp
 LOCAL_C_INCLUDES += \
-        external/openssl/include \
-        external/openssl \
         external/conscrypt/src/compat/native
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libconscrypt_static
@@ -215,8 +213,6 @@ LOCAL_CLANG := true
 LOCAL_SRC_FILES += \
         src/main/native/org_conscrypt_NativeCrypto.cpp
 LOCAL_C_INCLUDES += \
-        external/openssl/include \
-        external/openssl \
         libcore/include \
         libcore/luni/src/main/native
 LOCAL_CPPFLAGS += $(core_cppflags)
@@ -240,8 +236,6 @@ ifeq (,$(TARGET_BUILD_APPS))
     LOCAL_SRC_FILES += \
             src/main/native/org_conscrypt_NativeCrypto.cpp
     LOCAL_C_INCLUDES += \
-            external/openssl/include \
-            external/openssl \
             libcore/include \
             libcore/luni/src/main/native
     LOCAL_CPPFLAGS += $(core_cppflags) -DCONSCRYPT_NOT_UNBUNDLED
