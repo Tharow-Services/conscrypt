@@ -34,6 +34,24 @@
       "revId": "83be57e42d7d28b963482bec5e6e508838af336d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b3a4faa_33d9d085",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-01-26T18:59:06Z",
+      "side": 1,
+      "message": "I don\u0027t think it matters that much unless we\u0027re changing flavor.mk a lot. The headers it depends on will switch when we switch directories which will trigger a rebuild.",
+      "parentUuid": "abe90b2d_c0a37e90",
+      "revId": "83be57e42d7d28b963482bec5e6e508838af336d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
