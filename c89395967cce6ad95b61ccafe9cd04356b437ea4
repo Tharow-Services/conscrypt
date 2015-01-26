@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b31a7d3_ca8603fb",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-01-26T20:51:50Z",
+      "side": 1,
+      "message": "Can we move this out to a private static field?",
+      "range": {
+        "startLine": 278,
+        "startChar": 8,
+        "endLine": 278,
+        "endChar": 64
+      },
+      "revId": "c89395967cce6ad95b61ccafe9cd04356b437ea4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b26339e_e6185e1d",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-01-26T20:51:50Z",
+      "side": 1,
+      "message": "Why do we need to .class.getName() here? It will just take up more time when the provider is loading.",
+      "range": {
+        "startLine": 366,
+        "startChar": 24,
+        "endLine": 366,
+        "endChar": 52
+      },
+      "revId": "c89395967cce6ad95b61ccafe9cd04356b437ea4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
