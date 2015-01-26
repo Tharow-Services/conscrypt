@@ -375,6 +375,11 @@ public abstract class OpenSSLCipher extends CipherSpi {
             throw new RuntimeException("calculated buffer size was wrong: " + maximumLen);
         }
 
+        if ((bytesWritten == 0) && (modeBlockSize > 1)) {
+            // This is a block cipher and there was insufficient input to produce any output.
+            return null;
+        }
+
         if (output.length == bytesWritten) {
             return output;
         } else if (bytesWritten == 0) {
