@@ -358,6 +358,10 @@ public abstract class OpenSSLCipher extends CipherSpi {
     @Override
     protected byte[] engineUpdate(byte[] input, int inputOffset, int inputLen) {
         final int maximumLen = getOutputSize(inputLen);
+        if ((maximumLen == 0) && (modeBlockSize > 1)) {
+            // This is a block cipher and there's insufficient input to produce any output.
+            return null;
+        }
 
         /* See how large our output buffer would need to be. */
         final byte[] output;
@@ -373,6 +377,11 @@ public abstract class OpenSSLCipher extends CipherSpi {
         } catch (ShortBufferException e) {
             /* This shouldn't happen. */
             throw new RuntimeException("calculated buffer size was wrong: " + maximumLen);
+        }
+
+        if ((bytesWritten == 0) && (modeBlockSize > 1)) {
+            // This is a block cipher and there was insufficient input to produce any output.
+            return null;
         }
 
         if (output.length == bytesWritten) {
