@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b7341308_e11606e9",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-01-28T23:04:36Z",
+      "side": 1,
+      "message": "This seems like it would break anything that didn\u0027t result in a full block since nothing is consuming the input. Does this pass all the tests in CipherTest?",
+      "range": {
+        "startLine": 361,
+        "startChar": 8,
+        "endLine": 364,
+        "endChar": 9
+      },
+      "revId": "e9fda0c60791523e565e6370dc478d85726e05b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
