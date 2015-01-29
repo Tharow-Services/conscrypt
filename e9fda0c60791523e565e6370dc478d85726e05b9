@@ -22,6 +22,30 @@
       "revId": "e9fda0c60791523e565e6370dc478d85726e05b9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "97662f11_7bcc3bbe",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-01-29T02:09:55Z",
+      "side": 1,
+      "message": "You\u0027re right. This is wrong. I wrote this block based on the Javadoc/contract of getOutputSize. However, the contract is wrong. Ironically, that\u0027s why it passes all tests in CipherTest.\n\nI\u0027m removing this block in preparation for fixing getOutputSize. This block was an optimization anyway.",
+      "parentUuid": "b7341308_e11606e9",
+      "range": {
+        "startLine": 361,
+        "startChar": 8,
+        "endLine": 364,
+        "endChar": 9
+      },
+      "revId": "e9fda0c60791523e565e6370dc478d85726e05b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
