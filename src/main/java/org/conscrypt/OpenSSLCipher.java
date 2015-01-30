@@ -270,13 +270,18 @@ public abstract class OpenSSLCipher extends CipherSpi {
 
         final int ivLength = NativeCrypto.EVP_CIPHER_iv_length(cipherType);
         if (iv == null && ivLength != 0) {
-            iv = new byte[ivLength];
-            if (encrypting) {
-                if (random == null) {
-                    random = new SecureRandom();
-                }
-                random.nextBytes(iv);
+            if (!encrypting) {
+                throw new InvalidAlgorithmParameterException("IV must be specified in " + mode
+                        + " mode");
             }
+
+            iv = new byte[ivLength];
+            if (random == null) {
+                random = new SecureRandom();
+            }
+            random.nextBytes(iv);
+        } else if (ivLength == 0 && iv != null) {
+            throw new InvalidAlgorithmParameterException("IV not used in " + mode + " mode");
         } else if (iv != null && iv.length != ivLength) {
             throw new InvalidAlgorithmParameterException("expected IV length of " + ivLength);
         }
