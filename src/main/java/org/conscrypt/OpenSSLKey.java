@@ -20,12 +20,11 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.interfaces.DSAPrivateKey;
-import java.security.interfaces.ECPrivateKey;
-import java.security.interfaces.RSAPrivateKey;
+import java.security.spec.ECParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+
 import javax.crypto.SecretKey;
 
 public class OpenSSLKey {
@@ -78,33 +77,136 @@ public class OpenSSLKey {
         return wrapped;
     }
 
+    /**
+     * Obtains an {@code OpenSSLKey} corresponding to the provided private key.
+     */
     public static OpenSSLKey fromPrivateKey(PrivateKey key) throws InvalidKeyException {
         if (key instanceof OpenSSLKeyHolder) {
+            // The key is from this provider
             return ((OpenSSLKeyHolder) key).getOpenSSLKey();
         }
 
-        final String keyFormat = key.getFormat();
-        if (keyFormat == null) {
-            return wrapPrivateKey(key);
-        } else if (!"PKCS#8".equals(key.getFormat())) {
-            throw new InvalidKeyException("Unknown key format " + keyFormat);
+        if ("RSA".equals(key.getAlgorithm())) {
+            // Check whether the key is an old platform key backed by OpenSSL.
+            OpenSSLKey wrapper = Platform.wrapRsaKey(key);
+            if (wrapper != null) {
+                return wrapper;
+            }
+        }
+        // The key is not backed by OpenSSL. It needs to be imported (via its PKCS#8 form) into this
+        // provider.
+
+        String keyFormat = key.getFormat();
+        if ("PKCS#8".equals(keyFormat)) {
+            byte[] encoded = key.getEncoded();
+            if (encoded == null) {
+                throw new InvalidKeyException("Key encoding is null");
+            }
+            return new OpenSSLKey(NativeCrypto.d2i_PKCS8_PRIV_KEY_INFO(encoded));
         }
 
-        final byte[] encoded = key.getEncoded();
+        if (keyFormat == null) {
+            throw new InvalidKeyException("Opaque keys cannot be imported");
+        } else {
+            throw new InvalidKeyException("Unsupported key format for import: " + keyFormat);
+        }
+    }
+
+    /**
+     * Obtains an {@code OpenSSLKey} corresponding to the provided private key for use in this
+     * provider's TLS/SSL stack only. The optional public key can be helpful for adapting opaque
+     * private keys from other providers. The resulting key is not guaranteed to work
+     * outside of the TLS/SSL stack (e.g., in JCA crypto primitives).
+     *
+     * @param privateKey private key.
+     * @param publicKey corresponding public key or {@code null} if not available.
+     */
+    public static OpenSSLKey fromPrivateKeyForTlsStackOnly(
+            PrivateKey privateKey, PublicKey publicKey) throws InvalidKeyException {
+        if (privateKey instanceof OpenSSLKeyHolder) {
+            // The key is from this provider
+            return ((OpenSSLKeyHolder) privateKey).getOpenSSLKey();
+        }
+
+        if ("RSA".equals(privateKey.getAlgorithm())) {
+            // Check whether the key is an old platform key backed by OpenSSL.
+            OpenSSLKey wrapper = Platform.wrapRsaKey(privateKey);
+            if (wrapper != null) {
+                return wrapper;
+            }
+        }
+        // The key is not yet backed by OpenSSSL. It needs to wrapped or imported (via its PKCS#8
+        // form).
+
+        String keyFormat = privateKey.getFormat();
+        if (keyFormat == null) {
+            // This is an opaque key (it does not expose its key material). Wrap it so that TLS/SSL
+            // stack's operations on the key are delegated to the key provider's Signature/Cipher
+            // implementations.
+            return wrapOpaquePrivateKey(privateKey, publicKey);
+        }
+
+        if ("PKCS#8".equals(keyFormat)) {
+            // The key can export its key material. Import the key into this provider.
+            byte[] encoded = privateKey.getEncoded();
+            if (encoded == null) {
+                throw new InvalidKeyException("Key encoding is null");
+            }
+            return new OpenSSLKey(NativeCrypto.d2i_PKCS8_PRIV_KEY_INFO(encoded));
+        }
+
+        throw new InvalidKeyException("Unsupported key format for import: " + keyFormat);
+    }
+
+    /**
+     * Obtains an {@code OpenSSLKey} corresponding to the provided EC private key and EC parameters
+     * for use in this provider's TLS/SSL stack only. The resulting key is not guaranteed to work
+     * outside of the TLS/SSL stack (e.g., in JCA crypto primitives).
+     *
+     * <p>
+     * The parameters are required for adapting the key to OpenSSL. If you have the public key, use
+     * {@link #fromPrivateKeyForTlsStackOnly(PrivateKey, PublicKey)} instead.
+     */
+    public static OpenSSLKey fromECPrivateKeyForTlsStackOnly(
+            PrivateKey privateKey, ECParameterSpec ecParameters) throws InvalidKeyException {
+        if (privateKey == null) {
+            throw new InvalidKeyException("key == null");
+        }
+        if (!"EC".equals(privateKey.getAlgorithm())) {
+            throw new InvalidKeyException("Not an EC key: " + privateKey.getAlgorithm());
+        }
+        if (privateKey instanceof OpenSSLKeyHolder) {
+            return ((OpenSSLKeyHolder) privateKey).getOpenSSLKey();
+        }
+
+        final String keyFormat = privateKey.getFormat();
+        if (keyFormat == null) {
+            return OpenSSLECPrivateKey.wrapPlatformKey(privateKey, ecParameters);
+        } else if (!"PKCS#8".equals(keyFormat)) {
+            throw new InvalidKeyException("Unknown key format: " + keyFormat);
+        }
+
+        final byte[] encoded = privateKey.getEncoded();
         if (encoded == null) {
             throw new InvalidKeyException("Key encoding is null");
         }
 
-        return new OpenSSLKey(NativeCrypto.d2i_PKCS8_PRIV_KEY_INFO(key.getEncoded()));
+        return new OpenSSLKey(NativeCrypto.d2i_PKCS8_PRIV_KEY_INFO(encoded));
     }
 
-    private static OpenSSLKey wrapPrivateKey(PrivateKey key) throws InvalidKeyException {
-        if (key instanceof RSAPrivateKey) {
-            return OpenSSLRSAPrivateKey.wrapPlatformKey((RSAPrivateKey) key);
-        } else if (key instanceof ECPrivateKey) {
-            return OpenSSLECPrivateKey.wrapPlatformKey((ECPrivateKey) key);
+    private static OpenSSLKey wrapOpaquePrivateKey(PrivateKey privateKey, PublicKey publicKey)
+            throws InvalidKeyException {
+        if (privateKey == null) {
+            throw new InvalidKeyException("key == null");
+        }
+        String algorithm = privateKey.getAlgorithm();
+        if ("RSA".equals(algorithm)) {
+            return OpenSSLRSAPrivateKey.wrapPlatformKey(privateKey, publicKey);
+        } else if ("EC".equals(algorithm)) {
+            return OpenSSLECPrivateKey.wrapPlatformKey(privateKey, publicKey);
         } else {
-            throw new InvalidKeyException("Unknown key type: " + key.toString());
+            throw new InvalidKeyException("Unknown key type: " + privateKey.getAlgorithm()
+                    + ": " + privateKey);
         }
     }
 
