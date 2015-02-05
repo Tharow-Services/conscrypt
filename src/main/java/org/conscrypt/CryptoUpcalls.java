@@ -21,8 +21,6 @@ import java.security.PrivateKey;
 import java.security.Provider;
 import java.security.Security;
 import java.security.Signature;
-import java.security.interfaces.ECPrivateKey;
-import java.security.interfaces.RSAPrivateKey;
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 
@@ -55,23 +53,24 @@ public final class CryptoUpcalls {
     }
 
     public static byte[] rawSignDigestWithPrivateKey(PrivateKey javaKey, byte[] message) {
+        String keyAlgorithm = javaKey.getAlgorithm();
         // Get the raw signature algorithm for this key type.
-        String algorithm = null;
+        String signatureAlgorithm = null;
         // Hint: Algorithm names come from:
         // http://docs.oracle.com/javase/6/docs/technotes/guides/security/StandardNames.html
-        if (javaKey instanceof RSAPrivateKey) {
+        if ("RSA".equals(keyAlgorithm)) {
             // IMPORTANT: Due to a platform bug, this will throw
             // NoSuchAlgorithmException
             // on Android 4.0.x and 4.1.x. Fixed in 4.2 and higher.
             // See https://android-review.googlesource.com/#/c/40352/
-            algorithm = "NONEwithRSA";
-        } else if (javaKey instanceof ECPrivateKey) {
-            algorithm = "NONEwithECDSA";
+            signatureAlgorithm = "NONEwithRSA";
+        } else if ("EC".equals(keyAlgorithm)) {
+            signatureAlgorithm = "NONEwithECDSA";
         } else {
-            throw new RuntimeException("Unexpected key type: " + javaKey.toString());
+            throw new RuntimeException("Unexpected key type: " + keyAlgorithm);
         }
 
-        Provider p = getExternalProvider("Signature." + algorithm);
+        Provider p = getExternalProvider("Signature." + signatureAlgorithm);
         if (p == null) {
             return null;
         }
@@ -79,13 +78,14 @@ public final class CryptoUpcalls {
         // Get the Signature for this key.
         Signature signature = null;
         try {
-            signature = Signature.getInstance(algorithm, p);
+            signature = Signature.getInstance(signatureAlgorithm, p);
         } catch (NoSuchAlgorithmException e) {
             ;
         }
 
         if (signature == null) {
-            System.err.println("Unsupported private key algorithm: " + javaKey.getAlgorithm());
+            System.err.println("Unsupported signature algorithm: " + signatureAlgorithm
+                    + ", provider: " + p);
             return null;
         }
 
@@ -95,7 +95,7 @@ public final class CryptoUpcalls {
             signature.update(message);
             return signature.sign();
         } catch (Exception e) {
-            System.err.println("Exception while signing message with " + javaKey.getAlgorithm()
+            System.err.println("Exception while signing message with " + keyAlgorithm
                     + " private key:");
             e.printStackTrace();
             return null;
@@ -104,8 +104,9 @@ public final class CryptoUpcalls {
 
     public static byte[] rawCipherWithPrivateKey(PrivateKey javaKey, boolean encrypt,
             byte[] input) {
-        if (!(javaKey instanceof RSAPrivateKey)) {
-            System.err.println("Unexpected key type: " + javaKey.toString());
+        String keyAlgorithm = javaKey.getAlgorithm();
+        if (!"RSA".equals(keyAlgorithm)) {
+            System.err.println("Unexpected key type: " + keyAlgorithm);
             return null;
         }
 
@@ -124,14 +125,15 @@ public final class CryptoUpcalls {
         }
 
         if (c == null) {
-            System.err.println("Unsupported private key algorithm: " + javaKey.getAlgorithm());
+            System.err.println("Unsupported private key algorithm: " + RSA_CRYPTO_ALGORITHM
+                    + ", provider: " + p);
         }
 
         try {
             c.init(encrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, javaKey);
             return c.doFinal(input);
         } catch (Exception e) {
-            System.err.println("Exception while ciphering message with " + javaKey.getAlgorithm()
+            System.err.println("Exception while ciphering message with " + keyAlgorithm
                     + " private key:");
             e.printStackTrace();
             return null;
