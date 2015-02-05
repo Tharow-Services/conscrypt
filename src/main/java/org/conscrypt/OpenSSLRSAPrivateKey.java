@@ -22,6 +22,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.interfaces.RSAKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPrivateKeySpec;
@@ -89,14 +92,30 @@ public class OpenSSLRSAPrivateKey implements RSAPrivateKey, OpenSSLKeyHolder {
         return new OpenSSLRSAPrivateKey(key, params);
     }
 
-    protected static OpenSSLKey wrapPlatformKey(RSAPrivateKey rsaPrivateKey)
+    protected static OpenSSLKey wrapPlatformKey(PrivateKey rsaPrivateKey, PublicKey rsaPublicKey)
             throws InvalidKeyException {
         OpenSSLKey wrapper = Platform.wrapRsaKey(rsaPrivateKey);
         if (wrapper != null) {
             return wrapper;
         }
-        return new OpenSSLKey(NativeCrypto.getRSAPrivateKeyWrapper(rsaPrivateKey, rsaPrivateKey
-                .getModulus().toByteArray()), true);
+        BigInteger modulus = null;
+        if (rsaPrivateKey instanceof RSAKey) {
+            modulus = ((RSAKey) rsaPrivateKey).getModulus();
+        } else if (rsaPublicKey instanceof RSAKey) {
+            modulus = ((RSAKey) rsaPublicKey).getModulus();
+        }
+        if (modulus == null) {
+            throw new InvalidKeyException("Cannot obtain RSA modulus. Private key: " + rsaPrivateKey
+                    + ", public key: " + rsaPublicKey);
+        }
+        return new OpenSSLKey(
+                NativeCrypto.getRSAPrivateKeyWrapper(rsaPrivateKey, modulus.toByteArray()),
+                true);
+    }
+
+    protected static OpenSSLKey wrapPlatformKey(PrivateKey rsaPrivateKey)
+            throws InvalidKeyException {
+        return wrapPlatformKey(rsaPrivateKey, null);
     }
 
     static OpenSSLKey getInstance(RSAPrivateKey rsaPrivateKey) throws InvalidKeyException {
