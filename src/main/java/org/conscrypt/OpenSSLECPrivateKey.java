@@ -23,6 +23,9 @@ import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.interfaces.ECKey;
 import java.security.interfaces.ECPrivateKey;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPrivateKeySpec;
@@ -60,17 +63,33 @@ public final class OpenSSLECPrivateKey implements ECPrivateKey, OpenSSLKeyHolder
         }
     }
 
-    public static OpenSSLKey wrapPlatformKey(ECPrivateKey ecPrivateKey) throws InvalidKeyException {
+    public static OpenSSLKey wrapPlatformKey(PrivateKey privateKey, PublicKey publicKey)
+            throws InvalidKeyException {
+        ECParameterSpec params = null;
+        if (privateKey instanceof ECKey) {
+            params = ((ECKey) privateKey).getParams();
+        } else if (publicKey instanceof ECKey) {
+            params = ((ECKey) publicKey).getParams();
+        }
+        if (params == null) {
+            throw new InvalidKeyException("Cannot obtain EC parameters. Private key: "
+                    + privateKey + ", public key: " + publicKey);
+        }
+        return wrapPlatformKey(privateKey, params);
+    }
+
+    public static OpenSSLKey wrapPlatformKey(PrivateKey privateKey, ECParameterSpec ecParameters)
+            throws InvalidKeyException {
         OpenSSLECGroupContext group;
         try {
-            group = OpenSSLECGroupContext.getInstance(ecPrivateKey.getParams());
+            group = OpenSSLECGroupContext.getInstance(ecParameters);
         } catch (InvalidAlgorithmParameterException e) {
             throw new InvalidKeyException("Unknown group parameters", e);
         }
-        return wrapPlatformKey(ecPrivateKey, group);
+        return wrapPlatformKey(privateKey, group);
     }
 
-    private static OpenSSLKey wrapPlatformKey(ECPrivateKey ecPrivateKey,
+    private static OpenSSLKey wrapPlatformKey(PrivateKey ecPrivateKey,
             OpenSSLECGroupContext group) throws InvalidKeyException {
         return new OpenSSLKey(NativeCrypto.getECPrivateKeyWrapper(ecPrivateKey,
                 group.getNativeRef()), true);
