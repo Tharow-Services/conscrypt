@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc6e70af_d36b34d7",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-02-06T22:54:00Z",
+      "side": 1,
+      "message": "Maybe I should collapse these two to make it easier to read.",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 9
+      },
+      "revId": "b090081628450a5a3b86ebb2fbc049fa0a1b52cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
