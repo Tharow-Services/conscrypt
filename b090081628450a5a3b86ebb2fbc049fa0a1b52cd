@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "dc49ac4e_522c9493",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 286,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-02-06T22:59:42Z",
+      "side": 1,
+      "message": "Consider mentioning the provided length as well.",
+      "revId": "b090081628450a5a3b86ebb2fbc049fa0a1b52cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fc6e70af_d36b34d7",
         "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
         "patchSetId": 1
@@ -13,6 +30,30 @@
       "writtenOn": "2015-02-06T22:54:00Z",
       "side": 1,
       "message": "Maybe I should collapse these two to make it easier to read.",
+      "range": {
+        "startLine": 283,
+        "startChar": 8,
+        "endLine": 287,
+        "endChar": 9
+      },
+      "revId": "b090081628450a5a3b86ebb2fbc049fa0a1b52cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7c58c01a_6fe1b123",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-02-06T22:59:42Z",
+      "side": 1,
+      "message": "I don\u0027t think these two blocks are a problem. I think the only complication with reading all of this is that iv and ivLength do not pertain to the same IV. One is the provided IV and the other is expected/required IV. Perhaps renaming accordingly will make it easier to read.",
+      "parentUuid": "fc6e70af_d36b34d7",
       "range": {
         "startLine": 283,
         "startChar": 8,
