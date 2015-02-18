@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6bd55878_47baee37",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2015-02-18T20:03:17Z",
+      "side": 1,
+      "message": "This stuff should be in the catch block above.",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6bd55878_47db0e9f",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2015-02-18T20:03:17Z",
+      "side": 1,
+      "message": "Might as well change this to multi-catch, while you\u0027re here; then you can move the error print inside the catch.",
+      "range": {
+        "startLine": 121,
+        "startChar": 17,
+        "endLine": 121,
+        "endChar": 41
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bc7e0d6_85b982fa",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2015-02-18T20:03:17Z",
+      "side": 1,
+      "message": "Yuck. c may be null here. The NPE will be caught and logged, causing a double error message, the second of which is misleading.  Better to return null in the error case above.",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 13
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bc7e0d6_45266ab0",
+        "filename": "src/main/java/org/conscrypt/OpenSSLECPrivateKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2015-02-18T20:03:17Z",
+      "side": 1,
+      "message": "The PrivateKey.toString() method doesn\u0027t do anything stupid, does it?",
+      "range": {
+        "startLine": 90,
+        "startChar": 85,
+        "endLine": 90,
+        "endChar": 95
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0b993cf9_9c00e5af",
+        "filename": "src/main/java/org/conscrypt/OpenSSLKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1043663
+      },
+      "writtenOn": "2015-02-18T20:03:17Z",
+      "side": 1,
+      "message": "Total nit:  Why not\n\nif (\"RSA\".equals(key.getAlgorithm()) {\n    return Platform.wrapRsaKey(key);\n}\nreturn null;",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 10
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
