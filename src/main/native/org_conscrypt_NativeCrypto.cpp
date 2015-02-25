@@ -2054,8 +2054,15 @@ private:
 static void findAsynchronousCloseMonitorFuncs() {
     void *lib = dlopen("libjavacore.so", RTLD_NOW);
     if (lib != NULL) {
+        (void) dlerror();
         async_close_monitor_ctor = (acm_ctor_func) dlsym(lib, "_ZN24AsynchronousCloseMonitorC1Ei");
         async_close_monitor_dtor = (acm_dtor_func) dlsym(lib, "_ZN24AsynchronousCloseMonitorD1Ev");
+        const char* errstr = dlerror();
+        if (errstr != nullptr) {
+            ALOGE("Trying to find AsynchronousCloseMonitor returned: %s", errstr);
+        }
+    } else {
+        ALOGE("Error calling dlopen");
     }
 }
 #endif
