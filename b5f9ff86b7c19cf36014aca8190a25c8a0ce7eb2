@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1c9d0d70_b469aef9",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 961,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-11T09:30:08Z",
+      "side": 1,
+      "message": "I don\u0027t know if it\u0027s worth adding \"// Visible for testing\" here. We\u0027ve done that for some of our libcore classes and i\u0027ve found it useful, but YMMV.",
+      "revId": "b5f9ff86b7c19cf36014aca8190a25c8a0ce7eb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
