@@ -125,6 +125,7 @@ public final class CryptoUpcalls {
 
         if (c == null) {
             System.err.println("Unsupported private key algorithm: " + javaKey.getAlgorithm());
+            return null;
         }
 
         try {
