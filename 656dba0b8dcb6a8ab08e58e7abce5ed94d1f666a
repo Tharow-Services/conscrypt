@@ -1,0 +1,7 @@
+Code-Review+2: Narayan Kamath <narayan@google.com>
+Verified+1: Alex Klyubin <klyubin@google.com>
+Submitted-by: Alex Klyubin <klyubin@google.com>
+Submitted-at: Thu, 12 Mar 2015 20:09:14 +0000
+Reviewed-on: https://android-review.googlesource.com/141111
+Project: platform/external/conscrypt
+Branch: refs/heads/master
