@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4165dec2_3a28c1b2",
+        "filename": "src/main/java/org/conscrypt/OpenSSLKey.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-03-12T19:46:26Z",
+      "side": 1,
+      "message": "Why do you need this? Seems unnecessary since the functions below do the same thing.",
+      "range": {
+        "startLine": 133,
+        "startChar": 3,
+        "endLine": 146,
+        "endChar": 5
+      },
+      "revId": "0dcfd2f34557cefea0a58218aacb28fd404ecafa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1caaedd_49c16529",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 974,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-03-12T19:46:26Z",
+      "side": 1,
+      "message": "Why a special method for this? Seems like you\u0027d want to go through the generic getPrivateKeyForTLSStackOnly or to the OpenSSLECPrivateKey class directly.",
+      "range": {
+        "startLine": 974,
+        "startChar": 35,
+        "endLine": 974,
+        "endChar": 42
+      },
+      "revId": "0dcfd2f34557cefea0a58218aacb28fd404ecafa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
