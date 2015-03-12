@@ -87,6 +87,24 @@
       "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01868696_0046260e",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-03-12T18:32:45Z",
+      "side": 1,
+      "message": "One is a bug fix, another is just a cleanup. I try not to fix bugs stealthily in clean-ups.",
+      "parentUuid": "e1ec123e_029a8c40",
+      "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
