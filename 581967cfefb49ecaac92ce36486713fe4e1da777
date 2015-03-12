@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1ec123e_c2eee4bb",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-12T18:03:44Z",
+      "side": 1,
+      "message": "final ?",
+      "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1ec123e_a2f3e0a1",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-12T18:03:44Z",
+      "side": 1,
+      "message": "no early return here ?",
+      "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
