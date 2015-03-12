@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "61bf4233_2655381f",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-03-12T18:12:50Z",
+      "side": 1,
+      "message": "I thought unnecessary final for local variables was frowned upon in Android source tree -- it doesn\u0027t help with anything. Moreover, this source doesn\u0027t use final keywords for local variables anywhere. So, consistency...",
+      "parentUuid": "e1ec123e_c2eee4bb",
+      "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e1ec123e_a2f3e0a1",
         "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2015-03-12T18:03:44Z",
       "side": 1,
       "message": "no early return here ?",
+      "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "81c436d3_2755341f",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-03-12T18:12:50Z",
+      "side": 1,
+      "message": "This is addressed in https://android-review.googlesource.com/#/c/141111/. This CL is just about cosmetic changes, not fixing bugs.",
+      "parentUuid": "e1ec123e_a2f3e0a1",
       "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
