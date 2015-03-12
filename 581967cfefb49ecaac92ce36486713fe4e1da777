@@ -69,6 +69,24 @@
       "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1ec123e_029a8c40",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-12T18:18:11Z",
+      "side": 1,
+      "message": "your change description says : \"These are minor code structure clean ups based on comments from\nhttps://android-review.googlesource.com/#/c/130311/.\".\n\nthe natural conclusion (given that you haven\u0027t mentioned \"comsetic\" anywhere) to draw from that is: why are some things addressed and not others ?. \n\nIMO. splitting it into two changes added no value.",
+      "parentUuid": "81c436d3_2755341f",
+      "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
