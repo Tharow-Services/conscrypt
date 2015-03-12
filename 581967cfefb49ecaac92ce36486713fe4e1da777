@@ -105,6 +105,24 @@
       "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01ea0620_63327ca2",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-12T18:37:36Z",
+      "side": 1,
+      "message": "there\u0027s no harm in fixing bugs and cleaning up surrounding code in the same commit, especially when the delta is less than 10 lines.\n\nif you were mixing a clang-format with a bug fix, then sure - i\u0027d definitely agree with you :)",
+      "parentUuid": "01868696_0046260e",
+      "revId": "581967cfefb49ecaac92ce36486713fe4e1da777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
