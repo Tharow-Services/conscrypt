@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e1ba5236_0ff645de",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-03-12T16:40:45Z",
+      "side": 1,
+      "message": "This CL isn\u0027t about this code. We should probably have a separate clean-up CL for this class.",
+      "parentUuid": "6bd55878_47baee37",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6bd55878_47db0e9f",
         "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2015-02-18T20:03:17Z",
       "side": 1,
       "message": "Might as well change this to multi-catch, while you\u0027re here; then you can move the error print inside the catch.",
+      "range": {
+        "startLine": 121,
+        "startChar": 17,
+        "endLine": 121,
+        "endChar": 41
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e1ba5236_efde6153",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-03-12T16:40:45Z",
+      "side": 1,
+      "message": "I\u0027d rather not touch this code in this CL. Also, Kenny isn\u0027t yet using multi-catch in Conscrypt.",
+      "parentUuid": "6bd55878_47db0e9f",
       "range": {
         "startLine": 121,
         "startChar": 17,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e1ba5236_cfe39d21",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-03-12T16:40:45Z",
+      "side": 1,
+      "message": "That\u0027s true. However, this CL is not about fixing this bug.",
+      "parentUuid": "2bc7e0d6_85b982fa",
+      "range": {
+        "startLine": 133,
+        "startChar": 12,
+        "endLine": 133,
+        "endChar": 13
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bc7e0d6_45266ab0",
         "filename": "src/main/java/org/conscrypt/OpenSSLECPrivateKey.java",
         "patchSetId": 4
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "e1ba5236_6fda7166",
+        "filename": "src/main/java/org/conscrypt/OpenSSLECPrivateKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-03-12T16:40:45Z",
+      "side": 1,
+      "message": "It shouldn\u0027t, but it\u0027s fully up to the implementation/provider of the PrivateKey.",
+      "parentUuid": "2bc7e0d6_45266ab0",
+      "range": {
+        "startLine": 90,
+        "startChar": 85,
+        "endLine": 90,
+        "endChar": 95
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0b993cf9_9c00e5af",
         "filename": "src/main/java/org/conscrypt/OpenSSLKey.java",
         "patchSetId": 4
@@ -105,6 +201,30 @@
       "writtenOn": "2015-02-18T20:03:17Z",
       "side": 1,
       "message": "Total nit:  Why not\n\nif (\"RSA\".equals(key.getAlgorithm()) {\n    return Platform.wrapRsaKey(key);\n}\nreturn null;",
+      "range": {
+        "startLine": 159,
+        "startChar": 8,
+        "endLine": 159,
+        "endChar": 10
+      },
+      "revId": "df11716489e1c07d1ca5f536097d69d97b96e617",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "01b8463c_d01cdc9c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLKey.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-03-12T16:40:45Z",
+      "side": 1,
+      "message": "Good point.",
+      "parentUuid": "0b993cf9_9c00e5af",
       "range": {
         "startLine": 159,
         "startChar": 8,
