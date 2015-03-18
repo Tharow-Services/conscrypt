@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "269ba08e_01d1aa83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-18T17:13:23Z",
+      "side": 1,
+      "message": "which tests ?",
+      "range": {
+        "startLine": 9,
+        "startChar": 27,
+        "endLine": 9,
+        "endChar": 37
+      },
+      "revId": "6414861e911a6a9b92a0b1d0a75524ef9c4fb122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "666bd831_03a7ae0b",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -59,6 +82,40 @@
       "writtenOn": "2015-03-18T17:12:52Z",
       "side": 1,
       "message": "Bug ID?",
+      "revId": "6414861e911a6a9b92a0b1d0a75524ef9c4fb122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "666bd831_23acaaed",
+        "filename": "src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-18T17:13:23Z",
+      "side": 1,
+      "message": "wouldn\u0027t it be easier to just use the null literal instead of NULL_EVP_PKEY and NULL_EVP_CIPHER_CTX everywhere ?",
+      "revId": "6414861e911a6a9b92a0b1d0a75524ef9c4fb122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "269ba08e_2135ce54",
+        "filename": "src/test/java/org/conscrypt/NativeRefTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-18T17:13:23Z",
+      "side": 1,
+      "message": "NullPointerException expected",
       "revId": "6414861e911a6a9b92a0b1d0a75524ef9c4fb122",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
