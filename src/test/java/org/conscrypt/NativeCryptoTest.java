@@ -67,9 +67,8 @@ public class NativeCryptoTest extends TestCase {
     public static final String TEST_ENGINE_ID = "javacoretests";
 
     private static final long NULL = 0;
-    private static final NativeRef.EVP_PKEY NULL_EVP_PKEY = new NativeRef.EVP_PKEY(0);
-    private static final NativeRef.EVP_CIPHER_CTX NULL_EVP_CIPHER_CTX =
-            new NativeRef.EVP_CIPHER_CTX(0);
+    private static final NativeRef.EVP_PKEY NULL_EVP_PKEY = null;
+    private static final NativeRef.EVP_CIPHER_CTX NULL_EVP_CIPHER_CTX = null;
     private static final FileDescriptor INVALID_FD = new FileDescriptor();
     private static final SSLHandshakeCallbacks DUMMY_CB
             = new TestSSLHandshakeCallbacks(null, 0, null);
@@ -2625,7 +2624,7 @@ public class NativeCryptoTest extends TestCase {
         try {
             NativeCrypto.RSA_private_decrypt(0, new byte[0], new byte[0],
  NULL_EVP_PKEY, 0);
-            fail();
+            fail("Expecting null pointer exception for RSA_private_decrypt with null key");
         } catch (NullPointerException expected) {}
     }
 
@@ -2835,7 +2834,6 @@ public class NativeCryptoTest extends TestCase {
         } finally {
             bis.release();
         }
-
     }
 
     public void test_create_BIO_OutputStream() throws Exception {
