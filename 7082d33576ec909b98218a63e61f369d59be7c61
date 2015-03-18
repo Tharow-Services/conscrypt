@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "666bd831_4669b4f3",
+        "filename": "src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-18T20:06:44Z",
+      "side": 1,
+      "message": "FYI : I inspected the native code here, and i think it is incorrect.  in many cases, conscrypt code is throwing an exception from JNI when there\u0027s already an exception pending.\n\nIn particular, fromContextObject throws if the object is null. in many places we check its return value and throw again - which seems wrong.",
+      "revId": "7082d33576ec909b98218a63e61f369d59be7c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
