@@ -16,6 +16,24 @@
       "revId": "7082d33576ec909b98218a63e61f369d59be7c61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06a21cbf_230ef434",
+        "filename": "src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-03-18T20:26:22Z",
+      "side": 1,
+      "message": "I don\u0027t get precisely what you mean by an \"exception pending\".\n\nI was already adding checks to fromContextObject and throwing the exception from there instead. That changes the outcome but doesn\u0027t make the problem go away.",
+      "parentUuid": "666bd831_4669b4f3",
+      "revId": "7082d33576ec909b98218a63e61f369d59be7c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
