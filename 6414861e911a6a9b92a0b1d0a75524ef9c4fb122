@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06a21cbf_20994ac6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2015-03-18T17:12:52Z",
+      "side": 1,
+      "message": "object -\u003e reference",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 17
+      },
+      "revId": "6414861e911a6a9b92a0b1d0a75524ef9c4fb122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "666bd831_03a7ae0b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2015-03-18T17:12:52Z",
+      "side": 1,
+      "message": "suit -\u003e suite",
+      "range": {
+        "startLine": 11,
+        "startChar": 44,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "6414861e911a6a9b92a0b1d0a75524ef9c4fb122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "269ba08e_613bd64d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2015-03-18T17:12:52Z",
+      "side": 1,
+      "message": "Bug ID?",
+      "revId": "6414861e911a6a9b92a0b1d0a75524ef9c4fb122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
