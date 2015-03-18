@@ -152,6 +152,30 @@
     },
     {
       "key": {
+        "uuid": "269ba08e_01a76a0b",
+        "filename": "src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2015-03-18T17:27:32Z",
+      "side": 1,
+      "message": "So commit I5925da40cb37cd328b3a126404944f771732a43e broke this and it has been broken since?\n\nFair enough if we don\u0027t need to test what happens when we have a bad reference.\n\nFWIW, this is the first time I\u0027m seeing this code. Is the address given to EVP_PKEY actually the address of the context, or just an arbitrary address?\n\nSuggestions for making NativeRef slightly clearer:\n\n1) NativeRef.context should perhaps be renamed to NativeRef.address, if it deals with general addresses, not specifically contexts.\n2) NativeRef.equals() should possibly take into account the concrete subclass.\n3) A better hashcode impl might be (int) (value ^ (value \u003e\u003e\u003e 32)) (e.g. the same as Long) and could take into account class as well (although it\u0027s probably not worth the effort, depending on usage)",
+      "parentUuid": "269ba08e_61c2b6b3",
+      "range": {
+        "startLine": 70,
+        "startChar": 44,
+        "endLine": 70,
+        "endChar": 57
+      },
+      "revId": "6414861e911a6a9b92a0b1d0a75524ef9c4fb122",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "269ba08e_2135ce54",
         "filename": "src/test/java/org/conscrypt/NativeRefTest.java",
         "patchSetId": 1
