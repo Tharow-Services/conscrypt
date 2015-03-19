@@ -16,6 +16,24 @@
       "revId": "0f93fd09c475c62f53d4756d5ad6da9a7062764e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "666bd831_e9c1919b",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3982,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-03-19T18:13:43Z",
+      "side": 1,
+      "message": "OK, changed.",
+      "parentUuid": "269ba08e_eae69b2c",
+      "revId": "0f93fd09c475c62f53d4756d5ad6da9a7062764e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
