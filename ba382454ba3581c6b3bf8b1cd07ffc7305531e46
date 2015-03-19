@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "666bd831_e9e511a4",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3980,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-19T15:53:44Z",
+      "side": 1,
+      "message": "this isn\u0027t what i meant. if pubPkey \u003d\u003d NULL then you know you\u0027ve thrown an exception. you can just jniThrowNullPointerException and return early in that case.",
+      "revId": "ba382454ba3581c6b3bf8b1cd07ffc7305531e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
