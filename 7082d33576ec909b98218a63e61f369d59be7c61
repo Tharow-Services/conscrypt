@@ -34,6 +34,24 @@
       "revId": "7082d33576ec909b98218a63e61f369d59be7c61",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06a21cbf_63663c53",
+        "filename": "src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-19T09:19:29Z",
+      "side": 1,
+      "message": "search for \"jni pending exception\" on your favourite search engine.\n\nthe summary is that \"throwing an exception\" in C++ code using JNI api doesn\u0027t have java exception semantics. The function continues to execute so care must be taken to return immediately and not make any other JNI calls until the control is ceded back to the runtime (when the function returns).",
+      "parentUuid": "06a21cbf_230ef434",
+      "revId": "7082d33576ec909b98218a63e61f369d59be7c61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
