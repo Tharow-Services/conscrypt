@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06a21cbf_895a8154",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 3980,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-19T15:38:26Z",
+      "side": 1,
+      "message": "would it be clearer if you checked for pubPkey \u003d\u003d null ? i dunno, up to kenny.",
+      "revId": "eb5e3a35c5cb10c6b950f8ffe6a68db3fb377b20",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
