@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "269ba08e_eae69b2c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 3982,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-19T18:08:42Z",
+      "side": 1,
+      "message": "the env-\u003eExceptionCheck() here and below are unnecessary. the contract of fromContextObject() says that if the return value is NULL, there will be an exception pending. we don\u0027t have to check for it here.",
+      "revId": "0f93fd09c475c62f53d4756d5ad6da9a7062764e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
