@@ -16,6 +16,24 @@
       "revId": "ba382454ba3581c6b3bf8b1cd07ffc7305531e46",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "06a21cbf_e9446d0a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 3980,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-03-19T18:00:16Z",
+      "side": 1,
+      "message": "I forgot to return early (now I added the \"return -1\"). Now it works safely even if fromContextObject doesn\u0027t throw the exception.",
+      "parentUuid": "666bd831_e9e511a4",
+      "revId": "ba382454ba3581c6b3bf8b1cd07ffc7305531e46",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
