@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06a21cbf_a97d4533",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-03-19T18:15:53Z",
+      "side": 1,
+      "message": "[not for this change] : we should evaluate if this check is necessary. given that the constructor in java throws if ref \u003d\u003d 0, there should be no way to get here.",
+      "revId": "796ed069bc90d1de9f45ea1f746edaeec8081ed3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
