@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "83cefea1_db14c444",
+        "filename": "src/openjdk/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2015-04-03T07:06:04Z",
+      "side": 1,
+      "message": "comment to help distinguish in code search tools?",
+      "range": {
+        "startLine": 35,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 3
+      },
+      "revId": "4215553c151efe136db5057e904b9d284adc24d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3d47630_bc9ea9e0",
+        "filename": "src/openjdk/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2015-04-03T07:06:04Z",
+      "side": 1,
+      "message": "hook to logging? add a logging callback?",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 5
+      },
+      "revId": "4215553c151efe136db5057e904b9d284adc24d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3d47630_9ca3ed24",
+        "filename": "src/openjdk/native/log_compat.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2015-04-03T07:06:04Z",
+      "side": 1,
+      "message": "i missed where these were defined. or are you going to get them from some liblog for host?",
+      "range": {
+        "startLine": 6,
+        "startChar": 12,
+        "endLine": 6,
+        "endChar": 32
+      },
+      "revId": "4215553c151efe136db5057e904b9d284adc24d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
