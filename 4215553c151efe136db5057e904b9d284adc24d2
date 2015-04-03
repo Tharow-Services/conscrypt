@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "2312b2d8_4c3c8f42",
+        "filename": "src/openjdk/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-04-03T08:57:36Z",
+      "side": 1,
+      "message": "i don\u0027t know which versions you\u0027re targeting but catching ReflectiveOperationException is preferable. (here and below)",
+      "revId": "4215553c151efe136db5057e904b9d284adc24d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c3d47630_bc9ea9e0",
         "filename": "src/openjdk/java/org/conscrypt/Platform.java",
         "patchSetId": 3
@@ -42,6 +59,23 @@
         "endLine": 133,
         "endChar": 5
       },
+      "revId": "4215553c151efe136db5057e904b9d284adc24d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a3d4e237_30164600",
+        "filename": "src/openjdk/native/JNIHelp.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-04-03T08:57:36Z",
+      "side": 1,
+      "message": "why do these things need to be copied ? can\u0027t code be shared ?",
       "revId": "4215553c151efe136db5057e904b9d284adc24d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
