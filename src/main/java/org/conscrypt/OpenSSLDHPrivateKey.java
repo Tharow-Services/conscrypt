@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
 import javax.crypto.interfaces.DHPrivateKey;
 import javax.crypto.spec.DHParameterSpec;
 import javax.crypto.spec.DHPrivateKeySpec;
@@ -181,10 +182,10 @@ public class OpenSSLDHPrivateKey implements DHPrivateKey, OpenSSLKeyHolder {
         ensureReadParams();
         int hash = 1;
         if (!key.isEngineBased()) {
-            hash = hash * 3 + x.hashCode();
+            hash = hash * 3 + Arrays.hashCode(x);
         }
-        hash = hash * 7 + p.hashCode();
-        hash = hash * 13 + g.hashCode();
+        hash = hash * 7 + Arrays.hashCode(p);
+        hash = hash * 13 + Arrays.hashCode(g);
         return hash;
     }
 
