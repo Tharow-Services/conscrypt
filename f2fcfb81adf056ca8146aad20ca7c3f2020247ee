@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "904c868c_f3515a66",
+        "filename": "Blueprints",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1043845
+      },
+      "writtenOn": "2015-04-17T06:39:59Z",
+      "side": 1,
+      "message": "Why commented out?",
+      "revId": "f2fcfb81adf056ca8146aad20ca7c3f2020247ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "904c868c_d34e5ec8",
+        "filename": "Blueprints",
+        "patchSetId": 1
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1043845
+      },
+      "writtenOn": "2015-04-17T06:39:59Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "f2fcfb81adf056ca8146aad20ca7c3f2020247ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
