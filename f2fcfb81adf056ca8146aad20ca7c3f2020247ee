@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "506daeeb_9420fc53",
+        "filename": "Blueprints",
+        "patchSetId": 1
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 1002751
+      },
+      "writtenOn": "2015-04-17T07:16:55Z",
+      "side": 1,
+      "message": "It doesn\u0027t compile yet, missing openssl dependencies",
+      "parentUuid": "904c868c_f3515a66",
+      "revId": "f2fcfb81adf056ca8146aad20ca7c3f2020247ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "904c868c_d34e5ec8",
         "filename": "Blueprints",
         "patchSetId": 1
