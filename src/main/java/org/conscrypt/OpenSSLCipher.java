@@ -600,13 +600,8 @@ public abstract class OpenSSLCipher extends CipherSpi {
         protected void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
             switch (mode) {
                 case CBC:
-                case CFB:
-                case CFB1:
-                case CFB8:
-                case CFB128:
                 case CTR:
                 case ECB:
-                case OFB:
                     return;
                 default:
                     throw new NoSuchAlgorithmException("Unsupported mode " + mode.toString());
