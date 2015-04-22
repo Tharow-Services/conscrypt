@@ -548,12 +548,6 @@ public abstract class OpenSSLCipher extends CipherSpi {
             }
         }
 
-        public static class CFB extends AES {
-            public CFB() {
-                super(Mode.CFB, Padding.NOPADDING);
-            }
-        }
-
         public static class CTR extends AES {
             public CTR() {
                 super(Mode.CTR, Padding.NOPADDING);
@@ -578,12 +572,6 @@ public abstract class OpenSSLCipher extends CipherSpi {
             }
         }
 
-        public static class OFB extends AES {
-            public OFB() {
-                super(Mode.OFB, Padding.NOPADDING);
-            }
-        }
-
         @Override
         protected void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
             switch (keyLength) {
@@ -600,13 +588,8 @@ public abstract class OpenSSLCipher extends CipherSpi {
         protected void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
             switch (mode) {
                 case CBC:
-                case CFB:
-                case CFB1:
-                case CFB8:
-                case CFB128:
                 case CTR:
                 case ECB:
-                case OFB:
                     return;
                 default:
                     throw new NoSuchAlgorithmException("Unsupported mode " + mode.toString());
@@ -665,12 +648,6 @@ public abstract class OpenSSLCipher extends CipherSpi {
             }
         }
 
-        public static class CFB extends DESEDE {
-            public CFB() {
-                super(Mode.CFB, Padding.NOPADDING);
-            }
-        }
-
         public static class ECB extends DESEDE {
             public ECB(Padding padding) {
                 super(Mode.ECB, padding);
@@ -686,12 +663,6 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
                 }
-            }
-        }
-
-        public static class OFB extends DESEDE {
-            public OFB() {
-                super(Mode.OFB, Padding.NOPADDING);
             }
         }
 
@@ -727,11 +698,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         protected void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
             switch (mode) {
                 case CBC:
-                case CFB:
-                case CFB1:
-                case CFB8:
                 case ECB:
-                case OFB:
                     return;
                 default:
                     throw new NoSuchAlgorithmException("Unsupported mode " + mode.toString());
