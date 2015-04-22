@@ -220,9 +220,7 @@ public final class OpenSSLProvider extends Provider {
         putSymmetricCipherImplClass("AES/CBC/NoPadding", "OpenSSLCipher$AES$CBC$NoPadding");
         putSymmetricCipherImplClass("AES/CBC/PKCS5Padding", "OpenSSLCipher$AES$CBC$PKCS5Padding");
         put("Alg.Alias.Cipher.AES/CBC/PKCS7Padding", "AES/CBC/PKCS5Padding");
-        putSymmetricCipherImplClass("AES/CFB/NoPadding", "OpenSSLCipher$AES$CFB");
         putSymmetricCipherImplClass("AES/CTR/NoPadding", "OpenSSLCipher$AES$CTR");
-        putSymmetricCipherImplClass("AES/OFB/NoPadding", "OpenSSLCipher$AES$OFB");
 
         putSymmetricCipherImplClass("DESEDE/ECB/NoPadding", "OpenSSLCipher$DESEDE$ECB$NoPadding");
         putSymmetricCipherImplClass("DESEDE/ECB/PKCS5Padding", "OpenSSLCipher$DESEDE$ECB$PKCS5Padding");
@@ -230,8 +228,6 @@ public final class OpenSSLProvider extends Provider {
         putSymmetricCipherImplClass("DESEDE/CBC/NoPadding", "OpenSSLCipher$DESEDE$CBC$NoPadding");
         putSymmetricCipherImplClass("DESEDE/CBC/PKCS5Padding", "OpenSSLCipher$DESEDE$CBC$PKCS5Padding");
         put("Alg.Alias.Cipher.DESEDE/CBC/PKCS7Padding", "DESEDE/CBC/PKCS5Padding");
-        putSymmetricCipherImplClass("DESEDE/CFB/NoPadding", "OpenSSLCipher$DESEDE$CFB");
-        putSymmetricCipherImplClass("DESEDE/OFB/NoPadding", "OpenSSLCipher$DESEDE$OFB");
 
         putSymmetricCipherImplClass("ARC4", "OpenSSLCipher$ARC4");
 
