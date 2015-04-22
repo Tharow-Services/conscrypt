@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "309d9a70_54dde293",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-04-22T00:28:22Z",
+      "side": 1,
+      "message": "Delete all these...",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 32
+      },
+      "revId": "638fa1e90314020f04634738d5a47d889894a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d08d1e46_34d858a5",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 551,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-04-22T00:28:22Z",
+      "side": 1,
+      "message": "Delete all these unneeded modes.",
+      "range": {
+        "startLine": 551,
+        "startChar": 8,
+        "endLine": 551,
+        "endChar": 45
+      },
+      "revId": "638fa1e90314020f04634738d5a47d889894a7a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
