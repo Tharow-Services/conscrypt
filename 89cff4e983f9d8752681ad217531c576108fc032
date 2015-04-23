@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "309d9a70_2e4f1e94",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2015-04-23T00:03:21Z",
+      "side": 1,
+      "message": "seems unneeded nowadays, but fine.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 29
+      },
+      "revId": "89cff4e983f9d8752681ad217531c576108fc032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90b566fa_9ccd1ab7",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2015-04-23T00:03:21Z",
+      "side": 1,
+      "message": "also this is now unneeded too.",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 57
+      },
+      "revId": "89cff4e983f9d8752681ad217531c576108fc032",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
