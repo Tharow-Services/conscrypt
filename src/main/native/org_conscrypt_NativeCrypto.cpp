@@ -956,7 +956,7 @@ static bool arrayToBignumSize(JNIEnv* env, jbyteArray source, size_t* out_size) 
 
     ScopedByteArrayRO sourceBytes(env, source);
     if (sourceBytes.get() == NULL) {
-        JNI_TRACE("arrayToBignum(%p, %p) => NULL", source, dest);
+        JNI_TRACE("arrayToBignum(%p, %p) => NULL", source, out_size);
         return false;
     }
     const uint8_t* tmp = reinterpret_cast<const uint8_t*>(sourceBytes.get());
@@ -5977,7 +5977,7 @@ static jlongArray PKCS7_to_ItemArray(JNIEnv* env, T_stack* stack, T* (*dup_func)
         items[i] = reinterpret_cast<uintptr_t>(dup_func(item));
     }
 
-    JNI_TRACE("PKCS7_to_ItemArray(%p) => %p [size=%d]", stack, ref_array.get(), size);
+    JNI_TRACE("PKCS7_to_ItemArray(%p) => %p [size=%u]", stack, ref_array.get(), (unsigned) size);
     return ref_array.release();
 }
 
@@ -9021,7 +9021,7 @@ static jlongArray NativeCrypto_SSL_get_certificate(JNIEnv* env, jclass, jlong ss
 #else
     STACK_OF(X509) *cert_chain = NULL;
     if (!SSL_get0_chain_certs(ssl, &cert_chain)) {
-        JNI_TRACE("ssl=%p NativeCrypto_SSL_get0_chain_certs => NULL", ssl);
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_get0_chain_certs failed", ssl);
         freeOpenSslErrorState();
         return NULL;
     }
