@@ -50,10 +50,26 @@ core_cppflags := -std=gnu++11 -Wall -Wextra -Werror -Wunused
 # Build for the target (device).
 #
 
+include $(CLEAR_VARS)
+LOCAL_CPP_EXTENSION := cc
+LOCAL_SRC_FILES := src/main/java/org/conscrypt/generate_constants.cc
+LOCAL_MODULE := conscrypt_generate_constants
+LOCAL_SHARED_LIBRARIES := libcrypto-host libssl-host
+include $(BUILD_HOST_EXECUTABLE)
+
+GENERATE_CONSTANTS_EXE := $(HOST_OUT_EXECUTABLES)/conscrypt_generate_constants$(HOST_EXECUTABLE_SUFFIX)
+
+NATIVE_CONSTANTS := $(TARGET_OUT_GEN)/conscrypt/NativeConstants.java
+
+$(LOCAL_PATH)/../../$(NATIVE_CONSTANTS): $(GENERATE_CONSTANTS_EXE)
+	mkdir -p $(TARGET_OUT_GEN)/conscrypt
+	$(GENERATE_CONSTANTS_EXE) > $(NATIVE_CONSTANTS)
+
 # Create the conscrypt library
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(call all-java-files-under,src/main/java)
 LOCAL_SRC_FILES += $(call all-java-files-under,src/platform/java)
+LOCAL_SRC_FILES += ../../$(NATIVE_CONSTANTS)
 LOCAL_JAVA_LIBRARIES := core-libart
 LOCAL_NO_STANDARD_LIBRARIES := true
 LOCAL_JAVACFLAGS := $(local_javac_flags)
@@ -68,6 +84,7 @@ include $(BUILD_JAVA_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(call all-java-files-under,src/main/java)
 LOCAL_SRC_FILES += $(call all-java-files-under,src/platform/java)
+LOCAL_SRC_FILES += ../../$(NATIVE_CONSTANTS)
 LOCAL_JAVA_LIBRARIES := core-libart
 LOCAL_NO_STANDARD_LIBRARIES := true
 LOCAL_JAVACFLAGS := $(local_javac_flags)
@@ -122,6 +139,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(call all-java-files-under,src/main/java)
 LOCAL_SRC_FILES += $(call all-java-files-under,src/compat/java)
+LOCAL_SRC_FILES += ../../$(NATIVE_CONSTANTS)
 LOCAL_SDK_VERSION := 9
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_MODULE_TAGS := optional
@@ -189,6 +207,7 @@ ifeq ($(HOST_OS),linux)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(call all-java-files-under,src/main/java)
 LOCAL_SRC_FILES += $(call all-java-files-under,src/platform/java)
+LOCAL_SRC_FILES += ../../$(NATIVE_CONSTANTS)
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_JARJAR_RULES := $(LOCAL_PATH)/jarjar-rules.txt
 LOCAL_MODULE_TAGS := optional
@@ -201,6 +220,7 @@ include $(BUILD_HOST_DALVIK_JAVA_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(call all-java-files-under,src/main/java)
 LOCAL_SRC_FILES += $(call all-java-files-under,src/platform/java)
+LOCAL_SRC_FILES += ../../$(NATIVE_CONSTANTS)
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_BUILD_HOST_DEX := true
 LOCAL_MODULE_TAGS := optional
