@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "10a416b9_1596d247",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2015-04-24T18:35:39Z",
+      "side": 1,
+      "message": "No need to use $(LOCAL_PATH) here. Just use:\n$(conscryt_gen_java_files) : $(conscrypt_generate_constants_exe)",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 39
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "309d9a70_3e4ca2ce",
         "filename": "Android.mk",
         "patchSetId": 3
