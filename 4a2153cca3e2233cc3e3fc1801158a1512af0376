@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a416b9_55fcdab1",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2015-04-24T18:31:40Z",
+      "side": 1,
+      "message": "You can u reference the installed file of the module defined by $(BUILD_HOST_EXECUTABLE):\nconsrypt_generate_constatns_exe :\u003d $(LOCAL_INSTALLED_MODULE)\nUse lower-case for local variables.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 103
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a416b9_f258848e",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2015-04-24T18:31:40Z",
+      "side": 1,
+      "message": "TARGET_OUT_GEN is for native code. That means every product has its own copy. But Java code is shared across all products. I think we should use $(TARGET_OUT_COMMON_GEN) instead.",
+      "range": {
+        "startLine": 62,
+        "startChar": 22,
+        "endLine": 62,
+        "endChar": 36
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a416b9_d5e52a24",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2015-04-24T18:31:40Z",
+      "side": 1,
+      "message": "The convention is to use lower-case for local variable. Suggest to use conscrypt_gen_java_files.",
+      "range": {
+        "startLine": 62,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 11
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "309d9a70_3e4ca2ce",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2015-04-24T18:31:40Z",
+      "side": 1,
+      "message": "$(dir $@)",
+      "range": {
+        "startLine": 65,
+        "startChar": 10,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "309d9a70_81b9af10",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2015-04-24T18:31:40Z",
+      "side": 1,
+      "message": "$\u003c \u003e $@",
+      "range": {
+        "startLine": 66,
+        "startChar": 1,
+        "endLine": 66,
+        "endChar": 48
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0d43e30_78d80b19",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2015-04-24T18:31:40Z",
+      "side": 1,
+      "message": "If you use LOCAL_GENERATED_SOURCES you don\u0027t need the ../..:\nLOCAL_GENERATED_SOURCES :\u003d $(conscrypt_gen_java_files)",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0d43e30_783c8b90",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1003981
+      },
+      "writtenOn": "2015-04-24T18:31:40Z",
+      "side": 1,
+      "message": "conscrypt_generate_constants_exe :\u003d\nconscrypt_gen_java_files :\u003d",
+      "range": {
+        "startLine": 298,
+        "startChar": 18,
+        "endLine": 298,
+        "endChar": 20
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
