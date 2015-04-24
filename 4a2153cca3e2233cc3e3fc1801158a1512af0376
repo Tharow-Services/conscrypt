@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b0cfca9d_fe4d3551",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-04-24T18:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10a416b9_55fcdab1",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 103
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a416b9_f258848e",
         "filename": "Android.mk",
         "patchSetId": 3
@@ -71,6 +95,54 @@
     },
     {
       "key": {
+        "uuid": "9070061a_fae6a6b1",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-04-24T18:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10a416b9_f258848e",
+      "range": {
+        "startLine": 62,
+        "startChar": 22,
+        "endLine": 62,
+        "endChar": 36
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9070061a_dad9eaf6",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-04-24T18:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10a416b9_d5e52a24",
+      "range": {
+        "startLine": 62,
+        "startChar": 1,
+        "endLine": 62,
+        "endChar": 11
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a416b9_1596d247",
         "filename": "Android.mk",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2015-04-24T18:35:39Z",
       "side": 1,
       "message": "No need to use $(LOCAL_PATH) here. Just use:\n$(conscryt_gen_java_files) : $(conscrypt_generate_constants_exe)",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 39
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0cfca9d_5e3f8986",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-04-24T18:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10a416b9_1596d247",
       "range": {
         "startLine": 64,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9070061a_1ae462a8",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-04-24T18:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "309d9a70_3e4ca2ce",
+      "range": {
+        "startLine": 65,
+        "startChar": 10,
+        "endLine": 65,
+        "endChar": 37
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "309d9a70_81b9af10",
         "filename": "Android.mk",
         "patchSetId": 3
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "706b9231_cc113ed6",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-04-24T18:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "309d9a70_81b9af10",
+      "range": {
+        "startLine": 66,
+        "startChar": 1,
+        "endLine": 66,
+        "endChar": 48
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0d43e30_78d80b19",
         "filename": "Android.mk",
         "patchSetId": 3
@@ -151,6 +295,30 @@
       "writtenOn": "2015-04-24T18:31:40Z",
       "side": 1,
       "message": "If you use LOCAL_GENERATED_SOURCES you don\u0027t need the ../..:\nLOCAL_GENERATED_SOURCES :\u003d $(conscrypt_gen_java_files)",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 44
+      },
+      "revId": "4a2153cca3e2233cc3e3fc1801158a1512af0376",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0cfca9d_be47bd2d",
+        "filename": "Android.mk",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-04-24T18:52:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0d43e30_78d80b19",
       "range": {
         "startLine": 72,
         "startChar": 0,
