@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d0d99e70_b7e34ace",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7205,
+      "author": {
+        "id": 1003966
+      },
+      "writtenOn": "2015-04-25T03:57:51Z",
+      "side": 1,
+      "message": "Based on my reading of \"man 2 write\", it\u0027s also possible for write to return 0 instead of an error. So I guess we need to check that write_result also isn\u0027t zero.\n\n(same for read above)",
+      "revId": "15ef7419ba9ad4b610b342c6b173855e2bace0fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
