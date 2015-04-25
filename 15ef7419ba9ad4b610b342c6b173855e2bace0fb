@@ -16,6 +16,23 @@
       "revId": "15ef7419ba9ad4b610b342c6b173855e2bace0fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b0d42a38_a16b06ee",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7206,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2015-04-25T04:12:11Z",
+      "side": 1,
+      "message": "this is a long-winded way to say TEMP_FAILURE_RETRY...",
+      "revId": "15ef7419ba9ad4b610b342c6b173855e2bace0fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
