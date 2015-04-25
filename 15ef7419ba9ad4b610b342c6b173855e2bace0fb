@@ -33,6 +33,24 @@
       "revId": "15ef7419ba9ad4b610b342c6b173855e2bace0fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0f222e5_b5f3481c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7206,
+      "author": {
+        "id": 1003966
+      },
+      "writtenOn": "2015-04-25T04:16:25Z",
+      "side": 1,
+      "message": "... For whatever reason, I thought TEMP_FAILURE_RETRY stopped after 5 retries. I don\u0027t know why I thought that, and it\u0027s clearly not in the code. Ugh, getting late...",
+      "parentUuid": "b0d42a38_a16b06ee",
+      "revId": "15ef7419ba9ad4b610b342c6b173855e2bace0fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
