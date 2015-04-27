@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "b0d42a38_451c65eb",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7205,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-04-27T19:59:40Z",
+      "side": 1,
+      "message": "This is a standard \"errno loop\". Certainly it\u0027s possible for the write to fail once this loop has completed, but the original code wasn\u0027t checking for that anyway.",
+      "parentUuid": "d0d99e70_b7e34ace",
+      "revId": "15ef7419ba9ad4b610b342c6b173855e2bace0fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0d42a38_a16b06ee",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 1
