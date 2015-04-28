@@ -7868,7 +7868,7 @@ static void NativeCrypto_SSL_set1_tls_channel_id(JNIEnv* env, jclass,
     // SSL_set1_tls_channel_id expects to take ownership of the EVP_PKEY, but
     // we have an external reference from the caller such as an OpenSSLKey,
     // so we manually increment the reference count here.
-    CRYPTO_add(&pkey->references,+1,CRYPTO_LOCK_EVP_PKEY);
+    CRYPTO_add((int*) &pkey->references,+1,CRYPTO_LOCK_EVP_PKEY);
 
     JNI_TRACE("ssl=%p SSL_set1_tls_channel_id => ok", ssl);
 }
@@ -7898,7 +7898,7 @@ static void NativeCrypto_SSL_use_PrivateKey(JNIEnv* env, jclass, jlong ssl_addre
     // SSL_use_PrivateKey expects to take ownership of the EVP_PKEY,
     // but we have an external reference from the caller such as an
     // OpenSSLKey, so we manually increment the reference count here.
-    CRYPTO_add(&pkey->references,+1,CRYPTO_LOCK_EVP_PKEY);
+    CRYPTO_add((int*) &pkey->references,+1,CRYPTO_LOCK_EVP_PKEY);
 
     JNI_TRACE("ssl=%p SSL_use_PrivateKey => ok", ssl);
 }
