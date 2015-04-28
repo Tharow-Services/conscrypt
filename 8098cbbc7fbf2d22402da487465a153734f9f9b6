@@ -1,0 +1,8 @@
+Verified+1: Kenny Root <kroot@google.com>
+Code-Review+1: Adam Langley <agl@google.com>
+Code-Review+2: Kenny Root <kroot@google.com>
+Submitted-by: Kenny Root <kroot@google.com>
+Submitted-at: Tue, 28 Apr 2015 17:39:11 +0000
+Reviewed-on: https://android-review.googlesource.com/148489
+Project: platform/external/conscrypt
+Branch: refs/heads/master
