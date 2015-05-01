@@ -16,6 +16,24 @@
       "revId": "e90de8c5996242d3bc3e47d72e94899f8af15db9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d078be71_051abca4",
+        "filename": "src/compat/java/org/conscrypt/NativeCryptoJni.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-01T20:44:00Z",
+      "side": 1,
+      "message": "I initially changed this to be a separate file for GmsCore. I might still do that.",
+      "parentUuid": "b0598aea_c8008f8a",
+      "revId": "e90de8c5996242d3bc3e47d72e94899f8af15db9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
