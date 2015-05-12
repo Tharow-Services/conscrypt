@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d338121_fbbcefa8",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-12T17:12:00Z",
+      "side": 1,
+      "message": "this is valid C++, but it\u0027s an odd way of writing a cast. No problem if it\u0027s the local style or such, but (ssize_t) array.size() would be typical C and static_cast\u003cssize_t\u003e(array.size()) would be typical C++.",
+      "range": {
+        "startLine": 379,
+        "startChar": 66,
+        "endLine": 379,
+        "endChar": 73
+      },
+      "revId": "39ac10f40b7a3a531187654b74173dc7fb6b5f5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd43c57f_33acba16",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 379,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-12T17:12:00Z",
+      "side": 1,
+      "message": "Slightly odd that a \"check\" function returns true for \"bad\". ARRAY_OFFSET_INVALID maybe?",
+      "range": {
+        "startLine": 379,
+        "startChar": 8,
+        "endLine": 379,
+        "endChar": 27
+      },
+      "revId": "39ac10f40b7a3a531187654b74173dc7fb6b5f5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad3e91ea_3a8ac8b2",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 10
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-12T17:12:00Z",
+      "side": 1,
+      "message": "(ditto here)",
+      "revId": "39ac10f40b7a3a531187654b74173dc7fb6b5f5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
