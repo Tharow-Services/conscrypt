@@ -71,6 +71,24 @@
     },
     {
       "key": {
+        "uuid": "2d338121_30c316de",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4887,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T17:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d3a3df6_40008e88",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d5c6163_19d72b78",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 5
@@ -88,6 +106,24 @@
     },
     {
       "key": {
+        "uuid": "cd43c57f_78faa1f0",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4891,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T17:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d5c6163_19d72b78",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d3a3df6_600f92b6",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 5
@@ -99,6 +135,24 @@
       "writtenOn": "2015-05-12T12:39:42Z",
       "side": 1,
       "message": "Seems to fit in previous line.",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad3e91ea_ff0a1220",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4900,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T17:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d3a3df6_600f92b6",
       "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -175,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "ad3e91ea_3f1e3a62",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 5013,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T17:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d531d56_58cd1d04",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d3a3df6_a0107ad2",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 5
@@ -186,6 +258,24 @@
       "writtenOn": "2015-05-12T12:39:42Z",
       "side": 1,
       "message": "Repeated code?",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d338121_b0ae0612",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 5048,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T17:44:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d3a3df6_a0107ad2",
       "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
