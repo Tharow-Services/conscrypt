@@ -670,7 +670,6 @@ public abstract class OpenSSLCipher extends CipherSpi {
             protected void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
                 switch (keyLength) {
                     case 16: // AES 128
-                    case 24: // AES 192
                     case 32: // AES 256
                         return;
                     default:
