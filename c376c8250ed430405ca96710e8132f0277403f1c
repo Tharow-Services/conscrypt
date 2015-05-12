@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0d3a3df6_809e1637",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T10:28:48Z",
+      "side": 1,
+      "message": "I see some non-trivial changes to the logic here. Maybe some we need some tests to make sure it works as intended? Where is this tested? (A trivial search for OpenSSLCipherTest doesn\u0027t return anything).",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d5c6163_d9bc93a9",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T10:28:48Z",
+      "side": 1,
+      "message": "Same here.",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d3a3df6_20cd8a37",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T10:28:48Z",
+      "side": 1,
+      "message": "I doubt there are tests for this class as you\u0027re creating it here. Yet there\u0027s a lot of logic on it. Adding tests maybe?",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
