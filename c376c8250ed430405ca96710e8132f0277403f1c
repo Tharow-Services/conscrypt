@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ad3e91ea_ffb85254",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T16:37:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d5c6163_79d2a7d6",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d3a3df6_809e1637",
         "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2015-05-12T10:28:48Z",
       "side": 1,
       "message": "I see some non-trivial changes to the logic here. Maybe some we need some tests to make sure it works as intended? Where is this tested? (A trivial search for OpenSSLCipherTest doesn\u0027t return anything).",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d338121_f01a4eee",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T16:37:52Z",
+      "side": 1,
+      "message": "This is tested by CipherTest. In refactoring, I noticed that the comment in 451-452 was special cased in CipherTest (e.g., it didn\u0027t actually match any behavior of other implementations), so I removed it. I changed the tests to enforce that it conforms to other implementations.",
+      "parentUuid": "0d3a3df6_809e1637",
       "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "ad3e91ea_3ff63a5f",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 357,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T16:37:52Z",
+      "side": 1,
+      "message": "Yes, this is all tested by CipherTest.",
+      "parentUuid": "2d5c6163_d9bc93a9",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d3a3df6_40f1ae65",
         "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
         "patchSetId": 2
@@ -70,6 +124,24 @@
     },
     {
       "key": {
+        "uuid": "ad3e91ea_bf01aac1",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T16:37:52Z",
+      "side": 1,
+      "message": "Whoops, that\u0027s what I get for using Eclipse extract method. I didn\u0027t notice that it sets the encoded key, but it makes sense to rename this and just not have it return the encoded key.",
+      "parentUuid": "0d3a3df6_40f1ae65",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d3a3df6_20cd8a37",
         "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
         "patchSetId": 2
@@ -81,6 +153,24 @@
       "writtenOn": "2015-05-12T10:28:48Z",
       "side": 1,
       "message": "I doubt there are tests for this class as you\u0027re creating it here. Yet there\u0027s a lot of logic on it. Adding tests maybe?",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad3e91ea_1f189e26",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T16:37:52Z",
+      "side": 1,
+      "message": "CipherTest tests all this.",
+      "parentUuid": "0d3a3df6_20cd8a37",
       "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
