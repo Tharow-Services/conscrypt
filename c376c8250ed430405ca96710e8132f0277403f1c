@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "2d5c6163_79d2a7d6",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-05-12T10:35:49Z",
+      "side": 1,
+      "message": "document contract (here and below)",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d3a3df6_809e1637",
         "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
         "patchSetId": 2
@@ -30,6 +47,23 @@
       "writtenOn": "2015-05-12T10:28:48Z",
       "side": 1,
       "message": "Same here.",
+      "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d3a3df6_40f1ae65",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-05-12T10:35:49Z",
+      "side": 1,
+      "message": "it seems odd to me that a function named \"checkInitArgs\" has side effects.\n\ncheckAndSetEncodedKey ?",
       "revId": "c376c8250ed430405ca96710e8132f0277403f1c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
