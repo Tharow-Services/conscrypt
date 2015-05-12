@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "cd43c57f_b3b28ad4",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T16:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2d5c6163_9cdb2915",
+      "revId": "3a477bc0980325616e649c6789d8a7af260ad26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d531d56_9bd84ff2",
         "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
         "patchSetId": 4
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "ad3e91ea_3a2128cb",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T16:52:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d531d56_9bd84ff2",
+      "revId": "3a477bc0980325616e649c6789d8a7af260ad26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d3a3df6_03d9701b",
         "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
         "patchSetId": 4
@@ -47,6 +83,24 @@
       "writtenOn": "2015-05-12T16:48:27Z",
       "side": 1,
       "message": "yeah... so this is a nit but i think \n\n  if (mode !\u003d CBC) {\n    throw;\n  }\n\nis much clearer.  the same for switches that have 1 or 2 returns and a default throw.\n\nup to you.",
+      "revId": "3a477bc0980325616e649c6789d8a7af260ad26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd43c57f_5394e61a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-12T16:52:16Z",
+      "side": 1,
+      "message": "Oh, yeah, this used to have more, but we removed it since BoringSSL doesn\u0027t support it.",
+      "parentUuid": "0d3a3df6_03d9701b",
       "revId": "3a477bc0980325616e649c6789d8a7af260ad26d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
