@@ -4871,7 +4871,7 @@ static jlong NativeCrypto_EVP_aead_aes_128_gcm(JNIEnv*, jclass) {
     JNI_TRACE("EVP_aead_aes_128_gcm => ctx=%p", ctx);
     return reinterpret_cast<jlong>(ctx);
 #else
-    jniThrowRuntimeException("Not supported for OpenSSL");
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
     return 0;
 #endif
 }
@@ -4882,7 +4882,7 @@ static jlong NativeCrypto_EVP_aead_aes_256_gcm(JNIEnv*, jclass) {
     JNI_TRACE("EVP_aead_aes_256_gcm => ctx=%p", ctx);
     return reinterpret_cast<jlong>(ctx);
 #else
-    jniThrowRuntimeException("Not supported for OpenSSL");
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
     return NULL;
 #endif
 }
@@ -4914,7 +4914,11 @@ static jlong NativeCrypto_EVP_AEAD_CTX_init(JNIEnv* env, jclass, jlong evpAeadRe
     JNI_TRACE("EVP_AEAD_CTX_init(%p, %p, %d) => %p", evpAead, keyArray, tagLen, aeadCtx.get());
     return reinterpret_cast<jlong>(aeadCtx.release());
 #else
-    jniThrowRuntimeException("Not supported for OpenSSL");
+    UNUSED_ARGUMENT(env);
+    UNUSED_ARGUMENT(evpAeadRef);
+    UNUSED_ARGUMENT(keyArray);
+    UNUSED_ARGUMENT(tagLen);
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
     return 0;
 #endif
 }
@@ -4931,7 +4935,9 @@ static void NativeCrypto_EVP_AEAD_CTX_cleanup(JNIEnv* env, jclass, jlong evpAead
     EVP_AEAD_CTX_cleanup(evpAeadCtx);
     OPENSSL_free(evpAeadCtx);
 #else
-    jniThrowRuntimeException("Not supported for OpenSSL");
+    UNUSED_ARGUMENT(env);
+    UNUSED_ARGUMENT(evpAeadCtxRef);
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
 #endif
 }
 
@@ -4947,7 +4953,9 @@ static jint NativeCrypto_EVP_AEAD_max_overhead(JNIEnv* env, jclass, jlong evpAea
     JNI_TRACE("EVP_AEAD_max_overhead(%p) => %d", evpAead, maxOverhead);
     return maxOverhead;
 #else
-    jniThrowRuntimeException("Not supported for OpenSSL");
+    UNUSED_ARGUMENT(env);
+    UNUSED_ARGUMENT(evpAeadRef);
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
     return 0;
 #endif
 }
@@ -4964,7 +4972,9 @@ static jint NativeCrypto_EVP_AEAD_nonce_length(JNIEnv* env, jclass, jlong evpAea
     JNI_TRACE("EVP_AEAD_nonce_length(%p) => %d", evpAead, nonceLength);
     return nonceLength;
 #else
-    jniThrowRuntimeException("Not supported for OpenSSL");
+    UNUSED_ARGUMENT(env);
+    UNUSED_ARGUMENT(evpAeadRef);
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
     return 0;
 #endif
 }
@@ -4981,7 +4991,9 @@ static jint NativeCrypto_EVP_AEAD_max_tag_len(JNIEnv* env, jclass, jlong evpAead
     JNI_TRACE("EVP_AEAD_max_tag_len(%p) => %d", evpAead, maxTagLen);
     return maxTagLen;
 #else
-    jniThrowRuntimeException("Not supported for OpenSSL");
+    UNUSED_ARGUMENT(env);
+    UNUSED_ARGUMENT(evpAeadRef);
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
     return 0;
 #endif
 }
@@ -5065,7 +5077,16 @@ static jint NativeCrypto_EVP_AEAD_CTX_seal(JNIEnv* env, jclass, jobject ctxRef, 
     return evp_aead_ctx_op(env, ctxRef, outArray, outOffset, nonceArray, inArray, inOffset,
                            inLength, aadArray, EVP_AEAD_CTX_seal);
 #else
-    jniThrowRuntimeException("Not supported for OpenSSL");
+    UNUSED_ARGUMENT(env);
+    UNUSED_ARGUMENT(ctxRef);
+    UNUSED_ARGUMENT(outArray);
+    UNUSED_ARGUMENT(outOffset);
+    UNUSED_ARGUMENT(nonceArray);
+    UNUSED_ARGUMENT(inArray);
+    UNUSED_ARGUMENT(inOffset);
+    UNUSED_ARGUMENT(inLength);
+    UNUSED_ARGUMENT(aadArray);
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
     return 0;
 #endif
 }
@@ -5077,7 +5098,16 @@ static jint NativeCrypto_EVP_AEAD_CTX_open(JNIEnv* env, jclass, jobject ctxRef, 
     return evp_aead_ctx_op(env, ctxRef, outArray, outOffset, nonceArray, inArray, inOffset,
                            inLength, aadArray, EVP_AEAD_CTX_open);
 #else
-    jniThrowRuntimeException("Not supported for OpenSSL");
+    UNUSED_ARGUMENT(env);
+    UNUSED_ARGUMENT(ctxRef);
+    UNUSED_ARGUMENT(outArray);
+    UNUSED_ARGUMENT(outOffset);
+    UNUSED_ARGUMENT(nonceArray);
+    UNUSED_ARGUMENT(inArray);
+    UNUSED_ARGUMENT(inOffset);
+    UNUSED_ARGUMENT(inLength);
+    UNUSED_ARGUMENT(aadArray);
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
     return 0;
 #endif
 }
