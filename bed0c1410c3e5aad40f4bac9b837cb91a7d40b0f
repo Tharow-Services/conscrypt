@@ -37,6 +37,74 @@
     },
     {
       "key": {
+        "uuid": "0d3a3df6_c0b13e74",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 967,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T12:39:42Z",
+      "side": 1,
+      "message": "Referring to a class this way makes shiver a little :) Can we just import Arrays? If the problem is that by reading \"Arrays\" you don\u0027t know it\u0027s a conscrypt class, what about renaming it to ConscryptUtilArrays?",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d3a3df6_40008e88",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4887,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T12:39:42Z",
+      "side": 1,
+      "message": "Line too long?",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d5c6163_19d72b78",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4891,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T12:39:42Z",
+      "side": 1,
+      "message": "Move to previous line?",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d3a3df6_600f92b6",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4900,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T12:39:42Z",
+      "side": 1,
+      "message": "Seems to fit in previous line.",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd43c57f_07c05c29",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 5
@@ -66,6 +134,58 @@
       "side": 1,
       "message": "Oh, yes, fixed that in next patchset.",
       "parentUuid": "cd43c57f_07c05c29",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d3a3df6_c013fedd",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4917,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T12:39:42Z",
+      "side": 1,
+      "message": "I don\u0027t see that...",
+      "parentUuid": "cd43c57f_07185c26",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d531d56_58cd1d04",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 5013,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T12:39:42Z",
+      "side": 1,
+      "message": "I\u0027m a bit concerned that the size arithmetic here is not tested. If there is a forgotten shift, or a wrong sign, or an off-by-one error, would that go undetected?",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d3a3df6_a0107ad2",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 5048,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-05-12T12:39:42Z",
+      "side": 1,
+      "message": "Repeated code?",
       "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
