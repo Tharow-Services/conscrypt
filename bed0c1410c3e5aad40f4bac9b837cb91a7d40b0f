@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad3e91ea_a6336ca1",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 879,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-12T01:00:50Z",
+      "side": 1,
+      "message": "I don\u0027t know Java so I\u0027m assuming that synchronisation isn\u0027t a problem here.",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd43c57f_07c05c29",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 4917,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-12T01:00:50Z",
+      "side": 1,
+      "message": "missing a call to EVP_AEAD_CTX_cleanup itself?",
+      "revId": "bed0c1410c3e5aad40f4bac9b837cb91a7d40b0f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
