@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d5c6163_9cdb2915",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-05-12T16:48:27Z",
+      "side": 1,
+      "message": "nit: document return value : \"In particular, this must return a non-negative integer on success, and throw on error\" given how it\u0027s used, it\u0027s easy to have bugs due to accidental \"return -1\"s",
+      "revId": "3a477bc0980325616e649c6789d8a7af260ad26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d531d56_9bd84ff2",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 445,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-05-12T16:48:27Z",
+      "side": 1,
+      "message": "final ?",
+      "revId": "3a477bc0980325616e649c6789d8a7af260ad26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d3a3df6_03d9701b",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 762,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-05-12T16:48:27Z",
+      "side": 1,
+      "message": "yeah... so this is a nit but i think \n\n  if (mode !\u003d CBC) {\n    throw;\n  }\n\nis much clearer.  the same for switches that have 1 or 2 returns and a default throw.\n\nup to you.",
+      "revId": "3a477bc0980325616e649c6789d8a7af260ad26d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
