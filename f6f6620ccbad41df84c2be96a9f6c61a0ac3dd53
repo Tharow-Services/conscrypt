@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed2329ea_76ae3ee8",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 909,
+      "author": {
+        "id": 1006780
+      },
+      "writtenOn": "2015-05-13T19:31:55Z",
+      "side": 1,
+      "message": "I\u0027m curious why reflection is necessary here. This is public API, no? It shows up here:\n\nhttps://cs.corp.google.com/#android/prebuilts/sdk/api/21.txt\u0026l\u003d51386\n\nI ask because we have to call init() for every encrypt/decrypt call to update the params (because they contain the nonce) and this reflection seems quite slow (per the traceview, and per expectation).\n\nEven if it is for some reason necessary, it seems you could hold onto the class/methods so the cost is just in the invoke() calls each time.",
+      "range": {
+        "startLine": 909,
+        "startChar": 50,
+        "endLine": 909,
+        "endChar": 84
+      },
+      "revId": "f6f6620ccbad41df84c2be96a9f6c61a0ac3dd53",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
