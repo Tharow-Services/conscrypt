@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cd1ae5b3_af521969",
+        "filename": "src/main/java/org/conscrypt/OpenSSLECGroupContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-13T16:54:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6d0f3979_83c29eb2",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 179
+      },
+      "revId": "26cdfdb27896b6da83c1fcda3eb9f2e94275b8e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d146d89_c71dc090",
         "filename": "src/main/java/org/conscrypt/OpenSSLECGroupContext.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "ed2329ea_50bd02c6",
+        "filename": "src/main/java/org/conscrypt/OpenSSLECGroupContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-13T16:54:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d146d89_c71dc090",
+      "range": {
+        "startLine": 149,
+        "startChar": 12,
+        "endLine": 149,
+        "endChar": 24
+      },
+      "revId": "26cdfdb27896b6da83c1fcda3eb9f2e94275b8e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d146d89_8723c8d3",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2015-05-13T03:40:35Z",
       "side": 1,
       "message": "throwExceptionIfNecessary(...) turns the error state into something actionable by the developer.",
+      "range": {
+        "startLine": 3526,
+        "startChar": 8,
+        "endLine": 3526,
+        "endChar": 32
+      },
+      "revId": "26cdfdb27896b6da83c1fcda3eb9f2e94275b8e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd1ae5b3_faab3180",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 3526,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-13T16:54:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8d146d89_8723c8d3",
       "range": {
         "startLine": 3526,
         "startChar": 8,
