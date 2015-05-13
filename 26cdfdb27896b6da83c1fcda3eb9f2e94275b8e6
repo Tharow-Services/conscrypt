@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "8d146d89_c71dc090",
+        "filename": "src/main/java/org/conscrypt/OpenSSLECGroupContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-13T03:42:07Z",
+      "side": 1,
+      "message": "This should probably throw InvalidAlgorithmParameterException, but throwExceptionIfNecessary in native code should be creating the exception.",
+      "range": {
+        "startLine": 149,
+        "startChar": 12,
+        "endLine": 149,
+        "endChar": 24
+      },
+      "revId": "26cdfdb27896b6da83c1fcda3eb9f2e94275b8e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d146d89_8723c8d3",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 2
