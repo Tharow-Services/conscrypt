@@ -28,8 +28,10 @@ import java.security.InvalidKeyException;
 import java.security.PrivateKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.ECParameterSpec;
 
+import javax.crypto.spec.GCMParameterSpec;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
@@ -299,5 +301,16 @@ public class Platform {
             return new KitKatPlatformOpenSSLSocketAdapterFactory(factory);
         }
         return factory;
+    }
+
+    /**
+     * Cast this spec to a GCMParameterSpec if the class is supported on this platform version
+     * and the provided params object is a GCMParameterSpec instance.
+     */
+    public static GCMParameterSpec getGcmParameterSpec(AlgorithmParameterSpec params) {
+        if (Build.VERSION.SDK_INT < 19 || !(params instanceof GCMParameterSpec)) {
+            return null;
+        }
+        return (GCMParameterSpec) params;
     }
 }

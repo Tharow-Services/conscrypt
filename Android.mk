@@ -139,7 +139,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(call all-java-files-under,src/main/java)
 LOCAL_SRC_FILES += $(call all-java-files-under,src/compat/java)
 LOCAL_GENERATED_SOURCES := $(conscrypt_gen_java_files)
-LOCAL_SDK_VERSION := 9
+LOCAL_SDK_VERSION := 19
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := conscrypt_unbundled
