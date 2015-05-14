@@ -19,7 +19,6 @@ package org.conscrypt;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.security.AlgorithmParameters;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -42,6 +41,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.ShortBufferException;
+import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import org.conscrypt.util.ArrayUtils;
@@ -49,6 +49,7 @@ import org.conscrypt.util.EmptyArray;
 import org.conscrypt.NativeConstants;
 import org.conscrypt.NativeRef.EVP_AEAD_CTX;
 import org.conscrypt.NativeRef.EVP_CIPHER_CTX;
+import org.conscrypt.Platform;
 
 public abstract class OpenSSLCipher extends CipherSpi {
 
@@ -904,25 +905,10 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 iv = null;
                 tagLenBits = 0;
             } else {
-                Class<?> gcmSpecClass;
-                try {
-                    gcmSpecClass = Class.forName("javax.crypto.spec.GCMParameterSpec");
-                } catch (ClassNotFoundException e) {
-                    gcmSpecClass = null;
-                }
-
-                if (gcmSpecClass != null && gcmSpecClass.isAssignableFrom(params.getClass())) {
-                    try {
-                        Method getTLenMethod = gcmSpecClass.getMethod("getTLen");
-                        Method getIVMethod = gcmSpecClass.getMethod("getIV");
-                        tagLenBits = (int) getTLenMethod.invoke(params);
-                        iv = (byte[]) getIVMethod.invoke(params);
-                    } catch (NoSuchMethodException | IllegalAccessException e) {
-                        throw new RuntimeException("GCMParameterSpec lacks expected methods", e);
-                    } catch (InvocationTargetException e) {
-                        throw new RuntimeException("Could not fetch GCM parameters",
-                                e.getTargetException());
-                    }
+                GCMParameterSpec gcmParams = Platform.getGcmParameterSpec(params);
+                if (gcmParams != null) {
+                    tagLenBits = gcmParams.getTLen();
+                    iv = gcmParams.getIV();
                 } else if (params instanceof IvParameterSpec) {
                     IvParameterSpec ivParams = (IvParameterSpec) params;
                     iv = ivParams.getIV();

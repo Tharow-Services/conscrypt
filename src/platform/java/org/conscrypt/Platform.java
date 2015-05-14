@@ -34,7 +34,10 @@ import java.net.SocketImpl;
 import java.security.PrivateKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.ECParameterSpec;
+
+import javax.crypto.spec.GCMParameterSpec;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
@@ -160,5 +163,16 @@ class Platform {
      */
     public static SSLSocketFactory wrapSocketFactoryIfNeeded(OpenSSLSocketFactoryImpl factory) {
         return factory;
+    }
+
+    /**
+     * Cast this spec to a GCMParameterSpec if the provided params object is a GCMParameterSpec
+     * instance. We can skip the SDK version check in the platform.
+     */
+    public static GCMParameterSpec getGcmParameterSpec(AlgorithmParameterSpec params) {
+        if (!(params instanceof GCMParameterSpec)) {
+            return null;
+        }
+        return (GCMParameterSpec) params;
     }
 }
