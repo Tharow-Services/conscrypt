@@ -5119,7 +5119,7 @@ static jint evp_aead_ctx_op(JNIEnv* env, jobject ctxRef, jbyteArray outArray, ji
     }
 
     if (ARRAY_OFFSET_INVALID(outBytes, outOffset)) {
-        JNI_TRACE("evp_aead_ctx_op(%p, %p, %d, %p, %d, %d, %p)", ctx, outArray, outOffset,
+        JNI_TRACE("evp_aead_ctx_op(%p, %p, %d, %p, %p, %d, %d, %p)", ctx, outArray, outOffset,
                 nonceArray, inArray, inOffset, inLength, aadArray);
         jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", "out");
         return 0;
@@ -5131,7 +5131,7 @@ static jint evp_aead_ctx_op(JNIEnv* env, jobject ctxRef, jbyteArray outArray, ji
     }
 
     if (ARRAY_OFFSET_LENGTH_INVALID(inBytes, inOffset, inLength)) {
-        JNI_TRACE("evp_aead_ctx_op(%p, %p, %d, %p, %d, %d, %p)", ctx, outArray, outOffset,
+        JNI_TRACE("evp_aead_ctx_op(%p, %p, %d, %p, %p, %d, %d, %p)", ctx, outArray, outOffset,
                 nonceArray, inArray, inOffset, inLength, aadArray);
         jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", "in");
         return 0;
