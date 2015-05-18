@@ -4111,6 +4111,7 @@ static jint NativeCrypto_ECDH_compute_key(JNIEnv* env, jclass,
     }
 
     if (pubPkey == NULL) {
+        JNI_TRACE("ECDH_compute_key(%p) => pubPkey == null", pubPkey);
         jniThrowNullPointerException(env, "pubPkey == null");
         return -1;
     }
@@ -4118,25 +4119,26 @@ static jint NativeCrypto_ECDH_compute_key(JNIEnv* env, jclass,
     Unique_EC_KEY pubkey(EVP_PKEY_get1_EC_KEY(pubPkey));
     if (pubkey.get() == NULL) {
         JNI_TRACE("ECDH_compute_key(%p) => can't get public key", pubPkey);
-        throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY public");
+        throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY public", throwInvalidKeyException);
         return -1;
     }
 
     const EC_POINT* pubkeyPoint = EC_KEY_get0_public_key(pubkey.get());
     if (pubkeyPoint == NULL) {
         JNI_TRACE("ECDH_compute_key(%p) => can't get public key point", pubPkey);
-        throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY public");
+        throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY public", throwInvalidKeyException);
         return -1;
     }
 
     if (privPkey == NULL) {
+        JNI_TRACE("ECDH_compute_key(%p) => privKey == null", pubPkey);
         jniThrowNullPointerException(env, "privPkey == null");
         return -1;
     }
 
     Unique_EC_KEY privkey(EVP_PKEY_get1_EC_KEY(privPkey));
     if (privkey.get() == NULL) {
-        throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY private");
+        throwExceptionIfNecessary(env, "EVP_PKEY_get1_EC_KEY private", throwInvalidKeyException);
         return -1;
     }
 
@@ -4148,10 +4150,12 @@ static jint NativeCrypto_ECDH_compute_key(JNIEnv* env, jclass,
             NULL // No KDF
             );
     if (outputLength == -1) {
-        throwExceptionIfNecessary(env, "ECDH_compute_key");
+        JNI_TRACE("ECDH_compute_key(%p) => outputLength = -1", pubPkey);
+        throwExceptionIfNecessary(env, "ECDH_compute_key", throwInvalidKeyException);
         return -1;
     }
 
+    JNI_TRACE("ECDH_compute_key(%p) => outputLength=%d", pubPkey, outputLength);
     return outputLength;
 }
 
