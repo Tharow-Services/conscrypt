@@ -22,6 +22,30 @@
       "revId": "38619e3d9387cba409a1b518c8ea60b9a598832e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0dbb1df3_a17a0436",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 6556,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-19T00:56:09Z",
+      "side": 1,
+      "message": "If you gathered together every public CRL on the web, they might be 256MB all together.\n\nNormally however, it\u0027s much smaller. (Although GoDaddy has a \u003e 32MB CRL somewhere.)",
+      "parentUuid": "4dc1956b_1dafd75e",
+      "range": {
+        "startLine": 6556,
+        "startChar": 41,
+        "endLine": 6556,
+        "endChar": 94
+      },
+      "revId": "38619e3d9387cba409a1b518c8ea60b9a598832e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
