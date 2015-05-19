@@ -16,6 +16,24 @@
       "revId": "236d0fcc9cf9710fdf8dd000d2bc50eede25d784",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d37016d_f59d323c",
+        "filename": "src/gen/native/generate_constants.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-19T23:18:00Z",
+      "side": 1,
+      "message": "We\u0027re not actually pulling any constants from there. I guess I could do this and only check for EVP_AEAD_DEFAULT_TAG_LENGTH below.",
+      "parentUuid": "adfdb1c1_5108a759",
+      "revId": "236d0fcc9cf9710fdf8dd000d2bc50eede25d784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
