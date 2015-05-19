@@ -21,6 +21,7 @@
 #include <openssl/rsa.h>
 #include <openssl/ssl.h>
 #include <openssl/x509v3.h>
+#include <openssl/evp.h>
 
 static const char kCopyright[] =
     "/* Copyright (C) 2015 The Android Open Source Project\n"
@@ -44,8 +45,8 @@ int main(int /* argc */, char ** /* argv */) {
   printf("package org.conscrypt;\n\n");
   printf("public final class NativeConstants {\n");
 
-  printf("    public static final boolean IS_BORINGSSL = %s;\n",
-#if defined(OPENSSL_IS_BORINGSSL)
+  printf("    public static final boolean HAS_EVP_AEAD = %s;\n",
+#if defined(EVP_AEAD_DEFAULT_TAG_LENGTH) || defined(OPENSSL_IS_BORINGSSL)
          "true"
 #else
          "false"
