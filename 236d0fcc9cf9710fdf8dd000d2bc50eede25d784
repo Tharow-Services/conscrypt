@@ -34,6 +34,24 @@
       "revId": "236d0fcc9cf9710fdf8dd000d2bc50eede25d784",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d37016d_556bbe9f",
+        "filename": "src/gen/native/generate_constants.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-19T23:19:20Z",
+      "side": 1,
+      "message": "EVP_AEAD_DEFAULT_TAG_LENGTH comes from aead.h. evp.h happens to pull it in as a compatibility measure, but code should include what it uses as a general rule.",
+      "parentUuid": "2d37016d_f59d323c",
+      "revId": "236d0fcc9cf9710fdf8dd000d2bc50eede25d784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
