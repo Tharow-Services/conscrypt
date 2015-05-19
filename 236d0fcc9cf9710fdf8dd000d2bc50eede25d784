@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "adfdb1c1_5108a759",
+        "filename": "src/gen/native/generate_constants.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-19T23:08:10Z",
+      "side": 1,
+      "message": "#if defined(OPENSSL_IS_BORINGSSL)\n#include \u003copenssl/aead.h\u003e\n#endif",
+      "revId": "236d0fcc9cf9710fdf8dd000d2bc50eede25d784",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
