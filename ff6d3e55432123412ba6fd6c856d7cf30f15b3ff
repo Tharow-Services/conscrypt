@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4dc1956b_9dfe477a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-19T00:10:25Z",
+      "side": 1,
+      "message": "Whoops, don\u0027t want that on.",
+      "range": {
+        "startLine": 93,
+        "startChar": 1,
+        "endLine": 93,
+        "endChar": 7
+      },
+      "revId": "ff6d3e55432123412ba6fd6c856d7cf30f15b3ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
