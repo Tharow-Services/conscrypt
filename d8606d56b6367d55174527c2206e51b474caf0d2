@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2d6e217b_dd7ccb6f",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-20T20:48:39Z",
+      "side": 1,
+      "message": "SSL_CIPHER_get_kx_name never returns this. (It would be a fixed-DH certificate, which has basically never been seen in the world nor issued by anyone.)",
+      "revId": "d8606d56b6367d55174527c2206e51b474caf0d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "adfdb1c1_d6a5a42a",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 926,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-20T20:48:39Z",
+      "side": 1,
+      "message": "(ditto)",
+      "revId": "d8606d56b6367d55174527c2206e51b474caf0d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d7ad934_342731b1",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 928,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-05-20T20:48:39Z",
+      "side": 1,
+      "message": "(ditto)",
+      "revId": "d8606d56b6367d55174527c2206e51b474caf0d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
