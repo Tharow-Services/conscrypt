@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "6d7ad934_087d3669",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 924,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-20T22:57:02Z",
+      "side": 1,
+      "message": "Agreed.",
+      "parentUuid": "6d7ad934_08945619",
+      "revId": "d8606d56b6367d55174527c2206e51b474caf0d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "adfdb1c1_d6a5a42a",
         "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 1
