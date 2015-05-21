@@ -12,6 +12,7 @@ sourceSets.main {
     java.srcDirs = [
         'src/main/java',
         'src/compat/java',
+        '../../out/target/common/gen/conscrypt',
     ]
     compileClasspath += sourceSets.stub.output
 }
