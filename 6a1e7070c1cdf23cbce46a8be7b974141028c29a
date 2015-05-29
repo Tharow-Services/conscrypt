@@ -22,6 +22,30 @@
       "revId": "6a1e7070c1cdf23cbce46a8be7b974141028c29a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b9f6d849_5c095433",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3152,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-05-29T15:54:41Z",
+      "side": 1,
+      "message": "Just an approximation. We can push an error on the OpenSSL stack from the engine to help with the message, though.",
+      "parentUuid": "0d54fde2_96d09a7a",
+      "range": {
+        "startLine": 3152,
+        "startChar": 12,
+        "endLine": 3152,
+        "endChar": 36
+      },
+      "revId": "6a1e7070c1cdf23cbce46a8be7b974141028c29a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
