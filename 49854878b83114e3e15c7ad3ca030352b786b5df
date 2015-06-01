@@ -16,6 +16,24 @@
       "revId": "49854878b83114e3e15c7ad3ca030352b786b5df",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59115c41_efe4e1ce",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 4593,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-06-01T19:04:48Z",
+      "side": 1,
+      "message": "That\u0027s fine. We want exceptions for things that are errors like \"signature is incorrect length\" but we just want \"false\" returned from the verify operation if everything other than the actual bits fed in were okay.",
+      "parentUuid": "f942104b_ef0861e0",
+      "revId": "49854878b83114e3e15c7ad3ca030352b786b5df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
