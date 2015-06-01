@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f942104b_ef0861e0",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 4593,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-06-01T18:52:05Z",
+      "side": 1,
+      "message": "I don\u0027t think that OpenSSL/BoringSSL ensure that no errors will be queued in the event that the signature is incorrect, as opposed to the case where an error occured when trying to check it. (Indeed, the removed comment suggests exactly this.)\n\nSo the behaviour of this function may be to either throw or return zero in the event of an incorrect signature. It might be simplier if it *always* threw an exception in the case of an incorrect signature, but up to you.",
+      "revId": "49854878b83114e3e15c7ad3ca030352b786b5df",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
