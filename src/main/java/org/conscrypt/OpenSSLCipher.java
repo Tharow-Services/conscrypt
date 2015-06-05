@@ -471,6 +471,10 @@ public abstract class OpenSSLCipher extends CipherSpi {
             super(mode, padding);
         }
 
+        public EVP_CIPHER_CTX getEvpCipherCtx() {
+            return cipherCtx;
+        }
+
         @Override
         protected void engineInitInternal(byte[] encodedKey, AlgorithmParameterSpec params,
                 SecureRandom random) throws InvalidKeyException,
@@ -588,6 +592,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
             if (modeBlockSize == 1) {
                 return inputLen;
             } else {
+                // The buffer is used here to calculate the output size
                 final int buffered = NativeCrypto.get_EVP_CIPHER_CTX_buf_len(cipherCtx);
                 if (getPadding() == Padding.NOPADDING) {
                     return buffered + inputLen;
