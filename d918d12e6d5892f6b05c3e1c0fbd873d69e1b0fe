@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "79c9c09b_935e3c6d",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-06-08T12:39:28Z",
+      "side": 1,
+      "message": "style nit : IMO it\u0027s clearer to just move this above \"final int extraBlockSize\" so that we can write this ternary in a compact form. that way it\u0027s clearer to read the logic, and easier to understand *why* the logic is in place.",
+      "revId": "d918d12e6d5892f6b05c3e1c0fbd873d69e1b0fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
