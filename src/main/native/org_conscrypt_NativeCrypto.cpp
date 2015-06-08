@@ -4858,6 +4858,20 @@ static jint NativeCrypto_get_EVP_CIPHER_CTX_buf_len(JNIEnv* env, jclass, jobject
     return buf_len;
 }
 
+static jboolean NativeCrypto_get_EVP_CIPHER_CTX_final_used(JNIEnv* env, jclass, jobject ctxRef) {
+    EVP_CIPHER_CTX* ctx = fromContextObject<EVP_CIPHER_CTX>(env, ctxRef);
+    JNI_TRACE("get_EVP_CIPHER_CTX_final_used(%p)", ctx);
+
+    if (ctx == NULL) {
+        JNI_TRACE("ctx=%p get_EVP_CIPHER_CTX_final_used => ctx == null", ctx);
+        return 0;
+    }
+
+    bool final_used = ctx->final_used;
+    JNI_TRACE("get_EVP_CIPHER_CTX_final_used(%p) => %d", ctx, final_used);
+    return final_used;
+}
+
 static void NativeCrypto_EVP_CIPHER_CTX_set_padding(JNIEnv* env, jclass, jobject ctxRef,
                                                     jboolean enablePaddingBool) {
     EVP_CIPHER_CTX* ctx = fromContextObject<EVP_CIPHER_CTX>(env, ctxRef);
