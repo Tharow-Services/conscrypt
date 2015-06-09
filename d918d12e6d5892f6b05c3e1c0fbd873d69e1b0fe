@@ -16,6 +16,24 @@
       "revId": "d918d12e6d5892f6b05c3e1c0fbd873d69e1b0fe",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79c9c09b_9c61a909",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-06-09T16:40:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79c9c09b_935e3c6d",
+      "revId": "d918d12e6d5892f6b05c3e1c0fbd873d69e1b0fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
