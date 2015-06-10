@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9cfb89d_8f3a89d4",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-06-10T17:59:43Z",
+      "side": 1,
+      "message": "given that this is the only file in this change, this can be private static :)",
+      "revId": "e9074369f9c072e312f9f9b21820a13f5c842350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79c9c09b_a2a9e069",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-06-10T17:59:43Z",
+      "side": 1,
+      "message": "did you want to keep this in ?",
+      "revId": "e9074369f9c072e312f9f9b21820a13f5c842350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79c9c09b_22b6f0c5",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-06-10T17:59:43Z",
+      "side": 1,
+      "message": "... i guess you did... maybe ?",
+      "revId": "e9074369f9c072e312f9f9b21820a13f5c842350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
