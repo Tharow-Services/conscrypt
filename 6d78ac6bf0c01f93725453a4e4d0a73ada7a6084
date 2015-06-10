@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "79c9c09b_c233bc21",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-06-10T16:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "193e044a_cfaf499b",
+      "range": {
+        "startLine": 593,
+        "startChar": 24,
+        "endLine": 594,
+        "endChar": 58
+      },
+      "revId": "6d78ac6bf0c01f93725453a4e4d0a73ada7a6084",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5934fc65_56df54f6",
         "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "99ce74a2_a35e846c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-06-10T16:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5934fc65_56df54f6",
+      "range": {
+        "startLine": 598,
+        "startChar": 20,
+        "endLine": 598,
+        "endChar": 25
+      },
+      "revId": "6d78ac6bf0c01f93725453a4e4d0a73ada7a6084",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3937486d_106eb2aa",
         "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2015-06-10T16:14:49Z",
       "side": 1,
       "message": "I usually write !\u003d 0 instead of \u003e 0, but that may just be experience from writing assembly.",
+      "range": {
+        "startLine": 602,
+        "startChar": 76,
+        "endLine": 602,
+        "endChar": 77
+      },
+      "revId": "6d78ac6bf0c01f93725453a4e4d0a73ada7a6084",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "99ce74a2_8354a84c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 602,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-06-10T16:45:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3937486d_106eb2aa",
       "range": {
         "startLine": 602,
         "startChar": 76,
