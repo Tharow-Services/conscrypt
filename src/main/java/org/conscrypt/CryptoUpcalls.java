@@ -16,11 +16,13 @@
 
 package org.conscrypt;
 
+import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.Provider;
 import java.security.Security;
 import java.security.Signature;
+import java.util.ArrayList;
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
 
@@ -34,22 +36,24 @@ public final class CryptoUpcalls {
     private CryptoUpcalls() {
     }
 
+    private static boolean isOurProvider(Provider p) {
+        return p.getClass().getPackage().equals(CryptoUpcalls.class.getPackage());
+    }
+
     /**
-     * Finds the first provider which provides {@code algorithm} but is not from
-     * the same ClassLoader as ours.
+     * Finds providers that are not us that provide the requested algorithms.
      */
-    public static Provider getExternalProvider(String algorithm) {
-        Provider selectedProvider = null;
+    public static ArrayList<Provider> getExternalProviders(String algorithm) {
+        ArrayList<Provider> providers = new ArrayList<>(1);
         for (Provider p : Security.getProviders(algorithm)) {
-            if (!p.getClass().getClassLoader().equals(CryptoUpcalls.class.getClassLoader())) {
-                selectedProvider = p;
-                break;
+            if (!isOurProvider(p)) {
+                providers.add(p);
             }
         }
-        if (selectedProvider == null) {
+        if (providers.size() == 0) {
             System.err.println("Could not find external provider for algorithm: " + algorithm);
         }
-        return selectedProvider;
+        return providers;
     }
 
     public static byte[] rawSignDigestWithPrivateKey(PrivateKey javaKey, byte[] message) {
@@ -70,23 +74,46 @@ public final class CryptoUpcalls {
             throw new RuntimeException("Unexpected key type: " + javaKey.toString());
         }
 
-        Provider p = getExternalProvider("Signature." + algorithm);
-        if (p == null) {
-            return null;
-        }
-
-        // Get the Signature for this key.
         Signature signature;
+
+        // First try to get the most preferred provider as long as it isn't us.
         try {
-            signature = Signature.getInstance(algorithm, p);
+            signature = Signature.getInstance(algorithm);
+            signature.initSign(javaKey);
+
+            // Ignore it if it points back to us.
+            if (isOurProvider(signature.getProvider())) {
+                signature = null;
+            }
         } catch (NoSuchAlgorithmException e) {
             System.err.println("Unsupported signature algorithm: " + algorithm);
             return null;
+        } catch (InvalidKeyException e) {
+            System.err.println("Preferred provider doesn't support key:");
+            e.printStackTrace();
+            signature = null;
+        }
+
+        // If the preferred provider was us, fall back to trying to find the
+        // first not-us provider that initializes correctly.
+        if (signature == null) {
+            ArrayList<Provider> providers = getExternalProviders("Signature." + algorithm);
+            for (Provider p : providers) {
+                try {
+                    signature = Signature.getInstance(algorithm, p);
+                    signature.initSign(javaKey);
+                } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+                    signature = null;
+                }
+            }
+            if (signature == null) {
+                System.err.println("Could not find provider for algorithm: " + algorithm);
+                return null;
+            }
         }
 
         // Sign the message.
         try {
-            signature.initSign(javaKey);
             signature.update(message);
             return signature.sign();
         } catch (Exception e) {
@@ -105,23 +132,44 @@ public final class CryptoUpcalls {
             return null;
         }
 
-        Provider p = getExternalProvider("Cipher." + RSA_CRYPTO_ALGORITHM);
-        if (p == null) {
-            return null;
-        }
-
         Cipher c = null;
+
+        // First try to get the most preferred provider as long as it isn't us.
         try {
-            c = Cipher.getInstance(RSA_CRYPTO_ALGORITHM, p);
-        } catch (NoSuchAlgorithmException e) {
-            ;
-        } catch (NoSuchPaddingException e) {
-            ;
+            c = Cipher.getInstance(RSA_CRYPTO_ALGORITHM);
+            c.init(encrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, javaKey);
+
+            // Ignore it if it points back to us.
+            if (isOurProvider(c.getProvider())) {
+                c = null;
+            }
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+            System.err.println("Unsupported cipher algorithm: " + RSA_CRYPTO_ALGORITHM);
+            return null;
+        } catch (InvalidKeyException e) {
+            System.err.println("Preferred provider doesn't support key:");
+            e.printStackTrace();
+            c = null;
         }
 
+        // If the preferred provider was us, fall back to trying to find the
+        // first not-us provider that initializes correctly.
         if (c == null) {
-            System.err.println("Unsupported transformation: " + RSA_CRYPTO_ALGORITHM);
-            return null;
+            ArrayList<Provider> providers = getExternalProviders("Cipher." + RSA_CRYPTO_ALGORITHM);
+            for (Provider p : providers) {
+                try {
+                    c = Cipher.getInstance(RSA_CRYPTO_ALGORITHM, p);
+                    c.init(encrypt ? Cipher.ENCRYPT_MODE : Cipher.DECRYPT_MODE, javaKey);
+                } catch (NoSuchAlgorithmException | InvalidKeyException
+                        | NoSuchPaddingException e) {
+                    c = null;
+                }
+            }
+            if (c == null) {
+                System.err.println("Could not find provider for algorithm: "
+                        + RSA_CRYPTO_ALGORITHM);
+                return null;
+            }
         }
 
         try {
