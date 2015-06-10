@@ -34,6 +34,24 @@
       "revId": "45693f96d7dc54c4d169f9d2ef0a74b2b4be8db6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79254042_d33b748c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3052,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-06-10T21:00:47Z",
+      "side": 1,
+      "message": "As soon as EC_KEY_set_ex_data has completed, the |EC_KEY| will take care of cleaning up |ex_data| and the |EC_KEY| is in a |Unique_EC_KEY|.\n\n(So, actually, you could move the |EC_KEY_set_ex_data| to line 3041 and not have to worry about cleaning up |ex_data| in the other case.)",
+      "parentUuid": "39858859_51af746b",
+      "revId": "45693f96d7dc54c4d169f9d2ef0a74b2b4be8db6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
