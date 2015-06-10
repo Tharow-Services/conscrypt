@@ -16,6 +16,24 @@
       "revId": "45693f96d7dc54c4d169f9d2ef0a74b2b4be8db6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39858859_51af746b",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3052,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-06-10T20:55:10Z",
+      "side": 1,
+      "message": "Done. I\u0027ve also adding a similar missing statement above (and an additional delete). Don\u0027t these need to be invoked below #endif as well?",
+      "parentUuid": "b92b3816_15b9d4b6",
+      "revId": "45693f96d7dc54c4d169f9d2ef0a74b2b4be8db6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
