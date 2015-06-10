@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9970341a_c11f45e7",
+        "filename": "src/.clang-format",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-06-10T17:09:45Z",
+      "side": 1,
+      "message": "The \"---\" and \"...\" lines look odd, but I\u0027ve confirmed that clang-format\u0027s example files contain them.",
+      "revId": "a8a4643d3bcd904194d1b9509acd6da0e4a2024e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
