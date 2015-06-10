@@ -36,6 +36,23 @@
     },
     {
       "key": {
+        "uuid": "d902ac8c_81efe9f9",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-06-10T18:15:40Z",
+      "side": 1,
+      "message": "You should probably break out of the loop after signature.initSign succeeds. Otherwise you\u0027ll be using the lower-priority provider which supports this signature algorithm and key.",
+      "revId": "e9074369f9c072e312f9f9b21820a13f5c842350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79c9c09b_22b6f0c5",
         "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
         "patchSetId": 1
@@ -47,6 +64,23 @@
       "writtenOn": "2015-06-10T17:59:43Z",
       "side": 1,
       "message": "... i guess you did... maybe ?",
+      "revId": "e9074369f9c072e312f9f9b21820a13f5c842350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "193e044a_fac6890d",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-06-10T18:15:40Z",
+      "side": 1,
+      "message": "Same as in signature loop: break this loop if c.init succeeds.",
       "revId": "e9074369f9c072e312f9f9b21820a13f5c842350",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
