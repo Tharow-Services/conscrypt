@@ -78,6 +78,10 @@ public final class NativeCrypto {
 
     // --- DSA/RSA public/private key handling functions -----------------------
 
+    public static final int RSA_PKCS1_PADDING = 1;
+    public static final int RSA_NO_PADDING = 3;
+    public static final int RSA_PKCS1_OAEP_PADDING = 4;
+
     public static native long EVP_PKEY_new_DSA(byte[] p, byte[] q, byte[] g,
                                                byte[] pub_key, byte[] priv_key);
 
