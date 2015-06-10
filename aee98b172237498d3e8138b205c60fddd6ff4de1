@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b92b3816_95ede4b6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-06-10T20:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "193e044a_55d8a695",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 25
+      },
+      "revId": "aee98b172237498d3e8138b205c60fddd6ff4de1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "992af412_741da896",
         "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
         "patchSetId": 2
@@ -42,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "d9754c3f_8ed7fb31",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-06-10T20:44:36Z",
+      "side": 1,
+      "message": "Definitely! I didn\u0027t know about this cool mechanism. Turns out two of the three are already there.",
+      "parentUuid": "992af412_741da896",
+      "revId": "aee98b172237498d3e8138b205c60fddd6ff4de1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79254042_935c1c50",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 2
@@ -53,6 +95,24 @@
       "writtenOn": "2015-06-10T20:34:58Z",
       "side": 1,
       "message": "Can you add a comment like:\n\n// rsaDecryptWithPrivateKey uses privateKey to decrypt |ciphertext_len| bytes from |ciphertext|. The ciphertext is expected to be padded using the form given in |padding|, which must be one of the |RSA_*_PADDING| constants from OpenSSL.\n\n(Obviously correct that as needed until it\u0027s true.)",
+      "revId": "aee98b172237498d3e8138b205c60fddd6ff4de1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b92b3816_f58698ec",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1490,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-06-10T20:44:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79254042_935c1c50",
       "revId": "aee98b172237498d3e8138b205c60fddd6ff4de1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
