@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "193e044a_55d8a695",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-06-10T20:34:58Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 23,
+        "startChar": 16,
+        "endLine": 23,
+        "endChar": 25
+      },
+      "revId": "aee98b172237498d3e8138b205c60fddd6ff4de1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "992af412_741da896",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-06-10T20:34:58Z",
+      "side": 1,
+      "message": "Can you add these in gen/native/generate_constants.cc instead? Then they\u0027ll appear in NativeConstants.",
+      "revId": "aee98b172237498d3e8138b205c60fddd6ff4de1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79254042_935c1c50",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 1490,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-06-10T20:34:58Z",
+      "side": 1,
+      "message": "Can you add a comment like:\n\n// rsaDecryptWithPrivateKey uses privateKey to decrypt |ciphertext_len| bytes from |ciphertext|. The ciphertext is expected to be padded using the form given in |padding|, which must be one of the |RSA_*_PADDING| constants from OpenSSL.\n\n(Obviously correct that as needed until it\u0027s true.)",
+      "revId": "aee98b172237498d3e8138b205c60fddd6ff4de1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
