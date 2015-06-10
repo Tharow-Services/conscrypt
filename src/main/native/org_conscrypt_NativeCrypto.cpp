@@ -3048,6 +3048,11 @@ static jlong NativeCrypto_getECPrivateKeyWrapper(JNIEnv* env, jclass, jobject ja
     }
     ex_data->cached_size = BN_num_bytes(&order);
     BN_free(&order);
+    if (!EC_KEY_set_ex_data(ecKey.get(), g_ecdsa_exdata_index, ex_data)) {
+        delete ex_data;
+        jniThrowRuntimeException(env, "EC_KEY_set_ex_data");
+        return 0;
+    }
 #endif
 
     Unique_EVP_PKEY pkey(EVP_PKEY_new());
