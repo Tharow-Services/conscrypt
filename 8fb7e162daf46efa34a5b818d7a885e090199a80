@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f9ecd03d_534e248c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLBIOInputStream.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-06-11T20:28:49Z",
+      "side": 1,
+      "message": "whoops, debug code",
+      "range": {
+        "startLine": 34,
+        "startChar": 24,
+        "endLine": 34,
+        "endChar": 39
+      },
+      "revId": "8fb7e162daf46efa34a5b818d7a885e090199a80",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
