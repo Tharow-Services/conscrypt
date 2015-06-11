@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f98e907f_921f1a63",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1033,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2015-06-11T14:52:06Z",
+      "side": 1,
+      "message": "-Ctx in the parameter name.",
+      "range": {
+        "startLine": 1033,
+        "startChar": 51,
+        "endLine": 1033,
+        "endChar": 70
+      },
+      "revId": "a63a31fa82652eb1b391051853a6bc98b7c02cc7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
