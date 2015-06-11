@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "797aa034_2bc83943",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-06-11T00:13:48Z",
+      "side": 1,
+      "message": "Nit: isEmpty?",
+      "revId": "003616f1a94778aa12043fd058000008f442a9ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
