@@ -1781,8 +1781,9 @@ public class NativeCryptoTest extends TestCase {
 
         Hooks cHooks = new Hooks() {
             @Override public long beforeHandshake(long context) throws SSLException {
-                NativeCrypto.SSL_CTX_enable_npn(context);
-                return super.beforeHandshake(context);
+                long ssl = super.beforeHandshake(context);
+                NativeCrypto.SSL_enable_npn(ssl);
+                return ssl;
             }
             @Override public void afterHandshake(long session, long ssl, long context, Socket socket,
                     FileDescriptor fd, SSLHandshakeCallbacks callback) throws Exception {
@@ -1797,8 +1798,9 @@ public class NativeCryptoTest extends TestCase {
         };
         Hooks sHooks = new ServerHooks(getServerPrivateKey(), getServerCertificates()) {
             @Override public long beforeHandshake(long context) throws SSLException {
-                NativeCrypto.SSL_CTX_enable_npn(context);
-                return super.beforeHandshake(context);
+                long ssl = super.beforeHandshake(context);
+                NativeCrypto.SSL_enable_npn(ssl);
+                return ssl;
             }
             @Override public void afterHandshake(long session, long ssl, long c, Socket sock,
                     FileDescriptor fd, SSLHandshakeCallbacks callback) throws Exception {

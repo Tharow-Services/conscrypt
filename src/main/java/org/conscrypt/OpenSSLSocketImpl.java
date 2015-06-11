@@ -295,8 +295,7 @@ public class OpenSSLSocketImpl
 
             final OpenSSLSessionImpl sessionToReuse = sslParameters.getSessionToReuse(
                     sslNativePointer, getHostname(), getPort());
-            sslParameters.setSSLParameters(sslCtxNativePointer, sslNativePointer, this, this,
-                    peerHostname);
+            sslParameters.setSSLParameters(sslNativePointer, this, this, peerHostname);
             sslParameters.setCertificateValidation(sslNativePointer);
             sslParameters.setTlsChannelId(sslNativePointer, channelIdPrivateKey);
 

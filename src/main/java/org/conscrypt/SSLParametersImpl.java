@@ -458,10 +458,10 @@ public class SSLParametersImpl implements Cloneable {
         }
     }
 
-    void setSSLParameters(long sslCtxNativePointer, long sslNativePointer, AliasChooser chooser,
+    void setSSLParameters(long sslNativePointer, AliasChooser chooser,
             PSKCallbacks pskCallbacks, String sniHostname) throws SSLException, IOException {
         if (npnProtocols != null) {
-            NativeCrypto.SSL_CTX_enable_npn(sslCtxNativePointer);
+            NativeCrypto.SSL_enable_npn(sslNativePointer);
         }
 
         if (client_mode && alpnProtocols != null) {

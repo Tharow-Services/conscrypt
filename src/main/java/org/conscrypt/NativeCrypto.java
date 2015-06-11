@@ -1012,7 +1012,7 @@ public final class NativeCrypto {
     public static native String SSL_get_servername(long sslNativePointer);
 
     /**
-     * Enables NPN for all SSL connections in the context.
+     * Enables NPN for this SSL connection.
      *
      * <p>For clients this causes the NPN extension to be included in the
      * ClientHello message.
@@ -1025,12 +1025,12 @@ public final class NativeCrypto {
      * <p>In either case the caller should pass a non-null byte array of NPN
      * protocols to {@link #SSL_do_handshake}.
      */
-    public static native void SSL_CTX_enable_npn(long sslCtxNativePointer);
+    public static native void SSL_enable_npn(long sslNativePointer);
 
     /**
      * Disables NPN for all SSL connections in the context.
      */
-    public static native void SSL_CTX_disable_npn(long sslCtxNativePointer);
+    public static native void SSL_disable_npn(long sslCtxNativePointer);
 
     /**
      * For clients, sets the list of supported ALPN protocols in wire-format

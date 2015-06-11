@@ -8859,7 +8859,7 @@ static int proto_select(SSL* ssl __attribute__ ((unused)),
     if (primary != NULL && secondary != NULL) {
         JNI_TRACE("primary=%p, length=%d", primary, primaryLength);
 
-        int status = SSL_select_next_proto(out, outLength, primary, primaryLength, secondary,
+        int status = SSL_select_npn_or_alpn_proto(out, outLength, primary, primaryLength, secondary,
                 secondaryLength);
         switch (status) {
         case OPENSSL_NPN_NEGOTIATED:
@@ -8901,10 +8901,10 @@ static int alpn_select_callback(SSL* ssl, const unsigned char **out, unsigned ch
 /**
  * Callback for the client to select an NPN protocol.
  */
-static int next_proto_select_callback(SSL* ssl, unsigned char** out, unsigned char* outlen,
+static int npn_proto_select_callback(SSL* ssl, unsigned char** out, unsigned char* outlen,
                                       const unsigned char* in, unsigned int inlen, void*)
 {
-    JNI_TRACE("ssl=%p next_proto_select_callback", ssl);
+    JNI_TRACE("ssl=%p npn_proto_select_callback", ssl);
 
     AppData* appData = toAppData(ssl);
     JNI_TRACE("AppData=%p", appData);
@@ -8921,7 +8921,7 @@ static int next_proto_select_callback(SSL* ssl, unsigned char** out, unsigned ch
 /**
  * Callback for the server to advertise available protocols.
  */
-static int next_protos_advertised_callback(SSL* ssl,
+static int npn_protos_advertised_callback(SSL* ssl,
         const unsigned char **out, unsigned int *outlen, void *)
 {
     JNI_TRACE("ssl=%p next_protos_advertised_callback", ssl);
@@ -8938,24 +8938,24 @@ static int next_protos_advertised_callback(SSL* ssl,
     }
 }
 
-static void NativeCrypto_SSL_CTX_enable_npn(JNIEnv* env, jclass, jlong ssl_ctx_address)
+static void NativeCrypto_SSL_enable_npn(JNIEnv* env, jclass, jlong ssl_ctx_address)
 {
-    SSL_CTX* ssl_ctx = to_SSL_CTX(env, ssl_ctx_address, true);
-    if (ssl_ctx == NULL) {
+    SSL* ssl = to_SSL(env, ssl_ctx_address, true);
+    if (ssl == NULL) {
         return;
     }
-    SSL_CTX_set_next_proto_select_cb(ssl_ctx, next_proto_select_callback, NULL); // client
-    SSL_CTX_set_next_protos_advertised_cb(ssl_ctx, next_protos_advertised_callback, NULL); // server
+    SSL_set_npn_proto_select_cb(ssl, npn_proto_select_callback, NULL); // client
+    SSL_set_npn_protos_advertised_cb(ssl, npn_protos_advertised_callback, NULL); // server
 }
 
-static void NativeCrypto_SSL_CTX_disable_npn(JNIEnv* env, jclass, jlong ssl_ctx_address)
+static void NativeCrypto_SSL_disable_npn(JNIEnv* env, jclass, jlong ssl_address)
 {
-    SSL_CTX* ssl_ctx = to_SSL_CTX(env, ssl_ctx_address, true);
-    if (ssl_ctx == NULL) {
+    SSL* ssl = to_SSL(env, ssl_address, true);
+    if (ssl == NULL) {
         return;
     }
-    SSL_CTX_set_next_proto_select_cb(ssl_ctx, NULL, NULL); // client
-    SSL_CTX_set_next_protos_advertised_cb(ssl_ctx, NULL, NULL); // server
+    SSL_set_npn_proto_select_cb(ssl, NULL, NULL); // client
+    SSL_set_npn_protos_advertised_cb(ssl, NULL, NULL); // server
 }
 
 static jbyteArray NativeCrypto_SSL_get_npn_negotiated_protocol(JNIEnv* env, jclass,
@@ -10760,8 +10760,8 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, SSL_SESSION_free, "(J)V"),
     NATIVE_METHOD(NativeCrypto, i2d_SSL_SESSION, "(J)[B"),
     NATIVE_METHOD(NativeCrypto, d2i_SSL_SESSION, "([B)J"),
-    NATIVE_METHOD(NativeCrypto, SSL_CTX_enable_npn, "(J)V"),
-    NATIVE_METHOD(NativeCrypto, SSL_CTX_disable_npn, "(J)V"),
+    NATIVE_METHOD(NativeCrypto, SSL_enable_npn, "(J)V"),
+    NATIVE_METHOD(NativeCrypto, SSL_disable_npn, "(J)V"),
     NATIVE_METHOD(NativeCrypto, SSL_get_npn_negotiated_protocol, "(J)[B"),
     NATIVE_METHOD(NativeCrypto, SSL_set_alpn_protos, "(J[B)I"),
     NATIVE_METHOD(NativeCrypto, SSL_get0_alpn_selected, "(J)[B"),
