@@ -31,6 +31,7 @@ public class OpenSSLBIOInputStream extends FilterInputStream {
     public OpenSSLBIOInputStream(InputStream is, boolean isFinite) {
         super(is);
 
+        new Throwable().printStackTrace();
         ctx = NativeCrypto.create_BIO_InputStream(this, isFinite);
     }
 
