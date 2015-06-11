@@ -16,6 +16,24 @@
       "revId": "003616f1a94778aa12043fd058000008f442a9ab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "39858859_c5615a08",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-06-11T00:15:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "797aa034_2bc83943",
+      "revId": "003616f1a94778aa12043fd058000008f442a9ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
