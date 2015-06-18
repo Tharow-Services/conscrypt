@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3e872ed3_01382ad9",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-06-18T01:08:33Z",
+      "side": 1,
+      "message": "Suggestion: Java language calls business -\u003e JCA to handle crypto operations on PrivateKey instances which this Provider cannot handle.",
+      "revId": "086dd646cb35c75c381ba17167f3135eac4554ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "be4dde87_a5b71ec3",
+        "filename": "src/main/java/org/conscrypt/CryptoUpcalls.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-06-18T01:08:33Z",
+      "side": 1,
+      "message": "to the private key -\u003e to the private key material",
+      "revId": "086dd646cb35c75c381ba17167f3135eac4554ac",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
