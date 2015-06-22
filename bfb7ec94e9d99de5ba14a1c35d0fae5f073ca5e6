@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dec53225_77d1c2f6",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 4622,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-06-22T13:55:43Z",
+      "side": 1,
+      "message": "you might want to address the comment about this comment in the earlier patchset.\n\nsuggest s/eccentric/expected ?",
+      "range": {
+        "startLine": 4622,
+        "startChar": 7,
+        "endLine": 4622,
+        "endChar": 16
+      },
+      "revId": "bfb7ec94e9d99de5ba14a1c35d0fae5f073ca5e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
