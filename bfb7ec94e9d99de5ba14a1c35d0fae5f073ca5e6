@@ -22,6 +22,30 @@
       "revId": "bfb7ec94e9d99de5ba14a1c35d0fae5f073ca5e6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9efbba85_8c62c708",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 4622,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-06-22T14:10:23Z",
+      "side": 1,
+      "message": "It was difficult to guess what Kenny meant about it. Changed to \"expected exceptions\", if Kenny disagrees he can update later.",
+      "parentUuid": "dec53225_77d1c2f6",
+      "range": {
+        "startLine": 4622,
+        "startChar": 7,
+        "endLine": 4622,
+        "endChar": 16
+      },
+      "revId": "bfb7ec94e9d99de5ba14a1c35d0fae5f073ca5e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
