@@ -636,6 +636,8 @@ public class NativeCryptoTest extends TestCase {
         protected boolean pskEnabled;
         protected byte[] pskKey;
         protected List<String> enabledCipherSuites;
+        protected boolean ocspStaplingEnabled;
+        protected byte[] ocspResponse;
 
         /**
          * @throws SSLException
@@ -877,7 +879,22 @@ public class NativeCryptoTest extends TestCase {
             if (pskEnabled) {
                 NativeCrypto.set_SSL_psk_client_callback_enabled(s, true);
             }
+            if (ocspStaplingEnabled) {
+                NativeCrypto.SSL_enable_ocsp_stapling(s);
+            }
             return s;
+        }
+
+        @Override
+        public void afterHandshake(long session, long ssl, long context,
+                                   Socket socket, FileDescriptor fd,
+                                   SSLHandshakeCallbacks callback)
+                throws Exception {
+
+            if (ocspStaplingEnabled) {
+                ocspResponse = NativeCrypto.SSL_get_ocsp_response(ssl);
+            }
+            super.afterHandshake(session, ssl, context, socket, fd, callback);
         }
     }
 
@@ -897,6 +914,15 @@ public class NativeCryptoTest extends TestCase {
         public ServerHooks(OpenSSLKey privateKey, long[] certificates) {
             this.privateKey = privateKey;
             this.certificates = certificates;
+        }
+
+        @Override
+        public long getContext() throws SSLException {
+            long ssl_ctx = super.getContext();
+            if (ocspStaplingEnabled) {
+                NativeCrypto.SSL_CTX_set_ocsp_response(ssl_ctx, ocspResponse);
+            }
+            return ssl_ctx;
         }
 
         @Override
@@ -1791,6 +1817,27 @@ public class NativeCryptoTest extends TestCase {
         } catch (ExecutionException expected) {
             assertEquals(SSLProtocolException.class, expected.getCause().getClass());
         }
+    }
+
+    public void test_SSL_do_handshake_with_ocsp_response() throws Exception {
+        final byte[] OCSP_TEST_DATA = new byte[] { 1, 2, 3, 4};
+
+        final ServerSocket listener = new ServerSocket(0);
+        Hooks cHooks = new ClientHooks();
+        Hooks sHooks = new ServerHooks(getServerPrivateKey(), getServerCertificates());
+        cHooks.ocspStaplingEnabled = true;
+        sHooks.ocspStaplingEnabled = true;
+        sHooks.ocspResponse = OCSP_TEST_DATA;
+
+        Future<TestSSLHandshakeCallbacks> client = handshake(listener, 0, true, cHooks, null, null);
+        Future<TestSSLHandshakeCallbacks> server = handshake(listener, 0, false, sHooks, null, null);
+        TestSSLHandshakeCallbacks clientCallback = client.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        TestSSLHandshakeCallbacks serverCallback = server.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+
+        assertEqualByteArrays(OCSP_TEST_DATA, cHooks.ocspResponse);
+
+        assertTrue(clientCallback.handshakeCompletedCalled);
+        assertTrue(serverCallback.handshakeCompletedCalled);
     }
 
     public void test_SSL_use_psk_identity_hint() throws Exception {
