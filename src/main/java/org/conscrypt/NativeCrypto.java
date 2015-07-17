@@ -840,6 +840,10 @@ public final class NativeCrypto {
 
     public static native long SSL_clear_options(long ssl, long options);
 
+    public static native void SSL_enable_signed_cert_timestamps(long ssl);
+
+    public static native byte[] SSL_get_signed_cert_timestamp_list(long ssl);
+
     public static native void SSL_use_psk_identity_hint(long ssl, String identityHint)
             throws SSLException;
 
