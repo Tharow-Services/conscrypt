@@ -8639,6 +8639,58 @@ static jbyteArray NativeCrypto_SSL_get_signed_cert_timestamp_list(JNIEnv *env, j
 #endif
 }
 
+/*
+ * public static native void SSL_enable_ocsp_stapling(long ssl);
+ */
+static void NativeCrypto_SSL_enable_ocsp_stapling(JNIEnv *env, jclass,
+        jlong ssl_address)
+{
+    SSL* ssl = to_SSL(env, ssl_address, true);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_enable_ocsp_stapling",
+            ssl);
+    if (ssl == NULL)  {
+        return;
+    }
+
+#if defined(OPENSSL_IS_BORINGSSL)
+    SSL_enable_ocsp_stapling(ssl);
+#endif
+}
+
+/*
+ * public static byte[] SSL_get_ocsp_response(long ssl);
+ */
+static jbyteArray NativeCrypto_SSL_get_ocsp_response(JNIEnv *env, jclass,
+        jlong ssl_address)
+{
+    SSL* ssl = to_SSL(env, ssl_address, true);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_ocsp_response",
+            ssl);
+    if (ssl == NULL)  {
+        return NULL;
+    }
+
+#if defined(OPENSSL_IS_BORINGSSL)
+    const uint8_t *data;
+    size_t data_len;
+    SSL_get0_ocsp_response(ssl, &data, &data_len);
+
+    if (data_len == 0) {
+        JNI_TRACE("NativeCrypto_SSL_get_ocsp_response(%p) => NULL",
+                ssl);
+        return NULL;
+    }
+
+    jbyteArray result = env->NewByteArray(data_len);
+    if (result != NULL) {
+        env->SetByteArrayRegion(result, 0, data_len, (const jbyte*)data);
+    }
+    return result;
+#else
+    return NULL;
+#endif
+}
+
 
 static void NativeCrypto_SSL_use_psk_identity_hint(JNIEnv* env, jclass,
         jlong ssl_address, jstring identityHintJava)
@@ -10835,6 +10887,8 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, SSL_clear_options, "(JJ)J"),
     NATIVE_METHOD(NativeCrypto, SSL_enable_signed_cert_timestamps, "(J)V"),
     NATIVE_METHOD(NativeCrypto, SSL_get_signed_cert_timestamp_list, "(J)[B"),
+    NATIVE_METHOD(NativeCrypto, SSL_enable_ocsp_stapling, "(J)V"),
+    NATIVE_METHOD(NativeCrypto, SSL_get_ocsp_response, "(J)[B"),
     NATIVE_METHOD(NativeCrypto, SSL_use_psk_identity_hint, "(JLjava/lang/String;)V"),
     NATIVE_METHOD(NativeCrypto, set_SSL_psk_client_callback_enabled, "(JZ)V"),
     NATIVE_METHOD(NativeCrypto, set_SSL_psk_server_callback_enabled, "(JZ)V"),
