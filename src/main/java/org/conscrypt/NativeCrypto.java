@@ -455,6 +455,8 @@ public final class NativeCrypto {
 
     public static native String[] get_X509_ex_xkusage(long x509ctx);
 
+    public static native byte[] get_X509_ex_embedded_scts(long x509ctx);
+
     public static native int get_X509_ex_pathlen(long x509ctx);
 
     public static native long X509_get_notBefore(long x509ctx);

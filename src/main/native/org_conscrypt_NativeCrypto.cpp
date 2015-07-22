@@ -2289,6 +2289,18 @@ int THREAD_cleanup(void) {
     return 1;
 }
 
+static X509V3_EXT_METHOD ct_embeddedsctlist_method = {
+    0,
+    0,
+    ASN1_ITEM_ref(ASN1_OCTET_STRING),
+    0, 0, 0, 0,
+    reinterpret_cast<X509V3_EXT_I2S>(i2s_ASN1_OCTET_STRING),
+    reinterpret_cast<X509V3_EXT_S2I>(s2i_ASN1_OCTET_STRING),
+    0, 0,
+    0, 0,
+    NULL
+};
+
 /**
  * Initialization phase for every OpenSSL job: Loads the Error strings, the
  * crypto algorithms and reset the OpenSSL library
@@ -2300,6 +2312,14 @@ static jboolean NativeCrypto_clinit(JNIEnv*, jclass)
     SSL_library_init();
     OpenSSL_add_all_algorithms();
     THREAD_setup();
+
+    ct_embeddedsctlist_method.ext_nid =
+        OBJ_create("1.3.6.1.4.1.11129.2.4.2",
+                   "ctEmbeddedSCT",
+                   "X509v3 Certificate Transparency "
+                   "Embedded Signed Certificate Timestamp List");
+    X509V3_EXT_add(&ct_embeddedsctlist_method);
+
 #if !defined(OPENSSL_IS_BORINGSSL)
     return JNI_FALSE;
 #else
@@ -7087,6 +7107,31 @@ static jobjectArray NativeCrypto_get_X509_ex_xkusage(JNIEnv* env, jclass, jlong 
     return exKeyUsage.release();
 }
 
+static jbyteArray NativeCrypto_get_X509_ex_embedded_scts(JNIEnv* env, jclass, jlong x509Ref) {
+    X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
+    JNI_TRACE("get_X509_ex_embedded_scts(%p)", x509);
+
+    if (x509 == NULL) {
+        jniThrowNullPointerException(env, "x509 == null");
+        JNI_TRACE("get_X509_ex_embedded_scts(%p) => x509 == null", x509);
+        return NULL;
+    }
+
+    ASN1_OCTET_STRING* ext = static_cast<ASN1_OCTET_STRING*>(
+            X509_get_ext_d2i(x509, ct_embeddedsctlist_method.ext_nid, NULL, NULL));
+    if (ext == NULL) {
+        return NULL;
+    }
+
+    jbyteArray result = env->NewByteArray(ext->length);
+    if (result != NULL) {
+        env->SetByteArrayRegion(result, 0, ext->length, reinterpret_cast<const jbyte*>(ext->data));
+    }
+
+    ASN1_OCTET_STRING_free(ext);
+    return result;
+}
+
 static jint NativeCrypto_get_X509_ex_pathlen(JNIEnv* env, jclass, jlong x509Ref) {
     X509* x509 = reinterpret_cast<X509*>(static_cast<uintptr_t>(x509Ref));
     JNI_TRACE("get_X509_ex_pathlen(%p)", x509);
@@ -10825,6 +10870,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, get_X509_subjectUID, "(J)[Z"),
     NATIVE_METHOD(NativeCrypto, get_X509_ex_kusage, "(J)[Z"),
     NATIVE_METHOD(NativeCrypto, get_X509_ex_xkusage, "(J)[Ljava/lang/String;"),
+    NATIVE_METHOD(NativeCrypto, get_X509_ex_embedded_scts, "(J)[B"),
     NATIVE_METHOD(NativeCrypto, get_X509_ex_pathlen, "(J)I"),
     NATIVE_METHOD(NativeCrypto, X509_get_ext_oid, "(JLjava/lang/String;)[B"),
     NATIVE_METHOD(NativeCrypto, X509_CRL_get_ext_oid, "(JLjava/lang/String;)[B"),

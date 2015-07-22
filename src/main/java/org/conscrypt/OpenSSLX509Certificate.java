@@ -522,6 +522,13 @@ public class OpenSSLX509Certificate extends X509Certificate {
         return mContext;
     }
 
+    /**
+     * Get Signed Certificate Timestamps embedded in the certificate
+     */
+    public byte[] getEmbeddedSCTs() {
+        return NativeCrypto.get_X509_ex_embedded_scts(mContext);
+    }
+
     @Override
     protected void finalize() throws Throwable {
         try {
