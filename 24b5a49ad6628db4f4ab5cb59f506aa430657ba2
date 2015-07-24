@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4d9d1a6f_ba7c3595",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8636,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-07-24T20:48:11Z",
+      "side": 1,
+      "message": "Use a ScopedLocalRef here as well (same as other review)",
+      "range": {
+        "startLine": 8632,
+        "startChar": 4,
+        "endLine": 8636,
+        "endChar": 18
+      },
+      "revId": "24b5a49ad6628db4f4ab5cb59f506aa430657ba2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
