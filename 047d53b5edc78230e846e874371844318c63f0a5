@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0da7a2c0_f53ed091",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8685,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-07-24T20:46:03Z",
+      "side": 1,
+      "message": "Wrap this in scoped containers:\n\nScopedLocalRef\u003cjbyteArray\u003e byteArray(env, env-\u003eNewByteArray(data_len));\nif (byteArray.get() \u003d\u003d NULL) {\n    JNI_TRACE(\"SSL_get_ocsp_response(%p) \u003d\u003e create byte array failed\", ssl);\n    return NULL;\n}\n\nenv-\u003eSetByteArrayRegion(byteArray.get(), ...",
+      "range": {
+        "startLine": 8684,
+        "startChar": 0,
+        "endLine": 8685,
+        "endChar": 25
+      },
+      "revId": "047d53b5edc78230e846e874371844318c63f0a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed8dee45_2e9f1c43",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8688,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-07-24T20:46:03Z",
+      "side": 1,
+      "message": "JNI_TRACE would help with debugging later.",
+      "range": {
+        "startLine": 8688,
+        "startChar": 4,
+        "endLine": 8688,
+        "endChar": 18
+      },
+      "revId": "047d53b5edc78230e846e874371844318c63f0a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
