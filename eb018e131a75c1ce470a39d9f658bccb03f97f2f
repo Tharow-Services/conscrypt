@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad5136aa_ffde7b53",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 526,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-07-27T21:43:07Z",
+      "side": 1,
+      "message": "Need more comment, e.g. RFC reference, some hint about the format of the returned data. Should the return be a byte[][] (if that\u0027s even a thing in Java).",
+      "revId": "eb018e131a75c1ce470a39d9f658bccb03f97f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cd42eadd_20c7e439",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7120,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2015-07-27T21:43:07Z",
+      "side": 1,
+      "message": "So this is trying to get the contents of an X.509 extension, right? If so, it should look like:\n\n// OID: 1.2.3.4.5.6..., DER encoded.\nstatic const uint8 kCertificateTransparencyOID[] \u003d\n  {0x2b, 0x06, 0x01, 0x02, 0x03... etc};\n\nstatic const ASN1_OBJECT kSCTObj \u003d {\n    \"\", \"\", 0, sizeof(kCertificateTransparencyOID),\n    const_cast\u003cuint8 *\u003e(kCertificateTransparencyOID), 0\n};\n\nconst int ext_pos \u003d X509_get_ext_by_OBJ(x509, const_cast\u003cASN1_OBJECT *\u003e(\u0026kCertificateTransparencyOID), 0);\nif (ext_pos \u003c 0) {\n  // not found\n}\nX509_EXTENSION* ext \u003d X509_get_ext(x509, ext_pos);\nASN1_STRING* ext_str \u003d X509_EXTENSION_get_data(ext);",
+      "revId": "eb018e131a75c1ce470a39d9f658bccb03f97f2f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
