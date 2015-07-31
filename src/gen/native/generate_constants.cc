@@ -132,6 +132,9 @@ int main(int /* argc */, char ** /* argv */) {
   CONST(SSL_CB_HANDSHAKE_DONE);
 
   CONST(SSL3_RT_MAX_PACKET_SIZE);
+
+  CONST(TLS1_AD_INTERNAL_ERROR);
+
 #undef CONST
 
   printf("}\n");
