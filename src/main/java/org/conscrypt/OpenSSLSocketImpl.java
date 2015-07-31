@@ -569,6 +569,15 @@ public class OpenSSLSocketImpl
     }
 
     @Override
+    public byte[] addCustomExtension(int ext_type) {
+        return null;
+    }
+
+    @Override
+    public void parseCustomExtension(int ext_type, byte[] data) {
+    }
+
+    @Override
     public InputStream getInputStream() throws IOException {
         checkOpen();
 

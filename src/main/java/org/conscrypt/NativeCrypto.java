@@ -812,6 +812,16 @@ public final class NativeCrypto {
 
     public static native void SSL_CTX_set_session_id_context(long ssl_ctx, byte[] sid_ctx);
 
+    /**
+     * Enables a custom TLS extension for all client connections in the context.
+     */
+    public static native void SSL_CTX_add_client_custom_ext(long sslCtxNativePointer, int ext_type);
+
+    /**
+     * Enables a custom TLS extension for all server connections in the context.
+     */
+    public static native void SSL_CTX_add_server_custom_ext(long sslCtxNativePointer, int ext_type);
+
     public static native long SSL_new(long ssl_ctx) throws SSLException;
 
     public static native void SSL_enable_tls_channel_id(long ssl) throws SSLException;
@@ -1230,6 +1240,34 @@ public final class NativeCrypto {
          * Called when SSL state changes. This could be handshake completion.
          */
         public void onSSLStateChange(long sslSessionNativePtr, int type, int val);
+
+        /**
+         * Called when the ClientHello (for clients) or the ServerHello (for servers) is constructed
+         * to add extension data.
+         *
+         * The extension must have been registered first by calling
+         * {@link NativeCrypto#SSL_CTX_add_client_custom_ext} or
+         * {@link NativeCrypto#SSL_CTX_add_server_custom_ext}.
+         *
+         * For servers, the callback is only called if the extension is present in the received
+         * ClientHello packet. The {@link parseCustomExtension} would have been called first.
+         *
+         * If an exception is thrown the handshake is aborted.
+         */
+        public byte[] addCustomExtension(int ext_type);
+
+        /**
+         * Called to parse a custom extension received from the peer.
+         * It is called after receiving the ClientHello packet for servers, and after receiving
+         * the ServerHello for clients.
+         *
+         * The extension must have been registered first by calling
+         * {@link NativeCrypto#SSL_CTX_add_client_custom_ext} or
+         * {@link NativeCrypto#SSL_CTX_add_server_custom_ext}.
+         *
+         * If an exception is thrown the handshake is aborted.
+         */
+        public void parseCustomExtension(int ext_type, byte[] data);
     }
 
     public static native long ERR_peek_last_error();
