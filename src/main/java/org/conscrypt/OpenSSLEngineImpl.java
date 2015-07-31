@@ -685,6 +685,15 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
                 sslNativePointer, this);
     }
 
+    @Override
+    public byte[] addCustomExtension(int ext_type) {
+        return null;
+    }
+
+    @Override
+    public void parseCustomExtension(int ext_type, byte[] data) {
+    }
+
     private void shutdown() {
         try {
             NativeCrypto.SSL_shutdown_BIO(sslNativePointer, nullSource.getContext(),
