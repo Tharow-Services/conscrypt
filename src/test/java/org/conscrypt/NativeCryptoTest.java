@@ -671,6 +671,10 @@ public class NativeCryptoTest extends TestCase {
         public void configureCallbacks(
                 @SuppressWarnings("unused") TestSSLHandshakeCallbacks callbacks) {}
         public void clientCertificateRequested(@SuppressWarnings("unused") long s) {}
+
+        public byte[] addCustomExtension(int ext_type) { return null; }
+        public void parseCustomExtension(int ext_type, byte[] data) {}
+
         public void afterHandshake(long session, long ssl, long context,
                                    Socket socket, FileDescriptor fd,
                                    SSLHandshakeCallbacks callback)
@@ -821,6 +825,25 @@ public class NativeCryptoTest extends TestCase {
                         serverPSKKeyRequestedResultKey.length);
             }
             return serverPSKKeyRequestedResult;
+        }
+
+        private int addCustomExtensionCallCount;
+        @Override
+        public byte[] addCustomExtension(int ext_type) {
+            addCustomExtensionCallCount += 1;
+            if (hooks != null) {
+                return hooks.addCustomExtension(ext_type);
+            }
+            return null;
+        }
+
+        private int parseCustomExtensionCallCount;
+        @Override
+        public void parseCustomExtension(int ext_type, byte[] data) {
+            parseCustomExtensionCallCount += 1;
+            if (hooks != null) {
+                hooks.parseCustomExtension(ext_type, data);
+            }
         }
     }
 
@@ -1023,6 +1046,10 @@ public class NativeCryptoTest extends TestCase {
         assertFalse(serverCallback.clientPSKKeyRequestedInvoked);
         assertFalse(clientCallback.serverPSKKeyRequestedInvoked);
         assertFalse(serverCallback.serverPSKKeyRequestedInvoked);
+        assertEquals(0, clientCallback.addCustomExtensionCallCount);
+        assertEquals(0, clientCallback.parseCustomExtensionCallCount);
+        assertEquals(0, serverCallback.addCustomExtensionCallCount);
+        assertEquals(0, serverCallback.parseCustomExtensionCallCount);
         assertTrue(clientCallback.handshakeCompletedCalled);
         assertTrue(serverCallback.handshakeCompletedCalled);
     }
@@ -1503,6 +1530,204 @@ public class NativeCryptoTest extends TestCase {
             fail();
         } catch (ExecutionException expected) {
             assertEquals(SSLProtocolException.class, expected.getCause().getClass());
+        }
+    }
+
+    public void test_SSL_do_handshake_with_custom_extension_normal() throws Exception {
+        final int TEST_EXTENSION_TYPE = 0xFFFF;
+        final byte[] CLIENT_DATA = "foo".getBytes("UTF-8");
+        final byte[] SERVER_DATA = "bar".getBytes("UTF-8");
+
+        final ServerSocket listener = new ServerSocket(0);
+        Hooks cHooks = new Hooks() {
+            @Override
+            public long getContext() throws SSLException {
+                long sslCtx = super.getContext();
+                NativeCrypto.SSL_CTX_add_client_custom_ext(sslCtx, TEST_EXTENSION_TYPE);
+                return sslCtx;
+            }
+
+            @Override
+            public byte[] addCustomExtension(int ext_type) {
+                assertEquals(TEST_EXTENSION_TYPE, ext_type);
+                return CLIENT_DATA;
+            }
+
+            @Override
+            public void parseCustomExtension(int ext_type, byte[] data) {
+                assertEquals(TEST_EXTENSION_TYPE, ext_type);
+                assertEqualByteArrays(SERVER_DATA, data);
+            }
+        };
+
+        Hooks sHooks = new ServerHooks(getServerPrivateKey(), getServerCertificates()) {
+            @Override
+            public long getContext() throws SSLException {
+                long sslCtx = super.getContext();
+                NativeCrypto.SSL_CTX_add_server_custom_ext(sslCtx, TEST_EXTENSION_TYPE);
+                return sslCtx;
+            }
+
+            @Override
+            public byte[] addCustomExtension(int ext_type) {
+                assertEquals(TEST_EXTENSION_TYPE, ext_type);
+                return SERVER_DATA;
+            }
+
+            @Override
+            public void parseCustomExtension(int ext_type, byte[] data) {
+                assertEquals(TEST_EXTENSION_TYPE, ext_type);
+                assertEqualByteArrays(CLIENT_DATA, data);
+            }
+        };
+
+        Future<TestSSLHandshakeCallbacks> client = handshake(listener, 0, true, cHooks, null, null);
+        Future<TestSSLHandshakeCallbacks> server = handshake(listener, 0, false, sHooks, null, null);
+        TestSSLHandshakeCallbacks clientCallback = client.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        TestSSLHandshakeCallbacks serverCallback = server.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+
+        assertEquals(1, clientCallback.addCustomExtensionCallCount);
+        assertEquals(1, clientCallback.parseCustomExtensionCallCount);
+        assertEquals(1, serverCallback.addCustomExtensionCallCount);
+        assertEquals(1, serverCallback.parseCustomExtensionCallCount);
+
+        assertTrue(clientCallback.handshakeCompletedCalled);
+        assertTrue(serverCallback.handshakeCompletedCalled);
+    }
+
+    public void test_SSL_do_handshake_with_custom_extension_multiple() throws Exception {
+        final int TEST_EXTENSION_TYPEA = 0xFFFE;
+        final int TEST_EXTENSION_TYPEB = 0xFFFF;
+
+        final ServerSocket listener = new ServerSocket(0);
+        Hooks cHooks = new Hooks() {
+            @Override
+            public long getContext() throws SSLException {
+                long sslCtx = super.getContext();
+                NativeCrypto.SSL_CTX_add_client_custom_ext(sslCtx, TEST_EXTENSION_TYPEA);
+                NativeCrypto.SSL_CTX_add_client_custom_ext(sslCtx, TEST_EXTENSION_TYPEB);
+                return sslCtx;
+            }
+
+            @Override
+            public byte[] addCustomExtension(int ext_type) {
+                return new byte[0];
+            }
+        };
+
+        Hooks sHooks = new ServerHooks(getServerPrivateKey(), getServerCertificates()) {
+            @Override
+            public long getContext() throws SSLException {
+                long sslCtx = super.getContext();
+                NativeCrypto.SSL_CTX_add_server_custom_ext(sslCtx, TEST_EXTENSION_TYPEA);
+                NativeCrypto.SSL_CTX_add_server_custom_ext(sslCtx, TEST_EXTENSION_TYPEB);
+                return sslCtx;
+            }
+
+            @Override
+            public byte[] addCustomExtension(int ext_type) {
+                return new byte[0];
+            }
+        };
+
+        Future<TestSSLHandshakeCallbacks> client = handshake(listener, 0, true, cHooks, null, null);
+        Future<TestSSLHandshakeCallbacks> server = handshake(listener, 0, false, sHooks, null, null);
+        TestSSLHandshakeCallbacks clientCallback = client.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        TestSSLHandshakeCallbacks serverCallback = server.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+
+        assertEquals(2, clientCallback.addCustomExtensionCallCount);
+        assertEquals(2, clientCallback.parseCustomExtensionCallCount);
+        assertEquals(2, serverCallback.addCustomExtensionCallCount);
+        assertEquals(2, serverCallback.parseCustomExtensionCallCount);
+
+        assertTrue(clientCallback.handshakeCompletedCalled);
+        assertTrue(serverCallback.handshakeCompletedCalled);
+    }
+
+    public void test_SSL_do_handshake_with_custom_extension_unknown() throws Exception {
+        final int TEST_EXTENSION_TYPEA = 0xFFFE;
+        final int TEST_EXTENSION_TYPEB = 0xFFFF;
+
+        final ServerSocket listener = new ServerSocket(0);
+        Hooks cHooks = new Hooks() {
+            @Override
+            public long getContext() throws SSLException {
+                long sslCtx = super.getContext();
+                NativeCrypto.SSL_CTX_add_client_custom_ext(sslCtx, TEST_EXTENSION_TYPEA);
+                return sslCtx;
+            }
+
+            @Override
+            public byte[] addCustomExtension(int ext_type) {
+                assertEquals(TEST_EXTENSION_TYPEA, ext_type);
+                return new byte[0];
+            }
+        };
+
+        Hooks sHooks = new ServerHooks(getServerPrivateKey(), getServerCertificates()) {
+            @Override
+            public long getContext() throws SSLException {
+                long sslCtx = super.getContext();
+                NativeCrypto.SSL_CTX_add_server_custom_ext(sslCtx, TEST_EXTENSION_TYPEB);
+                return sslCtx;
+            }
+
+            @Override
+            public byte[] addCustomExtension(int ext_type) {
+                assertEquals(TEST_EXTENSION_TYPEB, ext_type);
+                return new byte[0];
+            }
+        };
+
+        Future<TestSSLHandshakeCallbacks> client = handshake(listener, 0, true, cHooks, null, null);
+        Future<TestSSLHandshakeCallbacks> server = handshake(listener, 0, false, sHooks, null, null);
+        TestSSLHandshakeCallbacks clientCallback = client.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        TestSSLHandshakeCallbacks serverCallback = server.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+
+        assertEquals(1, clientCallback.addCustomExtensionCallCount);
+        assertEquals(0, clientCallback.parseCustomExtensionCallCount);
+        assertEquals(0, serverCallback.addCustomExtensionCallCount);
+        assertEquals(0, serverCallback.parseCustomExtensionCallCount);
+
+        assertTrue(clientCallback.handshakeCompletedCalled);
+        assertTrue(serverCallback.handshakeCompletedCalled);
+    }
+
+    public void test_SSL_do_handshake_with_custom_extension_exception() throws Exception {
+        final int TEST_EXTENSION_TYPE = 0xFFFF;
+
+        final ServerSocket listener = new ServerSocket(0);
+        Hooks cHooks = new Hooks() {
+            @Override
+            public long getContext() throws SSLException {
+                long sslCtx = super.getContext();
+                NativeCrypto.SSL_CTX_add_client_custom_ext(sslCtx, TEST_EXTENSION_TYPE);
+                return sslCtx;
+            }
+
+            @Override
+            public byte[] addCustomExtension(int ext_type) {
+                throw new RuntimeException("expected");
+            }
+        };
+
+        Hooks sHooks = new ServerHooks(getServerPrivateKey(), getServerCertificates());
+
+        Future<TestSSLHandshakeCallbacks> client = handshake(listener, 0, true, cHooks, null, null);
+        Future<TestSSLHandshakeCallbacks> server = handshake(listener, 0, false, sHooks, null, null);
+
+        try {
+            client.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+            fail();
+        } catch (ExecutionException e) {
+            assertEquals("expected", e.getCause().getMessage());
+        }
+
+        try {
+            server.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+            fail();
+        } catch (ExecutionException expected) {
+            assertEquals(SSLHandshakeException.class, expected.getCause().getClass());
         }
     }
 
