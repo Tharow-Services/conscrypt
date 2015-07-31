@@ -8587,6 +8587,155 @@ static jlong NativeCrypto_SSL_clear_options(JNIEnv* env, jclass,
     return result;
 }
 
+static int custom_ext_add_cb(SSL *ssl, unsigned int ext_type,
+        const unsigned char **out,
+        size_t *outlen, int *al,
+        void *add_arg __attribute__ ((unused))) {
+    JNI_TRACE("ssl=%p custom_ext_add_cb ext_type=%d", ssl, ext_type);
+
+    AppData* appData = toAppData(ssl);
+    JNIEnv* env = appData->env;
+    if (env == NULL) {
+        ALOGE("AppData->env missing in custom_ext_add_cb");
+        JNI_TRACE("ssl=%p custom_ext_add_cb => -1", ssl);
+        *al = TLS1_AD_INTERNAL_ERROR;
+        return -1;
+    }
+    jobject sslHandshakeCallbacks = appData->sslHandshakeCallbacks;
+
+    jclass cls = env->GetObjectClass(sslHandshakeCallbacks);
+    jmethodID methodID = env->GetMethodID(cls, "addCustomExtension", "(I)[B");
+
+    JNI_TRACE("ssl=%p custom_ext_add_cb calling addCustomExtension ext_type=%d",
+              ssl, ext_type);
+
+    ScopedLocalRef<jbyteArray> extension(env, reinterpret_cast<jbyteArray>(
+        env->CallObjectMethod(sslHandshakeCallbacks, methodID, ext_type)
+    ));
+
+    if (env->ExceptionCheck()) {
+        JNI_TRACE("ssl=%p custom_ext_add_cb => -1", ssl);
+        *al = TLS1_AD_INTERNAL_ERROR;
+        return -1;
+    }
+
+    if (extension.get() == NULL) {
+        JNI_TRACE("ssl=%p custom_ext_add_cb => 0", ssl);
+        return 0;
+    }
+
+    ScopedByteArrayRO extensionBytes(env, extension.get());
+
+    *outlen = extensionBytes.size();
+    if (*outlen > 0) {
+        void *data_out = malloc(*outlen);
+        memcpy(data_out, extensionBytes.get(), *outlen);
+        *out = reinterpret_cast<const unsigned char*>(data_out);
+    } else {
+        *out = NULL;
+    }
+
+    JNI_TRACE("ssl=%p custom_ext_add_cb => 1 out=%p outlen=%zd",
+            ssl, *out, *outlen);
+
+    return 1;
+}
+
+void custom_ext_free_cb(SSL *ssl, unsigned int ext_type,
+        const unsigned char *out,
+        void *add_arg __attribute__ ((unused))) {
+    (void) ssl;
+    (void) ext_type;
+
+    free(const_cast<unsigned char*>(out));
+}
+
+int custom_ext_parse_cb(SSL *ssl, unsigned int ext_type,
+        const unsigned char *in,
+        size_t inlen, int *al,
+        void *parse_arg __attribute__ ((unused))) {
+    JNI_TRACE("ssl=%p custom_ext_parse_cb ext_type=%d in=%p inlen=%zd",
+              ssl, ext_type, in, inlen);
+
+    AppData* appData = toAppData(ssl);
+    JNIEnv* env = appData->env;
+    if (env == NULL) {
+        ALOGE("AppData->env missing in custom_ext_parse_cb");
+        JNI_TRACE("ssl=%p custom_ext_parse_cb => -1", ssl);
+        *al = TLS1_AD_INTERNAL_ERROR;
+        return -1;
+    }
+    jobject sslHandshakeCallbacks = appData->sslHandshakeCallbacks;
+
+    jclass cls = env->GetObjectClass(sslHandshakeCallbacks);
+    jmethodID methodID = env->GetMethodID(cls, "parseCustomExtension", "(I[B)V");
+
+    ScopedLocalRef<jbyteArray> extension(env, env->NewByteArray(inlen));
+    if (extension.get() == NULL) {
+        JNI_TRACE("ssl=%p custom_ext_parse_cb => creating byte array failed", ssl);
+        *al = TLS1_AD_INTERNAL_ERROR;
+        return -1;
+    }
+
+    env->SetByteArrayRegion(extension.get(), 0, inlen, reinterpret_cast<const jbyte*>(in));
+
+    JNI_TRACE("ssl=%p custom_ext_parse_cb calling parseCustomExtension "
+              "ext_type=%d in=%p [size=%zd]",
+              ssl, ext_type, extension.get(), inlen);
+
+    env->CallVoidMethod(sslHandshakeCallbacks, methodID, ext_type, extension.get());
+
+    if (env->ExceptionCheck()) {
+        JNI_TRACE("ssl=%p custom_ext_parse_cb => -1", ssl);
+        *al = TLS1_AD_INTERNAL_ERROR;
+        return -1;
+    }
+
+    JNI_TRACE("ssl=%p custom_ext_parse_cb => 1", ssl);
+    return 1;
+}
+
+static void NativeCrypto_SSL_CTX_add_client_custom_ext(JNIEnv *env, jclass,
+        jlong ssl_ctx_address, jint ext_type) {
+    SSL_CTX* ssl_ctx = to_SSL_CTX(env, ssl_ctx_address, true);
+    JNI_TRACE("ssl_ctx=%p NativeCrypto_SSL_CTX_add_client_custom_ext ext_type=%d",
+            ssl_ctx, ext_type);
+    if (ssl_ctx == NULL)  {
+        return;
+    }
+
+    if (SSL_CTX_add_client_custom_ext(ssl_ctx,
+            ext_type,
+            custom_ext_add_cb,
+            custom_ext_free_cb,
+            NULL, /* add_arg */
+            custom_ext_parse_cb,
+            NULL /* parse_arg */
+        ) == 0) {
+        jniThrowRuntimeException(env, "Could not add custom client exception.");
+    }
+}
+
+static void NativeCrypto_SSL_CTX_add_server_custom_ext(JNIEnv *env, jclass,
+        jlong ssl_ctx_address, jint ext_type) {
+    SSL_CTX* ssl_ctx = to_SSL_CTX(env, ssl_ctx_address, true);
+    JNI_TRACE("ssl_ctx=%p NativeCrypto_SSL_CTX_add_server_custom_ext ext_type=%d",
+            ssl_ctx, ext_type);
+    if (ssl_ctx == NULL)  {
+        return;
+    }
+
+    if (SSL_CTX_add_server_custom_ext(ssl_ctx,
+            ext_type,
+            custom_ext_add_cb,
+            custom_ext_free_cb,
+            NULL, /* add_arg */
+            custom_ext_parse_cb,
+            NULL /* parse_arg */
+        ) == 0) {
+        jniThrowRuntimeException(env, "Could not add custom server exception.");
+    }
+}
 
 static void NativeCrypto_SSL_use_psk_identity_hint(JNIEnv* env, jclass,
         jlong ssl_address, jstring identityHintJava)
@@ -10767,6 +10916,8 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, SSL_CTX_new, "()J"),
     NATIVE_METHOD(NativeCrypto, SSL_CTX_free, "(J)V"),
     NATIVE_METHOD(NativeCrypto, SSL_CTX_set_session_id_context, "(J[B)V"),
+    NATIVE_METHOD(NativeCrypto, SSL_CTX_add_client_custom_ext, "(JI)V"),
+    NATIVE_METHOD(NativeCrypto, SSL_CTX_add_server_custom_ext, "(JI)V"),
     NATIVE_METHOD(NativeCrypto, SSL_new, "(J)J"),
     NATIVE_METHOD(NativeCrypto, SSL_enable_tls_channel_id, "(J)V"),
     NATIVE_METHOD(NativeCrypto, SSL_get_tls_channel_id, "(J)[B"),
