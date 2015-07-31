@@ -64,6 +64,9 @@ import org.conscrypt.NativeCrypto.SSLHandshakeCallbacks;
 import static org.conscrypt.NativeConstants.SSL_MODE_CBC_RECORD_SPLITTING;
 import static org.conscrypt.NativeConstants.SSL_MODE_HANDSHAKE_CUTTHROUGH;
 
+import static org.conscrypt.TestUtils.assertEqualByteArrays;
+import static org.conscrypt.TestUtils.assertContains;
+
 public class NativeCryptoTest extends TestCase {
     /** Corresponds to the native test library "libjavacoretests.so" */
     public static final String TEST_ENGINE_ID = "javacoretests";
@@ -189,9 +192,6 @@ public class NativeCryptoTest extends TestCase {
         assertEqualByteArrays(NativeCrypto.SSL_SESSION_session_id(expected),
                               NativeCrypto.SSL_SESSION_session_id(actual));
     }
-    public static void assertEqualByteArrays(byte[] expected, byte[] actual) {
-        assertEquals(Arrays.toString(expected), Arrays.toString(actual));
-    }
 
     public static void assertEqualPrincipals(byte[][] expected, byte[][] actual) {
         assertEqualByteArrays(expected, actual);
@@ -202,10 +202,6 @@ public class NativeCryptoTest extends TestCase {
         for (int i = 0; i < expected.length; i++) {
             NativeCrypto.X509_cmp(expected[i], actual[i]);
         }
-    }
-
-    public static void assertEqualByteArrays(byte[][] expected, byte[][] actual) {
-        assertEquals(Arrays.deepToString(expected), Arrays.deepToString(actual));
     }
 
     public void test_EVP_PKEY_cmp() throws Exception {
@@ -3151,15 +3147,5 @@ public class NativeCryptoTest extends TestCase {
         } finally {
             NativeCrypto.BIO_free_all(ctx);
         }
-    }
-
-    private static void assertContains(String actualValue, String expectedSubstring) {
-        if (actualValue == null) {
-            return;
-        }
-        if (actualValue.contains(expectedSubstring)) {
-            return;
-        }
-        fail("\"" + actualValue + "\" does not contain \"" + expectedSubstring + "\"");
     }
 }

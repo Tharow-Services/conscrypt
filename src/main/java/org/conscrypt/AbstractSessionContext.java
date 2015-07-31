@@ -72,6 +72,11 @@ abstract class AbstractSessionContext implements SSLSessionContext {
      * @param maximumSize of cache
      */
     AbstractSessionContext(int maximumSize) {
+        NativeCrypto.SSL_CTX_add_client_custom_ext(sslCtxNativePointer,
+                NativeConstants.TLSEXT_TYPE_certificate_timestamp);
+        NativeCrypto.SSL_CTX_add_server_custom_ext(sslCtxNativePointer,
+                NativeConstants.TLSEXT_TYPE_certificate_timestamp);
+
         this.maximumSize = maximumSize;
     }
 
