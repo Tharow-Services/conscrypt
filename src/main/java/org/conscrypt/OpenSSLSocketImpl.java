@@ -174,6 +174,19 @@ public class OpenSSLSocketImpl
 
     private int handshakeTimeoutMilliseconds = -1;  // -1 = same as timeout; 0 = infinite
 
+    /**
+     * In client mode this is the data received from the server.
+     * In server mode this is the data to be sent.
+     */
+    private byte[] sctExtensionData;
+
+    /**
+     * Whether to request for SCT data.
+     * Only used is client mode. In server mode the SCT extension is sent only if
+     * {@link sctExtensionData} is not null
+     */
+    private boolean sctExtensionEnabled = false;
+
     protected OpenSSLSocketImpl(SSLParametersImpl sslParameters) throws IOException {
         this.socket = this;
         this.peerHostname = null;
@@ -565,11 +578,24 @@ public class OpenSSLSocketImpl
 
     @Override
     public byte[] addCustomExtension(int ext_type) {
+        if (ext_type == NativeConstants.TLSEXT_TYPE_certificate_timestamp) {
+            if (!getUseClientMode()) {
+                return sctExtensionData;
+            } else if (sctExtensionEnabled) {
+                return new byte[0];
+            }
+        }
+
         return null;
     }
 
     @Override
     public void parseCustomExtension(int ext_type, byte[] data) {
+        if (ext_type == NativeConstants.TLSEXT_TYPE_certificate_timestamp
+            && sctExtensionEnabled
+            && getUseClientMode()) {
+            sctExtensionData = data;
+        }
     }
 
     @Override
@@ -1254,6 +1280,29 @@ public class OpenSSLSocketImpl
         }
         sslParameters.alpnProtocols = alpnProtocols;
     }
+
+    public void setSCTExtensionEnabled(boolean enabled) {
+        sctExtensionEnabled = enabled;
+    }
+
+    public byte[] getSCTExtensionData() {
+        return sctExtensionData;
+    }
+
+    /**
+     * Set the SCT Extension data to be sent to the client.
+     * It will only be sent if the client has requested it.
+     *
+     * @throws IllegalStateException if this is a client socket.
+     */
+    public void setSCTExtensionData(byte[] data) {
+        if (getUseClientMode()) {
+            throw new IllegalStateException("Client mode");
+        }
+        sctExtensionData = data;
+        sctExtensionEnabled = true;
+    }
+
 
     @Override
     public String chooseServerAlias(X509KeyManager keyManager, String keyType) {

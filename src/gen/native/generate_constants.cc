@@ -135,6 +135,8 @@ int main(int /* argc */, char ** /* argv */) {
 
   CONST(TLS1_AD_INTERNAL_ERROR);
 
+  CONST(TLSEXT_TYPE_certificate_timestamp);
+
 #undef CONST
 
   printf("}\n");
