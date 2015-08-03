@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a2724f5_4a2273a9",
+        "filename": "src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 833,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-03T14:25:11Z",
+      "side": 1,
+      "message": "How about also storing the type of the extension added? Would allow for stronger assertions in the test.",
+      "range": {
+        "startLine": 833,
+        "startChar": 12,
+        "endLine": 833,
+        "endChar": 39
+      },
+      "revId": "08d2269131f41e489827b2fdb636a429a1f972c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d7fda4c_aa31d379",
+        "filename": "src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1647,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-03T14:25:11Z",
+      "side": 1,
+      "message": "Is this a test for the case where the client has one extension and the server another, unrelated? If so would help if you document the assertions towards the end (i.e. why serverCallback.addCustomExtensionCallCount is expected to be 0).",
+      "range": {
+        "startLine": 1647,
+        "startChar": 16,
+        "endLine": 1647,
+        "endChar": 67
+      },
+      "revId": "08d2269131f41e489827b2fdb636a429a1f972c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
