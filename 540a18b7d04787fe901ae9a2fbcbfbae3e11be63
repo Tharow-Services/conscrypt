@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cafd70c1_c52dfac9",
+        "filename": "src/gen/native/generate_constants.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-06T09:51:15Z",
+      "side": 1,
+      "message": "Couldn\u0027t help noticing no other const type mixes uppercase and lowercase in the name...",
+      "range": {
+        "startLine": 138,
+        "startChar": 2,
+        "endLine": 138,
+        "endChar": 7
+      },
+      "revId": "540a18b7d04787fe901ae9a2fbcbfbae3e11be63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cafd70c1_a522fed7",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-06T09:51:15Z",
+      "side": 1,
+      "message": "Nit: Add a comment that in server mode this should the SignedCertificateTimestampList, encoded using TLS encoding, adding a link to the relevant section in RFC6962.",
+      "range": {
+        "startLine": 179,
+        "startChar": 22,
+        "endLine": 179,
+        "endChar": 26
+      },
+      "revId": "540a18b7d04787fe901ae9a2fbcbfbae3e11be63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ae6442a_521af4a4",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-06T09:51:15Z",
+      "side": 1,
+      "message": "... and the client has requested the SCT extension, presumably?",
+      "range": {
+        "startLine": 186,
+        "startChar": 0,
+        "endLine": 186,
+        "endChar": 5
+      },
+      "revId": "540a18b7d04787fe901ae9a2fbcbfbae3e11be63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8af7f8e0_c32df6c9",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 582,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-06T09:51:15Z",
+      "side": 1,
+      "message": "Reverse the cases - have the positive one first, making things easier to read.",
+      "revId": "540a18b7d04787fe901ae9a2fbcbfbae3e11be63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a348466_e2ffc6a2",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-06T09:51:15Z",
+      "side": 1,
+      "message": "Document that in the client case the client is expected to send an empty value for this extension.",
+      "range": {
+        "startLine": 585,
+        "startChar": 16,
+        "endLine": 585,
+        "endChar": 22
+      },
+      "revId": "540a18b7d04787fe901ae9a2fbcbfbae3e11be63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8af7f8e0_a322fad7",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1319,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-06T09:51:15Z",
+      "side": 1,
+      "message": "The message in the exception could be more verbose explaining that in client mode this field should only be populated from the server\u0027s response.",
+      "range": {
+        "startLine": 1319,
+        "startChar": 22,
+        "endLine": 1319,
+        "endChar": 43
+      },
+      "revId": "540a18b7d04787fe901ae9a2fbcbfbae3e11be63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a348466_a209be69",
+        "filename": "src/test/java/org/conscrypt/OpenSSLSocketImplTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-06T09:51:15Z",
+      "side": 1,
+      "message": "What are the assertions in this case? That no exception is thrown? If so, add a comment at the end of the test to indicate that.",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 51
+      },
+      "revId": "540a18b7d04787fe901ae9a2fbcbfbae3e11be63",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
