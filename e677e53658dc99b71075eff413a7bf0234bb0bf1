@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cafd70c1_a5eafe96",
+        "filename": "src/test/java/org/conscrypt/OpenSSLX509CertificateTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-08-06T13:47:43Z",
+      "side": 1,
+      "message": "(1) Test name should be more verbose to describe you\u0027re testing the deletion twice (something like testDeletingCTPoisonExtension)\n(2) Better to have the test case invoke deleteExtension once and compare to a known-good TBSCertificate. This way there\u0027s no ambiguity in the expected result.",
+      "revId": "e677e53658dc99b71075eff413a7bf0234bb0bf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
