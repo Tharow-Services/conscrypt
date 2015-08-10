@@ -16,6 +16,24 @@
       "revId": "e677e53658dc99b71075eff413a7bf0234bb0bf1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "271727da_d8394d90",
+        "filename": "src/test/java/org/conscrypt/OpenSSLX509CertificateTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-08-10T13:40:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cafd70c1_a5eafe96",
+      "revId": "e677e53658dc99b71075eff413a7bf0234bb0bf1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
