@@ -41,17 +41,10 @@ public class CTVerifierTest extends TestCase {
 
         PublicKey key = OpenSSLKey.fromPublicKeyPemInputStream(
                 openTestFile("ct-server-key-public.pem")).getPublicKey();
-        
-        final CTLogInfo log = new CTLogInfo(key, "Test Log", "foo");
-        CTLogStore store = new CTLogStore() {
-            public CTLogInfo getKnownLog(byte[] logId) {
-                if (Arrays.equals(logId, log.getID())) {
-                    return log;
-                } else {
-                    return null;
-                }
-            }
-        };
+
+        CTLogStore store = new CTLogStoreImpl(new CTLogInfo[] {
+            new CTLogInfo(key, "Test Log", "foo")
+        });
 
         ctVerifier = new CTVerifier(store);
     }
