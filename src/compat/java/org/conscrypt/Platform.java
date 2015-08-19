@@ -28,10 +28,14 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.security.InvalidKeyException;
 import java.security.PrivateKey;
+import java.security.Security;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.ECParameterSpec;
+import java.util.List;
+import java.util.Collections;
+import java.util.Arrays;
 
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
@@ -358,5 +362,73 @@ public class Platform {
             }
         }
         return null;
+    }
+
+    /**
+     * Check if SCT verification is enforced for a given hostname.
+     *
+     * SCT Verification is enabled using {@code Security} properties.
+     * The "conscrypt.ct.enable" property must be true, as well as a per domain property.
+     * The reverse notation of the domain name, prefixed with "conscrypt.ct.enforce."
+     * is used as the property name.
+     * Basic globbing is also supported.
+     *
+     * For example, for the domain foo.bar.com, the following properties will be
+     * looked up, in order of precedence.
+     * - conscrypt.ct.enforce.com.bar.foo
+     * - conscrypt.ct.enforce.com.bar.*
+     * - conscrypt.ct.enforce.com.*
+     * - conscrypt.ct.enforce.*
+     */
+    public static boolean isCTVerificationEnabled(String hostname) {
+        Boolean property = getBooleanSecurityProperty("conscrypt.ct.enable");
+        if (property == null || property == Boolean.FALSE) {
+            return false;
+        }
+
+        List<String> parts = Arrays.asList(hostname.split("\\."));
+        Collections.reverse(parts);
+
+        boolean enable = false;
+
+        String propertyName = "conscrypt.ct.enforce";
+        for (String part: parts) {
+            property = getBooleanSecurityProperty(propertyName + ".*");
+            if (property != null) {
+                enable = property;
+            }
+
+            propertyName = propertyName + "." + part;
+        }
+
+        property = getBooleanSecurityProperty(propertyName);
+        if (property != null) {
+            enable = property;
+        }
+
+        return enable;
+    }
+
+    private static Boolean getBooleanSecurityProperty(String name) {
+        String property = Security.getProperty(name);
+        if (property == null) {
+            return null;
+        }
+        property = property.toLowerCase();
+
+        switch (property) {
+            case "true":
+            case "yes":
+            case "on":
+            case "1":
+                return Boolean.TRUE;
+            case "false":
+            case "no":
+            case "off":
+            case "0":
+                return Boolean.FALSE;
+            default:
+                return null;
+        }
     }
 }

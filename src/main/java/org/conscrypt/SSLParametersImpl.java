@@ -17,6 +17,8 @@
 
 package org.conscrypt;
 
+import org.conscrypt.ct.CTVerifier;
+import org.conscrypt.ct.CTLogStoreImpl;
 import org.conscrypt.util.EmptyArray;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -95,6 +97,11 @@ public class SSLParametersImpl implements Cloneable {
     private boolean enable_session_creation = true;
     private String endpointIdentificationAlgorithm;
 
+    boolean ctVerificationEnabled;
+    CTVerifier ctVerifier;
+    byte[] sctExtension;
+    byte[] ocspResponse;
+
     byte[] npnProtocols;
     byte[] alpnProtocols;
     boolean useSessionTickets;
@@ -152,6 +159,8 @@ public class SSLParametersImpl implements Cloneable {
         boolean pskCipherSuitesNeeded = pskKeyManager != null;
         enabledCipherSuites = getDefaultCipherSuites(
                 x509CipherSuitesNeeded, pskCipherSuitesNeeded);
+
+        ctVerifier = new CTVerifier(new CTLogStoreImpl());
     }
 
     protected static SSLParametersImpl getDefault() throws KeyManagementException {
@@ -231,6 +240,13 @@ public class SSLParametersImpl implements Cloneable {
      */
     protected SecureRandom getSecureRandomMember() {
         return secureRandom;
+    }
+
+    /**
+     * @return certificate transparency verifier
+     */
+    protected CTVerifier getCTVerifier() {
+        return ctVerifier;
     }
 
     /**
@@ -342,6 +358,22 @@ public class SSLParametersImpl implements Cloneable {
      */
     protected boolean getUseSni() {
         return useSni != null ? useSni.booleanValue() : isSniEnabledByDefault();
+    }
+
+    public void setCTVerifier(CTVerifier verifier) {
+        ctVerifier = verifier;
+    }
+
+    public void setCTVerificationEnabled(boolean enabled) {
+        ctVerificationEnabled = enabled;
+    }
+
+    public void setSCTExtension(byte[] extension) {
+        sctExtension = extension;
+    }
+
+    public void setOCSPResponse(byte[] response) {
+        ocspResponse = response;
     }
 
     static byte[][] encodeIssuerX509Principals(X509Certificate[] certificates)
@@ -491,6 +523,15 @@ public class SSLParametersImpl implements Cloneable {
                         throw new IOException(e);
                     }
                 }
+            }
+
+            if (sctExtension != null) {
+                NativeCrypto.SSL_CTX_set_signed_cert_timestamp_list(sslCtxNativePointer,
+                                                                    sctExtension);
+            }
+
+            if (ocspResponse != null) {
+                NativeCrypto.SSL_CTX_set_ocsp_response(sslCtxNativePointer, ocspResponse);
             }
         }
 
