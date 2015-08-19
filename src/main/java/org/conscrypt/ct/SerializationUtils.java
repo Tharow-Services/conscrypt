@@ -25,6 +25,33 @@ import java.util.Vector;
 public class SerializationUtils {
     private SerializationUtils() {}
 
+    public static byte[] readDEROctetString(byte[] input)
+            throws SerializationException {
+        return readDEROctetString(new ByteArrayInputStream(input));
+    }
+
+    public static byte[] readDEROctetString(InputStream input)
+            throws SerializationException {
+        byte tag = readByte(input);
+        if ((tag & 0xbf) != 0x4) {
+            throw new SerializationException("Wrong DER tag.");
+        }
+        int length;
+        int width = readNumber(input, 1);
+        if (width >= 0x80) {
+            length = readNumber(input, width - 0x80);
+        } else {
+            length = width;
+        }
+
+        return readFixedBytes(input, length);
+    }
+
+    public static byte[][] readList(byte[] input, int listWidth, int elemWidth)
+            throws SerializationException {
+        return readList(new ByteArrayInputStream(input), listWidth, elemWidth);
+    }
+
     /**
      * Read a variable length vector of variable sized elements as described by RFC5246 section 4.3.
      * The vector is prefixed by it's total length, in bytes and in big endian format,
