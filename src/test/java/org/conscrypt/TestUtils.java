@@ -18,6 +18,7 @@ package org.conscrypt;
 
 import junit.framework.Assert;
 import java.util.Arrays;
+import java.io.InputStream;
 
 public class TestUtils extends Assert {
     protected TestUtils() {
@@ -40,4 +41,9 @@ public class TestUtils extends Assert {
         }
         fail("\"" + actualValue + "\" does not contain \"" + expectedSubstring + "\"");
     }
+
+    public static InputStream openTestFile(String name) {
+        return TestUtils.class.getResourceAsStream("/" + name);
+    }
+
 }
