@@ -16,9 +16,12 @@
 
 package org.conscrypt.ct;
 
-import java.security.PublicKey;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.Signature;
+import java.security.SignatureException;
 
 public class CTLogInfo {
     private final byte[] logId;
@@ -55,5 +58,31 @@ public class CTLogInfo {
     public String getUrl() {
         return url;
     }
+
+    public SCTVerificationResult verifySingleSCT(SignedCertificateTimestamp sct,
+                                                  CertificateEntry entry) {
+        String algorithm = sct.getSignature().getAlgorithm();
+
+        try {
+            byte[] toVerify = sct.encodeTBS(entry);
+            Signature signature = Signature.getInstance(algorithm);
+            signature.initVerify(publicKey);
+            signature.update(toVerify);
+            if (!signature.verify(sct.getSignature().getSignature())) {
+                return new SCTVerificationResult(sct, SCTVerificationResult.Status.BAD_SIGNATURE, this);
+            }
+            return new SCTVerificationResult(sct, SCTVerificationResult.Status.VALID, this);
+        } catch (SerializationException e) {
+            return new SCTVerificationResult(sct, SCTVerificationResult.Status.OTHER, this);
+        } catch (NoSuchAlgorithmException e) {
+            return new SCTVerificationResult(sct, SCTVerificationResult.Status.OTHER, this);
+        } catch (InvalidKeyException e) {
+            return new SCTVerificationResult(sct, SCTVerificationResult.Status.OTHER, this);
+        } catch (SignatureException e) {
+            // This shouldn't happen, since we initialize Signature correctly.
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 

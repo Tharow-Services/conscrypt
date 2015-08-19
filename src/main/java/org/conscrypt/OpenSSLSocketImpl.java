@@ -17,6 +17,8 @@
 package org.conscrypt;
 
 import org.conscrypt.util.ArrayUtils;
+import org.conscrypt.ct.CTVerifier;
+import org.conscrypt.ct.CTResults;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
 import java.io.FileDescriptor;
@@ -303,6 +305,11 @@ public class OpenSSLSocketImpl
             // certain protocols.
             NativeCrypto.SSL_set_reject_peer_renegotiations(sslNativePointer, false);
 
+            if (client && isCTVerificationEnabled()) {
+                NativeCrypto.SSL_enable_signed_cert_timestamps(sslNativePointer);
+                NativeCrypto.SSL_enable_ocsp_stapling(sslNativePointer);
+            }
+
             final OpenSSLSessionImpl sessionToReuse = sslParameters.getSessionToReuse(
                     sslNativePointer, getHostname(), getPort());
             sslParameters.setSSLParameters(sslCtxNativePointer, sslNativePointer, this, this,
@@ -559,6 +566,19 @@ public class OpenSSLSocketImpl
             boolean client = sslParameters.getUseClientMode();
             if (client) {
                 Platform.checkServerTrusted(x509tm, peerCertChain, authMethod, getHostname());
+                if (isCTVerificationEnabled()) {
+                    byte[] tlsData = NativeCrypto.SSL_get_signed_cert_timestamp_list(
+                                        sslNativePointer);
+                    byte[] ocspData = NativeCrypto.SSL_get_ocsp_response(sslNativePointer);
+
+                    CTVerifier ctVerifier = sslParameters.getCTVerifier();
+                    CTResults results = ctVerifier.verifySignedCertificateTimestamps(peerCertChain,
+                            tlsData, ocspData);
+
+                    if (results.getValidSCTs().size() == 0) {
+                        throw new CertificateException("No valid SCT found");
+                    }
+                }
             } else {
                 String authType = peerCertChain[0].getPublicKey().getAlgorithm();
                 x509tm.checkClientTrusted(peerCertChain, authType);
@@ -1280,5 +1300,10 @@ public class OpenSSLSocketImpl
     @Override
     public SecretKey getPSKKey(PSKKeyManager keyManager, String identityHint, String identity) {
         return keyManager.getKey(identityHint, identity, this);
+    }
+
+    boolean isCTVerificationEnabled() {
+        return sslParameters.ctVerificationEnabled ||
+            (getHostname() != null && Platform.isCTVerificationEnabled(getHostname()));
     }
 }

@@ -19,19 +19,9 @@ package org.conscrypt.ct;
 import org.conscrypt.NativeCrypto;
 import org.conscrypt.OpenSSLX509Certificate;
 
-import java.util.Set;
-import java.util.HashSet;
-import java.util.Collections;
-import java.util.List;
-import java.util.ArrayList;
-
 import java.security.cert.CertificateEncodingException;
-import java.security.cert.X509Certificate;
-
-import java.security.Signature;
-import java.security.NoSuchAlgorithmException;
-import java.security.SignatureException;
-import java.security.InvalidKeyException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CTVerifier {
     private final CTLogStore store;
@@ -81,7 +71,7 @@ public class CTVerifier {
         CTResults results = new CTResults();
 
         OpenSSLX509Certificate leaf = chain[0];
-        CertificateEntry certEntry = CertificateEntry.createForX509Certificate(leaf);
+        CertificateEntry x509Entry = CertificateEntry.createForX509Certificate(leaf);
 
         CertificateEntry precertEntry = null;
         if (chain.length >= 2) {
@@ -91,62 +81,47 @@ public class CTVerifier {
         }
 
         for (SignedCertificateTimestamp sct: scts) {
-            CertificateEntry entry = null;
-            switch (sct.getOrigin()) {
-                case EMBEDDED:
-                    if (precertEntry == null) {
-                        results.addResult(new SCTVerificationResult(
-                                    sct, SCTVerificationResult.Status.OTHER, null));
-                    }
-                    entry = precertEntry;
-                    break;
-                case TLS_EXTENSION:
-                case OCSP_RESPONSE:
-                    entry = certEntry;
-                    break;
-            }
-
-            results.addResult(verifySingleSCT(sct, entry));
+            results.addResult(verifySingleSCT(sct, x509Entry, precertEntry));
         }
 
         return results;
     }
 
     private SCTVerificationResult verifySingleSCT(SignedCertificateTimestamp sct,
-                                                  CertificateEntry entry) {
+                                                  CertificateEntry x509Entry,
+                                                  CertificateEntry precertEntry) {
+        CertificateEntry entry = null;
         CTLogInfo log = store.getKnownLog(sct.getLogID());
         if (log == null) {
             return new SCTVerificationResult(sct, SCTVerificationResult.Status.UNKNOWN_LOG, null);
         }
 
-        String algorithm = sct.getSignature().getAlgorithm();
-
-        try {
-            byte[] toVerify = sct.encodeTBS(entry);
-            Signature signature = Signature.getInstance(algorithm);
-            signature.initVerify(log.getPublicKey());
-            signature.update(toVerify);
-            if (!signature.verify(sct.getSignature().getSignature())) {
-                return new SCTVerificationResult(sct, SCTVerificationResult.Status.BAD_SIGNATURE, log);
-            }
-            return new SCTVerificationResult(sct, SCTVerificationResult.Status.VALID, log);
-        } catch (SerializationException e) {
-            return new SCTVerificationResult(sct, SCTVerificationResult.Status.OTHER, log);
-        } catch (NoSuchAlgorithmException e) {
-            return new SCTVerificationResult(sct, SCTVerificationResult.Status.OTHER, log);
-        } catch (InvalidKeyException e) {
-            return new SCTVerificationResult(sct, SCTVerificationResult.Status.OTHER, log);
-        } catch (SignatureException e) {
-            // This shouldn't happen, since we initialize Signature correctly.
-            throw new RuntimeException(e);
+        switch (sct.getOrigin()) {
+            case EMBEDDED:
+                if (precertEntry == null) {
+                    return new SCTVerificationResult(sct, SCTVerificationResult.Status.OTHER, log);
+                }
+                entry = precertEntry;
+                break;
+            case TLS_EXTENSION:
+            case OCSP_RESPONSE:
+                entry = x509Entry;
+                break;
         }
+
+        return log.verifySingleSCT(sct, entry);
     }
 
     private List<SignedCertificateTimestamp> getSCTsFromSCTList(byte[] data,
-            SignedCertificateTimestamp.Origin origin) throws SerializationException {
+            SignedCertificateTimestamp.Origin origin) {
         List<SignedCertificateTimestamp> scts = new ArrayList();
 
-        byte[][] sctList = Serialization.readList(data, 2, 2);
+        byte[][] sctList;
+        try {
+            sctList = Serialization.readList(data, 2, 2);
+        } catch (SerializationException e) {
+            return null;
+        }
 
         for (byte[] encodedSCT: sctList) {
             try  {
@@ -161,11 +136,7 @@ public class CTVerifier {
     }
 
     private List<SignedCertificateTimestamp> getSCTsFromTLSExtension(byte[] data) {
-        try {
-            return getSCTsFromSCTList(data, SignedCertificateTimestamp.Origin.TLS_EXTENSION);
-        } catch (SerializationException e) {
-            return null;
-        }
+        return getSCTsFromSCTList(data, SignedCertificateTimestamp.Origin.TLS_EXTENSION);
     }
 
     private List<SignedCertificateTimestamp> getSCTsFromOCSPResponse(byte[] data,

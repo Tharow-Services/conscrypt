@@ -16,12 +16,12 @@
 
 package org.conscrypt.ct;
 
+import org.conscrypt.NativeCrypto;
 import org.conscrypt.OpenSSLKey;
 import org.conscrypt.OpenSSLX509Certificate;
 import junit.framework.TestCase;
 import java.security.PublicKey;
 import java.util.Arrays;
-import java.util.Set;
 
 import static org.conscrypt.TestUtils.openTestFile;
 import static org.conscrypt.TestUtils.readTestFile;
@@ -64,6 +64,11 @@ public class CTVerifierTest extends TestCase {
     };
 
     public void test_verifySignedCertificateTimestamps_withOCSPResponse() throws Exception {
+        // This is only implemented for BoringSSL
+        if (!NativeCrypto.isBoringSSL) {
+            return;
+        }
+
         OpenSSLX509Certificate[] chain = new OpenSSLX509Certificate[] { CERT, CA };
 
         byte[] ocspResponse = readTestFile("ocsp-response.der");
@@ -108,6 +113,11 @@ public class CTVerifierTest extends TestCase {
     }
 
     public void test_verifySignedCertificateTimestamps_withMultipleTimestamps() throws Exception {
+        // This is only implemented for BoringSSL
+        if (!NativeCrypto.isBoringSSL) {
+            return;
+        }
+
         OpenSSLX509Certificate[] chain = new OpenSSLX509Certificate[] { CERT, CA };
 
         byte[] tlsExtension = readTestFile("ct-signed-timestamp-list-invalid");
