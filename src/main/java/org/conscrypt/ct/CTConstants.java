@@ -34,5 +34,9 @@ public class CTConstants {
     public static final int CERTIFICATE_LENGTH_BYTES = 3;
 
     public static final int ISSUER_KEY_HASH_LENGTH = 32;
+
+    public static final int DER_TAG_MASK = 0x3f;
+    public static final int DER_TAG_OCTET_STRING = 0x4;
+    public static final int DER_LENGTH_LONG_FORM_FLAG = 0x80;
 }
 
