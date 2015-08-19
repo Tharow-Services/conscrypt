@@ -17,6 +17,7 @@
 
 package org.conscrypt;
 
+import org.conscrypt.ct.CTVerifier;
 import org.conscrypt.util.EmptyArray;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -79,6 +80,7 @@ public class SSLParametersImpl implements Cloneable {
     private final X509TrustManager x509TrustManager;
     // source of random numbers
     private SecureRandom secureRandom;
+    private CTVerifier ctVerifier;
 
     // protocols enabled for SSL connection
     private String[] enabledProtocols;
@@ -152,6 +154,8 @@ public class SSLParametersImpl implements Cloneable {
         boolean pskCipherSuitesNeeded = pskKeyManager != null;
         enabledCipherSuites = getDefaultCipherSuites(
                 x509CipherSuitesNeeded, pskCipherSuitesNeeded);
+
+        ctVerifier = new CTVerifier(new CTLogStoreImpl());
     }
 
     protected static SSLParametersImpl getDefault() throws KeyManagementException {
@@ -231,6 +235,13 @@ public class SSLParametersImpl implements Cloneable {
      */
     protected SecureRandom getSecureRandomMember() {
         return secureRandom;
+    }
+
+    /**
+     * @return certificate transparency verifier
+     */
+    protected CTVerifier getCTVerifier() {
+        return ctVerifier;
     }
 
     /**

@@ -33,10 +33,14 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketImpl;
 import java.security.PrivateKey;
+import java.security.Security;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.ECParameterSpec;
+import java.util.List;
+import java.util.Collections;
+import java.util.Arrays;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
@@ -181,5 +185,44 @@ class Platform {
      */
     public static AlgorithmParameterSpec toGCMParameterSpec(int tagLenInBits, byte[] iv) {
         return new GCMParameterSpec(tagLenInBits, iv);
+    }
+
+    /**
+     * Check if SCT verification is enabled for a hostname.
+     *
+     * SCT Verification is enabled using Security properties.
+     * The reverse notation of the domain name, prefixed with "conscrypt.enforceCT."
+     * is used as the property name.
+     * Basic globbing is also supported.
+     *
+     * For example, for the domain foo.bar.com, the following properties will be
+     * looked up, in order of precedence.
+     * - conscrypt.enforceCT.com.bar.foo
+     * - conscrypt.enforceCT.com.bar.*
+     * - conscrypt.enforceCT.com.*
+     * - conscrypt.enforceCT.*
+     */
+    public static boolean isCTVerificationEnabled(String hostname) {
+        List<String> parts = Arrays.asList(hostname.split("\\."));
+        Collections.reverse(parts);
+
+        boolean enable = false;
+
+        String propertyName = "conscrypt.enforceCT";
+        for (String part: parts) {
+            String property = Security.getProperty(propertyName + ".*");
+            if (property != null) {
+                enable = Boolean.valueOf(property);
+            }
+
+            propertyName = propertyName + "." + part;
+        }
+
+        String property = Security.getProperty(propertyName);
+        if (property != null) {
+            enable = Boolean.valueOf(property);
+        }
+
+        return enable;
     }
 }
