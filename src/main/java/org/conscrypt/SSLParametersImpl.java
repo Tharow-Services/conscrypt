@@ -17,6 +17,7 @@
 
 package org.conscrypt;
 
+import libcore.net.NetworkSecurityPolicy;
 import org.conscrypt.util.EmptyArray;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -132,7 +133,7 @@ public class SSLParametersImpl implements Cloneable {
         }
 
         // initialize x509TrustManager
-        if (tms == null) {
+        if (tms == null || !NetworkSecurityPolicy.allowTLSTrustManagerOverride()) {
             x509TrustManager = getDefaultX509TrustManager();
         } else {
             x509TrustManager = findFirstX509TrustManager(tms);
