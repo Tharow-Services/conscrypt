@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c4d56a01_a0217aaf",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2015-09-04T13:00:31Z",
+      "side": 1,
+      "message": "I wonder whether \"withDeletedExtension\" or \"copyWithDeletedExtension\" is a better name given the semantics...",
+      "range": {
+        "startLine": 532,
+        "startChar": 37,
+        "endLine": 532,
+        "endChar": 38
+      },
+      "revId": "71e92301d9a23ff0939f58eb59aac925f79d1af3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
