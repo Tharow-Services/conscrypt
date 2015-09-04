@@ -16,6 +16,7 @@
 
 package org.conscrypt;
 
+import libcore.net.NetworkSecurityPolicy;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -90,6 +91,16 @@ public class CertPinManager {
 
         // reread the pin file
         String pinFileContents = readPinFile();
+
+        String[] certPins = NetworkSecurityPolicy.getCertPins();
+        if (certPins != null) {
+            if (pinFileContents == null) {
+                pinFileContents = "";
+            }
+            for (String certPin : certPins) {
+                pinFileContents = pinFileContents + certPin + "\n";
+            }
+        }
 
         if (pinFileContents != null) {
             // rebuild the pinned certs
