@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "24bd66ca_d3f9f4ef",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10687,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "What does that mean?",
+      "range": {
+        "startLine": 10687,
+        "startChar": 64,
+        "endLine": 10687,
+        "endChar": 90
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4d56a01_03b070bf",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10691,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "Nit: The convention in many other places is for the output parameter to be at the end.",
+      "range": {
+        "startLine": 10691,
+        "startChar": 59,
+        "endLine": 10691,
+        "endChar": 78
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2461e61f_397b0757",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10700,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "I suggest moving the body of the loop to a separate function so (1) handling of each response is clearer (2) no continue statements.",
+      "range": {
+        "startLine": 10700,
+        "startChar": 4,
+        "endLine": 10700,
+        "endChar": 34
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24bd66ca_b3fc78e1",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10707,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "Where is it being used?",
+      "range": {
+        "startLine": 10707,
+        "startChar": 28,
+        "endLine": 10707,
+        "endChar": 32
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4d42ed5_2555463a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10712,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "Can this huge condition be broken down into smaller ones, each extracting one piece of information?",
+      "range": {
+        "startLine": 10708,
+        "startChar": 13,
+        "endLine": 10712,
+        "endChar": 62
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4ae4a93_381cc9ff",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10716,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "Nit: Replace check with \u0027compare\u0027 and have the comment be a bit more verbose, as the serial number is not simply \u0027checked\u0027 for correctness.",
+      "range": {
+        "startLine": 10716,
+        "startChar": 11,
+        "endLine": 10716,
+        "endChar": 16
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64c3de5a_b5270049",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10725,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "Nit: Move md to just before it\u0027s used.",
+      "range": {
+        "startLine": 10725,
+        "startChar": 16,
+        "endLine": 10725,
+        "endChar": 18
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a455d63a_3ab3fd45",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10726,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "More informative name please.",
+      "range": {
+        "startLine": 10726,
+        "startChar": 22,
+        "endLine": 10726,
+        "endChar": 26
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e4d42ed5_055cc262",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10752,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "What are the success conditions?",
+      "range": {
+        "startLine": 10752,
+        "startChar": 23,
+        "endLine": 10752,
+        "endChar": 30
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "049a2278_12b0cc5e",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10764,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "Again, break down to smaller condition groups, preferably in separate functions.",
+      "range": {
+        "startLine": 10757,
+        "startChar": 8,
+        "endLine": 10764,
+        "endChar": 71
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24bd66ca_13b36c45",
+        "filename": "src/test/java/org/conscrypt/TestUtils.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-08T16:31:40Z",
+      "side": 1,
+      "message": "There are no assertions in the two methods you\u0027ve added, so I\u0027d argue this is not the right place for them.\nSince there\u0027s only one test that uses them, it could be moved there.",
+      "range": {
+        "startLine": 47,
+        "startChar": 18,
+        "endLine": 47,
+        "endChar": 29
+      },
+      "revId": "19677258874ea176ccfa80e9974bffe51148dc03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
