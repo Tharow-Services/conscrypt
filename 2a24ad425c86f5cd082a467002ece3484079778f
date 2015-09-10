@@ -94,6 +94,30 @@
       "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "447fba21_2f660534",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9940,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2015-09-10T22:45:28Z",
+      "side": 1,
+      "message": "Even in non-blocking mode, SSL_write will not signal until everything has been written to the BIO. It may return -1 and signal SSL_ERROR_WANT_WRITE if it\u0027s not able to write it in one step. The caller is then supposed to retry.\n\nWhat is that a snippet of? The test on its own or the test with the wbuf.left check removed or...?\n\nThough I actually don\u0027t see how the left check could even affect this codepath.\n\nIt seems the SSL_write is failing with:\n  I(35030) ssl\u003d0xf03e5db8 sslWrite SSL_write result\u003d-1 sslError\u003d3 left\u003d3486  (NativeCrypto-jni)\n\n3 is SSL_ERROR_WANT_WRITE, which means that we tried to write the record to the buffer but hit an error (possibly EWOULDBLOCK) before managing to write it all.\n\nThe caller is supposed to retry when the socket is writable again, or possibly give up if the socket had simply failed. (OpenSSL doesn\u0027t do a very good job of distinguishing the two and largely relies on the caller to do so.)\n\nresult was -1, so len should be unchanged, which means len \u003e 0 is still true. That would suggest that checking left doesn\u0027t do anything here, right? Or am I missing something?",
+      "parentUuid": "c4ef2afe_a8c853af",
+      "range": {
+        "startLine": 9940,
+        "startChar": 49,
+        "endLine": 9940,
+        "endChar": 77
+      },
+      "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
