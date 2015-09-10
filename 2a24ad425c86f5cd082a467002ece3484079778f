@@ -70,6 +70,30 @@
       "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c4ef2afe_a8c853af",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9940,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-10T21:28:53Z",
+      "side": 1,
+      "message": "running the test libcore.javax.net.ssl.SSLSocketTest#test_SSLSocket_setSoWriteTimeout seems to leave things in the buffer. We do use this in non-blocking mode. Here\u0027s a snippet of the JNI_DEBUG when running this test:\n\n    I(35030) ssl\u003d0xf03e5db8 NativeCrypto_SSL_write fd\u003d0xf07fea50 shc\u003d0xf07fea54 b\u003d0xf07fea58 offset\u003d0 len\u003d4609 write_timeout_millis\u003d1  (NativeCrypto-jni)\n    I(35030) ssl\u003d0xf03e5db8 sslWrite buf\u003d0xf05f0918 len\u003d4609 write_timeout_millis\u003d1  (NativeCrypto-jni)\n    I(35030) ssl\u003d0xf03e5db8 sslWrite appData\u003d0xf05cbc68  (NativeCrypto-jni)\n    I(35030) ssl\u003d0xf03e5db8 sslWrite SSL_write len\u003d4609 left\u003d0  (NativeCrypto-jni)\n    I(35030) ssl\u003d0xf03e5db8 sslWrite SSL_write result\u003d-1 sslError\u003d3 left\u003d3486  (NativeCrypto-jni)\n    I(35030) sslSelect type\u003dWRITE fd\u003d17 appData\u003d0xf05cbc68 timeout_millis\u003d1  (NativeCrypto-jni)\n    I(35030) sslSelect WRITE fd\u003d17 appData\u003d0xf05cbc68 timeout_millis\u003d1 \u003d\u003e 0  (NativeCrypto-jni)\n    I(35030) throwSocketTimeoutException Write timed out  (NativeCrypto-jni)",
+      "parentUuid": "84753240_5146968b",
+      "range": {
+        "startLine": 9940,
+        "startChar": 49,
+        "endLine": 9940,
+        "endChar": 77
+      },
+      "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
