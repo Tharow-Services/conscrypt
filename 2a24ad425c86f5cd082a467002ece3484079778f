@@ -46,6 +46,30 @@
       "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "84753240_5146968b",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9940,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2015-09-10T19:25:04Z",
+      "side": 1,
+      "message": "Looks like this dates to this CL:\nhttps://android.googlesource.com/platform/libcore/+/51cf1b49bca54ec0229a51df400ad1bee580b1bb%5E%21/\n\nIt may be worth reexamining b/8272932 because I do not believe the claim about SSL_write is accurate, in either BoringSSL or OpenSSL.\n\nIn OpenSSL, SSL_write, after following a bunch of other code, returns whatever ssl3_write_pending returns. ssl3_write_pending calls BIO_write in a loop to flush the buffer. It will never return the number of plaintext bytes written (wpend_ret) until the entirely of wbuf is flushed, at which point it sets wbuf.left to 0.\n\nhttps://git.openssl.org/gitweb/?p\u003dopenssl.git;a\u003dblob;f\u003dssl/s3_pkt.c;h\u003d25cf929a55d6decf3d815f28ab5e3ffd8d089b11;hb\u003drefs/heads/OpenSSL_1_0_1-stable#l910\n\n(If it behaved otherwise, the blocking mode of SSL_write would never work. Blocking code is not supposed to have to retry.)",
+      "parentUuid": "64cf5e9f_cd0be463",
+      "range": {
+        "startLine": 9940,
+        "startChar": 49,
+        "endLine": 9940,
+        "endChar": 77
+      },
+      "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
