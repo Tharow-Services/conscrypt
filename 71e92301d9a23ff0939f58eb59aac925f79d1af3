@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e41fceee_bcd48d25",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 532,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-10T21:49:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0434e264_25e4d812",
+      "range": {
+        "startLine": 532,
+        "startChar": 37,
+        "endLine": 532,
+        "endChar": 38
+      },
+      "revId": "71e92301d9a23ff0939f58eb59aac925f79d1af3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6442fedf_9d374376",
         "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
         "patchSetId": 5
@@ -72,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "6442fedf_3de06f36",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-10T21:49:09Z",
+      "side": 1,
+      "message": "There aren\u0027t ever any error message. The API is designed to be idempotent and just ignore when the extension is missing.\nThe only advantage of checking it here would be avoiding useless duplication by returning the original object.",
+      "parentUuid": "6442fedf_9d374376",
+      "range": {
+        "startLine": 534,
+        "startChar": 21,
+        "endLine": 534,
+        "endChar": 48
+      },
+      "revId": "71e92301d9a23ff0939f58eb59aac925f79d1af3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c43d6a4e_63fbbc82",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 5
@@ -83,6 +131,30 @@
       "writtenOn": "2015-09-10T16:01:33Z",
       "side": 1,
       "message": "If X509_delete_extension fails then the certificate is not modified. Can that happen?\nSeems like it could simply be addressed by moving this line to the body of the if statement.",
+      "range": {
+        "startLine": 6935,
+        "startChar": 21,
+        "endLine": 6935,
+        "endChar": 38
+      },
+      "revId": "71e92301d9a23ff0939f58eb59aac925f79d1af3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c43d6a4e_a3bea499",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 5
+      },
+      "lineNbr": 6935,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-10T21:49:09Z",
+      "side": 1,
+      "message": "All this does is invalidate the cached encoding, so it is harmless to set it even on an unmodified object.\nChanged nevertheless.",
+      "parentUuid": "c43d6a4e_63fbbc82",
       "range": {
         "startLine": 6935,
         "startChar": 21,
