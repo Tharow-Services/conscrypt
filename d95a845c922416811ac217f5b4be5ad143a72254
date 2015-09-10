@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e436ee6e_21d12e5a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-10T21:49:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "244c8613_ea67975c",
+      "range": {
+        "startLine": 533,
+        "startChar": 8,
+        "endLine": 533,
+        "endChar": 52
+      },
+      "revId": "d95a845c922416811ac217f5b4be5ad143a72254",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "244c8613_2a7fbfec",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2015-09-10T17:30:19Z",
       "side": 1,
       "message": "Just to make sure this isn\u0027t peeking into the internals too much, this should probably be something like:\n\n  X509_CINF_set_modified(X509_get_cert_info(x509));",
+      "range": {
+        "startLine": 6935,
+        "startChar": 0,
+        "endLine": 6935,
+        "endChar": 38
+      },
+      "revId": "d95a845c922416811ac217f5b4be5ad143a72254",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "24f726e3_a6b8c8ff",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 6935,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-10T21:49:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "244c8613_2a7fbfec",
       "range": {
         "startLine": 6935,
         "startChar": 0,
