@@ -59,6 +59,12 @@
 #include "crypto/ecdsa/ecs_locl.h"
 #endif
 
+#if defined(BORINGSSL_201509)
+#define SSL_wbuf_left(ssl) (ssl)->s3->write_buffer.len
+#else
+#define SSL_wbuf_left(ssl) (ssl)->s3->wbuf.left
+#endif
+
 #ifndef CONSCRYPT_UNBUNDLED
 /* If we're compiled unbundled from Android system image, we use the
  * CompatibilityCloseMonitor
@@ -9931,7 +9937,7 @@ static int sslWrite(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, const 
 
     int count = len;
 
-    while (appData->aliveAndKicking && ((len > 0) || (ssl->s3->wbuf.left > 0))) {
+    while (appData->aliveAndKicking && ((len > 0) || (SSL_wbuf_left(ssl) > 0))) {
         errno = 0;
 
         if (MUTEX_LOCK(appData->mutex) == -1) {
@@ -9952,7 +9958,7 @@ static int sslWrite(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, const 
             MUTEX_UNLOCK(appData->mutex);
             return THROWN_EXCEPTION;
         }
-        JNI_TRACE("ssl=%p sslWrite SSL_write len=%d left=%d", ssl, len, ssl->s3->wbuf.left);
+        JNI_TRACE("ssl=%p sslWrite SSL_write len=%d left=%d", ssl, len, SSL_wbuf_left(ssl));
         int result = SSL_write(ssl, buf, len);
         appData->clearCallbackState();
         // callbacks can happen if server requests renegotiation
@@ -9963,7 +9969,7 @@ static int sslWrite(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, const 
         }
         sslError.reset(ssl, result);
         JNI_TRACE("ssl=%p sslWrite SSL_write result=%d sslError=%d left=%d",
-                  ssl, result, sslError.get(), ssl->s3->wbuf.left);
+                  ssl, result, sslError.get(), SSL_wbuf_left(ssl));
 #ifdef WITH_JNI_TRACE_DATA
         for (int i = 0; i < result; i+= WITH_JNI_TRACE_DATA_CHUNK_SIZE) {
             int n = result - i;
@@ -10124,7 +10130,7 @@ static int NativeCrypto_SSL_write_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     }
     OpenSslError sslError(ssl, result);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_write_BIO SSL_write result=%d sslError=%d left=%d",
-              ssl, result, sslError.get(), ssl->s3->wbuf.left);
+              ssl, result, sslError.get(), SSL_wbuf_left(ssl));
 #ifdef WITH_JNI_TRACE_DATA
     for (int i = 0; i < result; i+= WITH_JNI_TRACE_DATA_CHUNK_SIZE) {
         int n = result - i;
