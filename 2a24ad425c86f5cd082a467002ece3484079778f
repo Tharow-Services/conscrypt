@@ -22,6 +22,30 @@
       "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64cf5e9f_cd0be463",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9940,
+      "author": {
+        "id": 1081233
+      },
+      "writtenOn": "2015-09-10T19:15:38Z",
+      "side": 1,
+      "message": "@kroot you want me to do that in this commit?",
+      "parentUuid": "442a5a15_b766e25d",
+      "range": {
+        "startLine": 9940,
+        "startChar": 49,
+        "endLine": 9940,
+        "endChar": 77
+      },
+      "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
