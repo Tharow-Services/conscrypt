@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "244c8613_ea67975c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-10T17:30:19Z",
+      "side": 1,
+      "message": "This should probably be wrapped when X509_dup is called to avoid leaks if X509_delete_ext ever throws an exception.",
+      "range": {
+        "startLine": 533,
+        "startChar": 8,
+        "endLine": 533,
+        "endChar": 52
+      },
+      "revId": "d95a845c922416811ac217f5b4be5ad143a72254",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "244c8613_2a7fbfec",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 7
+      },
+      "lineNbr": 6935,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-10T17:30:19Z",
+      "side": 1,
+      "message": "Just to make sure this isn\u0027t peeking into the internals too much, this should probably be something like:\n\n  X509_CINF_set_modified(X509_get_cert_info(x509));",
+      "range": {
+        "startLine": 6935,
+        "startChar": 0,
+        "endLine": 6935,
+        "endChar": 38
+      },
+      "revId": "d95a845c922416811ac217f5b4be5ad143a72254",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44fdfae7_3f8d2327",
+        "filename": "src/test/java/org/conscrypt/OpenSSLX509CertificateTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-10T17:30:19Z",
+      "side": 1,
+      "message": "Should also assert they are not equal before the deletion to make sure you\u0027re testing what you thought you\u0027re testing.",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "d95a845c922416811ac217f5b4be5ad143a72254",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44cedaa4_4eca372f",
+        "filename": "src/test/resources/cert-ct-poisoned.pem",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-10T17:30:19Z",
+      "side": 1,
+      "message": "Might also want to patch BoringSSL/OpenSSL to have a name for this if you have time.",
+      "range": {
+        "startLine": 35,
+        "startChar": 12,
+        "endLine": 35,
+        "endChar": 45
+      },
+      "revId": "d95a845c922416811ac217f5b4be5ad143a72254",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
