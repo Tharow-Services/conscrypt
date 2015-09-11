@@ -118,6 +118,30 @@
       "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "040942dd_da7ec5a9",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9940,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2015-09-11T15:50:13Z",
+      "side": 1,
+      "message": "Er, to clarify since I realized I\u0027m being kinda unclear:\n\nThe API contract of SSL_write is that it either returns a number of bytes written or \u003c\u003d 0 on error. If the latter, SSL_get_error gives you more information, possibly SSL_ERROR_WANT_WRITE.\n\nIf it signaled SSL_ERROR_WANT_WRITE and the underlying transport\u0027s error was a retryable one, like EWOULDBLOCK, the caller should retry the SSL_write call, as in POSIX[*].\n\nInternally, SSL_write may well have put some data in wbuf and then hit EWOULDBLOCK on the transport, leaving us in the situation described. However, it will not return a number of bytes written until wbuf is completely written to the transport. wbuf is an implementation detail and the caller should only retry based on SSL_write\u0027s return value (and what SSL_get_error signals).\n\nFrom the caller\u0027s perspective, SSL_write returned -1, so \"no\" bytes were written and we may retry later. On a retry, SSL_write will internally flush whatever\u0027s in wbuf and report that however much plaintext was in that record was returned, so the caller can then update len or whatever bookkeeping.\n\n\n[*] Unlike POSIX, because you may be halfway through writing a record, you cannot retry with different data. This is why there\u0027s all this mess around SSL_MODE_ACCEPT_MOVING_WRITE_BUFFER. But the behavior is the same either way, it just removes the pointer check.",
+      "parentUuid": "447fba21_2f660534",
+      "range": {
+        "startLine": 9940,
+        "startChar": 49,
+        "endLine": 9940,
+        "endChar": 77
+      },
+      "revId": "2a24ad425c86f5cd082a467002ece3484079778f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
