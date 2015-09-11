@@ -119,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "e41fceee_9c074920",
+        "filename": "src/test/java/org/conscrypt/OpenSSLX509CertificateTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-11T12:19:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "44fdfae7_3f8d2327",
+      "range": {
+        "startLine": 41,
+        "startChar": 8,
+        "endLine": 41,
+        "endChar": 30
+      },
+      "revId": "d95a845c922416811ac217f5b4be5ad143a72254",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44cedaa4_4eca372f",
         "filename": "src/test/resources/cert-ct-poisoned.pem",
         "patchSetId": 7
