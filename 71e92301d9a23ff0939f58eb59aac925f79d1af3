@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "0434e264_65fbc082",
+        "filename": "src/test/java/org/conscrypt/OpenSSLX509CertificateTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-11T12:19:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e41fceee_d967135d",
+      "range": {
+        "startLine": 26,
+        "startChar": 13,
+        "endLine": 26,
+        "endChar": 39
+      },
+      "revId": "71e92301d9a23ff0939f58eb59aac925f79d1af3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e41fceee_99619b4a",
         "filename": "src/test/java/org/conscrypt/TestUtils.java",
         "patchSetId": 5
