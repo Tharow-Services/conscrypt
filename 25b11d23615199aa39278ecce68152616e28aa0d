@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64211e85_0822e7b2",
+        "filename": "src/main/java/org/conscrypt/ct/DigitallySigned.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-16T14:55:04Z",
+      "side": 1,
+      "message": "This won\u0027t work with ANONYMOUS so what\u0027s expected in that case?",
+      "range": {
+        "startLine": 97,
+        "startChar": 15,
+        "endLine": 97,
+        "endChar": 76
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e9ea475e_e4cd3446",
+        "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-16T14:55:04Z",
+      "side": 1,
+      "message": "This should probably have some Javadoc here since using an issuerKeyHash not of length 32 throws an unchecked IllegalArgumentException.\n\nIs this public only for testing?",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 97
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9f4cf41_e243e878",
+        "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-16T14:55:04Z",
+      "side": 1,
+      "message": "add private SerializationUtils() {} so no one can instantiate this (uselessly).",
+      "range": {
+        "startLine": 25,
+        "startChar": 13,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2900dfee_befbb53d",
+        "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-16T14:55:04Z",
+      "side": 1,
+      "message": "Why not just SerializationException? length \u003c 0 throws this in readFixedBytes above for instance.",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89fb8b33_8139bcbd",
+        "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-16T14:55:04Z",
+      "side": 1,
+      "message": "I suppose you wouldn\u0027t need to catch this here if it weren\u0027t thrown by the SeralizationUtils",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 9
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09e87b64_6586c008",
+        "filename": "src/test/java/org/conscrypt/ct/SerializationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-16T14:55:04Z",
+      "side": 1,
+      "message": "You need to test failure cases as well. Bad encoding, etc.",
+      "range": {
+        "startLine": 54,
+        "startChar": 16,
+        "endLine": 54,
+        "endChar": 52
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
