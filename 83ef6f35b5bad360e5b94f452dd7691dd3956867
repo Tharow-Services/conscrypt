@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "09e87b64_c540ec6e",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 8755,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-16T14:21:55Z",
+      "side": 1,
+      "message": "Is throwing a RuntimeException the best in these cases? What\u0027s the consequence if these are not set?",
+      "range": {
+        "startLine": 8750,
+        "startChar": 0,
+        "endLine": 8755,
+        "endChar": 63
+      },
+      "revId": "83ef6f35b5bad360e5b94f452dd7691dd3956867",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
