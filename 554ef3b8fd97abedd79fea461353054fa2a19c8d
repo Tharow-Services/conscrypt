@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e9ea475e_8439c8bd",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10702,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:20Z",
+      "side": 1,
+      "message": "I need to parse the hashes before I can get the serial number, but the serial number is much faster to check, so I do it first.",
+      "parentUuid": "c93f43b4_3307f293",
+      "range": {
+        "startLine": 10702,
+        "startChar": 8,
+        "endLine": 10702,
+        "endChar": 24
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2900dfee_5e5a71f4",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "64211e85_e8682bbe",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10720,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:20Z",
+      "side": 1,
+      "message": "c2i takes in a double pointer (it modifies p to point to after the data it has consumed), so I need to make it a variable.",
+      "parentUuid": "64211e85_08974709",
+      "range": {
+        "startLine": 10720,
+        "startChar": 10,
+        "endLine": 10720,
+        "endChar": 20
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "44209a82_8a508ffd",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -82,6 +130,30 @@
       "writtenOn": "2015-09-16T16:03:28Z",
       "side": 1,
       "message": "Nit: It\u0027s safer in such cases to promise that out_single_response wasn\u0027t modified or set to NULL (so, for example, if a user repeatedly calls this function with the same pointer and does not inspect the return value, their code will fail on a null pointer exception rather than use stale data).",
+      "range": {
+        "startLine": 10754,
+        "startChar": 57,
+        "endLine": 10754,
+        "endChar": 74
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44209a82_0af3bf69",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10754,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:20Z",
+      "side": 1,
+      "message": "Done.\nI went for leaving it unchanged. There\u0027s no CBS_zero operation, and repeatedly calling the function with the same pointer is safe.",
+      "parentUuid": "44209a82_8a508ffd",
       "range": {
         "startLine": 10754,
         "startChar": 57,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "2900dfee_be429503",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10766,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:20Z",
+      "side": 1,
+      "message": "CBS_get_asn1 modifies single_response, hence the need for a copy.",
+      "parentUuid": "89fb8b33_610c7005",
+      "range": {
+        "startLine": 10766,
+        "startChar": 11,
+        "endLine": 10766,
+        "endChar": 22
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09e87b64_8269ba33",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -128,6 +224,30 @@
       "writtenOn": "2015-09-16T10:56:05Z",
       "side": 1,
       "message": "single_responses",
+      "range": {
+        "startLine": 10819,
+        "startChar": 25,
+        "endLine": 10819,
+        "endChar": 34
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9f4cf41_220e703c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10819,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09e87b64_8269ba33",
       "range": {
         "startLine": 10819,
         "startChar": 25,
