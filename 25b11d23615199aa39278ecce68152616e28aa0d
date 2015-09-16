@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e9ea475e_c426b095",
+        "filename": "src/main/java/org/conscrypt/ct/DigitallySigned.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:00Z",
+      "side": 1,
+      "message": "ANONYMOUS and DSA are not allowed for CT.\nHowever, this class is not really CT specific and could be used in other contexts.\nIf left as is, it will just fail when calling Signature#getInstance for ANONYMOUS, and fail to match any of the known keys for DSA.",
+      "parentUuid": "64211e85_0822e7b2",
+      "range": {
+        "startLine": 97,
+        "startChar": 15,
+        "endLine": 97,
+        "endChar": 76
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9ea475e_e4cd3446",
         "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-09-16T14:55:04Z",
       "side": 1,
       "message": "This should probably have some Javadoc here since using an issuerKeyHash not of length 32 throws an unchecked IllegalArgumentException.\n\nIs this public only for testing?",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 97
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09e87b64_85b424be",
+        "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:00Z",
+      "side": 1,
+      "message": "Done.\nYes",
+      "parentUuid": "e9ea475e_e4cd3446",
       "range": {
         "startLine": 44,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a9f4cf41_22dc30fc",
+        "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a9f4cf41_e243e878",
+      "range": {
+        "startLine": 25,
+        "startChar": 13,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2900dfee_befbb53d",
         "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "89fb8b33_81553cc7",
+        "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2900dfee_befbb53d",
+      "range": {
+        "startLine": 88,
+        "startChar": 15,
+        "endLine": 88,
+        "endChar": 39
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "89fb8b33_8139bcbd",
         "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2015-09-16T14:55:04Z",
       "side": 1,
       "message": "I suppose you wouldn\u0027t need to catch this here if it weren\u0027t thrown by the SeralizationUtils",
+      "range": {
+        "startLine": 78,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 9
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2900dfee_5e68317c",
+        "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-16T17:18:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89fb8b33_8139bcbd",
       "range": {
         "startLine": 78,
         "startChar": 8,
