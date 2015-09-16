@@ -2,6 +2,121 @@
   "comments": [
     {
       "key": {
+        "uuid": "c93f43b4_3307f293",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10702,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-16T16:03:28Z",
+      "side": 1,
+      "message": "Seems like the issuer_name_hash is used much later - how about moving its extraction to just before it\u0027s necessary?",
+      "range": {
+        "startLine": 10702,
+        "startChar": 8,
+        "endLine": 10702,
+        "endChar": 24
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2900dfee_5e5a71f4",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10708,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-16T16:03:28Z",
+      "side": 1,
+      "message": "Same for issuer_key_hash",
+      "range": {
+        "startLine": 10708,
+        "startChar": 8,
+        "endLine": 10708,
+        "endChar": 23
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64211e85_08974709",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10720,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-16T16:03:28Z",
+      "side": 1,
+      "message": "Any reason not to inline p?",
+      "range": {
+        "startLine": 10720,
+        "startChar": 10,
+        "endLine": 10720,
+        "endChar": 20
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "44209a82_8a508ffd",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10754,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-16T16:03:28Z",
+      "side": 1,
+      "message": "Nit: It\u0027s safer in such cases to promise that out_single_response wasn\u0027t modified or set to NULL (so, for example, if a user repeatedly calls this function with the same pointer and does not inspect the return value, their code will fail on a null pointer exception rather than use stale data).",
+      "range": {
+        "startLine": 10754,
+        "startChar": 57,
+        "endLine": 10754,
+        "endChar": 74
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89fb8b33_610c7005",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 10766,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-16T16:03:28Z",
+      "side": 1,
+      "message": "Why not make a copy just before we need it, near the \u0027return true\u0027 statement?",
+      "range": {
+        "startLine": 10766,
+        "startChar": 11,
+        "endLine": 10766,
+        "endChar": 22
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09e87b64_8269ba33",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -18,6 +133,29 @@
         "startChar": 25,
         "endLine": 10819,
         "endChar": 34
+      },
+      "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a9f4cf41_820f7c3a",
+        "filename": "src/test/java/org/conscrypt/TestUtils.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-16T16:03:28Z",
+      "side": 1,
+      "message": "Can you use Apache Commons IO package?\nhttps://commons.apache.org/proper/commons-io/description.html\n\nIf not I\u0027d move these helpers to the test class itself.\nThe reason being that right now it does exactly what you need for that particular test.\nWhen such code is in a general \"util\" class it has a tendency to acquire options and flags to make it usable for other tests, each of which should have their own, simple local copies that do what these tests need.",
+      "range": {
+        "startLine": 31,
+        "startChar": 25,
+        "endLine": 31,
+        "endChar": 37
       },
       "revId": "554ef3b8fd97abedd79fea461353054fa2a19c8d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
