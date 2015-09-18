@@ -58,11 +58,27 @@ LOCAL_SHARED_LIBRARIES := libcrypto-host libssl-host
 include $(BUILD_HOST_EXECUTABLE)
 
 conscrypt_generate_constants_exe := $(LOCAL_INSTALLED_MODULE)
-conscrypt_gen_java_files := $(TARGET_OUT_COMMON_GEN)/conscrypt/NativeConstants.java
+conscrypt_gen_constants_java := $(TARGET_OUT_COMMON_GEN)/conscrypt/NativeConstants.java
 
-$(conscrypt_gen_java_files): $(conscrypt_generate_constants_exe)
+$(conscrypt_gen_constants_java): $(conscrypt_generate_constants_exe)
 	mkdir -p $(dir $@)
 	$< > $@
+
+include $(CLEAR_VARS)
+LOCAL_CPP_EXTENSION := cc
+LOCAL_SRC_FILES := src/gen/native/generate_known_logs.cc
+LOCAL_MODULE := conscrypt_generate_known_logs
+LOCAL_SHARED_LIBRARIES := libcrypto-host
+include $(BUILD_HOST_EXECUTABLE)
+
+conscrypt_generate_known_logs_exe := $(LOCAL_INSTALLED_MODULE)
+conscrypt_gen_known_logs_java := $(TARGET_OUT_COMMON_GEN)/conscrypt/KnownLogs.java
+
+$(conscrypt_gen_known_logs_java): $(conscrypt_generate_known_logs_exe)
+	mkdir -p $(dir $@)
+	$< > $@
+
+conscrypt_gen_java_files := $(conscrypt_gen_constants_java) $(conscrypt_gen_known_logs_java)
 
 # Create the conscrypt library
 include $(CLEAR_VARS)
