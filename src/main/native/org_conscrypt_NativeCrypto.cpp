@@ -56,7 +56,11 @@
 #endif
 
 #if !defined(OPENSSL_IS_BORINGSSL)
-#include "crypto/ecdsa/ecs_locl.h"
+#if defined(GOOGLE_INTERNAL)
+#include "third_party/openssl/openssl/src/crypto/ecdsa/ecs_locl.h"
+#else
+#include "crypto/ecdsa/esc_locl.h"
+#endif
 #endif
 
 #ifndef CONSCRYPT_UNBUNDLED
