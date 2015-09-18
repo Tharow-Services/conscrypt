@@ -11096,7 +11096,7 @@ static jbyteArray NativeCrypto_get_ocsp_single_extension(JNIEnv *env, jclass,
 
 #else
 
-static jbyteArray NativeCrypto_get_ocsp_single_extension(JNIEnv *env, jclass, jbyteArray, jstring,
+static jbyteArray NativeCrypto_get_ocsp_single_extension(JNIEnv *, jclass, jbyteArray, jstring,
                                                          jlong, jlong) {
     return NULL;
 }
