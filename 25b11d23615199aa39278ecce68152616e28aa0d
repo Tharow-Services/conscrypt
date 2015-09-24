@@ -257,6 +257,30 @@
       "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c98d83f4_23f0d49d",
+        "filename": "src/test/java/org/conscrypt/ct/SerializationTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09e87b64_6586c008",
+      "range": {
+        "startLine": 54,
+        "startChar": 16,
+        "endLine": 54,
+        "endChar": 52
+      },
+      "revId": "25b11d23615199aa39278ecce68152616e28aa0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
