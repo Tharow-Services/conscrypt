@@ -56,6 +56,10 @@ public final class NativeCrypto {
 
     private native static boolean clinit();
 
+    // Temporary function used to skip tests which require a recent BoringSSL
+    // To be removed when BoringSSL gets updated
+    public static native boolean isBoringSSL201509();
+
     // --- ENGINE functions ----------------------------------------------------
     public static native void ENGINE_load_dynamic();
 

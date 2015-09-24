@@ -2328,6 +2328,17 @@ static jboolean NativeCrypto_clinit(JNIEnv*, jclass)
 #endif
 }
 
+/* Temporary function used to skip tests which require a recent BoringSSL
+ * To be removed when BoringSSL gets updated */
+static jboolean NativeCrypto_isBoringSSL201509(JNIEnv*, jclass)
+{
+#if defined(BORINGSSL_201509)
+    return JNI_TRUE;
+#else
+    return JNI_FALSE;
+#endif
+}
+
 static void NativeCrypto_ENGINE_load_dynamic(JNIEnv*, jclass) {
 #if !defined(OPENSSL_IS_BORINGSSL)
     JNI_TRACE("ENGINE_load_dynamic()");
@@ -10975,6 +10986,7 @@ static jbyteArray NativeCrypto_get_ocsp_single_extension(JNIEnv*, jclass, jbyteA
 #define REF_HMAC_CTX "L" TO_STRING(JNI_JARJAR_PREFIX) "org/conscrypt/NativeRef$HMAC_CTX;"
 static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, clinit, "()Z"),
+    NATIVE_METHOD(NativeCrypto, isBoringSSL201509, "()Z"),
     NATIVE_METHOD(NativeCrypto, ENGINE_load_dynamic, "()V"),
     NATIVE_METHOD(NativeCrypto, ENGINE_by_id, "(Ljava/lang/String;)J"),
     NATIVE_METHOD(NativeCrypto, ENGINE_add, "(J)I"),
