@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "69ee5738_bdddbfd5",
+        "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89762b11_09334d2e",
+      "range": {
+        "startLine": 30,
+        "startChar": 12,
+        "endLine": 30,
+        "endChar": 15
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e99a4788_a18e7e61",
+        "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4970b318_2412f2d4",
+      "range": {
+        "startLine": 30,
+        "startChar": 16,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c9ef43fe_7375fac3",
         "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
         "patchSetId": 6
@@ -59,6 +107,30 @@
       "writtenOn": "2015-09-22T09:58:20Z",
       "side": 1,
       "message": "Check that you\u0027re only setting the issuerKeyHash if the type matches.",
+      "range": {
+        "startLine": 38,
+        "startChar": 12,
+        "endLine": 38,
+        "endChar": 25
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "090f9bb2_ed97c13b",
+        "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9ef43fe_7375fac3",
       "range": {
         "startLine": 38,
         "startChar": 12,
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "8902ab8b_06df9a76",
+        "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "The |leaf| argument is not a precert. We are recreating the precert here from the final one.\nIt makes sense to make a CertificateEntry out of a certificate with no SCT extension (although useless in this context)\nI\u0027ve changed it so the caller is responsible for removing the extension. This way the argument really matches the name of the method.",
+      "parentUuid": "c9ef43fe_5372f6dd",
+      "range": {
+        "startLine": 59,
+        "startChar": 50,
+        "endLine": 59,
+        "endChar": 70
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4970b318_c4fafee1",
         "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
         "patchSetId": 6
@@ -105,6 +201,30 @@
       "writtenOn": "2015-09-22T09:58:20Z",
       "side": 1,
       "message": "Which structure?",
+      "range": {
+        "startLine": 88,
+        "startChar": 22,
+        "endLine": 88,
+        "endChar": 31
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89762b11_498c65fc",
+        "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4970b318_c4fafee1",
       "range": {
         "startLine": 88,
         "startChar": 22,
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "8902ab8b_66d88e90",
+        "filename": "src/main/java/org/conscrypt/ct/LogEntry.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c9ef43fe_f3e56adf",
+      "range": {
+        "startLine": 90,
+        "startChar": 16,
+        "endLine": 90,
+        "endChar": 22
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e99a4788_e19fe699",
         "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
         "patchSetId": 6
@@ -151,6 +295,30 @@
       "writtenOn": "2015-09-22T09:58:20Z",
       "side": 1,
       "message": "its",
+      "range": {
+        "startLine": 30,
+        "startChar": 33,
+        "endLine": 30,
+        "endChar": 37
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8902ab8b_860b8a9b",
+        "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e99a4788_e19fe699",
       "range": {
         "startLine": 30,
         "startChar": 33,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "e99a4788_c4b7500e",
+        "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8902ab8b_0631da85",
+      "range": {
+        "startLine": 73,
+        "startChar": 67,
+        "endLine": 73,
+        "endChar": 75
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09987b8e_62c3d693",
         "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
         "patchSetId": 6
@@ -197,6 +389,30 @@
       "writtenOn": "2015-09-22T09:58:20Z",
       "side": 1,
       "message": "indicate how much you\u0027ve read?",
+      "range": {
+        "startLine": 78,
+        "startChar": 67,
+        "endLine": 78,
+        "endChar": 72
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09987b8e_a28e7e61",
+        "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "09987b8e_62c3d693",
       "range": {
         "startLine": 78,
         "startChar": 67,
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "09987b8e_82749a11",
+        "filename": "src/main/java/org/conscrypt/ct/SerializationUtils.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e99a4788_c194e280",
+      "range": {
+        "startLine": 95,
+        "startChar": 54,
+        "endLine": 95,
+        "endChar": 59
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8902ab8b_e63ebe53",
         "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
         "patchSetId": 6
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "a97f6fe5_8ac1eb6c",
+        "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "All the encode / decode methods work on streams, but I eventually use byte arrays, so the top level encode / decode methods are overloaded to provide a simple wrapper which avoids dealing with streams",
+      "parentUuid": "8902ab8b_e63ebe53",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 10
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "091ddbf6_9d3507a9",
         "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
         "patchSetId": 6
@@ -266,6 +530,30 @@
       "writtenOn": "2015-09-22T09:58:20Z",
       "side": 1,
       "message": "To be accurate, you\u0027re not really encoding the entire LogEntry here:\nYou\u0027re either encoding the X.509 cert or the PreCert structure defined in http://tools.ietf.org/html/rfc6962#section-3.2. The entire LogEntry contains the chain, which shouldn\u0027t be serialized.",
+      "range": {
+        "startLine": 96,
+        "startChar": 8,
+        "endLine": 96,
+        "endChar": 23
+      },
+      "revId": "257f1f114758a771f21b460617e59495b79b3b77",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "091ddbf6_fd1a0303",
+        "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-24T13:21:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "091ddbf6_9d3507a9",
       "range": {
         "startLine": 96,
         "startChar": 8,
