@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eeb7ade1_b9bb7f45",
+        "filename": "src/main/java/org/conscrypt/ct/CTConstants.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "Per offline discussion, create enums for what makes sense, remove constants that are not used.",
+      "range": {
+        "startLine": 19,
+        "startChar": 13,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceae6993_3b584321",
+        "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "FYI you can attach values to enums if you want to be explicit (don\u0027t have to).",
+      "range": {
+        "startLine": 41,
+        "startChar": 16,
+        "endLine": 41,
+        "endChar": 28
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4ec27958_745f28d1",
+        "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "This check could come later as it\u0027s not logically part of the same condition.",
+      "range": {
+        "startLine": 60,
+        "startChar": 10,
+        "endLine": 60,
+        "endChar": 70
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eeb7ade1_d9c833e1",
+        "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "Define a constant or, better, refer to an existing constant that explains why it\u0027s 32.",
+      "range": {
+        "startLine": 61,
+        "startChar": 70,
+        "endLine": 61,
+        "endChar": 72
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2ebd45ca_733bc060",
+        "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "Per our offline discussion, check here that the embedded SCTs extension is present, then remove it.",
+      "range": {
+        "startLine": 76,
+        "startChar": 75,
+        "endLine": 76,
+        "endChar": 82
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ce074951_f080802f",
+        "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "You could (but don\u0027t have to) add a value in the ENUM indicating the max entry type and calculate the size from that.",
+      "range": {
+        "startLine": 116,
+        "startChar": 75,
+        "endLine": 116,
+        "endChar": 96
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ec3bd5a_555a2ce2",
+        "filename": "src/main/java/org/conscrypt/ct/DigitallySigned.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "Can you inline the values array?",
+      "range": {
+        "startLine": 51,
+        "startChar": 44,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ec8f176_56d5d476",
+        "filename": "src/main/java/org/conscrypt/ct/Serialization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "Space at end of line.",
+      "range": {
+        "startLine": 185,
+        "startChar": 75,
+        "endLine": 185,
+        "endChar": 76
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ceae6993_fb240b8f",
+        "filename": "src/main/java/org/conscrypt/ct/Serialization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "Magic number - please create a constant for it.",
+      "range": {
+        "startLine": 192,
+        "startChar": 28,
+        "endLine": 192,
+        "endChar": 30
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ec3bd5a_d56d5c8c",
+        "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "Nit: phrasing\nI suggest:\n// origin is implied from the SCT\u0027s source and is not encoded in it, and affects the verification process.",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eececd75_01306a7d",
+        "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T13:17:42Z",
+      "side": 1,
+      "message": "That will break when we add V2 SCTs :)",
+      "range": {
+        "startLine": 80,
+        "startChar": 12,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
