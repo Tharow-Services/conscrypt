@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e9a4178_b25aa08c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 10697,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T10:12:44Z",
+      "side": 1,
+      "message": "nit: when a function returns a boolean, try to phrase its name as a question, so it reads more clearly in call sites (e.g. does_ocsp_cert_id_match or ocsp_cert_id_matches).",
+      "range": {
+        "startLine": 10697,
+        "startChar": 12,
+        "endLine": 10697,
+        "endChar": 30
+      },
+      "revId": "266aa907eb230b02e2f648b3448107dda6b6b14b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eeb7ade1_b9145f0a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 10698,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T10:12:44Z",
+      "side": 1,
+      "message": "Move this variable (and the following two) to just before they are actually needed.\nAs we discussed offline, the parsing order of ASN.1 is significant but these three variables can be defined just before they are used.",
+      "range": {
+        "startLine": 10698,
+        "startChar": 18,
+        "endLine": 10698,
+        "endChar": 40
+      },
+      "revId": "266aa907eb230b02e2f648b3448107dda6b6b14b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ec3bd5a_d511dc18",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 8
+      },
+      "lineNbr": 10780,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-09-25T10:12:44Z",
+      "side": 1,
+      "message": "continue to the next response if this one fails.",
+      "range": {
+        "startLine": 10780,
+        "startChar": 13,
+        "endLine": 10780,
+        "endChar": 25
+      },
+      "revId": "266aa907eb230b02e2f648b3448107dda6b6b14b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
