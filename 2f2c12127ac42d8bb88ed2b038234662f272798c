@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0eb5e1d9_bdbd2bec",
+        "filename": "src/main/java/org/conscrypt/ct/CTConstants.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-25T15:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeb7ade1_b9bb7f45",
+      "range": {
+        "startLine": 19,
+        "startChar": 13,
+        "endLine": 19,
+        "endChar": 24
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ceae6993_3b584321",
         "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
         "patchSetId": 9
@@ -105,6 +129,30 @@
       "writtenOn": "2015-09-25T13:17:42Z",
       "side": 1,
       "message": "Per our offline discussion, check here that the embedded SCTs extension is present, then remove it.",
+      "range": {
+        "startLine": 76,
+        "startChar": 75,
+        "endLine": 76,
+        "endChar": 82
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eececd75_61bbf619",
+        "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-25T15:07:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2ebd45ca_733bc060",
       "range": {
         "startLine": 76,
         "startChar": 75,
@@ -243,6 +291,30 @@
       "writtenOn": "2015-09-25T13:17:42Z",
       "side": 1,
       "message": "That will break when we add V2 SCTs :)",
+      "range": {
+        "startLine": 80,
+        "startChar": 12,
+        "endLine": 80,
+        "endChar": 49
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eececd75_81c0fa89",
+        "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-25T15:07:28Z",
+      "side": 1,
+      "message": "That\u0027s the whole point of the check no ? ignoring V2 SCT which aren\u0027t supported.\nThis will only cause the current SCT to be skipped. v1 and v2 SCTs could be mixed fine",
+      "parentUuid": "eececd75_01306a7d",
       "range": {
         "startLine": 80,
         "startChar": 12,
