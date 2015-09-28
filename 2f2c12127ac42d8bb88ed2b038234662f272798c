@@ -95,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "eeb7ade1_9caa2954",
+        "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-28T14:36:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ec27958_745f28d1",
+      "range": {
+        "startLine": 60,
+        "startChar": 10,
+        "endLine": 60,
+        "endChar": 70
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eeb7ade1_d9c833e1",
         "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
         "patchSetId": 9
@@ -106,6 +130,30 @@
       "writtenOn": "2015-09-25T13:17:42Z",
       "side": 1,
       "message": "Define a constant or, better, refer to an existing constant that explains why it\u0027s 32.",
+      "range": {
+        "startLine": 61,
+        "startChar": 70,
+        "endLine": 61,
+        "endChar": 72
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eeb7ade1_bca7ed8a",
+        "filename": "src/main/java/org/conscrypt/ct/CertificateEntry.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-28T14:36:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eeb7ade1_d9c833e1",
       "range": {
         "startLine": 61,
         "startChar": 70,
@@ -211,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "eeb7ade1_bcf52d8b",
+        "filename": "src/main/java/org/conscrypt/ct/DigitallySigned.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-28T14:36:41Z",
+      "side": 1,
+      "message": "Every call to values() clones the array, so I save it here",
+      "parentUuid": "6ec3bd5a_555a2ce2",
+      "range": {
+        "startLine": 51,
+        "startChar": 44,
+        "endLine": 51,
+        "endChar": 50
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8ec8f176_56d5d476",
         "filename": "src/main/java/org/conscrypt/ct/Serialization.java",
         "patchSetId": 9
@@ -222,6 +294,30 @@
       "writtenOn": "2015-09-25T13:17:42Z",
       "side": 1,
       "message": "Space at end of line.",
+      "range": {
+        "startLine": 185,
+        "startChar": 75,
+        "endLine": 185,
+        "endChar": 76
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ec8f176_59534754",
+        "filename": "src/main/java/org/conscrypt/ct/Serialization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-28T14:36:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8ec8f176_56d5d476",
       "range": {
         "startLine": 185,
         "startChar": 75,
@@ -257,6 +353,30 @@
     },
     {
       "key": {
+        "uuid": "ceae6993_5efec52a",
+        "filename": "src/main/java/org/conscrypt/ct/Serialization.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-28T14:36:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceae6993_fb240b8f",
+      "range": {
+        "startLine": 192,
+        "startChar": 28,
+        "endLine": 192,
+        "endChar": 30
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6ec3bd5a_d56d5c8c",
         "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
         "patchSetId": 9
@@ -268,6 +388,30 @@
       "writtenOn": "2015-09-25T13:17:42Z",
       "side": 1,
       "message": "Nit: phrasing\nI suggest:\n// origin is implied from the SCT\u0027s source and is not encoded in it, and affects the verification process.",
+      "range": {
+        "startLine": 40,
+        "startChar": 3,
+        "endLine": 41,
+        "endChar": 53
+      },
+      "revId": "2f2c12127ac42d8bb88ed2b038234662f272798c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ec3bd5a_f8632d23",
+        "filename": "src/main/java/org/conscrypt/ct/SignedCertificateTimestamp.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-28T14:36:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6ec3bd5a_d56d5c8c",
       "range": {
         "startLine": 40,
         "startChar": 3,
