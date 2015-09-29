@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ae5bf53d_6e3455c0",
+        "filename": "src/main/java/org/conscrypt/ct/CTLogInfo.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-29T07:18:07Z",
+      "side": 1,
+      "message": "Javadoc please",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 24
+      },
+      "revId": "ff8c728e33024e3dc1bda203a7456ed7a64eb0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e52b121_fc7246d8",
+        "filename": "src/main/java/org/conscrypt/ct/CTVerifier.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-29T07:18:07Z",
+      "side": 1,
+      "message": "Can you add Javadoc to all these while the knowledge is fresh in your mind? I\u0027ll have to maintain this later on :)",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 103
+      },
+      "revId": "ff8c728e33024e3dc1bda203a7456ed7a64eb0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6e4d7d85_d99c35d2",
+        "filename": "src/main/java/org/conscrypt/ct/SCTVerificationResult.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-29T07:18:07Z",
+      "side": 1,
+      "message": "nit: Should be 8 space indent for continuations.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "ff8c728e33024e3dc1bda203a7456ed7a64eb0eb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
