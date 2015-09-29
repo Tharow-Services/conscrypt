@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ce582944_dde1bd3d",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-09-29T07:25:33Z",
+      "side": 1,
+      "message": "Are these different between platform and compat? Platform is only intended to be used for things that are different between the platform and unbundled versions of Conscrypt. These seem to be the same upon cursory examination, so they should go somewhere else to avoid code duplication.",
+      "range": {
+        "startLine": 383,
+        "startChar": 3,
+        "endLine": 383,
+        "endChar": 68
+      },
+      "revId": "79814e131fd63736339d5be51549199086a6bc93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
