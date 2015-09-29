@@ -22,6 +22,30 @@
       "revId": "79814e131fd63736339d5be51549199086a6bc93",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0e9a4178_18046ddf",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 9
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-29T13:46:50Z",
+      "side": 1,
+      "message": "They are the same for now, but they will differ when ct configuration in the manifest is added, as the unbundled version will need to use reflection.\nUntil then there\u0027s no need to duplicate this, so I\u0027ll move it back into into main.\nI\u0027m not 100% sure where this should go though. I\u0027ve put it in SSLParametersImpl for now.",
+      "parentUuid": "ce582944_dde1bd3d",
+      "range": {
+        "startLine": 383,
+        "startChar": 3,
+        "endLine": 383,
+        "endChar": 68
+      },
+      "revId": "79814e131fd63736339d5be51549199086a6bc93",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
