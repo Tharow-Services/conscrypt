@@ -186,6 +186,30 @@
       "revId": "2be533846ecd8419c0b84272ce0653f93b3b50c7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "89762b11_86464a8a",
+        "filename": "src/platform/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-29T13:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c93f43b4_53e95627",
+      "range": {
+        "startLine": 198,
+        "startChar": 5,
+        "endLine": 203,
+        "endChar": 30
+      },
+      "revId": "2be533846ecd8419c0b84272ce0653f93b3b50c7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
