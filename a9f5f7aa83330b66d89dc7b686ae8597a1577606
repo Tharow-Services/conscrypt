@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "55eccecd_4d3a995a",
+        "filename": "src/main/java/org/conscrypt/ct/CTLogInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "156b3632_c36bd6f6",
+      "range": {
+        "startLine": 76,
+        "startChar": 76,
+        "endLine": 76,
+        "endChar": 79
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b57c2af2_e8419374",
         "filename": "src/main/java/org/conscrypt/ct/CTLogInfo.java",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2015-09-30T14:37:17Z",
       "side": 1,
       "message": "I find this try catch a bit too broad - it handles quite a few cases and it\u0027s unclear what line of code could throw which exception and why.\n\nI suggest breaking it down to a few clauses.",
+      "range": {
+        "startLine": 80,
+        "startChar": 8,
+        "endLine": 80,
+        "endChar": 11
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "957f26e6_27591a2b",
+        "filename": "src/main/java/org/conscrypt/ct/CTLogInfo.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b57c2af2_e8419374",
       "range": {
         "startLine": 80,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "156b3632_a3441a3f",
+        "filename": "src/main/java/org/conscrypt/ct/CTVerifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55eccecd_8d2da16f",
+      "range": {
+        "startLine": 86,
+        "startChar": 48,
+        "endLine": 86,
+        "endChar": 71
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b57c2af2_c8720fd7",
         "filename": "src/main/java/org/conscrypt/ct/CTVerifier.java",
         "patchSetId": 11
@@ -82,6 +154,30 @@
       "writtenOn": "2015-09-30T14:37:17Z",
       "side": 1,
       "message": "If you make this (and the other two) methods accept null input data and return empty lists rather than null, you\u0027ll have much less error handling to do in verifySignedCertificateTimestamps.",
+      "range": {
+        "startLine": 143,
+        "startChar": 45,
+        "endLine": 143,
+        "endChar": 63
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75763214_26d11694",
+        "filename": "src/main/java/org/conscrypt/ct/CTVerifier.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b57c2af2_c8720fd7",
       "range": {
         "startLine": 143,
         "startChar": 45,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "55712e1a_4561aa93",
+        "filename": "src/main/java/org/conscrypt/ct/SCTVerificationResult.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "957f26e6_877806b9",
+      "range": {
+        "startLine": 25,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 21
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "957f26e6_a7750ac2",
         "filename": "src/main/java/org/conscrypt/ct/SCTVerificationResult.java",
         "patchSetId": 11
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "957f26e6_475e0e14",
+        "filename": "src/main/java/org/conscrypt/ct/SCTVerificationResult.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "957f26e6_a7750ac2",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 13
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55eccecd_0d59b12a",
         "filename": "src/main/java/org/conscrypt/ct/SCTVerificationResult.java",
         "patchSetId": 11
@@ -151,6 +295,30 @@
       "writtenOn": "2015-09-30T14:37:17Z",
       "side": 1,
       "message": "What\u0027s the goal of having a reference to the CTLogInfo object here?\nI propose to remove it as it\u0027s not logically a part of the SCTVerificationResult, can be easily obtained given the LogID in the SCT and would only hinder removing a log at runtime.\nMore broadly, you\u0027re committing to an API here without a strong justification (i.e. the same object can be obtained through other means).",
+      "range": {
+        "startLine": 34,
+        "startChar": 27,
+        "endLine": 34,
+        "endChar": 30
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "156b3632_03da4ee0",
+        "filename": "src/main/java/org/conscrypt/ct/SCTVerificationResult.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55eccecd_0d59b12a",
       "range": {
         "startLine": 34,
         "startChar": 27,
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "b57c2af2_883017ca",
+        "filename": "src/test/java/org/conscrypt/ct/CTVerifierTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b57c2af2_a81b1b7e",
+      "range": {
+        "startLine": 30,
+        "startChar": 17,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55eccecd_ed2a6553",
         "filename": "src/test/java/org/conscrypt/ct/CTVerifierTest.java",
         "patchSetId": 11
@@ -220,6 +412,30 @@
       "writtenOn": "2015-09-30T14:37:17Z",
       "side": 1,
       "message": "Why not do this in the setUp ? It seems to me the error will be clearer if it\u0027s in the setUp and the files are not there.",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 10
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75ab929e_7eeed17b",
+        "filename": "src/test/java/org/conscrypt/ct/CTVerifierTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55eccecd_ed2a6553",
       "range": {
         "startLine": 48,
         "startChar": 4,
@@ -260,6 +476,30 @@
       "writtenOn": "2015-09-30T14:37:17Z",
       "side": 1,
       "message": "Also check that the SCT is invalid in the way you expect it to.",
+      "range": {
+        "startLine": 112,
+        "startChar": 8,
+        "endLine": 112,
+        "endChar": 20
+      },
+      "revId": "a9f5f7aa83330b66d89dc7b686ae8597a1577606",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b57c2af2_a82ddb6e",
+        "filename": "src/test/java/org/conscrypt/ct/CTVerifierTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-09-30T18:44:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35e91ad0_dc7cad7c",
       "range": {
         "startLine": 112,
         "startChar": 8,
