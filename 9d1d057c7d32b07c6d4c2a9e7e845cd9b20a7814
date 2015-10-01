@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "35703a18_a4418207",
+        "filename": "src/main/java/org/conscrypt/ct/CTConstants.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-01T12:38:26Z",
+      "side": 1,
+      "message": "These are DER constants, not CT ones - put them in the only class they\u0027re used (CTSerialization).",
+      "range": {
+        "startLine": 38,
+        "startChar": 28,
+        "endLine": 38,
+        "endChar": 40
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35e91ad0_3ca4b1ed",
+        "filename": "src/main/java/org/conscrypt/ct/CTResults.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-01T12:38:26Z",
+      "side": 1,
+      "message": "Naming: CTVerificationResult, as it is the result of a single verification.",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "957f26e6_c7a2fe0c",
+        "filename": "src/main/java/org/conscrypt/ct/CTResults.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-01T12:38:26Z",
+      "side": 1,
+      "message": "Nit: naming: addSCTVerificationResult or simply add().\nI\u0027d expect this object to be immutable and provided with the list of results in the c\u0027tor, which will be sorted then.",
+      "range": {
+        "startLine": 27,
+        "startChar": 16,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f597825c_423fb276",
+        "filename": "src/main/java/org/conscrypt/ct/CTResults.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-01T12:38:26Z",
+      "side": 1,
+      "message": "Since the order doesn\u0027t matter, you could initialize validSCTs as a frozenset rather than copy every time getValidSCTs is called.",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 15
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "75763214_a65d068d",
+        "filename": "src/main/java/org/conscrypt/ct/CTVerifier.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-01T12:38:26Z",
+      "side": 1,
+      "message": "Nit: You can merge tlsScts with ocspScts and call verifyExternalSCTs once.",
+      "range": {
+        "startLine": 50,
+        "startChar": 41,
+        "endLine": 50,
+        "endChar": 48
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55eccecd_9075bac2",
+        "filename": "src/main/java/org/conscrypt/ct/CTVerifier.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-01T12:38:26Z",
+      "side": 1,
+      "message": "What do these magic numbers stand for? use constants instead.",
+      "range": {
+        "startLine": 162,
+        "startChar": 51,
+        "endLine": 162,
+        "endChar": 52
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55eccecd_f0723ed6",
+        "filename": "src/test/java/org/conscrypt/ct/CTVerifierTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-01T12:38:26Z",
+      "side": 1,
+      "message": "Whitespaces in an empty line, please remove.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 8
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
