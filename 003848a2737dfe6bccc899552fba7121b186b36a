@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "156b3632_431c4602",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 1119,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-01T12:47:53Z",
+      "side": 1,
+      "message": "It seems to me that the loop explicitly continues after finding a property to allow fine-grained control of domains and subdomains.\nIf that\u0027s the case (which is good!) please document it at the beginning of the for statement.",
+      "range": {
+        "startLine": 1119,
+        "startChar": 12,
+        "endLine": 1119,
+        "endChar": 52
+      },
+      "revId": "003848a2737dfe6bccc899552fba7121b186b36a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b57c2af2_48d61f8d",
+        "filename": "src/test/java/org/conscrypt/OpenSSLSocketImplTest.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-01T12:47:53Z",
+      "side": 1,
+      "message": "This setup repeats itself in all tests - can you extract to a helper method that\u0027ll take the certificates, and return the clientHooks and serverHooks to use for the test?",
+      "range": {
+        "startLine": 214,
+        "startChar": 8,
+        "endLine": 214,
+        "endChar": 49
+      },
+      "revId": "003848a2737dfe6bccc899552fba7121b186b36a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
