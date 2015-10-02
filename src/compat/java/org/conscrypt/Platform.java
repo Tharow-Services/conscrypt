@@ -359,4 +359,51 @@ public class Platform {
         }
         return null;
     }
+
+    /*
+     * CloseGuard functions.
+     */
+
+    public static CloseGuard closeGuardGet() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            return;
+        }
+
+        return CloseGuard.get();
+    }
+
+    public static void closeGuardOpen(Object guardObj, String message) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            return;
+        }
+
+        CloseGuard guard = (CloseGuard) guardObj;
+        guard.open(message);
+    }
+
+    public static void closeGuardClose(Object guardObj) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            return;
+        }
+
+        CloseGuard guard = (CloseGuard) guardObj;
+        guard.close();
+    }
+
+    public static void closeGuardWarnIfOpen(Object guardObj) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            return;
+        }
+
+        CloseGuard guard = (CloseGuard) guardObj;
+        guard.warnIfOpen();
+    }
+
+    /*
+     * BlockGuard functions.
+     */
+
+    public static void blockGuardOnNetwork() {
+        BlockGuard.getThreadPolicy().onNetwork();
+    }
 }
