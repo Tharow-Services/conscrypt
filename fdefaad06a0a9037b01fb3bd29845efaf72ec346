@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b57c2af2_cb0e896c",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1098,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-02T11:00:59Z",
+      "side": 1,
+      "message": "shouldn\u0027t this check come after the global conscrypt.ct.enable check?\nOtherwise the behaviour of this method when called with a null hostname is a bit odd as it would return true if ctVerificationEnabled is true but false if the global property is set to true.",
+      "range": {
+        "startLine": 1098,
+        "startChar": 12,
+        "endLine": 1098,
+        "endChar": 28
+      },
+      "revId": "fdefaad06a0a9037b01fb3bd29845efaf72ec346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "957f26e6_6af1179d",
+        "filename": "src/test/java/org/conscrypt/OpenSSLSocketImplTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-02T11:00:59Z",
+      "side": 1,
+      "message": "naming: Using ALL_CAPS is a bit misleading as these are not constants but \"plain\" fields initialized during setUp.",
+      "range": {
+        "startLine": 56,
+        "startChar": 28,
+        "endLine": 56,
+        "endChar": 41
+      },
+      "revId": "fdefaad06a0a9037b01fb3bd29845efaf72ec346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "156b3632_864acc90",
+        "filename": "src/test/java/org/conscrypt/OpenSSLSocketImplTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-02T11:00:59Z",
+      "side": 1,
+      "message": "Have a method that returns a reference to the SSLParametersImpl after doing all the nasty reflection and casting stuff.",
+      "range": {
+        "startLine": 115,
+        "startChar": 46,
+        "endLine": 115,
+        "endChar": 100
+      },
+      "revId": "fdefaad06a0a9037b01fb3bd29845efaf72ec346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
