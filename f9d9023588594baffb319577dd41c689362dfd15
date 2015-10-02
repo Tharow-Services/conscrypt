@@ -22,6 +22,30 @@
       "revId": "f9d9023588594baffb319577dd41c689362dfd15",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35e91ad0_7f9e2ba3",
+        "filename": "src/test/java/org/conscrypt/ct/CTVerifierTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-10-02T13:14:58Z",
+      "side": 1,
+      "message": "Arg, did it in the wrong commit.\nDone now",
+      "parentUuid": "75763214_49d6258d",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 8
+      },
+      "revId": "f9d9023588594baffb319577dd41c689362dfd15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
