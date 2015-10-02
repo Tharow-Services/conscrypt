@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "75763214_e9419174",
+        "filename": "src/main/java/org/conscrypt/ct/CTConstants.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-10-02T13:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35703a18_a4418207",
+      "range": {
+        "startLine": 38,
+        "startChar": 28,
+        "endLine": 38,
+        "endChar": 40
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "35e91ad0_3ca4b1ed",
         "filename": "src/main/java/org/conscrypt/ct/CTResults.java",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2015-10-01T12:38:26Z",
       "side": 1,
       "message": "Naming: CTVerificationResult, as it is the result of a single verification.",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "957f26e6_ca7203d7",
+        "filename": "src/main/java/org/conscrypt/ct/CTResults.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-10-02T13:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "35e91ad0_3ca4b1ed",
       "range": {
         "startLine": 23,
         "startChar": 13,
@@ -140,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "35e91ad0_1f21a7de",
+        "filename": "src/main/java/org/conscrypt/ct/CTVerifier.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-10-02T13:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55eccecd_9075bac2",
+      "range": {
+        "startLine": 162,
+        "startChar": 51,
+        "endLine": 162,
+        "endChar": 52
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "55eccecd_f0723ed6",
         "filename": "src/test/java/org/conscrypt/ct/CTVerifierTest.java",
         "patchSetId": 12
@@ -151,6 +223,30 @@
       "writtenOn": "2015-10-01T12:38:26Z",
       "side": 1,
       "message": "Whitespaces in an empty line, please remove.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 8
+      },
+      "revId": "9d1d057c7d32b07c6d4c2a9e7e845cd9b20a7814",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "55712e1a_a55dfe8c",
+        "filename": "src/test/java/org/conscrypt/ct/CTVerifierTest.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-10-02T13:01:47Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "55eccecd_f0723ed6",
       "range": {
         "startLine": 44,
         "startChar": 0,
