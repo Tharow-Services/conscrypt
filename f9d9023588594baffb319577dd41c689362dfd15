@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "75763214_49d6258d",
+        "filename": "src/test/java/org/conscrypt/ct/CTVerifierTest.java",
+        "patchSetId": 14
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2015-10-02T13:08:37Z",
+      "side": 1,
+      "message": "whitespace in an empty line, please remove.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 8
+      },
+      "revId": "f9d9023588594baffb319577dd41c689362dfd15",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
