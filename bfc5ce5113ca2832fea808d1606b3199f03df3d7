@@ -22,6 +22,30 @@
       "revId": "bfc5ce5113ca2832fea808d1606b3199f03df3d7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "35703a18_aa8ceb2d",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1077764
+      },
+      "writtenOn": "2015-10-06T10:08:39Z",
+      "side": 1,
+      "message": "I used to set them directly from the tests, but that doesn\u0027t work anyway because they are in different class loaders.\nDone.",
+      "parentUuid": "ab976c01_61ed702e",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 106,
+        "endChar": 24
+      },
+      "revId": "bfc5ce5113ca2832fea808d1606b3199f03df3d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
