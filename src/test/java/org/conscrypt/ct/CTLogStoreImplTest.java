@@ -24,8 +24,8 @@ public class CTLogStoreImplTest extends TestCase {
      * This test simply forces the logs to be loaded to make sure it doesn't
      * fail, as all of the other tests use a different log store.
      */
-    public void test_getDefaultKnownLogs() {
-        CTLogInfo[] knownLogs = CTLogStoreImpl.getDefaultKnownLogs();
+    public void test_getDefaultFallbackLogs() {
+        CTLogInfo[] knownLogs = CTLogStoreImpl.getDefaultFallbackLogs();
         assertEquals(KnownLogs.LOG_COUNT, knownLogs.length);
     }
 }
