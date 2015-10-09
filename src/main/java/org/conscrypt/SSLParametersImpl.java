@@ -1103,3 +1103,4 @@ public class SSLParametersImpl implements Cloneable {
         return Platform.isCTVerificationRequired(hostname);
     }
 }
+
