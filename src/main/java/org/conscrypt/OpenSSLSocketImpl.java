@@ -18,6 +18,7 @@ package org.conscrypt;
 
 import org.conscrypt.util.ArrayUtils;
 import org.conscrypt.ct.CTVerifier;
+import org.conscrypt.ct.CTPolicy;
 import org.conscrypt.ct.CTVerificationResult;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
@@ -578,9 +579,11 @@ public class OpenSSLSocketImpl
                     CTVerifier ctVerifier = sslParameters.getCTVerifier();
                     CTVerificationResult result =
                         ctVerifier.verifySignedCertificateTimestamps(peerCertChain, tlsData, ocspData);
+                    CTPolicy ctPolicy = sslParameters.getCTPolicy();
 
-                    if (result.getValidSCTs().size() == 0) {
-                        throw new CertificateException("No valid SCT found");
+                    if (!ctPolicy.doesResultConformToPolicy(result, peerCertChain[0])) {
+                        throw new CertificateException(
+                                "Certificate does not conform to required transparency policy");
                     }
                 }
             } else {

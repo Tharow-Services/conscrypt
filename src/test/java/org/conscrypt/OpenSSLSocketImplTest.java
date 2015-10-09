@@ -20,6 +20,8 @@ import org.conscrypt.ct.CTLogInfo;
 import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTLogStoreImpl;
 import org.conscrypt.ct.CTVerifier;
+import org.conscrypt.ct.CTPolicy;
+import org.conscrypt.ct.CTPolicyImpl;
 
 import junit.framework.TestCase;
 import java.io.IOException;
@@ -56,7 +58,8 @@ public class OpenSSLSocketImplTest extends TestCase {
     private X509Certificate cert;
     private X509Certificate certEmbedded;
     private PrivateKey certKey;
-    private CTVerifier ctVerifier;
+    private CTVerifier defaultCTVerifier;
+    private CTPolicy defaultCTPolicy;
 
     private Field contextSSLParameters;
 
@@ -86,7 +89,8 @@ public class OpenSSLSocketImplTest extends TestCase {
                 }
             }
         };
-        ctVerifier = new CTVerifier(store);
+        defaultCTVerifier = new CTVerifier(store);
+        defaultCTPolicy = new CTPolicyImpl(store, 1);
     }
 
     abstract class Hooks implements HandshakeCompletedListener {
@@ -119,7 +123,8 @@ public class OpenSSLSocketImplTest extends TestCase {
     }
 
     class ClientHooks extends Hooks {
-        CTVerifier ctVerifier;
+        CTVerifier ctVerifier = defaultCTVerifier;
+        CTPolicy ctPolicy = defaultCTPolicy;
         boolean ctVerificationEnabled;
         String hostname = "example.com";
 
@@ -129,6 +134,9 @@ public class OpenSSLSocketImplTest extends TestCase {
             SSLParametersImpl sslParameters = getContextSSLParameters(context);
             if (ctVerifier != null) {
                 sslParameters.setCTVerifier(ctVerifier);
+            }
+            if (ctPolicy != null) {
+                sslParameters.setCTPolicy(ctPolicy);
             }
             sslParameters.setCTVerificationEnabled(ctVerificationEnabled);
             return context;
@@ -246,7 +254,6 @@ public class OpenSSLSocketImplTest extends TestCase {
     public void test_handshakeWithEmbeddedSCT() throws Exception {
         TestConnection connection = new TestConnection(new X509Certificate[] { certEmbedded, ca }, certKey);
 
-        connection.clientHooks.ctVerifier = ctVerifier;
         connection.clientHooks.ctVerificationEnabled = true;
 
         connection.doHandshake();
@@ -263,7 +270,6 @@ public class OpenSSLSocketImplTest extends TestCase {
 
         TestConnection connection = new TestConnection(new X509Certificate[] { cert, ca }, certKey);
 
-        connection.clientHooks.ctVerifier = ctVerifier;
         connection.clientHooks.ctVerificationEnabled = true;
         connection.serverHooks.ocspResponse = readTestFile("ocsp-response.der");
 
@@ -281,7 +287,6 @@ public class OpenSSLSocketImplTest extends TestCase {
 
         TestConnection connection = new TestConnection(new X509Certificate[] { cert, ca }, certKey);
 
-        connection.clientHooks.ctVerifier = ctVerifier;
         connection.clientHooks.ctVerificationEnabled = true;
         connection.serverHooks.sctTLSExtension = readTestFile("ct-signed-timestamp-list");
 
@@ -294,7 +299,6 @@ public class OpenSSLSocketImplTest extends TestCase {
     public void test_handshake_failsWithMissingSCT() throws Exception {
         TestConnection connection = new TestConnection(new X509Certificate[] { cert, ca }, certKey);
 
-        connection.clientHooks.ctVerifier = ctVerifier;
         connection.clientHooks.ctVerificationEnabled = true;
 
         try {
@@ -309,7 +313,6 @@ public class OpenSSLSocketImplTest extends TestCase {
     public void test_handshake_failsWithInvalidSCT() throws Exception {
         TestConnection connection = new TestConnection(new X509Certificate[] { cert, ca }, certKey);
 
-        connection.clientHooks.ctVerifier = ctVerifier;
         connection.clientHooks.ctVerificationEnabled = true;
         connection.serverHooks.sctTLSExtension = readTestFile("ct-signed-timestamp-list-invalid");
 
