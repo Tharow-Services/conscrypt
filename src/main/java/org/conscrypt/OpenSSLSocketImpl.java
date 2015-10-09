@@ -43,6 +43,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
 import javax.security.auth.x500.X500Principal;
+import org.conscrypt.ct.CTPolicy;
 import org.conscrypt.ct.CTVerificationResult;
 import org.conscrypt.ct.CTVerifier;
 import org.conscrypt.util.ArrayUtils;
@@ -594,9 +595,11 @@ public class OpenSSLSocketImpl
                     CTVerifier ctVerifier = sslParameters.getCTVerifier();
                     CTVerificationResult result =
                         ctVerifier.verifySignedCertificateTimestamps(peerCertChain, tlsData, ocspData);
+                    CTPolicy ctPolicy = sslParameters.getCTPolicy();
 
-                    if (result.getValidSCTs().size() == 0) {
-                        throw new CertificateException("No valid SCT found");
+                    if (!ctPolicy.doesResultConformToPolicy(result, peerCertChain[0])) {
+                        throw new CertificateException(
+                                "Certificate does not conform to required transparency policy");
                     }
                 }
             } else {

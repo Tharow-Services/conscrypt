@@ -45,7 +45,10 @@ import javax.net.ssl.X509ExtendedKeyManager;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
 import javax.security.auth.x500.X500Principal;
+import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTLogStoreImpl;
+import org.conscrypt.ct.CTPolicy;
+import org.conscrypt.ct.CTPolicyImpl;
 import org.conscrypt.ct.CTVerifier;
 import org.conscrypt.util.EmptyArray;
 
@@ -67,8 +70,8 @@ public class SSLParametersImpl implements Cloneable {
     private static volatile SecureRandom defaultSecureRandom;
     // default SSL parameters
     private static volatile SSLParametersImpl defaultParameters;
-    // default CT Verifier
-    private static volatile CTVerifier defaultCTVerifier;
+    // default CT Log store
+    private static volatile CTLogStore defaultCTLogStore;
 
     // client session context contains the set of reusable
     // client-side SSL sessions
@@ -105,8 +108,10 @@ public class SSLParametersImpl implements Cloneable {
 
     // client-side only, bypasses the property based configuration, used for tests
     private boolean ctVerificationEnabled;
-    // client-side only, if null defaultCTVerifier is used instead. Used for tests
-    private CTVerifier ctVerifier;
+    // client-side only, if null a default one is used instead.
+    private volatile CTVerifier ctVerifier;
+    // client-side only, if null a default one is configured using security properties
+    private volatile CTPolicy ctPolicy;
 
     // server-side only. SCT and OCSP data to send to clients which request it
     private byte[] sctExtension;
@@ -250,20 +255,35 @@ public class SSLParametersImpl implements Cloneable {
         return secureRandom;
     }
 
+    protected CTLogStore getDefaultCTLogStore() {
+        CTLogStore result = defaultCTLogStore;
+        if (result == null) {
+            // single-check idiom
+            defaultCTLogStore = result = new CTLogStoreImpl();
+        }
+        return result;
+    }
+
     /**
      * @return certificate transparency verifier
      */
     protected CTVerifier getCTVerifier() {
-        if (ctVerifier != null) {
-            return ctVerifier;
-        }
-        CTVerifier result = defaultCTVerifier;
+        CTVerifier result = ctVerifier;
         if (result == null) {
             // single-check idiom
-            defaultCTVerifier = result = new CTVerifier(new CTLogStoreImpl());
+            ctVerifier = result = new CTVerifier(getDefaultCTLogStore());
         }
-        ctVerifier = result;
-        return ctVerifier;
+        return result;
+    }
+
+    protected CTPolicy getCTPolicy() {
+        CTPolicy result = ctPolicy;
+        if (result == null) {
+            // single-check idiom
+            ctPolicy = result = createDefaultCTPolicy();
+        }
+
+        return result;
     }
 
     /**
@@ -379,6 +399,10 @@ public class SSLParametersImpl implements Cloneable {
 
     public void setCTVerifier(CTVerifier verifier) {
         ctVerifier = verifier;
+    }
+
+    public void setCTPolicy(CTPolicy policy) {
+        ctPolicy = policy;
     }
 
     public void setCTVerificationEnabled(boolean enabled) {
@@ -1127,4 +1151,12 @@ public class SSLParametersImpl implements Cloneable {
         }
         return Platform.isCTVerificationRequired(hostname);
     }
+
+    /**
+     * Create a default CTPolicy instance.
+     */
+    private CTPolicy createDefaultCTPolicy() {
+        return new CTPolicyImpl(getDefaultCTLogStore(), 1);
+    }
 }
+
