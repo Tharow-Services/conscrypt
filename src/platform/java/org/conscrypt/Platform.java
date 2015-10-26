@@ -26,6 +26,7 @@ import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
 import java.io.FileDescriptor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -115,11 +116,20 @@ class Platform {
 
     public static void checkServerTrusted(X509TrustManager x509tm, X509Certificate[] chain,
             String authType, String host) throws CertificateException {
-        if (x509tm instanceof TrustManagerImpl) {
-            TrustManagerImpl tm = (TrustManagerImpl) x509tm;
-            tm.checkServerTrusted(chain, authType, host);
-        } else {
+        // Use duck-typing to try and call the hostname aware checkServerTrusted if available.
+        try {
+            Method method = x509tm.getClass().getMethod("checkServerTrusted",
+                    X509Certificate[].class,
+                    String.class,
+                    String.class);
+            method.invoke(x509tm, chain, authType, host);
+        } catch (NoSuchMethodException | IllegalAccessException e) {
             x509tm.checkServerTrusted(chain, authType);
+        } catch (InvocationTargetException e) {
+            if (e.getCause() instanceof CertificateException) {
+                throw (CertificateException) e.getCause();
+            }
+            throw new RuntimeException(e.getCause());
         }
     }
 
