@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "56e941ce_96767c03",
+        "filename": "src/platform/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-10-27T00:07:52Z",
+      "side": 0,
+      "message": "Why not just keep this and put the other part in the else clause?",
+      "range": {
+        "startLine": 118,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 16
+      },
+      "revId": "5ed85e2b8ee17a00b5a96ddc85f58c3d7bf0e891",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
