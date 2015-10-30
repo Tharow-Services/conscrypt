@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d685318b_20deca76",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 7681,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-10-30T18:53:31Z",
+      "side": 1,
+      "message": "this comment would have been clearer as \"Converting from Java semantics to Posix semantics\"",
+      "revId": "e8b168556aace289c7ed01cae784a149c390bccc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
