@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96401a44_36ba4030",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7648,
+      "author": {
+        "id": 1003966
+      },
+      "writtenOn": "2015-10-30T18:44:22Z",
+      "side": 1,
+      "message": "It seems odd to reference select() here when you\u0027re no longer using it, but I can\u0027t think of a better way to phrase this.",
+      "revId": "31effbc0e9bf361b9e45a2d04ac59fe5367d8929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "96401a44_16bf3c20",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7649,
+      "author": {
+        "id": 1003966
+      },
+      "writtenOn": "2015-10-30T18:44:22Z",
+      "side": 1,
+      "message": "Implementation no longer uses select().",
+      "revId": "31effbc0e9bf361b9e45a2d04ac59fe5367d8929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "562a227b_17e61ed8",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7656,
+      "author": {
+        "id": 1003966
+      },
+      "writtenOn": "2015-10-30T18:44:22Z",
+      "side": 1,
+      "message": "fix comment to correspond to new code?",
+      "revId": "31effbc0e9bf361b9e45a2d04ac59fe5367d8929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
