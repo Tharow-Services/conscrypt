@@ -31,6 +31,7 @@
 
 #include <arpa/inet.h>
 #include <fcntl.h>
+#include <poll.h>
 #include <pthread.h>
 #include <sys/socket.h>
 #include <sys/syscall.h>
@@ -7655,8 +7656,7 @@ static int sslSelect(JNIEnv* env, int type, jobject fdObject, AppData* appData, 
     // cannot be restarted without recreating the fd_sets and timeout
     // structure.
     int result;
-    fd_set rfds;
-    fd_set wfds;
+    struct pollfd fds[2];
     do {
         NetFd fd(env, fdObject);
         if (fd.isClosed()) {
@@ -7667,36 +7667,28 @@ static int sslSelect(JNIEnv* env, int type, jobject fdObject, AppData* appData, 
         JNI_TRACE("sslSelect type=%s fd=%d appData=%p timeout_millis=%d",
                   (type == SSL_ERROR_WANT_READ) ? "READ" : "WRITE", intFd, appData, timeout_millis);
 
-        FD_ZERO(&rfds);
-        FD_ZERO(&wfds);
-
+        memset(&fds, 0, sizeof(fds));
+        fds[0].fd = intFd;
         if (type == SSL_ERROR_WANT_READ) {
-            FD_SET(intFd, &rfds);
+            fds[0].events = POLLIN | POLLPRI;
         } else {
-            FD_SET(intFd, &wfds);
+            fds[0].events = POLLOUT | POLLPRI;
         }
 
-        FD_SET(appData->fdsEmergency[0], &rfds);
+        fds[1].fd = appData->fdsEmergency[0];
+        fds[1].events = POLLIN | POLLPRI;
 
-        int maxFd = (intFd > appData->fdsEmergency[0]) ? intFd : appData->fdsEmergency[0];
-
-        // Build a struct for the timeout data if we actually want a timeout.
-        timeval tv;
-        timeval* ptv;
-        if (timeout_millis > 0) {
-            tv.tv_sec = timeout_millis / 1000;
-            tv.tv_usec = (timeout_millis % 1000) * 1000;
-            ptv = &tv;
-        } else {
-            ptv = NULL;
+        // For poll() a timeout of zero means to return immediately. Any
+        // negative value means an infinite timeout.
+        if (timeout_millis <= 0) {
+            timeout_millis = -1;
         }
-
 #ifndef CONSCRYPT_UNBUNDLED
         AsynchronousCloseMonitor monitor(intFd);
 #else
         CompatibilityCloseMonitor monitor(intFd);
 #endif
-        result = select(maxFd + 1, &rfds, &wfds, NULL, ptv);
+        result = poll(fds, sizeof(fds)/sizeof(fds[0]), timeout_millis);
         JNI_TRACE("sslSelect %s fd=%d appData=%p timeout_millis=%d => %d",
                   (type == SSL_ERROR_WANT_READ) ? "READ" : "WRITE",
                   fd.get(), appData, timeout_millis, result);
@@ -7723,7 +7715,7 @@ static int sslSelect(JNIEnv* env, int type, jobject fdObject, AppData* appData, 
         // the mutex before we did. Thus we cannot safely read from
         // the pipe in a blocking way (so we make the pipe
         // non-blocking at creation).
-        if (FD_ISSET(appData->fdsEmergency[0], &rfds)) {
+        if (fds[1].revents & POLLIN) {
             char token;
             do {
                 (void) read(appData->fdsEmergency[0], &token, 1);
