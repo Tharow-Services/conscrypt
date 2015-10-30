@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "562a227b_17fdfe5d",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7648,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-10-30T18:46:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96401a44_36ba4030",
+      "revId": "31effbc0e9bf361b9e45a2d04ac59fe5367d8929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "96401a44_16bf3c20",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "36204e91_e95e1dc4",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7649,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-10-30T18:46:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96401a44_16bf3c20",
+      "revId": "31effbc0e9bf361b9e45a2d04ac59fe5367d8929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "562a227b_17e61ed8",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2015-10-30T18:44:22Z",
       "side": 1,
       "message": "fix comment to correspond to new code?",
+      "revId": "31effbc0e9bf361b9e45a2d04ac59fe5367d8929",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f6195673_6746ba57",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 7656,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-10-30T18:46:52Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "562a227b_17e61ed8",
       "revId": "31effbc0e9bf361b9e45a2d04ac59fe5367d8929",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
