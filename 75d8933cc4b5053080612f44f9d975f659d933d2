@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "36892e3b_b67c49ca",
+        "filename": "src/main/java/org/conscrypt/OpenSSLMessageDigestJDK.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-11-06T17:33:17Z",
+      "side": 1,
+      "message": "nit: Too bad this doesn\u0027t match the method in NativeCrypto (EVP_DigestFinal). Is this just a historical mistake?",
+      "range": {
+        "startLine": 149,
+        "startChar": 49,
+        "endLine": 149,
+        "endChar": 67
+      },
+      "revId": "75d8933cc4b5053080612f44f9d975f659d933d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
