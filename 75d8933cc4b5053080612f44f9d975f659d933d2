@@ -22,6 +22,30 @@
       "revId": "75d8933cc4b5053080612f44f9d975f659d933d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1698aa84_9d2124e1",
+        "filename": "src/main/java/org/conscrypt/OpenSSLMessageDigestJDK.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-11-06T18:14:50Z",
+      "side": 1,
+      "message": "I have now mailed https://android-review.googlesource.com/#/c/181077 to adjust the names of NativeCrypt methods to match the underlying BoringSSL methods.",
+      "parentUuid": "36892e3b_b67c49ca",
+      "range": {
+        "startLine": 149,
+        "startChar": 49,
+        "endLine": 149,
+        "endChar": 67
+      },
+      "revId": "75d8933cc4b5053080612f44f9d975f659d933d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
