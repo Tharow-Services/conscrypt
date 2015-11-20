@@ -188,13 +188,6 @@ struct ASN1_INTEGER_Delete {
 };
 typedef UniquePtr<ASN1_INTEGER, ASN1_INTEGER_Delete> Unique_ASN1_INTEGER;
 
-struct DH_Delete {
-    void operator()(DH* p) const {
-        DH_free(p);
-    }
-};
-typedef UniquePtr<DH, DH_Delete> Unique_DH;
-
 struct DSA_Delete {
     void operator()(DSA* p) const {
         DSA_free(p);
@@ -2559,64 +2552,6 @@ static jint NativeCrypto_ENGINE_ctrl_cmd_string(JNIEnv*, jclass, jlong, jstring,
 }
 #endif
 
-static jlong NativeCrypto_EVP_PKEY_new_DH(JNIEnv* env, jclass,
-                                               jbyteArray p, jbyteArray g,
-                                               jbyteArray pub_key, jbyteArray priv_key) {
-    JNI_TRACE("EVP_PKEY_new_DH(p=%p, g=%p, pub_key=%p, priv_key=%p)",
-              p, g, pub_key, priv_key);
-
-    Unique_DH dh(DH_new());
-    if (dh.get() == NULL) {
-        jniThrowRuntimeException(env, "DH_new failed");
-        return 0;
-    }
-
-    if (!arrayToBignum(env, p, &dh->p)) {
-        return 0;
-    }
-
-    if (!arrayToBignum(env, g, &dh->g)) {
-        return 0;
-    }
-
-    if (pub_key != NULL && !arrayToBignum(env, pub_key, &dh->pub_key)) {
-        return 0;
-    }
-
-    if (priv_key != NULL && !arrayToBignum(env, priv_key, &dh->priv_key)) {
-        return 0;
-    }
-
-    if (dh->p == NULL || dh->g == NULL
-            || (pub_key != NULL && dh->pub_key == NULL)
-            || (priv_key != NULL && dh->priv_key == NULL)) {
-        jniThrowRuntimeException(env, "Unable to convert BigInteger to BIGNUM");
-        return 0;
-    }
-
-    /* The public key can be recovered if the private key is available. */
-    if (dh->pub_key == NULL && dh->priv_key != NULL) {
-        if (!DH_generate_key(dh.get())) {
-            jniThrowRuntimeException(env, "EVP_PKEY_new_DH failed during pub_key generation");
-            return 0;
-        }
-    }
-
-    Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
-        jniThrowRuntimeException(env, "EVP_PKEY_new failed");
-        return 0;
-    }
-    if (EVP_PKEY_assign_DH(pkey.get(), dh.get()) != 1) {
-        jniThrowRuntimeException(env, "EVP_PKEY_assign_DH failed");
-        return 0;
-    }
-    OWNERSHIP_TRANSFERRED(dh);
-    JNI_TRACE("EVP_PKEY_new_DH(p=%p, g=%p, pub_key=%p, priv_key=%p) => %p",
-              p, g, pub_key, priv_key, pkey.get());
-    return reinterpret_cast<jlong>(pkey.release());
-}
-
 /**
  * private static native int EVP_PKEY_new_RSA(byte[] n, byte[] e, byte[] d, byte[] p, byte[] q);
  */
@@ -3361,120 +3296,6 @@ static jobjectArray NativeCrypto_get_RSA_private_params(JNIEnv* env, jclass, job
             return NULL;
         }
         env->SetObjectArrayElement(joa, 7, iqmp);
-    }
-
-    return joa;
-}
-
-static jlong NativeCrypto_DH_generate_parameters_ex(JNIEnv* env, jclass, jint primeBits, jlong generator) {
-    JNI_TRACE("DH_generate_parameters_ex(%d, %lld)", primeBits, (long long) generator);
-
-    Unique_DH dh(DH_new());
-    if (dh.get() == NULL) {
-        JNI_TRACE("DH_generate_parameters_ex failed");
-        jniThrowOutOfMemory(env, "Unable to allocate DH key");
-        freeOpenSslErrorState();
-        return 0;
-    }
-
-    JNI_TRACE("DH_generate_parameters_ex generating parameters");
-
-    if (!DH_generate_parameters_ex(dh.get(), primeBits, generator, NULL)) {
-        JNI_TRACE("DH_generate_parameters_ex => param generation failed");
-        throwExceptionIfNecessary(env, "NativeCrypto_DH_generate_parameters_ex failed");
-        return 0;
-    }
-
-    Unique_EVP_PKEY pkey(EVP_PKEY_new());
-    if (pkey.get() == NULL) {
-        JNI_TRACE("DH_generate_parameters_ex failed");
-        jniThrowRuntimeException(env, "NativeCrypto_DH_generate_parameters_ex failed");
-        freeOpenSslErrorState();
-        return 0;
-    }
-
-    if (EVP_PKEY_assign_DH(pkey.get(), dh.get()) != 1) {
-        JNI_TRACE("DH_generate_parameters_ex failed");
-        throwExceptionIfNecessary(env, "NativeCrypto_DH_generate_parameters_ex failed");
-        return 0;
-    }
-
-    OWNERSHIP_TRANSFERRED(dh);
-    JNI_TRACE("DH_generate_parameters_ex(n=%d, g=%lld) => %p", primeBits, (long long) generator,
-            pkey.get());
-    return reinterpret_cast<uintptr_t>(pkey.release());
-}
-
-static void NativeCrypto_DH_generate_key(JNIEnv* env, jclass, jobject pkeyRef) {
-    EVP_PKEY* pkey = fromContextObject<EVP_PKEY>(env, pkeyRef);
-    JNI_TRACE("DH_generate_key(%p)", pkey);
-
-    if (pkey == NULL) {
-        return;
-    }
-
-    Unique_DH dh(EVP_PKEY_get1_DH(pkey));
-    if (dh.get() == NULL) {
-        JNI_TRACE("DH_generate_key failed");
-        throwExceptionIfNecessary(env, "Unable to get DH key");
-        freeOpenSslErrorState();
-    }
-
-    if (!DH_generate_key(dh.get())) {
-        JNI_TRACE("DH_generate_key failed");
-        throwExceptionIfNecessary(env, "NativeCrypto_DH_generate_key failed");
-    }
-}
-
-static jobjectArray NativeCrypto_get_DH_params(JNIEnv* env, jclass, jobject pkeyRef) {
-    EVP_PKEY* pkey = fromContextObject<EVP_PKEY>(env, pkeyRef);
-    JNI_TRACE("get_DH_params(%p)", pkey);
-
-    if (pkey == NULL) {
-        return NULL;
-    }
-
-    Unique_DH dh(EVP_PKEY_get1_DH(pkey));
-    if (dh.get() == NULL) {
-        throwExceptionIfNecessary(env, "get_DH_params failed");
-        return 0;
-    }
-
-    jobjectArray joa = env->NewObjectArray(4, byteArrayClass, NULL);
-    if (joa == NULL) {
-        return NULL;
-    }
-
-    if (dh->p != NULL) {
-        jbyteArray p = bignumToArray(env, dh->p, "p");
-        if (env->ExceptionCheck()) {
-            return NULL;
-        }
-        env->SetObjectArrayElement(joa, 0, p);
-    }
-
-    if (dh->g != NULL) {
-        jbyteArray g = bignumToArray(env, dh->g, "g");
-        if (env->ExceptionCheck()) {
-            return NULL;
-        }
-        env->SetObjectArrayElement(joa, 1, g);
-    }
-
-    if (dh->pub_key != NULL) {
-        jbyteArray pub_key = bignumToArray(env, dh->pub_key, "pub_key");
-        if (env->ExceptionCheck()) {
-            return NULL;
-        }
-        env->SetObjectArrayElement(joa, 2, pub_key);
-    }
-
-    if (dh->priv_key != NULL) {
-        jbyteArray priv_key = bignumToArray(env, dh->priv_key, "priv_key");
-        if (env->ExceptionCheck()) {
-            return NULL;
-        }
-        env->SetObjectArrayElement(joa, 3, priv_key);
     }
 
     return joa;
@@ -11203,7 +11024,6 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, ENGINE_load_private_key, "(JLjava/lang/String;)J"),
     NATIVE_METHOD(NativeCrypto, ENGINE_get_id, "(J)Ljava/lang/String;"),
     NATIVE_METHOD(NativeCrypto, ENGINE_ctrl_cmd_string, "(JLjava/lang/String;Ljava/lang/String;I)I"),
-    NATIVE_METHOD(NativeCrypto, EVP_PKEY_new_DH, "([B[B[B[B)J"),
     NATIVE_METHOD(NativeCrypto, EVP_PKEY_new_RSA, "([B[B[B[B[B[B[B[B)J"),
     NATIVE_METHOD(NativeCrypto, EVP_PKEY_new_EC_KEY, "(" REF_EC_GROUP REF_EC_POINT "[B)J"),
     NATIVE_METHOD(NativeCrypto, EVP_PKEY_type, "(" REF_EVP_PKEY ")I"),
@@ -11228,9 +11048,6 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, RSA_private_decrypt, "(I[B[B" REF_EVP_PKEY "I)I"),
     NATIVE_METHOD(NativeCrypto, get_RSA_private_params, "(" REF_EVP_PKEY ")[[B"),
     NATIVE_METHOD(NativeCrypto, get_RSA_public_params, "(" REF_EVP_PKEY ")[[B"),
-    NATIVE_METHOD(NativeCrypto, DH_generate_parameters_ex, "(IJ)J"),
-    NATIVE_METHOD(NativeCrypto, DH_generate_key, "(" REF_EVP_PKEY ")V"),
-    NATIVE_METHOD(NativeCrypto, get_DH_params, "(" REF_EVP_PKEY ")[[B"),
     NATIVE_METHOD(NativeCrypto, EC_GROUP_new_by_curve_name, "(Ljava/lang/String;)J"),
     NATIVE_METHOD(NativeCrypto, EC_GROUP_new_arbitrary, "([B[B[B[B[B[BI)J"),
     NATIVE_METHOD(NativeCrypto, EC_GROUP_set_asn1_flag, "(" REF_EC_GROUP "I)V"),
