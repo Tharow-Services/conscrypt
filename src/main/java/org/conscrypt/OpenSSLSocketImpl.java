@@ -569,7 +569,7 @@ public class OpenSSLSocketImpl
 
             boolean client = sslParameters.getUseClientMode();
             if (client) {
-                Platform.checkServerTrusted(x509tm, peerCertChain, authMethod, getHostname());
+                Platform.checkServerTrusted(x509tm, peerCertChain, authMethod, peerHostname);
                 if (sslParameters.isCTVerificationEnabled(getHostname())) {
                     byte[] tlsData = NativeCrypto.SSL_get_signed_cert_timestamp_list(
                                         sslNativePointer);
