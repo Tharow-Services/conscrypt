@@ -145,6 +145,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(call all-java-files-under,src/main/java)
 LOCAL_SRC_FILES += $(call all-java-files-under,src/compat/java)
+LOCAL_SRC_FILES += $(call all-java-files-under,src/jni-loader/java)
 LOCAL_GENERATED_SOURCES := $(conscrypt_gen_java_files)
 LOCAL_SDK_VERSION := 9
 LOCAL_JAVACFLAGS := $(local_javac_flags)
@@ -276,6 +277,18 @@ LOCAL_SHARED_LIBRARIES := libcrypto-host libjavacore liblog libnativehelper libs
 LOCAL_MULTILIB := both
 LOCAL_CXX_STL := none
 include $(BUILD_HOST_SHARED_LIBRARY)
+
+# Conscrypt Java library for host OpenJDK
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := $(call all-java-files-under,src/main/java)
+LOCAL_SRC_FILES += $(call all-java-files-under,src/openjdk/java)
+LOCAL_SRC_FILES += $(call all-java-files-under,src/jni-loader/java)
+LOCAL_GENERATED_SOURCES := $(conscrypt_gen_java_files)
+LOCAL_JAVACFLAGS := $(local_javac_flags)
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE := conscrypt-host
+LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
+include $(BUILD_HOST_JAVA_LIBRARY)
 
 # Conscrypt native library for nojarjar'd version
 # Don't build this for unbundled conscrypt build
