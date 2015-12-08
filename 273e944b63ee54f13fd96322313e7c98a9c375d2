@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "601bdcb8_86cbcacb",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 4398,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2015-12-08T09:31:41Z",
+      "side": 1,
+      "message": "\"size_t actualLen \u003d maxLen;\" is the preferred style. i don\u0027t really see this explicitly called out though.",
+      "range": {
+        "startLine": 4398,
+        "startChar": 3,
+        "endLine": 4398,
+        "endChar": 29
+      },
+      "revId": "273e944b63ee54f13fd96322313e7c98a9c375d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
