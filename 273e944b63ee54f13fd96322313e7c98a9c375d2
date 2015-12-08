@@ -22,6 +22,30 @@
       "revId": "273e944b63ee54f13fd96322313e7c98a9c375d2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a0af948e_ec90d36d",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 4398,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2015-12-08T17:06:09Z",
+      "side": 1,
+      "message": "ack. Would you like me to mail a follow-up CL to address this?",
+      "parentUuid": "601bdcb8_86cbcacb",
+      "range": {
+        "startLine": 4398,
+        "startChar": 3,
+        "endLine": 4398,
+        "endChar": 29
+      },
+      "revId": "273e944b63ee54f13fd96322313e7c98a9c375d2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
