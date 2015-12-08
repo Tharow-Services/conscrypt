@@ -1,0 +1,7 @@
+Code-Review+2: Kenny Root <kroot@google.com>
+Verified+1: Chad Brubaker <cbrubaker@google.com>
+Submitted-by: Chad Brubaker <cbrubaker@google.com>
+Submitted-at: Tue, 08 Dec 2015 18:26:45 +0000
+Reviewed-on: https://android-review.googlesource.com/184652
+Project: platform/external/conscrypt
+Branch: refs/heads/master
