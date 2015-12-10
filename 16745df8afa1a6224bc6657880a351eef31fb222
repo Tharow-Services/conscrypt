@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6553ee27_608d8eaa",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 331,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-12-10T19:11:12Z",
+      "side": 1,
+      "message": "Move this to:\n\n  LOCAL_CXX_STL :\u003d libc++_static\n\nor try:\n\n  LOCAL_WHOLE_STATIC_LIBRARIES :\u003d libcrypto_static libssl_static-host libc++abi\n  LOCAL_CXX_STL :\u003d none",
+      "range": {
+        "startLine": 331,
+        "startChar": 68,
+        "endLine": 331,
+        "endChar": 81
+      },
+      "revId": "16745df8afa1a6224bc6657880a351eef31fb222",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
