@@ -330,6 +330,8 @@ LOCAL_CFLAGS += -DNO_KEYSTORE_ENGINE
 LOCAL_CXX_STL := libc++_static
 LOCAL_WHOLE_STATIC_LIBRARIES := libcrypto_static libssl_static-host
 LOCAL_MULTILIB := both
+# This doesn't work currently; disable until we find a fix.
+LOCAL_SANITIZE := never
 include $(BUILD_HOST_SHARED_LIBRARY)
 
 # Conscrypt Java library for host OpenJDK
