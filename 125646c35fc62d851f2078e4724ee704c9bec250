@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0593126b_f15d0054",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 849,
+      "author": {
+        "id": 1073493
+      },
+      "writtenOn": "2015-12-14T21:42:56Z",
+      "side": 1,
+      "message": "LGTM",
+      "range": {
+        "startLine": 849,
+        "startChar": 0,
+        "endLine": 849,
+        "endChar": 9
+      },
+      "revId": "125646c35fc62d851f2078e4724ee704c9bec250",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
