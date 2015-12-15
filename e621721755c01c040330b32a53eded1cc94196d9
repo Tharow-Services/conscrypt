@@ -16,6 +16,24 @@
       "revId": "e621721755c01c040330b32a53eded1cc94196d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e5cc3e7f_bc1281dd",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 9589,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2015-12-15T19:34:43Z",
+      "side": 1,
+      "message": "Yes, this was added to do testing with SSL renegotiations.",
+      "parentUuid": "05ca3291_13022c4f",
+      "revId": "e621721755c01c040330b32a53eded1cc94196d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
