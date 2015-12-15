@@ -34,6 +34,24 @@
       "revId": "e621721755c01c040330b32a53eded1cc94196d9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25cf36a1_34887005",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 9589,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2015-12-15T19:36:26Z",
+      "side": 1,
+      "message": "Hrm. How do the tests keep from blowing up in BoringSSL? The SSL_renegotiate function isn\u0027t even implemented.",
+      "parentUuid": "e5cc3e7f_bc1281dd",
+      "revId": "e621721755c01c040330b32a53eded1cc94196d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
