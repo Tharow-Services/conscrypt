@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "05ca3291_13022c4f",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 9589,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2015-12-15T19:04:20Z",
+      "side": 1,
+      "message": "This is a little silly because SSL_renegotiate in BoringSSL always fails and SSL_set_state does nothing. But SSL_set_state is available in OpenSSL 1.0.1 and I wasn\u0027t sure what the story was with this function. It seems to only be used in tests?",
+      "revId": "e621721755c01c040330b32a53eded1cc94196d9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
