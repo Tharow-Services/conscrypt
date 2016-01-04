@@ -53,6 +53,7 @@ import org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 
 public class OpenSSLX509Certificate extends X509Certificate {
     private transient final long mContext;
+    private transient Integer mHashCode;
 
     OpenSSLX509Certificate(long ctx) {
         mContext = ctx;
@@ -508,8 +509,11 @@ public class OpenSSLX509Certificate extends X509Certificate {
 
     @Override
     public int hashCode() {
-        /* Make this faster since we might be in hash-based structures. */
-        return NativeCrypto.get_X509_hashCode(mContext);
+        if (mHashCode != null) {
+            return mHashCode;
+        }
+        mHashCode = super.hashCode();
+        return mHashCode;
     }
 
     /**
