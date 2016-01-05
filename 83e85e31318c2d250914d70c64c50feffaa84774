@@ -22,6 +22,30 @@
       "revId": "83e85e31318c2d250914d70c64c50feffaa84774",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ca202730_39b3afb3",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-01-05T17:57:43Z",
+      "side": 1,
+      "message": "This was for compatibility with what JarVerifier was trying. I don\u0027t know if this is needed now, though.",
+      "parentUuid": "2a52a3ad_5c20dd85",
+      "range": {
+        "startLine": 131,
+        "startChar": 59,
+        "endLine": 131,
+        "endChar": 80
+      },
+      "revId": "83e85e31318c2d250914d70c64c50feffaa84774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
