@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2a52a3ad_5c20dd85",
+        "filename": "src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-01-05T17:52:03Z",
+      "side": 1,
+      "message": "Wrong OID as well. I think you should simply drop this whole alias for consistency with all other SHA*withRSA (except, weirdly enough SHA256withRSA which defines such an alias).",
+      "range": {
+        "startLine": 131,
+        "startChar": 59,
+        "endLine": 131,
+        "endChar": 80
+      },
+      "revId": "83e85e31318c2d250914d70c64c50feffaa84774",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
