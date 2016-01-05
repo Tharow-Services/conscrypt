@@ -125,7 +125,7 @@ public final class OpenSSLProvider extends Provider {
 
         putSignatureImplClass("SHA224WithRSA", "OpenSSLSignature$SHA224RSA");
         put("Alg.Alias.Signature.SHA224WithRSAEncryption", "SHA224WithRSA");
-        put("Alg.Alias.Signature.1.2.840.113549.1.1.11", "SHA224WithRSA");
+        put("Alg.Alias.Signature.1.2.840.113549.1.1.14", "SHA224WithRSA");
         put("Alg.Alias.Signature.2.16.840.1.101.3.4.2.4with1.2.840.113549.1.1.1",
                 "SHA224WithRSA");
         put("Alg.Alias.Signature.2.16.840.1.101.3.4.2.4with1.2.840.113549.1.1.11",
