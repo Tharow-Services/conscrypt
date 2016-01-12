@@ -22,6 +22,30 @@
       "revId": "924cbe2e9c1e1a2e1ef80e594ed43f7ea8401d1b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "07495aa4_c15e66c8",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2016-01-12T03:33:17Z",
+      "side": 1,
+      "message": "presumably so it can be tested for null below. I think it would take less ram to have a separate boolean for mHashCodeInitialized...\n\nalso, you could also just use 0 for that and deal with the rare need to recompute when hash actually is 0",
+      "parentUuid": "07015af3_3ea445c4",
+      "range": {
+        "startLine": 56,
+        "startChar": 22,
+        "endLine": 56,
+        "endChar": 29
+      },
+      "revId": "924cbe2e9c1e1a2e1ef80e594ed43f7ea8401d1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
