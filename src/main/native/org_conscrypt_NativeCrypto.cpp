@@ -4870,6 +4870,18 @@ static jlong NativeCrypto_EVP_aead_aes_256_gcm(JNIEnv* env, jclass) {
 #endif
 }
 
+static jlong NativeCrypto_EVP_aead_chacha20_poly1305(JNIEnv* env, jclass) {
+#if defined(OPENSSL_IS_BORINGSSL)
+    UNUSED_ARGUMENT(env);
+    const EVP_AEAD* ctx = EVP_aead_chacha20_poly1305();
+    JNI_TRACE("EVP_aead_chacha20_poly1305 => ctx=%p", ctx);
+    return reinterpret_cast<jlong>(ctx);
+#else
+    jniThrowRuntimeException(env, "Not supported for OpenSSL");
+    return 0;
+#endif
+}
+
 static jlong NativeCrypto_EVP_AEAD_CTX_init(JNIEnv* env, jclass, jlong evpAeadRef,
         jbyteArray keyArray, jint tagLen) {
 #if defined(OPENSSL_IS_BORINGSSL)
@@ -11091,6 +11103,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, EVP_CIPHER_CTX_free, "(J)V"),
     NATIVE_METHOD(NativeCrypto, EVP_aead_aes_128_gcm, "()J"),
     NATIVE_METHOD(NativeCrypto, EVP_aead_aes_256_gcm, "()J"),
+    NATIVE_METHOD(NativeCrypto, EVP_aead_chacha20_poly1305, "()J"),
     NATIVE_METHOD(NativeCrypto, EVP_AEAD_CTX_init, "(J[BI)J"),
     NATIVE_METHOD(NativeCrypto, EVP_AEAD_CTX_cleanup, "(J)V"),
     NATIVE_METHOD(NativeCrypto, EVP_AEAD_max_overhead, "(J)I"),
