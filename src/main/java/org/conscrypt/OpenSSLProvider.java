@@ -248,6 +248,9 @@ public final class OpenSSLProvider extends Provider {
         if (NativeConstants.HAS_EVP_AEAD) {
             putSymmetricCipherImplClass("AES/GCM/NoPadding", "OpenSSLCipher$EVP_AEAD$AES$GCM");
             put("Alg.Alias.Cipher.GCM", "AES/GCM/NoPadding");
+
+            putSymmetricCipherImplClass("ChaCha20/Poly1305/NoPadding",
+                    "OpenSSLCipher$EVP_AEAD$ChaCha20Poly1305");
         }
 
         /* === Mac === */

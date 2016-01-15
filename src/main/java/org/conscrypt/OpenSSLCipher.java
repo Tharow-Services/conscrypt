@@ -60,6 +60,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         CTR,
         ECB,
         GCM,
+        Poly1305,
     }
 
     /**
@@ -1040,6 +1041,14 @@ public abstract class OpenSSLCipher extends CipherSpi {
                     + (isEncrypting() ? NativeCrypto.EVP_AEAD_max_overhead(evpAead) : 0);
         }
 
+        /**
+         * AEAD buffers everything until a final output.
+         */
+        @Override
+        protected int getOutputSizeForUpdate(int inputLen) {
+            return 0;
+        }
+
         /* @Override */
         protected void engineUpdateAAD(byte[] input, int inputOffset, int inputLen) {
             if (aad == null) {
@@ -1108,14 +1117,6 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 return AES_BLOCK_SIZE;
             }
 
-            /**
-             * AEAD buffers everything until a final output.
-             */
-            @Override
-            protected int getOutputSizeForUpdate(int inputLen) {
-                return 0;
-            }
-
             public static class GCM extends AES {
                 public GCM() {
                     super(Mode.GCM);
@@ -1137,6 +1138,48 @@ public abstract class OpenSSLCipher extends CipherSpi {
                     } else {
                         throw new RuntimeException("Unexpected key length: " + keyLength);
                     }
+                }
+            }
+        }
+
+        public static class ChaCha20Poly1305 extends EVP_AEAD {
+            private static final int BLOCK_SIZE = 16;
+
+            public ChaCha20Poly1305() {
+                super(Mode.Poly1305);
+            }
+
+            @Override
+            protected String getBaseCipherName() {
+                return "ChaCha20";
+            }
+
+            @Override
+            protected void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
+                if (keyLength != 32) {
+                    throw new InvalidKeyException("Unsupported key size: " + keyLength
+                            + " bytes (must be 32)");
+                }
+            }
+
+            @Override
+            protected void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
+                if (mode != Mode.Poly1305) {
+                    throw new NoSuchAlgorithmException("Mode must be Poly1305");
+                }
+            }
+
+            @Override
+            protected int getCipherBlockSize() {
+                return BLOCK_SIZE;
+            }
+
+            @Override
+            protected long getEVP_AEAD(int keyLength) throws InvalidKeyException {
+                if (keyLength == 32) {
+                    return NativeCrypto.EVP_aead_chacha20_poly1305();
+                } else {
+                    throw new RuntimeException("Unexpected key length: " + keyLength);
                 }
             }
         }

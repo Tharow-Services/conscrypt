@@ -311,6 +311,8 @@ public final class NativeCrypto {
 
     public static native long EVP_aead_aes_256_gcm();
 
+    public static native long EVP_aead_chacha20_poly1305();
+
     public static native long EVP_AEAD_CTX_init(long evpAead, byte[] key, int tagLen);
 
     public static native void EVP_AEAD_CTX_cleanup(long ctx);
