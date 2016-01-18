@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2771fe1c_4adc570a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509CertPath.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 247,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-01-18T17:27:13Z",
+      "side": 1,
+      "message": "oops, my brain pattern-matched this as \"throw new NullPointerException\"",
+      "revId": "e8eb8aedabdce4de1a870de9160a8d2ab367c4bb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
