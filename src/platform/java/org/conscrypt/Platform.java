@@ -25,6 +25,7 @@ import android.system.StructTimeval;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
 import java.io.FileDescriptor;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -42,9 +43,9 @@ import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
-import org.apache.harmony.security.utils.AlgNameMapper;
-import org.apache.harmony.security.utils.AlgNameMapperSource;
 import org.conscrypt.GCMParameters;
+import sun.security.util.ObjectIdentifier;
+import sun.security.x509.AlgorithmId;
 
 class Platform {
     private static class NoPreloadHolder {
@@ -65,19 +66,6 @@ class Platform {
     }
 
     private Platform() {
-        AlgNameMapper.setSource(new OpenSSLMapper());
-    }
-
-    private static class OpenSSLMapper implements AlgNameMapperSource {
-        @Override
-        public String mapNameToOid(String algName) {
-            return NativeCrypto.OBJ_txt2nid_oid(algName);
-        }
-
-        @Override
-        public String mapOidToName(String oid) {
-            return NativeCrypto.OBJ_txt2nid_longName(oid);
-        }
     }
 
     public static FileDescriptor getFileDescriptor(Socket s) {
@@ -229,5 +217,16 @@ class Platform {
 
     public static void blockGuardOnNetwork() {
         BlockGuard.getThreadPolicy().onNetwork();
+    }
+
+    /**
+     * OID to Algorithm Name mapping.
+     */
+    public static String oidToAlgorithmName(String oid) {
+        try {
+            return new AlgorithmId(new ObjectIdentifier(oid)).getName();
+        } catch (IOException e) {
+            return oid;
+        }
     }
 }
