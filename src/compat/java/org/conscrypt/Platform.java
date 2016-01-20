@@ -413,4 +413,52 @@ public class Platform {
     public static void blockGuardOnNetwork() {
         BlockGuard.getThreadPolicy().onNetwork();
     }
+
+    /**
+     * OID to Algorithm Name mapping.
+     */
+    public static String oidToAlgorithmName(String oid) {
+        // Old Harmony style
+        try {
+            Class<?> algNameMapperClass = Class.forName(
+                        "org.apache.harmony.security.utils.AlgNameMapper");
+            Method map2AlgNameMethod = algNameMapperClass.getDeclaredMethod("map2AlgName",
+                        String.class);
+            return (String) map2AlgNameMethod.invoke(null, oid);
+        } catch (InvocationTargetException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof RuntimeException) {
+                throw (RuntimeException) cause;
+            } else if (cause instanceof Error) {
+                throw (Error) cause;
+            }
+            throw new RuntimeException(e);
+        } catch (Exception ignored) {
+        }
+
+        // Newer OpenJDK style
+        try {
+            Class<?> objectIdentifierClass = Class.forName("sun.security.utils.ObjectIdentifier");
+            Object oidObj = objectIdentifierClass.getConstructor(String.class).newInstance(oid);
+
+            Class<?> algorithmIdClass = Class.forName("sun.security.x509.AlgorithmId");
+            Method getNameMethod = algorithmIdClass.getDeclaredMethod("getName");
+            getMethodName.setAccessible(true);
+
+            Object algIdObj = algorithmIdClass.getConstructor(Object.class).newInstance(oidObj);
+
+            return (String) getMethodName.invoke(algIdObj);
+        } catch (InvocationTargetException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof RuntimeException) {
+                throw (RuntimeException) cause;
+            } else if (cause instanceof Error) {
+                throw (Error) cause;
+            }
+            throw new RuntimeException(e);
+        } catch (Exception ignored) {
+        }
+
+        return oid;
+    }
 }

@@ -18,6 +18,7 @@ package org.conscrypt;
 
 import org.conscrypt.GCMParameters;
 import java.io.FileDescriptor;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
@@ -30,11 +31,12 @@ import java.security.cert.X509Certificate;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.ECParameterSpec;
 import javax.crypto.spec.GCMParameterSpec;
-
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509TrustManager;
+import sun.security.util.ObjectIdentifier;
+import sun.security.x509.AlgorithmId;
 
 /**
  *
@@ -198,5 +200,16 @@ public class Platform {
      */
 
     public static void blockGuardOnNetwork() {
+    }
+
+    /**
+     * OID to Algorithm Name mapping.
+     */
+    public static String oidToAlgorithmName(String oid) {
+        try {
+            return new AlgorithmId(new ObjectIdentifier(oid)).getName();
+        } catch (IOException e) {
+            return oid;
+        }
     }
 }
