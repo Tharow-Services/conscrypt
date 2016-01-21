@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "344dae87_24a332c0",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-01-21T09:58:51Z",
+      "side": 1,
+      "message": "ReflectiveOperationException ?",
+      "range": {
+        "startLine": 437,
+        "startChar": 17,
+        "endLine": 437,
+        "endChar": 26
+      },
+      "revId": "d31ede7ba14b019d6a017f3585866a65891d1710",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f484f6cd_a2cdbe8c",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 458,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-01-21T09:58:51Z",
+      "side": 1,
+      "message": "ReflectiveOperationException ?",
+      "range": {
+        "startLine": 458,
+        "startChar": 17,
+        "endLine": 458,
+        "endChar": 26
+      },
+      "revId": "d31ede7ba14b019d6a017f3585866a65891d1710",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
