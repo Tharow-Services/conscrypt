@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "54206291_29565508",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 437,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-01-21T20:50:47Z",
+      "side": 1,
+      "message": "Just to log? I\u0027m afraid it might make too much noise.",
+      "parentUuid": "344dae87_24a332c0",
+      "range": {
+        "startLine": 437,
+        "startChar": 17,
+        "endLine": 437,
+        "endChar": 26
+      },
+      "revId": "d31ede7ba14b019d6a017f3585866a65891d1710",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f484f6cd_a2cdbe8c",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 3
