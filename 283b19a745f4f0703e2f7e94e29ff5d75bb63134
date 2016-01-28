@@ -16,6 +16,24 @@
       "revId": "283b19a745f4f0703e2f7e94e29ff5d75bb63134",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4a43ebb_d0bc71f4",
+        "filename": "src/platform/java/org/conscrypt/TrustedCertificateIndex.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1022895
+      },
+      "writtenOn": "2016-01-28T00:27:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d4b8d2d6_9bc94634",
+      "revId": "283b19a745f4f0703e2f7e94e29ff5d75bb63134",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
