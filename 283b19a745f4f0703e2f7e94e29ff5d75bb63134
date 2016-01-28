@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4b8d2d6_9bc94634",
+        "filename": "src/platform/java/org/conscrypt/TrustedCertificateIndex.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-01-28T00:14:36Z",
+      "side": 1,
+      "message": "To be safe, you should check that getFormat is the same for both keys, before comparing getEncoded. Otherwise your code implicitly assumes that both keys return their encoded form in the same format.",
+      "revId": "283b19a745f4f0703e2f7e94e29ff5d75bb63134",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
