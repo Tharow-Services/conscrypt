@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "711bb8b8_a6d40618",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1019036
+      },
+      "writtenOn": "2016-02-02T15:32:33Z",
+      "side": 1,
+      "message": "I don\u0027t know if you want this complexity but, in Chrome, we set the top-preference cipher suite based on whether the platform has hardware AES-GCM support. (See https://commondatastorage.googleapis.com/chromium-boringssl-docs/aead.h.html#EVP_has_aes_hardware.)",
+      "revId": "87bc9415756ec1e882219cf841e978bda99b509b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
