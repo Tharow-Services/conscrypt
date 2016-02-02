@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9143cc4f_d230a28f",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10607,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-02-02T11:51:29Z",
+      "side": 1,
+      "message": "JNI_TRACE(..., ssl_session-\u003etlsext_hostname);\n\nI bet this is going to pop in some app compatibility bug :)",
+      "revId": "b8ebed9b47fd34608e82214fb4824bc03a2236de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
