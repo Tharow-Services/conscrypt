@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f1cc087f_e2b8e68d",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-03T11:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1cc087f_62c5b616",
+      "range": {
+        "startLine": 166,
+        "startChar": 54,
+        "endLine": 166,
+        "endChar": 68
+      },
+      "revId": "e94581f052408bf4e1ba1e7c5f7f09b463fb654f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1b8e4d6_b9bb7f88",
         "filename": "src/platform/java/org/conscrypt/Platform.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2016-02-02T17:52:50Z",
       "side": 1,
       "message": "same comment.",
+      "range": {
+        "startLine": 120,
+        "startChar": 54,
+        "endLine": 120,
+        "endChar": 90
+      },
+      "revId": "e94581f052408bf4e1ba1e7c5f7f09b463fb654f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "11e51cf3_5bc50316",
+        "filename": "src/platform/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-03T11:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1b8e4d6_b9bb7f88",
       "range": {
         "startLine": 120,
         "startChar": 54,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "71e018e1_dea905fb",
+        "filename": "src/platform/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-03T11:43:07Z",
+      "side": 1,
+      "message": "I think I tried this before and since parameters and session are both coming out, it ended up not saving that much.",
+      "parentUuid": "d1b8e4d6_f9b5f794",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 226,
+        "endChar": 9
+      },
+      "revId": "e94581f052408bf4e1ba1e7c5f7f09b463fb654f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1110bc94_63f3228e",
         "filename": "src/platform/java/org/conscrypt/TrustManagerImpl.java",
         "patchSetId": 3
@@ -82,6 +154,30 @@
       "writtenOn": "2016-02-02T17:52:50Z",
       "side": 1,
       "message": "\"false /* client Auth */);\" ? (here and above)",
+      "range": {
+        "startLine": 277,
+        "startChar": 74,
+        "endLine": 277,
+        "endChar": 79
+      },
+      "revId": "e94581f052408bf4e1ba1e7c5f7f09b463fb654f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1cf0471_81747a65",
+        "filename": "src/platform/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-03T11:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1110bc94_63f3228e",
       "range": {
         "startLine": 277,
         "startChar": 74,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d1b8e4d6_f905f79a",
+        "filename": "src/platform/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 309,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-03T11:43:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "51db1439_bd67df27",
+      "range": {
+        "startLine": 308,
+        "startChar": 47,
+        "endLine": 309,
+        "endChar": 66
+      },
+      "revId": "e94581f052408bf4e1ba1e7c5f7f09b463fb654f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d1b8e4d6_d9b8338e",
         "filename": "src/platform/java/org/conscrypt/TrustManagerImpl.java",
         "patchSetId": 3
@@ -128,6 +248,30 @@
       "writtenOn": "2016-02-02T17:52:50Z",
       "side": 1,
       "message": "are caps guaranteed ?",
+      "range": {
+        "startLine": 313,
+        "startChar": 19,
+        "endLine": 313,
+        "endChar": 26
+      },
+      "revId": "e94581f052408bf4e1ba1e7c5f7f09b463fb654f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1cf0471_61e85632",
+        "filename": "src/platform/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-03T11:43:07Z",
+      "side": 1,
+      "message": "No, fixed.",
+      "parentUuid": "d1b8e4d6_d9b8338e",
       "range": {
         "startLine": 313,
         "startChar": 19,
