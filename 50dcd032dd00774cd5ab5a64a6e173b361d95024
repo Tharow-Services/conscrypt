@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b121b0e4_37cb222e",
+        "filename": "src/platform/java/org/conscrypt/Platform.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1022895
+      },
+      "writtenOn": "2016-02-03T19:09:49Z",
+      "side": 1,
+      "message": "I think this regresses on b/25890720, getPeerHost uses OpenSSLSocketImpl.getHostname() which may do a reverse lookup if the hostname isn\u0027t presented by the socket leading to issues with pinning and the network security config stuff.",
+      "range": {
+        "startLine": 159,
+        "startChar": 40,
+        "endLine": 159,
+        "endChar": 73
+      },
+      "revId": "50dcd032dd00774cd5ab5a64a6e173b361d95024",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
