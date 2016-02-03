@@ -60,6 +60,17 @@ public class Platform {
     }
 
     public static FileDescriptor getFileDescriptor(Socket s) {
+        // Newer style in Android
+        try {
+            Method m_getFileDescriptor = Socket.class.getDeclaredMethod("getFileDescriptor$");
+            m_getFileDescriptor.setAccessible(true);
+            return (FileDescriptor) m_getFileDescriptor.invoke(s);
+        } catch (NoSuchMethodException | IllegalAccessException ignored) {
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e.getCause());
+        }
+
+        // Older style in Android (pre-ICS)
         try {
             Field f_impl = Socket.class.getDeclaredField("impl");
             f_impl.setAccessible(true);
