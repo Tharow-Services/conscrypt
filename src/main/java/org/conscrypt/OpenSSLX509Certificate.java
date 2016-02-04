@@ -364,7 +364,8 @@ public class OpenSSLX509Certificate extends X509Certificate {
             SignatureException {
         Signature sig = getSignatureInstance(getSigAlgName(), sigProvider);
         if (sig == null) {
-            sig = getSignatureInstance(getSigAlgOID(), sigProvider);
+            throw new NoSuchAlgorithmException("Could not find Signature provider for "
+                    + getSigAlgName());
         }
 
         sig.initVerify(key);
