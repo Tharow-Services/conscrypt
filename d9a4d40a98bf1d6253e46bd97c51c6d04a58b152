@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1cf0471_e491d405",
+        "filename": "src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 382,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-04T10:50:42Z",
+      "side": 1,
+      "message": "This isn\u0027t needed anymore.",
+      "revId": "d9a4d40a98bf1d6253e46bd97c51c6d04a58b152",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
