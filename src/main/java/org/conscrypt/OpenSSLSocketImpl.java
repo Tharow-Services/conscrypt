@@ -547,9 +547,11 @@ public class OpenSSLSocketImpl
                 peerCertChain[i] = new OpenSSLX509Certificate(certRefs[i]);
             }
 
+            byte[] ocspData = NativeCrypto.SSL_get_ocsp_response(sslNativePointer);
+
             // Used for verifyCertificateChain callback
             handshakeSession = new OpenSSLSessionImpl(sslSessionNativePtr, null, peerCertChain,
-                    getHostname(), getPort(), null);
+                    ocspData, getHostname(), getPort(), null);
 
             boolean client = sslParameters.getUseClientMode();
             if (client) {
@@ -557,7 +559,6 @@ public class OpenSSLSocketImpl
                 if (sslParameters.isCTVerificationEnabled(getHostname())) {
                     byte[] tlsData = NativeCrypto.SSL_get_signed_cert_timestamp_list(
                                         sslNativePointer);
-                    byte[] ocspData = NativeCrypto.SSL_get_ocsp_response(sslNativePointer);
 
                     CTVerifier ctVerifier = sslParameters.getCTVerifier();
                     CTVerificationResult result =
