@@ -17,6 +17,8 @@
 
 package org.conscrypt;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.Socket;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.KeyStore;
@@ -30,6 +32,8 @@ import java.security.cert.CertificateParsingException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.PKIXCertPathChecker;
 import java.security.cert.PKIXParameters;
+import java.security.cert.PKIXRevocationChecker;
+import java.security.cert.PKIXRevocationChecker.Option;
 import java.security.cert.TrustAnchor;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
@@ -209,7 +213,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
      */
     public List<X509Certificate> checkClientTrusted(X509Certificate[] chain, String authType,
             String hostname) throws CertificateException {
-        return checkTrusted(chain, authType, hostname, true);
+        return checkTrusted(chain, null /* ocspData */, authType, hostname, true);
     }
 
     private static SSLSession getHandshakeSessionOrThrow(SSLSocket sslSocket)
@@ -255,7 +259,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
      */
     public List<X509Certificate> checkServerTrusted(X509Certificate[] chain, String authType,
             String hostname) throws CertificateException {
-        return checkTrusted(chain, authType, hostname, false);
+        return checkTrusted(chain, null /* ocspData */, authType, hostname, false);
     }
 
     @Override
@@ -311,7 +315,13 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
     private List<X509Certificate> checkTrusted(X509Certificate[] chain, String authType,
             SSLSession session, SSLParameters parameters, boolean clientAuth)
                     throws CertificateException {
-        final String hostname = (session != null) ? session.getPeerHost() : null;
+        byte[] ocspData = null;
+        String hostname = null;
+        if (session != null) {
+            hostname = session.getPeerHost();
+            ocspData = getOcspDataFromSession(session);
+        }
+
         if (session != null && parameters != null) {
             String identificationAlgorithm = parameters.getEndpointIdentificationAlgorithm();
             if (identificationAlgorithm != null
@@ -322,11 +332,39 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
                 }
             }
         }
-        return checkTrusted(chain, authType, hostname, clientAuth);
+        return checkTrusted(chain, ocspData, authType, hostname, clientAuth);
     }
 
-    private List<X509Certificate> checkTrusted(X509Certificate[] chain, String authType,
-            String host, boolean clientAuth) throws CertificateException {
+    private byte[] getOcspDataFromSession(SSLSession session) {
+        List<byte[]> ocspResponses = null;
+        if (session instanceof OpenSSLSessionImpl) {
+            OpenSSLSessionImpl opensslSession = (OpenSSLSessionImpl) session;
+            ocspResponses = opensslSession.getStatusResponses();
+        } else {
+            Method m_getResponses;
+            try {
+                m_getResponses = session.getClass().getDeclaredMethod("getStatusResponses");
+                m_getResponses.setAccessible(true);
+                Object rawResponses = m_getResponses.invoke(session);
+                if (rawResponses instanceof List) {
+                    ocspResponses = (List<byte[]>) rawResponses;
+                }
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException
+                    | IllegalArgumentException ignored) {
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException(e.getCause());
+            }
+        }
+
+        if (ocspResponses == null || ocspResponses.size() == 0) {
+            return null;
+        }
+
+        return ocspResponses.get(0);
+    }
+
+    private List<X509Certificate> checkTrusted(X509Certificate[] chain, byte[] ocspData,
+            String authType, String host, boolean clientAuth) throws CertificateException {
         if (chain == null || chain.length == 0 || authType == null || authType.length() == 0) {
             throw new IllegalArgumentException("null or zero-length parameter");
         }
@@ -404,6 +442,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         try {
             PKIXParameters params = new PKIXParameters(trustAnchor);
             params.setRevocationEnabled(false);
+            setOcspResponses(params, newChain[0], ocspData);
             params.addCertPathChecker(new ExtendedKeyUsagePKIXCertPathChecker(clientAuth,
                                                                               newChain[0]));
             validator.validate(certPath, params);
@@ -423,6 +462,39 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         }
 
         return wholeChain;
+    }
+
+    /**
+     * Sets the OCSP response data that was possibly stapled to the TLS response.
+     */
+    private void setOcspResponses(PKIXParameters params, X509Certificate cert, byte[] ocspData) {
+        if (ocspData == null) {
+            return;
+        }
+
+        PKIXRevocationChecker revChecker = null;
+        List<PKIXCertPathChecker> checkers = new ArrayList<>(params.getCertPathCheckers());
+        for (PKIXCertPathChecker checker : checkers) {
+            if (checker instanceof PKIXRevocationChecker) {
+                revChecker = (PKIXRevocationChecker) checker;
+                break;
+            }
+        }
+
+        if (revChecker == null) {
+            revChecker = (PKIXRevocationChecker) validator.getRevocationChecker();
+            checkers.add(revChecker);
+
+            /*
+             * If we add a new revocation checker, we should set the option for
+             * end-entity verification only. Otherwise the CertPathValidator will
+             * throw an exception when it can't verify the entire chain.
+             */
+            revChecker.setOptions(Collections.singleton(Option.ONLY_END_ENTITY));
+        }
+
+        revChecker.setOcspResponses(Collections.singletonMap(cert, ocspData));
+        params.setCertPathCheckers(checkers);
     }
 
     /**
