@@ -52,7 +52,7 @@ abstract class AbstractSessionContext implements SSLSessionContext {
     /** Identifies OpenSSL sessions. */
     static final int OPEN_SSL = 1;
 
-    private final Map<ByteArray, SSLSession> sessions
+    private final LinkedHashMap<ByteArray, SSLSession> sessions
             = new LinkedHashMap<ByteArray, SSLSession>() {
         @Override
         protected boolean removeEldestEntry(
@@ -241,7 +241,7 @@ abstract class AbstractSessionContext implements SSLSessionContext {
      *
      * @return a session or null if the session can't be converted
      */
-    SSLSession toSession(byte[] data, String host, int port) {
+    OpenSSLSessionImpl toSession(byte[] data, String host, int port) {
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
         DataInputStream dais = new DataInputStream(bais);
         try {
@@ -282,7 +282,11 @@ abstract class AbstractSessionContext implements SSLSessionContext {
             session = sessions.get(key);
         }
         if (session != null && session.isValid()) {
-            return session;
+            if (session instanceof OpenSSLSessionImpl) {
+                return Platform.wrapSSLSession((OpenSSLSessionImpl) session);
+            } else {
+                return session;
+            }
         }
         return null;
     }

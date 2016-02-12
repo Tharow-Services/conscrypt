@@ -54,19 +54,23 @@ public class ServerSessionContext extends AbstractSessionContext {
 
     @Override
     public SSLSession getSession(byte[] sessionId) {
-        SSLSession session = super.getSession(sessionId);
-        if (session != null) {
-            return session;
+        // First see if AbstractSessionContext can satisfy the request.
+        {
+            SSLSession session = super.getSession(sessionId);
+            if (session != null) {
+                // This will already have gone through Platform#wrapSSLSession
+                return session;
+            }
         }
 
-        // Check persistent cache.
+        // Then check the persistent cache.
         if (persistentCache != null) {
             byte[] data = persistentCache.getSessionData(sessionId);
             if (data != null) {
-                session = toSession(data, null, -1);
+                OpenSSLSessionImpl session = toSession(data, null, -1);
                 if (session != null && session.isValid()) {
                     super.putSession(session);
-                    return session;
+                    return Platform.wrapSSLSession(session);
                 }
             }
         }
