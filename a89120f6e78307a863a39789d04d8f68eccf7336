@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd4c7816_9b3c2b1c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-02-15T10:08:45Z",
+      "side": 1,
+      "message": "i guess i still don\u0027t understand why this is the case. +1 until i figure that out...",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 13,
+        "endChar": 11
+      },
+      "revId": "a89120f6e78307a863a39789d04d8f68eccf7336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d9da072_5a2a6976",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-02-15T10:08:45Z",
+      "side": 1,
+      "message": "why did you make this change ? Also, new LinkedHashMap\u003c\u003e() if you\u0027re going to change this anyway.",
+      "range": {
+        "startLine": 55,
+        "startChar": 18,
+        "endLine": 55,
+        "endChar": 31
+      },
+      "revId": "a89120f6e78307a863a39789d04d8f68eccf7336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dd4c7816_1bfa5b8c",
+        "filename": "src/main/java/org/conscrypt/ClientSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-02-15T10:08:45Z",
+      "side": 1,
+      "message": "This pattern repeats in several places. Would it make sense to introduce a Platform.wrapOpenSSLSession() which does this ?",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 13
+      },
+      "revId": "a89120f6e78307a863a39789d04d8f68eccf7336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdb504dc_40298220",
+        "filename": "src/main/java/org/conscrypt/ServerSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-02-15T10:08:45Z",
+      "side": 1,
+      "message": "why these braces ?",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 9
+      },
+      "revId": "a89120f6e78307a863a39789d04d8f68eccf7336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
