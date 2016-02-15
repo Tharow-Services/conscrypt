@@ -91,6 +91,30 @@
       "revId": "a89120f6e78307a863a39789d04d8f68eccf7336",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d20402f_39e08fde",
+        "filename": "src/main/java/org/conscrypt/ServerSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2016-02-15T11:01:43Z",
+      "side": 1,
+      "message": "As to reuse the \"session\" variable name below, I guess. I would have used different variable names, though :)",
+      "parentUuid": "bdb504dc_40298220",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 9
+      },
+      "revId": "a89120f6e78307a863a39789d04d8f68eccf7336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
