@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.SocketException;
 import java.security.InvalidKeyException;
 import java.security.PrivateKey;
@@ -375,7 +376,7 @@ public class OpenSSLSocketImpl
             }
 
             sslSession = sslParameters.setupSession(sslSessionNativePointer, sslNativePointer,
-                    sessionToReuse, getHostname(), getPort(), handshakeCompleted);
+                    sessionToReuse, getHostnameWithLookup(), getPort(), handshakeCompleted);
 
             // Restore the original timeout now that the handshake is complete
             if (handshakeTimeoutMilliseconds >= 0) {
@@ -426,6 +427,18 @@ public class OpenSSLSocketImpl
                 }
             }
         }
+    }
+
+    private String getHostnameWithLookup() {
+        if (peerHostname != null) {
+            return peerHostname;
+        }
+
+        InetAddress inetAddress = super.getInetAddress();
+        if (inetAddress != null) {
+            return inetAddress.getHostName();
+        }
+        return null;
     }
 
     /**
