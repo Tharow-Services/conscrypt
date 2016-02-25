@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "62a5a9c6_bd0448f9",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-25T20:56:17Z",
+      "side": 1,
+      "message": "I originally was going to change this, but decided a different way. I figured there was no reason to invoke-virtual when invoke-direct would be fine since this is a private field.\n\nBut you can\u0027t do \u003c\u003e for anonymous inner classes, though (JLS 15.9).",
+      "parentUuid": "9d9da072_5a2a6976",
+      "range": {
+        "startLine": 55,
+        "startChar": 18,
+        "endLine": 55,
+        "endChar": 31
+      },
+      "revId": "a89120f6e78307a863a39789d04d8f68eccf7336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dd4c7816_1bfa5b8c",
         "filename": "src/main/java/org/conscrypt/ClientSessionContext.java",
         "patchSetId": 1
@@ -59,6 +83,30 @@
       "writtenOn": "2016-02-15T10:08:45Z",
       "side": 1,
       "message": "This pattern repeats in several places. Would it make sense to introduce a Platform.wrapOpenSSLSession() which does this ?",
+      "range": {
+        "startLine": 79,
+        "startChar": 12,
+        "endLine": 83,
+        "endChar": 13
+      },
+      "revId": "a89120f6e78307a863a39789d04d8f68eccf7336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2b0b90b_6efbb28f",
+        "filename": "src/main/java/org/conscrypt/ClientSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-25T20:56:17Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dd4c7816_1bfa5b8c",
       "range": {
         "startLine": 79,
         "startChar": 12,
@@ -106,6 +154,30 @@
       "side": 1,
       "message": "As to reuse the \"session\" variable name below, I guess. I would have used different variable names, though :)",
       "parentUuid": "bdb504dc_40298220",
+      "range": {
+        "startLine": 58,
+        "startChar": 8,
+        "endLine": 58,
+        "endChar": 9
+      },
+      "revId": "a89120f6e78307a863a39789d04d8f68eccf7336",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "22d0113b_821c8d59",
+        "filename": "src/main/java/org/conscrypt/ServerSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-02-25T20:56:17Z",
+      "side": 1,
+      "message": "Removed scope and changed to a different name.",
+      "parentUuid": "9d20402f_39e08fde",
       "range": {
         "startLine": 58,
         "startChar": 8,
