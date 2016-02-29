@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62eda937_9f00b39b",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 10678,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-02-29T20:48:50Z",
+      "side": 1,
+      "message": "i believe this will cause a compile error when tracing is turned on - remove the ssl_session argument.",
+      "range": {
+        "startLine": 10678,
+        "startChar": 8,
+        "endLine": 10678,
+        "endChar": 85
+      },
+      "revId": "630fddfa32e127080900c7fbb6148f866d569479",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
