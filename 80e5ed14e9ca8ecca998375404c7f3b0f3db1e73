@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3776954b_b1b81a3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-03-10T18:13:49Z",
+      "side": 1,
+      "message": "\"only throw IOExceptions\" ? the existing wording confused me... i assumed the body of the function would be \"throw new IOException\" and i was wondering why you wanted that.",
+      "range": {
+        "startLine": 9,
+        "startChar": 26,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "80e5ed14e9ca8ecca998375404c7f3b0f3db1e73",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
