@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cd6320e_8391e03d",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-03-18T22:06:01Z",
+      "side": 1,
+      "message": "returns an int, make it return a boolean ?",
+      "range": {
+        "startLine": 761,
+        "startChar": 15,
+        "endLine": 761,
+        "endChar": 19
+      },
+      "revId": "60ceac9165e0c6fd03b8c02dc3cdd3885cf4a0a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
