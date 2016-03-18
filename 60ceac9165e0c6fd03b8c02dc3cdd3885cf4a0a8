@@ -22,6 +22,30 @@
       "revId": "60ceac9165e0c6fd03b8c02dc3cdd3885cf4a0a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c240ef3_a18872df",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 761,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-03-18T22:07:13Z",
+      "side": 1,
+      "message": "oh yeah, I originally had this converted to a boolean, but figured I might as well keep with the format NativeCrypto has typically used.",
+      "parentUuid": "7cd6320e_8391e03d",
+      "range": {
+        "startLine": 761,
+        "startChar": 15,
+        "endLine": 761,
+        "endChar": 19
+      },
+      "revId": "60ceac9165e0c6fd03b8c02dc3cdd3885cf4a0a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
