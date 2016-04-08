@@ -2190,11 +2190,13 @@ private:
 };
 
 static void findAsynchronousCloseMonitorFuncs() {
+#ifndef CONSCRYPT_OPENJDK
     void *lib = dlopen("libjavacore.so", RTLD_NOW);
     if (lib != NULL) {
         async_close_monitor_ctor = (acm_ctor_func) dlsym(lib, "_ZN24AsynchronousCloseMonitorC1Ei");
         async_close_monitor_dtor = (acm_dtor_func) dlsym(lib, "_ZN24AsynchronousCloseMonitorD1Ev");
     }
+#endif
 }
 #endif
 
