@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8837256b_a7254e4d",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2016-04-29T23:40:44Z",
+      "side": 1,
+      "message": "reset()?",
+      "range": {
+        "startLine": 1212,
+        "startChar": 0,
+        "endLine": 1214,
+        "endChar": 9
+      },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8837256b_871daa01",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2256,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2016-04-29T23:40:44Z",
+      "side": 1,
+      "message": "should we ALOGE on failure?",
+      "range": {
+        "startLine": 2256,
+        "startChar": 0,
+        "endLine": 2256,
+        "endChar": 35
+      },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8837256b_271a9e08",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2263,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2016-04-29T23:40:44Z",
+      "side": 1,
+      "message": "and here?",
+      "range": {
+        "startLine": 2263,
+        "startChar": 0,
+        "endLine": 2263,
+        "endChar": 41
+      },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8837256b_6720a63a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2016-04-29T23:40:44Z",
+      "side": 1,
+      "message": "unlock()?",
+      "range": {
+        "startLine": 2268,
+        "startChar": 1,
+        "endLine": 2270,
+        "endChar": 9
+      },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
