@@ -1201,12 +1201,21 @@ public:
         BIO_up_ref(wbio);
     }
 
+    void reset() {
+        if (ssl_ != nullptr) {
+            SSL_set_bio(ssl_, nullptr, nullptr);
+            ssl_ = nullptr;
+        }
+    }
+
     ~ScopedSslBio() {
-        SSL_set_bio(ssl_, nullptr, nullptr);
+        if (ssl_ != nullptr) {
+            SSL_set_bio(ssl_, nullptr, nullptr);
+        }
     }
 
 private:
-    SSL* const ssl_;
+    SSL* ssl_;
 };
 
 /**
@@ -2237,6 +2246,34 @@ static void locking_function(int mode, int n, const char*, int) {
         MUTEX_UNLOCK(mutex_buf[n]);
     }
 }
+
+/*
+ * Wrapper for pthread_mutex_t to assist in unlocking in all paths.
+ */
+class UniqueMutex {
+public:
+    explicit UniqueMutex(pthread_mutex_t* mut_ref) : mutex_(mut_ref) {
+        pthread_mutex_lock(mutex_);
+        owns_ = true;
+    }
+
+    void unlock() {
+        if (owns_) {
+            owns_ = false;
+            pthread_mutex_unlock(mutex_);
+        }
+    }
+
+    ~UniqueMutex() {
+        if (owns_) {
+            pthread_mutex_unlock(mutex_);
+        }
+    }
+
+private:
+    pthread_mutex_t* mutex_;
+    bool owns_;
+};
 
 static void threadid_callback(CRYPTO_THREADID *threadid) {
 #if defined(__APPLE__)
@@ -7563,9 +7600,7 @@ static int sslSelect(JNIEnv* env, int type, jobject fdObject, AppData* appData, 
         }
     } while (result == -1);
 
-    if (MUTEX_LOCK(appData->mutex) == -1) {
-        return -1;
-    }
+    UniqueMutex appDataLock(&appData->mutex);
 
     if (result > 0) {
         // We have been woken up by a token in the emergency pipe. We
@@ -7586,8 +7621,6 @@ static int sslSelect(JNIEnv* env, int type, jobject fdObject, AppData* appData, 
     // Tell the world that there is now one thread less waiting for the
     // underlying network.
     appData->waitingThreads--;
-
-    MUTEX_UNLOCK(appData->mutex);
 
     return result;
 }
@@ -9307,8 +9340,6 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
         return 0;
     }
 
-    ScopedSslBio sslBio(ssl, rbio, wbio);
-
     AppData* appData = toAppData(ssl);
     if (appData == nullptr) {
         throwSSLExceptionStr(env, "Unable to retrieve application data");
@@ -9316,6 +9347,8 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake appData => 0", ssl);
         return 0;
     }
+
+    UniqueMutex appDataLock(&appData->mutex);
 
     if (!client_mode && alpnProtocols != nullptr) {
         SSL_CTX_set_alpn_select_cb(SSL_get_SSL_CTX(ssl), alpn_select_callback, nullptr);
@@ -9330,6 +9363,9 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio setCallbackState => 0", ssl);
         return 0;
     }
+
+    ScopedSslBio sslBio(ssl, rbio, wbio);
+
     ret = SSL_do_handshake(ssl);
     appData->clearCallbackState();
     // cert_verify_callback threw exception
@@ -9339,6 +9375,9 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake_bio exception => 0", ssl);
         return 0;
     }
+
+    sslBio.reset();
+    appDataLock.unlock();
 
     if (ret <= 0) { // error. See SSL_do_handshake(3SSL) man page.
         // error case
@@ -9717,22 +9756,18 @@ static int sslRead(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, char* b
     while (appData->aliveAndKicking) {
         errno = 0;
 
-        if (MUTEX_LOCK(appData->mutex) == -1) {
-            return -1;
-        }
+        UniqueMutex appDataLock(&appData->mutex);
 
         if (!SSL_is_init_finished(ssl) && !SSL_cutthrough_complete(ssl) &&
                !SSL_renegotiate_pending(ssl)) {
             JNI_TRACE("ssl=%p sslRead => init is not finished (state=0x%x)", ssl,
                     SSL_get_state(ssl));
-            MUTEX_UNLOCK(appData->mutex);
             return THROW_SSLEXCEPTION;
         }
 
         unsigned int bytesMoved = BIO_number_read(rbio) + BIO_number_written(wbio);
 
         if (!appData->setCallbackState(env, shc, fdObject, nullptr, nullptr)) {
-            MUTEX_UNLOCK(appData->mutex);
             return THROWN_EXCEPTION;
         }
         int result = SSL_read(ssl, buf, len);
@@ -9741,7 +9776,6 @@ static int sslRead(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, char* b
         if (env->ExceptionCheck()) {
             safeSslClear(ssl);
             JNI_TRACE("ssl=%p sslRead => THROWN_EXCEPTION", ssl);
-            MUTEX_UNLOCK(appData->mutex);
             return THROWN_EXCEPTION;
         }
         sslError.reset(ssl, result);
@@ -9770,7 +9804,7 @@ static int sslRead(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, char* b
             appData->waitingThreads++;
         }
 
-        MUTEX_UNLOCK(appData->mutex);
+        appDataLock.unlock();
 
         switch (sslError.get()) {
             // Successfully read at least one byte.
@@ -9872,12 +9906,9 @@ static jint NativeCrypto_SSL_read_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
 
     errno = 0;
 
-    if (MUTEX_LOCK(appData->mutex) == -1) {
-        return -1;
-    }
+    UniqueMutex appDataLock(&appData->mutex);
 
     if (!appData->setCallbackState(env, shc, nullptr, nullptr, nullptr)) {
-        MUTEX_UNLOCK(appData->mutex);
         throwSSLExceptionStr(env, "Unable to set callback state");
         safeSslClear(ssl);
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read_BIO => set callback state failed", ssl);
@@ -9907,7 +9938,8 @@ static jint NativeCrypto_SSL_read_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     }
 #endif
 
-    MUTEX_UNLOCK(appData->mutex);
+    sslBio.reset();
+    appDataLock.unlock();
 
     switch (sslError.get()) {
         // Successfully read at least one byte.
@@ -10038,22 +10070,18 @@ static int sslWrite(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, const 
     while (appData->aliveAndKicking && len > 0) {
         errno = 0;
 
-        if (MUTEX_LOCK(appData->mutex) == -1) {
-            return -1;
-        }
+        UniqueMutex appDataLock(&appData->mutex);
 
         if (!SSL_is_init_finished(ssl) && !SSL_cutthrough_complete(ssl) &&
                !SSL_renegotiate_pending(ssl)) {
             JNI_TRACE("ssl=%p sslWrite => init is not finished (state=0x%x)", ssl,
                     SSL_get_state(ssl));
-            MUTEX_UNLOCK(appData->mutex);
             return THROW_SSLEXCEPTION;
         }
 
         unsigned int bytesMoved = BIO_number_read(rbio) + BIO_number_written(wbio);
 
         if (!appData->setCallbackState(env, shc, fdObject, nullptr, nullptr)) {
-            MUTEX_UNLOCK(appData->mutex);
             return THROWN_EXCEPTION;
         }
         JNI_TRACE("ssl=%p sslWrite SSL_write len=%d", ssl, len);
@@ -10092,7 +10120,7 @@ static int sslWrite(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, const 
             appData->waitingThreads++;
         }
 
-        MUTEX_UNLOCK(appData->mutex);
+        appDataLock.unlock();
 
         switch (sslError.get()) {
             // Successfully wrote at least one byte.
@@ -10191,12 +10219,9 @@ static int NativeCrypto_SSL_write_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
 
     errno = 0;
 
-    if (MUTEX_LOCK(appData->mutex) == -1) {
-        return 0;
-    }
+    UniqueMutex appDataLock(&appData->mutex);
 
     if (!appData->setCallbackState(env, shc, nullptr, nullptr, nullptr)) {
-        MUTEX_UNLOCK(appData->mutex);
         throwSSLExceptionStr(env, "Unable to set appdata callback");
         freeOpenSslErrorState();
         safeSslClear(ssl);
@@ -10239,7 +10264,8 @@ static int NativeCrypto_SSL_write_BIO(JNIEnv* env, jclass, jlong sslRef, jbyteAr
     }
 #endif
 
-    MUTEX_UNLOCK(appData->mutex);
+    sslBio.reset();
+    appDataLock.unlock();
 
     switch (sslError.get()) {
         case SSL_ERROR_NONE:
@@ -10457,6 +10483,8 @@ static void NativeCrypto_SSL_shutdown_BIO(JNIEnv* env, jclass, jlong ssl_address
 
     AppData* appData = toAppData(ssl);
     if (appData != nullptr) {
+        UniqueMutex appDataLock(&appData->mutex);
+
         if (!appData->setCallbackState(env, shc, nullptr, nullptr, nullptr)) {
             // SocketException thrown by NetFd.isClosed
             freeOpenSslErrorState();
