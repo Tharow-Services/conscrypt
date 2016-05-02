@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "88b1e559_715538b5",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-05-02T17:45:01Z",
+      "side": 1,
+      "message": "Actually, forgot I refactored the code and don\u0027t need this. Removed.",
+      "parentUuid": "6803d1bf_78db412c",
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8837256b_a7254e4d",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "88b1e559_5152b4ce",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1214,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-05-02T17:45:01Z",
+      "side": 1,
+      "message": "Actually, forgot I refactored the code and don\u0027t need this. Removed.",
+      "parentUuid": "8837256b_a7254e4d",
+      "range": {
+        "startLine": 1212,
+        "startChar": 0,
+        "endLine": 1214,
+        "endChar": 9
+      },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "681751d9_783cc11f",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -53,6 +95,24 @@
       "writtenOn": "2016-05-02T08:40:59Z",
       "side": 1,
       "message": "SSL* const ssl_",
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88b1e559_b15de0de",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1218,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-05-02T17:45:01Z",
+      "side": 1,
+      "message": "Actually, forgot I refactored the code and don\u0027t need this. Removed.",
+      "parentUuid": "681751d9_783cc11f",
       "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -106,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "88b1e559_91625c9c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2256,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-05-02T17:45:01Z",
+      "side": 1,
+      "message": "Yes, this should never fail and if it does it probably indicates some memory corruption. I\u0027ll log and call abort() on failure here.",
+      "parentUuid": "8820052f_19f26bab",
+      "range": {
+        "startLine": 2256,
+        "startChar": 0,
+        "endLine": 2256,
+        "endChar": 35
+      },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8837256b_271a9e08",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -117,6 +201,30 @@
       "writtenOn": "2016-04-29T23:40:44Z",
       "side": 1,
       "message": "and here?",
+      "range": {
+        "startLine": 2263,
+        "startChar": 0,
+        "endLine": 2263,
+        "endChar": 41
+      },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88b1e559_d15ce4df",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2263,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-05-02T17:45:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8837256b_271a9e08",
       "range": {
         "startLine": 2263,
         "startChar": 0,
@@ -152,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "88b1e559_5100f49a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2270,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-05-02T17:45:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8837256b_6720a63a",
+      "range": {
+        "startLine": 2268,
+        "startChar": 1,
+        "endLine": 2270,
+        "endChar": 9
+      },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "c84cbd16_5bf8e38c",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -163,6 +295,24 @@
       "writtenOn": "2016-05-02T08:40:59Z",
       "side": 1,
       "message": "pthread_mutex_t* const mutex_",
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88b1e559_31f9f0d9",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2274,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-05-02T17:45:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c84cbd16_5bf8e38c",
       "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
