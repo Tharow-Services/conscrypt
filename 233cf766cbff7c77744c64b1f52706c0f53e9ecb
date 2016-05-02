@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "6803d1bf_78db412c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1204,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-05-02T08:40:59Z",
+      "side": 1,
+      "message": "clear() instead of reset() ? i\u0027m used to seeing reset(T*) and not reset(void).",
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8837256b_a7254e4d",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -25,6 +42,23 @@
     },
     {
       "key": {
+        "uuid": "681751d9_783cc11f",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 1218,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-05-02T08:40:59Z",
+      "side": 1,
+      "message": "SSL* const ssl_",
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8837256b_871daa01",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 3
@@ -36,6 +70,30 @@
       "writtenOn": "2016-04-29T23:40:44Z",
       "side": 1,
       "message": "should we ALOGE on failure?",
+      "range": {
+        "startLine": 2256,
+        "startChar": 0,
+        "endLine": 2256,
+        "endChar": 35
+      },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8820052f_19f26bab",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2256,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-05-02T08:40:59Z",
+      "side": 1,
+      "message": "ALOGE or abort ? aren\u0027t we setting ourselves up for undefined behaviour otherwise ?",
+      "parentUuid": "8837256b_871daa01",
       "range": {
         "startLine": 2256,
         "startChar": 0,
@@ -88,6 +146,23 @@
         "endLine": 2270,
         "endChar": 9
       },
+      "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c84cbd16_5bf8e38c",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 2274,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-05-02T08:40:59Z",
+      "side": 1,
+      "message": "pthread_mutex_t* const mutex_",
       "revId": "233cf766cbff7c77744c64b1f52706c0f53e9ecb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
