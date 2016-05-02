@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "88b1e559_b48e6e35",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2246,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-05-02T18:05:54Z",
+      "side": 1,
+      "message": "For some reason I was thinking mutex was a reserved word, but maybe not here.",
+      "parentUuid": "8885655b_f1678813",
+      "range": {
+        "startLine": 2246,
+        "startChar": 42,
+        "endLine": 2246,
+        "endChar": 49
+      },
+      "revId": "fba8d5b45de4ada53b004c63cd5516330740b509",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "681751d9_18fca54d",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2016-05-02T17:55:12Z",
       "side": 1,
       "message": "unnecessary \"if (owns_)\"",
+      "range": {
+        "startLine": 2267,
+        "startChar": 8,
+        "endLine": 2267,
+        "endChar": 20
+      },
+      "revId": "fba8d5b45de4ada53b004c63cd5516330740b509",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "88b1e559_94936a5f",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 2267,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-05-02T18:05:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "681751d9_18fca54d",
       "range": {
         "startLine": 2267,
         "startChar": 8,
