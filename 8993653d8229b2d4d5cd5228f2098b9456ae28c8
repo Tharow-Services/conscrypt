@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "d211d00a_930a7c7b",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-05-10T18:36:04Z",
+      "side": 1,
+      "message": "there were a few cases were javac transformed some of these multi-catch blocks to \"catch (ReflectiveOperationException roe)\" under some circumstances [thereby breaking things on older android platforms]. this doesn\u0027t look like one of those, but just something to be aware of.",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 74
+      },
+      "revId": "8993653d8229b2d4d5cd5228f2098b9456ae28c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f22a5413_b4a58066",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
