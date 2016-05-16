@@ -153,8 +153,7 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
             final AbstractSessionContext sessionContext = sslParameters.getSessionContext();
             final long sslCtxNativePointer = sessionContext.sslCtxNativePointer;
             sslNativePointer = NativeCrypto.SSL_new(sslCtxNativePointer);
-            sslSession = sslParameters.getSessionToReuse(
-                    sslNativePointer, getPeerHost(), getPeerPort());
+            sslParameters.findAndSetSessionToOfferForReuse(sslNativePointer, getPeerHost(), getPeerPort());
             sslParameters.setSSLParameters(sslCtxNativePointer, sslNativePointer, this, this,
                     getPeerHost());
             sslParameters.setCertificateValidation(sslNativePointer);
@@ -427,15 +426,18 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
                         source.getContext(), handshakeSink.getContext(), this, getUseClientMode(),
                         sslParameters.npnProtocols, sslParameters.alpnProtocols);
                 if (sslSessionCtx != 0) {
-                    if (sslSession != null && engineState == EngineState.HANDSHAKE_STARTED) {
-                        engineState = EngineState.READY_HANDSHAKE_CUT_THROUGH;
+                    synchronized (stateLock) {
+                        if (engineState == EngineState.HANDSHAKE_STARTED) {
+                            engineState = EngineState.READY_HANDSHAKE_CUT_THROUGH;
+                        }
                     }
-                    sslSession = sslParameters.setupSession(sslSessionCtx, sslNativePointer, sslSession,
-                            getPeerHost(), getPeerPort(), true);
+                    sslSession = sslParameters.createSessionForContext(sslSessionCtx, sslNativePointer,
+                            getPeerHost(), getPeerPort());
                 }
                 int bytesWritten = handshakeSink.position();
                 int bytesConsumed = (src.position() - positionBeforeHandshake);
-                return new SSLEngineResult((bytesConsumed > 0) ? Status.OK : Status.BUFFER_UNDERFLOW,
+                return new SSLEngineResult(
+                        (bytesConsumed > 0) ? Status.OK : Status.BUFFER_UNDERFLOW,
                         getHandshakeStatus(), bytesConsumed, bytesWritten);
             } catch (Exception e) {
                 throw (SSLHandshakeException) new SSLHandshakeException("Handshake failed")
@@ -511,6 +513,12 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
     }
 
     @Override
+    public int onNewSessionCreated(long sslNativePtr, long sslSessionNativePtr) {
+        return sslParameters.onNewSessionCreated(sslNativePtr, sslSessionNativePtr, getPeerHost(),
+                getPeerPort());
+    }
+
+    @Override
     public SSLEngineResult wrap(ByteBuffer[] srcs, int offset, int length, ByteBuffer dst)
             throws SSLException {
         if (srcs == null) {
@@ -555,8 +563,8 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
                         if (sslSession != null && engineState == EngineState.HANDSHAKE_STARTED) {
                             engineState = EngineState.READY_HANDSHAKE_CUT_THROUGH;
                         }
-                        sslSession = sslParameters.setupSession(sslSessionCtx, sslNativePointer, sslSession,
-                                getPeerHost(), getPeerPort(), true);
+                        sslSession = sslParameters.createSessionForContext(sslSessionCtx,
+                                sslNativePointer, getPeerHost(), getPeerPort());
                     }
                 } catch (Exception e) {
                     throw (SSLHandshakeException) new SSLHandshakeException("Handshake failed")

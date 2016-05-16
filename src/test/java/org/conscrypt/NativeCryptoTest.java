@@ -832,6 +832,15 @@ public class NativeCryptoTest extends TestCase {
             }
             return serverPSKKeyRequestedResult;
         }
+
+        @Override
+        public int onNewSessionCreated(long sslNativePtr, long sslSessionNativePtr) {
+            if (DEBUG) {
+                System.out.println("ssl=0x" + Long.toString(sslNativePointer, 16) + "sslSession=0x"
+                        + Long.toString(sslSessionNativePtr, 16));
+            }
+            return 0;
+        }
     }
 
     public static class ClientHooks extends Hooks {
@@ -968,7 +977,7 @@ public class NativeCryptoTest extends TestCase {
                 long session = NULL;
                 try {
                     session = NativeCrypto.SSL_do_handshake(s, fd, callback, timeout, client,
-                                                            npnProtocols, alpnProtocols);
+                                                            npnProtocols, alpnProtocols, true);
                     if (DEBUG) {
                         System.out.println("ssl=0x" + Long.toString(s, 16)
                                            + " handshake"
@@ -987,7 +996,7 @@ public class NativeCryptoTest extends TestCase {
 
     public void test_SSL_do_handshake_NULL_SSL() throws Exception {
         try {
-            NativeCrypto.SSL_do_handshake(NULL, null, null, 0, false, null, null);
+            NativeCrypto.SSL_do_handshake(NULL, null, null, 0, false, null, null, true);
             fail();
         } catch (NullPointerException expected) {
         }
@@ -998,13 +1007,13 @@ public class NativeCryptoTest extends TestCase {
         long s = NativeCrypto.SSL_new(c);
 
         try {
-            NativeCrypto.SSL_do_handshake(s, null, null, 0, true, null, null);
+            NativeCrypto.SSL_do_handshake(s, null, null, 0, true, null, null, true);
             fail();
         } catch (NullPointerException expected) {
         }
 
         try {
-            NativeCrypto.SSL_do_handshake(s, INVALID_FD, null, 0, true, null, null);
+            NativeCrypto.SSL_do_handshake(s, INVALID_FD, null, 0, true, null, null, true);
             fail();
         } catch (NullPointerException expected) {
         }

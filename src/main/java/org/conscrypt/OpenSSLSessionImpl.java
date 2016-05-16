@@ -50,7 +50,6 @@ public class OpenSSLSessionImpl implements SSLSession {
     private String cipherSuite;
     private String protocol;
     private AbstractSessionContext sessionContext;
-    private byte[] id;
 
     /**
      * Class constructor creates an SSL session context given the appropriate
@@ -82,26 +81,11 @@ public class OpenSSLSessionImpl implements SSLSession {
 
     /**
      * Gets the identifier of the actual SSL session
-     * @return array of sessions' identifiers.
+     * @return array of bytes representing the session identifier.
      */
     @Override
     public byte[] getId() {
-        if (id == null) {
-            resetId();
-        }
-        return id;
-    }
-
-    /**
-     * Reset the id field to the current value found in the native
-     * SSL_SESSION. It can change during the lifetime of the session
-     * because while a session is created during initial handshake,
-     * with handshake_cutthrough, the SSL_do_handshake may return
-     * before we have read the session ticket from the server side and
-     * therefore have computed no id based on the SHA of the ticket.
-     */
-    void resetId() {
-        id = NativeCrypto.SSL_SESSION_session_id(sslSessionNativePointer);
+        return NativeCrypto.SSL_SESSION_session_id(sslSessionNativePointer);
     }
 
     /**

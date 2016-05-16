@@ -1109,7 +1109,8 @@ public final class NativeCrypto {
                                                int timeoutMillis,
                                                boolean client_mode,
                                                byte[] npnProtocols,
-                                               byte[] alpnProtocols)
+                                               byte[] alpnProtocols,
+                                               boolean initialInvocation)
         throws SSLException, SocketTimeoutException, CertificateException;
 
     /**
@@ -1125,6 +1126,8 @@ public final class NativeCrypto {
                                                    byte[] npnProtocols,
                                                    byte[] alpnProtocols)
         throws SSLException, SocketTimeoutException, CertificateException;
+
+    public static native boolean SSL_in_init(long sslNativePointer);
 
     public static native byte[] SSL_get_npn_negotiated_protocol(long sslNativePointer);
 
@@ -1273,6 +1276,11 @@ public final class NativeCrypto {
          * Called when SSL state changes. This could be handshake completion.
          */
         public void onSSLStateChange(long sslSessionNativePtr, int type, int val);
+
+        /**
+         * Called when a new session should be added to the session cache.
+         */
+        public int onNewSessionCreated(long sslNativePtr, long sslSessionNativePtr);
     }
 
     public static native long ERR_peek_last_error();

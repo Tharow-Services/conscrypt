@@ -331,8 +331,8 @@ public class OpenSSLSocketImpl
                 NativeCrypto.SSL_enable_ocsp_stapling(sslNativePointer);
             }
 
-            final OpenSSLSessionImpl sessionToReuse = sslParameters.getSessionToReuse(
-                    sslNativePointer, getHostnameOrIP(), getPort());
+            sslParameters.findAndSetSessionToOfferForReuse(sslNativePointer, getHostnameOrIP(),
+                    getPort());
             sslParameters.setSSLParameters(sslCtxNativePointer, sslNativePointer, this, this,
                     getHostname());
             sslParameters.setCertificateValidation(sslNativePointer);
@@ -356,7 +356,8 @@ public class OpenSSLSocketImpl
             try {
                 sslSessionNativePointer = NativeCrypto.SSL_do_handshake(sslNativePointer,
                         Platform.getFileDescriptor(socket), this, getSoTimeout(), client,
-                        sslParameters.npnProtocols, client ? null : sslParameters.alpnProtocols);
+                        sslParameters.npnProtocols, client ? null : sslParameters.alpnProtocols,
+                        true);
             } catch (CertificateException e) {
                 SSLHandshakeException wrapper = new SSLHandshakeException(e.getMessage());
                 wrapper.initCause(e);
@@ -396,8 +397,8 @@ public class OpenSSLSocketImpl
                 }
             }
 
-            sslSession = sslParameters.setupSession(sslSessionNativePointer, sslNativePointer,
-                    sessionToReuse, getHostnameOrIP(), getPort(), handshakeCompleted);
+            sslSession = sslParameters.createSessionForContext(sslSessionNativePointer, sslNativePointer,
+                    getHostnameOrIP(), getPort());
 
             // Restore the original timeout now that the handshake is complete
             if (handshakeTimeoutMilliseconds >= 0) {
@@ -448,6 +449,36 @@ public class OpenSSLSocketImpl
                 }
             }
         }
+    }
+
+    private void finishHandshakeForSession() {
+        final boolean client = sslParameters.getUseClientMode();
+
+        while (NativeCrypto.SSL_in_init(sslNativePointer)) {
+            long sslSessionNativePointer;
+            try {
+                sslSessionNativePointer = NativeCrypto.SSL_do_handshake(sslNativePointer,
+                        Platform.getFileDescriptor(socket), this, getSoTimeout(), client,
+                        sslParameters.npnProtocols, client ? null : sslParameters.alpnProtocols,
+                        false);
+            } catch (Exception ignored) {
+                return;
+            }
+            if (sslSessionNativePointer != 0L) {
+                try {
+                    sslSession = sslParameters.createSessionForContext(sslSessionNativePointer,
+                            sslNativePointer, getHostnameOrIP(), getPort());
+                } catch (IOException e) {
+                    return;
+                }
+            }
+        }
+    }
+
+    @Override
+    public int onNewSessionCreated(long sslNativePtr, long sslSessionNativePtr) {
+        return sslParameters.onNewSessionCreated(sslNativePtr, sslSessionNativePtr,
+                getHostnameOrIP(), getPort());
     }
 
     /**
@@ -527,15 +558,6 @@ public class OpenSSLSocketImpl
                 return;
             }
         }
-
-        // reset session id from the native pointer and update the
-        // appropriate cache.
-        sslSession.resetId();
-        AbstractSessionContext sessionContext =
-            (sslParameters.getUseClientMode())
-            ? sslParameters.getClientSessionContext()
-                : sslParameters.getServerSessionContext();
-        sessionContext.putSession(sslSession);
 
         // let listeners know we are finally done
         notifyHandshakeCompletedListeners();
@@ -850,6 +872,11 @@ public class OpenSSLSocketImpl
                 return SSLNullSession.getNullSession();
             }
         }
+
+        // If this socket is in False Start, its session will not be ready until
+        // the handshake is completed.
+        finishHandshakeForSession();
+
         return Platform.wrapSSLSession(sslSession);
     }
 
@@ -934,6 +961,13 @@ public class OpenSSLSocketImpl
      */
     public void setUseSessionTickets(boolean useSessionTickets) {
         sslParameters.useSessionTickets = useSessionTickets;
+    }
+
+    /**
+     * This method returns whether session ticket support is enabled or not.
+     */
+    public boolean getUseSessionTickets() {
+        return sslParameters.useSessionTickets;
     }
 
     /**

@@ -8044,6 +8044,35 @@ static DH* tmp_dh_callback(SSL* ssl __attribute__ ((unused)),
     return tmp_dh;
 }
 
+static int new_session_callback(SSL* ssl, SSL_SESSION* session) {
+    JNI_TRACE("ssl=%p new_session_callback session=%p", ssl, session);
+
+    AppData* appData = toAppData(ssl);
+    JNIEnv* env = appData->env;
+    if (env == nullptr) {
+        ALOGE("AppData->env missing in new_session_callback");
+        JNI_TRACE("ssl=%p new_session_callback env error", ssl);
+        return 0;
+    }
+    if (env->ExceptionCheck()) {
+        JNI_TRACE("ssl=%p new_session_callback already pending exception", ssl);
+        return 0;
+    }
+
+    jobject sslHandshakeCallbacks = appData->sslHandshakeCallbacks;
+    jclass cls = env->GetObjectClass(sslHandshakeCallbacks);
+    jmethodID methodID = env->GetMethodID(cls, "onNewSessionCreated", "(JJ)I");
+    JNI_TRACE("ssl=%p new_session_callback calling onNewSessionCreated", ssl);
+    jint ret = env->CallIntMethod(sslHandshakeCallbacks, methodID, reinterpret_cast<jlong>(ssl),
+                                  reinterpret_cast<jlong>(session));
+    if (env->ExceptionCheck()) {
+        JNI_TRACE("ssl=%p new_session_callback exception", ssl);
+        return 0;
+    }
+    JNI_TRACE("ssl=%p new_session_callback completed => %d", ssl, ret);
+    return ret;
+}
+
 static jint NativeCrypto_EVP_has_aes_hardware(JNIEnv*, jclass) {
     int ret = 0;
 #if defined(OPENSSL_IS_BORINGSSL)
@@ -8102,6 +8131,13 @@ static jlong NativeCrypto_SSL_CTX_new(JNIEnv* env, jclass) {
     SSL_CTX_set_client_cert_cb(sslCtx.get(), client_cert_cb);
     SSL_CTX_set_tmp_rsa_callback(sslCtx.get(), tmp_rsa_callback);
     SSL_CTX_set_tmp_dh_callback(sslCtx.get(), tmp_dh_callback);
+
+    // By default BoringSSL will cache in server mode, but we want to get
+    // notified of new sessions being created in client mode. We set
+    // SSL_SESS_CACHE_BOTH in order to get the callback in client mode, but
+    // ignore it in server mode in favor of the internal cache.
+    SSL_CTX_set_session_cache_mode(sslCtx.get(), SSL_SESS_CACHE_BOTH);
+    SSL_CTX_sess_set_new_cb(sslCtx.get(), new_session_callback);
 
     // If negotiating ECDH, use P-256.
     Unique_EC_KEY ec(EC_KEY_new_by_curve_name(NID_X9_62_prime256v1));
@@ -9413,7 +9449,7 @@ static jlong NativeCrypto_SSL_do_handshake_bio(JNIEnv* env, jclass, jlong ssl_ad
  */
 static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_address, jobject fdObject,
         jobject shc, jint timeout_millis, jboolean client_mode, jbyteArray npnProtocols,
-        jbyteArray alpnProtocols) {
+        jbyteArray alpnProtocols, jboolean initialInvocation) {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake fd=%p shc=%p timeout_millis=%d client_mode=%d npn=%p",
               ssl, fdObject, shc, timeout_millis, client_mode, npnProtocols);
@@ -9469,12 +9505,14 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
         return 0;
     }
 
-    if (client_mode) {
-        SSL_set_connect_state(ssl);
-    } else {
-        SSL_set_accept_state(ssl);
-        if (alpnProtocols != nullptr) {
-            SSL_CTX_set_alpn_select_cb(SSL_get_SSL_CTX(ssl), alpn_select_callback, nullptr);
+    if (initialInvocation) {
+        if (client_mode) {
+            SSL_set_connect_state(ssl);
+        } else {
+            SSL_set_accept_state(ssl);
+            if (alpnProtocols != nullptr) {
+                SSL_CTX_set_alpn_select_cb(SSL_get_SSL_CTX(ssl), alpn_select_callback, nullptr);
+            }
         }
     }
 
@@ -9587,6 +9625,22 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
     debug_print_session_key(ssl_session);
 #endif
     return (jlong) ssl_session;
+}
+
+static jboolean NativeCrypto_SSL_in_init(JNIEnv* env, jclass, jlong ssl_address) {
+    SSL* ssl = to_SSL(env, ssl_address, false);
+    JNI_TRACE("ssl=%p SSL_in_init", ssl);
+    if (ssl == nullptr) {
+        return JNI_FALSE;
+    }
+    AppData* appData = toAppData(ssl);
+    if (appData == nullptr) {
+        return JNI_FALSE;
+    }
+    UniqueMutex appDataLock(&appData->mutex);
+    int result = SSL_in_init(ssl);
+    JNI_TRACE("ssl=%p SSL_in_init => %d", ssl, result);
+    return result == 1 ? JNI_TRUE : JNI_FALSE;
 }
 
 /**
@@ -11249,8 +11303,9 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, SSL_set_reject_peer_renegotiations, "(JZ)V"),
     NATIVE_METHOD(NativeCrypto, SSL_set_tlsext_host_name, "(JLjava/lang/String;)V"),
     NATIVE_METHOD(NativeCrypto, SSL_get_servername, "(J)Ljava/lang/String;"),
-    NATIVE_METHOD(NativeCrypto, SSL_do_handshake, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "IZ[B[B)J"),
+    NATIVE_METHOD(NativeCrypto, SSL_do_handshake, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "IZ[B[BZ)J"),
     NATIVE_METHOD(NativeCrypto, SSL_do_handshake_bio, "(JJJ" SSL_CALLBACKS "Z[B[B)J"),
+    NATIVE_METHOD(NativeCrypto, SSL_in_init, "(J)Z"),
     NATIVE_METHOD(NativeCrypto, SSL_renegotiate, "(J)V"),
     NATIVE_METHOD(NativeCrypto, SSL_get_certificate, "(J)[J"),
     NATIVE_METHOD(NativeCrypto, SSL_get_peer_cert_chain, "(J)[J"),
