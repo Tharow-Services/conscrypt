@@ -1,0 +1,135 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "575792e9_ef40414c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-05-20T19:13:18Z",
+      "side": 1,
+      "message": "You\u0027ll end up calling this twice during False Start which seems a little off.",
+      "revId": "8a3e0fbcb83e6e99f919a298cad505ca9425d24a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "575792e9_cf3b7dd7",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 457,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-05-20T19:13:18Z",
+      "side": 1,
+      "message": "If waitForHandshake has always run first, I think this can be if instead of while. It\u0027s also weird to loop again if you call createSessionForContext. It probably should be the case that that only ever happens once?",
+      "range": {
+        "startLine": 457,
+        "startChar": 8,
+        "endLine": 457,
+        "endChar": 13
+      },
+      "revId": "8a3e0fbcb83e6e99f919a298cad505ca9425d24a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "575792e9_af3639f0",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-05-20T19:13:18Z",
+      "side": 1,
+      "message": "Can this return 0? Doesn\u0027t look like the other code allows for it.",
+      "range": {
+        "startLine": 467,
+        "startChar": 16,
+        "endLine": 467,
+        "endChar": 44
+      },
+      "revId": "8a3e0fbcb83e6e99f919a298cad505ca9425d24a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "575792e9_4f578d15",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 877,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-05-20T19:13:18Z",
+      "side": 1,
+      "message": "Probably worth explicitly calling out that this nullifies False Start and we\u0027re expecting callers to use getHandshakeSession (?). I\u0027m still confused about this. It looks like handshakeSession is only set for a short window during a callback.",
+      "revId": "8a3e0fbcb83e6e99f919a298cad505ca9425d24a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "575792e9_4f306df1",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 665,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-05-20T19:13:18Z",
+      "side": 1,
+      "message": "As things currently stand (though I\u0027m thinking we need to change this in BoringSSL), the sslSessionNativePointer you get each of the several times this function gets called (looks like it\u0027s up to 3 now? The first time do_handshake completes, the second time it does, and in the callback) are all going to be the same. Which seems a little odd. You\u0027ll have an OpenSSLSessionImpl wrapping an SSL_SESSION that\u0027s still going to mutate.\n\nSince all but the onNewSessionCreated one are fake, maybe they shouldn\u0027t wrap SSL_SESSION at all? Extract a handful of fields and the certificate info because that\u0027s what the Java API demands, but leave everything else out. Then in onNewSessionCreated, when you\u0027ve got the real thing, put it in the session cache.\n\nIf you do that, you might not need to wait in getSession? Though session ID and invalidate functions will be a little weird. Almost suggests that you should secretly wrap the SSL* for poison sessions and forward the invalidate call back to the socket. (E.g. you might flip a bit and defer the true invalidate?)",
+      "revId": "8a3e0fbcb83e6e99f919a298cad505ca9425d24a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "575792e9_efbda173",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9478,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-05-20T19:13:18Z",
+      "side": 1,
+      "message": "It looks like Conscrypt just works this way for all operations, and I think this is fine here. But OpenSSL and BoringSSL will get really really confused at other points if you call this partway through.\n\nI\u0027ll just go fix BoringSSL so it doesn\u0027t do that. That it internally wraps a buffering BIO (it shouldn\u0027t...) should be completely hidden by the API.\nhttps://boringssl-review.googlesource.com/#/c/8023/\n\n(I do not believe that change is necessary to land this one. It just makes me a lot less nervous.)",
+      "revId": "8a3e0fbcb83e6e99f919a298cad505ca9425d24a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "575792e9_cf429d5b",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 9508,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-05-20T19:13:18Z",
+      "side": 1,
+      "message": "I feel like this should probably be two different JNI calls or more. :-/ I guess it\u0027s all tied up because you have to setCallbackState and clearCallbackState everywhere. (Why aren\u0027t they hanging off of AppData?)\n\nAnyway, that\u0027s all probably more for future cleanup.",
+      "revId": "8a3e0fbcb83e6e99f919a298cad505ca9425d24a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
