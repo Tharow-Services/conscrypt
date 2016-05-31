@@ -1147,7 +1147,13 @@ T* ByteArrayToASN1(JNIEnv* env, jbyteArray byteArray) {
     }
 
     const unsigned char* tmp = reinterpret_cast<const unsigned char*>(bytes.get());
-    return d2i_func(nullptr, &tmp, bytes.size());
+    T* ret = d2i_func(nullptr, &tmp, bytes.size());
+    if (ret == nullptr) {
+        throwExceptionIfNecessary(env, "ByteArrayToASN1");
+        JNI_TRACE("ByteArrayToASN1(%p) => decode failed", byteArray);
+        return nullptr;
+    }
+    return ret;
 }
 
 /**
