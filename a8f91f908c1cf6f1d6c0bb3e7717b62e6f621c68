@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "390e9529_f72720b6",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 1144,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-05-31T21:47:19Z",
+      "side": 1,
+      "message": "Not sure what the right throws line is here; the default behavior doesn\u0027t actually throw a ParsingException.",
+      "revId": "a8f91f908c1cf6f1d6c0bb3e7717b62e6f621c68",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
