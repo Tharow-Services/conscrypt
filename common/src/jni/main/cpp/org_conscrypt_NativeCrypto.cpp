@@ -981,8 +981,7 @@ static JNIEnv* getJNIEnv() {
  */
 class BIO_Stream {
 public:
-    BIO_Stream(jobject stream) :
-            mEof(false) {
+    explicit BIO_Stream(jobject stream) : mEof(false) {
         JNIEnv* env = getJNIEnv();
         mStream = env->NewGlobalRef(stream);
     }
@@ -1102,9 +1101,7 @@ public:
 
 class BIO_OutputStream : public BIO_Stream {
 public:
-    BIO_OutputStream(jobject stream) :
-            BIO_Stream(stream) {
-    }
+    explicit BIO_OutputStream(jobject stream) : BIO_Stream(stream) {}
 
     int write(const char *buf, int len) {
         JNIEnv* env = getJNIEnv();
@@ -1611,7 +1608,7 @@ static acm_dtor_func async_close_monitor_dtor = nullptr;
 
 class CompatibilityCloseMonitor {
 public:
-    CompatibilityCloseMonitor(int fd) {
+    explicit CompatibilityCloseMonitor(int fd) {
         if (async_close_monitor_ctor != nullptr) {
             async_close_monitor_ctor(objBuffer, fd);
         }

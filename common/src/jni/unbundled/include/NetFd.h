@@ -55,16 +55,18 @@ private:
  * it also considers the case where the reason for failure is that another thread called
  * Socket.close.
  */
-#define NET_FAILURE_RETRY(fd, exp) ({               \
-    typeof (exp) _rc;                               \
-    do {                                            \
-        _rc = (exp);                                \
-        if (_rc == -1) {                            \
-            if (fd.isClosed() || errno != EINTR) {  \
-                break;                              \
-            }                                       \
-        }                                           \
-    } while (_rc == -1);                            \
-    _rc; })
+#define NET_FAILURE_RETRY(fd, exp)                       \
+    ({                                                   \
+        typeof(exp) _rc;                                 \
+        do {                                             \
+            _rc = (exp);                                 \
+            if (_rc == -1) {                             \
+                if ((fd).isClosed() || errno != EINTR) { \
+                    break;                               \
+                }                                        \
+            }                                            \
+        } while (_rc == -1);                             \
+        _rc;                                             \
+    })
 
 #endif // NET_FD_H_included

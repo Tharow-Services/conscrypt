@@ -52,10 +52,7 @@
 template<typename T>
 class scoped_local_ref {
 public:
-    scoped_local_ref(JNIEnv* env, T localRef = nullptr)
-    : mEnv(env), mLocalRef(localRef)
-    {
-    }
+    explicit scoped_local_ref(JNIEnv* env, T localRef = nullptr) : mEnv(env), mLocalRef(localRef) {}
 
     ~scoped_local_ref() {
         reset();
