@@ -23,6 +23,7 @@
 // ScopedFloatArrayRO, ScopedIntArrayRO, ScopedLongArrayRO, and ScopedShortArrayRO provide
 // convenient read-only access to Java arrays from JNI code. This is cheaper than read-write
 // access and should be used by default.
+// NOLINT: clang-tidy adds parentheses around 'PRIMITIVE_TYPE'.
 #define INSTANTIATE_SCOPED_PRIMITIVE_ARRAY_RO(PRIMITIVE_TYPE, NAME) \
     class Scoped ## NAME ## ArrayRO { \
     public: \
@@ -52,7 +53,7 @@
     private: \
         JNIEnv* mEnv; \
         PRIMITIVE_TYPE ## Array mJavaArray; \
-        PRIMITIVE_TYPE* mRawArray; \
+        PRIMITIVE_TYPE* mRawArray;  /* NOLINT */ \
         Scoped ## NAME ## ArrayRO(const Scoped ## NAME ## ArrayRO&); \
         void operator=(const Scoped ## NAME ## ArrayRO&); \
     }
@@ -97,13 +98,13 @@ INSTANTIATE_SCOPED_PRIMITIVE_ARRAY_RO(jshort, Short);
         const PRIMITIVE_TYPE* get() const { return mRawArray; } \
         PRIMITIVE_TYPE ## Array getJavaArray() const { return mJavaArray; } \
         const PRIMITIVE_TYPE& operator[](size_t n) const { return mRawArray[n]; } \
-        PRIMITIVE_TYPE* get() { return mRawArray; } \
-        PRIMITIVE_TYPE& operator[](size_t n) { return mRawArray[n]; } \
+        PRIMITIVE_TYPE* get() { return mRawArray; }  /* NOLINT */ \
+        PRIMITIVE_TYPE& operator[](size_t n) { return mRawArray[n]; }  /* NOLINT */ \
         size_t size() const { return mEnv->GetArrayLength(mJavaArray); } \
     private: \
         JNIEnv* mEnv; \
         PRIMITIVE_TYPE ## Array mJavaArray; \
-        PRIMITIVE_TYPE* mRawArray; \
+        PRIMITIVE_TYPE* mRawArray;  /* NOLINT */ \
         Scoped ## NAME ## ArrayRW(const Scoped ## NAME ## ArrayRW&); \
         void operator=(const Scoped ## NAME ## ArrayRW&); \
     }
