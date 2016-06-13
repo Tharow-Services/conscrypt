@@ -134,7 +134,8 @@ LOCAL_C_INCLUDES += \
         external/openssl/include \
         external/openssl \
         libcore/include \
-        libcore/luni/src/main/native
+        libcore/luni/src/main/native \
+        external/conscrypt/src/platform/native
 LOCAL_SHARED_LIBRARIES := libcrypto libjavacore liblog libnativehelper libssl libz
 ifeq ($(OPENSSL_FLAVOR),BoringSSL)
   LOCAL_SHARED_LIBRARIES += libkeystore-engine
@@ -272,7 +273,8 @@ LOCAL_C_INCLUDES += \
         external/openssl/include \
         external/openssl \
         libcore/include \
-        libcore/luni/src/main/native
+        libcore/luni/src/main/native \
+        external/conscrypt/src/platform/native
 LOCAL_CPPFLAGS += $(core_cppflags)
 LOCAL_LDLIBS += -lpthread
 LOCAL_MODULE_TAGS := optional
@@ -298,7 +300,8 @@ ifeq (,$(TARGET_BUILD_APPS))
             external/openssl/include \
             external/openssl \
             libcore/include \
-            libcore/luni/src/main/native
+            libcore/luni/src/main/native \
+            external/conscrypt/src/platform/native
     LOCAL_CPPFLAGS += $(core_cppflags) -DCONSCRYPT_NOT_UNBUNDLED
     LOCAL_LDLIBS += -lpthread
     LOCAL_MODULE_TAGS := optional
