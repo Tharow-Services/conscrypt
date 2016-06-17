@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49affc8f_f8d171ff",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 4410,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-06-17T18:03:13Z",
+      "side": 1,
+      "message": "nit: looks like you left off \"detail\"",
+      "range": {
+        "startLine": 4410,
+        "startChar": 62,
+        "endLine": 4410,
+        "endChar": 87
+      },
+      "revId": "bd1cd2c240d916d6f53dc14ee2caf9b6965dc55a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
