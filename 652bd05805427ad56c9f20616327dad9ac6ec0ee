@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "a92eb88e_dae9d9f0",
+        "filename": "Android.mk",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-06-17T17:40:19Z",
+      "side": 1,
+      "message": "It works. Done!",
+      "parentUuid": "a92eb88e_9add9176",
+      "range": {
+        "startLine": 138,
+        "startChar": 8,
+        "endLine": 138,
+        "endChar": 46
+      },
+      "revId": "652bd05805427ad56c9f20616327dad9ac6ec0ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a92eb88e_7acae5ae",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 4
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "a92eb88e_05cb8656",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 4362,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-06-17T17:40:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a92eb88e_7acae5ae",
+      "range": {
+        "startLine": 4362,
+        "startChar": 4,
+        "endLine": 4362,
+        "endChar": 73
+      },
+      "revId": "652bd05805427ad56c9f20616327dad9ac6ec0ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a92eb88e_fa5015bf",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 4
@@ -82,6 +130,30 @@
       "writtenOn": "2016-06-17T17:16:39Z",
       "side": 1,
       "message": "UniquePtr\u003cjbyte[]\u003e buf(new jbyte[buf_size]);",
+      "range": {
+        "startLine": 4387,
+        "startChar": 12,
+        "endLine": 4387,
+        "endChar": 51
+      },
+      "revId": "652bd05805427ad56c9f20616327dad9ac6ec0ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a92eb88e_1abac1ec",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 4387,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-06-17T17:40:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a92eb88e_fa5015bf",
       "range": {
         "startLine": 4387,
         "startChar": 12,
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "a92eb88e_fa9ed57a",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 4405,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-06-17T17:40:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a92eb88e_3a47bd0c",
+      "range": {
+        "startLine": 4405,
+        "startChar": 12,
+        "endLine": 4405,
+        "endChar": 22
+      },
+      "revId": "652bd05805427ad56c9f20616327dad9ac6ec0ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a92eb88e_1a63e19a",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 4
@@ -151,6 +247,30 @@
       "writtenOn": "2016-06-17T17:16:39Z",
       "side": 1,
       "message": "Why isn\u0027t it using ScopedByteArrayRO here?",
+      "range": {
+        "startLine": 4409,
+        "startChar": 8,
+        "endLine": 4409,
+        "endChar": 80
+      },
+      "revId": "652bd05805427ad56c9f20616327dad9ac6ec0ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a92eb88e_7a92e56b",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 4409,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-06-17T17:40:19Z",
+      "side": 1,
+      "message": "Because it\u0027s an impl detail of ScopedByteArrayRO whether it\u0027ll make exactly the same invocation as here or do something else. We want to be in control here.\n\nI\u0027ve now added a comment about that here.",
+      "parentUuid": "a92eb88e_1a63e19a",
       "range": {
         "startLine": 4409,
         "startChar": 8,
