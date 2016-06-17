@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a92eb88e_25f32279",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-06-17T17:50:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69cf6073_a1989e7f",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "652bd05805427ad56c9f20616327dad9ac6ec0ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a92eb88e_9add9176",
         "filename": "Android.mk",
         "patchSetId": 4
