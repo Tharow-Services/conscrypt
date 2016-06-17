@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "69cf6073_a1989e7f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-06-17T17:31:30Z",
+      "side": 1,
+      "message": "\"an Oracle VM\" / \"OpenJDK based VM\" / \"Hotspot\" or whatever. OpenJDK is confusing because it refers to the class libraries (which we use on android) and the VM (which we don\u0027t).",
+      "range": {
+        "startLine": 10,
+        "startChar": 41,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "652bd05805427ad56c9f20616327dad9ac6ec0ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a92eb88e_9add9176",
         "filename": "Android.mk",
         "patchSetId": 4
