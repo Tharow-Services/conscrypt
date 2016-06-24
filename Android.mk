@@ -40,6 +40,9 @@
 
 LOCAL_PATH := $(call my-dir)
 
+subdirs := srcgen
+subdir_makefiles := $(call all-named-subdir-makefiles,$(subdirs))
+
 local_javac_flags:=-Xmaxwarns 9999999
 #local_javac_flags+=-Xlint:all -Xlint:-serial,-deprecation,-unchecked
 
@@ -368,3 +371,5 @@ include $(BUILD_HOST_JAVA_LIBRARY)
 core_cflags :=
 core_cppflags :=
 local_javac_flags :=
+
+include $(subdir_makefiles)
