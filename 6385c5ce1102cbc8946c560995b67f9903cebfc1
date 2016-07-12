@@ -22,6 +22,30 @@
       "revId": "6385c5ce1102cbc8946c560995b67f9903cebfc1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba144089_9ea4ad1d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-07-12T15:33:49Z",
+      "side": 1,
+      "message": "whoops, meant invokevirtual. Basically you can\u0027t call the parent method without a MethodHandle.",
+      "parentUuid": "5ab8a4d4_d9411398",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 14
+      },
+      "revId": "6385c5ce1102cbc8946c560995b67f9903cebfc1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
