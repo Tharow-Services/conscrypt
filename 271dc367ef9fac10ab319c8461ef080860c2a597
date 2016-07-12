@@ -16,6 +16,24 @@
       "revId": "271dc367ef9fac10ab319c8461ef080860c2a597",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba144089_7e9e11d2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-07-12T15:31:33Z",
+      "side": 1,
+      "message": "There is some configurability. I\u0027ll check if I can make it more git-like.",
+      "parentUuid": "5ab8a4d4_b97c5f9a",
+      "revId": "271dc367ef9fac10ab319c8461ef080860c2a597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
