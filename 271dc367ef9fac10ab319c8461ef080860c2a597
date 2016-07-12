@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ab8a4d4_b97c5f9a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-07-12T14:38:43Z",
+      "side": 1,
+      "message": "it\u0027s a real pity that this tool can\u0027t generate well formatted git commit messages.\n\nA line between the subject and the \"---------\" would have made things better for everyone.",
+      "revId": "271dc367ef9fac10ab319c8461ef080860c2a597",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
