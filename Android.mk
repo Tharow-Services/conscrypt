@@ -60,7 +60,6 @@ LOCAL_CPP_EXTENSION := cc
 LOCAL_SRC_FILES := src/gen/native/generate_constants.cc
 LOCAL_MODULE := conscrypt_generate_constants
 LOCAL_SHARED_LIBRARIES := libcrypto-host libssl-host
-LOCAL_CXX_STL := none
 include $(BUILD_HOST_EXECUTABLE)
 
 conscrypt_generate_constants_exe := $(LOCAL_INSTALLED_MODULE)
