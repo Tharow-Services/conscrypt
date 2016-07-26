@@ -16,6 +16,8 @@
 
 package org.conscrypt;
 
+import com.android.ca.trustpoint.m2m.M2mCertificateLite;
+
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -363,9 +365,11 @@ public class TrustedCertificateStore {
     /**
      * This non-{@code KeyStoreSpi} public interface is used by {@code
      * TrustManagerImpl} to locate the CA certificate that signed the
-     * provided {@code X509Certificate}.
+     * provided {@code Certificate}. The provided {@code Certificate}
+     * should be an instance of either {@code X509Certificate} or
+     * {@code M2MCertificateLite}.
      */
-    public X509Certificate findIssuer(final X509Certificate c) {
+    public X509Certificate findIssuer(final Certificate c) {
         // match on verified issuer of Certificate
         CertSelector selector = new CertSelector() {
             @Override
@@ -378,7 +382,18 @@ public class TrustedCertificateStore {
                 }
             }
         };
-        X500Principal issuer = c.getIssuerX500Principal();
+        X500Principal issuer = null;
+        if (c instanceof X509Certificate) {
+            issuer = ((X509Certificate)c).getIssuerX500Principal();
+        } else if (c instanceof M2mCertificateLite) {
+            issuer = ((M2mCertificateLite)c).getIssuerX500Principal();
+        } else {
+            throw new IllegalArgumentException("certificate passed in should be an instance of " +
+                    "either X509Certificate or M2MCertificateLite");
+        }
+        if (issuer == null) {
+            return null;
+        }
         X509Certificate user = findCert(addedDir, issuer, selector, X509Certificate.class);
         if (user != null) {
             return user;

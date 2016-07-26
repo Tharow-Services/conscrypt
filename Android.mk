@@ -82,7 +82,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(common_java_files)
 LOCAL_SRC_FILES += $(call all-java-files-under,platform/src/main/java)
 LOCAL_GENERATED_SOURCES := $(conscrypt_gen_java_files)
-LOCAL_JAVA_LIBRARIES := core-oj core-libart
+LOCAL_JAVA_LIBRARIES := core-oj core-libart tpm2mlite
 LOCAL_NO_STANDARD_LIBRARIES := true
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_JARJAR_RULES := $(LOCAL_PATH)/jarjar-rules.txt
@@ -97,7 +97,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(common_java_files)
 LOCAL_SRC_FILES += $(call all-java-files-under,platform/src/main/java)
 LOCAL_GENERATED_SOURCES := $(conscrypt_gen_java_files)
-LOCAL_JAVA_LIBRARIES := core-oj core-libart
+LOCAL_JAVA_LIBRARIES := core-oj core-libart tpm2mlite
 LOCAL_NO_STANDARD_LIBRARIES := true
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_MODULE_TAGS := optional
