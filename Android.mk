@@ -51,6 +51,11 @@ core_cppflags := -std=gnu++11 -Wall -Wextra -Werror -Wunused
 # https://android-review.googlesource.com/#/c/113096/
 core_cppflags += -Wno-error=deprecated-declarations
 
+# We want the XSI-compliant strerror_r, not the GNU one. We haven't actually
+# defined _GNU_SOURCE ourselves, but the compiler adds it automatically when
+# building C++.
+core_cppflags += -U_GNU_SOURCE
+
 #
 # Build for the target (device).
 #
