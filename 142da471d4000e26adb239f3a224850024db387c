@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4f6b859b_99363bec",
+        "filename": "Android.mk",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-07-29T14:49:51Z",
+      "side": 0,
+      "message": "Did you mean to lose this line? Looks like this was added in the BoringSSL builds.",
+      "revId": "142da471d4000e26adb239f3a224850024db387c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
