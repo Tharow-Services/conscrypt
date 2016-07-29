@@ -16,6 +16,24 @@
       "revId": "142da471d4000e26adb239f3a224850024db387c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74e90269_e2c52608",
+        "filename": "Android.mk",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-07-29T14:51:44Z",
+      "side": 0,
+      "message": "\u003e Did you mean to lose this line? Looks like this was added in the\n \u003e BoringSSL builds.\n\nYes, we moved keystore functionality out to a different provider that directly speaks to the keystore instead of using ENGINE, RSA_METHOD, etc. This is essentially dead code for the past two releases.",
+      "parentUuid": "4f6b859b_99363bec",
+      "revId": "142da471d4000e26adb239f3a224850024db387c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
