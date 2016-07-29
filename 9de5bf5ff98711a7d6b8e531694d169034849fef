@@ -22,6 +22,30 @@
       "revId": "9de5bf5ff98711a7d6b8e531694d169034849fef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_6311b0aa",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-07-29T13:52:29Z",
+      "side": 1,
+      "message": "No love for litotes?",
+      "parentUuid": "942d9696_0bf5dd82",
+      "range": {
+        "startLine": 19,
+        "startChar": 5,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "9de5bf5ff98711a7d6b8e531694d169034849fef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

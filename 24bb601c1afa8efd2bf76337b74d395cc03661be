@@ -22,6 +22,30 @@
       "revId": "24bb601c1afa8efd2bf76337b74d395cc03661be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_2317b8a2",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-07-29T13:52:29Z",
+      "side": 0,
+      "message": "I could split it in two, but since AndroidKeyStoreProvider was introduced, this is no longer used.",
+      "parentUuid": "d4f9ce3d_ddbfaba1",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "24bb601c1afa8efd2bf76337b74d395cc03661be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
