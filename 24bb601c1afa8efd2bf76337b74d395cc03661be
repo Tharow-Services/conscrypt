@@ -70,6 +70,30 @@
       "revId": "24bb601c1afa8efd2bf76337b74d395cc03661be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f6689d2_03771407",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-07-29T14:03:04Z",
+      "side": 0,
+      "message": "\u003e At the very least, this deserves a clearer mention in the commit\n \u003e message. I know there\u0027s a tangential reference to it wasn\u0027t clear\n \u003e the change was doing two things.\n\nDone.",
+      "parentUuid": "f4533225_66524e6c",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 5
+      },
+      "revId": "24bb601c1afa8efd2bf76337b74d395cc03661be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
