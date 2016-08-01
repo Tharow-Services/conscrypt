@@ -22,6 +22,30 @@
       "revId": "c5f925525dbb7ff23e7778584df7a7d0c960cc7f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74e90269_82341ae3",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8145,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-08-01T13:43:07Z",
+      "side": 1,
+      "message": "Nice catch.. got tunnel vision at the end of the day.",
+      "parentUuid": "f4533225_c676a29d",
+      "range": {
+        "startLine": 8145,
+        "startChar": 8,
+        "endLine": 8145,
+        "endChar": 31
+      },
+      "revId": "c5f925525dbb7ff23e7778584df7a7d0c960cc7f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
