@@ -22,8 +22,6 @@ import java.security.SecureRandomSpi;
 public class OpenSSLRandom extends SecureRandomSpi implements Serializable {
     private static final long serialVersionUID = 8506210602917522860L;
 
-    private boolean mSeeded;
-
     @Override
     protected void engineSetSeed(byte[] seed) {
         if (seed == null) {
