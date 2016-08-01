@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4f9ce3d_bd2bbf2e",
+        "filename": "src/main/java/org/conscrypt/OpenSSLRandom.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-08-01T15:44:04Z",
+      "side": 0,
+      "message": "shouldn\u0027t this change ? I\u0027m assuming we don\u0027t care.",
+      "range": {
+        "startLine": 23,
+        "startChar": 49,
+        "endLine": 23,
+        "endChar": 69
+      },
+      "revId": "4e4a63cccde8389c8ef96679b6b01b86f373e59a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
