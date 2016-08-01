@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14f44640_bfb057f0",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-08-01T15:43:30Z",
+      "side": 1,
+      "message": "why can\u0027t this be a part of NativeCryptoJni.init() ? it doesn\u0027t appear to depend on any fields or methods of this class.",
+      "range": {
+        "startLine": 56,
+        "startChar": 25,
+        "endLine": 56,
+        "endChar": 40
+      },
+      "revId": "482462746726f2e11be519c1232ac0e5ca0a4463",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
