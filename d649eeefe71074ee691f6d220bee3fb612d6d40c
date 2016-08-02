@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3464ea09_7828c19f",
+        "filename": "src/compat/native/JNIHelp.cpp",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003224
+      },
+      "writtenOn": "2016-08-02T19:19:20Z",
+      "side": 1,
+      "message": "ah, that\u0027s the bit i was missing previously!",
+      "range": {
+        "startLine": 19,
+        "startChar": 41,
+        "endLine": 20,
+        "endChar": 46
+      },
+      "revId": "d649eeefe71074ee691f6d220bee3fb612d6d40c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
