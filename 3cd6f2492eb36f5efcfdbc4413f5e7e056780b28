@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3464ea09_78568137",
+        "filename": "src/compat/native/JNIHelp.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2016-08-02T19:09:51Z",
+      "side": 1,
+      "message": "why?",
+      "range": {
+        "startLine": 19,
+        "startChar": 3,
+        "endLine": 19,
+        "endChar": 57
+      },
+      "revId": "3cd6f2492eb36f5efcfdbc4413f5e7e056780b28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
