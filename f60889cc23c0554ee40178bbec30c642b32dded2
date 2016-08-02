@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "74e90269_22b8ae2a",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-08-02T02:06:07Z",
+      "side": 1,
+      "message": "We don\u0027t put blank lines in the imports here to stick with libcore guidelines.",
+      "revId": "f60889cc23c0554ee40178bbec30c642b32dded2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
