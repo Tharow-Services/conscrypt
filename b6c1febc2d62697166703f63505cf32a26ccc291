@@ -22,6 +22,30 @@
       "revId": "b6c1febc2d62697166703f63505cf32a26ccc291",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3914e3d3_c1995874",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-08-10T14:45:36Z",
+      "side": 1,
+      "message": "Yes, I can do that.",
+      "parentUuid": "b9a8d3f4_6cd27bcf",
+      "range": {
+        "startLine": 233,
+        "startChar": 30,
+        "endLine": 233,
+        "endChar": 37
+      },
+      "revId": "b6c1febc2d62697166703f63505cf32a26ccc291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
