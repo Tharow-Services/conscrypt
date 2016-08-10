@@ -113,7 +113,7 @@ public class OpenSSLSessionImpl implements SSLSession {
      * Get the session object in DER format. This allows saving the session
      * data or sharing it with other processes.
      */
-    byte[] getEncoded() {
+    public byte[] getEncoded() {
         return NativeCrypto.i2d_SSL_SESSION(sslSessionNativePointer);
     }
 

@@ -230,10 +230,14 @@ abstract class AbstractSessionContext implements SSLSessionContext {
             }
 
             List<byte[]> ocspResponses = sslSession.getStatusResponses();
-            daos.writeInt(ocspResponses.size());
-            for (byte[] ocspResponse : ocspResponses) {
-                daos.writeInt(ocspResponse.length);
-                daos.write(ocspResponse);
+            if (ocspResponses == null) {
+                daos.writeInt(0);
+            } else {
+                daos.writeInt(ocspResponses.size());
+                for (byte[] ocspResponse : ocspResponses) {
+                    daos.writeInt(ocspResponse.length);
+                    daos.write(ocspResponse);
+                }
             }
 
             // TODO: local certificates?
