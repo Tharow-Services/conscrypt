@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b9a8d3f4_6cd27bcf",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-08-10T14:39:38Z",
+      "side": 1,
+      "message": "ugh, can we convince OpenSSLSessionImpl.getStatusResponses() to return Collections.emptyList() rather than null? Their current implementation of using null as an alias for empty list is a common antipattern.\n\nI think it\u0027d be clearer that we do the same thing for null as for an empty list if we added these lines after line 232 instead of the change that you made:\n\nif (ocspResponses \u003d\u003d null) {\n  ocspResponses \u003d Collections.\u003cbyte[]\u003eemptyList();\n}\n\nbut your version is fine too.",
+      "range": {
+        "startLine": 233,
+        "startChar": 30,
+        "endLine": 233,
+        "endChar": 37
+      },
+      "revId": "b6c1febc2d62697166703f63505cf32a26ccc291",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
