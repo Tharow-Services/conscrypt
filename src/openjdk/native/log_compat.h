@@ -1,6 +1,17 @@
+#ifndef _CONSCRYPT_LOG_COMPAT_H
+#define _CONSCRYPT_LOG_COMPAT_H
+
+#include "unused.h"
+
+#define LOG_INFO ((void)0)
+
+#define ALOG(...) \
+            VA_ARGS_UNUSED(__VA_ARGS__)
 #define ALOGD(...) \
-            /* __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__) */
+            VA_ARGS_UNUSED(__VA_ARGS__)
 #define ALOGE(...) \
-            /* __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__) */
+            VA_ARGS_UNUSED(__VA_ARGS__)
 #define ALOGV(...) \
-            /* __android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, __VA_ARGS__) */
+            VA_ARGS_UNUSED(__VA_ARGS__)
+
+#endif /* _CONSCRYPT_LOG_COMPAT_H */
