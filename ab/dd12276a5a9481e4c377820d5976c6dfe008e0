@@ -1,0 +1,8 @@
+Code-Review+2: Narayan Kamath <narayan@google.com>
+Presubmit-Ready+1: Treehugger Robot <treehugger-gerrit@google.com>
+Verified+1: Sergio Giro <sgiro@google.com>
+Submitted-by: Sergio Giro <sgiro@google.com>
+Submitted-at: Fri, 26 Aug 2016 18:12:53 +0000
+Reviewed-on: https://android-review.googlesource.com/264593
+Project: platform/external/conscrypt
+Branch: refs/heads/master
