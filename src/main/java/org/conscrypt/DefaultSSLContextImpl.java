@@ -39,13 +39,13 @@ public final class DefaultSSLContextImpl extends OpenSSLContextImpl {
      * Accessed by SSLContextImpl(DefaultSSLContextImpl) holding the
      * DefaultSSLContextImpl.class monitor
      */
-    private static KeyManager[] KEY_MANAGERS;
+    private static KeyManager[] keyManagers;
 
     /**
      * Accessed by SSLContextImpl(DefaultSSLContextImpl) holding the
      * DefaultSSLContextImpl.class monitor
      */
-    private static TrustManager[] TRUST_MANAGERS;
+    private static TrustManager[] trustManagers;
 
     /**
      * DefaultSSLContextImpl delegates the work to the super class since there
@@ -59,8 +59,8 @@ public final class DefaultSSLContextImpl extends OpenSSLContextImpl {
 
     // TODO javax.net.ssl.keyStoreProvider system property
     KeyManager[] getKeyManagers () throws GeneralSecurityException, IOException {
-        if (KEY_MANAGERS != null) {
-            return KEY_MANAGERS;
+        if (keyManagers != null) {
+            return keyManagers;
         }
         // find KeyStore, KeyManagers
         String keystore = System.getProperty("javax.net.ssl.keyStore");
@@ -84,14 +84,14 @@ public final class DefaultSSLContextImpl extends OpenSSLContextImpl {
         String kmfAlg = KeyManagerFactory.getDefaultAlgorithm();
         KeyManagerFactory kmf = KeyManagerFactory.getInstance(kmfAlg);
         kmf.init(ks, pwd);
-        KEY_MANAGERS = kmf.getKeyManagers();
-        return KEY_MANAGERS;
+        keyManagers = kmf.getKeyManagers();
+        return keyManagers;
     }
 
     // TODO javax.net.ssl.trustStoreProvider system property
     TrustManager[] getTrustManagers() throws GeneralSecurityException, IOException {
-        if (TRUST_MANAGERS != null) {
-            return TRUST_MANAGERS;
+        if (trustManagers != null) {
+            return trustManagers;
         }
 
         // find TrustStore, TrustManagers
@@ -116,8 +116,8 @@ public final class DefaultSSLContextImpl extends OpenSSLContextImpl {
         String tmfAlg = TrustManagerFactory.getDefaultAlgorithm();
         TrustManagerFactory tmf = TrustManagerFactory.getInstance(tmfAlg);
         tmf.init(ks);
-        TRUST_MANAGERS = tmf.getTrustManagers();
-        return TRUST_MANAGERS;
+        trustManagers = tmf.getTrustManagers();
+        return trustManagers;
     }
 
     @Override
