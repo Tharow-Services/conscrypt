@@ -17,7 +17,7 @@
 #ifndef UNIQUE_PTR_H_included
 #define UNIQUE_PTR_H_included
 
-#include <cstdlib> // For NULL.
+#include <cstdlib> // For nullptr.
 
 // This is a fake declaration of std::swap to avoid including <algorithm>
 namespace std {
@@ -55,7 +55,7 @@ template <typename T, typename D = DefaultDelete<T> >
 class UniquePtr {
 public:
     // Construct a new UniquePtr, taking ownership of the given raw pointer.
-    explicit UniquePtr(T* ptr = NULL) : mPtr(ptr) {
+    explicit UniquePtr(T* ptr = nullptr) : mPtr(ptr) {
     }
 
     ~UniquePtr() {
@@ -71,14 +71,14 @@ public:
     // The pointer will not be deleted by UniquePtr.
     T* release() __attribute__((warn_unused_result)) {
         T* result = mPtr;
-        mPtr = NULL;
+        mPtr = nullptr;
         return result;
     }
 
     // Takes ownership of the given raw pointer.
     // If this smart pointer previously owned a different raw pointer, that
     // raw pointer will be freed.
-    void reset(T* ptr = NULL) {
+    void reset(T* ptr = nullptr) {
         if (ptr != mPtr) {
             D()(mPtr);
             mPtr = ptr;
@@ -108,7 +108,7 @@ private:
 template <typename T, typename D>
 class UniquePtr<T[], D> {
 public:
-    explicit UniquePtr(T* ptr = NULL) : mPtr(ptr) {
+    explicit UniquePtr(T* ptr = nullptr) : mPtr(ptr) {
     }
 
     ~UniquePtr() {
@@ -122,11 +122,11 @@ public:
 
     T* release() __attribute__((warn_unused_result)) {
         T* result = mPtr;
-        mPtr = NULL;
+        mPtr = nullptr;
         return result;
     }
 
-    void reset(T* ptr = NULL) {
+    void reset(T* ptr = nullptr) {
         if (ptr != mPtr) {
             D()(mPtr);
             mPtr = ptr;
