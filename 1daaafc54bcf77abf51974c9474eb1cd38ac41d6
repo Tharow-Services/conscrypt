@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "31d32198_47be6e1f",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 6880,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2016-09-01T21:53:53Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 6878,
+        "startChar": 0,
+        "endLine": 6880,
+        "endChar": 1
+      },
+      "revId": "1daaafc54bcf77abf51974c9474eb1cd38ac41d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "31d32198_4795ce8b",
+        "filename": "src/openjdk/native/UniquePtr.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2016-09-01T21:53:53Z",
+      "side": 1,
+      "message": "remove?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 34
+      },
+      "revId": "1daaafc54bcf77abf51974c9474eb1cd38ac41d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
