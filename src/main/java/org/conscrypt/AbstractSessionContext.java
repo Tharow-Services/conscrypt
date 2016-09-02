@@ -236,6 +236,14 @@ abstract class AbstractSessionContext implements SSLSessionContext {
                 daos.write(ocspResponse);
             }
 
+            byte[] tlsSctData = sslSession.getTlsSctData();
+            if (tlsSctData != null) {
+                daos.writeInt(tlsSctData.length);
+                daos.write(tlsSctData);
+            } else {
+                daos.writeInt(0);
+            }
+
             // TODO: local certificates?
 
             return baos.toByteArray();
@@ -288,7 +296,15 @@ abstract class AbstractSessionContext implements SSLSessionContext {
                 }
             }
 
-            return new OpenSSLSessionImpl(sessionData, host, port, certs, ocspData, this);
+            byte[] tlsSctData = null;
+            int tlsSctDataLength = dais.readInt();
+            if (tlsSctDataLength > 0) {
+                tlsSctData = new byte[tlsSctDataLength];
+                dais.readFully(tlsSctData);
+            }
+
+            return new OpenSSLSessionImpl(sessionData, host, port, certs, ocspData, tlsSctData,
+                    this);
         } catch (IOException e) {
             log(e);
             return null;
