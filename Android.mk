@@ -322,7 +322,10 @@ LOCAL_LDLIBS += -lpthread
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := libconscrypt_openjdk_jni
 LOCAL_ADDITIONAL_DEPENDENCIES := $(LOCAL_PATH)/Android.mk
-LOCAL_CXX_STL := none
+# Needed on MacOS SDK build for _ZdaPv, _ZdlPv, _Znam, _Znwm,
+# __cxa_guard_acquire, and __cxa_guard_release which are symbols that are
+# included for free on Linux and Android.
+LOCAL_CXX_STL := libc++abi
 LOCAL_WHOLE_STATIC_LIBRARIES := libcrypto_static libssl_static-host
 LOCAL_MULTILIB := both
 # TODO: b/26097626. ASAN breaks use of this library in JVM.
