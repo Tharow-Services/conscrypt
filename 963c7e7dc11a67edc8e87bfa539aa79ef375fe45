@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1691b3ce_9291ac4c",
+        "filename": "Android.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-09-08T19:03:19Z",
+      "side": 1,
+      "message": "Removed this an all subsequent.",
+      "parentUuid": "1691b3ce_47fbe4a7",
+      "revId": "963c7e7dc11a67edc8e87bfa539aa79ef375fe45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab46be69_431626b7",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-09-08T18:48:20Z",
       "side": 1,
       "message": "You can take this out and then, hopefully in not too long, we\u0027ll have C++ scopers supplied by BoringSSL directly and you won\u0027t need to define your own. Just sorting out the last few stragglers now.",
+      "revId": "963c7e7dc11a67edc8e87bfa539aa79ef375fe45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1691b3ce_7294203b",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-09-08T19:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ab46be69_431626b7",
       "revId": "963c7e7dc11a67edc8e87bfa539aa79ef375fe45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
