@@ -3837,9 +3837,7 @@ static jlong NativeCrypto_EVP_get_cipherbyname(JNIEnv* env, jclass, jstring algo
     const char *alg = scoped_alg.c_str();
     const EVP_CIPHER *cipher;
 
-    if (strcasecmp(alg, "rc4") == 0) {
-        cipher = EVP_rc4();
-    } else if (strcasecmp(alg, "des-cbc") == 0) {
+    if (strcasecmp(alg, "des-cbc") == 0) {
         cipher = EVP_des_cbc();
     } else if (strcasecmp(alg, "des-ede-cbc") == 0) {
         cipher = EVP_des_ede_cbc();
