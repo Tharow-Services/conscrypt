@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbb21211_c25626cc",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3840,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-09-13T20:50:21Z",
+      "side": 0,
+      "message": "This will instead drop it from Conscrypt\u0027s standalone crypto APIs which is probably not yet desirable? The TLS code does not go through this function, I think.",
+      "revId": "cbfed7264bddbdc636e41e05cda5f047ccf71657",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
