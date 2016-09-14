@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2b672ea1_96f2b2cb",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1022895
+      },
+      "writtenOn": "2016-09-14T03:18:28Z",
+      "side": 1,
+      "message": "Do we want to drop this and go with the SSL_set_minimum/SSL_set_maximum methods? That way we can drop the use of SSL_OP_NO_SSLv3 completely.",
+      "range": {
+        "startLine": 880,
+        "startChar": 0,
+        "endLine": 880,
+        "endChar": 168
+      },
+      "revId": "c05ce7abb4fac5ca890d66dab51dc4067a580e92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
