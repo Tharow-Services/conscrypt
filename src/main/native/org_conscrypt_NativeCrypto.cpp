@@ -110,6 +110,17 @@
  */
 #undef WITH_JNI_TRACE_KEYS
 
+/*
+ * If CONSCRYPT_OPENJDK CFLAG is defined, then those debug options must be undefined.
+ * If those options are defined, you will meet a build error.
+ */
+#ifdef CONSCRYPT_OPENJDK
+#undef WITH_JNI_TRACE
+#undef WITH_JNI_TRACE_MD
+#undef WITH_JNI_TRACE_DATA
+#undef WITH_JNI_TRACE_KEYS
+#endif
+
 #ifdef WITH_JNI_TRACE
 #define JNI_TRACE(...) \
         ((void)ALOG(LOG_INFO, LOG_TAG "-jni", __VA_ARGS__))
