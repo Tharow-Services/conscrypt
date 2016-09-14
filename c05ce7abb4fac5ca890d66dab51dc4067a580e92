@@ -22,6 +22,24 @@
       "revId": "c05ce7abb4fac5ca890d66dab51dc4067a580e92",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8baf3af5_329c50ba",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 880,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-09-14T16:44:25Z",
+      "side": 1,
+      "message": "From the BoringSSL side, either one works. I do think the minimum/maximum ones are a bit better since you don\u0027t need to know that, e.g., SSL_OP_NO_TLSv1_3 also exists. But you can probably resolve that asynchronously if you like.\n\n(No need to worry about accidentally enabling TLS 1.3. That\u0027s off by default and we will definitely have consulted with you all very thoroughly before enabling it by default in the library. That\u0027s a long long ways off.)",
+      "parentUuid": "2b672ea1_96f2b2cb",
+      "revId": "c05ce7abb4fac5ca890d66dab51dc4067a580e92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
