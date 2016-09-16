@@ -424,7 +424,7 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
             try {
                 sslSessionCtx = NativeCrypto.SSL_do_handshake_bio(sslNativePointer,
                         source.getContext(), handshakeSink.getContext(), this, getUseClientMode(),
-                        sslParameters.alpnProtocols);
+                        sslParameters.npnProtocols, sslParameters.alpnProtocols);
                 if (sslSessionCtx != 0) {
                     if (sslSession != null && engineState == EngineState.HANDSHAKE_STARTED) {
                         engineState = EngineState.READY_HANDSHAKE_CUT_THROUGH;
@@ -548,7 +548,8 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
                 try {
                     sslSessionCtx = NativeCrypto.SSL_do_handshake_bio(sslNativePointer,
                             nullSource.getContext(), handshakeSink.getContext(), this,
-                            getUseClientMode(), sslParameters.alpnProtocols);
+                            getUseClientMode(), sslParameters.npnProtocols,
+                            sslParameters.alpnProtocols);
                     if (sslSessionCtx != 0) {
                         if (sslSession != null && engineState == EngineState.HANDSHAKE_STARTED) {
                             engineState = EngineState.READY_HANDSHAKE_CUT_THROUGH;
@@ -765,10 +766,11 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
     }
 
     /**
-     * Returns null always for backward compatibility.
+     * Returns the protocol agreed upon by client and server, or null if no
+     * protocol was agreed upon.
      */
     public byte[] getNpnSelectedProtocol() {
-        return null;
+        return NativeCrypto.SSL_get_npn_negotiated_protocol(sslNativePointer);
     }
 
     /**

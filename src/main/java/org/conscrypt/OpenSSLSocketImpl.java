@@ -347,7 +347,7 @@ public class OpenSSLSocketImpl
             try {
                 sslSessionNativePointer = NativeCrypto.SSL_do_handshake(sslNativePointer,
                         Platform.getFileDescriptor(socket), this, getSoTimeout(), client,
-                        client ? null : sslParameters.alpnProtocols);
+                        sslParameters.npnProtocols, client ? null : sslParameters.alpnProtocols);
             } catch (CertificateException e) {
                 SSLHandshakeException wrapper = new SSLHandshakeException(e.getMessage());
                 wrapper.initCause(e);
@@ -1258,10 +1258,11 @@ public class OpenSSLSocketImpl
     }
 
     /**
-     * Returns null always for backward compatibility.
+     * Returns the protocol agreed upon by client and server, or null if no
+     * protocol was agreed upon.
      */
     public byte[] getNpnSelectedProtocol() {
-        return null;
+        return NativeCrypto.SSL_get_npn_negotiated_protocol(sslNativePointer);
     }
 
     /**
@@ -1273,9 +1274,19 @@ public class OpenSSLSocketImpl
     }
 
     /**
-     * This method does nothing and is kept for backward compatibility.
+     * Sets the list of protocols this peer is interested in. If null no
+     * protocols will be used.
+     *
+     * @param npnProtocols a non-empty array of protocol names. From
+     *     SSL_select_next_proto, "vector of 8-bit, length prefixed byte
+     *     strings. The length byte itself is not included in the length. A byte
+     *     string of length 0 is invalid. No byte string may be truncated.".
      */
     public void setNpnProtocols(byte[] npnProtocols) {
+        if (npnProtocols != null && npnProtocols.length == 0) {
+            throw new IllegalArgumentException("npnProtocols.length == 0");
+        }
+        sslParameters.npnProtocols = npnProtocols;
     }
 
     /**
