@@ -6780,8 +6780,10 @@ static unsigned int psk_client_callback(SSL* ssl, const char *hint,
     jmethodID methodID =
             env->GetMethodID(cls, "clientPSKKeyRequested", "(Ljava/lang/String;[B[B)I");
     JNI_TRACE("ssl=%p psk_client_callback calling clientPSKKeyRequested", ssl);
-    ScopedLocalRef<jstring> identityHintJava(env,
-                                             (hint != nullptr) ? env->NewStringUTF(hint) : nullptr);
+    ScopedLocalRef<jstring> identityHintJava(env, nullptr);
+    if (hint != nullptr && strlen(hint) > 0) {
+        identityHintJava.reset(env->NewStringUTF(hint));
+    }
     ScopedLocalRef<jbyteArray> identityJava(env, env->NewByteArray(max_identity_len));
     if (identityJava.get() == nullptr) {
         JNI_TRACE("ssl=%p psk_client_callback failed to allocate identity bufffer", ssl);
