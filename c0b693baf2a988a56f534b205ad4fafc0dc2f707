@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0226799_58e0411f",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-09-16T22:18:07Z",
+      "side": 1,
+      "message": "In principle, you may wish to retain the encodedKey in EVP_AEAD_CTX form which saves a little bit of precomputation? Probably not really worth bothering though, and this code wasn\u0027t doing it before.\n\nIf you do ever feel like doing that, then you could either std::unique_ptr\u003cbssl::ScopedEVP_AEAD_CTX\u003e (which is the most ridiculous-looking construct ever), or we could get you a EVP_AEAD_CTX_{new,free} paired with a bssl::UniquePtr\u003cEVP_AEAD_CTX\u003e.",
+      "range": {
+        "startLine": 990,
+        "startChar": 75,
+        "endLine": 990,
+        "endChar": 85
+      },
+      "revId": "c0b693baf2a988a56f534b205ad4fafc0dc2f707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f0226799_18dac967",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 4069,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-09-16T22:18:07Z",
+      "side": 1,
+      "message": "These functions just return 0/1, so you could also write:\n\n  if (!EVP_AEAD_CTX_init(...\n\nand below:\n\n  if (!realFunc(...",
+      "revId": "c0b693baf2a988a56f534b205ad4fafc0dc2f707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
