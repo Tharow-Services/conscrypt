@@ -334,20 +334,20 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
             int resultSize;
             if (encrypting) {
                 if (usingPrivateKey) {
-                    resultSize = NativeCrypto.RSA_private_encrypt(tmpBuf.length, tmpBuf, output,
-                                                                  key.getNativeRef(), padding);
+                    resultSize = NativeCrypto.RSA_private_encrypt(
+                            tmpBuf.length, tmpBuf, output, key.getNativeRef(), padding);
                 } else {
-                    resultSize = NativeCrypto.RSA_public_encrypt(tmpBuf.length, tmpBuf, output,
-                                                                 key.getNativeRef(), padding);
+                    resultSize = NativeCrypto.RSA_public_encrypt(
+                            tmpBuf.length, tmpBuf, output, key.getNativeRef(), padding);
                 }
             } else {
                 try {
                     if (usingPrivateKey) {
-                        resultSize = NativeCrypto.RSA_private_decrypt(tmpBuf.length, tmpBuf, output,
-                                                                      key.getNativeRef(), padding);
+                        resultSize = NativeCrypto.RSA_private_decrypt(
+                                tmpBuf.length, tmpBuf, output, key.getNativeRef(), padding);
                     } else {
-                        resultSize = NativeCrypto.RSA_public_decrypt(tmpBuf.length, tmpBuf, output,
-                                                                     key.getNativeRef(), padding);
+                        resultSize = NativeCrypto.RSA_public_decrypt(
+                                tmpBuf.length, tmpBuf, output, key.getNativeRef(), padding);
                     }
                 } catch (SignatureException e) {
                     IllegalBlockSizeException newE = new IllegalBlockSizeException();
