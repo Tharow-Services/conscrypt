@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f09507fc_1df2d3cd",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSignature.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-09-20T17:47:26Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 236,
+        "startChar": 13,
+        "endLine": 236,
+        "endChar": 14
+      },
+      "revId": "21135c89b4e4572be0cbe0eaca9b85a82da7ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f09507fc_3df78fbe",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSignature.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-09-20T17:47:26Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 256,
+        "startChar": 13,
+        "endLine": 256,
+        "endChar": 14
+      },
+      "revId": "21135c89b4e4572be0cbe0eaca9b85a82da7ee79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
