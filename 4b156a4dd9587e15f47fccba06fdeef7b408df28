@@ -22,6 +22,30 @@
       "revId": "4b156a4dd9587e15f47fccba06fdeef7b408df28",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "90bccb98_5fe84fdf",
+        "filename": "src/platform/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 689,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2016-09-21T00:03:33Z",
+      "side": 1,
+      "message": "probably not since this seems to be happening in the normal course of operations for popular apps?",
+      "parentUuid": "90bccb98_ff858340",
+      "range": {
+        "startLine": 689,
+        "startChar": 0,
+        "endLine": 689,
+        "endChar": 23
+      },
+      "revId": "4b156a4dd9587e15f47fccba06fdeef7b408df28",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
