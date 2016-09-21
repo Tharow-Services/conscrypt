@@ -49,6 +49,24 @@
     },
     {
       "key": {
+        "uuid": "f000a787_e5735642",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 990,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-09-21T23:06:41Z",
+      "side": 1,
+      "message": "Sounds good. (Happy to add new/free functions later if it seems useful. Just let me know.)",
+      "parentUuid": "709e777e_4797c295",
+      "revId": "c0b693baf2a988a56f534b205ad4fafc0dc2f707",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0226799_18dac967",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 2
