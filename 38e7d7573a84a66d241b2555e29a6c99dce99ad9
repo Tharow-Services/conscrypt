@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f000a787_aecadb68",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 918,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-09-22T22:13:03Z",
+      "side": 1,
+      "message": "If this codepath is hit, it looks like you end up storing zero in tagLengthInBytes, which would mess up the computation below. Doing tag computations works for AES-GCM and CHACHA20-POLY1305, but it might be saner if we give you something like EVP_AEAD_CTX_seal_length(size_t plaintext_length).\n\nThat said, it does not appear an overestimate is *actually* a problem here though:\nhttps://docs.oracle.com/javase/7/docs/api/javax/crypto/CipherSpi.html#engineGetOutputSize(int)\nThis text explicitly says the actual output length may be smaller. So you could also just stick with max_overhead. The method is named unfortunately, but ah well.",
+      "range": {
+        "startLine": 918,
+        "startChar": 16,
+        "endLine": 918,
+        "endChar": 26
+      },
+      "revId": "38e7d7573a84a66d241b2555e29a6c99dce99ad9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
