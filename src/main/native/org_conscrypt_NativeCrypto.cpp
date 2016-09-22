@@ -3976,18 +3976,6 @@ static jlong NativeCrypto_EVP_aead_aes_256_gcm(JNIEnv*, jclass) {
     return reinterpret_cast<jlong>(ctx);
 }
 
-static jint NativeCrypto_EVP_AEAD_max_overhead(JNIEnv* env, jclass, jlong evpAeadRef) {
-    const EVP_AEAD* evpAead = reinterpret_cast<const EVP_AEAD*>(evpAeadRef);
-    JNI_TRACE("EVP_AEAD_max_overhead(%p)", evpAead);
-    if (evpAead == nullptr) {
-        jniThrowNullPointerException(env, "evpAead == null");
-        return 0;
-    }
-    int maxOverhead = EVP_AEAD_max_overhead(evpAead);
-    JNI_TRACE("EVP_AEAD_max_overhead(%p) => %d", evpAead, maxOverhead);
-    return maxOverhead;
-}
-
 static jint NativeCrypto_EVP_AEAD_nonce_length(JNIEnv* env, jclass, jlong evpAeadRef) {
     const EVP_AEAD* evpAead = reinterpret_cast<const EVP_AEAD*>(evpAeadRef);
     JNI_TRACE("EVP_AEAD_nonce_length(%p)", evpAead);
@@ -9530,7 +9518,6 @@ static JNINativeMethod sNativeCryptoMethods[] = {
     NATIVE_METHOD(NativeCrypto, EVP_CIPHER_CTX_free, "(J)V"),
     NATIVE_METHOD(NativeCrypto, EVP_aead_aes_128_gcm, "()J"),
     NATIVE_METHOD(NativeCrypto, EVP_aead_aes_256_gcm, "()J"),
-    NATIVE_METHOD(NativeCrypto, EVP_AEAD_max_overhead, "(J)I"),
     NATIVE_METHOD(NativeCrypto, EVP_AEAD_nonce_length, "(J)I"),
     NATIVE_METHOD(NativeCrypto, EVP_AEAD_max_tag_len, "(J)I"),
     NATIVE_METHOD(NativeCrypto, EVP_AEAD_CTX_seal, "(J[BI[BI[B[BII[B)I"),

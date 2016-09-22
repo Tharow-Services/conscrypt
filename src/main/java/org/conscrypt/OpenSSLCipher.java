@@ -1032,8 +1032,16 @@ public abstract class OpenSSLCipher extends CipherSpi {
 
         @Override
         protected int getOutputSizeForFinal(int inputLen) {
-            return bufCount + inputLen
-                    + (isEncrypting() ? NativeCrypto.EVP_AEAD_max_overhead(evpAead) : 0);
+            int outputSize = bufCount + inputLen;
+            if (isEncrypting()) {
+                outputSize += tagLengthInBytes;
+            } else {
+                outputSize -= tagLengthInBytes;
+                if (outputSize < 0) {
+                    outputSize = 0;
+                }
+            }
+            return outputSize;
         }
 
         // Intentionally missing Override to compile on old versions of Android

@@ -273,8 +273,6 @@ public final class NativeCrypto {
 
     public static native long EVP_aead_aes_256_gcm();
 
-    public static native int EVP_AEAD_max_overhead(long evpAead);
-
     public static native int EVP_AEAD_nonce_length(long evpAead);
 
     public static native int EVP_AEAD_max_tag_len(long evpAead);
