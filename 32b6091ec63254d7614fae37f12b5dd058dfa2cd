@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d06f23aa_7dda2b05",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipher.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1168,
+      "author": {
+        "id": 1073493
+      },
+      "writtenOn": "2016-09-23T00:03:02Z",
+      "side": 1,
+      "message": "Btw, I would assign mustInitialize \u003d true before throwing exception",
+      "revId": "32b6091ec63254d7614fae37f12b5dd058dfa2cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
