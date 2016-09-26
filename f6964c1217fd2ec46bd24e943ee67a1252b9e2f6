@@ -46,6 +46,30 @@
       "revId": "f6964c1217fd2ec46bd24e943ee67a1252b9e2f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e549c77c_c70900e7",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-09-26T18:33:50Z",
+      "side": 1,
+      "message": "Hmm - won\u0027t there be a change in behaviour when state \u003d MODE_SET ? do we care ? (getHandshakeStatus() would have been bogus in the old code anyway).\n\nPlease mention this in the commit message ?",
+      "parentUuid": "05c41b28_0d7dd10a",
+      "range": {
+        "startLine": 545,
+        "startChar": 8,
+        "endLine": 545,
+        "endChar": 72
+      },
+      "revId": "f6964c1217fd2ec46bd24e943ee67a1252b9e2f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
