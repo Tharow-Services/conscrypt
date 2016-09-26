@@ -70,6 +70,30 @@
       "revId": "f6964c1217fd2ec46bd24e943ee67a1252b9e2f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65507749_d88dad31",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-09-26T19:13:03Z",
+      "side": 1,
+      "message": "Mentioned this in the commit message.",
+      "parentUuid": "e549c77c_c70900e7",
+      "range": {
+        "startLine": 545,
+        "startChar": 8,
+        "endLine": 545,
+        "endChar": 72
+      },
+      "revId": "f6964c1217fd2ec46bd24e943ee67a1252b9e2f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
