@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5850fca_e2850643",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-09-26T17:38:03Z",
+      "side": 1,
+      "message": "Why did you move this below the engineState checks ? Exception ordering ?",
+      "range": {
+        "startLine": 545,
+        "startChar": 8,
+        "endLine": 545,
+        "endChar": 72
+      },
+      "revId": "f6964c1217fd2ec46bd24e943ee67a1252b9e2f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
