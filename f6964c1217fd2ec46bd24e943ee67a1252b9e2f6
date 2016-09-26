@@ -22,6 +22,30 @@
       "revId": "f6964c1217fd2ec46bd24e943ee67a1252b9e2f6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05c41b28_0d7dd10a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 545,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-09-26T17:49:34Z",
+      "side": 1,
+      "message": "Yes, exception ordering. The tests give a 10 byte buffer which triggers this so it doesn\u0027t get the correct IllegalStateException if this is above.",
+      "parentUuid": "a5850fca_e2850643",
+      "range": {
+        "startLine": 545,
+        "startChar": 8,
+        "endLine": 545,
+        "endChar": 72
+      },
+      "revId": "f6964c1217fd2ec46bd24e943ee67a1252b9e2f6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
