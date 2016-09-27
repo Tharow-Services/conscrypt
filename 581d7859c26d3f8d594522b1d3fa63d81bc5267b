@@ -16,6 +16,24 @@
       "revId": "581d7859c26d3f8d594522b1d3fa63d81bc5267b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_0aa11b41",
+        "filename": "src/main/java/org/conscrypt/EvpMdRef.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-09-27T20:43:36Z",
+      "side": 1,
+      "message": "Okay, I\u0027ll do that in a follow-up. I have a couple other consolidation CLs following this one (running CTS currently).",
+      "parentUuid": "c5c8439b_8dbbb52d",
+      "revId": "581d7859c26d3f8d594522b1d3fa63d81bc5267b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
