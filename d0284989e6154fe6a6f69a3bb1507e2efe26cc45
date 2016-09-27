@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5d8afb0_eae127bd",
+        "filename": "src/platform/java/org/conscrypt/CertPinManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-27T20:45:42Z",
+      "side": 1,
+      "message": "* Drop \"public\" -- all interface methods are public.\n* Shouldn\u0027t this be void checkChainPinning() throws CertificateException (or CertPinningException)? This way implementations can provide more information about the failure.",
+      "revId": "d0284989e6154fe6a6f69a3bb1507e2efe26cc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
