@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5d8afb0_2dea39c8",
+        "filename": "src/main/java/org/conscrypt/EvpMdRef.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-27T23:09:04Z",
+      "side": 1,
+      "message": "What does MGF have to do with EVP_MD?",
+      "revId": "abf6cbf3ec836fa2ff9d2f6ea53690117919c29b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
