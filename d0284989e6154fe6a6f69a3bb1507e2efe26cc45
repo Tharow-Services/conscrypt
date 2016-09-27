@@ -16,6 +16,23 @@
       "revId": "d0284989e6154fe6a6f69a3bb1507e2efe26cc45",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_4a4cb36b",
+        "filename": "src/test/java/org/conscrypt/CertPinManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-27T21:09:24Z",
+      "side": 1,
+      "message": "Semicolon missing after closing parenthesis. (here and below)",
+      "revId": "d0284989e6154fe6a6f69a3bb1507e2efe26cc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
