@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "a5d8afb0_ca76e394",
+        "filename": "src/test/java/org/conscrypt/CertPinManagerTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-27T21:10:59Z",
+      "side": 1,
+      "message": "Cannot change local variables from local class in this way. (here and below) Consider using Mockito instead of hand-rolling mocks.",
+      "revId": "d0284989e6154fe6a6f69a3bb1507e2efe26cc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5d8afb0_4a4cb36b",
         "filename": "src/test/java/org/conscrypt/CertPinManagerTest.java",
         "patchSetId": 1
