@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5d8afb0_0ae75bfe",
+        "filename": "src/main/java/org/conscrypt/EvpMdRef.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-09-27T21:37:22Z",
+      "side": 1,
+      "message": "Whoops, forgot one.",
+      "range": {
+        "startLine": 107,
+        "startChar": 32,
+        "endLine": 107,
+        "endChar": 36
+      },
+      "revId": "e1897686dd843e280ac937082fed2c699eb0f14e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
