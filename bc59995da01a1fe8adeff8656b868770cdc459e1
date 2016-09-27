@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5d8afb0_4d0a0dca",
+        "filename": "src/main/java/org/conscrypt/EvpMdRef.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-27T23:08:21Z",
+      "side": 1,
+      "message": "Drop the EvpMdRef prefix here and below.",
+      "revId": "bc59995da01a1fe8adeff8656b868770cdc459e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_8dda453f",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSignature.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-27T23:08:21Z",
+      "side": 1,
+      "message": "Java style nit (here and below): Prefer to break at highest semantic level. In this case, break after assignment.",
+      "revId": "bc59995da01a1fe8adeff8656b868770cdc459e1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
