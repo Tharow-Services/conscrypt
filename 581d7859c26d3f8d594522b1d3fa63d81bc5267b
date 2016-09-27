@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5c8439b_8dbbb52d",
+        "filename": "src/main/java/org/conscrypt/EvpMdRef.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-27T20:03:50Z",
+      "side": 1,
+      "message": "Consider renaming to SIZE_BYTES for clarity. I often find myself looking up whether MD_size is in bytes or bits.",
+      "revId": "581d7859c26d3f8d594522b1d3fa63d81bc5267b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
