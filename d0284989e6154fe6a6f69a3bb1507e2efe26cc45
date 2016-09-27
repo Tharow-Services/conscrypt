@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a5d8afb0_0a70fbcd",
+        "filename": "src/platform/java/org/conscrypt/CertPinManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1022895
+      },
+      "writtenOn": "2016-09-27T23:35:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5d8afb0_eae127bd",
+      "revId": "d0284989e6154fe6a6f69a3bb1507e2efe26cc45",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5d8afb0_ca76e394",
         "filename": "src/test/java/org/conscrypt/CertPinManagerTest.java",
         "patchSetId": 1
