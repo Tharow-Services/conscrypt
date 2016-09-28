@@ -52,6 +52,24 @@
       "revId": "abf6cbf3ec836fa2ff9d2f6ea53690117919c29b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_5ec7558f",
+        "filename": "src/main/java/org/conscrypt/EvpMdRef.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-09-28T16:17:44Z",
+      "side": 1,
+      "message": "Oh, I\u0027m going to use it in OpenSSLCipherRSA for OAEP mode.",
+      "parentUuid": "a5d8afb0_deb5053a",
+      "revId": "abf6cbf3ec836fa2ff9d2f6ea53690117919c29b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
