@@ -16,6 +16,24 @@
       "revId": "abf6cbf3ec836fa2ff9d2f6ea53690117919c29b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_de5fc514",
+        "filename": "src/main/java/org/conscrypt/EvpMdRef.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-09-28T15:54:07Z",
+      "side": 1,
+      "message": "Not much. I suppose I can move it somewhere else, but here seemed closest to other uses.",
+      "parentUuid": "a5d8afb0_2dea39c8",
+      "revId": "abf6cbf3ec836fa2ff9d2f6ea53690117919c29b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
