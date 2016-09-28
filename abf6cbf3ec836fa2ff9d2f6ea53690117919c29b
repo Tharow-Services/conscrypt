@@ -70,6 +70,24 @@
       "revId": "abf6cbf3ec836fa2ff9d2f6ea53690117919c29b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_be3f7174",
+        "filename": "src/main/java/org/conscrypt/EvpMdRef.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-28T16:30:21Z",
+      "side": 1,
+      "message": "OK. It\u0027s your call in that case.",
+      "parentUuid": "a5d8afb0_5ec7558f",
+      "revId": "abf6cbf3ec836fa2ff9d2f6ea53690117919c29b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
