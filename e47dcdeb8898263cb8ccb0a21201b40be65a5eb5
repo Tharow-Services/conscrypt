@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a5d8afb0_fe5449cb",
+        "filename": "src/test/java/org/conscrypt/CertPinManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-28T16:29:27Z",
+      "side": 1,
+      "message": "Please test that there\u0027s no crash when provided PIN manager is null.",
+      "revId": "e47dcdeb8898263cb8ccb0a21201b40be65a5eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_3e86e14e",
+        "filename": "src/test/java/org/conscrypt/CertPinManagerTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-28T16:29:27Z",
+      "side": 1,
+      "message": "Extraneous semicolon after class decl. (here and below)",
+      "revId": "e47dcdeb8898263cb8ccb0a21201b40be65a5eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_be18113a",
+        "filename": "src/test/java/org/conscrypt/TrustManagerImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-28T16:29:27Z",
+      "side": 1,
+      "message": "Unused import",
+      "revId": "e47dcdeb8898263cb8ccb0a21201b40be65a5eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_9e1d4d2a",
+        "filename": "src/test/java/org/conscrypt/TrustManagerImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-28T16:29:27Z",
+      "side": 1,
+      "message": "Unused import",
+      "revId": "e47dcdeb8898263cb8ccb0a21201b40be65a5eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_fe22895f",
+        "filename": "src/test/java/org/conscrypt/TrustManagerImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-28T16:29:27Z",
+      "side": 1,
+      "message": "Unused import",
+      "revId": "e47dcdeb8898263cb8ccb0a21201b40be65a5eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_de27c56d",
+        "filename": "src/test/java/org/conscrypt/TrustManagerImplTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-28T16:29:27Z",
+      "side": 1,
+      "message": "Unused import",
+      "revId": "e47dcdeb8898263cb8ccb0a21201b40be65a5eb5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
