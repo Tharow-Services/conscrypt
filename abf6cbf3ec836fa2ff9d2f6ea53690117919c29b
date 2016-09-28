@@ -34,6 +34,24 @@
       "revId": "abf6cbf3ec836fa2ff9d2f6ea53690117919c29b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a5d8afb0_deb5053a",
+        "filename": "src/main/java/org/conscrypt/EvpMdRef.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-09-28T16:01:21Z",
+      "side": 1,
+      "message": "Why not leave these in RSA-PSS Signature class? That\u0027s the only place these two constants are used.",
+      "parentUuid": "a5d8afb0_de5fc514",
+      "revId": "abf6cbf3ec836fa2ff9d2f6ea53690117919c29b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
