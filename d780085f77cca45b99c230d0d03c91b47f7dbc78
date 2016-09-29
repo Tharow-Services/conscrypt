@@ -22,6 +22,30 @@
       "revId": "d780085f77cca45b99c230d0d03c91b47f7dbc78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "425b693f_6ac0d726",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1101,
+      "author": {
+        "id": 1022895
+      },
+      "writtenOn": "2016-09-29T20:37:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "425b693f_caab4370",
+      "range": {
+        "startLine": 1101,
+        "startChar": 0,
+        "endLine": 1101,
+        "endChar": 0
+      },
+      "revId": "d780085f77cca45b99c230d0d03c91b47f7dbc78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
