@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "425b693f_072a767f",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1022895
+      },
+      "writtenOn": "2016-09-29T20:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5d8afb0_fff72370",
+      "range": {
+        "startLine": 239,
+        "startChar": 12,
+        "endLine": 240,
+        "endChar": 37
+      },
+      "revId": "6ca69077e0b01121af95e2112b40bc6e2216d806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a5d8afb0_1f0f9793",
         "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-09-28T21:20:27Z",
       "side": 1,
       "message": "\u003e\u003d now since we have another version",
+      "range": {
+        "startLine": 288,
+        "startChar": 21,
+        "endLine": 288,
+        "endChar": 23
+      },
+      "revId": "6ca69077e0b01121af95e2112b40bc6e2216d806",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "425b693f_e73e42c4",
+        "filename": "src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1022895
+      },
+      "writtenOn": "2016-09-29T20:32:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a5d8afb0_1f0f9793",
       "range": {
         "startLine": 288,
         "startChar": 21,
