@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62a14daa_f030a057",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-03T20:26:47Z",
+      "side": 1,
+      "message": "Do I need this or has more stuff moved into NDK?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 23
+      },
+      "revId": "60dc8f0a53e309229c2e2309b3f6c70e57187e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
