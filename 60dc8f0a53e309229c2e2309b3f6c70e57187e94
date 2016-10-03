@@ -22,6 +22,30 @@
       "revId": "60dc8f0a53e309229c2e2309b3f6c70e57187e94",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62a14daa_b0a1b843",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1032276
+      },
+      "writtenOn": "2016-10-03T22:34:59Z",
+      "side": 1,
+      "message": "More stuff has moved into the NDK, but you only need log_compat.h to contain stuff _you_ actually use. log_compat.h defines macros that make calls to liblog functions, and it appears to be defining stuff that is now included in android/log.h ...\n\nremove it after we _release_ the new NDK?",
+      "parentUuid": "62a14daa_f030a057",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 23
+      },
+      "revId": "60dc8f0a53e309229c2e2309b3f6c70e57187e94",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
