@@ -22,6 +22,30 @@
       "revId": "2f1f5f96fbc34be14a72f4dcf0ae5119df45ad84",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62a14daa_d3a80676",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-03T22:00:47Z",
+      "side": 0,
+      "message": "Oh, I\u0027ll change this one as well, then!",
+      "parentUuid": "423c49f2_22abd0de",
+      "range": {
+        "startLine": 158,
+        "startChar": 55,
+        "endLine": 158,
+        "endChar": 73
+      },
+      "revId": "2f1f5f96fbc34be14a72f4dcf0ae5119df45ad84",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
