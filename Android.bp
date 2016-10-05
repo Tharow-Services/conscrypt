@@ -94,5 +94,5 @@ cc_library_host_shared {
         never: true,
     },
 
-    stl: "libc++",
+    stl: "libc++_static",
 }
