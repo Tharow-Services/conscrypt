@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "62830d88_d4031c71",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-05T17:11:05Z",
+      "side": 1,
+      "message": "Should be SANITIZE_HOST\u003daddress. Rerunning tests now.",
+      "range": {
+        "startLine": 12,
+        "startChar": 56,
+        "endLine": 12,
+        "endChar": 77
+      },
+      "revId": "c07a35b6c8289d2277a0e6a43528f50eb025cfaf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
