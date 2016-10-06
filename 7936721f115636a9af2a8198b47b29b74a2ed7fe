@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "9fd3fcea_f25948fe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-06T19:08:41Z",
+      "side": 1,
+      "message": "Oh, maybe add a sentence here like:\n\nTLS 1.3 adds a new set of AEAD-only ciphers, which are now exposed by BoringSSL\u0027s draft TLS 1.3 implementation. We\u0027re not ready to ship TLS 1.3 in Conscrypt yet, but get_cipher_names returns the new ciphers by default (cipher/version filtering happens much later). Suppress those ciphers for now.",
+      "revId": "7936721f115636a9af2a8198b47b29b74a2ed7fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9fd3fcea_325830fb",
         "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
         "patchSetId": 2
