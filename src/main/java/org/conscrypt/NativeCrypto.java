@@ -686,6 +686,12 @@ public final class NativeCrypto {
         int size = allOpenSSLCipherSuites.length;
         SUPPORTED_CIPHER_SUITES = new String[size + 2];
         for (int i = 0; i < size; i++) {
+            if (allOpenSSLCipherSuites[i].equals("AEAD-AES128-GCM-SHA256")
+                    || allOpenSSLCipherSuites[i].equals("AEAD-AES256-GCM-SHA384")
+                    || allOpenSSLCipherSuites[i].equals("AEAD-CHACHA20-POLY1305-SHA256")) {
+                continue;
+            }
+
             String standardName = OPENSSL_TO_STANDARD_CIPHER_SUITES.get(allOpenSSLCipherSuites[i]);
             if (standardName == null) {
                 throw new IllegalArgumentException("Unknown cipher suite supported by native code: " +
