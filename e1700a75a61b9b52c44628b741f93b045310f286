@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1fe1cce4_9e5cddf0",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-06T18:28:21Z",
+      "side": 1,
+      "message": "Can this just be changed instead of doing string comparisons? Also, this could be fixed to not include BoringSSL stuff.. this used to have to be compatible with OpenSSL as well.",
+      "range": {
+        "startLine": 684,
+        "startChar": 60,
+        "endLine": 684,
+        "endChar": 131
+      },
+      "revId": "e1700a75a61b9b52c44628b741f93b045310f286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
