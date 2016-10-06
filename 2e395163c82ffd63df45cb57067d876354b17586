@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f285cc7_4a2a733b",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipherRSA.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2016-10-06T21:25:26Z",
+      "side": 1,
+      "message": "You don\u0027t need a throws clause in this case (I guess you added it because it\u0027s an overridden method, but the language allows to have less exceptions), and I think it\u0027s discouraged style-wise.",
+      "range": {
+        "startLine": 158,
+        "startChar": 12,
+        "endLine": 158,
+        "endChar": 54
+      },
+      "revId": "2e395163c82ffd63df45cb57067d876354b17586",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
