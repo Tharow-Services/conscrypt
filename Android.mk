@@ -214,6 +214,7 @@ ifeq ($(LIBCORE_SKIP_TESTS),)
     LOCAL_MODULE_TAGS := optional
     LOCAL_MODULE := conscrypt-tests-hostdex
     LOCAL_REQUIRED_MODULES := libjavacrypto
+    LOCAL_JARJAR_RULES := $(LOCAL_PATH)/jarjar-rules.txt
     LOCAL_JAVA_LANGUAGE_VERSION := 1.7
     include $(BUILD_HOST_DALVIK_JAVA_LIBRARY)
 endif
