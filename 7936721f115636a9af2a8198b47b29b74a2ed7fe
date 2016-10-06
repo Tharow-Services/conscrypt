@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fd3fcea_325830fb",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 682,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-06T19:06:25Z",
+      "side": 1,
+      "message": "Probably worth a comment like:\n\n  // Suppress TLS 1.3\u0027s generic AEAD-only ciphers for now. They will be restored once TLS 1.3 support is enabled.",
+      "revId": "7936721f115636a9af2a8198b47b29b74a2ed7fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fd3fcea_1253ace1",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 683,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-06T19:06:25Z",
+      "side": 1,
+      "message": "[Confirmed with bssl ciphers that the two align.]",
+      "revId": "7936721f115636a9af2a8198b47b29b74a2ed7fe",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
