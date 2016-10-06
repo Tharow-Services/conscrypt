@@ -46,6 +46,24 @@
       "revId": "e1700a75a61b9b52c44628b741f93b045310f286",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9fd3fcea_52de1465",
+        "filename": "src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-06T18:30:37Z",
+      "side": 1,
+      "message": "I think it\u0027s fine to add a selector FWIW. Costs like one line of code.\n\n(We should probably add a comment about why we need this either way.)",
+      "parentUuid": "9fd3fcea_92f47ce1",
+      "revId": "e1700a75a61b9b52c44628b741f93b045310f286",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
