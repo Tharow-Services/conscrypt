@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bff52093_eb51b12c",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipherRSA.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-10-07T08:47:15Z",
+      "side": 1,
+      "message": "should this and Raw be public static final classes ?",
+      "range": {
+        "startLine": 362,
+        "startChar": 4,
+        "endLine": 362,
+        "endChar": 47
+      },
+      "revId": "11aebfd7cd2ca3256a845532195f433f3a3d2912",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
