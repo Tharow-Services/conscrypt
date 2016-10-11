@@ -498,6 +498,10 @@ public class SSLParametersImpl implements Cloneable {
             NativeCrypto.SSL_set_alpn_protos(sslNativePointer, alpnProtocols);
         }
 
+        if (enabledProtocols.length == 0) {
+            throw new SSLHandshakeException("No enabled protocols (SSLv3 support was removed)");
+        }
+
         NativeCrypto.setEnabledProtocols(sslNativePointer, enabledProtocols);
         NativeCrypto.setEnabledCipherSuites(sslNativePointer, enabledCipherSuites);
 

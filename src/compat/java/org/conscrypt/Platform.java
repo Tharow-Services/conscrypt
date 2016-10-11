@@ -35,6 +35,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.ECParameterSpec;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -410,6 +411,35 @@ public class Platform {
         }
         return factory;
     }
+
+    /**
+     * This filters the list of {@code protocols} down to help with app
+     * compatibility. Log when this happens to help app developers figure out
+     * why they might have unexpected behavior.
+     */
+    public static String[] filterProtocolsIfNeeded(String[] protocols) {
+        // Marshmallow's version of HttpsURLConnection has better behavior in that it doesn't
+        // hard-code SSLv3.
+        if (Build.VERSION.SDK_INT >= 22) {
+            return protocols;
+        }
+
+        // A majority of the fallback mechanisms call with just "SSLv3" in the list, so return
+        // without allocating.
+        if (protocols.length == 1 && "SSLv3".equals(protocols[0])) {
+            return new EMPTY_STRING_ARRAY;
+        }
+
+        ArrayList<String> newProtocols = new ArrayList<>();
+        for (int i = 0; i < protocols.length; i++) {
+            if (!"SSLV3".equals(protocols[i].toUpperCase(Locale.US))) {
+                newProtocols.add(protocols[i]);
+            }
+        }
+        return newProtocols.toArray(new String[newProtocols.size()]);
+    }
+
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
 
     /**
      * Convert from platform's GCMParameterSpec to our internal version.

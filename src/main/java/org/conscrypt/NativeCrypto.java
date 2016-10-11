@@ -909,6 +909,8 @@ public final class NativeCrypto {
         if (protocols == null) {
             throw new IllegalArgumentException("protocols == null");
         }
+        // Some platforms have compatibility requirements that require filtering.
+        protocols = Platform.filterProtocolsIfNeeded(protocols);
         for (int i = 0; i < protocols.length; i++) {
             String protocol = protocols[i];
             if (protocol == null) {

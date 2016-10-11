@@ -224,6 +224,13 @@ public class Platform {
     }
 
     /**
+     * Currently we don't filter anything from the RI.
+     */
+    public static String[] filterProtocolsIfNeeded(String[] protocols) {
+        return protocols;
+    }
+
+    /**
      * Convert from platform's GCMParameterSpec to our internal version.
      */
     public static GCMParameters fromGCMParameterSpec(AlgorithmParameterSpec params) {

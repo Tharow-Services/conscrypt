@@ -252,6 +252,14 @@ class Platform {
     }
 
     /**
+     * This can filter the list of {@code protocols} down to help with app
+     * compatibility.
+     */
+    public static String[] filterProtocolsIfNeeded(String[] protocols) {
+        return protocols;
+    }
+
+    /**
      * Convert from platform's GCMParameterSpec to our internal version.
      */
     public static GCMParameters fromGCMParameterSpec(AlgorithmParameterSpec params) {
