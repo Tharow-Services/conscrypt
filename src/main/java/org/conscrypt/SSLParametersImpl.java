@@ -30,6 +30,7 @@ import java.security.SecureRandom;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -261,7 +262,7 @@ public class SSLParametersImpl implements Cloneable {
      * @return the set of enabled protocols
      */
     protected String[] getEnabledProtocols() {
-        return enabledProtocols.clone();
+        return filterFomProtocols(enabledProtocols, NativeCrypto.OBSOLETE_PROTOCOL_SSLV3).clone();
     }
 
     /**
@@ -492,13 +493,40 @@ public class SSLParametersImpl implements Cloneable {
         }
     }
 
+    /**
+     * This filters {@code obsoleteProtocol} from the list of {@code protocols}
+     * down to help with app compatibility.
+     */
+    private static String[] filterFomProtocols(String[] protocols, String obsoleteProtocol) {
+        if (protocols.length == 1 && obsoleteProtocol.equals(protocols[0])) {
+            return EMPTY_STRING_ARRAY;
+        }
+
+        ArrayList<String> newProtocols = new ArrayList<>();
+        for (String protocol : protocols) {
+            if (!obsoleteProtocol.equals(protocol)) {
+                newProtocols.add(protocol);
+            }
+        }
+        return newProtocols.toArray(EMPTY_STRING_ARRAY);
+    }
+
+    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+
     void setSSLParameters(long sslCtxNativePointer, long sslNativePointer, AliasChooser chooser,
             PSKCallbacks pskCallbacks, String sniHostname) throws SSLException, IOException {
         if (client_mode && alpnProtocols != null) {
             NativeCrypto.SSL_set_alpn_protos(sslNativePointer, alpnProtocols);
         }
 
-        NativeCrypto.setEnabledProtocols(sslNativePointer, enabledProtocols);
+        String[] filteredProtocols =
+                filterFomProtocols(enabledProtocols, NativeCrypto.OBSOLETE_PROTOCOL_SSLV3);
+        if (filteredProtocols.length == 0 && enabledProtocols.length != 0) {
+            throw new SSLHandshakeException("No enabled protocols; SSLv3 is no longer supported "
+                    + "and was filtered from the list");
+        }
+
+        NativeCrypto.setEnabledProtocols(sslNativePointer, filteredProtocols);
         NativeCrypto.setEnabledCipherSuites(sslNativePointer, enabledCipherSuites);
 
         // setup server certificates and private keys.
