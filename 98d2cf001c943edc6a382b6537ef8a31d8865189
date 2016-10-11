@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc27a6af_2dad4d3a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipherRSA.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2016-10-11T20:54:19Z",
+      "side": 1,
+      "message": "If the classes are defined in the same file, I think this methods are accessible without need to be protected? (Not sure how does it work for override, have you tried?)",
+      "revId": "98d2cf001c943edc6a382b6537ef8a31d8865189",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
