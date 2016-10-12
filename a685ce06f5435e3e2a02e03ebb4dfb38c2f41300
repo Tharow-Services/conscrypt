@@ -25,6 +25,63 @@
     },
     {
       "key": {
+        "uuid": "bc9b6e32_9ebfb9a4",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-12T15:13:50Z",
+      "side": 1,
+      "message": "This method doesn\u0027t seem to log anything.",
+      "range": {
+        "startLine": 417,
+        "startChar": 22,
+        "endLine": 418,
+        "endChar": 47
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc460e6a_03d14ef7",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-12T15:13:50Z",
+      "side": 1,
+      "message": "Is this code reachable from other consumers? I\u0027m wondering if you want to workaround this behavior for them or not.",
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc9b6e32_1ecc0961",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-12T15:13:50Z",
+      "side": 1,
+      "message": "s/new //?\n\n(I also rather suspect this optimization isn\u0027t really worth the trouble, but I dunno.)",
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cc1f61c_69e6c5aa",
         "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 1
