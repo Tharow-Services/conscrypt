@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cc1f61c_09db89e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2016-10-12T15:04:02Z",
+      "side": 1,
+      "message": "Think you may need to run OkHttp tests too to be sure.",
+      "range": {
+        "startLine": 15,
+        "startChar": 10,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cc1f61c_69e6c5aa",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2016-10-12T15:04:02Z",
+      "side": 1,
+      "message": "What would we have done before? Same exception, just with less info, or something else?\n\nWe don\u0027t necessarily know that SSLv3 being removed by the Platform filter was the cause here. The app may have asked for no protocols incorrectly. Also, this code will probably outlast the filtering code when SSLv3 is long forgotten.\n\nWonder if this would cause more confusion than just logging (at debug or info) when we strip. I do take the point about spamming the logs, though.\n\nIf we do want to keep it here, we could be a bit more informative:\n\n\"No enabled protocols. This may be the result of filtering SSLv3: conscrypt / Android no longer supports SSLv3.\"",
+      "range": {
+        "startLine": 502,
+        "startChar": 22,
+        "endLine": 502,
+        "endChar": 43
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
