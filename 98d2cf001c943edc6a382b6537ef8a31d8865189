@@ -16,6 +16,24 @@
       "revId": "98d2cf001c943edc6a382b6537ef8a31d8865189",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c994a96_4237b2e5",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipherRSA.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-13T17:37:35Z",
+      "side": 1,
+      "message": "No, a subclass can\u0027t access private even when it\u0027s in the same file. It\u0027s logically as if it\u0027s not in the file class and gets compiled to ParentClass$SubClass.class if that helps the visualization (see JLS 13.1 for more info).",
+      "parentUuid": "fc27a6af_2dad4d3a",
+      "revId": "98d2cf001c943edc6a382b6537ef8a31d8865189",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
