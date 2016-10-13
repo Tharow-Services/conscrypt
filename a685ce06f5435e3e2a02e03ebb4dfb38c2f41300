@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "7cc1f61c_893699e8",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-10-13T10:34:15Z",
+      "side": 1,
+      "message": "Marshmallow was API 23, so why does line 423 say \u003e\u003d 22 rather than \u003e\u003d 23?\n\nI\u0027d prefer \"Marshmallow (API 23)\" over \"Marshmallow\" because I can never remember which number we\u0027re up to.",
+      "range": {
+        "startLine": 421,
+        "startChar": 11,
+        "endLine": 421,
+        "endChar": 21
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bc460e6a_03d14ef7",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -59,6 +82,29 @@
       "writtenOn": "2016-10-12T15:13:50Z",
       "side": 1,
       "message": "Is this code reachable from other consumers? I\u0027m wondering if you want to workaround this behavior for them or not.",
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cc1f61c_a9335df7",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-10-13T10:34:15Z",
+      "side": 1,
+      "message": "The fact that this method sometimes returns the same array object as what was passed in and sometimes a new one looks prone to potential hard-to-verify future bugs (e.g. if someone modifies the returned array).\n\nIn general, arrays of Objects are an antipattern because arrays are always mutable. How feasible would it be to refactor the code that uses these String[] arrays to use an unmodifiable Set\u003cString\u003e with defined iteration order instead?",
+      "range": {
+        "startLine": 424,
+        "startChar": 11,
+        "endLine": 424,
+        "endChar": 29
+      },
       "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -82,6 +128,75 @@
     },
     {
       "key": {
+        "uuid": "7cc1f61c_a91a7d75",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-10-13T10:34:15Z",
+      "side": 1,
+      "message": "List\u003cString\u003e result \u003d new ArrayList\u003c\u003e()\nfor (String protocol : protocols) {\n   ...",
+      "range": {
+        "startLine": 433,
+        "startChar": 8,
+        "endLine": 434,
+        "endChar": 52
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cc1f61c_095ce91e",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-10-13T10:34:15Z",
+      "side": 1,
+      "message": "Where does the fact that this should be interpreted case insensitive come from? Where is this assumption duplicated? Can we reuse logic rather than duplicating (is there *any* chance that this might ever change)?",
+      "range": {
+        "startLine": 435,
+        "startChar": 17,
+        "endLine": 435,
+        "endChar": 67
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cc1f61c_2961add5",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-10-13T10:34:15Z",
+      "side": 1,
+      "message": "(no action required) FYI using EMPTY_STRING_ARRAY instead of a pre-sized array here would be simpler/more obviously correct, and I have not seen any data to prove that it would be slower.",
+      "range": {
+        "startLine": 439,
+        "startChar": 36,
+        "endLine": 439,
+        "endChar": 67
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cc1f61c_69e6c5aa",
         "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 1
@@ -93,6 +208,30 @@
       "writtenOn": "2016-10-12T15:04:02Z",
       "side": 1,
       "message": "What would we have done before? Same exception, just with less info, or something else?\n\nWe don\u0027t necessarily know that SSLv3 being removed by the Platform filter was the cause here. The app may have asked for no protocols incorrectly. Also, this code will probably outlast the filtering code when SSLv3 is long forgotten.\n\nWonder if this would cause more confusion than just logging (at debug or info) when we strip. I do take the point about spamming the logs, though.\n\nIf we do want to keep it here, we could be a bit more informative:\n\n\"No enabled protocols. This may be the result of filtering SSLv3: conscrypt / Android no longer supports SSLv3.\"",
+      "range": {
+        "startLine": 502,
+        "startChar": 22,
+        "endLine": 502,
+        "endChar": 43
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cc1f61c_e942b53b",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-10-13T10:34:15Z",
+      "side": 1,
+      "message": "Is there a way we can rearrange the code so that we call the function that removes SSLv3 here rather than just from NativeCrypto.checkEnabledProtocols()? If we had both the original and the filtered protocols here then we could provide a better error message (\"No enabled protocols after filtering; before filtering: \" + Arrays.toString(...));",
+      "parentUuid": "7cc1f61c_69e6c5aa",
       "range": {
         "startLine": 502,
         "startChar": 22,
