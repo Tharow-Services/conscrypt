@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7cc1f61c_c90a5134",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 3751,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2016-10-13T09:06:38Z",
+      "side": 1,
+      "message": "y u use C style cast ?",
+      "range": {
+        "startLine": 3751,
+        "startChar": 35,
+        "endLine": 3751,
+        "endChar": 45
+      },
+      "revId": "0608746b54e6ac7f60faed949b260c06bbf06b60",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
