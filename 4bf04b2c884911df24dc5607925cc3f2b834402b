@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cd86ab1_8aefcbaa",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 265,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-10-14T11:17:48Z",
+      "side": 1,
+      "message": "how about we do the filtering when setting enabledProtocols rather than when getting it? We can still store a boolean isEnabledProtocolsFiltered (or a list of the enabledProtocols that were filtered out) to inform in the place where we throw the exception.\n\nThat way, there is now risk that some code in this class might accidentally use the unfiltered protocols when they mean to use the filtered ones - e.g. in line 790 that might be the case?",
+      "range": {
+        "startLine": 265,
+        "startChar": 15,
+        "endLine": 265,
+        "endChar": 33
+      },
+      "revId": "4bf04b2c884911df24dc5607925cc3f2b834402b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cd86ab1_4abdd3a9",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 790,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-10-14T11:17:48Z",
+      "side": 1,
+      "message": "wouldn\u0027t this also need to filter out SSLv3?",
+      "range": {
+        "startLine": 790,
+        "startChar": 38,
+        "endLine": 790,
+        "endChar": 54
+      },
+      "revId": "4bf04b2c884911df24dc5607925cc3f2b834402b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
