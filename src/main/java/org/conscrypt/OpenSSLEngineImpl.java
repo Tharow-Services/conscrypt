@@ -772,6 +772,38 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
     }
 
     /**
+     * This method enables session ticket support.
+     *
+     * @param useSessionTickets True to enable session tickets
+     */
+    public void setUseSessionTickets(boolean useSessionTickets) {
+        sslParameters.useSessionTickets = useSessionTickets;
+    }
+
+    /**
+     * This method does nothing and is kept for backward compatibility.
+     */
+    public void setNpnProtocols(byte[] npnProtocols) {
+    }
+
+    /**
+     * Sets the list of protocols this peer is interested in. If the list is
+     * {@code null}, no protocols will be used.
+     *
+     * @param alpnProtocols a non-empty array of protocol names. From
+     *            SSL_select_next_proto, "vector of 8-bit, length prefixed byte
+     *            strings. The length byte itself is not included in the length.
+     *            A byte string of length 0 is invalid. No byte string may be
+     *            truncated.".
+     */
+    public void setAlpnProtocols(byte[] alpnProtocols) {
+        if (alpnProtocols != null && alpnProtocols.length == 0) {
+            throw new IllegalArgumentException("alpnProtocols.length == 0");
+        }
+        sslParameters.alpnProtocols = alpnProtocols;
+    }
+
+    /**
      * Returns null always for backward compatibility.
      */
     public byte[] getNpnSelectedProtocol() {
