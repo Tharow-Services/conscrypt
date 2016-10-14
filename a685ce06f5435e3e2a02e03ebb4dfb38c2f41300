@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9c994a96_4269f2b0",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-14T18:28:15Z",
+      "side": 1,
+      "message": "Oh yeah, I pulled that out after thinking about how spammy HttpsURLConnection/OkHttp will be.",
+      "parentUuid": "bc9b6e32_9ebfb9a4",
+      "range": {
+        "startLine": 417,
+        "startChar": 22,
+        "endLine": 418,
+        "endChar": 47
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cc1f61c_893699e8",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -88,6 +112,24 @@
     },
     {
       "key": {
+        "uuid": "9c994a96_62b51635",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 422,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-14T18:28:15Z",
+      "side": 1,
+      "message": "True, I\u0027ll just remove this for now to make the behavior consistent.",
+      "parentUuid": "bc460e6a_03d14ef7",
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cc1f61c_a9335df7",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -99,6 +141,30 @@
       "writtenOn": "2016-10-13T10:34:15Z",
       "side": 1,
       "message": "The fact that this method sometimes returns the same array object as what was passed in and sometimes a new one looks prone to potential hard-to-verify future bugs (e.g. if someone modifies the returned array).\n\nIn general, arrays of Objects are an antipattern because arrays are always mutable. How feasible would it be to refactor the code that uses these String[] arrays to use an unmodifiable Set\u003cString\u003e with defined iteration order instead?",
+      "range": {
+        "startLine": 424,
+        "startChar": 11,
+        "endLine": 424,
+        "endChar": 29
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c994a96_02d52a0e",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-14T18:28:15Z",
+      "side": 1,
+      "message": "Seems kind of wasteful. I moved the usage of the array to the same method where it\u0027s terminally used.",
+      "parentUuid": "7cc1f61c_a9335df7",
       "range": {
         "startLine": 424,
         "startChar": 11,
@@ -128,6 +194,24 @@
     },
     {
       "key": {
+        "uuid": "9c994a96_c2ad02f3",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 430,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-14T18:28:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bc9b6e32_1ecc0961",
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cc1f61c_a91a7d75",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -139,6 +223,30 @@
       "writtenOn": "2016-10-13T10:34:15Z",
       "side": 1,
       "message": "List\u003cString\u003e result \u003d new ArrayList\u003c\u003e()\nfor (String protocol : protocols) {\n   ...",
+      "range": {
+        "startLine": 433,
+        "startChar": 8,
+        "endLine": 434,
+        "endChar": 52
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c994a96_021aca2e",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 434,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-14T18:28:15Z",
+      "side": 1,
+      "message": "Does causing invokeinterface (List) instead of invokevirtual (ArrayList) make anything clearer? AFAICT it just makes the method calls to #add in the loop below slower.\n\nChanged the for loop.",
+      "parentUuid": "7cc1f61c_a91a7d75",
       "range": {
         "startLine": 433,
         "startChar": 8,
@@ -174,6 +282,30 @@
     },
     {
       "key": {
+        "uuid": "9c994a96_8285ba46",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 435,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-14T18:28:15Z",
+      "side": 1,
+      "message": "http://docs.oracle.com/javase/7/docs/technotes/guides/security/StandardNames.html#provider says \"Note: Standard names are not case-sensitive.\"",
+      "parentUuid": "7cc1f61c_095ce91e",
+      "range": {
+        "startLine": 435,
+        "startChar": 17,
+        "endLine": 435,
+        "endChar": 67
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7cc1f61c_2961add5",
         "filename": "src/compat/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -185,6 +317,30 @@
       "writtenOn": "2016-10-13T10:34:15Z",
       "side": 1,
       "message": "(no action required) FYI using EMPTY_STRING_ARRAY instead of a pre-sized array here would be simpler/more obviously correct, and I have not seen any data to prove that it would be slower.",
+      "range": {
+        "startLine": 439,
+        "startChar": 36,
+        "endLine": 439,
+        "endChar": 67
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c994a96_6282b63e",
+        "filename": "src/compat/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 439,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-14T18:28:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7cc1f61c_2961add5",
       "range": {
         "startLine": 439,
         "startChar": 36,
@@ -232,6 +388,30 @@
       "side": 1,
       "message": "Is there a way we can rearrange the code so that we call the function that removes SSLv3 here rather than just from NativeCrypto.checkEnabledProtocols()? If we had both the original and the filtered protocols here then we could provide a better error message (\"No enabled protocols after filtering; before filtering: \" + Arrays.toString(...));",
       "parentUuid": "7cc1f61c_69e6c5aa",
+      "range": {
+        "startLine": 502,
+        "startChar": 22,
+        "endLine": 502,
+        "endChar": 43
+      },
+      "revId": "a685ce06f5435e3e2a02e03ebb4dfb38c2f41300",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9c994a96_e2ab6686",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 502,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-14T18:28:15Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s a good idea.",
+      "parentUuid": "7cc1f61c_e942b53b",
       "range": {
         "startLine": 502,
         "startChar": 22,
