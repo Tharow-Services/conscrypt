@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cd86ab1_6a8897d2",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2016-10-14T18:56:38Z",
+      "side": 1,
+      "message": "should we use NativeCrypto.OBSOLETE_PROTOCOL_SSLV3 here rather than duplicating SSLv3, to make it more likely that someone notices if/when this line needs to be updated in future?",
+      "range": {
+        "startLine": 528,
+        "startChar": 67,
+        "endLine": 528,
+        "endChar": 72
+      },
+      "revId": "bcd869326bb3617d895183932d87bf8ed67dce6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
