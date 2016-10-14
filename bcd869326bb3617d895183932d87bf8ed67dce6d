@@ -22,6 +22,24 @@
       "revId": "bcd869326bb3617d895183932d87bf8ed67dce6d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc41ae2d_4bcdc5b0",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 528,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-10-14T19:34:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9cd86ab1_6a8897d2",
+      "revId": "bcd869326bb3617d895183932d87bf8ed67dce6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
