@@ -34,6 +34,24 @@
       "revId": "98d2cf001c943edc6a382b6537ef8a31d8865189",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9cd86ab1_4a2e7342",
+        "filename": "src/main/java/org/conscrypt/OpenSSLCipherRSA.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1067467
+      },
+      "writtenOn": "2016-10-17T16:36:33Z",
+      "side": 1,
+      "message": "Cool. Thanks",
+      "parentUuid": "9c994a96_4237b2e5",
+      "revId": "98d2cf001c943edc6a382b6537ef8a31d8865189",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
