@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9cd86ab1_4a4dd367",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2016-10-17T09:50:14Z",
+      "side": 1,
+      "message": "Fom",
+      "range": {
+        "startLine": 279,
+        "startChar": 16,
+        "endLine": 279,
+        "endChar": 34
+      },
+      "revId": "06c9d2d2baa097dfbd0f33345b7e65c6364d244d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
