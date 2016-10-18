@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c0a735e_3b166270",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-18T22:18:19Z",
+      "side": 1,
+      "message": "Just to confirm, is the issue that it can\u0027t do RSA_NO_PADDING? I don\u0027t believe RSA_METHOD ever sees PSS.",
+      "range": {
+        "startLine": 10,
+        "startChar": 56,
+        "endLine": 10,
+        "endChar": 69
+      },
+      "revId": "3b31dd3be07c249c479d0723419a0206bb046a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5c0a735e_1b38be01",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 6888,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-18T22:18:19Z",
+      "side": 1,
+      "message": "This can fail on malloc failure if you care. (Returns one or zero like other functions.)",
+      "revId": "3b31dd3be07c249c479d0723419a0206bb046a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
