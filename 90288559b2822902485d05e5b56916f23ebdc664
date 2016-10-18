@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5c0a735e_4940c5a1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2016-10-18T17:46:37Z",
+      "side": 1,
+      "message": "IllegalBlockSizeException is what RI does. The tests simply check that our crypto aligns with RI.",
+      "revId": "90288559b2822902485d05e5b56916f23ebdc664",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
