@@ -7194,11 +7194,12 @@ static void NativeCrypto_SSL_set_client_CA_list(JNIEnv* env, jclass,
             return;
         }
 
-        if (!sk_X509_NAME_push(principalsStack.get(), principalX509Name.release())) {
+        if (!sk_X509_NAME_push(principalsStack.get(), principalX509Name.get())) {
             jniThrowOutOfMemory(env, "Unable to push principal");
             JNI_TRACE("ssl=%p NativeCrypto_SSL_set_client_CA_list => principal push error", ssl);
             return;
         }
+        OWNERSHIP_TRANSFERRED(principalX509Name);
     }
 
     SSL_set_client_CA_list(ssl, principalsStack.release());
@@ -8170,18 +8171,6 @@ static jlongArray NativeCrypto_SSL_get_certificate(JNIEnv* env, jclass, jlong ss
         return nullptr;
     }
 
-    bssl::UniquePtr<STACK_OF(X509)> chain(sk_X509_new_null());
-    if (chain.get() == nullptr) {
-        jniThrowOutOfMemory(env, "Unable to allocate local certificate chain");
-        JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => threw exception", ssl);
-        return nullptr;
-    }
-    if (!sk_X509_push(chain.get(), X509_dup_nocopy(certificate))) {
-        jniThrowOutOfMemory(env, "Unable to push local certificate");
-        JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => null", ssl);
-        return nullptr;
-    }
-
     STACK_OF(X509)* cert_chain = nullptr;
     if (!SSL_get0_chain_certs(ssl, &cert_chain)) {
         JNI_TRACE("ssl=%p NativeCrypto_SSL_get0_chain_certs => null", ssl);
@@ -8189,13 +8178,20 @@ static jlongArray NativeCrypto_SSL_get_certificate(JNIEnv* env, jclass, jlong ss
         return nullptr;
     }
 
-    for (size_t i=0; i<sk_X509_num(cert_chain); i++) {
-        if (!sk_X509_push(chain.get(), X509_dup_nocopy(sk_X509_value(cert_chain, i)))) {
-            jniThrowOutOfMemory(env, "Unable to push local certificate chain");
-            JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => null", ssl);
-            return nullptr;
-        }
+    bssl::UniquePtr<STACK_OF(X509)> chain(X509_chain_up_ref(cert_chain));
+    if (chain.get() == nullptr) {
+        jniThrowOutOfMemory(env, "Unable to allocate local certificate chain");
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => threw exception", ssl);
+        return nullptr;
     }
+
+    // The chain is ordered from leaf to root, so prepend the leaf.
+    if (!sk_X509_insert(chain.get(), certificate, 0)) {
+        jniThrowOutOfMemory(env, "Unable to insert local certificate");
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => null", ssl);
+        return nullptr;
+    }
+    X509_up_ref(certificate);
 
     jlongArray refArray = getCertificateRefs(env, chain.get());
     JNI_TRACE("ssl=%p NativeCrypto_SSL_get_certificate => %p", ssl, refArray);
@@ -8218,25 +8214,18 @@ static jlongArray NativeCrypto_SSL_get_peer_cert_chain(JNIEnv* env, jclass, jlon
             JNI_TRACE("ssl=%p NativeCrypto_SSL_get_peer_cert_chain => null", ssl);
             return nullptr;
         }
-        chain_copy.reset(sk_X509_new_null());
+        chain_copy.reset(X509_chain_up_ref(chain));
         if (chain_copy.get() == nullptr) {
             jniThrowOutOfMemory(env, "Unable to allocate peer certificate chain");
             JNI_TRACE("ssl=%p NativeCrypto_SSL_get_peer_cert_chain => certificate dup error", ssl);
             return nullptr;
         }
-        size_t chain_size = sk_X509_num(chain);
-        for (size_t i = 0; i < chain_size; i++) {
-            if (!sk_X509_push(chain_copy.get(), X509_dup_nocopy(sk_X509_value(chain, i)))) {
-                jniThrowOutOfMemory(env, "Unable to push server's peer certificate chain");
-                JNI_TRACE("ssl=%p NativeCrypto_SSL_get_peer_cert_chain => certificate chain push error", ssl);
-                return nullptr;
-            }
-        }
-        if (!sk_X509_push(chain_copy.get(), X509_dup_nocopy(x509))) {
+        if (!sk_X509_push(chain_copy.get(), x509)) {
             jniThrowOutOfMemory(env, "Unable to push server's peer certificate");
             JNI_TRACE("ssl=%p NativeCrypto_SSL_get_peer_cert_chain => certificate push error", ssl);
             return nullptr;
         }
+        X509_up_ref(x509);
         chain = chain_copy.get();
     }
     jlongArray refArray = getCertificateRefs(env, chain);
