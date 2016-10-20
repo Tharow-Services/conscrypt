@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fc7c072f_46549668",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8246,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-20T21:30:35Z",
+      "side": 1,
+      "message": "Reference:\n\nhttps://boringssl.googlesource.com/boringssl/+/master/ssl/ssl_lib.c#1044\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/ssl.h.html#SSL_get_peer_certificate",
+      "range": {
+        "startLine": 8246,
+        "startChar": 35,
+        "endLine": 8246,
+        "endChar": 59
+      },
+      "revId": "91292722c93560a7c7d4fe5f7ccf8767ef34238d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
