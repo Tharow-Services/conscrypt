@@ -22,6 +22,30 @@
       "revId": "53024156dd29d7b7e93f4334145182d5a9fceded",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c1d83cb2_0d8e55b9",
+        "filename": "build_jdk.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-10-26T17:00:06Z",
+      "side": 1,
+      "message": "definitely! and we\u0027ll want to add support for other platforms as well. I\u0027d like to handle all of that in a follow-on PR, if that\u0027s ok.",
+      "parentUuid": "c1d83cb2_ad40e9a3",
+      "range": {
+        "startLine": 117,
+        "startChar": 37,
+        "endLine": 117,
+        "endChar": 40
+      },
+      "revId": "53024156dd29d7b7e93f4334145182d5a9fceded",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
