@@ -1,0 +1,8 @@
+Presubmit-Ready+1: Kenny Root <kroot@google.com>
+Verified+1: Kenny Root <kroot@google.com>
+Code-Review+2: Kenny Root <kroot@google.com>
+Submitted-by: Kenny Root <kroot@google.com>
+Submitted-at: Thu, 27 Oct 2016 20:14:37 +0000
+Reviewed-on: https://android-review.googlesource.com/296145
+Project: platform/external/conscrypt
+Branch: refs/heads/master
