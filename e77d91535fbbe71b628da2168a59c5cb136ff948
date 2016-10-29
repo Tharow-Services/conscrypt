@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "861e5aa4_88dc77cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-29T00:36:19Z",
+      "side": 1,
+      "message": "You may wish to re-run these. Some CertPath tests failed, but they failed without the patch too, so it\u0027s possible my setup is problematic.",
+      "revId": "e77d91535fbbe71b628da2168a59c5cb136ff948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "861e5aa4_28774bf8",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5624,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-10-29T00:36:19Z",
+      "side": 1,
+      "message": "(I just got this pattern from the PKCS#7 bits.)",
+      "revId": "e77d91535fbbe71b628da2168a59c5cb136ff948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
