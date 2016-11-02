@@ -191,6 +191,12 @@ public final class OpenSSLEngineImpl extends SSLEngine
             final long sslCtxNativePointer = sessionContext.sslCtxNativePointer;
             sslNativePointer = NativeCrypto.SSL_new(sslCtxNativePointer);
             networkBio = NativeCrypto.SSL_BIO_new(sslNativePointer);
+
+            // Allow servers to trigger renegotiation. Some inadvisable server
+            // configurations cause them to attempt to renegotiate during
+            // certain protocols.
+            NativeCrypto.SSL_accept_renegotiations(sslNativePointer);
+
             sslSession =
                     sslParameters.getSessionToReuse(sslNativePointer, getPeerHost(), getPeerPort());
             sslParameters.setSSLParameters(
