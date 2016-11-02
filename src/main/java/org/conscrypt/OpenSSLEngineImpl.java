@@ -100,9 +100,6 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
     // TODO: make this use something similar to BIO_s_null() in native code
     private static OpenSSLBIOSource nullSource = OpenSSLBIOSource.wrap(ByteBuffer.allocate(0));
 
-    /** A BIO sink written to only during handshakes. */
-    private OpenSSLBIOSink handshakeSink;
-
     /** A BIO sink written to during regular operation. */
     private final OpenSSLBIOSink localToRemoteSink = OpenSSLBIOSink.create();
 
@@ -152,6 +149,12 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
             final AbstractSessionContext sessionContext = sslParameters.getSessionContext();
             final long sslCtxNativePointer = sessionContext.sslCtxNativePointer;
             sslNativePointer = NativeCrypto.SSL_new(sslCtxNativePointer);
+
+            // Allow servers to trigger renegotiation. Some inadvisable server
+            // configurations cause them to attempt to renegotiate during
+            // certain protocols.
+            NativeCrypto.SSL_accept_renegotiations(sslNativePointer);
+
             sslSession = sslParameters.getSessionToReuse(
                     sslNativePointer, getPeerHost(), getPeerPort());
             sslParameters.setSSLParameters(sslCtxNativePointer, sslNativePointer, this, this,
@@ -163,7 +166,6 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
             } else {
                 NativeCrypto.SSL_set_accept_state(sslNativePointer);
             }
-            handshakeSink = OpenSSLBIOSink.create();
             releaseResources = false;
         } catch (IOException e) {
             // Write CCS errors to EventLog
@@ -249,14 +251,13 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
                         return HandshakeStatus.NEED_UNWRAP;
                     }
                 case HANDSHAKE_STARTED:
-                    if (handshakeSink.available() > 0) {
+                    if (localToRemoteSink.available() > 0) {
                         return HandshakeStatus.NEED_WRAP;
                     } else {
                         return HandshakeStatus.NEED_UNWRAP;
                     }
                 case HANDSHAKE_COMPLETED:
-                    if (handshakeSink.available() == 0) {
-                        handshakeSink = null;
+                    if (localToRemoteSink.available() == 0) {
                         engineState = EngineState.READY;
                         return HandshakeStatus.FINISHED;
                     } else {
@@ -426,8 +427,8 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
             long sslSessionCtx = 0L;
             try {
                 sslSessionCtx = NativeCrypto.SSL_do_handshake_bio(sslNativePointer,
-                        source.getContext(), handshakeSink.getContext(), this, getUseClientMode(),
-                        sslParameters.alpnProtocols);
+                        source.getContext(), localToRemoteSink.getContext(), this,
+                        getUseClientMode(), sslParameters.alpnProtocols);
                 if (sslSessionCtx != 0) {
                     if (sslSession != null && engineState == EngineState.HANDSHAKE_STARTED) {
                         engineState = EngineState.READY_HANDSHAKE_CUT_THROUGH;
@@ -435,7 +436,7 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
                     sslSession = sslParameters.setupSession(sslSessionCtx, sslNativePointer, sslSession,
                             getPeerHost(), getPeerPort(), true);
                 }
-                int bytesWritten = handshakeSink.position();
+                int bytesWritten = localToRemoteSink.position();
                 int bytesConsumed = (src.position() - positionBeforeHandshake);
                 return new SSLEngineResult((bytesConsumed > 0) ? Status.OK : Status.BUFFER_UNDERFLOW,
                         getHandshakeStatus(), bytesConsumed, bytesWritten);
@@ -549,11 +550,11 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
         // If we haven't completed the handshake yet, just let the caller know.
         HandshakeStatus handshakeStatus = getHandshakeStatus();
         if (handshakeStatus == HandshakeStatus.NEED_WRAP) {
-            if (handshakeSink.available() == 0) {
+            if (localToRemoteSink.available() == 0) {
                 long sslSessionCtx = 0L;
                 try {
                     sslSessionCtx = NativeCrypto.SSL_do_handshake_bio(sslNativePointer,
-                            nullSource.getContext(), handshakeSink.getContext(), this,
+                            nullSource.getContext(), localToRemoteSink.getContext(), this,
                             getUseClientMode(), sslParameters.alpnProtocols);
                     if (sslSessionCtx != 0) {
                         if (sslSession != null && engineState == EngineState.HANDSHAKE_STARTED) {
@@ -571,7 +572,7 @@ public class OpenSSLEngineImpl extends SSLEngine implements NativeCrypto.SSLHand
                     }
                 }
             }
-            int bytesWritten = writeSinkToByteBuffer(handshakeSink, dst);
+            int bytesWritten = writeSinkToByteBuffer(localToRemoteSink, dst);
             return new SSLEngineResult(Status.OK, getHandshakeStatus(), 0, bytesWritten);
         } else if (handshakeStatus != HandshakeStatus.NOT_HANDSHAKING) {
             return new SSLEngineResult(Status.OK, handshakeStatus, 0, 0);
