@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06a98af7_fb30dbb5",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-03T00:49:52Z",
+      "side": 1,
+      "message": "I\u0027m not even sure if this is needed technically.",
+      "range": {
+        "startLine": 260,
+        "startChar": 20,
+        "endLine": 260,
+        "endChar": 61
+      },
+      "revId": "e33ce9a25030ddbbcd7ab4d25884eee45fc7d7cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
