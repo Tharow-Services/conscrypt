@@ -2190,6 +2190,12 @@ static jlong NativeCrypto_getECPrivateKeyWrapper(JNIEnv* env, jclass, jobject ja
         return 0;
     }
 
+    if (EC_KEY_set_group(ecKey.get(), group) != 1) {
+        JNI_TRACE("getECPrivateKeyWrapper(%p, %p) => EC_KEY_set_group error", javaKey, group);
+        throwExceptionIfNecessary(env, "EC_KEY_set_group");
+        return 0;
+    }
+
     auto ex_data = new KeyExData;
     ex_data->private_key = env->NewGlobalRef(javaKey);
 
