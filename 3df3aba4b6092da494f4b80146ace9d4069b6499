@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb743fbf_9c258925",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 2216,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-11-04T22:29:33Z",
+      "side": 1,
+      "message": "If you set the group, I believe you no longer need to provide EcdsaMethodGroupOrderSize and can just use the default behavior. That, in turn, means you don\u0027t need to set this field.",
+      "range": {
+        "startLine": 2216,
+        "startChar": 13,
+        "endLine": 2216,
+        "endChar": 24
+      },
+      "revId": "3df3aba4b6092da494f4b80146ace9d4069b6499",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
