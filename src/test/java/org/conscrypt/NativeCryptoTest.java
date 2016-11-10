@@ -960,8 +960,8 @@ public class NativeCryptoTest {
                 }
                 long session = NULL;
                 try {
-                    session = NativeCrypto.SSL_do_handshake(s, fd, callback, timeout, client,
-                                                            alpnProtocols);
+                    NativeCrypto.SSL_configure_alpn(s, client, alpnProtocols);
+                    session = NativeCrypto.SSL_do_handshake(s, fd, callback, timeout);
                     if (DEBUG) {
                         System.out.println("ssl=0x" + Long.toString(s, 16)
                                            + " handshake"
