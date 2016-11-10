@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "eb935fd8_840dec56",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 0,
+      "message": "Can you remove this and other _bio variants? I think this class was the only user of these functions.",
+      "range": {
+        "startLine": 555,
+        "startChar": 49,
+        "endLine": 555,
+        "endChar": 69
+      },
+      "revId": "05f1fe403b9ee8e5771e166049be80ec3a40d3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b91cbcd_b2f228ee",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 0,
+      "message": "Should this be removed? I think this should be zeroed out after the handshake completed.",
+      "range": {
+        "startLine": 683,
+        "startChar": 12,
+        "endLine": 684,
+        "endChar": 36
+      },
+      "revId": "05f1fe403b9ee8e5771e166049be80ec3a40d3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb935fd8_647460ed",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 0,
+      "message": "This is needed for Android backward compatibility.",
+      "range": {
+        "startLine": 530,
+        "startChar": 8,
+        "endLine": 534,
+        "endChar": 9
+      },
+      "revId": "05f1fe403b9ee8e5771e166049be80ec3a40d3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

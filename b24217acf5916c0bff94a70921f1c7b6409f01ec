@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b91cbcd_32e7f82e",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 1,
+      "message": "I don\u0027t think this is right. What kind of problems were you running into?",
+      "range": {
+        "startLine": 341,
+        "startChar": 19,
+        "endLine": 341,
+        "endChar": 43
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b91cbcd_124f5caa",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 1,
+      "message": "You\u0027re not guaranteed to have an array here. Need to check .hasArray() first.",
+      "range": {
+        "startLine": 722,
+        "startChar": 61,
+        "endLine": 722,
+        "endChar": 72
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b91cbcd_b22868b9",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 752,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 1,
+      "message": "Need to check .hasArray() first.",
+      "range": {
+        "startLine": 752,
+        "startChar": 60,
+        "endLine": 752,
+        "endChar": 71
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bf2d718_dd188b59",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 848,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 1,
+      "message": "Need to check .hasArray() before calling this.",
+      "range": {
+        "startLine": 848,
+        "startChar": 84,
+        "endLine": 848,
+        "endChar": 91
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b7aab69_1fe76f2e",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketFactoryImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 1,
+      "message": "I suppose this is just for a test? If so, it might be worth it to have a function where you can set this instead having it checked on class initialization.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 81
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b5ca306_9e7c5d63",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketFactoryImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 1,
+      "message": "Debug statements to remove...",
+      "range": {
+        "startLine": 114,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 68
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2b8e57b3_aca3ab54",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketFactoryImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 1,
+      "message": "Debug statements to remove...",
+      "range": {
+        "startLine": 121,
+        "startChar": 12,
+        "endLine": 121,
+        "endChar": 67
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b612fbb_7d3a2f89",
+        "filename": "src/main/java/org/conscrypt/SSLUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 1,
+      "message": "Maybe these can come from generate_constants.cc as SSL3_RT_CHANGE_CIPHER_SPEC, et al.",
+      "range": {
+        "startLine": 45,
+        "startChar": 27,
+        "endLine": 45,
+        "endChar": 62
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6b612fbb_1d04d3c3",
+        "filename": "src/main/java/org/conscrypt/SSLUtils.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-10T22:53:36Z",
+      "side": 1,
+      "message": "generate_constants.cc as SSL3_RT_HEADER_LENGTH",
+      "range": {
+        "startLine": 65,
+        "startChar": 19,
+        "endLine": 65,
+        "endChar": 43
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
