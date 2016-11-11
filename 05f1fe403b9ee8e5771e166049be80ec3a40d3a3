@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "2bc9f7ea_28306302",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 684,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-11-11T01:32:56Z",
+      "side": 0,
+      "message": "This is the other part of the code that you commented on above. I need a non-null session so that I can use this in the grpc benchmarks with okhttp. I suspect that by having a null session we\u0027re probably in violation of the API.",
+      "parentUuid": "4b91cbcd_b2f228ee",
+      "range": {
+        "startLine": 683,
+        "startChar": 12,
+        "endLine": 684,
+        "endChar": 36
+      },
+      "revId": "05f1fe403b9ee8e5771e166049be80ec3a40d3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb935fd8_647460ed",
         "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 4
@@ -59,6 +83,30 @@
       "writtenOn": "2016-11-10T22:53:36Z",
       "side": 0,
       "message": "This is needed for Android backward compatibility.",
+      "range": {
+        "startLine": 530,
+        "startChar": 8,
+        "endLine": 534,
+        "endChar": 9
+      },
+      "revId": "05f1fe403b9ee8e5771e166049be80ec3a40d3a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2bc9f7ea_a86d73e9",
+        "filename": "src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-11-11T01:32:56Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "eb935fd8_647460ed",
       "range": {
         "startLine": 530,
         "startChar": 8,
