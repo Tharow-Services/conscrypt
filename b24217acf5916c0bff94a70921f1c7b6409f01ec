@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "4b91cbcd_9be6246d",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-11T18:56:44Z",
+      "side": 1,
+      "message": "Read-only and array-backed are orthogonal. For instance you could be passed some kind of ByteBuffer implementation that is a non-buffered streaming socket which reads from and writes to a device on-demand.\n\nI would agree that it\u0027d probably be slow, but I think you need a third path that does a .get(...) essentially since you can\u0027t guess what a developer will be doing.\n\nI did some searching around and found something similar in protobuf with a familiar TODO:\nhttps://github.com/google/protobuf/blob/master/java/core/src/main/java/com/google/protobuf/CodedInputStream.java#L144",
+      "parentUuid": "2bc9f7ea_e81beb92",
+      "range": {
+        "startLine": 722,
+        "startChar": 61,
+        "endLine": 722,
+        "endChar": 72
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b91cbcd_b22868b9",
         "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
         "patchSetId": 4
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "I was trying to avoid adding new public interface methods, even if they were just for test. Once we prove that the new socket outperforms the old, we can just get rid of the old socket altogether.",
       "parentUuid": "4b7aab69_1fe76f2e",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 81
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b91cbcd_9b69c4d7",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketFactoryImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-11T18:56:44Z",
+      "side": 1,
+      "message": "Ah, I see your intention now. However, in Android it\u0027s not really possible to set System properties from app start in such a way that you can guarantee they\u0027ll be set when this is read.",
+      "parentUuid": "2bc9f7ea_e83e4bcf",
       "range": {
         "startLine": 28,
         "startChar": 4,
