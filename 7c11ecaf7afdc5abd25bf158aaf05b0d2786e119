@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "4b91cbcd_5ede4ac2",
+        "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 9545,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-11T19:24:13Z",
+      "side": 1,
+      "message": "I try to name these the same as the BoringSSL functions to help people familiar with BoringSSL APIs. So this should be \"NativeCrypto_ERR_get_error\"",
+      "range": {
+        "startLine": 9545,
+        "startChar": 24,
+        "endLine": 9545,
+        "endChar": 49
+      },
+      "revId": "7c11ecaf7afdc5abd25bf158aaf05b0d2786e119",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b91cbcd_bea3ce54",
         "filename": "src/main/native/org_conscrypt_NativeCrypto.cpp",
         "patchSetId": 6
