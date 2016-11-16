@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d0a2cc7b_c1c5374f",
+        "filename": "src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-11-16T15:28:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0a2cc7b_5b67f960",
+      "range": {
+        "startLine": 306,
+        "startChar": 49,
+        "endLine": 306,
+        "endChar": 52
+      },
+      "revId": "582c8a30eeec782d75aa3b0a5f9fcecb0145795c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0a2cc7b_7b1e75dc",
         "filename": "src/main/java/org/conscrypt/SSLUtils.java",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d0a2cc7b_e1b153df",
+        "filename": "src/main/java/org/conscrypt/SSLUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-11-16T15:28:57Z",
+      "side": 1,
+      "message": "The buffer was being duplicated above, so there was no side effect on the original buffers. That does, however, create unnecessary garbage. I\u0027ve restructured this to just restore the indices.",
+      "parentUuid": "d0a2cc7b_7b1e75dc",
+      "range": {
+        "startLine": 75,
+        "startChar": 16,
+        "endLine": 75,
+        "endChar": 28
+      },
+      "revId": "582c8a30eeec782d75aa3b0a5f9fcecb0145795c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d0a2cc7b_fb002568",
         "filename": "src/main/java/org/conscrypt/SSLUtils.java",
         "patchSetId": 11
@@ -59,6 +107,30 @@
       "writtenOn": "2016-11-15T23:00:18Z",
       "side": 1,
       "message": "This seems fragile. What happens when we introduce TLSv1.3?",
+      "range": {
+        "startLine": 85,
+        "startChar": 23,
+        "endLine": 85,
+        "endChar": 47
+      },
+      "revId": "582c8a30eeec782d75aa3b0a5f9fcecb0145795c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d0a2cc7b_547ca323",
+        "filename": "src/main/java/org/conscrypt/SSLUtils.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-11-16T15:28:57Z",
+      "side": 1,
+      "message": "This will have to be updated. Do you have another suggestion for how to obtain the packet length?",
+      "parentUuid": "d0a2cc7b_fb002568",
       "range": {
         "startLine": 85,
         "startChar": 23,
