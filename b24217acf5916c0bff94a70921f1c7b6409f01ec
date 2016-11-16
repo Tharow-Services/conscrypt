@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "4b91cbcd_01f61672",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 722,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-11-16T15:28:57Z",
+      "side": 1,
+      "message": "Added a check for hasArray throughout and copy to a heap buffer when necessary.",
+      "parentUuid": "4b91cbcd_9be6246d",
+      "range": {
+        "startLine": 722,
+        "startChar": 61,
+        "endLine": 722,
+        "endChar": 72
+      },
+      "revId": "b24217acf5916c0bff94a70921f1c7b6409f01ec",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4b91cbcd_b22868b9",
         "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
         "patchSetId": 4
