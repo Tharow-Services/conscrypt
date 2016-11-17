@@ -403,6 +403,30 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         }
 
         @Override
+        protected AlgorithmParameters engineGetParameters() {
+            try {
+                AlgorithmParameters params = AlgorithmParameters.getInstance("OAEP");
+
+                final PSource pSrc;
+                if (label == null) {
+                    pSrc = PSource.PSpecified.DEFAULT;
+                } else {
+                    pSrc = new PSource.PSpecified(label);
+                }
+
+                params.init(new OAEPParameterSpec(
+                        EvpMdRef.getJcaDigestAlgorithmStandardNameFromEVP_MD(oaepMd),
+                        EvpMdRef.MGF1_ALGORITHM_NAME,
+                        new MGF1ParameterSpec(
+                                EvpMdRef.getJcaDigestAlgorithmStandardNameFromEVP_MD(mgf1Md)),
+                        pSrc));
+                return params;
+            } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
+                throw new RuntimeException("No providers of AlgorithmParameters.OAEP available");
+            }
+        }
+
+        @Override
         protected void engineSetPadding(String padding) throws NoSuchPaddingException {
             String paddingUpper = padding.toUpperCase(Locale.US);
             if (paddingUpper.equals("OAEPPadding")) {
