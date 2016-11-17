@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "307888ff_46753239",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-11-17T22:16:45Z",
+      "side": 1,
+      "message": "Not useful now, but in the eventual future, we\u0027ll be adding some kind of external-buffer API to BoringSSL which will probably be basically what this wants. Though the first iteration won\u0027t be fully scatter/gather.",
+      "revId": "9edd3836dafc8cfea03e80c124961b8716b0e676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "307888ff_2670364a",
+        "filename": "src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-11-17T22:16:45Z",
+      "side": 1,
+      "message": "This check seems wrong. If it turns out I have more buffer than the maximum record size, that\u0027s fine. The SSL stack will just not consume all the data.",
+      "revId": "9edd3836dafc8cfea03e80c124961b8716b0e676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "307888ff_066b3a60",
+        "filename": "src/main/java/org/conscrypt/SSLUtils.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-11-17T22:16:45Z",
+      "side": 1,
+      "message": "This code is going to break horribly for TLS 1.3 supposing we end up getting https://github.com/tlswg/tls13-spec/pull/762 through the middleboxes. Conscrypt is already going to need a ton of surgery for getHandshakeSession, but this will add further delays to getting TLS 1.3 into Android.\n\nAll this Java I/O stuff is opaque to me, but rather than this, could you not pass the ByteBuffer[] array into JNI and then let the native code deal with it? Specifically, SSL_read will call BIO_read on the transport with the right number of bytes anyway. It will do it in two reads (once to read the header, once to read the body), but if you keep it in C and make a custom BIO that pulls data straight out of the ByteBuffer, I\u0027d expect you to be as efficient if not more. (One less copy of data.) You\u0027ll also have an easier time switching to the external-buffer API once it exists.",
+      "revId": "9edd3836dafc8cfea03e80c124961b8716b0e676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
