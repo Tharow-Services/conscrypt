@@ -50,6 +50,24 @@
       "revId": "9edd3836dafc8cfea03e80c124961b8716b0e676",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "307888ff_867e4a1c",
+        "filename": "src/main/java/org/conscrypt/SSLUtils.java",
+        "patchSetId": 22
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-11-17T22:55:21Z",
+      "side": 1,
+      "message": "Oh hrm, ignore me. My idea won\u0027t work. The problem is that will consume the data into an internal buffer whereas you want underfilled packets to bounce off with BUFFER_UNDERFLOW. Yeah, I don\u0027t see a way to avoid this. Ah well. We\u0027ll just teach this about TLS 1.3 records later and then switch you to the extra fancy API later when it exists.",
+      "parentUuid": "307888ff_066b3a60",
+      "revId": "9edd3836dafc8cfea03e80c124961b8716b0e676",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
