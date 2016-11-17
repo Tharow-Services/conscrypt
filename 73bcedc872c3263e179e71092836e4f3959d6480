@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "70acc09b_8c24b7d4",
+        "filename": "src/main/java/org/conscrypt/SSLUtils.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-17T20:45:47Z",
+      "side": 1,
+      "message": "What\u0027s up with the copyrights here? Should this be only Netty or have both combined?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 3
+      },
+      "revId": "73bcedc872c3263e179e71092836e4f3959d6480",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70acc09b_0c126709",
+        "filename": "src/main/java/org/conscrypt/SSLUtils.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-17T20:45:47Z",
+      "side": 1,
+      "message": "This is unnecessary since we don\u0027t support SSLv2.",
+      "range": {
+        "startLine": 125,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 9
+      },
+      "revId": "73bcedc872c3263e179e71092836e4f3959d6480",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
