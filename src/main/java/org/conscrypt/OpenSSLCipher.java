@@ -998,7 +998,8 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 try {
                     aeadBadTagConstructor = Class.forName("javax.crypto.AEADBadTagException")
                             .getConstructor(String.class);
-                } catch (ClassNotFoundException | NoSuchMethodException e2) {
+                } catch (ClassNotFoundException ignored) {
+                } catch (NoSuchMethodException ignored) {
                 }
 
                 if (aeadBadTagConstructor != null) {
@@ -1007,7 +1008,9 @@ public abstract class OpenSSLCipher extends CipherSpi {
                         badTagException = (BadPaddingException) aeadBadTagConstructor.newInstance(e
                                 .getMessage());
                         badTagException.initCause(e.getCause());
-                    } catch (IllegalAccessException | InstantiationException e2) {
+                    } catch (IllegalAccessException ignored) {
+                        // Fall through
+                    } catch (InstantiationException ignored) {
                         // Fall through
                     } catch (InvocationTargetException e2) {
                         throw (BadPaddingException) new BadPaddingException().initCause(e2
@@ -1069,10 +1072,13 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 AlgorithmParameters params = AlgorithmParameters.getInstance("GCM");
                 params.init(spec);
                 return params;
-            } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
-                // This may happen since Conscrypt doesn't provide this itself.
-                return null;
+            } catch (NoSuchAlgorithmException e) {
+                // Fall through.
+            } catch (InvalidParameterSpecException e) {
+                // Fall through.
             }
+            // This may happen since Conscrypt doesn't provide this itself.
+            return null;
         }
 
         protected abstract long getEVP_AEAD(int keyLength) throws InvalidKeyException;

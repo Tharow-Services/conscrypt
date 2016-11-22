@@ -29,7 +29,8 @@ public class ClientSessionContext extends AbstractSessionContext {
      * Sessions indexed by host and port. Protect from concurrent
      * access by holding a lock on sessionsByHostAndPort.
      */
-    private final HashMap<HostAndPort, SSLSession> sessionsByHostAndPort = new HashMap<>();
+    private final HashMap<HostAndPort, SSLSession> sessionsByHostAndPort =
+        new HashMap<HostAndPort, SSLSession>();
 
     private SSLClientSessionCache persistentCache;
 

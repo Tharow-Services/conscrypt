@@ -46,7 +46,7 @@ public final class CryptoUpcalls {
      * Finds providers that are not us that provide the requested algorithms.
      */
     private static ArrayList<Provider> getExternalProviders(String algorithm) {
-        ArrayList<Provider> providers = new ArrayList<>(1);
+        ArrayList<Provider> providers = new ArrayList<Provider>(1);
         for (Provider p : Security.getProviders(algorithm)) {
             if (!isOurProvider(p)) {
                 providers.add(p);
@@ -107,7 +107,9 @@ public final class CryptoUpcalls {
                     signature = Signature.getInstance(algorithm, p);
                     signature.initSign(javaKey);
                     break;
-                } catch (NoSuchAlgorithmException | InvalidKeyException e) {
+                } catch (NoSuchAlgorithmException e) {
+                    signature = null;
+                } catch (InvalidKeyException e) {
                     signature = null;
                 }
             }
@@ -123,14 +125,14 @@ public final class CryptoUpcalls {
             return signature.sign();
         } catch (Exception e) {
             System.err.println("Exception while signing message with " + javaKey.getAlgorithm()
-                    + " private key:");
+                + " private key:");
             e.printStackTrace();
             return null;
         }
     }
 
     public static byte[] rsaDecryptWithPrivateKey(PrivateKey javaKey, int openSSLPadding,
-            byte[] input) {
+        byte[] input) {
         String keyAlgorithm = javaKey.getAlgorithm();
         if (!"RSA".equals(keyAlgorithm)) {
             System.err.println("Unexpected key type: " + keyAlgorithm);
@@ -167,7 +169,10 @@ public final class CryptoUpcalls {
             if (isOurProvider(c.getProvider())) {
                 c = null;
             }
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+        } catch (NoSuchAlgorithmException e) {
+            System.err.println("Unsupported cipher algorithm: " + transformation);
+            return null;
+        } catch (NoSuchPaddingException e) {
             System.err.println("Unsupported cipher algorithm: " + transformation);
             return null;
         } catch (InvalidKeyException e) {
@@ -185,8 +190,11 @@ public final class CryptoUpcalls {
                     c = Cipher.getInstance(transformation, p);
                     c.init(Cipher.DECRYPT_MODE, javaKey);
                     break;
-                } catch (NoSuchAlgorithmException | InvalidKeyException
-                        | NoSuchPaddingException e) {
+                } catch (NoSuchAlgorithmException e) {
+                    c = null;
+                } catch (InvalidKeyException e) {
+                    c = null;
+                } catch (NoSuchPaddingException e) {
                     c = null;
                 }
             }
