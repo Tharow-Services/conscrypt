@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "502fbc70_2c1960f3",
+        "filename": "common/src/jni/main/cpp/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5684,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-11-30T23:09:15Z",
+      "side": 1,
+      "message": "This is confusing (I want to split them into different types, but it may be too late now...), but seq_contents should not be a ScopedCBB. Only top-level CBBs should have CBB_cleanup called on them. The failure mode is just an assert, but still.",
+      "range": {
+        "startLine": 5684,
+        "startChar": 28,
+        "endLine": 5684,
+        "endChar": 40
+      },
+      "revId": "eaef1f6bee1c46438b44d68123403ecfed0260be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
