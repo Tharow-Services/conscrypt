@@ -22,6 +22,30 @@
       "revId": "eaef1f6bee1c46438b44d68123403ecfed0260be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d506749_f8ea312b",
+        "filename": "common/src/jni/main/cpp/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 5684,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-11-30T23:12:14Z",
+      "side": 1,
+      "message": "Right, didn\u0027t notice it was only calling CBB_cleanup on the result.",
+      "parentUuid": "502fbc70_2c1960f3",
+      "range": {
+        "startLine": 5684,
+        "startChar": 28,
+        "endLine": 5684,
+        "endChar": 40
+      },
+      "revId": "eaef1f6bee1c46438b44d68123403ecfed0260be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
