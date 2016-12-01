@@ -59,7 +59,7 @@ import javax.security.auth.x500.X500Principal;
  */
 public final class OpenSSLEngineImpl extends SSLEngine
         implements NativeCrypto.SSLHandshakeCallbacks, SSLParametersImpl.AliasChooser,
-                   SSLParametersImpl.PSKCallbacks {
+                   SSLParametersImpl.PSKCallbacks, OpenSSLSocketHolder {
     private static final SSLEngineResult NEED_UNWRAP_OK =
             new SSLEngineResult(OK, NEED_UNWRAP, 0, 0);
     private static final SSLEngineResult NEED_UNWRAP_CLOSED =
@@ -138,6 +138,9 @@ public final class OpenSSLEngineImpl extends SSLEngine
      */
     private AbstractOpenSSLSession sslSession;
 
+    /** Set to true when a session was offered for reuse. */
+    private boolean sessionOfferedForReuse;
+
     /**
      * Used during handshake callbacks.
      */
@@ -191,8 +194,8 @@ public final class OpenSSLEngineImpl extends SSLEngine
             final long sslCtxNativePointer = sessionContext.sslCtxNativePointer;
             sslNativePointer = NativeCrypto.SSL_new(sslCtxNativePointer);
             networkBio = NativeCrypto.SSL_BIO_new(sslNativePointer);
-            sslSession =
-                    sslParameters.getSessionToReuse(sslNativePointer, getPeerHost(), getPeerPort());
+            sessionOfferedForReuse = sslParameters.findAndSetSessionToReuse(
+                    sslNativePointer, getPeerHost(), getPeerPort());
             sslParameters.setSSLParameters(
                     sslCtxNativePointer, sslNativePointer, this, this, getPeerHost());
             sslParameters.setCertificateValidation(sslNativePointer);
@@ -667,7 +670,6 @@ public final class OpenSSLEngineImpl extends SSLEngine
     }
 
     private SSLEngineResult.HandshakeStatus handshake() throws SSLException {
-        long sslSessionCtx = 0L;
         try {
             // Only actually perform the handshake if we haven't already just completed it
             // via BIO operations.
@@ -685,15 +687,8 @@ public final class OpenSSLEngineImpl extends SSLEngine
             }
 
             // Handshake is finished!
-            sslSessionCtx = NativeCrypto.SSL_get1_session(sslNativePointer);
-            if (sslSessionCtx == 0) {
-                // TODO(nathanmittler): Should we throw here?
-                // return pendingStatus(pendingOutboundBytes());
-                throw shutdownWithError("Failed to obtain session after handshake completed");
-            }
-            sslSession = sslParameters.setupSession(sslSessionCtx, sslNativePointer, sslSession,
-                    getPeerHost(), getPeerPort(), true);
-            if (sslSession != null && engineState == EngineState.HANDSHAKE_STARTED) {
+            if (engineState == EngineState.HANDSHAKE_STARTED) {
+                sslSession = new OpenSSLTransientSession(this, sslParameters.getSessionContext());
                 engineState = EngineState.READY_HANDSHAKE_CUT_THROUGH;
             } else {
                 engineState = EngineState.READY;
@@ -702,10 +697,6 @@ public final class OpenSSLEngineImpl extends SSLEngine
             return FINISHED;
         } catch (Exception e) {
             throw(SSLHandshakeException) new SSLHandshakeException("Handshake failed").initCause(e);
-        } finally {
-            if (sslSession == null && sslSessionCtx != 0) {
-                NativeCrypto.SSL_SESSION_free(sslSessionCtx);
-            }
         }
     }
 
@@ -1103,8 +1094,8 @@ public final class OpenSSLEngineImpl extends SSLEngine
         synchronized (stateLock) {
             switch (type) {
                 case SSL_CB_HANDSHAKE_DONE:
-                    if (engineState != EngineState.HANDSHAKE_STARTED &&
-                        engineState != EngineState.READY_HANDSHAKE_CUT_THROUGH) {
+                    if (engineState != EngineState.HANDSHAKE_STARTED
+                            && engineState != EngineState.READY_HANDSHAKE_CUT_THROUGH) {
                         throw new IllegalStateException(
                                 "Completed handshake while in mode " + engineState);
                     }
@@ -1114,9 +1105,19 @@ public final class OpenSSLEngineImpl extends SSLEngine
                     // For clients, this will allow the NEED_UNWRAP status to be
                     // returned.
                     engineState = EngineState.HANDSHAKE_STARTED;
-                    break;
+                    return;
+                default:
+                    return;
             }
         }
+
+        // We either arrive here during a full handshake in which case
+        // sslSession will be null or after False Start in which case {@code
+        // sslSession} will be a {@code TransientSession}. Create a new session
+        // in any case.
+        sslSession = sslParameters.setupSession(NativeCrypto.SSL_get1_session(sslNativePointer),
+                sslNativePointer, sessionOfferedForReuse, getHostnameOrIP(), getPort());
+        sslParameters.getSessionContext().putSession(sslSession);
     }
 
     @Override
@@ -1133,13 +1134,8 @@ public final class OpenSSLEngineImpl extends SSLEngine
             OpenSSLX509Certificate[] peerCertChain =
                     OpenSSLX509Certificate.createCertChain(certRefs);
 
-            byte[] ocspData = NativeCrypto.SSL_get_ocsp_response(sslNativePointer);
-            byte[] tlsSctData = NativeCrypto.SSL_get_signed_cert_timestamp_list(sslNativePointer);
-
             // Used for verifyCertificateChain callback
-            handshakeSession = new OpenSSLSessionImpl(
-                    NativeCrypto.SSL_get1_session(sslNativePointer), null, peerCertChain, ocspData,
-                    tlsSctData, getPeerHost(), getPeerPort(), null);
+            handshakeSession = new OpenSSLTransientSession(this, sslParameters.getSessionContext());
 
             boolean client = sslParameters.getUseClientMode();
             if (client) {
@@ -1337,5 +1333,25 @@ public final class OpenSSLEngineImpl extends SSLEngine
             throw new IllegalArgumentException(String.format(fmt, args));
         }
         return obj;
+    }
+
+    @Override
+    public long getSSLSocketNativeRef() {
+        return sslNativePointer;
+    }
+
+    @Override
+    public String getHostnameOrIP() {
+        return getPeerHost();
+    }
+
+    @Override
+    public String getHostname() {
+        return getPeerHost();
+    }
+
+    @Override
+    public int getPort() {
+        return getPeerPort();
     }
 }
