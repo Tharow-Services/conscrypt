@@ -17,15 +17,11 @@
 package org.conscrypt;
 
 import java.io.IOException;
-import java.security.Principal;
-import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSessionBindingEvent;
 import javax.net.ssl.SSLSessionBindingListener;
@@ -41,7 +37,6 @@ public class OpenSSLSessionImpl extends OpenSSLAbstractSession {
     final X509Certificate[] localCertificates;
     final X509Certificate[] peerCertificates;
 
-    private boolean isValid = true;
     private final Map<String, Object> values = new HashMap<String, Object>();
     private byte[] peerCertificateOcspData;
     private byte[] peerTlsSctData;
