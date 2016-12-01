@@ -31,13 +31,13 @@ import javax.security.cert.X509Certificate;
  * compatibility with previous versions of Android which don't have ExtendedSSLSession.
  */
 public class OpenSSLExtendedSessionImpl extends ExtendedSSLSession {
-    private final OpenSSLSessionImpl delegate;
+    private final OpenSSLAbstractSession delegate;
 
-    public OpenSSLExtendedSessionImpl(OpenSSLSessionImpl delegate) {
+    public OpenSSLExtendedSessionImpl(OpenSSLAbstractSession delegate) {
         this.delegate = delegate;
     }
 
-    public OpenSSLSessionImpl getDelegate() {
+    public OpenSSLAbstractSession getDelegate() {
         return delegate;
     }
 

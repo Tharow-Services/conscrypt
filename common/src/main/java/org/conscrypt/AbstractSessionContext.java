@@ -317,8 +317,8 @@ abstract class AbstractSessionContext implements SSLSessionContext {
     }
 
     protected SSLSession wrapSSLSessionIfNeeded(SSLSession session) {
-        if (session instanceof OpenSSLSessionImpl) {
-            return Platform.wrapSSLSession((OpenSSLSessionImpl) session);
+        if (session instanceof OpenSSLAbstractSession) {
+            return Platform.wrapSSLSession((OpenSSLAbstractSession) session);
         } else {
             return session;
         }

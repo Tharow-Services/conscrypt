@@ -388,7 +388,7 @@ public class SSLParametersImpl implements Cloneable {
         return principalBytes;
     }
 
-    OpenSSLSessionImpl getSessionToReuse(long sslNativePointer, String hostname, int port)
+    OpenSSLAbstractSession getSessionToReuse(long sslNativePointer, String hostname, int port)
             throws SSLException {
         OpenSSLSessionImpl sessionToReuse = null;
 
@@ -640,13 +640,13 @@ public class SSLParametersImpl implements Cloneable {
         }
     }
 
-    OpenSSLSessionImpl setupSession(long sslSessionNativePointer, long sslNativePointer,
-            final OpenSSLSessionImpl sessionToReuse, String hostname, int port,
+    OpenSSLAbstractSession setupSession(long sslSessionNativePointer, long sslNativePointer,
+            final OpenSSLAbstractSession sessionToReuse, String hostname, int port,
             boolean handshakeCompleted) throws IOException {
-        OpenSSLSessionImpl sslSession = null;
+        OpenSSLAbstractSession sslSession = null;
         if (sessionToReuse != null && NativeCrypto.SSL_session_reused(sslNativePointer)) {
             sslSession = sessionToReuse;
-            sslSession.lastAccessedTime = System.currentTimeMillis();
+            sslSession.setLastAccessedTime(System.currentTimeMillis());
             NativeCrypto.SSL_SESSION_free(sslSessionNativePointer);
         } else {
             if (!getEnableSessionCreation()) {
