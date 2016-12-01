@@ -388,10 +388,11 @@ public class SSLParametersImpl implements Cloneable {
         return principalBytes;
     }
 
-    AbstractOpenSSLSession getSessionToReuse(long sslNativePointer, String hostname, int port)
+    /**
+     * Returns {@code true} if an SSL session was set for reuse.
+     */
+    boolean findAndSetSessionToReuse(long sslNativePointer, String hostname, int port)
             throws SSLException {
-        OpenSSLSessionImpl sessionToReuse = null;
-
         if (client_mode) {
             // look for client session to reuse
             SSLSession cachedSession = getCachedClientSession(clientSessionContext, hostname, port);
@@ -401,14 +402,14 @@ public class SSLParametersImpl implements Cloneable {
                 }
 
                 if (cachedSession instanceof OpenSSLSessionImpl) {
-                    sessionToReuse = (OpenSSLSessionImpl) cachedSession;
                     NativeCrypto.SSL_set_session(sslNativePointer,
-                            sessionToReuse.sslSessionNativePointer);
+                            ((OpenSSLSessionImpl) cachedSession).sslSessionNativePointer);
+                    return true;
                 }
             }
         }
 
-        return sessionToReuse;
+        return false;
     }
 
     void setTlsChannelId(long sslNativePointer, OpenSSLKey channelIdPrivateKey)
@@ -641,33 +642,33 @@ public class SSLParametersImpl implements Cloneable {
     }
 
     AbstractOpenSSLSession setupSession(long sslSessionNativePointer, long sslNativePointer,
-            final AbstractOpenSSLSession sessionToReuse, String hostname, int port,
-            boolean handshakeCompleted) throws IOException {
-        AbstractOpenSSLSession sslSession = null;
-        if (sessionToReuse != null && NativeCrypto.SSL_session_reused(sslNativePointer)) {
-            sslSession = sessionToReuse;
-            sslSession.setLastAccessedTime(System.currentTimeMillis());
-            NativeCrypto.SSL_SESSION_free(sslSessionNativePointer);
-        } else {
-            if (!getEnableSessionCreation()) {
-                // Should have been prevented by
-                // NativeCrypto.SSL_set_session_creation_enabled
-                throw new IllegalStateException("SSL Session may not be created");
-            }
-            X509Certificate[] localCertificates = OpenSSLX509Certificate.createCertChain(
-                    NativeCrypto.SSL_get_certificate(sslNativePointer));
-            X509Certificate[] peerCertificates = OpenSSLX509Certificate.createCertChain(
-                    NativeCrypto.SSL_get_peer_cert_chain(sslNativePointer));
-            byte[] ocspData = NativeCrypto.SSL_get_ocsp_response(sslNativePointer);
-            byte[] tlsSctData = NativeCrypto.SSL_get_signed_cert_timestamp_list(sslNativePointer);
-            sslSession = new OpenSSLSessionImpl(sslSessionNativePointer, localCertificates,
-                    peerCertificates, ocspData, tlsSctData, hostname, port, getSessionContext());
-            // if not, putSession later in handshakeCompleted() callback
-            if (handshakeCompleted) {
-                getSessionContext().putSession(sslSession);
-            }
+            boolean sessionOfferedForReuse, String hostname, int port)
+            throws IllegalStateException {
+        if (!getEnableSessionCreation()
+                && (!sessionOfferedForReuse
+                           || !NativeCrypto.SSL_session_reused(sslNativePointer))) {
+            // Should have been prevented by
+            // NativeCrypto.SSL_set_session_creation_enabled
+            throw new IllegalStateException("SSL Session may not be created");
         }
-        return sslSession;
+
+        X509Certificate[] localCertificates = OpenSSLX509Certificate.createCertChain(
+                NativeCrypto.SSL_get_certificate(sslNativePointer));
+        X509Certificate[] peerCertificates = OpenSSLX509Certificate.createCertChain(
+                NativeCrypto.SSL_get_peer_cert_chain(sslNativePointer));
+        byte[] ocspData = NativeCrypto.SSL_get_ocsp_response(sslNativePointer);
+        byte[] tlsSctData = NativeCrypto.SSL_get_signed_cert_timestamp_list(sslNativePointer);
+        return new OpenSSLSessionImpl(sslSessionNativePointer, localCertificates, peerCertificates,
+                ocspData, tlsSctData, hostname, port, getSessionContext());
+    }
+
+    /**
+     * Cache the SSLSession in the appropriate SessionContext. This should only
+     * be called once BoringSSL has verified that the SSL_SESSION is the correct
+     * one to use; e.g., via the new_session_callback function.
+     */
+    void cacheSession(AbstractOpenSSLSession sslSession) {
+        getSessionContext().putSession(sslSession);
     }
 
     void chooseClientCertificate(byte[] keyTypeBytes, byte[][] asn1DerEncodedPrincipals,

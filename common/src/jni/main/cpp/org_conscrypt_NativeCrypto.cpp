@@ -6830,6 +6830,35 @@ static DH* tmp_dh_callback(SSL* ssl, int is_export, int keylength) {
     return tmp_dh;
 }
 
+static int new_session_callback(SSL* ssl, SSL_SESSION* session) {
+    JNI_TRACE("ssl=%p new_session_callback session=%p", ssl, session);
+
+    AppData* appData = toAppData(ssl);
+    JNIEnv* env = appData->env;
+    if (env == nullptr) {
+        ALOGE("AppData->env missing in new_session_callback");
+        JNI_TRACE("ssl=%p new_session_callback env error", ssl);
+        return 0;
+    }
+    if (env->ExceptionCheck()) {
+        JNI_TRACE("ssl=%p new_session_callback already pending exception", ssl);
+        return 0;
+    }
+
+    jobject sslHandshakeCallbacks = appData->sslHandshakeCallbacks;
+    jclass cls = env->GetObjectClass(sslHandshakeCallbacks);
+    jmethodID methodID = env->GetMethodID(cls, "onNewSessionCreated", "(J)Z");
+    JNI_TRACE("ssl=%p new_session_callback calling onNewSessionCreated", ssl);
+    jboolean ret = env->CallBooleanMethod(sslHandshakeCallbacks, methodID,
+                                          reinterpret_cast<jlong>(session));
+    if (env->ExceptionCheck()) {
+        JNI_TRACE("ssl=%p new_session_callback exception cleared", ssl);
+        env->ExceptionClear();
+    }
+    JNI_TRACE("ssl=%p new_session_callback completed => %d", ssl, ret);
+    return ret;
+}
+
 static jint NativeCrypto_EVP_has_aes_hardware(JNIEnv*, jclass) {
     int ret = 0;
     ret = EVP_has_aes_hardware();
@@ -6912,6 +6941,13 @@ static jlong NativeCrypto_SSL_CTX_new(JNIEnv* env, jclass) {
     if (kWithJniTraceKeys) {
         SSL_CTX_set_keylog_callback(sslCtx.get(), debug_print_session_key);
     }
+
+    // By default BoringSSL will cache in server mode, but we want to get
+    // notified of new sessions being created in client mode. We set
+    // SSL_SESS_CACHE_BOTH in order to get the callback in client mode, but
+    // ignore it in server mode in favor of the internal cache.
+    SSL_CTX_set_session_cache_mode(sslCtx.get(), SSL_SESS_CACHE_BOTH);
+    SSL_CTX_sess_set_new_cb(sslCtx.get(), new_session_callback);
 
     // Disable RSA-PSS deliberately until CryptoUpcalls supports it.
     if (!SSL_CTX_set_signing_algorithm_prefs(
@@ -8078,7 +8114,30 @@ static void NativeCrypto_SSL_renegotiate(JNIEnv* env, jclass, jlong ssl_address)
     // if client agrees, set ssl state and perform renegotiation
     SSL_set_state(ssl, SSL_ST_ACCEPT);
     SSL_do_handshake(ssl);
-    JNI_TRACE("ssl=%p NativeCrypto_SSL_renegotiate =>", ssl);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_renegotiate => OK", ssl);
+}
+
+static jstring NativeCrypto_SSL_get_current_cipher(JNIEnv* env, jclass, jlong ssl_address) {
+    SSL* ssl = to_SSL(env, ssl_address, true);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_current_cipher", ssl);
+    if (ssl == nullptr) {
+        return nullptr;
+    }
+    const SSL_CIPHER* cipher = SSL_get_current_cipher(ssl);
+    const char* name = SSL_CIPHER_get_name(cipher);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_current_cipher => %s", ssl, name);
+    return env->NewStringUTF(name);
+}
+
+static jstring NativeCrypto_SSL_get_version(JNIEnv* env, jclass, jlong ssl_address) {
+    SSL* ssl = to_SSL(env, ssl_address, true);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_version", ssl);
+    if (ssl == nullptr) {
+        return nullptr;
+    }
+    const char* protocol = SSL_get_version(ssl);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_version => %s", ssl, protocol);
+    return env->NewStringUTF(protocol);
 }
 
 /**
@@ -10028,6 +10087,8 @@ static JNINativeMethod sNativeCryptoMethods[] = {
         NATIVE_METHOD(NativeCrypto, SSL_get_servername, "(J)Ljava/lang/String;"),
         NATIVE_METHOD(NativeCrypto, SSL_do_handshake, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "I)V"),
         NATIVE_METHOD(NativeCrypto, SSL_renegotiate, "(J)V"),
+        NATIVE_METHOD(NativeCrypto, SSL_get_current_cipher, "(J)Ljava/lang/String;"),
+        NATIVE_METHOD(NativeCrypto, SSL_get_version, "(J)Ljava/lang/String;"),
         NATIVE_METHOD(NativeCrypto, SSL_get_certificate, "(J)[J"),
         NATIVE_METHOD(NativeCrypto, SSL_get_peer_cert_chain, "(J)[J"),
         NATIVE_METHOD(NativeCrypto, SSL_read, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "[BIII)I"),

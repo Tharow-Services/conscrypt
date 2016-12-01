@@ -1032,6 +1032,10 @@ public final class NativeCrypto {
      */
     public static native void SSL_renegotiate(long sslNativePointer) throws SSLException;
 
+    public static native String SSL_get_current_cipher(long ssl);
+
+    public static native String SSL_get_version(long ssl);
+
     /**
      * Returns the local X509 certificate references. Must X509_free when done.
      */
@@ -1153,6 +1157,12 @@ public final class NativeCrypto {
          * Called when SSL state changes. This could be handshake completion.
          */
         void onSSLStateChange(int type, int val);
+
+        /**
+         * Called when a new session should be added to the session cache.
+         * Returns {@code true} if {@code sslSessionNativePtr} is owned.
+         */
+        public boolean onNewSessionCreated(long sslSessionNativePtr);
     }
 
     public static native long ERR_peek_last_error();
