@@ -1036,6 +1036,10 @@ public final class NativeCrypto {
      */
     public static native void SSL_renegotiate(long sslNativePointer) throws SSLException;
 
+    public static native String SSL_get_current_cipher(long ssl);
+
+    public static native String SSL_get_version(long ssl);
+
     /**
      * Returns the local X509 certificate references. Must X509_free when done.
      */
