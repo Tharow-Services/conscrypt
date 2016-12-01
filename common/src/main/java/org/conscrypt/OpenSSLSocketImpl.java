@@ -55,11 +55,9 @@ import org.conscrypt.util.ArrayUtils;
  * <li>Server Name Indication
  * </ul>
  */
-public class OpenSSLSocketImpl
-        extends javax.net.ssl.SSLSocket
+public class OpenSSLSocketImpl extends javax.net.ssl.SSLSocket
         implements NativeCrypto.SSLHandshakeCallbacks, SSLParametersImpl.AliasChooser,
-        SSLParametersImpl.PSKCallbacks {
-
+                   SSLParametersImpl.PSKCallbacks, OpenSSLSocketHolder {
     private static final boolean DBG_STATE = false;
 
     /**
@@ -77,12 +75,6 @@ public class OpenSSLSocketImpl
      * {@link #startHandshake()} has been called at least once.
      */
     private static final int STATE_HANDSHAKE_STARTED = 1;
-
-    /**
-     * {@link #handshakeCompleted()} has been called, but {@link #startHandshake()} hasn't
-     * returned yet.
-     */
-    private static final int STATE_HANDSHAKE_COMPLETED = 2;
 
     /**
      * {@link #startHandshake()} has completed but {@link #handshakeCompleted()} hasn't
@@ -159,6 +151,9 @@ public class OpenSSLSocketImpl
 
     /** Set during startHandshake. */
     private OpenSSLAbstractSession sslSession;
+
+    /** Set to true when a session was offered for reuse. */
+    private boolean sessionOfferedForReuse;
 
     /** Used during handshake callbacks. */
     private OpenSSLAbstractSession handshakeSession;
@@ -324,8 +319,8 @@ public class OpenSSLSocketImpl
                 }
             }
 
-            final OpenSSLAbstractSession sessionToReuse =
-                    sslParameters.getSessionToReuse(sslNativePointer, getHostnameOrIP(), getPort());
+            sessionOfferedForReuse = sslParameters.findAndSetSessionToReuse(
+                    sslNativePointer, getHostnameOrIP(), getPort());
             sslParameters.setSSLParameters(sslCtxNativePointer, sslNativePointer, this, this,
                     getHostname());
             sslParameters.setCertificateValidation(sslNativePointer);
@@ -345,11 +340,9 @@ public class OpenSSLSocketImpl
                 }
             }
 
-            long sslSessionNativePointer;
             try {
                 NativeCrypto.SSL_do_handshake(
                         sslNativePointer, Platform.getFileDescriptor(socket), this, getSoTimeout());
-                sslSessionNativePointer = NativeCrypto.SSL_get1_session(sslNativePointer);
             } catch (CertificateException e) {
                 SSLHandshakeException wrapper = new SSLHandshakeException(e.getMessage());
                 wrapper.initCause(e);
@@ -380,27 +373,26 @@ public class OpenSSLSocketImpl
                 throw e;
             }
 
-            boolean handshakeCompleted = false;
+            boolean inFalseStart = false;
             synchronized (stateLock) {
-                if (state == STATE_HANDSHAKE_COMPLETED) {
-                    handshakeCompleted = true;
+                if (state == STATE_HANDSHAKE_STARTED) {
+                    inFalseStart = true;
                 } else if (state == STATE_CLOSED) {
                     return;
                 }
             }
 
-            sslSession = sslParameters.setupSession(sslSessionNativePointer, sslNativePointer,
-                    sessionToReuse, getHostnameOrIP(), getPort(), handshakeCompleted);
+            // If we are in False Start, the handshake will not have completed
+            // yet and we will need a transient SSLSession to return to clients.
+            if (inFalseStart) {
+                sslSession = new OpenSSLTransientSession(this);
+            }
 
-            // Restore the original timeout now that the handshake is complete
+            // Restore the original timeout now that the call to
+            // SSL_do_handshake is complete
             if (handshakeTimeoutMilliseconds >= 0) {
                 setSoTimeout(savedReadTimeoutMilliseconds);
                 setSoWriteTimeout(savedWriteTimeoutMilliseconds);
-            }
-
-            // if not, notifyHandshakeCompletedListeners later in handshakeCompleted() callback
-            if (handshakeCompleted) {
-                notifyHandshakeCompletedListeners();
             }
 
             synchronized (stateLock) {
@@ -408,7 +400,7 @@ public class OpenSSLSocketImpl
 
                 if (state == STATE_HANDSHAKE_STARTED) {
                     state = STATE_READY_HANDSHAKE_CUT_THROUGH;
-                } else if (state == STATE_HANDSHAKE_COMPLETED) {
+                } else {
                     state = STATE_READY;
                 }
 
@@ -437,7 +429,6 @@ public class OpenSSLSocketImpl
                 try {
                     shutdownAndFreeSslNative();
                 } catch (IOException ignored) {
-
                 }
             }
         }
@@ -502,33 +493,19 @@ public class OpenSSLSocketImpl
         }
 
         synchronized (stateLock) {
-            if (state == STATE_HANDSHAKE_STARTED) {
-                // If sslSession is null, the handshake was completed during
-                // the call to NativeCrypto.SSL_do_handshake and not during a
-                // later read operation. That means we do not need to fix up
-                // the SSLSession and session cache or notify
-                // HandshakeCompletedListeners, it will be done in
-                // startHandshake.
-
-                state = STATE_HANDSHAKE_COMPLETED;
-                return;
-            } else if (state == STATE_READY_HANDSHAKE_CUT_THROUGH) {
-                // We've returned from startHandshake, which means we've set a sslSession etc.
-                // we need to fix them up, which we'll do outside this lock.
-            } else if (state == STATE_CLOSED) {
+            if (state == STATE_CLOSED) {
                 // Someone called "close" but the handshake hasn't been interrupted yet.
                 return;
             }
         }
 
-        // reset session id from the native pointer and update the
-        // appropriate cache.
-        sslSession.resetId();
-        AbstractSessionContext sessionContext =
-            (sslParameters.getUseClientMode())
-            ? sslParameters.getClientSessionContext()
-                : sslParameters.getServerSessionContext();
-        sessionContext.putSession(sslSession);
+        // We either arrive here during a full handshake in which case
+        // sslSession will be null or after False Start in which case {@code
+        // sslSession} will be a {@code TransientSession}. Create a new session
+        // in any case.
+        sslSession = sslParameters.setupSession(NativeCrypto.SSL_get1_session(sslNativePointer),
+                sslNativePointer, sessionOfferedForReuse, getHostname(), getPort());
+        getSessionContext().putSession(sslSession);
 
         // let listeners know we are finally done
         notifyHandshakeCompletedListeners();
@@ -540,6 +517,11 @@ public class OpenSSLSocketImpl
             // Notify all threads waiting for the handshake to complete.
             stateLock.notifyAll();
         }
+    }
+
+    protected AbstractSessionContext getSessionContext() {
+        return (sslParameters.getUseClientMode()) ? sslParameters.getClientSessionContext()
+                                                  : sslParameters.getServerSessionContext();
     }
 
     void notifyHandshakeCompletedListeners() {
@@ -578,13 +560,8 @@ public class OpenSSLSocketImpl
             OpenSSLX509Certificate[] peerCertChain =
                     OpenSSLX509Certificate.createCertChain(certRefs);
 
-            byte[] ocspData = NativeCrypto.SSL_get_ocsp_response(sslNativePointer);
-            byte[] tlsSctData = NativeCrypto.SSL_get_signed_cert_timestamp_list(sslNativePointer);
-
             // Used for verifyCertificateChain callback
-            handshakeSession = new OpenSSLSessionImpl(
-                    NativeCrypto.SSL_get1_session(sslNativePointer), null, peerCertChain, ocspData,
-                    tlsSctData, getHostnameOrIP(), getPort(), null);
+            handshakeSession = new OpenSSLTransientSession(this);
 
             boolean client = sslParameters.getUseClientMode();
             if (client) {
@@ -1322,5 +1299,10 @@ public class OpenSSLSocketImpl
     @Override
     public SecretKey getPSKKey(PSKKeyManager keyManager, String identityHint, String identity) {
         return keyManager.getKey(identityHint, identity, this);
+    }
+
+    @Override
+    public long getSSLSocketNativeRef() {
+        return sslNativePointer;
     }
 }

@@ -8076,7 +8076,30 @@ static void NativeCrypto_SSL_renegotiate(JNIEnv* env, jclass, jlong ssl_address)
     // if client agrees, set ssl state and perform renegotiation
     SSL_set_state(ssl, SSL_ST_ACCEPT);
     SSL_do_handshake(ssl);
-    JNI_TRACE("ssl=%p NativeCrypto_SSL_renegotiate =>", ssl);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_renegotiate => OK", ssl);
+}
+
+static jstring NativeCrypto_SSL_get_current_cipher(JNIEnv* env, jclass, jlong ssl_address) {
+    SSL* ssl = to_SSL(env, ssl_address, true);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_current_cipher", ssl);
+    if (ssl == nullptr) {
+        return nullptr;
+    }
+    const SSL_CIPHER* cipher = SSL_get_current_cipher(ssl);
+    const char* name = SSL_CIPHER_get_name(cipher);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_current_cipher => %s", ssl, name);
+    return env->NewStringUTF(name);
+}
+
+static jstring NativeCrypto_SSL_get_version(JNIEnv* env, jclass, jlong ssl_address) {
+    SSL* ssl = to_SSL(env, ssl_address, true);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_version", ssl);
+    if (ssl == nullptr) {
+        return nullptr;
+    }
+    const char* protocol = SSL_get_version(ssl);
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_get_version => %s", ssl, protocol);
+    return env->NewStringUTF(protocol);
 }
 
 /**
@@ -10026,6 +10049,8 @@ static JNINativeMethod sNativeCryptoMethods[] = {
         NATIVE_METHOD(NativeCrypto, SSL_get_servername, "(J)Ljava/lang/String;"),
         NATIVE_METHOD(NativeCrypto, SSL_do_handshake, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "I)I"),
         NATIVE_METHOD(NativeCrypto, SSL_renegotiate, "(J)V"),
+        NATIVE_METHOD(NativeCrypto, SSL_get_current_cipher, "(J)Ljava/lang/String;"),
+        NATIVE_METHOD(NativeCrypto, SSL_get_version, "(J)Ljava/lang/String;"),
         NATIVE_METHOD(NativeCrypto, SSL_get_certificate, "(J)[J"),
         NATIVE_METHOD(NativeCrypto, SSL_get_peer_cert_chain, "(J)[J"),
         NATIVE_METHOD(NativeCrypto, SSL_read, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "[BIII)I"),
