@@ -17,6 +17,7 @@
 package org.conscrypt;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
@@ -531,5 +532,20 @@ public class OpenSSLX509Certificate extends X509Certificate {
         } finally {
             super.finalize();
         }
+    }
+
+    /**
+     * Return a possibly null array of X509Certificates given the possibly null
+     * array of DER encoded bytes.
+     */
+    static OpenSSLX509Certificate[] createCertChain(long[] certificateRefs) throws IOException {
+        if (certificateRefs == null) {
+            return null;
+        }
+        OpenSSLX509Certificate[] certificates = new OpenSSLX509Certificate[certificateRefs.length];
+        for (int i = 0; i < certificateRefs.length; i++) {
+            certificates[i] = new OpenSSLX509Certificate(certificateRefs[i]);
+        }
+        return certificates;
     }
 }
