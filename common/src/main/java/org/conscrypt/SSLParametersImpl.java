@@ -388,7 +388,7 @@ public class SSLParametersImpl implements Cloneable {
         return principalBytes;
     }
 
-    OpenSSLSessionImpl getSessionToReuse(long sslNativePointer, String hostname, int port)
+    OpenSSLAbstractSession getSessionToReuse(long sslNativePointer, String hostname, int port)
             throws SSLException {
         OpenSSLSessionImpl sessionToReuse = null;
 
@@ -396,13 +396,12 @@ public class SSLParametersImpl implements Cloneable {
             // look for client session to reuse
             SSLSession cachedSession = getCachedClientSession(clientSessionContext, hostname, port);
             if (cachedSession != null) {
-                if (cachedSession instanceof OpenSSLSessionImpl) {
-                    sessionToReuse = (OpenSSLSessionImpl) cachedSession;
-                } else if (cachedSession instanceof OpenSSLExtendedSessionImpl) {
-                    sessionToReuse = ((OpenSSLExtendedSessionImpl) cachedSession).getDelegate();
+                if (cachedSession instanceof OpenSSLExtendedSessionImpl) {
+                    cachedSession = ((OpenSSLExtendedSessionImpl) cachedSession).getDelegate();
                 }
 
-                if (sessionToReuse != null) {
+                if (cachedSession instanceof OpenSSLSessionImpl) {
+                    sessionToReuse = (OpenSSLSessionImpl) cachedSession;
                     NativeCrypto.SSL_set_session(sslNativePointer,
                             sessionToReuse.sslSessionNativePointer);
                 }
@@ -641,13 +640,13 @@ public class SSLParametersImpl implements Cloneable {
         }
     }
 
-    OpenSSLSessionImpl setupSession(long sslSessionNativePointer, long sslNativePointer,
-            final OpenSSLSessionImpl sessionToReuse, String hostname, int port,
+    OpenSSLAbstractSession setupSession(long sslSessionNativePointer, long sslNativePointer,
+            final OpenSSLAbstractSession sessionToReuse, String hostname, int port,
             boolean handshakeCompleted) throws IOException {
-        OpenSSLSessionImpl sslSession = null;
+        OpenSSLAbstractSession sslSession = null;
         if (sessionToReuse != null && NativeCrypto.SSL_session_reused(sslNativePointer)) {
             sslSession = sessionToReuse;
-            sslSession.lastAccessedTime = System.currentTimeMillis();
+            sslSession.setLastAccessedTime(System.currentTimeMillis());
             NativeCrypto.SSL_SESSION_free(sslSessionNativePointer);
         } else {
             if (!getEnableSessionCreation()) {
