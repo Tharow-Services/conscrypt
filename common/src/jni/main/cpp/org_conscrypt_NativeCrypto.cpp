@@ -6554,8 +6554,7 @@ static int cert_verify_callback(X509_STORE_CTX* x509_store_ctx, void* arg) {
     jobject sslHandshakeCallbacks = appData->sslHandshakeCallbacks;
 
     jclass cls = env->GetObjectClass(sslHandshakeCallbacks);
-    jmethodID methodID
-        = env->GetMethodID(cls, "verifyCertificateChain", "(J[JLjava/lang/String;)V");
+    jmethodID methodID = env->GetMethodID(cls, "verifyCertificateChain", "([JLjava/lang/String;)V");
 
     jlongArray refArray = getCertificateRefs(env, x509_store_ctx->untrusted);
 
@@ -6565,9 +6564,7 @@ static int cert_verify_callback(X509_STORE_CTX* x509_store_ctx, void* arg) {
     JNI_TRACE("ssl=%p cert_verify_callback calling verifyCertificateChain authMethod=%s",
               ssl, authMethod);
     jstring authMethodString = env->NewStringUTF(authMethod);
-    env->CallVoidMethod(sslHandshakeCallbacks, methodID,
-            static_cast<jlong>(reinterpret_cast<uintptr_t>(SSL_get1_session(ssl))), refArray,
-            authMethodString);
+    env->CallVoidMethod(sslHandshakeCallbacks, methodID, refArray, authMethodString);
 
     int result = (env->ExceptionCheck()) ? 0 : 1;
     JNI_TRACE("ssl=%p cert_verify_callback => %d", ssl, result);
@@ -6604,10 +6601,10 @@ static void info_callback(const SSL* ssl, int where, int ret) {
     jobject sslHandshakeCallbacks = appData->sslHandshakeCallbacks;
 
     jclass cls = env->GetObjectClass(sslHandshakeCallbacks);
-    jmethodID methodID = env->GetMethodID(cls, "onSSLStateChange", "(JII)V");
+    jmethodID methodID = env->GetMethodID(cls, "onSSLStateChange", "(II)V");
 
     JNI_TRACE("ssl=%p info_callback calling onSSLStateChange", ssl);
-    env->CallVoidMethod(sslHandshakeCallbacks, methodID, reinterpret_cast<jlong>(ssl), where, ret);
+    env->CallVoidMethod(sslHandshakeCallbacks, methodID, where, ret);
 
     if (env->ExceptionCheck()) {
         JNI_TRACE("ssl=%p info_callback exception", ssl);
@@ -7889,8 +7886,8 @@ static jbyteArray NativeCrypto_SSL_get0_alpn_selected(JNIEnv* env, jclass,
 /**
  * Perform SSL handshake
  */
-static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_address, jobject fdObject,
-                                           jobject shc, jint timeout_millis) {
+static jint NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_address, jobject fdObject,
+                                          jobject shc, jint timeout_millis) {
     SSL* ssl = to_SSL(env, ssl_address, true);
     JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake fd=%p shc=%p timeout_millis=%d", ssl, fdObject,
               shc, timeout_millis);
@@ -8049,9 +8046,8 @@ static jlong NativeCrypto_SSL_do_handshake(JNIEnv* env, jclass, jlong ssl_addres
         JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake unclean error => 0", ssl);
         return 0;
     }
-    SSL_SESSION* ssl_session = SSL_get1_session(ssl);
-    JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake => ssl_session=%p", ssl, ssl_session);
-    return (jlong) ssl_session;
+    JNI_TRACE("ssl=%p NativeCrypto_SSL_do_handshake => %d", ssl, ret);
+    return ret;
 }
 
 /**
@@ -10028,7 +10024,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
         NATIVE_METHOD(NativeCrypto, SSL_accept_renegotiations, "(J)V"),
         NATIVE_METHOD(NativeCrypto, SSL_set_tlsext_host_name, "(JLjava/lang/String;)V"),
         NATIVE_METHOD(NativeCrypto, SSL_get_servername, "(J)Ljava/lang/String;"),
-        NATIVE_METHOD(NativeCrypto, SSL_do_handshake, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "I)J"),
+        NATIVE_METHOD(NativeCrypto, SSL_do_handshake, "(J" FILE_DESCRIPTOR SSL_CALLBACKS "I)I"),
         NATIVE_METHOD(NativeCrypto, SSL_renegotiate, "(J)V"),
         NATIVE_METHOD(NativeCrypto, SSL_get_certificate, "(J)[J"),
         NATIVE_METHOD(NativeCrypto, SSL_get_peer_cert_chain, "(J)[J"),
