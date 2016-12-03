@@ -712,7 +712,6 @@ public final class OpenSSLEngineImpl extends SSLEngine
             } else {
                 engineState = EngineState.READY;
             }
-            handshakeSession = null;
             handshakeFinished = true;
             return FINISHED;
         } catch (Exception e) {
@@ -1166,6 +1165,9 @@ public final class OpenSSLEngineImpl extends SSLEngine
             throw e;
         } catch (Exception e) {
             throw new CertificateException(e);
+        } finally {
+            // Clear this before notifying handshake completed listeners
+            handshakeSession = null;
         }
     }
 
