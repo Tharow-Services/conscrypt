@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ede0d714_75003ae3",
+        "filename": "common/src/jni/main/cpp/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 8050,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-03T01:01:00Z",
+      "side": 1,
+      "message": "I\u0027m not sure if I even need this, but what happens if there is an EOF?",
+      "range": {
+        "startLine": 8049,
+        "startChar": 4,
+        "endLine": 8050,
+        "endChar": 15
+      },
+      "revId": "5c6a2b7c83b08e87d6a866b389ba378b49df74c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
