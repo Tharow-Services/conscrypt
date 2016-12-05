@@ -642,11 +642,13 @@ public class SSLParametersImpl implements Cloneable {
     }
 
     AbstractOpenSSLSession setupSession(long sslSessionNativePointer, long sslNativePointer,
-            boolean sessionOfferedForReuse, String hostname, int port) {
+            boolean sessionOfferedForReuse, String hostname, int port)
+            throws IllegalStateException {
         if (!getEnableSessionCreation()
                 && (!sessionOfferedForReuse
                            || !NativeCrypto.SSL_session_reused(sslNativePointer))) {
-            // Should have been prevented by NativeCrypto.SSL_set_session_creation_enabled
+            // Should have been prevented by
+            // NativeCrypto.SSL_set_session_creation_enabled
             throw new IllegalStateException("SSL Session may not be created");
         }
 
@@ -658,6 +660,15 @@ public class SSLParametersImpl implements Cloneable {
         byte[] tlsSctData = NativeCrypto.SSL_get_signed_cert_timestamp_list(sslNativePointer);
         return new OpenSSLSessionImpl(sslSessionNativePointer, localCertificates, peerCertificates,
                 ocspData, tlsSctData, hostname, port, getSessionContext());
+    }
+
+    /**
+     * Cache the SSLSession in the appropriate SessionContext. This should only
+     * be called once BoringSSL has verified that the SSL_SESSION is the correct
+     * one to use; e.g., via the new_session_callback function.
+     */
+    void cacheSession(AbstractOpenSSLSession sslSession) {
+        getSessionContext().putSession(sslSession);
     }
 
     void chooseClientCertificate(byte[] keyTypeBytes, byte[][] asn1DerEncodedPrincipals,

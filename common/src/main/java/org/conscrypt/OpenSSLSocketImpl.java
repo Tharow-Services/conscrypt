@@ -373,18 +373,15 @@ public class OpenSSLSocketImpl extends javax.net.ssl.SSLSocket
                 throw e;
             }
 
-            boolean inFalseStart = false;
             synchronized (stateLock) {
-                if (state == STATE_HANDSHAKE_STARTED) {
-                    inFalseStart = true;
-                } else if (state == STATE_CLOSED) {
+                if (state == STATE_CLOSED) {
                     return;
                 }
             }
 
             // If we are in False Start, the handshake will not have completed
             // yet and we will need a transient SSLSession to return to clients.
-            if (inFalseStart) {
+            if (sslSession == null) {
                 sslSession = new OpenSSLTransientSession(this, getSessionContext());
             }
 
@@ -499,14 +496,6 @@ public class OpenSSLSocketImpl extends javax.net.ssl.SSLSocket
             }
         }
 
-        // We either arrive here during a full handshake in which case
-        // sslSession will be null or after False Start in which case {@code
-        // sslSession} will be a {@code TransientSession}. Create a new session
-        // in any case.
-        sslSession = sslParameters.setupSession(NativeCrypto.SSL_get1_session(sslNativePointer),
-                sslNativePointer, sessionOfferedForReuse, getHostnameOrIP(), getPort());
-        getSessionContext().putSession(sslSession);
-
         // let listeners know we are finally done
         notifyHandshakeCompletedListeners();
 
@@ -578,6 +567,18 @@ public class OpenSSLSocketImpl extends javax.net.ssl.SSLSocket
             // Clear this before notifying handshake completed listeners
             handshakeSession = null;
         }
+    }
+
+    @Override
+    public boolean onNewSessionCreated(long sslSessionNativePtr) {
+        AbstractOpenSSLSession newSession = null;
+        try {
+            sslSession = newSession = sslParameters.setupSession(sslSessionNativePtr,
+                    sslNativePointer, sessionOfferedForReuse, getHostnameOrIP(), getPort());
+            sslParameters.cacheSession(newSession);
+        } catch (Exception ignored) {
+        }
+        return newSession != null;
     }
 
     @Override

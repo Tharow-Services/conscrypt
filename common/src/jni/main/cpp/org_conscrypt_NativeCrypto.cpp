@@ -6847,6 +6847,35 @@ static DH* tmp_dh_callback(SSL* ssl, int is_export, int keylength) {
     return tmp_dh;
 }
 
+static int new_session_callback(SSL* ssl, SSL_SESSION* session) {
+    JNI_TRACE("ssl=%p new_session_callback session=%p", ssl, session);
+
+    AppData* appData = toAppData(ssl);
+    JNIEnv* env = appData->env;
+    if (env == nullptr) {
+        ALOGE("AppData->env missing in new_session_callback");
+        JNI_TRACE("ssl=%p new_session_callback env error", ssl);
+        return 0;
+    }
+    if (env->ExceptionCheck()) {
+        JNI_TRACE("ssl=%p new_session_callback already pending exception", ssl);
+        return 0;
+    }
+
+    jobject sslHandshakeCallbacks = appData->sslHandshakeCallbacks;
+    jclass cls = env->GetObjectClass(sslHandshakeCallbacks);
+    jmethodID methodID = env->GetMethodID(cls, "onNewSessionCreated", "(J)Z");
+    JNI_TRACE("ssl=%p new_session_callback calling onNewSessionCreated", ssl);
+    jboolean ret = env->CallBooleanMethod(sslHandshakeCallbacks, methodID,
+                                          reinterpret_cast<jlong>(session));
+    if (env->ExceptionCheck()) {
+        JNI_TRACE("ssl=%p new_session_callback exception cleared", ssl);
+        env->ExceptionClear();
+    }
+    JNI_TRACE("ssl=%p new_session_callback completed => %d", ssl, ret);
+    return ret;
+}
+
 static jint NativeCrypto_EVP_has_aes_hardware(JNIEnv*, jclass) {
     int ret = 0;
     ret = EVP_has_aes_hardware();
@@ -6962,6 +6991,13 @@ static jlong NativeCrypto_SSL_CTX_new(JNIEnv* env, jclass) {
     if (kWithJniTraceKeys) {
         SSL_CTX_set_keylog_callback(sslCtx.get(), debug_print_session_key);
     }
+
+    // By default BoringSSL will cache in server mode, but we want to get
+    // notified of new sessions being created in client mode. We set
+    // SSL_SESS_CACHE_BOTH in order to get the callback in client mode, but
+    // ignore it in server mode in favor of the internal cache.
+    SSL_CTX_set_session_cache_mode(sslCtx.get(), SSL_SESS_CACHE_BOTH);
+    SSL_CTX_sess_set_new_cb(sslCtx.get(), new_session_callback);
 
     // Disable RSA-PSS deliberately until CryptoUpcalls supports it.
     if (!SSL_CTX_set_signing_algorithm_prefs(
