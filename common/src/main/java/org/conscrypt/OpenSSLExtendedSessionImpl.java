@@ -34,6 +34,10 @@ public class OpenSSLExtendedSessionImpl extends ExtendedSSLSession {
     private final AbstractOpenSSLSession delegate;
 
     public OpenSSLExtendedSessionImpl(AbstractOpenSSLSession delegate) {
+        if (delegate == null) {
+            throw new NullPointerException("delegate == null");
+        }
+
         this.delegate = delegate;
     }
 
