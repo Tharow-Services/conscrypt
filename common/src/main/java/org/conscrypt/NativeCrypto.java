@@ -1157,6 +1157,12 @@ public final class NativeCrypto {
          * Called when SSL state changes. This could be handshake completion.
          */
         void onSSLStateChange(int type, int val);
+
+        /**
+         * Called when a new session should be added to the session cache.
+         * Returns {@code true} if {@code sslSessionNativePtr} is owned.
+         */
+        public boolean onNewSessionCreated(long sslSessionNativePtr);
     }
 
     public static native long ERR_peek_last_error();

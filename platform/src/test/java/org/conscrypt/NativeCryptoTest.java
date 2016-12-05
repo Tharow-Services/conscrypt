@@ -823,6 +823,26 @@ public class NativeCryptoTest {
             }
             return serverPSKKeyRequestedResult;
         }
+
+        public boolean onNewSessionCreatedInvoked;
+        public boolean onNewSessionCreatedSaveSession;
+        public long onNewSessionCreatedSessionNativePointer;
+        @Override
+        public boolean onNewSessionCreated(long sslSessionNativePtr) {
+            if (DEBUG) {
+                System.out.println("ssl=0x" + Long.toString(sslNativePointer, 16)
+                        + " onNewSessionCreated"
+                        + " ssl=0x" + Long.toString(sslSessionNativePtr, 16));
+            }
+            onNewSessionCreatedInvoked = true;
+
+            if (onNewSessionCreatedSaveSession) {
+                onNewSessionCreatedSessionNativePointer = sslSessionNativePtr;
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
     public static class ClientHooks extends Hooks {
@@ -1030,8 +1050,86 @@ public class NativeCryptoTest {
         assertFalse(serverCallback.clientPSKKeyRequestedInvoked);
         assertFalse(clientCallback.serverPSKKeyRequestedInvoked);
         assertFalse(serverCallback.serverPSKKeyRequestedInvoked);
+        assertTrue(clientCallback.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback.onNewSessionCreatedInvoked);
         assertTrue(clientCallback.handshakeCompletedCalled);
         assertTrue(serverCallback.handshakeCompletedCalled);
+    }
+
+    @Test
+    public void test_SSL_do_handshake_reusedSession() throws Exception {
+        // normal client and server case
+        final ServerSocket listener = new ServerSocket(0);
+
+        Future<TestSSLHandshakeCallbacks> client1 = handshake(listener, 0, true, new ClientHooks() {
+            @Override
+            public void configureCallbacks(TestSSLHandshakeCallbacks callbacks) {
+                callbacks.onNewSessionCreatedSaveSession = true;
+            }
+        }, null);
+        Future<TestSSLHandshakeCallbacks> server1 = handshake(listener, 0,
+                false, new ServerHooks(getServerPrivateKey(), getServerCertificates()) {
+                    @Override
+                    public void configureCallbacks(TestSSLHandshakeCallbacks callbacks) {
+                        callbacks.onNewSessionCreatedSaveSession = true;
+                    }
+                }, null);
+        TestSSLHandshakeCallbacks clientCallback1 = client1.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        TestSSLHandshakeCallbacks serverCallback1 = server1.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        assertTrue(clientCallback1.verifyCertificateChainCalled);
+        assertEqualCertificateChains(getServerCertificates(), clientCallback1.certificateChainRefs);
+        assertEquals("ECDHE_RSA", clientCallback1.authMethod);
+        assertFalse(serverCallback1.verifyCertificateChainCalled);
+        assertFalse(clientCallback1.clientCertificateRequestedCalled);
+        assertFalse(serverCallback1.clientCertificateRequestedCalled);
+        assertFalse(clientCallback1.clientPSKKeyRequestedInvoked);
+        assertFalse(serverCallback1.clientPSKKeyRequestedInvoked);
+        assertFalse(clientCallback1.serverPSKKeyRequestedInvoked);
+        assertFalse(serverCallback1.serverPSKKeyRequestedInvoked);
+        assertTrue(clientCallback1.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback1.onNewSessionCreatedInvoked);
+        assertTrue(clientCallback1.handshakeCompletedCalled);
+        assertTrue(serverCallback1.handshakeCompletedCalled);
+
+        final long clientSessionContext = clientCallback1.onNewSessionCreatedSessionNativePointer;
+        final long serverSessionContext = serverCallback1.onNewSessionCreatedSessionNativePointer;
+
+        Future<TestSSLHandshakeCallbacks> client2 = handshake(listener, 0, true, new ClientHooks() {
+            @Override
+            public long beforeHandshake(long c) throws SSLException {
+                long sslNativePtr = super.beforeHandshake(c);
+                NativeCrypto.SSL_set_session(sslNativePtr, clientSessionContext);
+                return sslNativePtr;
+            }
+        }, null);
+        Future<TestSSLHandshakeCallbacks> server2 = handshake(listener, 0,
+                false, new ServerHooks(getServerPrivateKey(), getServerCertificates()) {
+                    @Override
+                    public long beforeHandshake(long c) throws SSLException {
+                        long sslNativePtr = super.beforeHandshake(c);
+                        NativeCrypto.SSL_set_session(sslNativePtr, serverSessionContext);
+                        return sslNativePtr;
+                    }
+                }, null);
+        TestSSLHandshakeCallbacks clientCallback2 = client2.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        TestSSLHandshakeCallbacks serverCallback2 = server2.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+        assertTrue(clientCallback2.verifyCertificateChainCalled);
+        assertEqualCertificateChains(getServerCertificates(), clientCallback2.certificateChainRefs);
+        assertEquals("ECDHE_RSA", clientCallback2.authMethod);
+        assertFalse(serverCallback2.verifyCertificateChainCalled);
+        assertFalse(clientCallback2.clientCertificateRequestedCalled);
+        assertFalse(serverCallback2.clientCertificateRequestedCalled);
+        assertFalse(clientCallback2.clientPSKKeyRequestedInvoked);
+        assertFalse(serverCallback2.clientPSKKeyRequestedInvoked);
+        assertFalse(clientCallback2.serverPSKKeyRequestedInvoked);
+        assertFalse(serverCallback2.serverPSKKeyRequestedInvoked);
+        assertTrue(clientCallback2.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback2.onNewSessionCreatedInvoked);
+        assertTrue(clientCallback2.handshakeCompletedCalled);
+        assertTrue(serverCallback2.handshakeCompletedCalled);
+
+        NativeCrypto.SSL_SESSION_free(clientSessionContext);
+        NativeCrypto.SSL_SESSION_free(serverSessionContext);
     }
 
     @Test
@@ -1081,6 +1179,9 @@ public class NativeCryptoTest {
         assertFalse(serverCallback.clientPSKKeyRequestedInvoked);
         assertFalse(clientCallback.serverPSKKeyRequestedInvoked);
         assertFalse(serverCallback.serverPSKKeyRequestedInvoked);
+
+        assertTrue(clientCallback.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback.onNewSessionCreatedInvoked);
 
         assertTrue(clientCallback.handshakeCompletedCalled);
         assertTrue(serverCallback.handshakeCompletedCalled);
@@ -1253,6 +1354,8 @@ public class NativeCryptoTest {
         assertFalse(serverCallback.clientPSKKeyRequestedInvoked);
         assertFalse(clientCallback.serverPSKKeyRequestedInvoked);
         assertFalse(serverCallback.serverPSKKeyRequestedInvoked);
+        assertTrue(clientCallback.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback.onNewSessionCreatedInvoked);
         assertTrue(clientCallback.handshakeCompletedCalled);
         assertTrue(serverCallback.handshakeCompletedCalled);
         assertNull(sHooks.channelIdAfterHandshakeException);
@@ -1287,6 +1390,8 @@ public class NativeCryptoTest {
         assertFalse(serverCallback.clientPSKKeyRequestedInvoked);
         assertFalse(clientCallback.serverPSKKeyRequestedInvoked);
         assertFalse(serverCallback.serverPSKKeyRequestedInvoked);
+        assertTrue(clientCallback.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback.onNewSessionCreatedInvoked);
         assertTrue(clientCallback.handshakeCompletedCalled);
         assertTrue(serverCallback.handshakeCompletedCalled);
         assertNull(sHooks.channelIdAfterHandshakeException);
@@ -1321,6 +1426,8 @@ public class NativeCryptoTest {
         assertFalse(serverCallback.clientPSKKeyRequestedInvoked);
         assertFalse(clientCallback.serverPSKKeyRequestedInvoked);
         assertFalse(serverCallback.serverPSKKeyRequestedInvoked);
+        assertTrue(clientCallback.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback.onNewSessionCreatedInvoked);
         assertTrue(clientCallback.handshakeCompletedCalled);
         assertTrue(serverCallback.handshakeCompletedCalled);
         assertNull(sHooks.channelIdAfterHandshakeException);
@@ -1345,6 +1452,8 @@ public class NativeCryptoTest {
         assertFalse(serverCallback.verifyCertificateChainCalled);
         assertFalse(clientCallback.clientCertificateRequestedCalled);
         assertFalse(serverCallback.clientCertificateRequestedCalled);
+        assertTrue(clientCallback.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback.onNewSessionCreatedInvoked);
         assertTrue(clientCallback.handshakeCompletedCalled);
         assertTrue(serverCallback.handshakeCompletedCalled);
         assertTrue(clientCallback.clientPSKKeyRequestedInvoked);
@@ -1379,6 +1488,8 @@ public class NativeCryptoTest {
         assertFalse(serverCallback.verifyCertificateChainCalled);
         assertFalse(clientCallback.clientCertificateRequestedCalled);
         assertFalse(serverCallback.clientCertificateRequestedCalled);
+        assertTrue(clientCallback.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback.onNewSessionCreatedInvoked);
         assertTrue(clientCallback.handshakeCompletedCalled);
         assertTrue(serverCallback.handshakeCompletedCalled);
         assertTrue(clientCallback.clientPSKKeyRequestedInvoked);
@@ -1591,6 +1702,9 @@ public class NativeCryptoTest {
         Future<TestSSLHandshakeCallbacks> server = handshake(listener, 0, false, sHooks, null);
         TestSSLHandshakeCallbacks clientCallback = client.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
         TestSSLHandshakeCallbacks serverCallback = server.get(TIMEOUT_SECONDS, TimeUnit.SECONDS);
+
+        assertTrue(clientCallback.onNewSessionCreatedInvoked);
+        assertTrue(serverCallback.onNewSessionCreatedInvoked);
 
         assertTrue(clientCallback.handshakeCompletedCalled);
         assertTrue(serverCallback.handshakeCompletedCalled);

@@ -1110,14 +1110,6 @@ public final class OpenSSLEngineImpl extends SSLEngine
                     return;
             }
         }
-
-        // We either arrive here during a full handshake in which case
-        // sslSession will be null or after False Start in which case {@code
-        // sslSession} will be a {@code TransientSession}. Create a new session
-        // in any case.
-        sslSession = sslParameters.setupSession(NativeCrypto.SSL_get1_session(sslNativePointer),
-                sslNativePointer, sessionOfferedForReuse, getHostnameOrIP(), getPort());
-        sslParameters.getSessionContext().putSession(sslSession);
     }
 
     @Override
@@ -1158,6 +1150,18 @@ public final class OpenSSLEngineImpl extends SSLEngine
             throws CertificateEncodingException, SSLException {
         sslParameters.chooseClientCertificate(
                 keyTypeBytes, asn1DerEncodedPrincipals, sslNativePointer, this);
+    }
+
+    @Override
+    public boolean onNewSessionCreated(long sslSessionNativePtr) {
+        OpenSSLAbstractSession newSession = null;
+        try {
+            sslSession = newSession = sslParameters.setupSession(sslSessionNativePtr,
+                    sslNativePointer, sessionOfferedForReuse, getHostnameOrIP(), getPort());
+            sslParameters.cacheSession(newSession);
+        } catch (Exception ignored) {
+        }
+        return newSession != null;
     }
 
     private void shutdown() {
