@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ede0d714_733a8f89",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLAbstractSession.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-05T20:05:31Z",
+      "side": 1,
+      "message": "need to set sessionContext \u003d null here.",
+      "range": {
+        "startLine": 315,
+        "startChar": 16,
+        "endLine": 315,
+        "endChar": 26
+      },
+      "revId": "2958a1445a91ce20ba65a8ead26c9428621b3b2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

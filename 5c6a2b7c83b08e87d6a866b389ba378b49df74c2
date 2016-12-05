@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ede0d714_d342630d",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLSessionImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-05T20:05:31Z",
+      "side": 0,
+      "message": "Not used anymore.",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 35
+      },
+      "revId": "5c6a2b7c83b08e87d6a866b389ba378b49df74c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ede0d714_933dfb81",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLSessionImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 397,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-05T20:05:31Z",
+      "side": 0,
+      "message": "This is missing from AbstractSession.",
+      "range": {
+        "startLine": 397,
+        "startChar": 8,
+        "endLine": 397,
+        "endChar": 30
+      },
+      "revId": "5c6a2b7c83b08e87d6a866b389ba378b49df74c2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
