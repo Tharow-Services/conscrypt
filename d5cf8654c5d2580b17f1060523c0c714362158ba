@@ -16,6 +16,24 @@
       "revId": "d5cf8654c5d2580b17f1060523c0c714362158ba",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ede0d714_d34f03ab",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-05T19:15:44Z",
+      "side": 1,
+      "message": "I changed the commit message to be more explanatory. Does that help? Line 1153 also indicates that handshakeSession shouldn\u0027t be valid longer than it needs to be.",
+      "parentUuid": "ede0d714_c1c730a4",
+      "revId": "d5cf8654c5d2580b17f1060523c0c714362158ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
