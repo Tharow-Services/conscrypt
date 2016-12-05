@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ede0d714_c1c730a4",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1170,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-05T18:12:43Z",
+      "side": 1,
+      "message": "Can you explain this change a bit? I\u0027m not sure I totally follow.",
+      "revId": "d5cf8654c5d2580b17f1060523c0c714362158ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
