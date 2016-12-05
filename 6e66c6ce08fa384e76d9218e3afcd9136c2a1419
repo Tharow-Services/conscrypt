@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ede0d714_8164883b",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 712,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-05T17:38:13Z",
+      "side": 1,
+      "message": "This should use the OpenSSLTransientSession class.",
+      "range": {
+        "startLine": 705,
+        "startChar": 12,
+        "endLine": 712,
+        "endChar": 74
+      },
+      "revId": "6e66c6ce08fa384e76d9218e3afcd9136c2a1419",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
