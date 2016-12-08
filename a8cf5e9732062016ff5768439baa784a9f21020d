@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d883b74_b78fb07a",
+        "filename": "common/src/jni/main/cpp/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 8050,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-08T14:41:00Z",
+      "side": 1,
+      "message": "Given this logic throws both when ret \u003d\u003d 0 and ret \u003c 0, does it even need to return anything/",
+      "revId": "a8cf5e9732062016ff5768439baa784a9f21020d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d883b74_57852459",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-08T14:41:00Z",
+      "side": 1,
+      "message": "Comment seems no longer accurate.",
+      "revId": "a8cf5e9732062016ff5768439baa784a9f21020d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d883b74_7782a854",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1105,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-08T14:41:00Z",
+      "side": 1,
+      "message": "Ditto.",
+      "revId": "a8cf5e9732062016ff5768439baa784a9f21020d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d883b74_d7bd940c",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-08T14:41:00Z",
+      "side": 1,
+      "message": "Can getPeerHost() or getPeerPort() throw (say an unchecked exception)? Looks like you need to be a little careful to avoid leaking the session here.",
+      "range": {
+        "startLine": 1156,
+        "startChar": 32,
+        "endLine": 1156,
+        "endChar": 43
+      },
+      "revId": "a8cf5e9732062016ff5768439baa784a9f21020d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d883b74_377c2088",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1145,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-08T14:41:00Z",
+      "side": 0,
+      "message": "Did this used to leak sslSessionNativePtr in this case?",
+      "revId": "7ff5b226d5c82dd406c6490b808b8561543a564f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d883b74_177f9c7f",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 498,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-08T14:41:00Z",
+      "side": 0,
+      "message": "[Good thing this was unused! I notice that it actually was sslNativePtr, not sslSessionNativePtr. :-) ]",
+      "range": {
+        "startLine": 498,
+        "startChar": 38,
+        "endLine": 498,
+        "endChar": 57
+      },
+      "revId": "7ff5b226d5c82dd406c6490b808b8561543a564f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
