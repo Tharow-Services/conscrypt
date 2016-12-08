@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "4d19e30d_4fac83d4",
+        "filename": "common/src/jni/main/cpp/org_conscrypt_NativeCrypto.cpp",
+        "patchSetId": 2
+      },
+      "lineNbr": 8050,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-08T21:14:09Z",
+      "side": 1,
+      "message": "True. Changed this to a void function.",
+      "parentUuid": "8d883b74_b78fb07a",
+      "revId": "a8cf5e9732062016ff5768439baa784a9f21020d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d883b74_57852459",
         "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2016-12-08T14:41:00Z",
       "side": 1,
       "message": "Comment seems no longer accurate.",
+      "revId": "a8cf5e9732062016ff5768439baa784a9f21020d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d19e30d_0fa68bf4",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1027,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-08T21:14:09Z",
+      "side": 1,
+      "message": "Removed the comment.",
+      "parentUuid": "8d883b74_57852459",
       "revId": "a8cf5e9732062016ff5768439baa784a9f21020d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "4d19e30d_cfb89311",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1105,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-08T21:14:09Z",
+      "side": 1,
+      "message": "remvoed",
+      "parentUuid": "8d883b74_7782a854",
+      "revId": "a8cf5e9732062016ff5768439baa784a9f21020d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8d883b74_d7bd940c",
         "filename": "common/src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
         "patchSetId": 2
@@ -64,6 +118,30 @@
       "writtenOn": "2016-12-08T14:41:00Z",
       "side": 1,
       "message": "Can getPeerHost() or getPeerPort() throw (say an unchecked exception)? Looks like you need to be a little careful to avoid leaking the session here.",
+      "range": {
+        "startLine": 1156,
+        "startChar": 32,
+        "endLine": 1156,
+        "endChar": 43
+      },
+      "revId": "a8cf5e9732062016ff5768439baa784a9f21020d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4d19e30d_cffdf3bf",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1156,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-08T21:14:09Z",
+      "side": 1,
+      "message": "I don\u0027t think so given that this class is final and the superclass is just returning a String or int.\n\nI am totally removing calls to SSL_get1_session in a later patchset as well.",
+      "parentUuid": "8d883b74_d7bd940c",
       "range": {
         "startLine": 1156,
         "startChar": 32,
