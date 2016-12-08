@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd41532d_aba6295c",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLEngineImpl.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 650,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-08T22:27:00Z",
+      "side": 1,
+      "message": "Does this need to be updated to handle this case?",
+      "revId": "02e5981a4c92ad3202571a0d0e50ae0b46eb1010",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
