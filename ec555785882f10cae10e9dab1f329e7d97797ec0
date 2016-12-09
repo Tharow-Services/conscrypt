@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba37f7d9_c101ec6e",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 505,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-09T19:37:43Z",
+      "side": 0,
+      "message": "David, should I bother creating an OpenSSLSessionImpl here when SSL_session_reused \u003d\u003d 1 or just keep it as a OpenSSLTransientSession?",
+      "range": {
+        "startLine": 502,
+        "startChar": 8,
+        "endLine": 505,
+        "endChar": 23
+      },
+      "revId": "ec555785882f10cae10e9dab1f329e7d97797ec0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
