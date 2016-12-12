@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba37f7d9_b282b51f",
+        "filename": "MODULE_LICENSE_APACHE2",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-12T18:47:44Z",
+      "side": 0,
+      "message": "This is used by the Android build system to tag artifacts with the correct license.",
+      "revId": "c428c5d655cb616d960ef5192dc4319baddf73b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}

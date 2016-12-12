@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba37f7d9_92dc5134",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-12T18:47:44Z",
+      "side": 1,
+      "message": "Is this needed for building the OpenJDK stuff?",
+      "range": {
+        "startLine": 21,
+        "startChar": 65,
+        "endLine": 21,
+        "endChar": 80
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_12f061ac",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-12T18:47:44Z",
+      "side": 1,
+      "message": "Should we always capitalize in documentation?",
+      "range": {
+        "startLine": 11,
+        "startChar": 51,
+        "endLine": 11,
+        "endChar": 60
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_72cc4d7c",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-12T18:47:44Z",
+      "side": 1,
+      "message": "This is true except we used 100 column width, 4 space indent, and 8 space continuation indent as noted in .clang-format",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 73
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_12bbc1c4",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-12T18:47:44Z",
+      "side": 1,
+      "message": "This doesn\u0027t apply here. I\u0027d rather everyone used clang-format.",
+      "range": {
+        "startLine": 25,
+        "startChar": 42,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_92f571ac",
+        "filename": "NOTICE.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-12T18:47:44Z",
+      "side": 1,
+      "message": "wrong file",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_320485c8",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-12T18:47:44Z",
+      "side": 1,
+      "message": "https://conscrypt.org/",
+      "range": {
+        "startLine": 11,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 38
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_f205ddc3",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-12T18:47:44Z",
+      "side": 1,
+      "message": "Does this exist?",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 118
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_b20f55e2",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-12T18:47:44Z",
+      "side": 1,
+      "message": "Nit: trailing whitespace",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
