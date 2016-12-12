@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba37f7d9_a8f48466",
+        "filename": "BUILDING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-12T20:30:57Z",
+      "side": 1,
+      "message": "No, but it\u0027s needed to do the simple build from the top-level: \u0027gradle install\u0027",
+      "parentUuid": "ba37f7d9_92dc5134",
+      "range": {
+        "startLine": 21,
+        "startChar": 65,
+        "endLine": 21,
+        "endChar": 80
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba37f7d9_12f061ac",
         "filename": "CONTRIBUTING.md",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-12-12T18:47:44Z",
       "side": 1,
       "message": "Should we always capitalize in documentation?",
+      "range": {
+        "startLine": 11,
+        "startChar": 51,
+        "endLine": 11,
+        "endChar": 60
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_88f9c05f",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-12T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba37f7d9_12f061ac",
       "range": {
         "startLine": 11,
         "startChar": 51,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "ba37f7d9_28089493",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-12T20:30:57Z",
+      "side": 1,
+      "message": "Are there intellij/eclipse config files available for this format that we can reference instead?",
+      "parentUuid": "ba37f7d9_72cc4d7c",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 73
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba37f7d9_12bbc1c4",
         "filename": "CONTRIBUTING.md",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2016-12-12T18:47:44Z",
       "side": 1,
       "message": "This doesn\u0027t apply here. I\u0027d rather everyone used clang-format.",
+      "range": {
+        "startLine": 25,
+        "startChar": 42,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_0805d07a",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-12T20:30:57Z",
+      "side": 1,
+      "message": "We need something that developers can import into their IDEs. Is there one for clang?",
+      "parentUuid": "ba37f7d9_12bbc1c4",
       "range": {
         "startLine": 25,
         "startChar": 42,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ba37f7d9_484518b4",
+        "filename": "NOTICE.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-12T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba37f7d9_92f571ac",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 27
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba37f7d9_320485c8",
         "filename": "README.md",
         "patchSetId": 2
@@ -128,6 +248,30 @@
       "writtenOn": "2016-12-12T18:47:44Z",
       "side": 1,
       "message": "https://conscrypt.org/",
+      "range": {
+        "startLine": 11,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 38
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_0837103f",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-12T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba37f7d9_320485c8",
       "range": {
         "startLine": 11,
         "startChar": 17,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ba37f7d9_e8be0c61",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-12T20:30:57Z",
+      "side": 1,
+      "message": "Not yet. Wasn\u0027t sure what to do here.  Maybe we add a blurb under the top-level \"Download\" heading that it\u0027s under construction?",
+      "parentUuid": "ba37f7d9_f205ddc3",
+      "range": {
+        "startLine": 23,
+        "startChar": 28,
+        "endLine": 23,
+        "endChar": 118
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba37f7d9_b20f55e2",
         "filename": "README.md",
         "patchSetId": 2
@@ -174,6 +342,30 @@
       "writtenOn": "2016-12-12T18:47:44Z",
       "side": 1,
       "message": "Nit: trailing whitespace",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 1
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_c8bb486f",
+        "filename": "README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-12T20:30:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba37f7d9_b20f55e2",
       "range": {
         "startLine": 24,
         "startChar": 0,
