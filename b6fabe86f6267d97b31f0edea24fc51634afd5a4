@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "ba37f7d9_805bd410",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-13T01:15:22Z",
+      "side": 1,
+      "message": "Hmm ... any reason that we can\u0027t just switch to the standard Google Java format? It would certainly be easier to use for contributors.",
+      "parentUuid": "ba37f7d9_607a309a",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 73
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba37f7d9_12bbc1c4",
         "filename": "CONTRIBUTING.md",
         "patchSetId": 2
