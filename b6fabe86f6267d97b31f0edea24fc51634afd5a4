@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "ba37f7d9_607a309a",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-13T00:58:06Z",
+      "side": 1,
+      "message": "Not currently.",
+      "parentUuid": "ba37f7d9_28089493",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 73
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba37f7d9_12bbc1c4",
         "filename": "CONTRIBUTING.md",
         "patchSetId": 2
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "We need something that developers can import into their IDEs. Is there one for clang?",
       "parentUuid": "ba37f7d9_12bbc1c4",
+      "range": {
+        "startLine": 25,
+        "startChar": 42,
+        "endLine": 27,
+        "endChar": 43
+      },
+      "revId": "b6fabe86f6267d97b31f0edea24fc51634afd5a4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba37f7d9_807514aa",
+        "filename": "CONTRIBUTING.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-13T00:58:06Z",
+      "side": 1,
+      "message": "Not that I know of. JetBrains has a plugin that runs clang-format:\nhttps://plugins.jetbrains.com/plugin/8396\n\nJetBrains CLion exclusively uses clang-format from what I recall.",
+      "parentUuid": "ba37f7d9_0805d07a",
       "range": {
         "startLine": 25,
         "startChar": 42,
