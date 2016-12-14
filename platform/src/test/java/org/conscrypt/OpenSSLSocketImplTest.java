@@ -323,6 +323,7 @@ public class OpenSSLSocketImplTest extends TestCase {
 
         connection.doHandshake();
 
+        assertNull(connection.clientException);
         assertTrue(connection.clientHooks.isHandshakeCompleted);
         assertTrue(connection.serverHooks.isHandshakeCompleted);
     }
