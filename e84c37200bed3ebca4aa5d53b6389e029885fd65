@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabe6b36_49604515",
+        "filename": "platform/src/test/java/org/conscrypt/OpenSSLSocketImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-15T21:10:52Z",
+      "side": 1,
+      "message": "This needs a @RunWith(JUnit4.class)",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 36
+      },
+      "revId": "e84c37200bed3ebca4aa5d53b6389e029885fd65",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
