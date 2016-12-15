@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabe6b36_2cf077ad",
+        "filename": "platform/src/test/java/org/conscrypt/OpenSSLX509CertificateTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-15T22:26:44Z",
+      "side": 1,
+      "message": "This needs an import as well.",
+      "range": {
+        "startLine": 46,
+        "startChar": 73,
+        "endLine": 46,
+        "endChar": 81
+      },
+      "revId": "475f1600935320a49fe9de681fadbc97afe754b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
