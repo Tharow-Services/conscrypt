@@ -259,29 +259,44 @@ abstract class AbstractSessionContext implements SSLSessionContext {
         }
     }
 
+    private static void checkRemaining(DataInputStream in, int length) throws IOException {
+        if (length < 0) {
+            throw new IOException("Length is negative: " + length);
+        }
+        if (length > in.available()) {
+            throw new IOException(
+                    "Length of blob is longer than available: " + length + " > " + in.available());
+        }
+    }
+
     /**
      * Creates a session from the given bytes.
      *
      * @return a session or null if the session can't be converted
      */
-    OpenSSLSessionImpl toSession(byte[] data, String host, int port) {
+    public OpenSSLSessionImpl toSession(byte[] data, String host, int port) {
         ByteArrayInputStream bais = new ByteArrayInputStream(data);
         DataInputStream dais = new DataInputStream(bais);
         try {
             int type = dais.readInt();
             if (type != OPEN_SSL && type != OPEN_SSL_WITH_OCSP && type != OPEN_SSL_WITH_TLS_SCT) {
-                log(new AssertionError("Unexpected type ID: " + type));
-                return null;
+                throw new IOException("Unexpected type ID: " + type);
             }
 
             int length = dais.readInt();
+            checkRemaining(dais, length);
+
             byte[] sessionData = new byte[length];
             dais.readFully(sessionData);
 
             int count = dais.readInt();
+            checkRemaining(dais, count);
+
             X509Certificate[] certs = new X509Certificate[count];
             for (int i = 0; i < count; i++) {
                 length = dais.readInt();
+                checkRemaining(dais, length);
+
                 byte[] certData = new byte[length];
                 dais.readFully(certData);
                 certs[i] = OpenSSLX509Certificate.fromX509Der(certData);
@@ -292,20 +307,30 @@ abstract class AbstractSessionContext implements SSLSessionContext {
                 // We only support one OCSP response now, but in the future
                 // we may support RFC 6961 which has multiple.
                 int countOcspResponses = dais.readInt();
-                if (countOcspResponses > 1) {
+                if (countOcspResponses == 1) {
                     int ocspLength = dais.readInt();
+                    checkRemaining(dais, ocspLength);
+
                     ocspData = new byte[ocspLength];
                     dais.readFully(ocspData);
+                } else {
+                    return null;
                 }
             }
 
             byte[] tlsSctData = null;
             if (type == OPEN_SSL_WITH_TLS_SCT) {
                 int tlsSctDataLength = dais.readInt();
+                checkRemaining(dais, tlsSctDataLength);
+
                 if (tlsSctDataLength > 0) {
                     tlsSctData = new byte[tlsSctDataLength];
                     dais.readFully(tlsSctData);
                 }
+            }
+
+            if (dais.available() != 0) {
+                log(new AssertionError("Read entire session, but data still remains; rejecting"));
             }
 
             return new OpenSSLSessionImpl(sessionData, host, port, certs, ocspData, tlsSctData,
