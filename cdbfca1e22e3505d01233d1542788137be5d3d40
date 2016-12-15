@@ -1,0 +1,129 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a62df90_4809ffdf",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLSocketHolder.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-15T22:04:46Z",
+      "side": 1,
+      "message": "Nit: period?",
+      "revId": "cdbfca1e22e3505d01233d1542788137be5d3d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3af5c7fe_61839026",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 388,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-15T22:04:46Z",
+      "side": 1,
+      "message": "This was there before, but I\u0027m a little confused why reading state is protected under a lock while setting sslSession isn\u0027t. Shouldn\u0027t this also only happen once? (Caveat: I don\u0027t know this socket class very well, so I\u0027m probably just wrong about its invariants.)",
+      "range": {
+        "startLine": 388,
+        "startChar": 16,
+        "endLine": 388,
+        "endChar": 26
+      },
+      "revId": "cdbfca1e22e3505d01233d1542788137be5d3d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a62df90_68ce43c2",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLTransientSession.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-15T22:04:46Z",
+      "side": 1,
+      "message": "If you don\u0027t have any certs configured locally (most clients), this\u0027ll call into NativeCrypto.SSL_get_certificate all the time. Is that a problem?\n\nDitto for the one above for PSK ciphers.",
+      "revId": "cdbfca1e22e3505d01233d1542788137be5d3d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a62df90_2834cbed",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLTransientSession.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-15T22:04:46Z",
+      "side": 1,
+      "message": "You might want to return SSL_get_pending_cipher during the handshake itself. SSL_get_current_cipher is what you\u0027re currently encrypting as and TLS doesn\u0027t start encrypting until very late in the handshake.\n\n[Not entirely sure why it is that. Might be worth changing that at some point, I dunno. It\u0027s not clear why anyone would want to be sensitive to this transition point. A lot of these APIs behave funny at weird points like this.]",
+      "revId": "cdbfca1e22e3505d01233d1542788137be5d3d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a62df90_88437712",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLTransientSession.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-15T22:04:46Z",
+      "side": 1,
+      "message": "Should this do the OPENSSL_TO_STANDARD_CIPHER_SUITES mapping?",
+      "revId": "cdbfca1e22e3505d01233d1542788137be5d3d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a62df90_083787f5",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLTransientSession.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-15T22:04:46Z",
+      "side": 1,
+      "message": "NB: The behavior of SSL_get_version before version negotiation is kind of odd. I think it\u0027s sometimes just TLS 1.2 (hardcoded) and sometimes it\u0027s the maximum version, and then swaps to the final one. I\u0027ll probably standardize it to the second one at some point. Given your old behavior was a little odd too, I\u0027m assume you\u0027re fine with this? :-)",
+      "revId": "cdbfca1e22e3505d01233d1542788137be5d3d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a62df90_28d84b7f",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLTransientSession.java",
+        "patchSetId": 13
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 1031048
+      },
+      "writtenOn": "2016-12-15T22:04:46Z",
+      "side": 1,
+      "message": "I think this is supposed to be SSL_get_servername, so you can look up the SNI value and decide on a certificate. Assuming it feeds into https://docs.oracle.com/javase/8/docs/api/javax/net/ssl/ExtendedSSLSession.html#getRequestedServerNames--, this should be the SNI names the peer requested *of* us, while getPeer* is about the address/hostname of the peer that we are connecting *to*.\n\nAlthough, I\u0027m confused. Does the API even expose a relevant hook for servers to act on SNI? If not, this getter doesn\u0027t really do anything useful (though I realize we expose it because the Java API does). You\u0027d need some kind of callback or something for the caller of this function to run between ClientHello and ServerHello, so you can swap certs or whatever else.",
+      "revId": "cdbfca1e22e3505d01233d1542788137be5d3d40",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
