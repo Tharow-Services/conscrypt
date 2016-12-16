@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa6fafa9_430670d0",
+        "filename": "platform/src/test/java/org/conscrypt/TestSessionBuilderTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-16T20:26:23Z",
+      "side": 1,
+      "message": "Testing your tests ... we must go deeper!",
+      "range": {
+        "startLine": 23,
+        "startChar": 13,
+        "endLine": 23,
+        "endChar": 35
+      },
+      "revId": "20d5ba3c7d67f2d93d759666c9929eaf27b33d92",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
