@@ -46,6 +46,30 @@
       "revId": "d12a04798738870e90dad7f3bfda44a11eb1c761",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa6fafa9_fd2abba9",
+        "filename": "common/src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-16T15:55:18Z",
+      "side": 1,
+      "message": "I feel icky relying on the knowledge that it\u0027s wrapped.  Let\u0027s go with this for now, but follow this up with a change to swap over to ByteBuffer.  Sound good?",
+      "parentUuid": "fa6fafa9_da16e5bf",
+      "range": {
+        "startLine": 266,
+        "startChar": 11,
+        "endLine": 266,
+        "endChar": 36
+      },
+      "revId": "d12a04798738870e90dad7f3bfda44a11eb1c761",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
