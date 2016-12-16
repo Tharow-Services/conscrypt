@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dabe6b36_584be976",
+        "filename": "common/src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1125908
+      },
+      "writtenOn": "2016-12-16T00:37:11Z",
+      "side": 1,
+      "message": "I don\u0027t think this is a valid check. InputStreams make effectively no guarantee about how available() should behave.",
+      "range": {
+        "startLine": 266,
+        "startChar": 11,
+        "endLine": 266,
+        "endChar": 36
+      },
+      "revId": "d12a04798738870e90dad7f3bfda44a11eb1c761",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
