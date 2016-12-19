@@ -145,7 +145,7 @@ LOCAL_SDK_VERSION := 9
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := conscrypt_unbundled
-LOCAL_JAVA_LIBRARIES := conscrypt-stubs
+LOCAL_JAVA_LIBRARIES := android-support-annotations conscrypt-stubs
 LOCAL_JACK_FLAGS := -D jack.classpath.default-libraries=false
 LOCAL_JAVA_LANGUAGE_VERSION := 1.7
 include $(BUILD_STATIC_JAVA_LIBRARY)
