@@ -1,0 +1,8 @@
+Verified+1: Kenny Root <kroot@google.com>
+Code-Review+2: Kenny Root <kroot@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Kenny Root <kroot@google.com>
+Submitted-at: Mon, 19 Dec 2016 23:05:14 +0000
+Reviewed-on: https://android-review.googlesource.com/316323
+Project: platform/external/conscrypt
+Branch: refs/heads/master
