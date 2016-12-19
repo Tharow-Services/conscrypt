@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa6fafa9_60143705",
+        "filename": "Android.mk",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-19T21:27:32Z",
+      "side": 1,
+      "message": "You probably want this as a separate statement:\n\n  platform_test_java_files :\u003d $(foreach j,$(platform_java_test_files),$(if $(findstring /libcore/,$(j)),,$(j))))",
+      "range": {
+        "startLine": 107,
+        "startChar": 1,
+        "endLine": 107,
+        "endChar": 12
+      },
+      "revId": "70ebf91962be681f195304b25ae659b624b60201",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
