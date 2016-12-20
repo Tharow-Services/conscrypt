@@ -38,6 +38,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.reflect.Method;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.KeyStore;
@@ -70,6 +71,7 @@ import libcore.java.security.TestKeyStore;
 import org.conscrypt.NativeCrypto.OpenSSLSocketFactory.ParsingException;
 import org.conscrypt.NativeCrypto.SSLHandshakeCallbacks;
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class NativeCryptoTest {
@@ -89,6 +91,14 @@ public class NativeCryptoTest {
     private static byte[][] CA_PRINCIPALS;
     private static OpenSSLKey CHANNEL_ID_PRIVATE_KEY;
     private static byte[] CHANNEL_ID;
+    private static Method m_Platform_getFileDescriptor;
+
+    @BeforeClass
+    public void getPlatformMethods() throws Exception {
+        m_Platform_getFileDescriptor =
+                Platform.class.getDeclaredMethod("getFileDescriptor", Socket.class);
+        m_Platform_getFileDescriptor.setAccessible(true);
+    }
 
     @After
     public void tearDown() throws Exception {
@@ -924,7 +934,7 @@ public class NativeCryptoTest {
                         if (timeout == -1) {
                             return new TestSSLHandshakeCallbacks(socket, 0, null);
                         }
-                        FileDescriptor fd = Platform.getFileDescriptor(socket);
+                        FileDescriptor fd = m_Platform_getFileDescriptor.invoke(socket);
                         long c = hooks.getContext();
                         long s = hooks.beforeHandshake(c);
                         TestSSLHandshakeCallbacks callback =
@@ -2915,11 +2925,6 @@ public class NativeCryptoTest {
         long pkeyCtx = getRawPkeyCtxForEncrypt();
         NativeRef.EVP_PKEY_CTX holder = new NativeRef.EVP_PKEY_CTX(pkeyCtx);
         NativeCrypto.EVP_PKEY_CTX_set_rsa_oaep_md(pkeyCtx, NULL);
-    }
-
-    @Test(expected = ParsingException.class)
-    public void d2i_X509_InvalidFailure() throws Exception {
-        NativeCrypto.d2i_X509(new byte[1]);
     }
 
     private static void assertContains(String actualValue, String expectedSubstring) {
