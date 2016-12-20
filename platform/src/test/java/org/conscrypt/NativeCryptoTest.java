@@ -2916,6 +2916,11 @@ public class NativeCryptoTest {
         NativeCrypto.EVP_PKEY_CTX_set_rsa_oaep_md(pkeyCtx, NULL);
     }
 
+    @Test(expected = ParsingException.class)
+    public void d2i_X509_InvalidFailure() throws Exception {
+        NativeCrypto.d2i_X509(new byte[1]);
+    }
+
     private static void assertContains(String actualValue, String expectedSubstring) {
         if (actualValue == null) {
             return;
