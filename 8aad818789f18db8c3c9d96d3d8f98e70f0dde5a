@@ -22,6 +22,30 @@
       "revId": "8aad818789f18db8c3c9d96d3d8f98e70f0dde5a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_ceea57f0",
+        "filename": "openjdk/src/test/java/org/conscrypt/OpenSSLX509CertificateTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-20T02:13:42Z",
+      "side": 1,
+      "message": "\u003e Not copied to platform/?\n\nnm, this is only in this directory.",
+      "parentUuid": "77b2fac6_4e0e671e",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 51,
+        "endChar": 13
+      },
+      "revId": "8aad818789f18db8c3c9d96d3d8f98e70f0dde5a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
