@@ -22,6 +22,30 @@
       "revId": "e992385083b6b9ef980d5e192640bf54a76503a0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "77b2fac6_e2f08ab0",
+        "filename": "openjdk/src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-20T19:37:27Z",
+      "side": 1,
+      "message": "They\u0027re in different class loaders during Android\u0027s CTS run. Platform is not public, so it throws an IllegalAccessException.",
+      "parentUuid": "77b2fac6_622d7ac3",
+      "range": {
+        "startLine": 103,
+        "startChar": 16,
+        "endLine": 103,
+        "endChar": 90
+      },
+      "revId": "e992385083b6b9ef980d5e192640bf54a76503a0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
