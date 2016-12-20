@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77b2fac6_2ea453ed",
+        "filename": "platform/src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2016-12-20T02:09:52Z",
+      "side": 1,
+      "message": "This needs ParsingException as well.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 56
+      },
+      "revId": "9740e8bf5833f2b1335ea19da7cb88f417139897",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
