@@ -1,0 +1,7 @@
+Code-Review+2: Brian Carlstrom <bdc@google.com>
+Verified+1: Kenny Root <kroot@google.com>
+Submitted-by: Kenny Root <kroot@google.com>
+Submitted-at: Tue, 20 Dec 2016 06:19:28 +0000
+Reviewed-on: https://android-review.googlesource.com/316471
+Project: platform/external/conscrypt
+Branch: refs/heads/master
