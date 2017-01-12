@@ -39,47 +39,7 @@ jar {
     classifier = osdetector.classifier
 }
 
-void configureGcc(GccCommandLineToolConfiguration cppCompiler, GccCommandLineToolConfiguration linker) {
-    cppCompiler.withArguments { args ->
-        args << "-Wall"
-        args << "-fPIC"
-        args << "-O2"
-        args << "-std=c++11"
-        args << "-I$jniSourceDir/main/include"
-        args << "-I$jniSourceDir/unbundled/include"
-        args << "-I$boringsslIncludeDir"
-        args << "-I$jdkIncludeDir"
-        if (org.gradle.internal.os.OperatingSystem.current().isLinux()) {
-            args << "-I$jdkIncludeDir/linux"
-        } else if (org.gradle.internal.os.OperatingSystem.current().isMacOsX()) {
-            args << "-I$jdkIncludeDir/darwin"
-        } else if (org.gradle.internal.os.OperatingSystem.current().isWindows()) {
-            args << "-I$jdkIncludeDir/win32"
-        }
-    }
-    linker.withArguments { args ->
-        args << "-O2"
-        args << "-L$boringsslSslBuildDir"
-        args << "-L$boringsslCryptoBuildDir"
-        args << "-lstdc++"
-        args << "-lssl"
-        args << "-lcrypto"
-    }
-}
-
 model {
-    toolChains {
-        clang(Clang) {
-            eachPlatform {
-                configureGcc(cppCompiler, linker)
-            }
-        }
-        gcc(Gcc) {
-            eachPlatform {
-                configureGcc(cppCompiler, linker)
-            }
-        }
-    }
     components {
         // Builds the JNI library.
         "$jniLibName"(NativeLibrarySpec) {
@@ -95,6 +55,75 @@ model {
             }
 
             binaries {
+                // Build the JNI lib as a shared library.
+                withType (SharedLibraryBinarySpec) {
+                    cppCompiler.define "CONSCRYPT_OPENJDK"
+
+                    if (toolChain in Clang || toolChain in Gcc) {
+                        cppCompiler.args "-Wall",
+                                "-fPIC",
+                                "-O2",
+                                "-std=c++11",
+                                "-I$jniSourceDir/main/include",
+                                "-I$jniSourceDir/unbundled/include",
+                                "-I$boringsslIncludeDir",
+                                "-I$jdkIncludeDir",
+                                "-I$jdkIncludeDir/linux",
+                                "-I$jdkIncludeDir/darwin",
+                                "-I$jdkIncludeDir/win32"
+
+                        // Static link to BoringSSL
+                        linker.args "-O2",
+                                "-fvisibility=hidden",
+                                "-L$boringsslSslBuildDir",
+                                "-L$boringsslCryptoBuildDir",
+                                "-lstdc++",
+                                "-lssl",
+                                "-lcrypto"
+                    } else if (toolChain in VisualCpp) {
+                        cppCompiler.define "DLL_EXPORT"
+                        cppCompiler.define "WIN32_LEAN_AND_MEAN"
+                        cppCompiler.define "WIN64"
+                        cppCompiler.define "_WINDOWS"
+                        cppCompiler.define "UNICODE"
+                        cppCompiler.define "_UNICODE"
+                        cppCompiler.define "NDEBUG"
+
+                        cppCompiler.args "/nologo",
+                                "/MT",
+                                "/WX-",
+                                "/Wall",
+                                "/O2",
+                                "/Oi",
+                                "/Ot",
+                                "/GL",
+                                "/GS",
+                                "/Gy",
+                                "/fp:precise",
+                                "-wd4548", // Expression before comma has no effect
+                                "-wd4625", // Copy constructor was implicitly defined as deleted
+                                "-wd4626", // Assignment operator was implicitly defined as deleted
+                                "-wd4820", // Extra padding added to struct
+                                "-wd4946", // reinterpret_cast used between related classes:
+                                "-wd4996", // Thread safety for strerror
+                                "-wd5027", // Move assignment operator was implicitly defined as deleted
+                                "-I$jniSourceDir/main/include",
+                                "-I$jniSourceDir/unbundled/include",
+                                "-I$boringsslIncludeDir",
+                                "-I$jdkIncludeDir",
+                                "-I$jdkIncludeDir/win32"
+
+                        // Static link to BoringSSL
+                        linker.args "/O2",
+                                "-WX",
+                                "-L$boringsslSslBuildDir",
+                                "-L$boringsslCryptoBuildDir",
+                                "-lssl",
+                                "-lcrypto",
+                                "-lWs2_32.lib"
+                    }
+                }
+
                 // Never build a static library.
                 withType(StaticLibraryBinarySpec) {
                     buildable = false
