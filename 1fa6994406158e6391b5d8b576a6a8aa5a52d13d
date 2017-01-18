@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3820982_41f1121e",
+        "filename": "common/src/main/java/org/conscrypt/AbstractSessionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2017-01-18T15:32:15Z",
+      "side": 1,
+      "message": "bug: This will read a single byte (buf.get() reads and returns a byte, which is then implicitly expanded to an int) whereas this should read an int. Compare with how lines 218 writes an int (four bytes).\n\nThis causes SSLSessions to fail to be converted back from a byte[]. I suspect that might be the cause of several high priority bugs (bug 33763156, bug 34242540).\n\nI note that the kOpenSslSession constant in the test that accompanies this CL does starts with neither an int nor a byte value of 1, 2, or 3. It appears that the test didn\u0027t actually exercise the toBytes() logic above and instead had its own test logic that wrote a byte value (rather than an int), which caused the test to not discover this bug.",
+      "revId": "1fa6994406158e6391b5d8b576a6a8aa5a52d13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3820982_61ee163f",
+        "filename": "platform/src/test/java/org/conscrypt/TestSessionBuilder.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2017-01-18T15:32:15Z",
+      "side": 1,
+      "message": "this does\u0027t match what the actual code under test does (the code under test writes an int value here)",
+      "range": {
+        "startLine": 132,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 38
+      },
+      "revId": "1fa6994406158e6391b5d8b576a6a8aa5a52d13d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
