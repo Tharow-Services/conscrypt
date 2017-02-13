@@ -1,0 +1,9 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+1: Przemyslaw Szczepaniak <pszczepaniak@google.com>
+Code-Review+2: Kenny Root <kroot@google.com>
+Verified+1: Adam Vartanian <flooey@google.com>
+Submitted-by: Adam Vartanian <flooey@google.com>
+Submitted-at: Mon, 13 Feb 2017 10:56:22 +0000
+Reviewed-on: https://android-review.googlesource.com/336703
+Project: platform/external/conscrypt
+Branch: refs/heads/master
