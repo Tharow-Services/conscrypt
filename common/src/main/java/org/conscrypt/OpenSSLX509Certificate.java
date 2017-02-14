@@ -24,6 +24,7 @@ import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.Principal;
+import java.security.Provider;
 import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
@@ -377,6 +378,23 @@ public class OpenSSLX509Certificate extends X509Certificate {
         }
     }
 
+    private void verifyInternal(PublicKey key, Provider sigProvider)
+            throws CertificateException, NoSuchAlgorithmException, InvalidKeyException,
+                   SignatureException {
+        final Signature sig;
+        if (sigProvider == null) {
+            sig = Signature.getInstance(getSigAlgName());
+        } else {
+            sig = Signature.getInstance(getSigAlgName(), sigProvider);
+        }
+
+        sig.initVerify(key);
+        sig.update(getTBSCertificate());
+        if (!sig.verify(getSignature())) {
+            throw new SignatureException("signature did not verify");
+        }
+    }
+
     @Override
     public void verify(PublicKey key) throws CertificateException, NoSuchAlgorithmException,
             InvalidKeyException, NoSuchProviderException, SignatureException {
@@ -386,13 +404,20 @@ public class OpenSSLX509Certificate extends X509Certificate {
             return;
         }
 
-        verifyInternal(key, null);
+        verifyInternal(key, (String) null);
     }
 
     @Override
     public void verify(PublicKey key, String sigProvider) throws CertificateException,
             NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException,
             SignatureException {
+        verifyInternal(key, sigProvider);
+    }
+
+    @Override
+    public void verify(PublicKey key, Provider sigProvider)
+            throws CertificateException, NoSuchAlgorithmException, InvalidKeyException,
+                   SignatureException {
         verifyInternal(key, sigProvider);
     }
 
