@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9b094746_a3f6f487",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLX509Certificate.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2017-02-14T21:00:40Z",
+      "side": 1,
+      "message": "Hmm, there\u0027s not really a need for this since verify(PublicKey) is calling verifyInternal(PublicKey, String). The other new method can simply be inlined here.\n\nThe intent here is to create a fast path to go directly to BoringSSL, so perhaps this can check:\n\n  if (key instanceof OpenSSLKeyHolder \u0026\u0026 sigProvider instanceof OpenSSLProvider) {\n            OpenSSLKey pkey \u003d ((OpenSSLKeyHolder) key).getOpenSSLKey();\n            verifyOpenSSL(pkey);\n            return;\n  }",
+      "range": {
+        "startLine": 421,
+        "startChar": 8,
+        "endLine": 421,
+        "endChar": 41
+      },
+      "revId": "29e51386ad53ed045a65d312c8021fec08f402cb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
