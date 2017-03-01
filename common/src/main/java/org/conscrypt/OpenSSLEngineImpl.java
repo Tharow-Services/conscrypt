@@ -14,6 +14,22 @@
  * limitations under the License.
  */
 
+/*
+ * Copyright 2016 The Netty Project
+ *
+ * The Netty Project licenses this file to you under the Apache License,
+ * version 2.0 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at:
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
 package org.conscrypt;
 
 import static javax.net.ssl.SSLEngineResult.HandshakeStatus.FINISHED;
@@ -35,6 +51,7 @@ import static org.conscrypt.NativeConstants.SSL_ERROR_WANT_WRITE;
 import static org.conscrypt.NativeConstants.SSL_ERROR_ZERO_RETURN;
 import static org.conscrypt.NativeConstants.SSL_RECEIVED_SHUTDOWN;
 import static org.conscrypt.NativeConstants.SSL_SENT_SHUTDOWN;
+import static org.conscrypt.SSLUtils.calculateOutNetBufSize;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -491,11 +508,6 @@ public final class OpenSSLEngineImpl extends SSLEngine
             len += src.remaining();
         }
 
-        // Protect against protocol overflow attack vector
-        if (len > SSL3_RT_MAX_PACKET_SIZE) {
-            throw new SSLException("encrypted packet oversized");
-        }
-
         synchronized (stateLock) {
             switch (engineState) {
                 case MODE_SET:
@@ -534,16 +546,9 @@ public final class OpenSSLEngineImpl extends SSLEngine
                 throw new SSLException("Unable to parse TLS packet header");
             }
 
-            if (packetLength - SSL3_RT_HEADER_LENGTH > capacity) {
-                // No enough space in the destination buffer so signal the caller
-                // that the buffer needs to be increased.
-                return new SSLEngineResult(BUFFER_OVERFLOW, getHandshakeStatus(), 0, 0);
-            }
-
             if (len < packetLength) {
                 // We either have not enough data to read the packet header or not enough for
-                // reading
-                // the whole packet.
+                // reading the whole packet.
                 return new SSLEngineResult(BUFFER_UNDERFLOW, getHandshakeStatus(), 0, 0);
             }
 
@@ -624,7 +629,7 @@ public final class OpenSSLEngineImpl extends SSLEngine
                             // This means the connection was shutdown correctly, close inbound and
                             // outbound
                             closeAll();
-                        // fall-trough!
+                            return newResult(bytesConsumed, bytesProduced, handshakeStatus);
                         case SSL_ERROR_WANT_READ:
                         case SSL_ERROR_WANT_WRITE:
                             return newResult(bytesConsumed, bytesProduced, handshakeStatus);
@@ -908,7 +913,7 @@ public final class OpenSSLEngineImpl extends SSLEngine
 
     private SSLEngineResult sslReadErrorResult(int err, int bytesConsumed, int bytesProduced)
             throws SSLException {
-        if (pendingOutboundEncryptedBytes() > 0) {
+        if (!handshakeFinished && pendingOutboundEncryptedBytes() > 0) {
             return new SSLEngineResult(OK, NEED_WRAP, bytesConsumed, bytesProduced);
         }
         throw shutdownWithError(NativeCrypto.SSL_get_error_string(err));
@@ -946,14 +951,10 @@ public final class OpenSSLEngineImpl extends SSLEngine
             throws SSLException {
         checkNotNull(srcs, "srcs");
         checkNotNull(dst, "dst");
+        checkIndex(srcs.length, offset, length, "srcs");
         if (dst.isReadOnly()) {
             throw new ReadOnlyBufferException();
         }
-        final int endOffset = offset + length;
-        for (int i = offset; i < endOffset; ++i) {
-            checkNotNull(srcs[i], "one of the src");
-        }
-        checkIndex(srcs.length, offset, length, "srcs");
 
         synchronized (stateLock) {
             switch (engineState) {
@@ -984,7 +985,27 @@ public final class OpenSSLEngineImpl extends SSLEngine
                 // NEED_WRAP - just fall through to perform the wrap.
             }
 
-            if (dst.remaining() < SSL3_RT_MAX_PACKET_SIZE) {
+            int srcsLen = 0;
+            final int endOffset = offset + length;
+            for (int i = offset; i < endOffset; ++i) {
+                final ByteBuffer src = srcs[i];
+                if (src == null) {
+                    throw new IllegalArgumentException("srcs[" + i + "] is null");
+                }
+                if (srcsLen == SSL3_RT_MAX_PLAIN_LENGTH) {
+                    continue;
+                }
+
+                srcsLen += src.remaining();
+                if (srcsLen > SSL3_RT_MAX_PLAIN_LENGTH || srcsLen < 0) {
+                    // If srcLen > MAX_PLAINTEXT_LENGTH or secLen < 0 just set it to MAX_PLAINTEXT_LENGTH.
+                    // This also help us to guard against overflow.
+                    // We not break out here as we still need to check for null entries in srcs[].
+                    srcsLen = SSL3_RT_MAX_PLAIN_LENGTH;
+                }
+            }
+
+            if (dst.remaining() < calculateOutNetBufSize(srcsLen)) {
                 return new SSLEngineResult(
                         Status.BUFFER_OVERFLOW, getHandshakeStatusInternal(), 0, 0);
             }
@@ -1228,16 +1249,19 @@ public final class OpenSSLEngineImpl extends SSLEngine
     }
 
     @Override
+    @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     public String chooseServerPSKIdentityHint(PSKKeyManager keyManager) {
         return keyManager.chooseServerKeyIdentityHint(this);
     }
 
     @Override
+    @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     public String chooseClientPSKIdentity(PSKKeyManager keyManager, String identityHint) {
         return keyManager.chooseClientKeyIdentity(identityHint, this);
     }
 
     @Override
+    @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     public SecretKey getPSKKey(PSKKeyManager keyManager, String identityHint, String identity) {
         return keyManager.getKey(identityHint, identity, this);
     }

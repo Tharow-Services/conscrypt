@@ -5587,7 +5587,7 @@ static void info_callback(const SSL* ssl, int where, int ret) {
  * 0 is error.
  * -1 is to pause the handshake to continue from the same place later.
  */
-static int cert_cb(SSL* ssl, void* arg CONSCRYPT_ATTRIBUTE_1((unused))) {
+static int cert_cb(SSL* ssl, CONSCRYPT_UNUSED void* arg) {
     JNI_TRACE("ssl=%p cert_cb", ssl);
 
     // cert_cb is called for both clients and servers, but we are only
@@ -5773,33 +5773,6 @@ static unsigned int psk_server_callback(SSL* ssl, const char *identity,
     return static_cast<unsigned int>(keyLen);
 }
 
-static DH* dhGenerateParameters(int keylength) {
-    /* At the time of writing, OpenSSL and BoringSSL are hard coded to request
-     * a 1024-bit DH. */
-    if (keylength <= 1024) {
-        return DH_get_1024_160(nullptr);
-    }
-
-    if (keylength <= 2048) {
-        return DH_get_2048_224(nullptr);
-    }
-
-    /* In the case of a large request, return the strongest DH group that
-     * we have predefined. Generating a group takes far too long to be
-     * reasonable. */
-    return DH_get_2048_256(nullptr);
-}
-
-/**
- * Call back to ask for Diffie-Hellman parameters
- */
-static DH* tmp_dh_callback(SSL* ssl, int is_export, int keylength) {
-    JNI_TRACE("ssl=%p tmp_dh_callback is_export=%d keylength=%d", ssl, is_export, keylength);
-    DH* tmp_dh = dhGenerateParameters(keylength);
-    JNI_TRACE("ssl=%p tmp_dh_callback => %p", ssl, tmp_dh);
-    return tmp_dh;
-}
-
 static jint NativeCrypto_EVP_has_aes_hardware(JNIEnv*, jclass) {
     int ret = 0;
     ret = EVP_has_aes_hardware();
@@ -5877,8 +5850,6 @@ static jlong NativeCrypto_SSL_CTX_new(JNIEnv* env, jclass) {
                         | SSL_OP_NO_TICKET
                         // We also disable compression for better compatibility b/2710492 b/2710497
                         | SSL_OP_NO_COMPRESSION
-                        // Because dhGenerateParameters uses DSA_generate_parameters_ex
-                        | SSL_OP_SINGLE_DH_USE
                         // Generate a fresh ECDH keypair for each key exchange.
                         | SSL_OP_SINGLE_ECDH_USE);
 
@@ -5911,7 +5882,6 @@ static jlong NativeCrypto_SSL_CTX_new(JNIEnv* env, jclass) {
     SSL_CTX_set_cert_verify_callback(sslCtx.get(), cert_verify_callback, nullptr);
     SSL_CTX_set_info_callback(sslCtx.get(), info_callback);
     SSL_CTX_set_cert_cb(sslCtx.get(), cert_cb, nullptr);
-    SSL_CTX_set_tmp_dh_callback(sslCtx.get(), tmp_dh_callback);
     if (Trace::kWithJniTraceKeys) {
         SSL_CTX_set_keylog_callback(sslCtx.get(), debug_print_session_key);
     }
@@ -7187,8 +7157,8 @@ static int sslRead(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, char* b
 
         if (!SSL_is_init_finished(ssl) && !SSL_in_false_start(ssl) &&
             !SSL_renegotiate_pending(ssl)) {
-            JNI_TRACE("ssl=%p sslRead => init is not finished (state=0x%x)", ssl,
-                    SSL_get_state(ssl));
+            JNI_TRACE("ssl=%p sslRead => init is not finished (state: %s)", ssl,
+                    SSL_state_string_long(ssl));
             return THROW_SSLEXCEPTION;
         }
 
@@ -7294,7 +7264,7 @@ static int sslRead(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, char* b
 
 /**
  * OpenSSL read function (2): read into buffer at offset n chunks.
- * Returns 1 (success) or value <= 0 (failure).
+ * Returns the number of bytes read (success) or value <= 0 (failure).
  */
 static jint NativeCrypto_SSL_read(JNIEnv* env, jclass, jlong ssl_address, jobject fdObject,
                                   jobject shc, jbyteArray b, jint offset, jint len,
@@ -7316,16 +7286,98 @@ static jint NativeCrypto_SSL_read(JNIEnv* env, jclass, jlong ssl_address, jobjec
         JNI_TRACE("ssl=%p NativeCrypto_SSL_read => sslHandshakeCallbacks == null", ssl);
         return 0;
     }
+    if (b == nullptr) {
+        Errors::jniThrowNullPointerException(env, "b == null");
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_read => b == null", ssl);
+        return 0;
+    }
 
-    ScopedByteArrayRW bytes(env, b);
-    if (bytes.get() == nullptr) {
-        JNI_TRACE("ssl=%p NativeCrypto_SSL_read => threw exception", ssl);
+    size_t array_size = static_cast<size_t>(env->GetArrayLength(b));
+    if (ARRAY_CHUNK_INVALID(array_size, offset, len)) {
+        Errors::jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", "b");
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_read => ArrayIndexOutOfBoundsException", ssl);
         return 0;
     }
 
     OpenSslError sslError;
-    int ret = sslRead(env, ssl, fdObject, shc, reinterpret_cast<char*>(bytes.get() + offset), len,
+    int ret;
+    if (JniUtil::isGetByteArrayElementsLikelyToReturnACopy(array_size)) {
+        if (len <= 1024) {
+            // Allocate small buffers on the stack for performance.
+            jbyte buf[1024];
+            ret = sslRead(env, ssl, fdObject, shc, reinterpret_cast<char*>(&buf[0]), len, sslError,
+                          read_timeout_millis);
+            if (ret > 0) {
+                // Don't bother applying changes if issues were encountered.
+                env->SetByteArrayRegion(b, offset, ret, &buf[0]);
+            }
+        } else {
+            // Allocate larger buffers on the heap.
+            // ARRAY_CHUNK_INVALID above ensures that len >= 0.
+            jint remaining = len;
+            jint buf_size = (remaining >= 65536) ? 65536 : remaining;
+            std::unique_ptr<jbyte[]> buf(new jbyte[static_cast<unsigned int>(buf_size)]);
+            // TODO: Use new(std::nothrow).
+            if (buf.get() == nullptr) {
+                Errors::jniThrowOutOfMemory(env, "Unable to allocate chunk buffer");
+                return 0;
+            }
+            jint expected_reads = len / buf_size;
+            if (expected_reads > 0) {
+                // TODO: Fix cumulative read timeout? This currently ensures that the cumulative
+                // timeout does not exceed the given timeout, but it is overly strict in that it
+                // allocates uniformly-sized time slots for each call.
+                read_timeout_millis = read_timeout_millis / expected_reads;
+            }
+            ret = 0;
+            while (remaining > 0) {
+                jint temp_ret;
+                jint chunk_size = (remaining >= buf_size) ? buf_size : remaining;
+                temp_ret = sslRead(env, ssl, fdObject, shc, reinterpret_cast<char*>(buf.get()),
+                                   chunk_size, sslError, read_timeout_millis);
+                if (temp_ret < 0) {
+                    if (ret > 0) {
+                        // We've already read some bytes; attempt to preserve them if this is an
+                        // "expected" error.
+                        if (temp_ret == -1) {
+                            // EOF
+                            break;
+                        } else if (temp_ret == THROWN_EXCEPTION) {
+                            // FD closed. Subsequent calls to sslRead should reproduce the
+                            // exception.
+                            env->ExceptionClear();
+                            break;
+                        }
+                    }
+                    // An error was encountered. Handle below.
+                    ret = temp_ret;
+                    break;
+                }
+                env->SetByteArrayRegion(b, offset, temp_ret, buf.get());
+                if (env->ExceptionCheck()) {
+                    // Error committing changes to JVM.
+                    return -1;
+                }
+                // Accumulate bytes read.
+                ret += temp_ret;
+                offset += temp_ret;
+                remaining -= temp_ret;
+                if (temp_ret < chunk_size) {
+                    // sslRead isn't able to fulfill our request right now.
+                    break;
+                }
+            }
+        }
+    } else {
+        ScopedByteArrayRW bytes(env, b);
+        if (bytes.get() == nullptr) {
+            JNI_TRACE("ssl=%p NativeCrypto_SSL_read => threw exception", ssl);
+            return 0;
+        }
+
+        ret = sslRead(env, ssl, fdObject, shc, reinterpret_cast<char*>(bytes.get() + offset), len,
                       sslError, read_timeout_millis);
+    }
 
     int result;
     switch (ret) {
@@ -7380,8 +7432,8 @@ static int sslWrite(JNIEnv* env, SSL* ssl, jobject fdObject, jobject shc, const 
 
         if (!SSL_is_init_finished(ssl) && !SSL_in_false_start(ssl) &&
             !SSL_renegotiate_pending(ssl)) {
-            JNI_TRACE("ssl=%p sslWrite => init is not finished (state=0x%x)", ssl,
-                    SSL_get_state(ssl));
+            JNI_TRACE("ssl=%p sslWrite => init is not finished (state: %s)", ssl,
+                    SSL_state_string_long(ssl));
             return THROW_SSLEXCEPTION;
         }
 
@@ -7517,15 +7569,59 @@ static void NativeCrypto_SSL_write(JNIEnv* env, jclass, jlong ssl_address, jobje
         JNI_TRACE("ssl=%p NativeCrypto_SSL_write => sslHandshakeCallbacks == null", ssl);
         return;
     }
-
-    ScopedByteArrayRO bytes(env, b);
-    if (bytes.get() == nullptr) {
-        JNI_TRACE("ssl=%p NativeCrypto_SSL_write => threw exception", ssl);
+    if (b == nullptr) {
+        Errors::jniThrowNullPointerException(env, "b == null");
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_write => b == null", ssl);
         return;
     }
+
+    size_t array_size = static_cast<size_t>(env->GetArrayLength(b));
+    if (ARRAY_CHUNK_INVALID(array_size, offset, len)) {
+        Errors::jniThrowException(env, "java/lang/ArrayIndexOutOfBoundsException", "b");
+        JNI_TRACE("ssl=%p NativeCrypto_SSL_write => ArrayIndexOutOfBoundsException", ssl);
+        return;
+    }
+
     OpenSslError sslError;
-    int ret = sslWrite(env, ssl, fdObject, shc, reinterpret_cast<const char*>(bytes.get() + offset),
+    int ret;
+    if (JniUtil::isGetByteArrayElementsLikelyToReturnACopy(array_size)) {
+        if (len <= 1024) {
+            jbyte buf[1024];
+            env->GetByteArrayRegion(b, offset, len, buf);
+            ret = sslWrite(env, ssl, fdObject, shc, reinterpret_cast<const char*>(&buf[0]), len,
+                           sslError, write_timeout_millis);
+        } else {
+            // TODO: Similar safety concerns and questions here as in SSL_read.
+            jint remaining = len;
+            jint buf_size = (remaining >= 65536) ? 65536 : remaining;
+            std::unique_ptr<jbyte[]> buf(new jbyte[static_cast<unsigned int>(buf_size)]);
+            if (buf.get() == nullptr) {
+                Errors::jniThrowOutOfMemory(env, "Unable to allocate chunk buffer");
+                return;
+            }
+            while (remaining > 0) {
+                jint chunk_size = (remaining >= buf_size) ? buf_size : remaining;
+                env->GetByteArrayRegion(b, offset, chunk_size, buf.get());
+                ret = sslWrite(env, ssl, fdObject, shc, reinterpret_cast<const char*>(buf.get()),
+                               chunk_size, sslError, write_timeout_millis);
+                if (ret == THROW_SSLEXCEPTION || ret == THROW_SOCKETTIMEOUTEXCEPTION ||
+                    ret == THROWN_EXCEPTION) {
+                    // Encountered an error. Terminate early and handle below.
+                    break;
+                }
+                offset += ret;
+                remaining -= ret;
+            }
+        }
+    } else {
+        ScopedByteArrayRO bytes(env, b);
+        if (bytes.get() == nullptr) {
+            JNI_TRACE("ssl=%p NativeCrypto_SSL_write => threw exception", ssl);
+            return;
+        }
+        ret = sslWrite(env, ssl, fdObject, shc, reinterpret_cast<const char*>(bytes.get() + offset),
                        len, sslError, write_timeout_millis);
+    }
 
     switch (ret) {
         case THROW_SSLEXCEPTION:
