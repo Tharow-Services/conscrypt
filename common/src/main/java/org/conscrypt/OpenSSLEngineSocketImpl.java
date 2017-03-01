@@ -36,7 +36,6 @@ import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509KeyManager;
 import javax.security.auth.x500.X500Principal;
-import org.conscrypt.util.EmptyArray;
 
 /**
  * Implements crypto handling by delegating to OpenSSLEngine. Used for socket implementations
@@ -73,7 +72,9 @@ public final class OpenSSLEngineSocketImpl extends OpenSSLSocketImplWrapper {
                         engine.beginHandshake();
                         break;
                     }
-                    // Fall through to FINISHED processing.
+                    // Finish processing as well
+                    completeHandshake();
+                    break;
                 }
                 case FINISHED: {
                     completeHandshake();
@@ -176,17 +177,17 @@ public final class OpenSSLEngineSocketImpl extends OpenSSLSocketImplWrapper {
 
     @Override
     public void setChannelIdEnabled(boolean enabled) {
-        throw new UnsupportedOperationException("Not supported");
+        super.setChannelIdEnabled(enabled);
     }
 
     @Override
     public byte[] getChannelId() throws SSLException {
-        throw new UnsupportedOperationException("Not supported");
+        return super.getChannelId();
     }
 
     @Override
     public void setChannelIdPrivateKey(PrivateKey privateKey) {
-        throw new UnsupportedOperationException("FIXME");
+        super.setChannelIdPrivateKey(privateKey);
     }
 
     @Override
@@ -237,7 +238,6 @@ public final class OpenSSLEngineSocketImpl extends OpenSSLSocketImplWrapper {
     @Override
     public int getSoWriteTimeout() throws SocketException {
         return 0;
-        //throw new UnsupportedOperationException("Not supported");
     }
 
     @Override
@@ -300,16 +300,19 @@ public final class OpenSSLEngineSocketImpl extends OpenSSLSocketImplWrapper {
     }
 
     @Override
+    @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     public String chooseServerPSKIdentityHint(PSKKeyManager keyManager) {
         return engine.chooseServerPSKIdentityHint(keyManager);
     }
 
     @Override
+    @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     public String chooseClientPSKIdentity(PSKKeyManager keyManager, String identityHint) {
         return engine.chooseClientPSKIdentity(keyManager, identityHint);
     }
 
     @Override
+    @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     public SecretKey getPSKKey(PSKKeyManager keyManager, String identityHint, String identity) {
         return engine.getPSKKey(keyManager, identityHint, identity);
     }
@@ -505,12 +508,18 @@ public final class OpenSSLEngineSocketImpl extends OpenSSLSocketImplWrapper {
                                         // Need to read more data from the socket.
                                         break;
                                     }
-                                    // Fall-through and serve the data that was produced.
+                                    // Also serve the data that was produced.
+                                    needMoreData = false;
+                                    break;
                                 }
                                 case OK: {
                                     // We processed the entire packet successfully.
                                     needMoreData = false;
                                     break;
+                                }
+                                case CLOSED: {
+                                    // EOF
+                                    return -1;
                                 }
                                 default: {
                                     // Anything else is an error.
