@@ -92,6 +92,22 @@ LOCAL_REQUIRED_MODULES := libjavacrypto
 LOCAL_JAVA_LANGUAGE_VERSION := 1.7
 include $(BUILD_JAVA_LIBRARY)
 
+# A guaranteed unstripped version of conscrypt. This is required for ART testing in
+# preopted configurations. See b/24535627.
+include $(CLEAR_VARS)
+LOCAL_SRC_FILES := $(common_java_files)
+LOCAL_SRC_FILES += $(call all-java-files-under,platform/src/main/java)
+LOCAL_GENERATED_SOURCES := $(conscrypt_gen_java_files)
+LOCAL_JAVA_LIBRARIES := core-oj core-libart
+LOCAL_NO_STANDARD_LIBRARIES := true
+LOCAL_JAVACFLAGS := $(local_javac_flags)
+LOCAL_JARJAR_RULES := $(LOCAL_PATH)/jarjar-rules.txt
+LOCAL_MODULE_TAGS := optional
+LOCAL_MODULE := conscrypt-testdex
+LOCAL_REQUIRED_MODULES := libjavacrypto
+LOCAL_JAVA_LANGUAGE_VERSION := 1.7
+include $(BUILD_JAVA_LIBRARY)
+
 # Create the conscrypt library without jarjar for tests
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(common_java_files)
