@@ -22,6 +22,30 @@
       "revId": "575ce9be096d48696416049f1e99930a52850ac0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "901c85a9_026d62da",
+        "filename": "platform/src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1864,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2017-03-03T10:19:20Z",
+      "side": 1,
+      "message": "Updated the comment to be more explicit.",
+      "parentUuid": "6d0ede90_3900e8f0",
+      "range": {
+        "startLine": 1864,
+        "startChar": 56,
+        "endLine": 1864,
+        "endChar": 65
+      },
+      "revId": "575ce9be096d48696416049f1e99930a52850ac0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
