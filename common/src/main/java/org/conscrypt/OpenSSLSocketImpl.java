@@ -463,9 +463,8 @@ public class OpenSSLSocketImpl
 
         InetAddress peerAddress = getInetAddress();
         if (peerAddress != null) {
-            return peerAddress.getHostAddress();
+            return Platform.getOriginalHostNameFromInetAddress(peerAddress);
         }
-
         return null;
     }
 

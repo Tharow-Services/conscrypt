@@ -326,6 +326,25 @@ class Platform {
         return sslSession;
     }
 
+    public static String getOriginalHostNameFromInetAddress(InetAddress addr) {
+        try {
+            Method getHolder = InetAddress.class.getDeclaredMethod("holder");
+            getHolder.setAccessible(true);
+
+            Method getOriginalHostName = Class.forName("java.net.InetAddress$InetAddressHolder")
+                                                 .getDeclaredMethod("getOriginalHostName");
+            getOriginalHostName.setAccessible(true);
+
+            String originalHostName = (String) getOriginalHostName.invoke(getHolder.invoke(addr));
+            if (originalHostName == null) {
+                return addr.getHostAddress();
+            }
+            return originalHostName;
+        } catch (ReflectiveOperationException e) {
+            throw new RuntimeException("Failed to get originalHostName", e);
+        }
+    }
+
     /*
      * Pre-Java-7 backward compatibility.
      */
