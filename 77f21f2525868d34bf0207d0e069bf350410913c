@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e189f11c_6eea47de",
+        "filename": "platform/src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1867,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-03-03T10:28:49Z",
+      "side": 1,
+      "message": "Readers (like me) are going to be confused about why there\u0027s no fail() after the SSL_renegotiate.",
+      "range": {
+        "startLine": 1865,
+        "startChar": 68,
+        "endLine": 1867,
+        "endChar": 61
+      },
+      "revId": "77f21f2525868d34bf0207d0e069bf350410913c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5b01068e_9ffdda03",
+        "filename": "platform/src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1869,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-03-03T10:28:49Z",
+      "side": 1,
+      "message": "expected ?",
+      "range": {
+        "startLine": 1869,
+        "startChar": 38,
+        "endLine": 1869,
+        "endChar": 39
+      },
+      "revId": "77f21f2525868d34bf0207d0e069bf350410913c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
