@@ -45,6 +45,23 @@
       "revId": "77f21f2525868d34bf0207d0e069bf350410913c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2fb0e9eb_ff1f8a16",
+        "filename": "platform/src/test/java/org/conscrypt/NativeCryptoTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1870,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2017-03-03T10:50:33Z",
+      "side": 1,
+      "message": "If you move this from the catch block to outside the try block then Error Prone should detect that there is no fail(). While that will not change anything here given that you are going to call fail() it would make it more idiomatic.",
+      "revId": "77f21f2525868d34bf0207d0e069bf350410913c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
