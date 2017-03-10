@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aacb92b2_20fd4db8",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 670,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2017-03-10T17:36:36Z",
+      "side": 1,
+      "message": "Seems like we should only catch InvocationTargetException here, ignore other failures, and just let \"addr.getHostAddress()\" below happen.",
+      "range": {
+        "startLine": 670,
+        "startChar": 21,
+        "endLine": 670,
+        "endChar": 49
+      },
+      "revId": "f7aa3778549d41ddee7fb6690522f1fb44072229",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "80327691_d3fb873d",
+        "filename": "openjdk/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2017-03-10T17:36:36Z",
+      "side": 1,
+      "message": "Seems like we should just catch InvocationTargetException here and ignore other failures and just return addr.getHostAddress().",
+      "range": {
+        "startLine": 325,
+        "startChar": 17,
+        "endLine": 325,
+        "endChar": 45
+      },
+      "revId": "f7aa3778549d41ddee7fb6690522f1fb44072229",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8e99f372_3dcdc136",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2017-03-10T17:36:36Z",
+      "side": 1,
+      "message": "As well here: catch InvocationTargetException, ignore others and let IP address return.",
+      "range": {
+        "startLine": 343,
+        "startChar": 17,
+        "endLine": 343,
+        "endChar": 45
+      },
+      "revId": "f7aa3778549d41ddee7fb6690522f1fb44072229",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
