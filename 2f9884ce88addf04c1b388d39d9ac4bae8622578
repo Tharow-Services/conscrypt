@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "8c69f864_b1ccbeb0",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 668,
+      "author": {
+        "id": 1015680
+      },
+      "writtenOn": "2017-03-14T09:51:53Z",
+      "side": 1,
+      "message": "InetAddress.geyByName(\"1.2.3.4\") for example.",
+      "parentUuid": "5dadce53_de54d90d",
+      "range": {
+        "startLine": 666,
+        "startChar": 16,
+        "endLine": 668,
+        "endChar": 17
+      },
+      "revId": "2f9884ce88addf04c1b388d39d9ac4bae8622578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e9ede71f_3c17bb1d",
         "filename": "android/src/main/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-03-07T12:56:16Z",
       "side": 1,
       "message": "catch (ReflectiveOperationException ) reads cleaner and is what the compiler will reduce this to anyway.",
+      "range": {
+        "startLine": 670,
+        "startChar": 21,
+        "endLine": 671,
+        "endChar": 49
+      },
+      "revId": "2f9884ce88addf04c1b388d39d9ac4bae8622578",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f02cca38_5be360c3",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 671,
+      "author": {
+        "id": 1015680
+      },
+      "writtenOn": "2017-03-14T09:51:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9ede71f_3c17bb1d",
       "range": {
         "startLine": 670,
         "startChar": 21,
