@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright (C) 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,81 +14,94 @@
  * limitations under the License.
  */
 
-package org.conscrypt.testing;
+package org.conscrypt;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.Security;
-import java.util.regex.Pattern;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLEngineResult;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSocketFactory;
+import libcore.io.Streams;
 import libcore.java.security.TestKeyStore;
 
 /**
  * Utility methods to support testing.
  */
-public final class TestUtil {
+public final class TestUtils {
+    static final Charset UTF_8 = Charset.forName("UTF-8");
+
     private static final Provider JDK_PROVIDER = getDefaultTlsProvider();
     private static final Provider CONSCRYPT_PROVIDER = getConscryptProvider();
     private static final byte[] CHARS =
-            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".getBytes();
-    private static final Pattern KEY_PATTERN =
-            Pattern.compile("-+BEGIN\\s+.*PRIVATE\\s+KEY[^-]*-+(?:\\s|\\r|\\n)+" + // Header
-                            "([a-z0-9+/=\\r\\n]+)" + // Base64 text
-                            "-+END\\s+.*PRIVATE\\s+KEY[^-]*-+", // Footer
-                    Pattern.CASE_INSENSITIVE);
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".getBytes(UTF_8);
 
     public static final String PROTOCOL_TLS_V1_2 = "TLSv1.2";
-    public static final String PROVIDER_PROPERTY = "SSLContext.TLSv1.2";
+    private static final String PROVIDER_PROPERTY = "SSLContext.TLSv1.2";
     public static final String LOCALHOST = "localhost";
 
-    private TestUtil() {}
+    private TestUtils() {}
+
+    public static InputStream openTestFile(String name) throws FileNotFoundException {
+        InputStream is = TestUtils.class.getResourceAsStream("/" + name);
+        if (is == null) {
+            throw new FileNotFoundException(name);
+        }
+        return is;
+    }
+
+    public static byte[] readTestFile(String name) throws IOException {
+        return Streams.readFully(openTestFile(name));
+    }
 
     /**
      * Returns an array containing only {@link #PROTOCOL_TLS_V1_2}.
      */
-    public static String[] getProtocols() {
+    static String[] getProtocols() {
         return new String[] {PROTOCOL_TLS_V1_2};
     }
 
-    public static SSLSocketFactory getJdkSocketFactory() {
+    static SSLSocketFactory getJdkSocketFactory() {
         return getSocketFactory(JDK_PROVIDER);
     }
 
-    public static SSLServerSocketFactory getJdkServerSocketFactory() {
+    static SSLServerSocketFactory getJdkServerSocketFactory() {
         return getServerSocketFactory(JDK_PROVIDER);
     }
 
-    public static SSLSocketFactory getConscryptSocketFactory(boolean useEngineSocket) {
+    static SSLSocketFactory getConscryptSocketFactory(boolean useEngineSocket) {
         try {
-            Class<?> clazz = Class.forName("org.conscrypt.OpenSSLSocketFactoryImpl");
-            Method method = clazz.getMethod("setUseEngineSocket", boolean.class);
+            Class<?> clazz = Class.forName("org.conscrypt.Conscrypt$SocketFactories");
+            Method method = clazz.getMethod("setUseEngineSocket", SSLSocketFactory.class, boolean.class);
+
             SSLSocketFactory socketFactory = getSocketFactory(CONSCRYPT_PROVIDER);
-            method.invoke(socketFactory, useEngineSocket);
+            method.invoke(null, socketFactory, useEngineSocket);
             return socketFactory;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static SSLServerSocketFactory getConscryptServerSocketFactory(boolean useEngineSocket) {
+    static SSLServerSocketFactory getConscryptServerSocketFactory(boolean useEngineSocket) {
         try {
-            Class<?> clazz = Class.forName("org.conscrypt.OpenSSLServerSocketFactoryImpl");
-            Method method = clazz.getMethod("setUseEngineSocket", boolean.class);
+            Class<?> clazz = Class.forName("org.conscrypt.Conscrypt$ServerSocketFactories");
+            Method method = clazz.getMethod("setUseEngineSocket", SSLServerSocketFactory.class, boolean.class);
 
             SSLServerSocketFactory socketFactory = getServerSocketFactory(CONSCRYPT_PROVIDER);
-            method.invoke(socketFactory, useEngineSocket);
+            method.invoke(null, socketFactory, useEngineSocket);
             return socketFactory;
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -105,7 +118,7 @@ public final class TestUtil {
         return serverContext.getServerSocketFactory();
     }
 
-    public static SSLContext newContext(Provider provider) {
+    private static SSLContext newContext(Provider provider) {
         try {
             return SSLContext.getInstance("TLS", provider);
         } catch (NoSuchAlgorithmException e) {
@@ -119,7 +132,7 @@ public final class TestUtil {
      * returned port to create a new server socket when other threads/processes are concurrently
      * creating new sockets without a specific port.
      */
-    public static int pickUnusedPort() {
+    static int pickUnusedPort() {
         try {
             ServerSocket serverSocket = new ServerSocket(0);
             int port = serverSocket.getLocalPort();
@@ -133,7 +146,7 @@ public final class TestUtil {
     /**
      * Creates a text message of the given length.
      */
-    public static byte[] newTextMessage(int length) {
+    static byte[] newTextMessage(int length) {
         byte[] msg = new byte[length];
         for (int msgIndex = 0; msgIndex < length;) {
             int remaining = length - msgIndex;
@@ -147,7 +160,7 @@ public final class TestUtil {
     /**
      * Initializes the given engine with the cipher and client mode.
      */
-    public static SSLEngine initEngine(SSLEngine engine, String cipher, boolean client) {
+    static SSLEngine initEngine(SSLEngine engine, String cipher, boolean client) {
         engine.setEnabledProtocols(getProtocols());
         engine.setEnabledCipherSuites(new String[] {cipher});
         engine.setUseClientMode(client);
@@ -157,21 +170,21 @@ public final class TestUtil {
     /**
      * Initializes the given client-side {@code context} with a default cert.
      */
-    public static SSLContext initClientSslContext(SSLContext context) {
+    private static SSLContext initClientSslContext(SSLContext context) {
         return initSslContext(context, TestKeyStore.getClient());
     }
 
     /**
      * Initializes the given server-side {@code context} with the given cert chain and private key.
      */
-    public static SSLContext initServerSslContext(SSLContext context) {
+    private static SSLContext initServerSslContext(SSLContext context) {
         return initSslContext(context, TestKeyStore.getServer());
     }
 
     /**
      * Initializes the given {@code context} from the {@code keyStore}.
      */
-    public static SSLContext initSslContext(SSLContext context, TestKeyStore keyStore) {
+    static SSLContext initSslContext(SSLContext context, TestKeyStore keyStore) {
         try {
             context.init(keyStore.keyManagers, keyStore.trustManagers, null);
             return context;
@@ -183,7 +196,7 @@ public final class TestUtil {
     /**
      * Performs the intial TLS handshake between the two {@link SSLEngine} instances.
      */
-    public static void doEngineHandshake(SSLEngine clientEngine, SSLEngine serverEngine)
+    static void doEngineHandshake(SSLEngine clientEngine, SSLEngine serverEngine)
             throws SSLException {
         ByteBuffer cTOs = ByteBuffer.allocate(clientEngine.getSession().getPacketBufferSize());
         ByteBuffer sTOc = ByteBuffer.allocate(serverEngine.getSession().getPacketBufferSize());
@@ -291,7 +304,7 @@ public final class TestUtil {
         throw new RuntimeException("Unable to find a default provider for " + PROVIDER_PROPERTY);
     }
 
-    private static final Provider getConscryptProvider() {
+    private static Provider getConscryptProvider() {
         try {
             return (Provider) Class.forName("org.conscrypt.OpenSSLProvider")
                     .getConstructor()
