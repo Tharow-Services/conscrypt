@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b989f9c_b24a18f2",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1002975
+      },
+      "writtenOn": "2017-04-27T18:01:26Z",
+      "side": 1,
+      "message": "These appear to be key-restricted OIDs, but we appear not to have AES_128 and AES_256 aliases for GCM.\n\nAdditionally we don\u0027t support AES_192.",
+      "range": {
+        "startLine": 342,
+        "startChar": 11,
+        "endLine": 344,
+        "endChar": 81
+      },
+      "revId": "5d2e92fa27ac9e169ec52a2cd6ae518bd95ce656",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
