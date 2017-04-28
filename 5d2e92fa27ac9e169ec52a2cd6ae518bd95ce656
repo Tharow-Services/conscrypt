@@ -22,6 +22,30 @@
       "revId": "5d2e92fa27ac9e169ec52a2cd6ae518bd95ce656",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d94ee748_3a472a8a",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2017-04-28T09:44:49Z",
+      "side": 1,
+      "message": "\u003e These appear to be key-restricted OIDs, but we appear not to have\n \u003e AES_128 and AES_256 aliases for GCM.\n \u003e \n \u003e Additionally we don\u0027t support AES_192.\n\nThese are indeed key-restricted OIDs, though we do have AES_128 and AES_256 implementations for GCM.  However, in Bouncy Castle these OIDs point to the non-key-restricted implementation, and I figured that for compatibility it\u0027s worth doing the same despite it being somewhat incorrect.",
+      "parentUuid": "5b989f9c_b24a18f2",
+      "range": {
+        "startLine": 342,
+        "startChar": 11,
+        "endLine": 344,
+        "endChar": 81
+      },
+      "revId": "5d2e92fa27ac9e169ec52a2cd6ae518bd95ce656",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
