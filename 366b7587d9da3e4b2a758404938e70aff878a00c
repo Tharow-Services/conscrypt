@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b3c9f0bb_91cb426a",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-05-04T09:46:59Z",
+      "side": 1,
+      "message": "Yes, this was never a part of the public API.\n\nSee frameworks/base/Android.mk for the explicit exclusion of this entire package (\"-hidePackage com.android.org.conscrypt\")",
+      "parentUuid": "0552a1a1_1a4728a5",
+      "range": {
+        "startLine": 33,
+        "startChar": 3,
+        "endLine": 33,
+        "endChar": 8
+      },
+      "revId": "366b7587d9da3e4b2a758404938e70aff878a00c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3ba07e44_8eae9e77",
         "filename": "common/src/main/java/org/conscrypt/OpenSSLRSAPrivateKey.java",
         "patchSetId": 5
