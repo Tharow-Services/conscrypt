@@ -75,11 +75,7 @@ public class OpenSSLServerSocketImplTest {
 
     @Parameters(name = "{0}")
     public static Iterable<SocketType> data() {
-        // Android-changed: Temporarily (2017 Q2) disable ENGINE tests. http://b/37271061#comment9
-        // This experimental (unused by default) implementation is unstable and causing test
-        // failures on Android.
-        // return Arrays.asList(SocketType.DEFAULT, SocketType.ENGINE);
-        return Arrays.asList(SocketType.DEFAULT);
+        return Arrays.asList(SocketType.DEFAULT, SocketType.ENGINE);
     }
 
     @Parameter public SocketType socketType;
