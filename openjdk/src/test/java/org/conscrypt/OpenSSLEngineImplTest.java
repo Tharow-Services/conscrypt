@@ -189,7 +189,11 @@ public class OpenSSLEngineImplTest {
     @Test
     public void exchangeLargeMessage() throws Exception {
         setupEngines(TestKeyStore.getClient(), TestKeyStore.getServer());
+<<<<<<< HEAD   (d4695f Fix unwrap bug for large messages. (#189))
         TestUtil.doEngineHandshake(clientEngine, serverEngine);
+=======
+        TestUtils.doEngineHandshake(clientEngine, serverEngine);
+>>>>>>> BRANCH (8c6ac6 Simplifying build for IDEs (#194))
 
         // Create the input message.
         final int largeMessageSize = 16413;
