@@ -1,4 +1,3 @@
-<<<<<<< HEAD   (b6cbea Merge "Add OWNERS in external/conscrypt")
 /*
  * Copyright 2017 The Android Open Source Project
  *
@@ -42,7 +41,7 @@ import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class OpenSSLServerSocketImplTest {
+public class ConscryptServerSocketTest {
     private static final String CIPHER = "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256";
     private static final int MESSAGE_SIZE = 4096;
 
@@ -76,11 +75,7 @@ public class OpenSSLServerSocketImplTest {
 
     @Parameters(name = "{0}")
     public static Iterable<SocketType> data() {
-        // Android-changed: Temporarily (2017 Q2) disable ENGINE tests. http://b/37271061#comment9
-        // This experimental (unused by default) implementation is unstable and causing test
-        // failures on Android.
-        // return Arrays.asList(SocketType.DEFAULT, SocketType.ENGINE);
-        return Arrays.asList(SocketType.DEFAULT);
+        return Arrays.asList(SocketType.DEFAULT, SocketType.ENGINE);
     }
 
     @Parameter public SocketType socketType;
@@ -123,5 +118,3 @@ public class OpenSSLServerSocketImplTest {
         assertArrayEquals(request, response);
     }
 }
-=======
->>>>>>> BRANCH (7140d8 Conformance fixes for the engine-based socket. (#202))
