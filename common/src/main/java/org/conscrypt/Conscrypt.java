@@ -15,9 +15,7 @@
  */
 package org.conscrypt;
 
-import java.io.FileDescriptor;
 import java.io.UnsupportedEncodingException;
-import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.security.KeyManagementException;
 import java.security.PrivateKey;
@@ -168,15 +166,43 @@ public final class Conscrypt {
          * Indicates whether the given socket is a Conscrypt socket.
          */
         public static boolean isConscrypt(SSLSocket socket) {
-            return socket instanceof OpenSSLSocketImpl;
+            return socket instanceof AbstractConscryptSocket;
         }
 
-        private static OpenSSLSocketImpl toConscrypt(SSLSocket socket) {
+        private static AbstractConscryptSocket toConscrypt(SSLSocket socket) {
             if (!isConscrypt(socket)) {
                 throw new IllegalArgumentException(
                         "Not a conscrypt socket: " + socket.getClass().getName());
             }
-            return (OpenSSLSocketImpl) socket;
+            return (AbstractConscryptSocket) socket;
+        }
+
+        /**
+         * This method enables Server Name Indication (SNI) and overrides the hostname supplied
+         * during socket creation.
+         *
+         * @param socket the socket
+         * @param hostname the desired SNI hostname, or null to disable
+         */
+        public static void setHostname(SSLSocket socket, String hostname) {
+            toConscrypt(socket).setHostname(hostname);
+        }
+
+        /**
+         * Returns either the hostname supplied during socket creation or via
+         * {@link #setHostname(SSLSocket, String)}. No DNS resolution is attempted before
+         * returning the hostname.
+         */
+        public static String getHostname(SSLSocket socket) {
+            return toConscrypt(socket).getHostname();
+        }
+
+        /**
+         * This method attempts to create a textual representation of the peer host or IP. Does
+         * not perform a reverse DNS lookup. This is typically used during session creation.
+         */
+        public static String getHostnameOrIP(SSLSocket socket) {
+            return toConscrypt(socket).getHostnameOrIP();
         }
 
         /**
@@ -187,64 +213,6 @@ public final class Conscrypt {
          */
         public static void setUseSessionTickets(SSLSocket socket, boolean useSessionTickets) {
             toConscrypt(socket).setUseSessionTickets(useSessionTickets);
-        }
-
-        /**
-         * This method enables Server Name Indication
-         *
-         * @param socket the socket
-         * @param hostname the desired SNI hostname, or null to disable
-         */
-        public static void setHostname(SSLSocket socket, String hostname) {
-            toConscrypt(socket).setHostname(hostname);
-        }
-
-        /**
-         * Returns the hostname that was supplied during socket creation. No DNS resolution is
-         * attempted before returning the hostname.
-         */
-        public static String getHostname(SSLSocket socket) {
-            return toConscrypt(socket).getHostname();
-        }
-
-        /**
-         * For the purposes of an SSLSession, we want a way to represent the supplied hostname
-         * or the IP address in a textual representation. We do not want to perform reverse DNS
-         * lookups on this address.
-         */
-        public static String getHostnameOrIP(SSLSocket socket) {
-            return toConscrypt(socket).getHostnameOrIP();
-        }
-
-        /**
-         * Note write timeouts are not part of the javax.net.ssl.SSLSocket API
-         */
-        public static void setSoWriteTimeout(SSLSocket socket, int writeTimeoutMilliseconds)
-                throws SocketException {
-            toConscrypt(socket).setSoWriteTimeout(writeTimeoutMilliseconds);
-        }
-
-        /**
-         * Note write timeouts are not part of the javax.net.ssl.SSLSocket API
-         */
-        public static int getSoWriteTimeout(SSLSocket socket) throws SocketException {
-            return toConscrypt(socket).getSoWriteTimeout();
-        }
-
-        /**
-         * Set the handshake timeout on this socket.  This timeout is specified in
-         * milliseconds and will be used only during the handshake process.
-         */
-        public static void setHandshakeTimeout(SSLSocket socket, int handshakeTimeoutMilliseconds)
-                throws SocketException {
-            toConscrypt(socket).setHandshakeTimeout(handshakeTimeoutMilliseconds);
-        }
-
-        /**
-         * Gets the underlying file descriptor for the given socket.
-         */
-        public static FileDescriptor getFileDescriptor(SSLSocket socket) {
-            return toConscrypt(socket).getFileDescriptor$();
         }
 
         /**
@@ -324,34 +292,35 @@ public final class Conscrypt {
          * Indicates whether the given engine is a Conscrypt engine.
          */
         public static boolean isConscrypt(SSLEngine engine) {
-            return engine instanceof OpenSSLEngineImpl;
+            return engine instanceof ConscryptEngine;
         }
 
-        private static OpenSSLEngineImpl toConscrypt(SSLEngine engine) {
+        private static ConscryptEngine toConscrypt(SSLEngine engine) {
             if (!isConscrypt(engine)) {
                 throw new IllegalArgumentException(
                         "Not a conscrypt engine: " + engine.getClass().getName());
             }
-            return (OpenSSLEngineImpl) engine;
+            return (ConscryptEngine) engine;
         }
 
         /**
-         * This method enables Server Name Indication (SNI) and sets the host name used for
-         * SNI.
+         * This method enables Server Name Indication (SNI) and overrides the hostname supplied
+         * during engine creation.
          *
          * @param engine the engine
          * @param hostname the desired SNI hostname, or {@code null} to disable
          */
         public static void setHostname(SSLEngine engine, String hostname) {
-            toConscrypt(engine).setSniHostname(hostname);
+            toConscrypt(engine).setHostname(hostname);
         }
 
         /**
-         * Returns the SNI hostname that was set for the {@code engine}. If no SNI hostname
-         * was set, it will return the hostname supplied during creation of the {@code engine}.
+         * Returns either the hostname supplied during socket creation or via
+         * {@link #setHostname(SSLEngine, String)}. No DNS resolution is attempted before
+         * returning the hostname.
          */
         public static String getHostname(SSLEngine engine) {
-            return toConscrypt(engine).getSniHostname();
+            return toConscrypt(engine).getHostname();
         }
 
         /**
