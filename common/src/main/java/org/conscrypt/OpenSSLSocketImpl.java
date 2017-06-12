@@ -264,7 +264,7 @@ public class OpenSSLSocketImpl
     }
 
     private void checkOpen() throws SocketException {
-        if (isClosed()) {
+        if (socket.isClosed()) {
             throw new SocketException("Socket is closed");
         }
     }
@@ -733,8 +733,20 @@ public class OpenSSLSocketImpl
                     if (DBG_STATE) assertReadableOrWriteableState();
                 }
 
-                return NativeCrypto.SSL_read(sslNativePointer, Platform.getFileDescriptor(socket),
-                        OpenSSLSocketImpl.this, buf, offset, byteCount, getSoTimeout());
+                int ret =
+                        NativeCrypto.SSL_read(sslNativePointer, Platform.getFileDescriptor(socket),
+                                OpenSSLSocketImpl.this, buf, offset, byteCount, getSoTimeout());
+
+                // If this is a wrapper of a socket, we need to check whether we exited
+                // SSL_read due to an interrupt.
+                if (ret == -1 && socket != this) {
+                    synchronized (stateLock) {
+                        if (state == STATE_CLOSED) {
+                            throw new SocketException("socket is closed");
+                        }
+                    }
+                }
+                return ret;
             }
         }
 
@@ -801,6 +813,16 @@ public class OpenSSLSocketImpl
 
                 NativeCrypto.SSL_write(sslNativePointer, Platform.getFileDescriptor(socket),
                         OpenSSLSocketImpl.this, buf, offset, byteCount, writeTimeoutMilliseconds);
+
+                // If this is a wrapper of a socket, we need to check whether we exited
+                // SSL_write due to an interrupt.
+                if (socket != this) {
+                    synchronized (stateLock) {
+                        if (state == STATE_CLOSED) {
+                            throw new SocketException("socket is closed");
+                        }
+                    }
+                }
             }
         }
 
