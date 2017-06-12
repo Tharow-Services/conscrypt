@@ -733,8 +733,17 @@ public class OpenSSLSocketImpl
                     if (DBG_STATE) assertReadableOrWriteableState();
                 }
 
-                return NativeCrypto.SSL_read(sslNativePointer, Platform.getFileDescriptor(socket),
-                        OpenSSLSocketImpl.this, buf, offset, byteCount, getSoTimeout());
+                int ret =
+                        NativeCrypto.SSL_read(sslNativePointer, Platform.getFileDescriptor(socket),
+                                OpenSSLSocketImpl.this, buf, offset, byteCount, getSoTimeout());
+                if (ret == -1) {
+                    synchronized (stateLock) {
+                        if (state == STATE_CLOSED) {
+                            throw new SocketException("socket is closed");
+                        }
+                    }
+                }
+                return ret;
             }
         }
 
@@ -801,6 +810,12 @@ public class OpenSSLSocketImpl
 
                 NativeCrypto.SSL_write(sslNativePointer, Platform.getFileDescriptor(socket),
                         OpenSSLSocketImpl.this, buf, offset, byteCount, writeTimeoutMilliseconds);
+
+                synchronized (stateLock) {
+                    if (state == STATE_CLOSED) {
+                        throw new SocketException("socket is closed");
+                    }
+                }
             }
         }
 
