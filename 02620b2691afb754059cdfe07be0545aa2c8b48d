@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fe19618e_51b4ec1b",
+        "filename": "common/src/main/java/org/conscrypt/DESEDESecretKeyFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-06-13T12:58:33Z",
+      "side": 1,
+      "message": "I\u0027m not sure i follow how this works. (maybe it\u0027s just me being rusty :( )",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 39
+      },
+      "revId": "02620b2691afb754059cdfe07be0545aa2c8b48d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0d3662f8_8ee202ce",
+        "filename": "common/src/main/java/org/conscrypt/DESEDESecretKeyFactory.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-06-13T12:58:33Z",
+      "side": 1,
+      "message": "minor nit : either use aClass here and let class.toString do the work for you, or null-check aClass to get a better exception message when aClass \u003d\u003d null.",
+      "range": {
+        "startLine": 66,
+        "startChar": 78,
+        "endLine": 66,
+        "endChar": 94
+      },
+      "revId": "02620b2691afb754059cdfe07be0545aa2c8b48d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
