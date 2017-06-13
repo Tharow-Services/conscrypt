@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0cf2d372_fb10a0b8",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 742,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-06-13T09:02:14Z",
+      "side": 1,
+      "message": "this won\u0027t compile with some toolchains, needs to be OpenSSLSocketImpl.this",
+      "range": {
+        "startLine": 742,
+        "startChar": 43,
+        "endLine": 742,
+        "endChar": 47
+      },
+      "revId": "2c0800d550979c2ef3102a3c3e11ba3ffa1b9eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "451a731f_3e14b398",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 819,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-06-13T09:02:14Z",
+      "side": 1,
+      "message": "likewise",
+      "range": {
+        "startLine": 819,
+        "startChar": 30,
+        "endLine": 819,
+        "endChar": 34
+      },
+      "revId": "2c0800d550979c2ef3102a3c3e11ba3ffa1b9eae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
