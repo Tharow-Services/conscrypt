@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "de198e26_09c292d1",
+        "filename": "common/src/main/java/org/conscrypt/IvParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-06-19T12:19:55Z",
+      "side": 1,
+      "message": "extra space.",
+      "range": {
+        "startLine": 26,
+        "startChar": 92,
+        "endLine": 26,
+        "endChar": 93
+      },
+      "revId": "40ceb06d692d451633b19615da6ae7062e77456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a1cab980_e3c462a1",
+        "filename": "common/src/main/java/org/conscrypt/IvParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-06-19T12:19:55Z",
+      "side": 1,
+      "message": "i\u0027d just say \"The only supported encoding format is RAW\"",
+      "range": {
+        "startLine": 27,
+        "startChar": 3,
+        "endLine": 27,
+        "endChar": 10
+      },
+      "revId": "40ceb06d692d451633b19615da6ae7062e77456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2d8c9b4b_0e7cd660",
+        "filename": "common/src/main/java/org/conscrypt/IvParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-06-19T12:19:55Z",
+      "side": 1,
+      "message": "Is there no code you can reuse for this ? (same question for the reverse operation in engineGetEncoded..)\n\nIf the answer\u0027s no, it feels like we might need a specific unit test for this logic in addition to the higher level JCA tests that exercise it.",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "40ceb06d692d451633b19615da6ae7062e77456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2f79a103_fc94cc92",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2017-06-19T12:19:55Z",
+      "side": 1,
+      "message": "I did not review these for correctness. How should I do so ?",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 74
+      },
+      "revId": "40ceb06d692d451633b19615da6ae7062e77456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
