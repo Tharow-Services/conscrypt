@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "a0848004_e05db97b",
+        "filename": "common/src/main/java/org/conscrypt/IvParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2017-06-20T12:45:45Z",
+      "side": 1,
+      "message": "\u003e extra space.\n\nI prefer two spaces after a period in fixed-width text.  Do you particularly care?",
+      "parentUuid": "de198e26_09c292d1",
+      "range": {
+        "startLine": 26,
+        "startChar": 92,
+        "endLine": 26,
+        "endChar": 93
+      },
+      "revId": "40ceb06d692d451633b19615da6ae7062e77456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a1cab980_e3c462a1",
         "filename": "common/src/main/java/org/conscrypt/IvParameters.java",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-06-19T12:19:55Z",
       "side": 1,
       "message": "i\u0027d just say \"The only supported encoding format is RAW\"",
+      "range": {
+        "startLine": 27,
+        "startChar": 3,
+        "endLine": 27,
+        "endChar": 10
+      },
+      "revId": "40ceb06d692d451633b19615da6ae7062e77456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac98e571_1c0f2337",
+        "filename": "common/src/main/java/org/conscrypt/IvParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2017-06-20T12:45:45Z",
+      "side": 1,
+      "message": "\u003e i\u0027d just say \"The only supported encoding format is RAW\"\n\nThis sentence is actually just wrong, fixed up.",
+      "parentUuid": "a1cab980_e3c462a1",
       "range": {
         "startLine": 27,
         "startChar": 3,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "303baf67_d43dd40a",
+        "filename": "common/src/main/java/org/conscrypt/IvParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2017-06-20T12:45:45Z",
+      "side": 1,
+      "message": "\u003e Is there no code you can reuse for this ? (same question for the\n \u003e reverse operation in engineGetEncoded..)\n \u003e \n \u003e If the answer\u0027s no, it feels like we might need a specific unit\n \u003e test for this logic in addition to the higher level JCA tests that\n \u003e exercise it.\n\nIn another change I\u0027ve added access to the BoringSSL ASN.1 encoding methods, so I\u0027ll use those once that other change is in.",
+      "parentUuid": "2d8c9b4b_0e7cd660",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "revId": "40ceb06d692d451633b19615da6ae7062e77456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f79a103_fc94cc92",
         "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2017-06-19T12:19:55Z",
       "side": 1,
       "message": "I did not review these for correctness. How should I do so ?",
+      "range": {
+        "startLine": 77,
+        "startChar": 8,
+        "endLine": 82,
+        "endChar": 74
+      },
+      "revId": "40ceb06d692d451633b19615da6ae7062e77456e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74134b0e_0a276ff5",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2017-06-20T12:45:45Z",
+      "side": 1,
+      "message": "\u003e I did not review these for correctness. How should I do so ?\n\nIt\u0027s unfortunately annoying to do so, basically requiring looking up the OIDs on something like http://www.oid-info.com/ and seeing that they identify something appropriate.  We have a test that checks that all the identifiers used by Bouncy Castle for a given algorithm are also covered by Conscrypt, so that gives some protection against typos and such.",
+      "parentUuid": "2f79a103_fc94cc92",
       "range": {
         "startLine": 77,
         "startChar": 8,
