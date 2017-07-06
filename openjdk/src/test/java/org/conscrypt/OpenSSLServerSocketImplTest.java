@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (bd086d Enable new Conscrypt algorithms.)
 /*
  * Copyright 2017 The Android Open Source Project
  *
@@ -122,3 +123,5 @@ public class OpenSSLServerSocketImplTest {
         assertArrayEquals(request, response);
     }
 }
+=======
+>>>>>>> BRANCH (64f0ed Always use state in ConscryptEngine.is{In,Out}boundClosed() )
