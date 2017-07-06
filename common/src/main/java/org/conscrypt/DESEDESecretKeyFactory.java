@@ -38,6 +38,7 @@ public class DESEDESecretKeyFactory extends SecretKeyFactorySpi {
             throw new InvalidKeySpecException("Null KeySpec");
         }
         if (keySpec instanceof SecretKeySpec) {
+<<<<<<< HEAD   (bd086d Enable new Conscrypt algorithms.)
             return (SecretKey) keySpec;
         } else if (keySpec instanceof DESedeKeySpec) {
             DESedeKeySpec desKeySpec = (DESedeKeySpec) keySpec;
@@ -55,6 +56,41 @@ public class DESEDESecretKeyFactory extends SecretKeyFactorySpi {
             throw new InvalidKeySpecException("Null SecretKey");
         }
         if (aClass == SecretKeySpec.class) {
+=======
+            SecretKeySpec key = (SecretKeySpec) keySpec;
+            try {
+                if (!DESedeKeySpec.isParityAdjusted(key.getEncoded(), 0)) {
+                    throw new InvalidKeySpecException(
+                            "SecretKeySpec is not a parity-adjusted DESEDE key");
+                }
+            } catch (InvalidKeyException e) {
+                throw new InvalidKeySpecException(e);
+            }
+            return key;
+        } else if (keySpec instanceof DESedeKeySpec) {
+            DESedeKeySpec desKeySpec = (DESedeKeySpec) keySpec;
+            return new SecretKeySpec(desKeySpec.getKey(), "DESEDE");
+        } else {
+            throw new InvalidKeySpecException(
+                    "Unsupported KeySpec class: " + keySpec.getClass().getName());
+        }
+    }
+
+    @Override
+    protected KeySpec engineGetKeySpec(SecretKey secretKey,
+            @SuppressWarnings("rawtypes") Class aClass) throws InvalidKeySpecException {
+        if (secretKey == null) {
+            throw new InvalidKeySpecException("Null SecretKey");
+        }
+        if (aClass == SecretKeySpec.class) {
+            try {
+                if (!DESedeKeySpec.isParityAdjusted(secretKey.getEncoded(), 0)) {
+                    throw new InvalidKeySpecException("SecretKey is not a parity-adjusted DESEDE key");
+                }
+            } catch (InvalidKeyException e) {
+                throw new InvalidKeySpecException(e);
+            }
+>>>>>>> BRANCH (64f0ed Always use state in ConscryptEngine.is{In,Out}boundClosed() )
             if (secretKey instanceof SecretKeySpec) {
                 return (KeySpec) secretKey;
             } else {
