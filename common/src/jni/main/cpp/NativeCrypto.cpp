@@ -20,17 +20,18 @@
 #include "BioStream.h"
 #include "CompatibilityCloseMonitor.h"
 #include "Errors.h"
-#include "JniConstants.h"
 #include "JniUtil.h"
 #include "NativeCrypto.h"
 #include "NetFd.h"
 #include "NetworkUtil.h"
 #include "OpenSslError.h"
-#include "ScopedPrimitiveArray.h"
 #include "ScopedSslBio.h"
-#include "ScopedUtfChars.h"
 #include "compat.h"
 #include "macros.h"
+
+#include <nativehelper/JniConstants.h>
+#include <nativehelper/ScopedPrimitiveArray.h>
+#include <nativehelper/ScopedUtfChars.h>
 
 #include <openssl/asn1.h>
 #include <openssl/engine.h>

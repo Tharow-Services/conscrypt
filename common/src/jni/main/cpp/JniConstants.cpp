@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#include "JniConstants.h"
+#include <nativehelper/JniConstants.h>
 
 using namespace conscrypt;
 

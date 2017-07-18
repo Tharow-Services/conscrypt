@@ -17,9 +17,10 @@
 #include <jni.h>
 
 #include "CompatibilityCloseMonitor.h"
-#include "JniConstants.h"
 #include "NativeCrypto.h"
 #include "macros.h"
+
+#include <nativehelper/JniConstants.h>
 
 #ifndef CONSCRYPT_JNI_VERSION
 #define CONSCRYPT_JNI_VERSION JNI_VERSION_1_6
