@@ -17,7 +17,7 @@
 #include <jni.h>
 
 #include "CompatibilityCloseMonitor.h"
-#include "JniConstants.h"
+#include <nativehelper/JniConstants.h>
 #include "NativeCrypto.h"
 #include "macros.h"
 

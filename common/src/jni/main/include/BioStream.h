@@ -19,7 +19,7 @@
 
 #include <jni.h>
 
-#include "JniConstants.h"
+#include <nativehelper/JniConstants.h>
 #include "Trace.h"
 
 namespace conscrypt {
