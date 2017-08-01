@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "08f96bca_d709c2e4",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 720,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2017-08-01T12:31:18Z",
+      "side": 1,
+      "message": "Is 24 still the right number?",
+      "range": {
+        "startLine": 720,
+        "startChar": 8,
+        "endLine": 720,
+        "endChar": 41
+      },
+      "revId": "0cafd5c63ada8273ea9c20523cd766d6f7110ed9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
