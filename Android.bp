@@ -63,6 +63,13 @@ cc_defaults {
 cc_library {
     name: "libconscrypt_jni",
     defaults: ["conscrypt_global", "conscrypt_unbundled"],
+
+    // TODO(b/64535390): The use of libc++_static causes ODR violations for
+    // ASAN: figure out if there's a good way to deal with that or blacklist
+    // NativeConstants.cpp.
+    sanitize: {
+        never: true,
+    },
 }
 
 cc_library_host_shared {
