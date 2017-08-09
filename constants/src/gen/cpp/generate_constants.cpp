@@ -17,6 +17,7 @@
 
 #include <stdio.h>
 
+#define BORINGSSL_NO_CXX
 #include <openssl/ec.h>
 #include <openssl/rsa.h>
 #include <openssl/ssl.h>

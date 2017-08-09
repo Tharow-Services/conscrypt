@@ -28,9 +28,9 @@ private:
     ~Trace() {}
 
 public:
-    static constexpr bool kWithJniTrace = false;
-    static constexpr bool kWithJniTraceMd = false;
-    static constexpr bool kWithJniTraceData = false;
+    static constexpr bool kWithJniTrace = true;
+    static constexpr bool kWithJniTraceMd = true;
+    static constexpr bool kWithJniTraceData = true;
 
     /*
      * To print create a pcap-style dump you can take the log output and
