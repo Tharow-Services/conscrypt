@@ -1,0 +1,9 @@
+Verified+1: Rob Sloan <varomodt@google.com>
+Autosubmit+1: Rob Sloan <varomodt@google.com>
+Build-Cop-Override+1: Lei Yu <jackqdyulei@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 10 Aug 2017 03:13:10 +0000
+Reviewed-on: https://android-review.googlesource.com/455411
+Project: platform/external/conscrypt
+Branch: refs/heads/master
