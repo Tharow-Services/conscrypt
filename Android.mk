@@ -63,6 +63,7 @@ include $(CLEAR_VARS)
 LOCAL_SRC_FILES := constants/src/gen/cpp/generate_constants.cpp
 LOCAL_MODULE := conscrypt_generate_constants
 LOCAL_SHARED_LIBRARIES := libcrypto libssl
+LOCAL_SANITIZE := never
 include $(BUILD_HOST_EXECUTABLE)
 
 conscrypt_generate_constants_exe := $(LOCAL_INSTALLED_MODULE)
