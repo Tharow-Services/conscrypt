@@ -701,7 +701,7 @@ final class Platform {
             return sslSession;
         }
 
-        return new DelegatingExtendedSSLSession(sslSession);
+        return ExtendedSessionAdapter.wrap(sslSession);
     }
 
     public static SSLSession unwrapSSLSession(SSLSession sslSession) {
@@ -709,11 +709,34 @@ final class Platform {
             return sslSession;
         }
 
-        if (sslSession instanceof DelegatingExtendedSSLSession) {
-            return ((DelegatingExtendedSSLSession) sslSession).getDelegate();
-        }
+        return ExtendedSessionAdapter.getDelegate(sslSession);
+    }
 
-        return sslSession;
+    public static String getOriginalHostNameFromInetAddress(InetAddress addr) {
+        if (Build.VERSION.SDK_INT > 27) {
+            try {
+                Method getHolder = InetAddress.class.getDeclaredMethod("holder");
+                getHolder.setAccessible(true);
+
+                Method getOriginalHostName = Class.forName("java.net.InetAddress$InetAddressHolder")
+                                                     .getDeclaredMethod("getOriginalHostName");
+                getOriginalHostName.setAccessible(true);
+
+                String originalHostName =
+                        (String) getOriginalHostName.invoke(getHolder.invoke(addr));
+                if (originalHostName == null) {
+                    return addr.getHostAddress();
+                }
+                return originalHostName;
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException("Failed to get originalHostName", e);
+            } catch (ClassNotFoundException ignore) {
+                // passthrough and return addr.getHostAddress()
+            } catch (IllegalAccessException ignore) {
+            } catch (NoSuchMethodException ignore) {
+            }
+        }
+        return addr.getHostAddress();
     }
 
     public static String getOriginalHostNameFromInetAddress(InetAddress addr) {

@@ -335,15 +335,33 @@ final class Platform {
      */
 
     static SSLSession wrapSSLSession(ActiveSession sslSession) {
-        return new DelegatingExtendedSSLSession(sslSession);
+        return ExtendedSessionAdapter.wrap(sslSession);
     }
 
     static SSLSession unwrapSSLSession(SSLSession sslSession) {
-        if (sslSession instanceof DelegatingExtendedSSLSession) {
-            return ((DelegatingExtendedSSLSession) sslSession).getDelegate();
-        }
+        return ExtendedSessionAdapter.getDelegate(sslSession);
+    }
 
-        return sslSession;
+    public static String getOriginalHostNameFromInetAddress(InetAddress addr) {
+        try {
+            Method getHolder = InetAddress.class.getDeclaredMethod("holder");
+            getHolder.setAccessible(true);
+
+            Method getOriginalHostName = Class.forName("java.net.InetAddress$InetAddressHolder")
+                                                 .getDeclaredMethod("getOriginalHostName");
+            getOriginalHostName.setAccessible(true);
+
+            String originalHostName = (String) getOriginalHostName.invoke(getHolder.invoke(addr));
+            if (originalHostName == null) {
+                return addr.getHostAddress();
+            }
+            return originalHostName;
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException("Failed to get originalHostName", e);
+        } catch (ReflectiveOperationException ignore) {
+            // passthrough and return addr.getHostAddress()
+        }
+        return addr.getHostAddress();
     }
 
     public static String getOriginalHostNameFromInetAddress(InetAddress addr) {

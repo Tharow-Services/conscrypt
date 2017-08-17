@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (6b0dcc Revert "Don't run ASAN on conscrypt variable reification.")
 /*
  * Copyright (C) 2007-2008 The Android Open Source Project
  *
@@ -9579,3 +9580,5 @@ void NativeCrypto::registerNativeMethods(JNIEnv* env) {
 /* c-basic-offset: 4 */
 /* End: */
 /* vim: set softtabstop=4 shiftwidth=4 expandtab: */
+=======
+>>>>>>> BRANCH (62454d Re-enable loading the bare dynamic library name. (#306))
