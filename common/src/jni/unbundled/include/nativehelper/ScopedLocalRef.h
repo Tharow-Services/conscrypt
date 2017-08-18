@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+<<<<<<< HEAD   (6b0dcc Revert "Don't run ASAN on conscrypt variable reification.")
 #ifndef SCOPED_LOCAL_REF_H_included
 #define SCOPED_LOCAL_REF_H_included
 
@@ -63,3 +64,54 @@ private:
 };
 
 #endif  // SCOPED_LOCAL_REF_H_included
+=======
+#ifndef SCOPEDLOCALREF_H_
+#define SCOPEDLOCALREF_H_
+
+#include <conscrypt/macros.h>
+#include <jni.h>
+
+#include <stddef.h>
+
+// A smart pointer that deletes a JNI local reference when it goes out of scope.
+template<typename T>
+class ScopedLocalRef {
+ public:
+    ScopedLocalRef(JNIEnv* env, T localRef) : mEnv(env), mLocalRef(localRef) {
+    }
+
+    ~ScopedLocalRef() {
+        reset();
+    }
+
+    void reset(T ptr = nullptr) {
+        if (ptr != mLocalRef) {
+            if (mLocalRef != nullptr) {
+                mEnv->DeleteLocalRef(mLocalRef);
+            }
+            mLocalRef = ptr;
+        }
+    }
+
+    CONSCRYPT_WARN_UNUSED
+    T release() {
+        T localRef = mLocalRef;
+        mLocalRef = nullptr;
+        return localRef;
+    }
+
+    T get() const {
+        return mLocalRef;
+    }
+
+ private:
+    JNIEnv* mEnv;
+    T mLocalRef;
+
+    // Disallow copy and assignment.
+    ScopedLocalRef(const ScopedLocalRef&);
+    void operator=(const ScopedLocalRef&);
+};
+
+#endif  // SCOPEDLOCALREF_H_
+>>>>>>> BRANCH (35c563 Switch to non-jarjared BC everywhere TestUtils is used. (#30)

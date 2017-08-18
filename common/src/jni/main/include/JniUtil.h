@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (6b0dcc Revert "Don't run ASAN on conscrypt variable reification.")
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -149,3 +150,5 @@ public:
 }  // namespace conscrypt
 
 #endif  // CONSCRYPT_JNIUTIL_H_
+=======
+>>>>>>> BRANCH (35c563 Switch to non-jarjared BC everywhere TestUtils is used. (#30)
