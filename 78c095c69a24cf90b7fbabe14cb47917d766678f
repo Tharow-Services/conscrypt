@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68467533_e1099d0e",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1074628
+      },
+      "writtenOn": "2017-10-17T22:20:48Z",
+      "side": 1,
+      "message": "This is only used in signapk, should we just use host_supported on conscrypt?",
+      "range": {
+        "startLine": 193,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 1
+      },
+      "revId": "78c095c69a24cf90b7fbabe14cb47917d766678f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37730726_ab94a70d",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1074628
+      },
+      "writtenOn": "2017-10-17T22:20:48Z",
+      "side": 1,
+      "message": "Just remove?",
+      "range": {
+        "startLine": 211,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 6
+      },
+      "revId": "78c095c69a24cf90b7fbabe14cb47917d766678f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
