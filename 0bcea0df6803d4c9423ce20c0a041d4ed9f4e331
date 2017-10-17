@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ed173570_e5ca06ae",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 1074628
+      },
+      "writtenOn": "2017-10-17T22:43:33Z",
+      "side": 1,
+      "message": "This doesn\u0027t have any sources or libraries?",
+      "revId": "0bcea0df6803d4c9423ce20c0a041d4ed9f4e331",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
