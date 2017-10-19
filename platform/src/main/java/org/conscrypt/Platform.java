@@ -20,10 +20,10 @@ import static android.system.OsConstants.SOL_SOCKET;
 import static android.system.OsConstants.SO_SNDTIMEO;
 
 import android.system.ErrnoException;
-import android.system.Os;
 import android.system.StructTimeval;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import libcore.io.Libcore;
 import java.io.FileDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -107,7 +107,7 @@ final class Platform {
     static void setSocketWriteTimeout(Socket s, long timeoutMillis) throws SocketException {
         StructTimeval tv = StructTimeval.fromMillis(timeoutMillis);
         try {
-            Os.setsockoptTimeval(s.getFileDescriptor$(), SOL_SOCKET, SO_SNDTIMEO, tv);
+            Libcore.os.setsockoptTimeval(s.getFileDescriptor$(), SOL_SOCKET, SO_SNDTIMEO, tv);
         } catch (ErrnoException errnoException) {
             throw errnoException.rethrowAsSocketException();
         }
