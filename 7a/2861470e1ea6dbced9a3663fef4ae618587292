@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Adam Vartanian <flooey@google.com>
+Verified+1: Chih-hung Hsieh <chh@google.com>
+Submitted-by: Chih-hung Hsieh <chh@google.com>
+Submitted-at: Thu, 26 Oct 2017 16:32:34 +0000
+Reviewed-on: https://android-review.googlesource.com/520382
+Project: platform/external/conscrypt
+Branch: refs/heads/master
