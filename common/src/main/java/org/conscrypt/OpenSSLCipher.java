@@ -16,7 +16,6 @@
 
 package org.conscrypt;
 
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.security.AlgorithmParameters;
@@ -44,15 +43,19 @@ import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import org.conscrypt.NativeRef.EVP_CIPHER_CTX;
-import org.conscrypt.util.ArrayUtils;
-import org.conscrypt.util.EmptyArray;
 
+/**
+ * An implementation of {@link Cipher} using BoringSSL as the backing library.
+ *
+ * @hide
+ */
+@Internal
 public abstract class OpenSSLCipher extends CipherSpi {
 
     /**
      * Modes that a block cipher may support.
      */
-    protected static enum Mode {
+    enum Mode {
         CBC,
         CTR,
         ECB,
@@ -62,7 +65,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
     /**
      * Paddings that a block cipher may support.
      */
-    protected static enum Padding {
+    enum Padding {
         NOPADDING,
         PKCS5PADDING,
         ISO10126PADDING,
@@ -71,7 +74,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
     /**
      * The current cipher mode.
      */
-    protected Mode mode = Mode.ECB;
+    Mode mode = Mode.ECB;
 
     /**
      * The current cipher padding.
@@ -82,12 +85,12 @@ public abstract class OpenSSLCipher extends CipherSpi {
      * May be used when reseting the cipher instance after calling
      * {@code doFinal}.
      */
-    protected byte[] encodedKey;
+    byte[] encodedKey;
 
     /**
      * The Initial Vector (IV) used for the current cipher.
      */
-    protected byte[] iv;
+    byte[] iv;
 
     /**
      * Current cipher mode: encrypting or decrypting.
@@ -99,10 +102,10 @@ public abstract class OpenSSLCipher extends CipherSpi {
      */
     private int blockSize;
 
-    protected OpenSSLCipher() {
+    OpenSSLCipher() {
     }
 
-    protected OpenSSLCipher(Mode mode, Padding padding) {
+    OpenSSLCipher(Mode mode, Padding padding) {
         this.mode = mode;
         this.padding = padding;
         blockSize = getCipherBlockSize();
@@ -114,7 +117,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
      * initialized for encryption or decryption. The {@code encodedKey} will be
      * the bytes of a supported key size.
      */
-    protected abstract void engineInitInternal(byte[] encodedKey, AlgorithmParameterSpec params,
+    abstract void engineInitInternal(byte[] encodedKey, AlgorithmParameterSpec params,
             SecureRandom random) throws InvalidKeyException, InvalidAlgorithmParameterException;
 
     /**
@@ -124,7 +127,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
      * number of bytes processed and placed into {@code output}. On error, an
      * exception must be thrown.
      */
-    protected abstract int updateInternal(byte[] input, int inputOffset, int inputLen,
+    abstract int updateInternal(byte[] input, int inputOffset, int inputLen,
             byte[] output, int outputOffset, int maximumLen) throws ShortBufferException;
 
     /**
@@ -134,39 +137,39 @@ public abstract class OpenSSLCipher extends CipherSpi {
      * of bytes processed and placed into {@code output}. On error, an exception
      * must be thrown.
      */
-    protected abstract int doFinalInternal(byte[] output, int outputOffset, int maximumLen)
+    abstract int doFinalInternal(byte[] output, int outputOffset, int maximumLen)
             throws IllegalBlockSizeException, BadPaddingException, ShortBufferException;
 
     /**
      * Returns the standard name for the particular algorithm.
      */
-    protected abstract String getBaseCipherName();
+    abstract String getBaseCipherName();
 
     /**
      * Checks whether the cipher supports this particular {@code keySize} (in
      * bytes) and throws {@code InvalidKeyException} if it doesn't.
      */
-    protected abstract void checkSupportedKeySize(int keySize) throws InvalidKeyException;
+    abstract void checkSupportedKeySize(int keySize) throws InvalidKeyException;
 
     /**
      * Checks whether the cipher supports this particular cipher {@code mode}
      * and throws {@code NoSuchAlgorithmException} if it doesn't.
      */
-    protected abstract void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException;
+    abstract void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException;
 
     /**
      * Checks whether the cipher supports this particular cipher {@code padding}
      * and throws {@code NoSuchPaddingException} if it doesn't.
      */
-    protected abstract void checkSupportedPadding(Padding padding) throws NoSuchPaddingException;
+    abstract void checkSupportedPadding(Padding padding) throws NoSuchPaddingException;
 
-    protected abstract int getCipherBlockSize();
+    abstract int getCipherBlockSize();
 
-    protected boolean supportsVariableSizeKey() {
+    boolean supportsVariableSizeKey() {
         return false;
     }
 
-    protected boolean supportsVariableSizeIv() {
+    boolean supportsVariableSizeIv() {
         return false;
     }
 
@@ -203,7 +206,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
     /**
      * Returns the padding type for which this cipher is initialized.
      */
-    protected Padding getPadding() {
+    Padding getPadding() {
         return padding;
     }
 
@@ -217,18 +220,18 @@ public abstract class OpenSSLCipher extends CipherSpi {
      * {@code inputLen}. If padding is enabled and the size of the input puts it
      * right at the block size, it will add another block for the padding.
      */
-    protected abstract int getOutputSizeForFinal(int inputLen);
+    abstract int getOutputSizeForFinal(int inputLen);
 
     /**
      * The size of output if {@code update()} is called with this
      * {@code inputLen}. If padding is enabled and the size of the input puts it
      * right at the block size, it will add another block for the padding.
      */
-    protected abstract int getOutputSizeForUpdate(int inputLen);
+    abstract int getOutputSizeForUpdate(int inputLen);
 
     @Override
     protected int engineGetOutputSize(int inputLen) {
-        return getOutputSizeForFinal(inputLen);
+        return Math.max(getOutputSizeForUpdate(inputLen), getOutputSizeForFinal(inputLen));
     }
 
     @Override
@@ -241,11 +244,11 @@ public abstract class OpenSSLCipher extends CipherSpi {
         if (iv != null && iv.length > 0) {
             try {
                 AlgorithmParameters params = AlgorithmParameters.getInstance(getBaseCipherName());
-                params.init(iv);
+                params.init(new IvParameterSpec(iv));
                 return params;
             } catch (NoSuchAlgorithmException e) {
                 return null;
-            } catch (IOException e) {
+            } catch (InvalidParameterSpecException e) {
                 return null;
             }
         }
@@ -419,6 +422,20 @@ public abstract class OpenSSLCipher extends CipherSpi {
         }
     }
 
+    @Override
+    protected int engineGetKeySize(Key key) throws InvalidKeyException {
+        if (!(key instanceof SecretKey)) {
+            throw new InvalidKeyException("Only SecretKey is supported");
+        }
+        byte[] encodedKey = key.getEncoded();
+        if (encodedKey == null) {
+            throw new InvalidKeyException("key.getEncoded() == null");
+        }
+        checkSupportedKeySize(encodedKey.length);
+        // The return value is in bits
+        return encodedKey.length * 8;
+    }
+
     private byte[] checkAndSetEncodedKey(int opmode, Key key) throws InvalidKeyException {
         if (opmode == Cipher.ENCRYPT_MODE || opmode == Cipher.WRAP_MODE) {
             encrypting = true;
@@ -441,7 +458,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         return encodedKey;
     }
 
-    protected boolean isEncrypting() {
+    boolean isEncrypting() {
         return encrypting;
     }
 
@@ -457,7 +474,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
          * like calling "doFinal()" in decryption mode without processing any
          * updates.
          */
-        protected boolean calledUpdate;
+        boolean calledUpdate;
 
         /**
          * The block size of the current mode.
@@ -469,7 +486,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         }
 
         @Override
-        protected void engineInitInternal(byte[] encodedKey, AlgorithmParameterSpec params,
+        void engineInitInternal(byte[] encodedKey, AlgorithmParameterSpec params,
                 SecureRandom random) throws InvalidKeyException,
                 InvalidAlgorithmParameterException {
             byte[] iv;
@@ -497,10 +514,11 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 }
 
                 iv = new byte[expectedIvLength];
-                if (random == null) {
-                    random = new SecureRandom();
+                if (random != null) {
+                    random.nextBytes(iv);
+                } else {
+                    NativeCrypto.RAND_bytes(iv);
                 }
-                random.nextBytes(iv);
             } else if (expectedIvLength == 0 && iv != null) {
                 throw new InvalidAlgorithmParameterException("IV not used in " + mode + " mode");
             } else if (iv != null && iv.length != expectedIvLength) {
@@ -526,7 +544,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         }
 
         @Override
-        protected int updateInternal(byte[] input, int inputOffset, int inputLen, byte[] output,
+        int updateInternal(byte[] input, int inputOffset, int inputLen, byte[] output,
                 int outputOffset, int maximumLen) throws ShortBufferException {
             final int intialOutputOffset = outputOffset;
 
@@ -545,7 +563,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         }
 
         @Override
-        protected int doFinalInternal(byte[] output, int outputOffset, int maximumLen)
+        int doFinalInternal(byte[] output, int outputOffset, int maximumLen)
                 throws IllegalBlockSizeException, BadPaddingException, ShortBufferException {
             /* Remember this so we can tell how many characters were written. */
             final int initialOutputOffset = outputOffset;
@@ -581,7 +599,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         }
 
         @Override
-        protected int getOutputSizeForFinal(int inputLen) {
+        int getOutputSizeForFinal(int inputLen) {
             if (modeBlockSize == 1) {
                 return inputLen;
             } else {
@@ -605,7 +623,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         }
 
         @Override
-        protected int getOutputSizeForUpdate(int inputLen) {
+        int getOutputSizeForUpdate(int inputLen) {
             return getOutputSizeForFinal(inputLen);
         }
 
@@ -613,7 +631,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
          * Returns the OpenSSL cipher name for the particular {@code keySize}
          * and cipher {@code mode}.
          */
-        protected abstract String getCipherName(int keySize, Mode mode);
+        abstract String getCipherName(int keySize, Mode mode);
 
         /**
          * Reset this Cipher instance state to process a new chunk of data.
@@ -623,10 +641,55 @@ public abstract class OpenSSLCipher extends CipherSpi {
             calledUpdate = false;
         }
 
-        public static class AES extends EVP_CIPHER {
+        abstract static class AES_BASE extends EVP_CIPHER {
             private static final int AES_BLOCK_SIZE = 16;
 
-            protected AES(Mode mode, Padding padding) {
+            AES_BASE(Mode mode, Padding padding) {
+                super(mode, padding);
+            }
+
+            @Override
+            void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
+                switch (mode) {
+                    case CBC:
+                    case CTR:
+                    case ECB:
+                        return;
+                    default:
+                        throw new NoSuchAlgorithmException("Unsupported mode " + mode.toString());
+                }
+            }
+
+            @Override
+            void checkSupportedPadding(Padding padding) throws NoSuchPaddingException {
+                switch (padding) {
+                    case NOPADDING:
+                    case PKCS5PADDING:
+                        return;
+                    default:
+                        throw new NoSuchPaddingException(
+                                "Unsupported padding " + padding.toString());
+                }
+            }
+
+            @Override
+            String getBaseCipherName() {
+                return "AES";
+            }
+
+            @Override
+            String getCipherName(int keyLength, Mode mode) {
+                return "aes-" + (keyLength * 8) + "-" + mode.toString().toLowerCase(Locale.US);
+            }
+
+            @Override
+            int getCipherBlockSize() {
+                return AES_BLOCK_SIZE;
+            }
+        }
+
+        public static class AES extends AES_BASE {
+            AES(Mode mode, Padding padding) {
                 super(mode, padding);
             }
 
@@ -673,7 +736,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
             }
 
             @Override
-            protected void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
+            void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
                 switch (keyLength) {
                     case 16: // AES 128
                     case 24: // AES 192
@@ -684,44 +747,115 @@ public abstract class OpenSSLCipher extends CipherSpi {
                                 + " bytes");
                 }
             }
+        }
 
-            @Override
-            protected void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
-                switch (mode) {
-                    case CBC:
-                    case CTR:
-                    case ECB:
-                        return;
-                    default:
-                        throw new NoSuchAlgorithmException("Unsupported mode " + mode.toString());
+        public static class AES_128 extends AES_BASE {
+            AES_128(Mode mode, Padding padding) {
+                super(mode, padding);
+            }
+
+            public static class CBC extends AES_128 {
+                public CBC(Padding padding) {
+                    super(Mode.CBC, padding);
+                }
+
+                public static class NoPadding extends CBC {
+                    public NoPadding() {
+                        super(Padding.NOPADDING);
+                    }
+                }
+
+                public static class PKCS5Padding extends CBC {
+                    public PKCS5Padding() {
+                        super(Padding.PKCS5PADDING);
+                    }
+                }
+            }
+
+            public static class CTR extends AES_128 {
+                public CTR() {
+                    super(Mode.CTR, Padding.NOPADDING);
+                }
+            }
+
+            public static class ECB extends AES_128 {
+                public ECB(Padding padding) {
+                    super(Mode.ECB, padding);
+                }
+
+                public static class NoPadding extends ECB {
+                    public NoPadding() {
+                        super(Padding.NOPADDING);
+                    }
+                }
+
+                public static class PKCS5Padding extends ECB {
+                    public PKCS5Padding() {
+                        super(Padding.PKCS5PADDING);
+                    }
                 }
             }
 
             @Override
-            protected void checkSupportedPadding(Padding padding) throws NoSuchPaddingException {
-                switch (padding) {
-                    case NOPADDING:
-                    case PKCS5PADDING:
-                        return;
-                    default:
-                        throw new NoSuchPaddingException("Unsupported padding "
-                                + padding.toString());
+            void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
+                if (keyLength != 16) { // 128 bits
+                    throw new InvalidKeyException("Unsupported key size: " + keyLength + " bytes");
+                }
+            }
+        }
+
+        public static class AES_256 extends AES_BASE {
+            AES_256(Mode mode, Padding padding) {
+                super(mode, padding);
+            }
+
+            public static class CBC extends AES_256 {
+                public CBC(Padding padding) {
+                    super(Mode.CBC, padding);
+                }
+
+                public static class NoPadding extends CBC {
+                    public NoPadding() {
+                        super(Padding.NOPADDING);
+                    }
+                }
+
+                public static class PKCS5Padding extends CBC {
+                    public PKCS5Padding() {
+                        super(Padding.PKCS5PADDING);
+                    }
+                }
+            }
+
+            public static class CTR extends AES_256 {
+                public CTR() {
+                    super(Mode.CTR, Padding.NOPADDING);
+                }
+            }
+
+            public static class ECB extends AES_256 {
+                public ECB(Padding padding) {
+                    super(Mode.ECB, padding);
+                }
+
+                public static class NoPadding extends ECB {
+                    public NoPadding() {
+                        super(Padding.NOPADDING);
+                    }
+                }
+
+                public static class PKCS5Padding extends ECB {
+                    public PKCS5Padding() {
+                        super(Padding.PKCS5PADDING);
+                    }
                 }
             }
 
             @Override
-            protected String getBaseCipherName() {
-                return "AES";
-            }
-
-            @Override
-            protected String getCipherName(int keyLength, Mode mode) {
-                return "aes-" + (keyLength * 8) + "-" + mode.toString().toLowerCase(Locale.US);
-            }
-
-            @Override
-            protected int getCipherBlockSize() {
-                return AES_BLOCK_SIZE;
+            void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
+                if (keyLength != 32) { // 256 bits
+                    throw new InvalidKeyException("Unsupported key size: " + keyLength + " bytes");
+                }
             }
         }
 
@@ -751,12 +885,12 @@ public abstract class OpenSSLCipher extends CipherSpi {
             }
 
             @Override
-            protected String getBaseCipherName() {
+            String getBaseCipherName() {
                 return "DESede";
             }
 
             @Override
-            protected String getCipherName(int keySize, Mode mode) {
+            String getCipherName(int keySize, Mode mode) {
                 final String baseCipherName;
                 if (keySize == 16) {
                     baseCipherName = "des-ede";
@@ -768,21 +902,21 @@ public abstract class OpenSSLCipher extends CipherSpi {
             }
 
             @Override
-            protected void checkSupportedKeySize(int keySize) throws InvalidKeyException {
+            void checkSupportedKeySize(int keySize) throws InvalidKeyException {
                 if (keySize != 16 && keySize != 24) {
                     throw new InvalidKeyException("key size must be 128 or 192 bits");
                 }
             }
 
             @Override
-            protected void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
+            void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
                 if (mode != Mode.CBC) {
                     throw new NoSuchAlgorithmException("Unsupported mode " + mode.toString());
                 }
             }
 
             @Override
-            protected void checkSupportedPadding(Padding padding) throws NoSuchPaddingException {
+            void checkSupportedPadding(Padding padding) throws NoSuchPaddingException {
                 switch (padding) {
                     case NOPADDING:
                     case PKCS5PADDING:
@@ -794,7 +928,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
             }
 
             @Override
-            protected int getCipherBlockSize() {
+            int getCipherBlockSize() {
                 return DES_BLOCK_SIZE;
             }
         }
@@ -806,36 +940,36 @@ public abstract class OpenSSLCipher extends CipherSpi {
             }
 
             @Override
-            protected String getBaseCipherName() {
+            String getBaseCipherName() {
                 return "ARCFOUR";
             }
 
             @Override
-            protected String getCipherName(int keySize, Mode mode) {
+            String getCipherName(int keySize, Mode mode) {
                 return "rc4";
             }
 
             @Override
-            protected void checkSupportedKeySize(int keySize) throws InvalidKeyException {
+            void checkSupportedKeySize(int keySize) throws InvalidKeyException {
             }
 
             @Override
-            protected void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
+            void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
                 throw new NoSuchAlgorithmException("ARC4 does not support modes");
             }
 
             @Override
-            protected void checkSupportedPadding(Padding padding) throws NoSuchPaddingException {
+            void checkSupportedPadding(Padding padding) throws NoSuchPaddingException {
                 throw new NoSuchPaddingException("ARC4 does not support padding");
             }
 
             @Override
-            protected int getCipherBlockSize() {
+            int getCipherBlockSize() {
                 return 0;
             }
 
             @Override
-            protected boolean supportsVariableSizeKey() {
+            boolean supportsVariableSizeKey() {
                 return true;
             }
         }
@@ -856,17 +990,17 @@ public abstract class OpenSSLCipher extends CipherSpi {
         /**
          * The byte array containing the bytes written.
          */
-        protected byte[] buf;
+        byte[] buf;
 
         /**
          * The number of bytes written.
          */
-        protected int bufCount;
+        int bufCount;
 
         /**
          * AEAD cipher reference.
          */
-        protected long evpAead;
+        long evpAead;
 
         /**
          * Additional authenticated data.
@@ -908,7 +1042,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         }
 
         @Override
-        protected void engineInitInternal(byte[] encodedKey, AlgorithmParameterSpec params,
+        void engineInitInternal(byte[] encodedKey, AlgorithmParameterSpec params,
                 SecureRandom random) throws InvalidKeyException,
                 InvalidAlgorithmParameterException {
             byte[] iv;
@@ -950,10 +1084,11 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 }
 
                 iv = new byte[expectedIvLength];
-                if (random == null) {
-                    random = new SecureRandom();
+                if (random != null) {
+                    random.nextBytes(iv);
+                } else {
+                    NativeCrypto.RAND_bytes(iv);
                 }
-                random.nextBytes(iv);
             } else if (expectedIvLength == 0 && iv != null) {
                 throw new InvalidAlgorithmParameterException("IV not used in " + mode + " mode");
             } else if (iv != null && iv.length != expectedIvLength) {
@@ -966,7 +1101,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
         }
 
         @Override
-        protected int updateInternal(byte[] input, int inputOffset, int inputLen, byte[] output,
+        int updateInternal(byte[] input, int inputOffset, int inputLen, byte[] output,
                 int outputOffset, int maximumLen) throws ShortBufferException {
             if (buf == null) {
                 throw new IllegalStateException("Cipher not initialized");
@@ -981,8 +1116,36 @@ public abstract class OpenSSLCipher extends CipherSpi {
             return 0;
         }
 
+        @SuppressWarnings("LiteralClassName")
+        private void throwAEADBadTagExceptionIfAvailable(String message, Throwable cause)
+                throws BadPaddingException {
+            Constructor<?> aeadBadTagConstructor;
+            try {
+                aeadBadTagConstructor = Class.forName("javax.crypto.AEADBadTagException")
+                                                .getConstructor(String.class);
+            } catch (Exception ignored) {
+                return;
+            }
+
+            BadPaddingException badTagException = null;
+            try {
+                badTagException = (BadPaddingException) aeadBadTagConstructor.newInstance(message);
+                badTagException.initCause(cause);
+            } catch (IllegalAccessException e2) {
+                // Fall through
+            } catch (InstantiationException e2) {
+                // Fall through
+            } catch (InvocationTargetException e2) {
+                throw(BadPaddingException) new BadPaddingException().initCause(
+                        e2.getTargetException());
+            }
+            if (badTagException != null) {
+                throw badTagException;
+            }
+        }
+
         @Override
-        protected int doFinalInternal(byte[] output, int outputOffset, int maximumLen)
+        int doFinalInternal(byte[] output, int outputOffset, int maximumLen)
                 throws IllegalBlockSizeException, BadPaddingException {
             final int bytesWritten;
             try {
@@ -994,29 +1157,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
                             tagLengthInBytes, output, outputOffset, iv, buf, 0, bufCount, aad);
                 }
             } catch (BadPaddingException e) {
-                Constructor<?> aeadBadTagConstructor = null;
-                try {
-                    aeadBadTagConstructor = Class.forName("javax.crypto.AEADBadTagException")
-                            .getConstructor(String.class);
-                } catch (ClassNotFoundException | NoSuchMethodException e2) {
-                }
-
-                if (aeadBadTagConstructor != null) {
-                    BadPaddingException badTagException = null;
-                    try {
-                        badTagException = (BadPaddingException) aeadBadTagConstructor.newInstance(e
-                                .getMessage());
-                        badTagException.initCause(e.getCause());
-                    } catch (IllegalAccessException | InstantiationException e2) {
-                        // Fall through
-                    } catch (InvocationTargetException e2) {
-                        throw (BadPaddingException) new BadPaddingException().initCause(e2
-                                .getTargetException());
-                    }
-                    if (badTagException != null) {
-                        throw badTagException;
-                    }
-                }
+                throwAEADBadTagExceptionIfAvailable(e.getMessage(), e.getCause());
                 throw e;
             }
             reset();
@@ -1024,14 +1165,14 @@ public abstract class OpenSSLCipher extends CipherSpi {
         }
 
         @Override
-        protected void checkSupportedPadding(Padding padding) throws NoSuchPaddingException {
+        void checkSupportedPadding(Padding padding) throws NoSuchPaddingException {
             if (padding != Padding.NOPADDING) {
                 throw new NoSuchPaddingException("Must be NoPadding for AEAD ciphers");
             }
         }
 
         @Override
-        protected int getOutputSizeForFinal(int inputLen) {
+        int getOutputSizeForFinal(int inputLen) {
             return bufCount + inputLen
                     + (isEncrypting() ? NativeCrypto.EVP_AEAD_max_overhead(evpAead) : 0);
         }
@@ -1069,23 +1210,26 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 AlgorithmParameters params = AlgorithmParameters.getInstance("GCM");
                 params.init(spec);
                 return params;
-            } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
+            } catch (NoSuchAlgorithmException e) {
+                // We should not get here.
+                throw (Error) new AssertionError("GCM not supported").initCause(e);
+            } catch (InvalidParameterSpecException e) {
                 // This may happen since Conscrypt doesn't provide this itself.
                 return null;
             }
         }
 
-        protected abstract long getEVP_AEAD(int keyLength) throws InvalidKeyException;
+        abstract long getEVP_AEAD(int keyLength) throws InvalidKeyException;
 
         public abstract static class AES extends EVP_AEAD {
             private static final int AES_BLOCK_SIZE = 16;
 
-            protected AES(Mode mode) {
+            AES(Mode mode) {
                 super(mode);
             }
 
             @Override
-            protected void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
+            void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
                 switch (keyLength) {
                     case 16: // AES 128
                     case 32: // AES 256
@@ -1097,12 +1241,12 @@ public abstract class OpenSSLCipher extends CipherSpi {
             }
 
             @Override
-            protected String getBaseCipherName() {
+            String getBaseCipherName() {
                 return "AES";
             }
 
             @Override
-            protected int getCipherBlockSize() {
+            int getCipherBlockSize() {
                 return AES_BLOCK_SIZE;
             }
 
@@ -1110,7 +1254,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
              * AEAD buffers everything until a final output.
              */
             @Override
-            protected int getOutputSizeForUpdate(int inputLen) {
+            int getOutputSizeForUpdate(int inputLen) {
                 return 0;
             }
 
@@ -1156,7 +1300,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 }
 
                 @Override
-                protected void engineInitInternal(
+                void engineInitInternal(
                         byte[] encodedKey, AlgorithmParameterSpec params, SecureRandom random)
                         throws InvalidKeyException, InvalidAlgorithmParameterException {
                     super.engineInitInternal(encodedKey, params, random);
@@ -1177,7 +1321,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 }
 
                 @Override
-                protected int updateInternal(byte[] input, int inputOffset, int inputLen,
+                int updateInternal(byte[] input, int inputOffset, int inputLen,
                         byte[] output, int outputOffset, int maximumLen)
                         throws ShortBufferException {
                     checkInitialization();
@@ -1186,7 +1330,7 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 }
 
                 @Override
-                protected int doFinalInternal(byte[] output, int outputOffset, int maximumLen)
+                int doFinalInternal(byte[] output, int outputOffset, int maximumLen)
                         throws IllegalBlockSizeException, BadPaddingException {
                     checkInitialization();
                     int retVal = super.doFinalInternal(output, outputOffset, maximumLen);
@@ -1203,20 +1347,40 @@ public abstract class OpenSSLCipher extends CipherSpi {
                 }
 
                 @Override
-                protected void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
+                void checkSupportedMode(Mode mode) throws NoSuchAlgorithmException {
                     if (mode != Mode.GCM) {
                         throw new NoSuchAlgorithmException("Mode must be GCM");
                     }
                 }
 
                 @Override
-                protected long getEVP_AEAD(int keyLength) throws InvalidKeyException {
+                long getEVP_AEAD(int keyLength) throws InvalidKeyException {
                     if (keyLength == 16) {
                         return NativeCrypto.EVP_aead_aes_128_gcm();
                     } else if (keyLength == 32) {
                         return NativeCrypto.EVP_aead_aes_256_gcm();
                     } else {
                         throw new RuntimeException("Unexpected key length: " + keyLength);
+                    }
+                }
+
+                public static class AES_128 extends GCM {
+                    @Override
+                    void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
+                        if (keyLength != 16) { // 128 bits
+                            throw new InvalidKeyException(
+                                    "Unsupported key size: " + keyLength + " bytes (must be 16)");
+                        }
+                    }
+                }
+
+                public static class AES_256 extends GCM {
+                    @Override
+                    void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
+                        if (keyLength != 32) { // 256 bits
+                            throw new InvalidKeyException(
+                                    "Unsupported key size: " + keyLength + " bytes (must be 32)");
+                        }
                     }
                 }
             }

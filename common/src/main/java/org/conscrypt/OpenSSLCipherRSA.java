@@ -23,6 +23,8 @@ import java.security.InvalidParameterException;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.SignatureException;
 import java.security.interfaces.RSAPrivateCrtKey;
@@ -45,23 +47,26 @@ import javax.crypto.ShortBufferException;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
 import javax.crypto.spec.SecretKeySpec;
-import org.conscrypt.util.EmptyArray;
 
+/**
+ * @hide
+ */
+@Internal
 abstract class OpenSSLCipherRSA extends CipherSpi {
     /**
      * The current OpenSSL key we're operating on.
      */
-    protected OpenSSLKey key;
+    OpenSSLKey key;
 
     /**
      * Current key type: private or public.
      */
-    protected boolean usingPrivateKey;
+    boolean usingPrivateKey;
 
     /**
      * Current cipher mode: encrypting or decrypting.
      */
-    protected boolean encrypting;
+    boolean encrypting;
 
     /**
      * Buffer for operations
@@ -82,9 +87,9 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
     /**
      * Current padding mode
      */
-    protected int padding = NativeConstants.RSA_PKCS1_PADDING;
+    int padding = NativeConstants.RSA_PKCS1_PADDING;
 
-    protected OpenSSLCipherRSA(int padding) {
+    OpenSSLCipherRSA(int padding) {
         this.padding = padding;
     }
 
@@ -129,7 +134,7 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         return paddedBlockSizeBytes();
     }
 
-    protected int paddedBlockSizeBytes() {
+    int paddedBlockSizeBytes() {
         int paddedBlockSizeBytes = keySizeBytes();
         if (padding == NativeConstants.RSA_PKCS1_PADDING) {
             paddedBlockSizeBytes--;  // for 0 prefix
@@ -138,7 +143,7 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         return paddedBlockSizeBytes;
     }
 
-    protected int keySizeBytes() {
+    int keySizeBytes() {
         if (!isInitialized()) {
             throw new IllegalStateException("cipher is not initialized");
         }
@@ -148,7 +153,7 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
     /**
      * Returns {@code true} if the cipher has been initialized.
      */
-    protected boolean isInitialized() {
+    boolean isInitialized() {
         return key != null;
     }
 
@@ -162,10 +167,10 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         return null;
     }
 
-    protected void doCryptoInit(AlgorithmParameterSpec spec)
-            throws InvalidAlgorithmParameterException {}
+    void doCryptoInit(AlgorithmParameterSpec spec)
+        throws InvalidAlgorithmParameterException, InvalidKeyException {}
 
-    protected void engineInitInternal(int opmode, Key key, AlgorithmParameterSpec spec)
+    void engineInitInternal(int opmode, Key key, AlgorithmParameterSpec spec)
             throws InvalidKeyException, InvalidAlgorithmParameterException {
         if (opmode == Cipher.ENCRYPT_MODE || opmode == Cipher.WRAP_MODE) {
             encrypting = true;
@@ -196,6 +201,10 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
             usingPrivateKey = false;
             this.key = OpenSSLRSAPublicKey.getInstance(rsaPublicKey);
         } else {
+            if (null == key) {
+                throw new InvalidKeyException("RSA private or public key is null");
+            }
+            
             throw new InvalidKeyException("Need RSA private or public key");
         }
 
@@ -204,6 +213,29 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         inputTooLarge = false;
 
         doCryptoInit(spec);
+    }
+
+    @Override
+    protected int engineGetKeySize(Key key) throws InvalidKeyException {
+        if (key instanceof OpenSSLRSAPrivateKey) {
+            return ((OpenSSLRSAPrivateKey) key).getModulus().bitLength();
+        }
+        if (key instanceof RSAPrivateCrtKey) {
+            return ((RSAPrivateCrtKey) key).getModulus().bitLength();
+        }
+        if (key instanceof RSAPrivateKey) {
+            return ((RSAPrivateKey) key).getModulus().bitLength();
+        }
+        if (key instanceof OpenSSLRSAPublicKey) {
+            return ((OpenSSLRSAPublicKey) key).getModulus().bitLength();
+        }
+        if (key instanceof RSAPublicKey) {
+            return ((RSAPublicKey) key).getModulus().bitLength();
+        }
+        if (null == key) {
+            throw new InvalidKeyException("RSA private or public key is null");
+        }
+        throw new InvalidKeyException("Need RSA private or public key");
     }
 
     @Override
@@ -289,7 +321,7 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         return output;
     }
 
-    protected abstract int doCryptoOperation(final byte[] tmpBuf, byte[] output)
+    abstract int doCryptoOperation(final byte[] tmpBuf, byte[] output)
             throws BadPaddingException, IllegalBlockSizeException;
 
     @Override
@@ -351,7 +383,7 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         }
 
         @Override
-        protected int doCryptoOperation(final byte[] tmpBuf, byte[] output)
+        int doCryptoOperation(final byte[] tmpBuf, byte[] output)
                 throws BadPaddingException, IllegalBlockSizeException {
             int resultSize;
             if (encrypting) {
@@ -393,7 +425,7 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         }
     }
 
-    protected static class OAEP extends OpenSSLCipherRSA {
+    static class OAEP extends OpenSSLCipherRSA {
         private long oaepMd;
         private int oaepMdSizeBytes;
 
@@ -432,7 +464,10 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
                                 EvpMdRef.getJcaDigestAlgorithmStandardNameFromEVP_MD(mgf1Md)),
                         pSrc));
                 return params;
-            } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
+            } catch (NoSuchAlgorithmException e) {
+                // We should not get here.
+                throw (Error) new AssertionError("OAEP not supported").initCause(e);
+            } catch (InvalidParameterSpecException e) {
                 throw new RuntimeException("No providers of AlgorithmParameters.OAEP available");
             }
         }
@@ -478,8 +513,23 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         }
 
         @Override
-        protected void doCryptoInit(AlgorithmParameterSpec spec)
-                throws InvalidAlgorithmParameterException {
+        void engineInitInternal(int opmode, Key key, AlgorithmParameterSpec spec)
+                throws InvalidKeyException, InvalidAlgorithmParameterException {
+            if (opmode == Cipher.ENCRYPT_MODE || opmode == Cipher.WRAP_MODE) {
+                if (!(key instanceof PublicKey)) {
+                    throw new InvalidKeyException("Only public keys may be used to encrypt");
+                }
+            } else if (opmode == Cipher.DECRYPT_MODE || opmode == Cipher.UNWRAP_MODE) {
+                if (!(key instanceof PrivateKey)) {
+                    throw new InvalidKeyException("Only private keys may be used to decrypt");
+                }
+            }
+            super.engineInitInternal(opmode, key, spec);
+        }
+
+        @Override
+        void doCryptoInit(AlgorithmParameterSpec spec)
+            throws InvalidAlgorithmParameterException, InvalidKeyException {
             pkeyCtx = new NativeRef.EVP_PKEY_CTX(encrypting
                             ? NativeCrypto.EVP_PKEY_encrypt_init(key.getNativeRef())
                             : NativeCrypto.EVP_PKEY_decrypt_init(key.getNativeRef()));
@@ -498,7 +548,7 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         }
 
         @Override
-        protected int paddedBlockSizeBytes() {
+        int paddedBlockSizeBytes() {
             int paddedBlockSizeBytes = keySizeBytes();
             // Size described in step 2 of decoding algorithm, but extra byte
             // needed to make sure it's smaller than the RSA key modulus size.
@@ -539,7 +589,7 @@ abstract class OpenSSLCipherRSA extends CipherSpi {
         }
 
         @Override
-        protected int doCryptoOperation(byte[] tmpBuf, byte[] output)
+        int doCryptoOperation(byte[] tmpBuf, byte[] output)
                 throws BadPaddingException, IllegalBlockSizeException {
             if (encrypting) {
                 return NativeCrypto.EVP_PKEY_encrypt(pkeyCtx, output, 0, tmpBuf, 0, tmpBuf.length);

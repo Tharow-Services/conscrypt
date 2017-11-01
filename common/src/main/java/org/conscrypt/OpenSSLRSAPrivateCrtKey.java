@@ -26,7 +26,11 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPrivateCrtKeySpec;
 
-public class OpenSSLRSAPrivateCrtKey extends OpenSSLRSAPrivateKey implements RSAPrivateCrtKey {
+/**
+ * An implementation of {@link java.security.PrivateKey} for RSA keys which uses BoringSSL to
+ * perform all the operations.
+ */
+final class OpenSSLRSAPrivateCrtKey extends OpenSSLRSAPrivateKey implements RSAPrivateCrtKey {
     private static final long serialVersionUID = 3785291944868707197L;
 
     private BigInteger publicExponent;
@@ -49,7 +53,7 @@ public class OpenSSLRSAPrivateCrtKey extends OpenSSLRSAPrivateKey implements RSA
         super(key, params);
     }
 
-    public OpenSSLRSAPrivateCrtKey(RSAPrivateCrtKeySpec rsaKeySpec) throws InvalidKeySpecException {
+    OpenSSLRSAPrivateCrtKey(RSAPrivateCrtKeySpec rsaKeySpec) throws InvalidKeySpecException {
         super(init(rsaKeySpec));
     }
 

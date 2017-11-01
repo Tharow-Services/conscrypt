@@ -29,6 +29,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An implementation of {@link KeyPairGenerator} for EC keys which uses BoringSSL to perform all the
+ * operations.
+ *
+ * @hide
+ */
+@Internal
 public final class OpenSSLECKeyPairGenerator extends KeyPairGenerator {
     private static final String ALGORITHM = "EC";
 
@@ -115,7 +122,7 @@ public final class OpenSSLECKeyPairGenerator extends KeyPairGenerator {
 
     /** For testing. */
     public static void assertCurvesAreValid() {
-        ArrayList<String> invalidCurves = new ArrayList<>();
+        ArrayList<String> invalidCurves = new ArrayList<String>();
         for (String curveName : SIZE_TO_CURVE_NAME.values()) {
             if (OpenSSLECGroupContext.getCurveByName(curveName) == null) {
                 invalidCurves.add(curveName);

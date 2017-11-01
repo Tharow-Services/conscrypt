@@ -30,23 +30,22 @@ import javax.net.ssl.SSLSession;
  * session data is dependent upon the caller's implementation and is opaque to
  * the {@code SSLServerSessionCache} implementation.
  */
-public interface SSLServerSessionCache {
+interface SSLServerSessionCache {
+    /**
+     * Gets the session data for given session ID.
+     *
+     * @param id from {@link javax.net.ssl.SSLSession#getId()}
+     * @return the session data or null if none is cached
+     * @throws NullPointerException if id is null
+     */
+    byte[] getSessionData(byte[] id);
 
-  /**
-   * Gets the session data for given session ID.
-   *
-   * @param id from {@link javax.net.ssl.SSLSession#getId()}
-   * @return the session data or null if none is cached
-   * @throws NullPointerException if id is null
-   */
-  public byte[] getSessionData(byte[] id);
-
-  /**
-   * Stores session data for the given session.
-   *
-   * @param session to cache data for
-   * @param sessionData to cache
-   * @throws NullPointerException if session or data is null
-   */
-  public void putSessionData(SSLSession session, byte[] sessionData);
+    /**
+     * Stores session data for the given session.
+     *
+     * @param session to cache data for
+     * @param sessionData to cache
+     * @throws NullPointerException if session or data is null
+     */
+    void putSessionData(SSLSession session, byte[] sessionData);
 }

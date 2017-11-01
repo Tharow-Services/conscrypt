@@ -29,13 +29,20 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.net.ssl.SSLSession;
 
 /**
  * File-based cache implementation. Only one process should access the
  * underlying directory at a time.
+ *
+ * @hide
  */
-public class FileClientSessionCache {
+@Internal
+public final class FileClientSessionCache {
+    private static final Logger logger = Logger.getLogger(FileClientSessionCache.class.getName());
+
     public static final int MAX_SIZE = 12; // ~72k
 
     private FileClientSessionCache() {}
@@ -53,7 +60,6 @@ public class FileClientSessionCache {
      * doesn't track last modified times.
      */
     static class Impl implements SSLClientSessionCache {
-
         /** Directory to store session files in. */
         final File directory;
 
@@ -110,8 +116,7 @@ public class FileClientSessionCache {
          * Creates a new access-ordered linked hash map.
          */
         private static Map<String, File> newAccessOrder() {
-            return new LinkedHashMap<String, File>(
-                    MAX_SIZE, 0.75f, true /* access order */);
+            return new LinkedHashMap<String, File>(MAX_SIZE, 0.75f, true /* access order */);
         }
 
         /**
@@ -172,8 +177,6 @@ public class FileClientSessionCache {
                 if (in != null) {
                     try {
                         in.close();
-                    } catch (RuntimeException rethrown) {
-                        throw rethrown;
                     } catch (Exception ignored) {
                     }
                 }
@@ -181,13 +184,14 @@ public class FileClientSessionCache {
         }
 
         static void logReadError(String host, File file, Throwable t) {
-            System.err.println("FileClientSessionCache: Error reading session data for " + host + " from " + file + ".");
-            t.printStackTrace();
+            logger.log(Level.WARNING,
+                    "FileClientSessionCache: Error reading session data for " + host + " from "
+                            + file + ".",
+                    t);
         }
 
         @Override
-        public synchronized void putSessionData(SSLSession session,
-                byte[] sessionData) {
+        public synchronized void putSessionData(SSLSession session, byte[] sessionData) {
             String host = session.getPeerHost();
             if (sessionData == null) {
                 throw new NullPointerException("sessionData == null");
@@ -296,14 +300,18 @@ public class FileClientSessionCache {
         @SuppressWarnings("ThrowableInstanceNeverThrown")
         private void delete(File file) {
             if (!file.delete()) {
-                new IOException("FileClientSessionCache: Failed to delete " + file + ".").printStackTrace();
+                Exception e =
+                        new IOException("FileClientSessionCache: Failed to delete " + file + ".");
+                logger.log(Level.WARNING, e.getMessage(), e);
             }
             size--;
         }
 
         static void logWriteError(String host, File file, Throwable t) {
-            System.err.println("FileClientSessionCache: Error writing session data for " + host + " to " + file + ".");
-            t.printStackTrace();
+            logger.log(Level.WARNING,
+                    "FileClientSessionCache: Error writing session data for " + host + " to " + file
+                            + ".",
+                    t);
         }
     }
 
@@ -312,8 +320,8 @@ public class FileClientSessionCache {
      * directories. We synchronize access using the cache instance, so it's
      * important that everyone shares the same instance.
      */
-    static final Map<File, FileClientSessionCache.Impl> caches
-            = new HashMap<File, FileClientSessionCache.Impl>();
+    static final Map<File, FileClientSessionCache.Impl> caches =
+            new HashMap<File, FileClientSessionCache.Impl>();
 
     /**
      * Returns a cache backed by the given directory. Creates the directory
@@ -325,8 +333,8 @@ public class FileClientSessionCache {
      * @throws IOException if the file exists and is not a directory or if
      *  creating the directories fails
      */
-    public static synchronized SSLClientSessionCache usingDirectory(
-            File directory) throws IOException {
+    public static synchronized SSLClientSessionCache usingDirectory(File directory)
+            throws IOException {
         FileClientSessionCache.Impl cache = caches.get(directory);
         if (cache == null) {
             cache = new FileClientSessionCache.Impl(directory);
@@ -341,8 +349,8 @@ public class FileClientSessionCache {
     }
 
     /** A file containing a piece of cached data. */
+    @SuppressWarnings("serial")
     static class CacheFile extends File {
-
         final String name;
 
         CacheFile(File dir, String name) {

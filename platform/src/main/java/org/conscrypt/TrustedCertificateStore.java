@@ -79,7 +79,10 @@ import libcore.io.IoUtils;
  * ensures that its owner and group are the system uid and system
  * gid and that it is world readable but only writable by the system
  * user.
+ *
+ * @hide
  */
+@Internal
 public class TrustedCertificateStore {
 
     private static final String PREFIX_SYSTEM = "system:";
@@ -92,16 +95,21 @@ public class TrustedCertificateStore {
         return alias.startsWith(PREFIX_USER);
     }
 
-    private static File defaultCaCertsSystemDir;
-    private static File defaultCaCertsAddedDir;
-    private static File defaultCaCertsDeletedDir;
+    private static class PreloadHolder {
+        private static File defaultCaCertsSystemDir;
+        private static File defaultCaCertsAddedDir;
+        private static File defaultCaCertsDeletedDir;
+
+        static {
+            String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
+            String ANDROID_DATA = System.getenv("ANDROID_DATA");
+            defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
+            setDefaultUserDirectory(new File(ANDROID_DATA + "/misc/keychain"));
+        }
+    }
+
     private static final CertificateFactory CERT_FACTORY;
     static {
-        String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
-        String ANDROID_DATA = System.getenv("ANDROID_DATA");
-        defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
-        setDefaultUserDirectory(new File(ANDROID_DATA + "/misc/keychain"));
-
         try {
             CERT_FACTORY = CertificateFactory.getInstance("X509");
         } catch (CertificateException e) {
@@ -110,8 +118,8 @@ public class TrustedCertificateStore {
     }
 
     public static void setDefaultUserDirectory(File root) {
-        defaultCaCertsAddedDir = new File(root, "cacerts-added");
-        defaultCaCertsDeletedDir = new File(root, "cacerts-removed");
+        PreloadHolder.defaultCaCertsAddedDir = new File(root, "cacerts-added");
+        PreloadHolder.defaultCaCertsDeletedDir = new File(root, "cacerts-removed");
     }
 
     private final File systemDir;
@@ -119,7 +127,8 @@ public class TrustedCertificateStore {
     private final File deletedDir;
 
     public TrustedCertificateStore() {
-        this(defaultCaCertsSystemDir, defaultCaCertsAddedDir, defaultCaCertsDeletedDir);
+        this(PreloadHolder.defaultCaCertsSystemDir, PreloadHolder.defaultCaCertsAddedDir,
+                PreloadHolder.defaultCaCertsDeletedDir);
     }
 
     public TrustedCertificateStore(File systemDir, File addedDir, File deletedDir) {

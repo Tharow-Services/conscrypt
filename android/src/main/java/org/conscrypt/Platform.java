@@ -16,6 +16,7 @@
 
 package org.conscrypt;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.util.Log;
@@ -30,6 +31,7 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.SocketImpl;
 import java.security.PrivateKey;
 import java.security.Security;
 import java.security.cert.CertificateException;
@@ -67,13 +69,20 @@ final class Platform {
 
     public static void setup() {}
 
+    /**
+     * Default name used in the {@link java.security.Security JCE system} by {@code OpenSSLProvider}
+     * if the default constructor is used.
+     */
+    public static String getDefaultProviderName() {
+        return "Conscrypt";
+    }
+
     public static FileDescriptor getFileDescriptor(Socket s) {
         try {
             Field f_impl = Socket.class.getDeclaredField("impl");
             f_impl.setAccessible(true);
             Object socketImpl = f_impl.get(s);
-            Class<?> c_socketImpl = Class.forName("java.net.SocketImpl");
-            Field f_fd = c_socketImpl.getDeclaredField("fd");
+            Field f_fd = SocketImpl.class.getDeclaredField("fd");
             f_fd.setAccessible(true);
             return (FileDescriptor) f_fd.get(socketImpl);
         } catch (Exception e) {
@@ -81,9 +90,8 @@ final class Platform {
         }
     }
 
-    public static FileDescriptor getFileDescriptorFromSSLSocket(
-            OpenSSLSocketImpl openSSLSocketImpl) {
-        return getFileDescriptor(openSSLSocketImpl);
+    public static FileDescriptor getFileDescriptorFromSSLSocket(AbstractConscryptSocket socket) {
+        return getFileDescriptor(socket);
     }
 
     public static String getCurveName(ECParameterSpec spec) {
@@ -113,51 +121,114 @@ final class Platform {
             Class<?> c_structTimeval =
                     getClass("android.system.StructTimeval", "libcore.io.StructTimeval");
             if (c_structTimeval == null) {
-                Log.w(TAG, "Cannot find StructTimeval; not setting socket write timeout");
+                Log.w(TAG, "StructTimeval == null; not setting socket write timeout");
                 return;
             }
 
             Method m_fromMillis = c_structTimeval.getDeclaredMethod("fromMillis", long.class);
+            if (m_fromMillis == null) {
+                Log.w(TAG, "fromMillis == null; not setting socket write timeout");
+                return;
+            }
+
             Object timeval = m_fromMillis.invoke(null, timeoutMillis);
 
             Class<?> c_Libcore = Class.forName("libcore.io.Libcore");
             if (c_Libcore == null) {
-                Log.w(TAG, "Cannot find libcore.os.Libcore; not setting socket write timeout");
+                Log.w(TAG, "Libcore == null; not setting socket write timeout");
                 return;
             }
 
             Field f_os = c_Libcore.getField("os");
+            if (f_os == null) {
+                Log.w(TAG, "os == null; not setting socket write timeout");
+                return;
+            }
+
             Object instance_os = f_os.get(null);
+            if (instance_os == null) {
+                Log.w(TAG, "instance_os == null; not setting socket write timeout");
+                return;
+            }
 
             Class<?> c_osConstants =
                     getClass("android.system.OsConstants", "libcore.io.OsConstants");
+            if (c_osConstants == null) {
+                Log.w(TAG, "OsConstants == null; not setting socket write timeout");
+                return;
+            }
+
             Field f_SOL_SOCKET = c_osConstants.getField("SOL_SOCKET");
+            if (f_SOL_SOCKET == null) {
+                Log.w(TAG, "SOL_SOCKET == null; not setting socket write timeout");
+                return;
+            }
+
             Field f_SO_SNDTIMEO = c_osConstants.getField("SO_SNDTIMEO");
+            if (f_SO_SNDTIMEO == null) {
+                Log.w(TAG, "SO_SNDTIMEO == null; not setting socket write timeout");
+                return;
+            }
 
             Method m_setsockoptTimeval = instance_os.getClass().getMethod("setsockoptTimeval",
                     FileDescriptor.class, int.class, int.class, c_structTimeval);
+            if (m_setsockoptTimeval == null) {
+                Log.w(TAG, "setsockoptTimeval == null; not setting socket write timeout");
+                return;
+            }
 
             m_setsockoptTimeval.invoke(instance_os, getFileDescriptor(s), f_SOL_SOCKET.get(null),
                     f_SO_SNDTIMEO.get(null), timeval);
         } catch (Exception e) {
-            Log.w(TAG, "Could not set socket write timeout: " + e.getMessage());
+            // We don't want to spam the logcat since this isn't a fatal error, but we want to know
+            // why this might be happening.
+            Log.w(TAG, "Could not set socket write timeout:");
+            StackTraceElement[] elements = e.getStackTrace();
+            for (int i = 0; i < 2 && i < elements.length; i++) {
+                Log.w(TAG, "   " + elements[i].toString());
+            }
+        }
+    }
+
+    private static void setSSLParametersOnImpl(SSLParameters params, SSLParametersImpl impl)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Method m_getEndpointIdentificationAlgorithm =
+                params.getClass().getMethod("getEndpointIdentificationAlgorithm");
+        impl.setEndpointIdentificationAlgorithm(
+                (String) m_getEndpointIdentificationAlgorithm.invoke(params));
+
+        Method m_getUseCipherSuitesOrder = params.getClass().getMethod("getUseCipherSuitesOrder");
+        impl.setUseCipherSuitesOrder((boolean) m_getUseCipherSuitesOrder.invoke(params));
+    }
+
+    public static void setSSLParameters(
+            SSLParameters params, SSLParametersImpl impl, AbstractConscryptSocket socket) {
+        try {
+            setSSLParametersOnImpl(params, impl);
+
+            if (Build.VERSION.SDK_INT >= 24) {
+                String sniHostname = getSniHostnameFromParams(params);
+                if (sniHostname != null) {
+                    socket.setHostname(sniHostname);
+                }
+            }
+        } catch (NoSuchMethodException ignored) {
+        } catch (IllegalAccessException ignored) {
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e.getCause());
         }
     }
 
     public static void setSSLParameters(
-            SSLParameters params, SSLParametersImpl impl, OpenSSLSocketImpl socket) {
+            SSLParameters params, SSLParametersImpl impl, ConscryptEngine engine) {
         try {
-            Method m_getEndpointIdentificationAlgorithm =
-                    params.getClass().getMethod("getEndpointIdentificationAlgorithm");
-            impl.setEndpointIdentificationAlgorithm(
-                    (String) m_getEndpointIdentificationAlgorithm.invoke(params));
-
-            Method m_getUseCipherSuitesOrder =
-                    params.getClass().getMethod("getUseCipherSuitesOrder");
-            impl.setUseCipherSuitesOrder((boolean) m_getUseCipherSuitesOrder.invoke(params));
+            setSSLParametersOnImpl(params, impl);
 
             if (Build.VERSION.SDK_INT >= 24) {
-                setSocketSniHostname(params, socket);
+                String sniHostname = getSniHostnameFromParams(params);
+                if (sniHostname != null) {
+                    engine.setHostname(sniHostname);
+                }
             }
         } catch (NoSuchMethodException ignored) {
         } catch (IllegalAccessException ignored) {
@@ -167,7 +238,7 @@ final class Platform {
     }
 
     @TargetApi(24)
-    private static void setSocketSniHostname(SSLParameters params, OpenSSLSocketImpl socket)
+    private static String getSniHostnameFromParams(SSLParameters params)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         Method m_getServerNames = params.getClass().getMethod("getServerNames");
         @SuppressWarnings("unchecked")
@@ -175,24 +246,30 @@ final class Platform {
         if (serverNames != null) {
             for (SNIServerName serverName : serverNames) {
                 if (serverName.getType() == StandardConstants.SNI_HOST_NAME) {
-                    socket.setHostname(((SNIHostName) serverName).getAsciiName());
-                    break;
+                    return ((SNIHostName) serverName).getAsciiName();
                 }
             }
         }
+
+        return null;
+    }
+
+    private static void getSSLParametersFromImpl(SSLParameters params, SSLParametersImpl impl)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        Method m_setEndpointIdentificationAlgorithm =
+                params.getClass().getMethod("setEndpointIdentificationAlgorithm", String.class);
+        m_setEndpointIdentificationAlgorithm.invoke(
+                params, impl.getEndpointIdentificationAlgorithm());
+
+        Method m_setUseCipherSuitesOrder =
+                params.getClass().getMethod("setUseCipherSuitesOrder", boolean.class);
+        m_setUseCipherSuitesOrder.invoke(params, impl.getUseCipherSuitesOrder());
     }
 
     public static void getSSLParameters(
-            SSLParameters params, SSLParametersImpl impl, OpenSSLSocketImpl socket) {
+            SSLParameters params, SSLParametersImpl impl, AbstractConscryptSocket socket) {
         try {
-            Method m_setEndpointIdentificationAlgorithm =
-                    params.getClass().getMethod("setEndpointIdentificationAlgorithm", String.class);
-            m_setEndpointIdentificationAlgorithm.invoke(
-                    params, impl.getEndpointIdentificationAlgorithm());
-
-            Method m_setUseCipherSuitesOrder =
-                    params.getClass().getMethod("setUseCipherSuitesOrder", boolean.class);
-            m_setUseCipherSuitesOrder.invoke(params, impl.getUseCipherSuitesOrder());
+            getSSLParametersFromImpl(params, impl);
 
             if (Build.VERSION.SDK_INT >= 24) {
                 setParametersSniHostname(params, impl, socket);
@@ -206,12 +283,40 @@ final class Platform {
 
     @TargetApi(24)
     private static void setParametersSniHostname(
-            SSLParameters params, SSLParametersImpl impl, OpenSSLSocketImpl socket)
+            SSLParameters params, SSLParametersImpl impl, AbstractConscryptSocket socket)
             throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         if (impl.getUseSni() && AddressUtils.isValidSniHostname(socket.getHostname())) {
             Method m_setServerNames = params.getClass().getMethod("setServerNames", List.class);
-            m_setServerNames.invoke(params, Collections.<SNIServerName>singletonList(
-                                                    new SNIHostName(socket.getHostname())));
+            m_setServerNames.invoke(params,
+                    Collections.<SNIServerName>singletonList(
+                            new SNIHostName(socket.getHostname())));
+        }
+    }
+
+    public static void getSSLParameters(
+            SSLParameters params, SSLParametersImpl impl, ConscryptEngine engine) {
+        try {
+            getSSLParametersFromImpl(params, impl);
+
+            if (Build.VERSION.SDK_INT >= 24) {
+                setParametersSniHostname(params, impl, engine);
+            }
+        } catch (NoSuchMethodException ignored) {
+        } catch (IllegalAccessException ignored) {
+        } catch (InvocationTargetException e) {
+            throw new RuntimeException(e.getCause());
+        }
+    }
+
+    @TargetApi(24)
+    private static void setParametersSniHostname(
+            SSLParameters params, SSLParametersImpl impl, ConscryptEngine engine)
+            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        if (impl.getUseSni() && AddressUtils.isValidSniHostname(engine.getHostname())) {
+            Method m_setServerNames = params.getClass().getMethod("setServerNames", List.class);
+            m_setServerNames.invoke(params,
+                    Collections.<SNIServerName>singletonList(
+                            new SNIHostName(engine.getHostname())));
         }
     }
 
@@ -262,8 +367,9 @@ final class Platform {
         return false;
     }
 
+    @SuppressLint("NewApi") // AbstractConscryptSocket defines getHandshakeSession()
     public static void checkClientTrusted(X509TrustManager tm, X509Certificate[] chain,
-            String authType, OpenSSLSocketImpl socket) throws CertificateException {
+            String authType, AbstractConscryptSocket socket) throws CertificateException {
         if (!checkTrusted("checkClientTrusted", tm, chain, authType, Socket.class, socket)
                 && !checkTrusted("checkClientTrusted", tm, chain, authType, String.class,
                            socket.getHandshakeSession().getPeerHost())) {
@@ -271,8 +377,9 @@ final class Platform {
         }
     }
 
+    @SuppressLint("NewApi") // AbstractConscryptSocket defines getHandshakeSession()
     public static void checkServerTrusted(X509TrustManager tm, X509Certificate[] chain,
-            String authType, OpenSSLSocketImpl socket) throws CertificateException {
+            String authType, AbstractConscryptSocket socket) throws CertificateException {
         if (!checkTrusted("checkServerTrusted", tm, chain, authType, Socket.class, socket)
                 && !checkTrusted("checkServerTrusted", tm, chain, authType, String.class,
                            socket.getHandshakeSession().getPeerHost())) {
@@ -280,8 +387,9 @@ final class Platform {
         }
     }
 
+    @SuppressLint("NewApi") // AbstractConscryptSocket defines getHandshakeSession()
     public static void checkClientTrusted(X509TrustManager tm, X509Certificate[] chain,
-            String authType, OpenSSLEngineImpl engine) throws CertificateException {
+            String authType, ConscryptEngine engine) throws CertificateException {
         if (!checkTrusted("checkClientTrusted", tm, chain, authType, SSLEngine.class, engine)
                 && !checkTrusted("checkClientTrusted", tm, chain, authType, String.class,
                            engine.getHandshakeSession().getPeerHost())) {
@@ -289,8 +397,9 @@ final class Platform {
         }
     }
 
+    @SuppressLint("NewApi") // AbstractConscryptSocket defines getHandshakeSession()
     public static void checkServerTrusted(X509TrustManager tm, X509Certificate[] chain,
-            String authType, OpenSSLEngineImpl engine) throws CertificateException {
+            String authType, ConscryptEngine engine) throws CertificateException {
         if (!checkTrusted("checkServerTrusted", tm, chain, authType, SSLEngine.class, engine)
                 && !checkTrusted("checkServerTrusted", tm, chain, authType, String.class,
                            engine.getHandshakeSession().getPeerHost())) {
@@ -303,6 +412,7 @@ final class Platform {
      * builds since we didn't backport, so return null. This code is from
      * Chromium's net/android/java/src/org/chromium/net/DefaultAndroidKeyStore.java
      */
+    @SuppressWarnings("LiteralClassName")
     public static OpenSSLKey wrapRsaKey(PrivateKey javaKey) {
         // This fixup only applies to pre-JB-MR1
         if (Build.VERSION.SDK_INT >= 17) {
@@ -324,11 +434,10 @@ final class Platform {
         }
         if (!superClass.isInstance(javaKey)) {
             // This may happen if the PrivateKey was not created by the
-            // "AndroidOpenSSL"
-            // provider, which should be the default. That could happen if an
-            // OEM decided
-            // to implement a different default provider. Also highly unlikely.
-            Log.e(TAG, "Private key is not an OpenSSLRSAPrivateKey instance, its class name is:"
+            // Conscrypt provider, which should be the default. That could happen if an
+            // OEM decided to implement a different default provider. Also highly unlikely.
+            Log.e(TAG,
+                    "Private key is not an OpenSSLRSAPrivateKey instance, its class name is:"
                             + javaKey.getClass().getCanonicalName());
             return null;
         }
@@ -389,15 +498,16 @@ final class Platform {
     /**
      * Logs to the system EventLog system.
      */
+    @SuppressWarnings("LiteralClassName")
     public static void logEvent(String message) {
         try {
             Class<?> processClass = Class.forName("android.os.Process");
-            Object processInstance = processClass.newInstance();
+            Object processInstance = processClass.getDeclaredConstructor().newInstance();
             Method myUidMethod = processClass.getMethod("myUid", (Class[]) null);
             int uid = (Integer) myUidMethod.invoke(processInstance);
 
             Class<?> eventLogClass = Class.forName("android.util.EventLog");
-            Object eventLogInstance = eventLogClass.newInstance();
+            Object eventLogInstance = eventLogClass.getDeclaredConstructor().newInstance();
             Method writeEventMethod =
                     eventLogClass.getMethod("writeEvent", Integer.TYPE, Object[].class);
             writeEventMethod.invoke(eventLogInstance, 0x534e4554 /* SNET */,
@@ -435,6 +545,7 @@ final class Platform {
     /**
      * Convert from platform's GCMParameterSpec to our internal version.
      */
+    @SuppressWarnings("LiteralClassName")
     public static GCMParameters fromGCMParameterSpec(AlgorithmParameterSpec params) {
         Class<?> gcmSpecClass;
         try {
@@ -469,6 +580,7 @@ final class Platform {
     /**
      * Creates a platform version of {@code GCMParameterSpec}.
      */
+    @SuppressWarnings("LiteralClassName")
     public static AlgorithmParameterSpec toGCMParameterSpec(int tagLenInBits, byte[] iv) {
         Class<?> gcmSpecClass;
         try {
@@ -541,6 +653,7 @@ final class Platform {
     /**
      * OID to Algorithm Name mapping.
      */
+    @SuppressWarnings("LiteralClassName")
     public static String oidToAlgorithmName(String oid) {
         // Old Harmony style
         try {
@@ -589,12 +702,12 @@ final class Platform {
      * Pre-Java 8 backward compatibility.
      */
 
-    public static SSLSession wrapSSLSession(AbstractOpenSSLSession sslSession) {
+    public static SSLSession wrapSSLSession(ActiveSession sslSession) {
         if (Build.VERSION.SDK_INT <= 23) {
             return sslSession;
         }
 
-        return new OpenSSLExtendedSessionImpl(sslSession);
+        return ExtendedSessionAdapter.wrap(sslSession);
     }
 
     public static SSLSession unwrapSSLSession(SSLSession sslSession) {
@@ -602,10 +715,34 @@ final class Platform {
             return sslSession;
         }
 
-        if (sslSession instanceof OpenSSLExtendedSessionImpl) {
-            return ((OpenSSLExtendedSessionImpl) sslSession).getDelegate();
+        return ExtendedSessionAdapter.getDelegate(sslSession);
+    }
+
+    public static String getOriginalHostNameFromInetAddress(InetAddress addr) {
+        if (Build.VERSION.SDK_INT > 27) {
+            try {
+                Method getHolder = InetAddress.class.getDeclaredMethod("holder");
+                getHolder.setAccessible(true);
+
+                Method getOriginalHostName = Class.forName("java.net.InetAddress$InetAddressHolder")
+                                                     .getDeclaredMethod("getOriginalHostName");
+                getOriginalHostName.setAccessible(true);
+
+                String originalHostName =
+                        (String) getOriginalHostName.invoke(getHolder.invoke(addr));
+                if (originalHostName == null) {
+                    return addr.getHostAddress();
+                }
+                return originalHostName;
+            } catch (InvocationTargetException e) {
+                throw new RuntimeException("Failed to get originalHostName", e);
+            } catch (ClassNotFoundException ignore) {
+                // passthrough and return addr.getHostAddress()
+            } catch (IllegalAccessException ignore) {
+            } catch (NoSuchMethodException ignore) {
+            }
         }
-        return sslSession;
+        return addr.getHostAddress();
     }
 
     /*

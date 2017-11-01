@@ -28,16 +28,22 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.RSAPrivateKeySpec;
 
-public class OpenSSLRSAPrivateKey implements RSAPrivateKey, OpenSSLKeyHolder {
+/**
+ * An implementation of {@link java.security.PrivateKey} for RSA keys which uses BoringSSL to
+ * perform all the operations.
+ *
+ * @hide
+ */
+class OpenSSLRSAPrivateKey implements RSAPrivateKey, OpenSSLKeyHolder {
     private static final long serialVersionUID = 4872170254439578735L;
 
-    protected transient OpenSSLKey key;
+    transient OpenSSLKey key;
 
-    protected transient boolean fetchedParams;
+    transient boolean fetchedParams;
 
-    protected BigInteger modulus;
+    BigInteger modulus;
 
-    protected BigInteger privateExponent;
+    BigInteger privateExponent;
 
     OpenSSLRSAPrivateKey(OpenSSLKey key) {
         this.key = key;
@@ -91,7 +97,7 @@ public class OpenSSLRSAPrivateKey implements RSAPrivateKey, OpenSSLKeyHolder {
         return new OpenSSLRSAPrivateKey(key, params);
     }
 
-    protected static OpenSSLKey wrapPlatformKey(RSAPrivateKey rsaPrivateKey)
+    static OpenSSLKey wrapPlatformKey(RSAPrivateKey rsaPrivateKey)
             throws InvalidKeyException {
         OpenSSLKey wrapper = Platform.wrapRsaKey(rsaPrivateKey);
         if (wrapper != null) {
@@ -192,7 +198,7 @@ public class OpenSSLRSAPrivateKey implements RSAPrivateKey, OpenSSLKeyHolder {
 
     @Override
     public final byte[] getEncoded() {
-        return NativeCrypto.i2d_PKCS8_PRIV_KEY_INFO(key.getNativeRef());
+        return NativeCrypto.EVP_marshal_private_key(key.getNativeRef());
     }
 
     @Override

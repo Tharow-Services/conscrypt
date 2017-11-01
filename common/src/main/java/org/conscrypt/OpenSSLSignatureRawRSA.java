@@ -28,9 +28,12 @@ import java.security.interfaces.RSAPublicKey;
 
 /**
  * Implements the JDK Signature interface needed for RAW RSA signature
- * generation and verification using OpenSSL.
+ * generation and verification using BoringSSL.
+ *
+ * @hide
  */
-public class OpenSSLSignatureRawRSA extends SignatureSpi {
+@Internal
+public final class OpenSSLSignatureRawRSA extends SignatureSpi {
     /**
      * The current OpenSSL key we're operating on.
      */
@@ -77,6 +80,7 @@ public class OpenSSLSignatureRawRSA extends SignatureSpi {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected Object engineGetParameter(String param) throws InvalidParameterException {
         return null;
     }
@@ -121,6 +125,7 @@ public class OpenSSLSignatureRawRSA extends SignatureSpi {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void engineSetParameter(String param, Object value) throws InvalidParameterException {
     }
 

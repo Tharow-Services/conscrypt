@@ -2,7 +2,6 @@ description = 'Conscrypt: Constants'
 
 ext {
     genDir = "${project.buildDir}/generated-sources"
-    genConstExecutable = 'exe/gen/gen'
 }
 
 // Needs to be binary-compatible with Android minSdkVersion.
@@ -23,9 +22,9 @@ dependencies {
     }
 }
 
-// Generate javadoc and sources JAR
+// Generate sources JAR
 artifacts {
-    archives javadocJar, sourcesJar
+    archives sourcesJar
 }
 
 model {
@@ -37,20 +36,46 @@ model {
                     // Sources assumed to be in src/gen/cpp by default.
                     exportedHeaders {
                         srcDirs "${boringsslIncludeDir}"
+                        include "**/*.cc"
                     }
+                }
+            }
+
+            binaries.all {
+                if (toolChain in VisualCpp) {
+                    cppCompiler.define "WIN32_LEAN_AND_MEAN"
+                }
+            }
+        }
+    }
+
+    tasks {
+        // Runs generateNativeConstants to create build/NativeConstants.java
+        runGen(Exec) {
+            def gen = $.binaries.get("genExecutable")
+
+            dependsOn gen
+            File genDir = new File("${genDir}/org/conscrypt")
+
+            executable gen.executable.file
+
+            doFirst {
+                genDir.mkdirs()
+                standardOutput = new FileOutputStream(new File(genDir, "NativeConstants.java"))
+            }
+            doLast {
+                if (standardOutput != null) {
+                    standardOutput.close();
                 }
             }
         }
     }
 }
 
-// Runs generateNativeConstants to create build/NativeConstants.java
-task runGen(type:Exec)  {
-    File genDir = new File("${genDir}/org/conscrypt")
-    genDir.mkdirs()
 
-    workingDir new File("${project.buildDir}")
-    executable "${genConstExecutable}"
-    standardOutput = new FileOutputStream(new File(genDir, "NativeConstants.java"))
-}
-runGen.dependsOn 'genExecutable'
+// Don't include this artifact in the distribution.
+tasks.install.enabled = false
+tasks.uploadArchives.enabled = false;
+
+// Disable the javadoc task.
+tasks.withType(Javadoc).all { enabled = false }

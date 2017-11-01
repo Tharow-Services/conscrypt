@@ -35,9 +35,12 @@ import java.security.spec.PSSParameterSpec;
 /**
  * Implements the subset of the JDK Signature interface needed for
  * signature verification using OpenSSL.
+ *
+ * @hide
  */
+@Internal
 public class OpenSSLSignature extends SignatureSpi {
-    private static enum EngineType {
+    private enum EngineType {
         RSA, EC,
     }
 
@@ -83,7 +86,7 @@ public class OpenSSLSignature extends SignatureSpi {
         this.evpMdRef = evpMdRef;
     }
 
-    private final void resetContext() throws InvalidAlgorithmParameterException {
+    private void resetContext() throws InvalidAlgorithmParameterException {
         NativeRef.EVP_MD_CTX ctxLocal = new NativeRef.EVP_MD_CTX(NativeCrypto.EVP_MD_CTX_create());
         if (signing) {
             evpPkeyCtx = NativeCrypto.EVP_DigestSignInit(ctxLocal, evpMdRef, key.getNativeRef());
@@ -218,6 +221,7 @@ public class OpenSSLSignature extends SignatureSpi {
     }
 
     @Override
+    @SuppressWarnings("Finally")
     protected byte[] engineSign() throws SignatureException {
         final NativeRef.EVP_MD_CTX ctxLocal = ctx;
         try {
@@ -238,6 +242,7 @@ public class OpenSSLSignature extends SignatureSpi {
     }
 
     @Override
+    @SuppressWarnings("Finally")
     protected boolean engineVerify(byte[] sigBytes) throws SignatureException {
         final NativeRef.EVP_MD_CTX ctxLocal = ctx;
         try {
@@ -349,7 +354,7 @@ public class OpenSSLSignature extends SignatureSpi {
         private long mgf1EvpMdRef;
         private int saltSizeBytes;
 
-        public RSAPSSPadding(
+        RSAPSSPadding(
                 long contentDigestEvpMdRef, String contentDigestAlgorithm, int saltSizeBytes) {
             super(contentDigestEvpMdRef, EngineType.RSA);
             this.contentDigestAlgorithm = contentDigestAlgorithm;
@@ -450,7 +455,9 @@ public class OpenSSLSignature extends SignatureSpi {
                                 saltSizeBytes,
                                 TRAILER_FIELD_BC_ID));
                 return result;
-            } catch (NoSuchAlgorithmException | InvalidParameterSpecException e) {
+            } catch (NoSuchAlgorithmException e) {
+                throw new ProviderException("Failed to create PSS AlgorithmParameters", e);
+            } catch (InvalidParameterSpecException e) {
                 throw new ProviderException("Failed to create PSS AlgorithmParameters", e);
             }
         }

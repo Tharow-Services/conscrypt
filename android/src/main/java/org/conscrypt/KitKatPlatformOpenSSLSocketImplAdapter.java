@@ -45,9 +45,9 @@ public class KitKatPlatformOpenSSLSocketImplAdapter
         extends com.android.org.conscrypt.OpenSSLSocketImpl {
 
 
-    private final org.conscrypt.OpenSSLSocketImpl delegate;
+    private final AbstractConscryptSocket delegate;
 
-    public KitKatPlatformOpenSSLSocketImplAdapter(org.conscrypt.OpenSSLSocketImpl delegate)
+    public KitKatPlatformOpenSSLSocketImplAdapter(AbstractConscryptSocket delegate)
             throws IOException {
         super(null);
         this.delegate = delegate;
@@ -56,6 +56,7 @@ public class KitKatPlatformOpenSSLSocketImplAdapter
     // Socket methods.
 
     @Override
+    @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public void close() throws IOException {
         delegate.close();
     }
@@ -146,16 +147,19 @@ public class KitKatPlatformOpenSSLSocketImplAdapter
     }
 
     @Override
+    @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public void setSoTimeout(int to) throws SocketException {
         delegate.setSoTimeout(to);
     }
 
     @Override
+    @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public void setSendBufferSize(int size) throws SocketException {
         delegate.setSendBufferSize(size);
     }
 
     @Override
+    @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public void setReceiveBufferSize(int size) throws SocketException {
         delegate.setReceiveBufferSize(size);
     }
@@ -176,6 +180,7 @@ public class KitKatPlatformOpenSSLSocketImplAdapter
     }
 
     @Override
+    @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public int getSoTimeout() throws SocketException {
         return delegate.getSoTimeout();
     }
@@ -186,11 +191,13 @@ public class KitKatPlatformOpenSSLSocketImplAdapter
     }
 
     @Override
+    @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public int getSendBufferSize() throws SocketException {
         return delegate.getSendBufferSize();
     }
 
     @Override
+    @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public int getReceiveBufferSize() throws SocketException {
         return delegate.getReceiveBufferSize();
     }
@@ -312,6 +319,7 @@ public class KitKatPlatformOpenSSLSocketImplAdapter
     }
 
     @Override
+    @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public void startHandshake() throws IOException {
         delegate.startHandshake();
     }

@@ -15,7 +15,6 @@ target
 .classpath
 .project
 .settings
-.gitignore
 bin
 
 # OS X
@@ -24,3 +23,9 @@ bin
 # Emacs
 *~
 \#*\#
+
+# Vim
+.*.sw[nop]
+
+# Vogar benchmarks
+vogar-results/*

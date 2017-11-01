@@ -33,6 +33,12 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * An implementation of {@link java.security.cert.CertificateFactory} based on BoringSSL.
+ *
+ * @hide
+ */
+@Internal
 public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
     private static final byte[] PKCS7_MARKER = new byte[] {
             '-', '-', '-', '-', '-', 'B', 'E', 'G', 'I', 'N', ' ', 'P', 'K', 'C', 'S', '7'
@@ -43,15 +49,15 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
     static class ParsingException extends Exception {
         private static final long serialVersionUID = 8390802697728301325L;
 
-        public ParsingException(String message) {
+        ParsingException(String message) {
             super(message);
         }
 
-        public ParsingException(Exception cause) {
+        ParsingException(Exception cause) {
             super(cause);
         }
 
-        public ParsingException(String message, Exception cause) {
+        ParsingException(String message, Exception cause) {
             super(message, cause);
         }
     }
@@ -62,7 +68,7 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
      * but it's already written in this language anyway.
      */
     private static abstract class Parser<T> {
-        public T generateItem(InputStream inStream) throws ParsingException {
+        T generateItem(InputStream inStream) throws ParsingException {
             if (inStream == null) {
                 throw new ParsingException("inStream == null");
             }
@@ -116,7 +122,7 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
             }
         }
 
-        public Collection<? extends T> generateItems(InputStream inStream)
+        Collection<? extends T> generateItems(InputStream inStream)
                 throws ParsingException {
             if (inStream == null) {
                 throw new ParsingException("inStream == null");
@@ -169,7 +175,7 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
              * can't anymore.
              */
             final List<T> coll = new ArrayList<T>();
-            T c = null;
+            T c;
             do {
                 /*
                  * If this stream supports marking, try to mark here in case

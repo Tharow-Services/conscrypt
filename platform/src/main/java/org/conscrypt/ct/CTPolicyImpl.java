@@ -17,9 +17,14 @@
 package org.conscrypt.ct;
 
 import java.security.cert.X509Certificate;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
+import org.conscrypt.Internal;
 
+/**
+ * @hide
+ */
+@Internal
 public class CTPolicyImpl implements CTPolicy {
     private final CTLogStore logStore;
     private final int minimumLogCount;

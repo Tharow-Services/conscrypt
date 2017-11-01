@@ -29,12 +29,13 @@ import java.security.cert.CertificateException;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactorySpi;
 import javax.net.ssl.ManagerFactoryParameters;
-import org.conscrypt.util.EmptyArray;
 
 /**
  * KeyManagerFactory implementation.
  * @see KeyManagerFactorySpi
+ * @hide
  */
+@Internal
 public class KeyManagerFactoryImpl extends KeyManagerFactorySpi {
 
     // source of key material
@@ -112,5 +113,4 @@ public class KeyManagerFactoryImpl extends KeyManagerFactorySpi {
         }
         return new KeyManager[] { new KeyManagerImpl(keyStore, pwd) };
     }
-
 }

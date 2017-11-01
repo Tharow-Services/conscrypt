@@ -21,7 +21,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import org.conscrypt.Internal;
 
+/**
+ * @hide
+ */
+@Internal
 public class Serialization {
     private Serialization() {}
 
@@ -212,22 +217,22 @@ public class Serialization {
         if (width < 0) {
             throw new SerializationException("Negative width: " + width);
         }
-        if (width < 8 && value >= (1L << (8*width))) {
-            throw new SerializationException("Number too large, " + value +
-                                             " does not fit in " + width + " bytes");
+        if (width < 8 && value >= (1L << (8 * width))) {
+            throw new SerializationException(
+                    "Number too large, " + value + " does not fit in " + width + " bytes");
         }
 
         try {
             while (width > 0) {
-                long shift = (width - 1) * 8;
+                long shift = (width - 1) * 8L;
                 // Java behaves weirdly if shifting by more than the variable's size
                 if (shift < Long.SIZE) {
-                    output.write((byte)((value >> shift) & 0xFF));
+                    output.write((byte) ((value >> shift) & 0xFF));
                 } else {
                     output.write(0);
                 }
 
-                width --;
+                width--;
             }
         } catch (IOException e) {
             throw new SerializationException(e);

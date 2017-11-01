@@ -43,32 +43,73 @@ git clone https://boringssl.googlesource.com/boringssl
 cd boringssl
 
 # Also need to set an environment variable to point to the installation location.
-export BORINGSSL_HOME $PWD
+export BORINGSSL_HOME=$PWD
 ```
 
 ##### Building on Linux/OS-X
+To build in the 64-bit version on a 64-bit machine:
 ```bash
-mkdir build
-cd build
+mkdir build64
+cd build64
 cmake -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE \
       -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_ASM_FLAGS=-Wa,\
-      --noexecstack \
+      -DCMAKE_ASM_FLAGS=-Wa,--noexecstack \
+      -GNinja ..
+ninja
+```
+
+To make a 32-bit build on a 64-bit machine:
+```base
+mkdir build32
+cd build32
+cmake -DCMAKE_TOOLCHAIN_FILE=../util/32-bit-toolchain.cmake \
+      -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_ASM_FLAGS="-Wa,--noexecstack -m32 -msse2" \
       -GNinja ..
 ninja
 ```
 
 ##### Building on Windows
-This assumes that you have
+This assumes that you have Microsoft Visual Studio 2015 installed along
+with Windows 8.1 SDK and your machine is capable of compiling 64-bit.
+Visual Studio 2015 sets the `VS140COMNTOOLS` environment variable upon
+installation.
 
-```bash
-mkdir build
-cd build
-cmake -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE \
-      -DCMAKE_BUILD_TYPE=Release \
-      -DCMAKE_C_FLAGS_RELEASE=/MT \
-      -DCMAKE_CXX_FLAGS_RELEASE=/MT \
+To build in 64-bit mode, set up with this command line:
+
+```bat
+call "%VS140COMNTOOLS%\..\..\VC\vcvarsall.bat" amd64 8.1
+mkdir build64
+cd build64
+```
+
+To build in 32-bit mode, set up with this command line:
+
+```bat
+call "%VS140COMNTOOLS%\..\..\VC\vcvarsall.bat" x86 8.1
+mkdir build32
+cd build32
+```
+
+In either the 64-bit or 32-bit case, run this afterward:
+
+```bat
+cmake -DCMAKE_POSITION_INDEPENDENT_CODE=TRUE ^
+      -DCMAKE_BUILD_TYPE=Release ^
+      -DCMAKE_C_FLAGS_RELEASE=/MT ^
+      -DCMAKE_CXX_FLAGS_RELEASE=/MT ^
       -GNinja ..
 ninja
 ```
 
+Running tests on Java 6
+-------------------------
+Conscrypt is built with Java 8+, but targets the Java 6 runtime. To run the tests
+under Java 6 (or any Java runtime), you can specify the `javaExecutable64` property from the command line.
+ This will run all tests under `openjdk` and `openjdk-integ-tests` with the specified
+ runtime.
+
+```bash
+./gradlew check -DjavaExecutable64=${JAVA6_HOME}/bin/java
+```

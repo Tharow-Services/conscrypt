@@ -14,24 +14,25 @@
  * limitations under the License.
  */
 
-#ifndef NET_FD_H_included
-#define NET_FD_H_included
+#ifndef NETFD_H_
+#define NETFD_H_
+
+#include <conscrypt/jniutil.h>
 
 /**
  * Wraps access to the int inside a java.io.FileDescriptor, taking care of throwing exceptions.
  */
 class NetFd {
-public:
+ public:
     NetFd(JNIEnv* env, jobject fileDescriptor)
-        : mEnv(env), mFileDescriptor(fileDescriptor), mFd(-1)
-    {
-    }
+        : mEnv(env), mFileDescriptor(fileDescriptor), mFd(-1) {}
 
     bool isClosed() {
-        mFd = jniGetFDFromFileDescriptor(mEnv, mFileDescriptor);
+        mFd = conscrypt::jniutil::jniGetFDFromFileDescriptor(mEnv, mFileDescriptor);
         bool closed = (mFd == -1);
         if (closed) {
-            jniThrowException(mEnv, "java/net/SocketException", "Socket closed");
+            conscrypt::jniutil::jniThrowException(mEnv, "java/net/SocketException",
+                                                  "Socket closed");
         }
         return closed;
     }
@@ -40,7 +41,7 @@ public:
         return mFd;
     }
 
-private:
+ private:
     JNIEnv* mEnv;
     jobject mFileDescriptor;
     int mFd;
@@ -55,16 +56,18 @@ private:
  * it also considers the case where the reason for failure is that another thread called
  * Socket.close.
  */
-#define NET_FAILURE_RETRY(fd, exp) ({               \
-    typeof (exp) _rc;                               \
-    do {                                            \
-        _rc = (exp);                                \
-        if (_rc == -1) {                            \
-            if (fd.isClosed() || errno != EINTR) {  \
-                break;                              \
-            }                                       \
-        }                                           \
-    } while (_rc == -1);                            \
-    _rc; })
+#define NET_FAILURE_RETRY(fd, exp)                     \
+    ({                                                 \
+        typeof(exp) _rc;                               \
+        do {                                           \
+            _rc = (exp);                               \
+            if (_rc == -1) {                           \
+                if (fd.isClosed() || errno != EINTR) { \
+                    break;                             \
+                }                                      \
+            }                                          \
+        } while (_rc == -1);                           \
+        _rc;                                           \
+    })
 
-#endif // NET_FD_H_included
+#endif  // NETFD_H_

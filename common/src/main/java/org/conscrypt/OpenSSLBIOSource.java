@@ -20,23 +20,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
-public final class OpenSSLBIOSource {
+/**
+ * Wrapped by a BoringSSL BIO to act as a source of bytes.
+ */
+final class OpenSSLBIOSource {
     private OpenSSLBIOInputStream source;
 
-    public static OpenSSLBIOSource wrap(ByteBuffer buffer) {
+    static OpenSSLBIOSource wrap(ByteBuffer buffer) {
         return new OpenSSLBIOSource(
             new OpenSSLBIOInputStream(new ByteBufferInputStream(buffer), false));
     }
 
-    public OpenSSLBIOSource(OpenSSLBIOInputStream source) {
+    private OpenSSLBIOSource(OpenSSLBIOInputStream source) {
         this.source = source;
     }
 
-    public long getContext() {
+    long getContext() {
         return source.getBioContext();
     }
 
-    public synchronized void release() {
+    private synchronized void release() {
         if (source != null) {
             NativeCrypto.BIO_free_all(source.getBioContext());
             source = null;
@@ -55,7 +58,7 @@ public final class OpenSSLBIOSource {
     private static class ByteBufferInputStream extends InputStream {
         private final ByteBuffer source;
 
-        public ByteBufferInputStream(ByteBuffer source) {
+        ByteBufferInputStream(ByteBuffer source) {
             this.source = source;
         }
 
@@ -95,7 +98,7 @@ public final class OpenSSLBIOSource {
 
         @Override
         public long skip(long byteCount) throws IOException {
-            int originalPosition = source.position();
+            long originalPosition = source.position();
             source.position((int) (originalPosition + byteCount));
             return source.position() - originalPosition;
         }

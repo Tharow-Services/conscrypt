@@ -27,7 +27,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TimeZone;
 
-public class OpenSSLX509CRLEntry extends X509CRLEntry {
+/**
+ * An implementation of {@link X509CRLEntry} based on BoringSSL.
+ */
+final class OpenSSLX509CRLEntry extends X509CRLEntry {
     private final long mContext;
 
     OpenSSLX509CRLEntry(long ctx) {
