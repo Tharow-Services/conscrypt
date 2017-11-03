@@ -22,6 +22,30 @@
       "revId": "54282e7423d30f062924656e20478a7a58ea87af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "03fdc962_ea83885a",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLSocketImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2017-11-03T15:49:49Z",
+      "side": 1,
+      "message": "\u003e Is this line too long ? I\u0027m out of touch with style guidelines.\n\nIt would be normally, but Conscrypt\u0027s code base doesn\u0027t hold strictly to the line length limit.",
+      "parentUuid": "fbc9ee8e_88d97556",
+      "range": {
+        "startLine": 143,
+        "startChar": 100,
+        "endLine": 143,
+        "endChar": 107
+      },
+      "revId": "54282e7423d30f062924656e20478a7a58ea87af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
