@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68ed9ac2_dae8200f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1018773
+      },
+      "writtenOn": "2017-11-14T17:10:53Z",
+      "side": 1,
+      "message": "But why???",
+      "revId": "db11f219bde0a0be876d5382259a42af20bb40d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
