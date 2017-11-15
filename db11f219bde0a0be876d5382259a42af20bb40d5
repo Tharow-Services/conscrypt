@@ -16,6 +16,24 @@
       "revId": "db11f219bde0a0be876d5382259a42af20bb40d5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6d700ef7_7880338a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2017-11-15T11:40:56Z",
+      "side": 1,
+      "message": "\u003e But why???\n\nBouncy Castle allows them, and we\u0027re deprecating BC\u0027s RC4 implementation, so we want the same names will work in both.  (It\u0027s not changing the implementation, it\u0027s just allowing you to ask for e.g. ARC4/None/NoPadding and get the right thing back.)",
+      "parentUuid": "68ed9ac2_dae8200f",
+      "revId": "db11f219bde0a0be876d5382259a42af20bb40d5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
