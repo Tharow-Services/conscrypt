@@ -1049,7 +1049,7 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
     }
 
     private void free() {
-        if (!ssl.isClosed()) {
+        if (ssl != null && !ssl.isClosed()) {
             ssl.close();
             Platform.closeGuardClose(guard);
         }
