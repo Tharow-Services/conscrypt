@@ -1,0 +1,11 @@
+Presubmit-Ready+1: Adam Vartanian <flooey@google.com>
+Autosubmit+1: Neil Fuller <nfuller@google.com>
+Autosubmit+1: Adam Vartanian <flooey@google.com>
+Verified+1: Adam Vartanian <flooey@google.com>
+Code-Review+2: Adam Vartanian <flooey@google.com>
+Build-Cop-Override+1: Orion Hodson <oth@google.com>
+Submitted-by: Orion Hodson <oth@google.com>
+Submitted-at: Thu, 19 Apr 2018 12:52:15 +0000
+Reviewed-on: https://android-review.googlesource.com/667901
+Project: platform/external/conscrypt
+Branch: refs/heads/master
