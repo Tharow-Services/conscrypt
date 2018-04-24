@@ -6422,8 +6422,13 @@ static void debug_print_packet_data(const SSL* ssl, char direction, const char* 
     }
 
     // Packet preamble for text2pcap
+<<<<<<< HEAD   (b750e5 Revert "Merge upstream master")
     ALOG(LOG_INFO, LOG_TAG "-jni", "ssl=%p SSL_DATA: %c %ld.%06ld", ssl, direction, tv.tv_sec,
          tv.tv_usec);
+=======
+    CONSCRYPT_LOG(LOG_INFO, LOG_TAG "-jni", "ssl=%p SSL_DATA: %c %ld.%06ld", ssl, direction, tv.tv_sec,
+         static_cast<long>(tv.tv_usec));
+>>>>>>> BRANCH (212654 Allow localhost as an SNI hostname. (#475))
 
     char out[kDataWidth * 3 + 1];
     for (size_t i = 0; i < len; i += kDataWidth) {
