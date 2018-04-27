@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9c4d991c_fe6f5dfc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-04-27T13:10:37Z",
+      "side": 1,
+      "message": "Can you say what has changed since then to now make this safe to commit?\n\nDid you also run / fix CtsOkHttpTestCases after that failure I sent over?",
+      "range": {
+        "startLine": 16,
+        "startChar": 20,
+        "endLine": 16,
+        "endChar": 60
+      },
+      "revId": "bd770dbea8f9b6afae4ff69a7cdefa42679a6312",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
