@@ -361,7 +361,12 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
 
     /**
      * This method enables Server Name Indication (SNI) and overrides the {@link PeerInfoProvider}
+<<<<<<< HEAD   (602f01 Revert "Merge upstream master")
      * supplied during engine creation.
+=======
+     * supplied during engine creation.  If the hostname is not a valid SNI hostname, the SNI
+     * extension will be omitted from the handshake.
+>>>>>>> BRANCH (5d3aaf Remove exception throwing on bad hostnames. (#478))
      */
     @Override
     void setHostname(String hostname) {
