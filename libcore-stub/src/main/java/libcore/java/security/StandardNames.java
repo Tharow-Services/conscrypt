@@ -69,7 +69,8 @@ import javax.crypto.spec.DHPublicKeySpec;
 public final class StandardNames {
     public static final boolean IS_RI =
             !"Dalvik Core Library".equals(System.getProperty("java.specification.name"));
-    public static final String JSSE_PROVIDER_NAME = (IS_RI) ? "Conscrypt" : "AndroidOpenSSL";
+    public static final String JSSE_PROVIDER_NAME =
+            "AndroidOpenSSL"; // google3 patch, see copy.bara.sky
     public static final String SECURITY_PROVIDER_NAME = (IS_RI) ? "SUN" : "BC";
 
     public static final String KEY_MANAGER_FACTORY_DEFAULT = (IS_RI) ? "SunX509" : "PKIX";
@@ -683,16 +684,10 @@ public final class StandardNames {
         addBoth("SSL_RSA_WITH_3DES_EDE_CBC_SHA");
 
         // TLSv1.2 cipher suites
-        addBoth("TLS_RSA_WITH_AES_128_CBC_SHA256");
-        addBoth("TLS_RSA_WITH_AES_256_CBC_SHA256");
         addOpenSsl("TLS_RSA_WITH_AES_128_GCM_SHA256");
         addOpenSsl("TLS_RSA_WITH_AES_256_GCM_SHA384");
-        addBoth("TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256");
-        addBoth("TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384");
         addOpenSsl("TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256");
         addOpenSsl("TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384");
-        addBoth("TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256");
-        addBoth("TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384");
         addOpenSsl("TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256");
         addOpenSsl("TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384");
         addOpenSsl("TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256");
