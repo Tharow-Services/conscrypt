@@ -89,7 +89,6 @@ public class CipherSuite {
             new CipherSuite(0x0039, "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"),
             new CipherSuite(0x003a, "TLS_DH_anon_WITH_AES_256_CBC_SHA"),
             new CipherSuite(0x003b, "TLS_RSA_WITH_NULL_SHA256"),
-            new CipherSuite(0x003c, "TLS_RSA_WITH_AES_128_CBC_SHA256"),
             new CipherSuite(0x003d, "TLS_RSA_WITH_AES_256_CBC_SHA256"),
             new CipherSuite(0x003e, "TLS_DH_DSS_WITH_AES_128_CBC_SHA256"),
             new CipherSuite(0x003f, "TLS_DH_RSA_WITH_AES_128_CBC_SHA256"),
