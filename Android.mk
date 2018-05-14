@@ -57,6 +57,8 @@ local_javac_flags:=-Xmaxwarns 9999999
 #
 
 bundled_test_java_files := $(call all-java-files-under,platform/src/test/java)
+bundled_test_java_files += $(filter-out %/ConscryptSuite.java,\
+    $(call all-java-files-under,openjdk-integ-tests/src/test/java))
 bundled_test_java_files += $(call all-java-files-under,testing/src/main/java)
 bundled_test_java_files := $(foreach j,$(bundled_test_java_files),\
 	$(if $(findstring testing/src/main/java/libcore/,$(j)),,$(j)))
@@ -65,10 +67,19 @@ ifeq ($(LIBCORE_SKIP_TESTS),)
 # Make the conscrypt-tests library.
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(bundled_test_java_files)
-LOCAL_JAVA_RESOURCE_DIRS := openjdk/src/test/resources
+LOCAL_JAVA_RESOURCE_DIRS := openjdk/src/test/resources openjdk-integ-tests/src/test/resources
 LOCAL_NO_STANDARD_LIBRARIES := true
-LOCAL_JAVA_LIBRARIES := core-oj core-libart junit bouncycastle-nojarjar mockito-target-minus-junit4
-LOCAL_STATIC_JAVA_LIBRARIES := core-tests-support conscrypt-nojarjar
+LOCAL_JAVA_LIBRARIES := \
+    core-oj \
+    core-libart \
+    junit \
+    mockito-target-minus-junit4
+LOCAL_STATIC_JAVA_LIBRARIES := \
+    core-tests-support \
+    conscrypt-nojarjar \
+    bouncycastle-unbundled \
+    bouncycastle-bcpkix-unbundled \
+    bouncycastle-ocsp-unbundled
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE := conscrypt-tests
@@ -87,7 +98,14 @@ bundled_benchmark_java_files += $(call all-java-files-under,benchmark-android/sr
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES := $(bundled_benchmark_java_files)
 LOCAL_NO_STANDARD_LIBRARIES := true
-LOCAL_JAVA_LIBRARIES := core-oj core-libart junit bouncycastle-nojarjar caliper-api-target
+LOCAL_JAVA_LIBRARIES := \
+    core-oj \
+    core-libart \
+    junit \
+    bouncycastle-unbundled \
+    bouncycastle-bcpkix-unbundled \
+    bouncycastle-ocsp-unbundled \
+    caliper-api-target
 LOCAL_STATIC_JAVA_LIBRARIES := core-tests-support conscrypt-nojarjar
 LOCAL_JAVACFLAGS := $(local_javac_flags)
 LOCAL_MODULE_TAGS := optional
@@ -108,8 +126,14 @@ ifeq ($(HOST_OS),linux)
 ifeq ($(LIBCORE_SKIP_TESTS),)
     include $(CLEAR_VARS)
     LOCAL_SRC_FILES := $(bundled_test_java_files)
-    LOCAL_JAVA_RESOURCE_DIRS := openjdk/src/test/resources
-    LOCAL_JAVA_LIBRARIES := bouncycastle-nojarjar-hostdex junit-hostdex core-tests-support-hostdex mockito-api-hostdex
+    LOCAL_JAVA_RESOURCE_DIRS := openjdk/src/test/resources openjdk-integ-tests/src/test/resources
+    LOCAL_JAVA_LIBRARIES := \
+        bouncycastle-unbundled-hostdex \
+        bouncycastle-bcpkix-unbundled-hostdex \
+        bouncycastle-ocsp-unbundled-hostdex \
+        junit-hostdex \
+        core-tests-support-hostdex \
+        mockito-api-hostdex
     LOCAL_STATIC_JAVA_LIBRARIES := conscrypt-nojarjar-hostdex
     LOCAL_JAVACFLAGS := $(local_javac_flags)
     LOCAL_MODULE_TAGS := optional
