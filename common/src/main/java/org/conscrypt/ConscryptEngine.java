@@ -90,9 +90,9 @@ import javax.net.ssl.X509ExtendedKeyManager;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
 import javax.security.auth.x500.X500Principal;
+import org.conscrypt.ExternalSession.Provider;
 import org.conscrypt.NativeRef.SSL_SESSION;
 import org.conscrypt.NativeSsl.BioWrapper;
-import org.conscrypt.ProvidedSessionDecorator.Provider;
 
 /**
  * Implements the {@link SSLEngine} API using OpenSSL's non-blocking interfaces.
@@ -111,8 +111,10 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
             new SSLEngineResult(CLOSED, NOT_HANDSHAKING, 0, 0);
     private static final ByteBuffer EMPTY = ByteBuffer.allocateDirect(0);
 
+    private static BufferAllocator defaultBufferAllocator = null;
+
     private final SSLParametersImpl sslParameters;
-    private BufferAllocator bufferAllocator;
+    private BufferAllocator bufferAllocator = defaultBufferAllocator;
 
     /**
      * A lazy-created direct buffer used as a bridge between heap buffers provided by the
@@ -155,7 +157,7 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
      * The session object exposed externally from this class.
      */
     private final SSLSession externalSession =
-        Platform.wrapSSLSession(new ProvidedSessionDecorator(new Provider() {
+        Platform.wrapSSLSession(new ExternalSession(new Provider() {
             @Override
             public ConscryptSession provideSession() {
                 return ConscryptEngine.this.provideSession();
@@ -208,6 +210,14 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
         } catch (SSLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Configures the default {@link BufferAllocator} to be used by all future
+     * {@link SSLEngine} instances from this provider.
+     */
+    static void setDefaultBufferAllocator(BufferAllocator bufferAllocator) {
+        defaultBufferAllocator = bufferAllocator;
     }
 
     @Override
@@ -351,7 +361,8 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
 
     /**
      * This method enables Server Name Indication (SNI) and overrides the {@link PeerInfoProvider}
-     * supplied during engine creation.
+     * supplied during engine creation.  If the hostname is not a valid SNI hostname, the SNI
+     * extension will be omitted from the handshake.
      */
     @Override
     void setHostname(String hostname) {
@@ -563,7 +574,7 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
     SSLSession handshakeSession() {
         synchronized (ssl) {
             if (state == STATE_HANDSHAKE_STARTED) {
-                return Platform.wrapSSLSession(new ProvidedSessionDecorator(new Provider() {
+                return Platform.wrapSSLSession(new ExternalSession(new Provider() {
                     @Override
                     public ConscryptSession provideSession() {
                         return ConscryptEngine.this.provideHandshakeSession();
@@ -1668,7 +1679,7 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
     @Override
     protected void finalize() throws Throwable {
         try {
-            closeAndFreeResources();
+            transitionTo(STATE_CLOSED);
         } finally {
             super.finalize();
         }
@@ -1742,6 +1753,32 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
     @Override
     byte[] getTlsUnique() {
         return ssl.getTlsUnique();
+    }
+
+    @Override
+    void setTokenBindingParams(int... params) throws SSLException {
+        synchronized (ssl) {
+            if (isHandshakeStarted()) {
+                throw new IllegalStateException(
+                        "Cannot set token binding params after handshake has started.");
+            }
+        }
+        ssl.setTokenBindingParams(params);
+    };
+
+    @Override
+    int getTokenBindingParams() {
+        return ssl.getTokenBindingParams();
+    }
+
+    @Override
+    byte[] exportKeyingMaterial(String label, byte[] context, int length) throws SSLException {
+        synchronized (ssl) {
+            if (state < STATE_HANDSHAKE_COMPLETED || state == STATE_CLOSED) {
+                return null;
+            }
+        }
+        return ssl.exportKeyingMaterial(label, context, length);
     }
 
     void setApplicationProtocolSelector(ApplicationProtocolSelectorAdapter adapter) {

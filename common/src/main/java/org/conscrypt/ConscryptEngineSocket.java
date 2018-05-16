@@ -305,7 +305,8 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
     }
 
     /**
-     * This method enables Server Name Indication
+     * This method enables Server Name Indication.  If the hostname is not a valid SNI hostname,
+     * the SNI extension will be omitted from the handshake.
      *
      * @param hostname the desired SNI hostname, or null to disable
      */
@@ -338,6 +339,21 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
     @Override
     byte[] getTlsUnique() {
         return engine.getTlsUnique();
+    }
+
+    @Override
+    void setTokenBindingParams(int... params) throws SSLException {
+        engine.setTokenBindingParams(params);
+    }
+
+    @Override
+    int getTokenBindingParams() {
+        return engine.getTokenBindingParams();
+    }
+
+    @Override
+    byte[] exportKeyingMaterial(String label, byte[] context, int length) throws SSLException {
+        return engine.exportKeyingMaterial(label, context, length);
     }
 
     @Override
@@ -374,6 +390,12 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
     @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public final void close() throws IOException {
         // TODO: Close SSL sockets using a background thread so they close gracefully.
+
+        if (stateLock == null) {
+            // close() has been called before we've initialized the socket, so just
+            // return.
+            return;
+        }
 
         synchronized (stateLock) {
             if (state == STATE_CLOSED) {
