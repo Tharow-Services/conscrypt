@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6a5071a0_0f56c1cb",
+        "filename": "openjdk-integ-tests/src/test/java/org/conscrypt/java/security/KeyPairGeneratorTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2018-05-24T13:42:21Z",
+      "side": 1,
+      "message": "this is all fine, and maybe not worth changing.. but it seems to me that Provides.setMaxApiLevelForDeprecatedBcUsage() would be a better name. The point being that it\u0027s the max API level at which things can still be accessed. Anyway, up to you. This change LG.",
+      "range": {
+        "startLine": 78,
+        "startChar": 7,
+        "endLine": 79,
+        "endChar": 62
+      },
+      "revId": "4057400e5e6ca0f6c88773e3c826922abb45ced4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
