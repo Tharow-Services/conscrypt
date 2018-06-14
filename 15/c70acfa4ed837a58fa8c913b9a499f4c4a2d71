@@ -1,0 +1,9 @@
+Autosubmit+1: Rob Sloan <varomodt@google.com>
+Code-Review+2: Adam Vartanian <flooey@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Verified+1: Rob Sloan <varomodt@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 14 Jun 2018 17:52:23 +0000
+Reviewed-on: https://android-review.googlesource.com/704213
+Project: platform/external/conscrypt
+Branch: refs/heads/master
