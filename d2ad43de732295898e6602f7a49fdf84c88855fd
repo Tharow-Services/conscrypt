@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d247207_36ffefdf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2018-09-20T17:11:59Z",
+      "side": 1,
+      "message": "Added command. A presubmit check would be nice but AFAIK it\u0027s not something that we have done for any of the other projects that use this. I have raised http://b/116214832 to do some cleanup of the currysrc code. Not a priority at the moment.",
+      "parentUuid": "ea47c045_cc2a49a7",
+      "range": {
+        "startLine": 13,
+        "startChar": 43,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "d2ad43de732295898e6602f7a49fdf84c88855fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f9daa43d_debe6e3f",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2018-09-20T17:03:50Z",
       "side": 1,
       "message": "PS. I\u0027m guessing you\u0027ve checked that the stubs generation can\u0027t easily be fixed to run this source generation step automatically as part of the build?",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 44
+      },
+      "revId": "d2ad43de732295898e6602f7a49fdf84c88855fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f53611c7_255a85a8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2018-09-20T17:11:59Z",
+      "side": 1,
+      "message": "They could but that\u0027s not how we use currysrc. We check the code in for two reasons:\n1) It allows us to review the changes and ensure that it has done its job properly.\n2) It avoids everyone having to pay the cost to build it.",
+      "parentUuid": "f9daa43d_debe6e3f",
       "range": {
         "startLine": 19,
         "startChar": 14,
