@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea47c045_cc2a49a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2018-09-20T17:02:28Z",
+      "side": 1,
+      "message": "Since other people will have to refer to these instructions in future, how about you specify the exact command line to use to re-generate the sources?\n\nShould there be a presubmit check about changing the wrong sources or not regenerating?",
+      "range": {
+        "startLine": 13,
+        "startChar": 43,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "d2ad43de732295898e6602f7a49fdf84c88855fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
