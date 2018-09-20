@@ -22,6 +22,29 @@
       "revId": "d2ad43de732295898e6602f7a49fdf84c88855fd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f9daa43d_debe6e3f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2018-09-20T17:03:50Z",
+      "side": 1,
+      "message": "PS. I\u0027m guessing you\u0027ve checked that the stubs generation can\u0027t easily be fixed to run this source generation step automatically as part of the build?",
+      "range": {
+        "startLine": 19,
+        "startChar": 14,
+        "endLine": 19,
+        "endChar": 44
+      },
+      "revId": "d2ad43de732295898e6602f7a49fdf84c88855fd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
