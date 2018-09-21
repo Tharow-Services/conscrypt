@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37350b2e_498e43f3",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-09-21T08:04:35Z",
+      "side": 1,
+      "message": "Based on the failures, looks like this needs to be conscrypt rather than conscrypt-nojarjar.",
+      "revId": "58e8c9ba648715086af4a0621823671cf4ab757f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
