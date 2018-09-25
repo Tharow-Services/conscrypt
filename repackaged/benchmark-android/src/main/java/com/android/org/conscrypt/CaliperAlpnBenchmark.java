@@ -73,5 +73,15 @@ public class CaliperAlpnBenchmark {
         public boolean useAlpn() {
             return true;
         }
+
+        @Override
+        public BenchmarkProtocol protocol() {
+            return BenchmarkProtocol.TLSv12;
+        }
+
+        @Override
+        public int rttMillis() {
+            return 0;
+        }
     }
 }

@@ -17,7 +17,6 @@
 
 package com.android.org.conscrypt;
 
-import static com.android.org.conscrypt.TestUtils.getProtocols;
 import static com.android.org.conscrypt.TestUtils.newTextMessage;
 
 import java.io.OutputStream;
@@ -41,6 +40,7 @@ public final class ClientSocketBenchmark {
         int messageSize();
         String cipher();
         ChannelType channelType();
+        BenchmarkProtocol protocol();
     }
 
     private ClientEndpoint client;
@@ -60,7 +60,8 @@ public final class ClientSocketBenchmark {
 
         // Always use the same server for consistency across the benchmarks.
         server = config.serverFactory().newServer(
-                ChannelType.CHANNEL, config.messageSize(), getProtocols(), ciphers(config));
+                ChannelType.CHANNEL, config.messageSize(), config.protocol().getProtocols(),
+                ciphers(config));
 
         server.setMessageProcessor(new ServerEndpoint.MessageProcessor() {
             @Override
@@ -74,7 +75,7 @@ public final class ClientSocketBenchmark {
         Future<?> connectedFuture = server.start();
 
         client = config.clientFactory().newClient(
-            config.channelType(), server.port(), getProtocols(), ciphers(config));
+            config.channelType(), server.port(), config.protocol().getProtocols(), ciphers(config));
         client.start();
 
         // Wait for the initial connection to complete.
