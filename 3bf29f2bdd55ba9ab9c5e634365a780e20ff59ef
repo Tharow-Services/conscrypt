@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0341ab70_5ccb05b5",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-09-25T08:57:27Z",
+      "side": 1,
+      "message": "This changes the set of files built on host (from openjdk/... to platform/...).  Is the fact that we don\u0027t have host_supported: true on the conscrypt rule mean that it can\u0027t be used for host targets, and so the host target override on the rule was useless?",
+      "revId": "3bf29f2bdd55ba9ab9c5e634365a780e20ff59ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
