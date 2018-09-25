@@ -197,10 +197,18 @@ java_library {
     installable: true,
     hostdex: true,
 
+<<<<<<< HEAD   (3bf29f More build tidy up)
     srcs: [":conscrypt_java_files"],
 
     no_framework_libs: true,
 
+=======
+    static_libs: ["conscrypt-nojarjar"],
+
+    no_framework_libs: true,
+
+    jarjar_rules: "jarjar-rules.txt",
+>>>>>>> BRANCH (ad3812 Add TLS 1.3 benchmarks (#543))
     required: ["libjavacrypto"],
 }
 
@@ -211,10 +219,18 @@ java_library {
     name: "conscrypt-testdex",
     installable: true,
 
+<<<<<<< HEAD   (3bf29f More build tidy up)
     static_libs: ["conscrypt"],
 
     no_framework_libs: true,
 
+=======
+    static_libs: ["conscrypt-nojarjar"],
+
+    no_framework_libs: true,
+
+    jarjar_rules: "jarjar-rules.txt",
+>>>>>>> BRANCH (ad3812 Add TLS 1.3 benchmarks (#543))
     required: ["libjavacrypto"],
 }
 
@@ -312,6 +328,7 @@ java_test {
     name: "conscrypt-tests",
     hostdex: true,
     srcs: [
+<<<<<<< HEAD   (3bf29f More build tidy up)
         "repackaged/platform/src/test/java/**/*.java",
         "repackaged/common/src/test/java/**/*.java",
         "repackaged/openjdk-integ-tests/src/test/java/**/*.java",
@@ -371,5 +388,75 @@ java_test {
     ],
 
     required: ["libjavacrypto"],
+=======
+        "platform/src/test/java/**/*.java",
+        "common/src/test/java/**/*.java",
+        "openjdk-integ-tests/src/test/java/**/*.java",
+        "testing/src/main/java/**/*.java",
+    ],
+    exclude_srcs: [
+        "openjdk-integ-tests/src/test/java/org/conscrypt/ConscryptSuite.java",
+        "openjdk-integ-tests/src/test/java/org/conscrypt/ConscryptJava6Suite.java",
+        "testing/src/main/java/libcore/**/*.java",
+    ],
+    java_resource_dirs: [
+        "openjdk/src/test/resources",
+        "openjdk-integ-tests/src/test/resources",
+    ],
+    no_framework_libs: true,
+    libs: [
+        "junit",
+        "mockito-target-minus-junit4",
+    ],
+    static_libs: [
+        "core-tests-support",
+        "conscrypt-nojarjar",
+        "bouncycastle-unbundled",
+        "bouncycastle-bcpkix-unbundled",
+        "bouncycastle-ocsp-unbundled",
+    ],
+    javacflags: [
+        "-Xmaxwarns 9999999",
+        //"-Xlint:all",
+        //"-Xlint:-serial,-deprecation,-unchecked",
+    ],
+
+    required: ["libjavacrypto"],
+    jarjar_rules: "jarjar-rules.txt",
+    java_version: "1.7",
+}
+
+// Make the conscrypt-benchmarks library.
+java_test {
+    name: "conscrypt-benchmarks",
+    srcs: [
+        "testing/src/main/java/**/*.java",
+        "benchmark-base/src/main/java/**/*.java",
+        "benchmark-android/src/main/java/**/*.java",
+    ],
+    exclude_srcs: [
+        "testing/src/main/java/libcore/**/*.java",
+    ],
+    no_framework_libs: true,
+    libs: [
+        "junit",
+        "bouncycastle-unbundled",
+        "bouncycastle-bcpkix-unbundled",
+        "bouncycastle-ocsp-unbundled",
+        "caliper-api-target",
+    ],
+    static_libs: [
+        "core-tests-support",
+        "conscrypt-nojarjar",
+    ],
+    javacflags: [
+        "-Xmaxwarns 9999999",
+        //"-Xlint:all",
+        //"-Xlint:-serial,-deprecation,-unchecked",
+    ],
+
+    required: ["libjavacrypto"],
+    jarjar_rules: "jarjar-rules.txt",
+>>>>>>> BRANCH (ad3812 Add TLS 1.3 benchmarks (#543))
     java_version: "1.7",
 }
