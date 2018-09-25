@@ -16,6 +16,24 @@
       "revId": "3bf29f2bdd55ba9ab9c5e634365a780e20ff59ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "db85029c_4f572a20",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-09-25T09:54:16Z",
+      "side": 1,
+      "message": "That was the idea, yes. The combination of no \"host_supported: true\" and the fact this target is now exclusively for building the on-device repackage code suggested that nobody should need this for host.\n\nI\u0027m relying on treehugger to tell me if I\u0027ve broken something, though.",
+      "parentUuid": "0341ab70_5ccb05b5",
+      "revId": "3bf29f2bdd55ba9ab9c5e634365a780e20ff59ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
