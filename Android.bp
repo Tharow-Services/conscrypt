@@ -150,26 +150,28 @@ genrule {
 // Create the conscrypt library without jarjar for tests
 java_library {
     name: "conscrypt-nojarjar",
-    host_supported: true,
     hostdex: true,
 
     srcs: [
         "common/src/main/java/**/*.java",
         ":conscrypt-nojarjar_generated_constants",
+        "platform/src/main/java/**/*.java",
     ],
 
-    target: {
-        android: {
-            srcs: ["platform/src/main/java/**/*.java"],
-        },
-        host: {
-            srcs: ["openjdk/src/main/java/**/*.java"],
-            javacflags: ["-XDignore.symbol.file"],
-        },
-    },
+    required: ["libjavacrypto"],
+    java_version: "1.7",
+}
 
-    no_framework_libs: true,
+// Create the conscrypt library for use on host.
+java_library_host {
+    name: "conscrypt-host",
 
+    srcs: [
+        "common/src/main/java/**/*.java",
+        ":conscrypt-nojarjar_generated_constants",
+        "openjdk/src/main/java/**/*.java",
+    ],
+    javacflags: ["-XDignore.symbol.file"],
     required: ["libjavacrypto"],
     java_version: "1.7",
 }
