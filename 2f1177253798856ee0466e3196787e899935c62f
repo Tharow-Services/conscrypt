@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "73b5bbab_d183e9bd",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2018-09-30T16:36:24Z",
+      "side": 1,
+      "message": "This currently breaks -jdk9 compilation because core-intra-stubs\u0027s packages overalp with those of conscrypt. Specifically:\n\nexternal/conscrypt/repackaged/common/src/main/java/com/android/org/conscrypt/AbstractConscryptEngine.java:18: error: package exists in another module: java.base\npackage com.android.org.conscrypt;\n^\n\nIt\u0027s not clear to me that we want to have \"core-intra-stubs-system-modules\" at all; why don\u0027t use\n\n   system_modules: \"none\",\n\nand the put the core-intra-stubs stuff on the source path or classpath rather than the module path?\n\nBecause we can\u0027t easily separate the core-intra-stubs API into different packages from the rest, if we use core-intra-stubs-system-modules here then com.android.org.conscrypt would become part of the java.base module for purposes of module compilation, and then we\u0027d have to do:\n\n   patch_module: \"java.base\",\n\nhere which also works, but seems more hacky / less correct.\n\nI\u0027ll send a CL to do the latter as a quick fix to the compilation for now, but let\u0027s chat about the correct longer term approach.",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 206,
+        "endChar": 54
+      },
+      "revId": "2f1177253798856ee0466e3196787e899935c62f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
