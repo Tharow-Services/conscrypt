@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff0ee3e7_82da0132",
+        "filename": "Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2018-10-05T11:30:21Z",
+      "side": 1,
+      "message": "Should probably be changed to host to match this target.",
+      "range": {
+        "startLine": 156,
+        "startChar": 20,
+        "endLine": 156,
+        "endChar": 28
+      },
+      "revId": "2889d330eb4d4cbe83bbd03b8b3ac3071ab233b9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
