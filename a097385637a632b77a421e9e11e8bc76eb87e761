@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0010d65_04a2bcc5",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLEngines.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2018-10-18T14:33:25Z",
+      "side": 1,
+      "message": "nit: maybe just isSupported()\n(which should still be clear even if callers statically import both this and the SSLSockets method)",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 43
+      },
+      "revId": "a097385637a632b77a421e9e11e8bc76eb87e761",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66804b42_3c9792d3",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLSockets.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2018-10-18T14:33:25Z",
+      "side": 1,
+      "message": "nit: maybe just isSupported()",
+      "range": {
+        "startLine": 19,
+        "startChar": 26,
+        "endLine": 19,
+        "endChar": 43
+      },
+      "revId": "a097385637a632b77a421e9e11e8bc76eb87e761",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
