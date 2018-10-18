@@ -230,6 +230,18 @@ public class CertificateFactoryTest {
             fail();
         } catch (CertificateException expected) {
         }
+
+        try {
+            cf.generateCertificate(new ByteArrayInputStream(new byte[0]));
+            fail();
+        } catch (CertificateException expected) {
+        }
+
+        try {
+            cf.generateCertificate(new ByteArrayInputStream(new byte[] { 0x00 }));
+            fail();
+        } catch (CertificateException expected) {
+        }
     }
 
     /*

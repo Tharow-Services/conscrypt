@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (b52cac Merge "Add IntraCoreAPI to Conscrypt no-arg constructors")
 //
 // Copyright (C) 2016 The Android Open Source Project
 //
@@ -386,3 +387,5 @@ java_test {
     required: ["libjavacrypto"],
     java_version: "1.7",
 }
+=======
+>>>>>>> BRANCH (b3ef86 Add explicit no-arg constructors (#563))
