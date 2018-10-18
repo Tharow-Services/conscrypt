@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a94fe3e_b50c2f59",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/Conscrypt.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2018-10-18T15:08:40Z",
+      "side": 1,
+      "message": "Line length?",
+      "revId": "e75a9b9e51ec85cecc3fff7fd5a007e067656a6e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
