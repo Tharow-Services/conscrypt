@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (e9859e Merge "Remove static dependencies on conscrypt")
 //
 // Copyright (C) 2016 The Android Open Source Project
 //
@@ -386,3 +387,5 @@ java_test {
     required: ["libjavacrypto"],
     java_version: "1.7",
 }
+=======
+>>>>>>> BRANCH (7d3b80 Merge pull request #564 from flooey/ignorebcintest)
