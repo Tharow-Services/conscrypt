@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2942c189_253517ca",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLEnginesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2018-10-30T14:29:41Z",
+      "side": 1,
+      "message": "@RunWith?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "774eb087863f1684e5ec0b2cc662d726ef94d051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3948fc05_bf9635cd",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLEnginesTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2018-10-30T14:29:41Z",
+      "side": 1,
+      "message": "Might be a good candidate for @RunWith(JUnitParamsRunner.class) and @Parameters, but up to you really",
+      "range": {
+        "startLine": 91,
+        "startChar": 8,
+        "endLine": 91,
+        "endChar": 5
+      },
+      "revId": "774eb087863f1684e5ec0b2cc662d726ef94d051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fe95b68_aec76fa7",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLSocketsTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2018-10-30T14:29:41Z",
+      "side": 1,
+      "message": "Also might be a good candidate for @Parameters",
+      "range": {
+        "startLine": 110,
+        "startChar": 8,
+        "endLine": 110,
+        "endChar": 11
+      },
+      "revId": "774eb087863f1684e5ec0b2cc662d726ef94d051",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
