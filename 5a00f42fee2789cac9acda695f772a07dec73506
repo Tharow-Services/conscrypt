@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2798927d_ab61f77e",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLEngines.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-11-02T15:28:06Z",
+      "side": 1,
+      "message": "Header?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e3aa20e3_dd570967",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLEngines.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-11-02T15:28:06Z",
+      "side": 1,
+      "message": "What happens if it isn\u0027t? Please document. [And repeat for all similar ones]",
+      "range": {
+        "startLine": 32,
+        "startChar": 63,
+        "endLine": 32,
+        "endChar": 70
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a48e3a29_3802f213",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLSockets.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-11-02T15:28:06Z",
+      "side": 1,
+      "message": "Header?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6846e824_d7e3c4e6",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLSockets.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-11-02T15:28:06Z",
+      "side": 1,
+      "message": "NIT: We generally don\u0027t bother with double spaces after \".\"",
+      "range": {
+        "startLine": 16,
+        "startChar": 83,
+        "endLine": 16,
+        "endChar": 85
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2c48ec18_7b3baf10",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLEnginesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-11-02T15:28:06Z",
+      "side": 1,
+      "message": "Header.",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 19
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "728d1c01_8556065c",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLEnginesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-11-02T15:28:06Z",
+      "side": 1,
+      "message": "WS and below",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 8
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f990b64_f010a010",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLSocketsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-11-02T15:28:06Z",
+      "side": 1,
+      "message": "Header.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
