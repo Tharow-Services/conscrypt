@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "65cd3f7e_32554632",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLEngines.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-11-08T15:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2798927d_ab61f77e",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3aa20e3_dd570967",
         "filename": "publicapi/src/main/java/android/net/ssl/SSLEngines.java",
         "patchSetId": 3
@@ -45,6 +69,30 @@
       "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e777a4be_2b79ee3d",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLEngines.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-11-08T15:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3aa20e3_dd570967",
+      "range": {
+        "startLine": 32,
+        "startChar": 63,
+        "endLine": 32,
+        "endChar": 70
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "a29d584a_7a1c1337",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLSockets.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-11-08T15:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a48e3a29_3802f213",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6846e824_d7e3c4e6",
         "filename": "publicapi/src/main/java/android/net/ssl/SSLSockets.java",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "91f27649_11450c9b",
+        "filename": "publicapi/src/main/java/android/net/ssl/SSLSockets.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-11-08T15:49:44Z",
+      "side": 1,
+      "message": "Yeah, I write it that way and we\u0027ve got a healthy mix of both in our code.  It ends up the same in the output, so I\u0027m not planning on changing it.",
+      "parentUuid": "6846e824_d7e3c4e6",
+      "range": {
+        "startLine": 16,
+        "startChar": 83,
+        "endLine": 16,
+        "endChar": 85
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "c40889e1_f4472300",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLEnginesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-11-08T15:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c48ec18_7b3baf10",
+      "range": {
+        "startLine": 1,
+        "startChar": 16,
+        "endLine": 1,
+        "endChar": 19
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "728d1c01_8556065c",
         "filename": "publicapi/src/test/java/android/net/ssl/SSLEnginesTest.java",
         "patchSetId": 3
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "24740bc9_311baef9",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLEnginesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-11-08T15:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "728d1c01_8556065c",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 80,
+        "endChar": 8
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7f990b64_f010a010",
         "filename": "publicapi/src/test/java/android/net/ssl/SSLSocketsTest.java",
         "patchSetId": 3
@@ -160,6 +304,30 @@
       "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ed62ed85_b0457e0d",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLSocketsTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-11-08T15:49:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f990b64_f010a010",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 7
+      },
+      "revId": "5a00f42fee2789cac9acda695f772a07dec73506",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
