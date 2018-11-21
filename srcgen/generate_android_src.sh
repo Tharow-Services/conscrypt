@@ -14,6 +14,7 @@ make -j15 currysrc
 CORE_PLATFORM_API_FILE=${CONSCRYPT_DIR}/srcgen/core-platform-api.txt
 INTRA_CORE_API_FILE=${CONSCRYPT_DIR}/srcgen/intra-core-api.txt
 UNSUPPORTED_APP_USAGE_FILE=${CONSCRYPT_DIR}/srcgen/unsupported-app-usage.json
+DEFAULT_CONSTRUCTORS_FILE=${CONSCRYPT_DIR}/srcgen/default-constructors.txt
 
 function do_transform() {
   local SRC_IN_DIR=$1
@@ -32,7 +33,9 @@ function do_transform() {
        --package-transformation "org.conscrypt:com.android.org.conscrypt" \
        --core-platform-api-file ${CORE_PLATFORM_API_FILE} \
        --intra-core-api-file ${INTRA_CORE_API_FILE} \
-       --unsupported-app-usage-file ${UNSUPPORTED_APP_USAGE_FILE}
+       --unsupported-app-usage-file ${UNSUPPORTED_APP_USAGE_FILE} \
+       --default-constructors ${DEFAULT_CONSTRUCTORS_FILE} \
+
 }
 
 REPACKAGED_DIR=${CONSCRYPT_DIR}/repackaged
