@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fffb49d8_53cbbb0f",
+        "filename": "srcgen/generate_android_src.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2018-11-22T14:51:00Z",
+      "side": 1,
+      "message": "My understanding is that Adam bypasses these today. IIRC, I\u0027ve suggested he turns off the presubmit instead but I guess he hasn\u0027t got around to it.",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 18
+      },
+      "revId": "8fb3e5707047331b70e865a750284d90b79183c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
