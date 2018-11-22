@@ -22,6 +22,30 @@
       "revId": "8fb3e5707047331b70e865a750284d90b79183c6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0fe192a1_d942958a",
+        "filename": "srcgen/generate_android_src.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2018-11-22T15:09:32Z",
+      "side": 1,
+      "message": "I checked and all the existing code is correctly formatted, at least the clang-format.py formats it exactly as it is now. Without this check some files will trigger the verification check and make more work for the next person that updates the code.",
+      "parentUuid": "fffb49d8_53cbbb0f",
+      "range": {
+        "startLine": 70,
+        "startChar": 6,
+        "endLine": 70,
+        "endChar": 18
+      },
+      "revId": "8fb3e5707047331b70e865a750284d90b79183c6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
