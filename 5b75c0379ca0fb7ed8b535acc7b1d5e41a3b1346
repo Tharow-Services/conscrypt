@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "577831d4_f29f8285",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1305591
+      },
+      "writtenOn": "2018-12-06T15:31:45Z",
+      "side": 1,
+      "message": "no file_contexts ?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 4
+      },
+      "revId": "5b75c0379ca0fb7ed8b535acc7b1d5e41a3b1346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b001c0e2_97aaf469",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1305591
+      },
+      "writtenOn": "2018-12-06T15:31:45Z",
+      "side": 1,
+      "message": "nit, please rename to apex_manifest.json (this is consistent with the final name in the package, we changed the name recently)",
+      "range": {
+        "startLine": 17,
+        "startChar": 15,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "5b75c0379ca0fb7ed8b535acc7b1d5e41a3b1346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b01f9804_5ad7db3c",
+        "filename": "apex/manifest.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1305591
+      },
+      "writtenOn": "2018-12-06T15:31:45Z",
+      "side": 1,
+      "message": "com.android.org.conscrypt ? I think other apexes are named com.android.something.\n\nunless you think there is a good reason to keep org.conscrypt",
+      "range": {
+        "startLine": 2,
+        "startChar": 11,
+        "endLine": 2,
+        "endChar": 24
+      },
+      "revId": "5b75c0379ca0fb7ed8b535acc7b1d5e41a3b1346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
