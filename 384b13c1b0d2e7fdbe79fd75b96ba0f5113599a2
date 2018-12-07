@@ -16,6 +16,24 @@
       "revId": "384b13c1b0d2e7fdbe79fd75b96ba0f5113599a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52376d77_de1fe45f",
+        "filename": "apex/com.android.conscrypt.pem",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-12-07T11:56:36Z",
+      "side": 1,
+      "message": "The keys here are just used for development.  My understanding is that there will be infrastructure for production builds where the APEXes will be shipped off to a signing server and signed with the production key, and then the public key for that will be available in some well-known place.",
+      "parentUuid": "53e155fc_40f30d18",
+      "revId": "384b13c1b0d2e7fdbe79fd75b96ba0f5113599a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
