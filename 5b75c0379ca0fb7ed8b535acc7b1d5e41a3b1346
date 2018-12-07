@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "48667555_8552f768",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-12-07T11:03:26Z",
+      "side": 1,
+      "message": "It looks like these are kept in system/sepolicy now.  None of the other build rules have it anymore.",
+      "parentUuid": "577831d4_f29f8285",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 4
+      },
+      "revId": "5b75c0379ca0fb7ed8b535acc7b1d5e41a3b1346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b001c0e2_97aaf469",
         "filename": "apex/Android.bp",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "6b253617_68cd5860",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-12-07T11:03:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b001c0e2_97aaf469",
+      "range": {
+        "startLine": 17,
+        "startChar": 15,
+        "endLine": 17,
+        "endChar": 23
+      },
+      "revId": "5b75c0379ca0fb7ed8b535acc7b1d5e41a3b1346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b01f9804_5ad7db3c",
         "filename": "apex/manifest.json",
         "patchSetId": 1
@@ -68,6 +116,30 @@
       "revId": "5b75c0379ca0fb7ed8b535acc7b1d5e41a3b1346",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0ee5fd4_e477d708",
+        "filename": "apex/manifest.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2018-12-07T11:03:26Z",
+      "side": 1,
+      "message": "Went with com.android.conscrypt, which seems to match the general naming pattern.",
+      "parentUuid": "b01f9804_5ad7db3c",
+      "range": {
+        "startLine": 2,
+        "startChar": 11,
+        "endLine": 2,
+        "endChar": 24
+      },
+      "revId": "5b75c0379ca0fb7ed8b535acc7b1d5e41a3b1346",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
