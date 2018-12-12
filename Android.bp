@@ -202,6 +202,7 @@ java_library {
     name: "conscrypt",
     installable: true,
     hostdex: true,
+    core_platform: true,
 
     srcs: [
         ":conscrypt_java_files",
