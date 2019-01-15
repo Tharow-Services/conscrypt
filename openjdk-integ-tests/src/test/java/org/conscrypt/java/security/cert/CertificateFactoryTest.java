@@ -53,7 +53,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.TimeZone;
 import javax.security.auth.x500.X500Principal;
-import libcore.java.security.StandardNames;
 import org.bouncycastle.asn1.x509.AuthorityKeyIdentifier;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.Extension;
@@ -63,8 +62,12 @@ import org.bouncycastle.x509.X509V3CertificateGenerator;
 import org.bouncycastle.x509.extension.AuthorityKeyIdentifierStructure;
 import org.conscrypt.Conscrypt;
 import org.conscrypt.TestUtils;
+<<<<<<< HEAD   (c9d6d8 Distribute libopenjdk_conscrypt_jni.so in build artifacts)
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+=======
+import org.conscrypt.java.security.StandardNames;
+>>>>>>> BRANCH (1c2bdc Strip unnecessary code from StandardNames (#609))
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

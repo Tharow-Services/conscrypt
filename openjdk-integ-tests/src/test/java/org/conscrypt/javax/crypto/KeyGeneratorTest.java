@@ -29,9 +29,12 @@ import java.util.Map;
 import java.util.Set;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import libcore.java.security.StandardNames;
 import org.conscrypt.TestUtils;
+<<<<<<< HEAD   (c9d6d8 Distribute libopenjdk_conscrypt_jni.so in build artifacts)
 import org.junit.AfterClass;
+=======
+import org.conscrypt.java.security.StandardNames;
+>>>>>>> BRANCH (1c2bdc Strip unnecessary code from StandardNames (#609))
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
