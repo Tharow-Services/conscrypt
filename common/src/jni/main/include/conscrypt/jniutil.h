@@ -41,7 +41,7 @@ extern jclass inputStreamClass;
 extern jclass outputStreamClass;
 extern jclass stringClass;
 
-extern jfieldID nativeRef_context;
+extern jfieldID nativeRef_address;
 
 extern jmethodID calendar_setMethod;
 extern jmethodID inputStream_readMethod;
@@ -199,6 +199,11 @@ extern int throwNoSuchAlgorithmException(JNIEnv* env, const char* message);
  * Throws an IOException with the given string as a message.
  */
 extern int throwIOException(JNIEnv* env, const char* message);
+
+/**
+ * Throws a CertificateException with the given string as a message.
+ */
+extern int throwCertificateException(JNIEnv* env, const char* message);
 
 /**
  * Throws a ParsingException with the given string as a message.

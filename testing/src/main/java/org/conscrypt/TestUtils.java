@@ -18,20 +18,26 @@ package org.conscrypt;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
+import java.security.PublicKey;
 import java.security.Security;
 import java.security.Signature;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
@@ -45,10 +51,12 @@ import javax.net.ssl.SSLEngineResult;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
-import libcore.io.Streams;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.conscrypt.java.security.StandardNames;
 import org.conscrypt.java.security.TestKeyStore;
+import org.conscrypt.testing.Streams;
 import org.junit.Assume;
 
 /**
@@ -91,7 +99,7 @@ public final class TestUtils {
         return JDK_PROVIDER;
     }
 
-    private static boolean isClassAvailable(String classname) {
+    public static boolean isClassAvailable(String classname) {
         try {
             Class.forName(classname);
             return true;
@@ -108,6 +116,10 @@ public final class TestUtils {
 
     public static void assumeSNIHostnameAvailable() {
         assumeClassAvailable("javax.net.ssl.SNIHostName");
+    }
+
+    public static void assumeExtendedTrustManagerAvailable() {
+        assumeClassAvailable("javax.net.ssl.X509ExtendedTrustManager");
     }
 
     public static void assumeSetEndpointIdentificationAlgorithmAvailable() {
@@ -173,7 +185,17 @@ public final class TestUtils {
 
     public static Provider getConscryptProvider() {
         try {
-            return (Provider) conscryptClass("OpenSSLProvider").getConstructor().newInstance();
+            String defaultName = (String) conscryptClass("Platform")
+                .getDeclaredMethod("getDefaultProviderName")
+                .invoke(null);
+            Constructor<?> c = conscryptClass("OpenSSLProvider")
+                .getDeclaredConstructor(String.class, Boolean.TYPE);
+
+            if (!isClassAvailable("javax.net.ssl.X509ExtendedTrustManager")) {
+                return (Provider) c.newInstance(defaultName, false);
+            } else {
+                return (Provider) c.newInstance(defaultName, true);
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -197,6 +219,17 @@ public final class TestUtils {
 
     public static byte[] readTestFile(String name) throws IOException {
         return Streams.readFully(openTestFile(name));
+    }
+
+    public static PublicKey readPublicKeyPemFile(String name)
+            throws InvalidKeySpecException, NoSuchAlgorithmException, IOException {
+        String keyData = new String(readTestFile(name), "US-ASCII");
+        keyData = keyData.replace("-----BEGIN PUBLIC KEY-----", "");
+        keyData = keyData.replace("-----END PUBLIC KEY-----", "");
+        keyData = keyData.replace("\r", "");
+        keyData = keyData.replace("\n", "");
+        return KeyFactory.getInstance("EC").generatePublic(
+                new X509EncodedKeySpec(decodeBase64(keyData)));
     }
 
     /**
@@ -261,6 +294,16 @@ public final class TestUtils {
                     "setUseEngineSocket", SSLServerSocketFactory.class, boolean.class);
             method.invoke(null, conscryptFactory, useEngineSocket);
             return conscryptFactory;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void setUseSessionTickets(SSLSocket socket, boolean useTickets) {
+        try {
+            Class<?> clazz = conscryptClass("Conscrypt");
+            Method method = clazz.getMethod("setUseSessionTickets", SSLSocket.class, boolean.class);
+            method.invoke(null, socket, useTickets);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -481,6 +524,20 @@ public final class TestUtils {
                 task.run();
             }
         }
+    }
+
+    public static String pickArbitraryNonTls13Suite(String[] cipherSuites) {
+        return pickArbitraryNonTls13Suite(Arrays.asList(cipherSuites));
+    }
+
+    public static String pickArbitraryNonTls13Suite(Iterable<String> cipherSuites) {
+        for (String cipherSuite : cipherSuites) {
+            if (!StandardNames.CIPHER_SUITES_TLS13.contains(cipherSuite)) {
+                return cipherSuite;
+            }
+        }
+        fail("No non-TLSv1.3 cipher suite available.");
+        return null;
     }
 
     /**

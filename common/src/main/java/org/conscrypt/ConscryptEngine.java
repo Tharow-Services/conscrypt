@@ -145,7 +145,7 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
     /**
      * Set during startHandshake.
      */
-    private final ActiveSession activeSession;
+    private ActiveSession activeSession;
 
     /**
      * A snapshot of the active session when the engine was closed.
@@ -184,7 +184,6 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
         peerInfoProvider = PeerInfoProvider.nullProvider();
         this.ssl = newSsl(sslParameters, this);
         this.networkBio = ssl.newBio();
-        activeSession = new ActiveSession(ssl, sslParameters.getSessionContext());
     }
 
     ConscryptEngine(String host, int port, SSLParametersImpl sslParameters) {
@@ -192,7 +191,6 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
         this.peerInfoProvider = PeerInfoProvider.forHostAndPort(host, port);
         this.ssl = newSsl(sslParameters, this);
         this.networkBio = ssl.newBio();
-        activeSession = new ActiveSession(ssl, sslParameters.getSessionContext());
     }
 
     ConscryptEngine(SSLParametersImpl sslParameters, PeerInfoProvider peerInfoProvider) {
@@ -200,7 +198,6 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
         this.peerInfoProvider = checkNotNull(peerInfoProvider, "peerInfoProvider");
         this.ssl = newSsl(sslParameters, this);
         this.networkBio = ssl.newBio();
-        activeSession = new ActiveSession(ssl, sslParameters.getSessionContext());
     }
 
     private static NativeSsl newSsl(SSLParametersImpl sslParameters, ConscryptEngine engine) {
@@ -213,10 +210,18 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
 
     /**
      * Configures the default {@link BufferAllocator} to be used by all future
-     * {@link SSLEngine} instances from this provider.
+     * {@link SSLEngine} and {@link ConscryptEngineSocket} instances from this provider.
      */
     static void setDefaultBufferAllocator(BufferAllocator bufferAllocator) {
         defaultBufferAllocator = bufferAllocator;
+    }
+
+    /**
+     * Returns the default {@link BufferAllocator}, which may be {@code null} if no default
+     * has been explicitly set.
+     */
+    static BufferAllocator getDefaultBufferAllocator() {
+        return defaultBufferAllocator;
     }
 
     @Override
@@ -456,10 +461,15 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
             if (state == STATE_CLOSED || state == STATE_CLOSED_INBOUND) {
                 return;
             }
-            if (isOutboundDone()) {
-                transitionTo(STATE_CLOSED);
+            if (isHandshakeStarted()) {
+                if (isOutboundDone()) {
+                    closeAndFreeResources();
+                } else {
+                    transitionTo(STATE_CLOSED_INBOUND);
+                }
             } else {
-                transitionTo(STATE_CLOSED_INBOUND);
+                // Never started the handshake. Just close now.
+                closeAndFreeResources();
             }
         }
     }
@@ -1653,9 +1663,10 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
     }
 
     @Override
-    public void clientCertificateRequested(byte[] keyTypeBytes, byte[][] asn1DerEncodedPrincipals)
+    public void clientCertificateRequested(byte[] keyTypeBytes, int[] signatureAlgs,
+            byte[][] asn1DerEncodedPrincipals)
             throws CertificateEncodingException, SSLException {
-        ssl.chooseClientCertificate(keyTypeBytes, asn1DerEncodedPrincipals);
+        ssl.chooseClientCertificate(keyTypeBytes, signatureAlgs, asn1DerEncodedPrincipals);
     }
 
     private void sendSSLShutdown() {
@@ -1755,22 +1766,6 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
     }
 
     @Override
-    void setTokenBindingParams(int... params) throws SSLException {
-        synchronized (ssl) {
-            if (isHandshakeStarted()) {
-                throw new IllegalStateException(
-                        "Cannot set token binding params after handshake has started.");
-            }
-        }
-        ssl.setTokenBindingParams(params);
-    };
-
-    @Override
-    int getTokenBindingParams() {
-        return ssl.getTokenBindingParams();
-    }
-
-    @Override
     byte[] exportKeyingMaterial(String label, byte[] context, int length) throws SSLException {
         synchronized (ssl) {
             if (state < STATE_HANDSHAKE_COMPLETED || state == STATE_CLOSED) {
@@ -1826,10 +1821,11 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
         switch (newState) {
             case STATE_HANDSHAKE_STARTED: {
                 handshakeFinished = false;
+                activeSession = new ActiveSession(ssl, sslParameters.getSessionContext());
                 break;
             }
             case STATE_CLOSED: {
-                if (!ssl.isClosed() && state >= STATE_HANDSHAKE_STARTED && state < STATE_CLOSED ) {
+                if (!ssl.isClosed() && state >= STATE_HANDSHAKE_STARTED && state < STATE_CLOSED) {
                     closedSession = new SessionSnapshot(activeSession);
                 }
                 break;

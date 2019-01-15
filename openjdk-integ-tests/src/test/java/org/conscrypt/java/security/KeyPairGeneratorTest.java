@@ -55,7 +55,6 @@ import java.util.Set;
 import javax.crypto.interfaces.DHPrivateKey;
 import javax.crypto.interfaces.DHPublicKey;
 import javax.crypto.spec.DHParameterSpec;
-import libcore.java.security.StandardNames;
 import org.conscrypt.TestUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -207,6 +206,12 @@ public class KeyPairGeneratorTest {
             // AlgorithmParameterSpec, so the KeyPairGenerator can't be initialized.
             return;
         }
+        if (provider.getName().equals("SunPKCS11-NSS")) {
+            // The SunPKCS11-NSS provider on OpenJDK 7 attempts to delegate to the SunEC provider,
+            // which doesn't exist on OpenJDK 7, and thus totally fails.  This appears to be a bug
+            // introduced into later revisions of OpenJDK 7.
+            return;
+        }
         Set<Provider.Service> services = provider.getServices();
         for (Provider.Service service : services) {
             String type = service.getType();
@@ -324,7 +329,7 @@ public class KeyPairGeneratorTest {
                 continue;
             }
             if ("EC".equals(algorithm)
-                    && ("SunPKCS11-NSS".equalsIgnoreCase(kpg.getProvider().getName()))
+                    && "SunPKCS11-NSS".equalsIgnoreCase(kpg.getProvider().getName())
                     && keySize == 224) {
                 // TODO(flooey): Remove when we stop supporting Java 6
                 // This Sun provider doesn't support 224-bit EC keys
@@ -343,8 +348,8 @@ public class KeyPairGeneratorTest {
             test_KeyPair(kpg, kpg.generateKeyPair());
         }
 
-        if (("EC".equals(algorithm)) || ("ECDH".equals(algorithm))
-                || ("ECDSA".equals(algorithm))) {
+        if ("EC".equals(algorithm) || "ECDH".equals(algorithm)
+                || "ECDSA".equals(algorithm)) {
             if ("SunPKCS11-NSS".equalsIgnoreCase(kpg.getProvider().getName())) {
                 // SunPKCS11 doesn't support some of the named curves that we expect, so it
                 // fails.  Skip it.

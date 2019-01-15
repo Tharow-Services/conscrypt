@@ -77,12 +77,11 @@ import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLProtocolException;
 import javax.security.auth.x500.X500Principal;
-import libcore.io.IoUtils;
-import libcore.java.security.StandardNames;
 import org.conscrypt.NativeCrypto.SSLHandshakeCallbacks;
 import org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
+import org.conscrypt.io.IoUtils;
+import org.conscrypt.java.security.StandardNames;
 import org.conscrypt.java.security.TestKeyStore;
-import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -118,11 +117,6 @@ public class NativeCryptoTest {
         m_Platform_getFileDescriptor =
                 c_Platform.getDeclaredMethod("getFileDescriptor", Socket.class);
         m_Platform_getFileDescriptor.setAccessible(true);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        assertEquals(0, NativeCrypto.ERR_peek_last_error());
     }
 
     private static OpenSSLKey getServerPrivateKey() {
@@ -648,7 +642,7 @@ public class NativeCryptoTest {
         long c = NativeCrypto.SSL_CTX_new();
         long s = NativeCrypto.SSL_new(c, null);
 
-        List<String> ciphers = new ArrayList<String>(NativeCrypto.SUPPORTED_CIPHER_SUITES_SET);
+        List<String> ciphers = new ArrayList<String>(NativeCrypto.SUPPORTED_TLS_1_2_CIPHER_SUITES_SET);
         NativeCrypto.SSL_set_cipher_lists(s, null, ciphers.toArray(new String[ciphers.size()]));
 
         NativeCrypto.SSL_free(s, null);
@@ -769,12 +763,13 @@ public class NativeCryptoTest {
         }
 
         private byte[] keyTypes;
+        private int[] signatureAlgs;
         private byte[][] asn1DerEncodedX500Principals;
         private boolean clientCertificateRequestedCalled;
 
         @Override
         public void clientCertificateRequested(
-                byte[] keyTypes, byte[][] asn1DerEncodedX500Principals)
+                byte[] keyTypes, int[] signatureAlgs, byte[][] asn1DerEncodedX500Principals)
                 throws CertificateEncodingException, SSLException {
             if (DEBUG) {
                 System.out.println("ssl=0x" + Long.toString(sslNativePointer, 16)
@@ -784,6 +779,7 @@ public class NativeCryptoTest {
                         + Arrays.toString(asn1DerEncodedX500Principals));
             }
             this.keyTypes = keyTypes;
+            this.signatureAlgs = signatureAlgs;
             this.asn1DerEncodedX500Principals = asn1DerEncodedX500Principals;
             this.clientCertificateRequestedCalled = true;
             if (hooks != null) {
@@ -1217,8 +1213,10 @@ public class NativeCryptoTest {
 
         assertTrue(clientCallback.clientCertificateRequestedCalled);
         assertNotNull(clientCallback.keyTypes);
+        assertNotNull(clientCallback.signatureAlgs);
         assertEquals(new HashSet<String>(Arrays.asList("EC", "RSA")),
-                SSLUtils.getSupportedClientKeyTypes(clientCallback.keyTypes));
+                SSLUtils.getSupportedClientKeyTypes(
+                        clientCallback.keyTypes, clientCallback.signatureAlgs));
         assertEqualPrincipals(getCaPrincipals(), clientCallback.asn1DerEncodedX500Principals);
         assertFalse(serverCallback.clientCertificateRequestedCalled);
 
@@ -2585,7 +2583,7 @@ public class NativeCryptoTest {
                     SSLHandshakeCallbacks callback) throws Exception {
                 String nativeCipher = NativeCrypto.SSL_SESSION_cipher(session);
                 String javaCipher = NativeCrypto.cipherSuiteFromJava(nativeCipher);
-                assertTrue(NativeCrypto.SUPPORTED_CIPHER_SUITES_SET.contains(javaCipher));
+                assertTrue(NativeCrypto.SUPPORTED_TLS_1_2_CIPHER_SUITES_SET.contains(javaCipher));
                 // SSL_SESSION_cipher should return a standard name rather than an OpenSSL name.
                 assertTrue(nativeCipher.startsWith("TLS_"));
                 super.afterHandshake(session, s, c, sock, fd, callback);

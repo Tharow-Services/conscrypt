@@ -309,9 +309,10 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
 
     @Override
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks / client_cert_cb
-    public final void clientCertificateRequested(byte[] keyTypeBytes, byte[][] asn1DerEncodedPrincipals)
+    public final void clientCertificateRequested(byte[] keyTypeBytes, int[] signatureAlgs,
+            byte[][] asn1DerEncodedPrincipals)
             throws CertificateEncodingException, SSLException {
-        ssl.chooseClientCertificate(keyTypeBytes, asn1DerEncodedPrincipals);
+        ssl.chooseClientCertificate(keyTypeBytes, signatureAlgs, asn1DerEncodedPrincipals);
     }
 
     @Override
@@ -867,22 +868,6 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
     @Override
     byte[] getTlsUnique() {
         return ssl.getTlsUnique();
-    }
-
-    @Override
-    void setTokenBindingParams(int... params) throws SSLException {
-        synchronized (ssl) {
-            if (state != STATE_NEW) {
-                throw new IllegalStateException(
-                        "Cannot set token binding params after handshake has started.");
-            }
-        }
-        ssl.setTokenBindingParams(params);
-    };
-
-    @Override
-    int getTokenBindingParams() {
-        return ssl.getTokenBindingParams();
     }
 
     @Override

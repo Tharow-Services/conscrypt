@@ -22,7 +22,7 @@ The following software is necessary and may not be installed by default:
 <!-- TODO(flooey): Expand and link these, there's probably more -->
 * Linux: [Docker](https://www.docker.com/), [Android SDK](https://developer.android.com/studio/index.html)
 * MacOS: Java SDK
-* Windows: MSVC, git, yasm, Java
+* Windows: MSVC, git, NASM, Java
 
 ### Setup OSSRH and GPG
 
@@ -175,7 +175,7 @@ on Linux.
 
 ### Build the Mac and Windows OpenJDK Releases
 
-See [BUILDING](BUILDING.md) for instructions for setting up the build environment.
+See [BUILDING](../BUILDING.md) for instructions for setting up the build environment.
 
 1. Ensure BoringSSL is synced to the same revision as for the Linux build.
    ```bash

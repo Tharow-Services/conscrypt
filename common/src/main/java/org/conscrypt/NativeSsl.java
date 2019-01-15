@@ -129,14 +129,6 @@ final class NativeSsl {
         return NativeCrypto.SSL_get_tls_unique(ssl, this);
     }
 
-    void setTokenBindingParams(int... params) throws SSLException {
-        NativeCrypto.SSL_set_token_binding_params(ssl, this, params);
-    }
-
-    int getTokenBindingParams() {
-        return NativeCrypto.SSL_get_token_binding_params(ssl, this);
-    }
-
     byte[] exportKeyingMaterial(String label, byte[] context, int length) throws SSLException {
         if (label == null) {
             throw new NullPointerException("Label is null");
@@ -215,9 +207,10 @@ final class NativeSsl {
         return secretKeyBytes.length;
     }
 
-    void chooseClientCertificate(byte[] keyTypeBytes, byte[][] asn1DerEncodedPrincipals)
+    void chooseClientCertificate(byte[] keyTypeBytes, int[] signatureAlgs,
+            byte[][] asn1DerEncodedPrincipals)
             throws SSLException, CertificateEncodingException {
-        Set<String> keyTypesSet = SSLUtils.getSupportedClientKeyTypes(keyTypeBytes);
+        Set<String> keyTypesSet = SSLUtils.getSupportedClientKeyTypes(keyTypeBytes, signatureAlgs);
         String[] keyTypes = keyTypesSet.toArray(new String[keyTypesSet.size()]);
 
         X500Principal[] issuers;
@@ -441,7 +434,7 @@ final class NativeSsl {
         if (pskKeyManager != null) {
             boolean pskEnabled = false;
             for (String enabledCipherSuite : parameters.enabledCipherSuites) {
-                if ((enabledCipherSuite != null) && (enabledCipherSuite.contains("PSK"))) {
+                if ((enabledCipherSuite != null) && enabledCipherSuite.contains("PSK")) {
                     pskEnabled = true;
                     break;
                 }

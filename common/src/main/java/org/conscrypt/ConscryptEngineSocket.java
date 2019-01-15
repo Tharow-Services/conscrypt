@@ -52,6 +52,8 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
     private SSLOutputStream out;
     private SSLInputStream in;
 
+    private BufferAllocator bufferAllocator = ConscryptEngine.getDefaultBufferAllocator();
+
     // @GuardedBy("stateLock");
     private int state = STATE_NEW;
 
@@ -168,7 +170,7 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
             while (!finished) {
                 switch (engine.getHandshakeStatus()) {
                     case NEED_UNWRAP:
-                        if (in.readInternal(EmptyArray.BYTE, 0, 0) < 0) {
+                        if (in.processDataFromSocket(EmptyArray.BYTE, 0, 0) < 0) {
                             // Can't complete the handshake due to EOF.
                             throw SSLUtils.toSSLHandshakeException(new EOFException());
                         }
@@ -238,25 +240,14 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
 
     @Override
     public final SSLSession getSession() {
-        SSLSession session = engine.getSession();
-        if (SSLNullSession.isNullSession(session)) {
-            boolean handshakeCompleted = false;
+        if (isConnected()) {
             try {
-                if (isConnected()) {
-                    waitForHandshake();
-                    handshakeCompleted = true;
-                }
+                waitForHandshake();
             } catch (IOException e) {
-                // Fall through.
+                // Fall through
             }
-
-            if (!handshakeCompleted) {
-                // Return an invalid session with invalid cipher suite of "SSL_NULL_WITH_NULL_NULL"
-                return session;
-            }
-            session = engine.getSession();
         }
-        return session;
+        return engine.getSession();
     }
 
     @Override
@@ -342,16 +333,6 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
     }
 
     @Override
-    void setTokenBindingParams(int... params) throws SSLException {
-        engine.setTokenBindingParams(params);
-    }
-
-    @Override
-    int getTokenBindingParams() {
-        return engine.getTokenBindingParams();
-    }
-
-    @Override
     byte[] exportKeyingMaterial(String label, byte[] context, int length) throws SSLException {
         return engine.exportKeyingMaterial(label, context, length);
     }
@@ -408,12 +389,19 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
             stateLock.notifyAll();
         }
 
-        // Close the underlying socket.
-        super.close();
-
-        // Close the engine.
-        engine.closeInbound();
-        engine.closeOutbound();
+        try {
+            // Close the underlying socket.
+            super.close();
+        } finally {
+            // Close the engine.
+            engine.closeInbound();
+            engine.closeOutbound();
+            
+            // Release any resources we're holding
+            if (in != null) {
+                in.release();
+            }
+        }
     }
 
     @Override
@@ -445,6 +433,11 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
     @Override
     final void setApplicationProtocolSelector(ApplicationProtocolSelectorAdapter selector) {
         engine.setApplicationProtocolSelector(selector);
+    }
+
+    void setBufferAllocator(BufferAllocator bufferAllocator) {
+        engine.setBufferAllocator(bufferAllocator);
+        this.bufferAllocator = bufferAllocator;
     }
 
     private void onHandshakeFinished() {
@@ -610,10 +603,18 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
         private final ByteBuffer fromEngine;
         private final ByteBuffer fromSocket;
         private final int fromSocketArrayOffset;
+        private final AllocatedBuffer allocatedBuffer;
         private InputStream socketInputStream;
 
         SSLInputStream() {
-            fromEngine = ByteBuffer.allocateDirect(engine.getSession().getApplicationBufferSize());
+            if (bufferAllocator != null) {
+                allocatedBuffer = bufferAllocator.allocateDirectBuffer(
+                        engine.getSession().getApplicationBufferSize());
+                fromEngine = allocatedBuffer.nioBuffer();
+            } else {
+                allocatedBuffer = null;
+                fromEngine = ByteBuffer.allocateDirect(engine.getSession().getApplicationBufferSize());
+            }
             // Initially fromEngine.remaining() == 0.
             fromEngine.flip();
             fromSocket = ByteBuffer.allocate(engine.getSession().getPacketBufferSize());
@@ -623,6 +624,14 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
         @Override
         public void close() throws IOException {
             ConscryptEngineSocket.this.close();
+        }
+
+        void release() {
+            synchronized (readLock) {
+                if (allocatedBuffer != null) {
+                    allocatedBuffer.release();
+                }
+            }
         }
 
         @Override
@@ -654,7 +663,7 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
         public int read(byte[] b, int off, int len) throws IOException {
             startHandshake();
             synchronized (readLock) {
-                return readInternal(b, off, len);
+                return readUntilDataAvailable(b, off, len);
             }
         }
 
@@ -679,7 +688,21 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
             }
         }
 
-        private int readInternal(byte[] b, int off, int len) throws IOException {
+        private int readUntilDataAvailable(byte[] b, int off, int len) throws IOException {
+            int count;
+            do {
+                count = processDataFromSocket(b, off, len);
+            } while (count == 0);
+            return count;
+        }
+
+        // Returns any decrypted data from the engine.  If no data is currently present in the
+        // engine's output buffer, reads from the input socket until the engine has processed
+        // at least one TLS record, then returns any data in the output buffer or 0 if no
+        // data is available.  This is used both during handshaking (in which case, the records
+        // will produce no data and this method will return 0) and by the InputStream read()
+        // methods that expect records to produce application data.
+        private int processDataFromSocket(byte[] b, int off, int len) throws IOException {
             Platform.blockGuardOnNetwork();
             checkOpen();
 

@@ -38,7 +38,7 @@ jclass inputStreamClass;
 jclass outputStreamClass;
 jclass stringClass;
 
-jfieldID nativeRef_context;
+jfieldID nativeRef_address;
 
 jmethodID calendar_setMethod;
 jmethodID inputStream_readMethod;
@@ -66,7 +66,7 @@ void init(JavaVM* vm, JNIEnv* env) {
     openSslInputStreamClass = getGlobalRefToClass(
             env, TO_STRING(JNI_JARJAR_PREFIX) "org/conscrypt/OpenSSLBIOInputStream");
 
-    nativeRef_context = getFieldRef(env, nativeRefClass, "context", "J");
+    nativeRef_address = getFieldRef(env, nativeRefClass, "address", "J");
 
     calendar_setMethod = getMethodRef(env, calendarClass, "set", "(IIIIII)V");
     inputStream_readMethod = getMethodRef(env, inputStreamClass, "read", "([B)I");
@@ -193,6 +193,12 @@ int throwNoSuchAlgorithmException(JNIEnv* env, const char* message) {
 int throwIOException(JNIEnv* env, const char* message) {
     JNI_TRACE("throwIOException %s", message);
     return conscrypt::jniutil::throwException(env, "java/io/IOException", message);
+}
+
+int throwCertificateException(JNIEnv* env, const char* message) {
+    JNI_TRACE("throwCertificateException %s", message);
+    return conscrypt::jniutil::throwException(
+            env, "java/security/cert/CertificateException", message);
 }
 
 int throwParsingException(JNIEnv* env, const char* message) {
@@ -336,7 +342,7 @@ void throwExceptionFromBoringSSLError(JNIEnv* env, CONSCRYPT_UNUSED const char* 
     unsigned long error = ERR_get_error_line_data(&file, &line, &data, &flags);
 
     if (error == 0) {
-        throwAssertionError(env, "throwExceptionFromBoringSSLError called with no error");
+        defaultThrow(env, "Unknown BoringSSL error");
         return;
     }
 
@@ -347,7 +353,7 @@ void throwExceptionFromBoringSSLError(JNIEnv* env, CONSCRYPT_UNUSED const char* 
         ERR_error_string_n(error, message, sizeof(message));
         int library = ERR_GET_LIB(error);
         int reason = ERR_GET_REASON(error);
-        JNI_TRACE("OpenSSL error in %s error=%lx library=%x reason=%x (%s:%d): %s %s", location,
+        JNI_TRACE("BoringSSL error in %s error=%lx library=%x reason=%x (%s:%d): %s %s", location,
                   error, library, reason, file, line, message,
                   (flags & ERR_TXT_STRING) ? data : "(no data)");
         switch (library) {

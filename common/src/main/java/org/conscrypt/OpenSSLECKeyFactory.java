@@ -41,6 +41,8 @@ import java.security.spec.X509EncodedKeySpec;
 @Internal
 public final class OpenSSLECKeyFactory extends KeyFactorySpi {
 
+    public OpenSSLECKeyFactory() {}
+
     @Override
     protected PublicKey engineGeneratePublic(KeySpec keySpec) throws InvalidKeySpecException {
         if (keySpec == null) {
@@ -175,7 +177,7 @@ public final class OpenSSLECKeyFactory extends KeyFactorySpi {
             } catch (InvalidKeySpecException e) {
                 throw new InvalidKeyException(e);
             }
-        } else if ((key instanceof PrivateKey) && ("PKCS#8".equals(key.getFormat()))) {
+        } else if ((key instanceof PrivateKey) && "PKCS#8".equals(key.getFormat())) {
             byte[] encoded = key.getEncoded();
             if (encoded == null) {
                 throw new InvalidKeyException("Key does not support encoding");
@@ -185,7 +187,7 @@ public final class OpenSSLECKeyFactory extends KeyFactorySpi {
             } catch (InvalidKeySpecException e) {
                 throw new InvalidKeyException(e);
             }
-        } else if ((key instanceof PublicKey) && ("X.509".equals(key.getFormat()))) {
+        } else if ((key instanceof PublicKey) && "X.509".equals(key.getFormat())) {
             byte[] encoded = key.getEncoded();
             if (encoded == null) {
                 throw new InvalidKeyException("Key does not support encoding");
