@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "61a1b33c_09d850df",
+        "filename": "common/src/jni/main/cpp/conscrypt/compatibility_close_monitor.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-01-22T15:33:10Z",
+      "side": 1,
+      "message": "The full horror of this only just sank in:  This code is in every app that currently uses an unbundled version of Conscrypt (e.g. via gradle rule).  Which means when we remove the symbols below, those apps will behave as if AsynchronousCloseMonitor does not exist, e.g. connection cancellation may not return in a timely fashion.",
+      "revId": "d84bec53bcf833ac88edcd6a052fe3e847d8321e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
