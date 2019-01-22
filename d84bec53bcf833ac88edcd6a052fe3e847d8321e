@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "797b1ace_07b2db7d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-01-22T15:49:02Z",
+      "side": 1,
+      "message": "Are you saying that this CL includes both the revert and a fix-forward?\n\nThose two are separate concerns, so please split them over two CLs (at the very least two different patch sets of the same CL, but better two consecutive CLs).\n\nRight now it\u0027s not easily possible for me to review what part of the change is your \"fix forward\".",
+      "revId": "d84bec53bcf833ac88edcd6a052fe3e847d8321e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "61a1b33c_09d850df",
         "filename": "common/src/jni/main/cpp/conscrypt/compatibility_close_monitor.cc",
         "patchSetId": 1
