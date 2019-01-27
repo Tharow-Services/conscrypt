@@ -19,34 +19,6 @@
 
 #include <conscrypt/macros.h>
 
-#ifndef CONSCRYPT_UNBUNDLED
-
-/* If we're compiled unbundled from Android system image, we use the
- * CompatibilityCloseMonitor
- */
-#include <nativehelper/AsynchronousCloseMonitor.h>
-
-namespace conscrypt {
-
-/**
- * When bundled with Android, this just wraps around AsynchronousCloseMonitor.
- */
-class CompatibilityCloseMonitor {
- private:
-    AsynchronousCloseMonitor monitor;
-
- public:
-    explicit CompatibilityCloseMonitor(int fd) : monitor(fd) {}
-
-    ~CompatibilityCloseMonitor() {}
-
-    static void init() {}
-};
-
-}  // namespace conscrypt
-
-#elif !defined(CONSCRYPT_OPENJDK)  // && CONSCRYPT_UNBUNDLED
-
 namespace conscrypt {
 
 /*
@@ -86,25 +58,5 @@ class CompatibilityCloseMonitor {
 };
 
 }  // namespace conscrypt
-
-#else  // CONSCRYPT_UNBUNDLED && CONSCRYPT_OPENJDK
-
-namespace conscrypt {
-
-/**
- * For OpenJDK, do nothing.
- */
-class CompatibilityCloseMonitor {
- public:
-    explicit CompatibilityCloseMonitor(int) {}
-
-    ~CompatibilityCloseMonitor() {}
-
-    static void init() {}
-};
-
-}  // namespace conscrypt
-
-#endif  // CONSCRYPT_UNBUNDLED && CONSCRYPT_OPENJDK
 
 #endif  // CONSCRYPT_COMPATIBILITY_CLOSE_MONITOR_H_
