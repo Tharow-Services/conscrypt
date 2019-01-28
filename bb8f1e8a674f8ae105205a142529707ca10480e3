@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "93c7e429_a12f6cb6",
+        "filename": "common/src/jni/main/include/conscrypt/compatibility_close_monitor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-01-28T10:27:46Z",
+      "side": 0,
+      "message": "If we\u0027re going to delete this version (and on reflection I think you\u0027re right to), we should probably document that above, i.e. on non-Android platforms we expect the function pointers to be null, so CompatibilityCloseMonitor implicitly becomes a no-op.\n\nMaybe just put a TODO there and I\u0027ll update the javadoc when I port this upstream?",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 9
+      },
+      "revId": "bb8f1e8a674f8ae105205a142529707ca10480e3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
