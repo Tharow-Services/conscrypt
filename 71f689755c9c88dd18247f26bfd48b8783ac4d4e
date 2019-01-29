@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8f468f4_a48b2e3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2019-01-29T16:48:37Z",
+      "side": 1,
+      "message": "Probably remove the () aside.\n\nFYI - there\u0027s an active discussion I\u0027m having with mainline / QA folks about how we\u0027re going to manage version numbers. A doc is being worked on.",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 6
+      },
+      "revId": "71f689755c9c88dd18247f26bfd48b8783ac4d4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
