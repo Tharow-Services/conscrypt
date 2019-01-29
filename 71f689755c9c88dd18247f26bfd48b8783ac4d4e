@@ -22,6 +22,30 @@
       "revId": "71f689755c9c88dd18247f26bfd48b8783ac4d4e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc692518_932ec383",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-01-29T16:55:44Z",
+      "side": 1,
+      "message": "Done.\nI could certainly improve on this method (e.g. keep the real version number in a file, limit it to even numbers and generate the test version number as real+1), but let\u0027s wait and see how the discussion pans out.",
+      "parentUuid": "c8f468f4_a48b2e3c",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 6
+      },
+      "revId": "71f689755c9c88dd18247f26bfd48b8783ac4d4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }

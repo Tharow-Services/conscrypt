@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "521d1b9f_8e35df2e",
+        "filename": "apex/testing/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-01-29T16:55:44Z",
+      "side": 1,
+      "message": "That would make sense. But presumably we need to do our own thing for now?",
+      "parentUuid": "0edd9b0c_97540bc3",
+      "range": {
+        "startLine": 16,
+        "startChar": 11,
+        "endLine": 16,
+        "endChar": 19
+      },
+      "revId": "e65bb0f7acd0b786d41aa8ad9a487424e798bac6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58726b27_1f0d17aa",
         "filename": "apex/testing/Android.bp",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "e65bb0f7acd0b786d41aa8ad9a487424e798bac6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5467e2c8_99b6d66c",
+        "filename": "apex/testing/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-01-29T16:55:44Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "17c180b6_df779343",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 24,
+        "endChar": 2
+      },
+      "revId": "e65bb0f7acd0b786d41aa8ad9a487424e798bac6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
