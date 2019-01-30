@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f49acd53_3f0d8540",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-01-30T19:08:26Z",
+      "side": 1,
+      "message": "nit: My brain first misread the \"or\" here as \"if that wasn\u0027t the case, then\", but I don\u0027t think that\u0027s what you mean. \n\nConsider \", or we\" -\u003e \". We\" or \". Alternatively, we\"? Up to you.",
+      "range": {
+        "startLine": 11,
+        "startChar": 46,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "6d03d3e484bae6aaa9ef0241b30516b99c33ad79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
