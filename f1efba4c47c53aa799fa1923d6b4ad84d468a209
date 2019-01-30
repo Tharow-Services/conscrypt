@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7900f9dc_df64b476",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-01-30T17:30:23Z",
+      "side": 1,
+      "message": "It\u0027s a good point.  I can\u0027t find any code changes in the last few months that might be implicated, and the tests broke quite recently very close to the time we started using the APEX copy of Conscrypt so I may have jumped to conclusions.  I\u0027ll flash a version from before that change and examine the classloaders to see why it ever worked.",
+      "parentUuid": "1cd42238_83b76df8",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "f1efba4c47c53aa799fa1923d6b4ad84d468a209",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6704fcc4_99af3906",
         "filename": "platform/src/main/java/org/conscrypt/Platform.java",
         "patchSetId": 1
