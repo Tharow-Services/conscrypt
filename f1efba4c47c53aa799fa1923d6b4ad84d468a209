@@ -22,6 +22,29 @@
       "revId": "f1efba4c47c53aa799fa1923d6b4ad84d468a209",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6704fcc4_99af3906",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2019-01-30T17:17:13Z",
+      "side": 1,
+      "message": "Should probably say because it\u0027s different from the others and stands out.\n\n// @VisibleForTesting - used by CTS",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 10
+      },
+      "revId": "f1efba4c47c53aa799fa1923d6b4ad84d468a209",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
