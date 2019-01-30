@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cd42238_83b76df8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2019-01-30T17:08:07Z",
+      "side": 1,
+      "message": "Conscrypt always was on the boot classpath, so this should never have worked.\n\nWhat\u0027s *actually* changed here? Were we previously testing a non-platform copy of conscrypt by accident?",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "f1efba4c47c53aa799fa1923d6b4ad84d468a209",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
