@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "85ead72e_fc74908d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-01-30T18:28:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "db0f38fa_5ca7cdc9",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "f1efba4c47c53aa799fa1923d6b4ad84d468a209",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6704fcc4_99af3906",
         "filename": "platform/src/main/java/org/conscrypt/Platform.java",
         "patchSetId": 1
@@ -93,6 +117,30 @@
       "revId": "f1efba4c47c53aa799fa1923d6b4ad84d468a209",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf506ee7_9cd63db6",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-01-30T18:28:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6704fcc4_99af3906",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 10
+      },
+      "revId": "f1efba4c47c53aa799fa1923d6b4ad84d468a209",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
