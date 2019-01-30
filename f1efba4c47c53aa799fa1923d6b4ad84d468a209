@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "db0f38fa_5ca7cdc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2019-01-30T17:46:46Z",
+      "side": 1,
+      "message": "It\u0027s not really necessary to understand what changed if we can justify this now, which we can - the CTS tests are never loaded in the same classloader as \"core\" classes like conscrypt. Definitely possible (and desirable) to decouple the \"what happened\" investigation from the test failure fix.\n\nFeel free to update the commit comment and just remove everything before the first comma.",
+      "parentUuid": "7900f9dc_df64b476",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "f1efba4c47c53aa799fa1923d6b4ad84d468a209",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6704fcc4_99af3906",
         "filename": "platform/src/main/java/org/conscrypt/Platform.java",
         "patchSetId": 1
