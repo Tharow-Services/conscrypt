@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8c3ef9c_fe34702a",
+        "filename": "common/src/jni/main/include/conscrypt/compatibility_close_monitor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2019-02-04T12:57:32Z",
+      "side": 1,
+      "message": "When I read this I wasn\u0027t sure if this was a TODO or what it does.\n\nSquash the ambiguity by saying:\n\nWhere possible this class hooks.....",
+      "range": {
+        "startLine": 25,
+        "startChar": 16,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "e2ce176b76d5529e06b41ab69756f9266d94df2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
