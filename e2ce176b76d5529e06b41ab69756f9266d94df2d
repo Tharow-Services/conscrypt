@@ -22,6 +22,30 @@
       "revId": "e2ce176b76d5529e06b41ab69756f9266d94df2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a18390c_0aef662f",
+        "filename": "common/src/jni/main/include/conscrypt/compatibility_close_monitor.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-02-04T15:01:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c8c3ef9c_fe34702a",
+      "range": {
+        "startLine": 25,
+        "startChar": 16,
+        "endLine": 25,
+        "endChar": 20
+      },
+      "revId": "e2ce176b76d5529e06b41ab69756f9266d94df2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
