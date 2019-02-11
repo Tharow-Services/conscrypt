@@ -20,6 +20,7 @@ apex {
     java_libs: ["conscrypt"],
     native_shared_libs: ["libjavacrypto"],
     key: "apex.conscrypt.key",
+    certificate: ":com.android.conscrypt.certificate",
     // Test APEX, should never be installed
     installable: false
 }
