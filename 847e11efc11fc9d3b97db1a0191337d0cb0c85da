@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0851ef62_ee73902e",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-02-12T14:49:04Z",
+      "side": 1,
+      "message": "Can we remove previous key now we have a certificate?\n(ditto for the testing APEX)",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "847e11efc11fc9d3b97db1a0191337d0cb0c85da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
