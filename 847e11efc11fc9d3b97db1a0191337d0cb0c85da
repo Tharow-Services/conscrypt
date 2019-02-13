@@ -22,6 +22,30 @@
       "revId": "847e11efc11fc9d3b97db1a0191337d0cb0c85da",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b22d75d_8312bea7",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1132673
+      },
+      "writtenOn": "2019-02-13T02:20:58Z",
+      "side": 1,
+      "message": "No. This \"key\" is for the apex_payload.img, while \"certificate\" is for the entire zip container. We need both :)",
+      "parentUuid": "0851ef62_ee73902e",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 30
+      },
+      "revId": "847e11efc11fc9d3b97db1a0191337d0cb0c85da",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
