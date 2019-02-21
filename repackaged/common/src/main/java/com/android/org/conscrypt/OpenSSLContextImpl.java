@@ -27,6 +27,7 @@ import javax.net.ssl.KeyManager;
 import javax.net.ssl.SSLContextSpi;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLServerSocketFactory;
+import javax.net.ssl.SSLSessionContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
@@ -84,8 +85,12 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
                 serverSessionContext = new ServerSessionContext();
                 defaultSslContextImpl = (DefaultSSLContextImpl) this;
             } else {
-                clientSessionContext = defaultSslContextImpl.engineGetClientSessionContext();
-                serverSessionContext = defaultSslContextImpl.engineGetServerSessionContext();
+                clientSessionContext =
+                        (ClientSessionContext)
+                                defaultSslContextImpl.engineGetClientSessionContext();
+                serverSessionContext =
+                        (ServerSessionContext)
+                                defaultSslContextImpl.engineGetServerSessionContext();
             }
             sslParameters = new SSLParametersImpl(defaultSslContextImpl.getKeyManagers(),
                     defaultSslContextImpl.getTrustManagers(), null, clientSessionContext,
@@ -149,14 +154,15 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
     }
 
     @Override
-    public ServerSessionContext engineGetServerSessionContext() {
+    public SSLSessionContext engineGetServerSessionContext() {
         return serverSessionContext;
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @dalvik.annotation.
+    compat.UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     @Override
-    public ClientSessionContext engineGetClientSessionContext() {
+    public SSLSessionContext engineGetClientSessionContext() {
         return clientSessionContext;
     }
 
