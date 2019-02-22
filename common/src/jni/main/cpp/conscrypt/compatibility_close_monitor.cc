@@ -16,6 +16,7 @@
 
 #include <conscrypt/compatibility_close_monitor.h>
 
+<<<<<<< HEAD   (8b46aa Revert "Fix app compat issue by not enabling TLS 1.3 by defa)
 #include <dlfcn.h>
 
 namespace conscrypt {
@@ -33,4 +34,42 @@ void CompatibilityCloseMonitor::init() {
     }
 }
 
+=======
+#ifndef _WIN32
+#include <dlfcn.h>
+#endif
+
+namespace conscrypt {
+
+CompatibilityCloseMonitor::acm_create_func CompatibilityCloseMonitor::asyncCloseMonitorCreate =
+        nullptr;
+CompatibilityCloseMonitor::acm_destroy_func CompatibilityCloseMonitor::asyncCloseMonitorDestroy =
+        nullptr;
+
+#ifdef CONSCRYPT_UNBUNDLED
+CompatibilityCloseMonitor::acm_ctor_func CompatibilityCloseMonitor::asyncCloseMonitorConstructor =
+        nullptr;
+CompatibilityCloseMonitor::acm_dtor_func CompatibilityCloseMonitor::asyncCloseMonitorDestructor =
+        nullptr;
+#endif  // CONSCRYPT_UNBUNDLED
+
+void CompatibilityCloseMonitor::init() {
+#ifndef _WIN32
+    void *lib = dlopen("libjavacore.so", RTLD_NOW);
+    if (lib != nullptr) {
+        asyncCloseMonitorCreate = (acm_create_func) dlsym(lib, "async_close_monitor_create");
+        asyncCloseMonitorDestroy = (acm_destroy_func) dlsym(lib, "async_close_monitor_destroy");
+#ifdef CONSCRYPT_UNBUNDLED
+        // Only attempt to initialise the C++ API if the C API symbols were not found.
+        if (asyncCloseMonitorCreate == nullptr) {
+            asyncCloseMonitorConstructor =
+                (acm_ctor_func) dlsym(lib, "_ZN24AsynchronousCloseMonitorC1Ei");
+            asyncCloseMonitorDestructor =
+                (acm_dtor_func) dlsym(lib, "_ZN24AsynchronousCloseMonitorD1Ev");
+        }
+#endif  // CONSCRYPT_UNBUNDLED
+    }
+#endif // _WIN32
+}
+>>>>>>> BRANCH (f650c7 Retype return values (#630))
 }  // namespace conscrypt
