@@ -16,6 +16,24 @@
       "revId": "6ba55e1b82944808228b354f90fff9a46bc24540",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "675086e7_fa4e1e99",
+        "filename": "apex/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-02-27T14:18:55Z",
+      "side": 1,
+      "message": "Um, yes :)",
+      "parentUuid": "641cb044_bf9a5aec",
+      "revId": "6ba55e1b82944808228b354f90fff9a46bc24540",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
