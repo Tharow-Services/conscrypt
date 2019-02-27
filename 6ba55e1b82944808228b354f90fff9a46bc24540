@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "641cb044_bf9a5aec",
+        "filename": "apex/AndroidManifest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2019-02-27T13:49:13Z",
+      "side": 1,
+      "message": "2019, presumably.",
+      "revId": "6ba55e1b82944808228b354f90fff9a46bc24540",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
