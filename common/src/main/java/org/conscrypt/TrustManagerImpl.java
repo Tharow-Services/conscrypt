@@ -820,6 +820,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
 
         private static final String EKU_anyExtendedKeyUsage = "2.5.29.37.0";
         private static final String EKU_clientAuth = "1.3.6.1.5.5.7.3.2";
+        private static final String EKU_emailAuth = "1.3.6.1.5.5.7.3.4";
         private static final String EKU_serverAuth = "1.3.6.1.5.5.7.3.1";
         private static final String EKU_nsSGC = "2.16.840.1.113730.4.1";
         private static final String EKU_msSGC = "1.3.6.1.4.1.311.10.3.3";
@@ -880,6 +881,10 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
                 // clients
                 if (clientAuth) {
                     if (ekuOid.equals(EKU_clientAuth)) {
+                        goodExtendedKeyUsage = true;
+                        break;
+                    }
+                    if (ekuOid.equals(EKU_emailAuth)) {
                         goodExtendedKeyUsage = true;
                         break;
                     }
