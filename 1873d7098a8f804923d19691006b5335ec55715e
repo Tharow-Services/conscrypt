@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "96346ed2_0c7c6a80",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/CertPinManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-03-18T17:35:32Z",
+      "side": 1,
+      "message": "I assume the second @hide here and in the rest of repackaged/ is expected after repackaging?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 61
+      },
+      "revId": "1873d7098a8f804923d19691006b5335ec55715e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
