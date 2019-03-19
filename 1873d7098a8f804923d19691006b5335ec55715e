@@ -22,6 +22,30 @@
       "revId": "1873d7098a8f804923d19691006b5335ec55715e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "413a4283_3b2a4b62",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/CertPinManager.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2019-03-19T08:42:43Z",
+      "side": 1,
+      "message": "\u003e I assume the second @hide here and in the rest of repackaged/ is expected after repackaging?\n\nYep.  The background is that we used to mark classes @hide manually in the source, then we made the repackaging script add them, now we\u0027re getting rid of the manual ones and leaving the repackaging ones as the main ones.",
+      "parentUuid": "96346ed2_0c7c6a80",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 61
+      },
+      "revId": "1873d7098a8f804923d19691006b5335ec55715e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
