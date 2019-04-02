@@ -22,6 +22,30 @@
       "revId": "5a6e89174d6bb87ef30c45778ea8f9e1a909df78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bebd9b37_ad3f9d01",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-04-02T17:29:22Z",
+      "side": 1,
+      "message": "Actually the CL may be a mistake, I confused myself into thinking there were non-test dependencies of these modules which didn\u0027t require the JNI lib.  I\u0027ll do some more checking.",
+      "parentUuid": "457df3b0_edd4e5e2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "5a6e89174d6bb87ef30c45778ea8f9e1a909df78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
