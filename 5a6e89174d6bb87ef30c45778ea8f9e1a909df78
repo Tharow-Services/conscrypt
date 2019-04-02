@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "457df3b0_edd4e5e2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2019-04-02T16:19:58Z",
+      "side": 1,
+      "message": "Isn\u0027t this only the case because it\u0027s explicitly mentioned in native_shared_libs in the apex module?\n\nI think \"required\" is the proper solution here, rather than having to list the libs explicitly in native_shared_libs, but it doesn\u0027t work: Partly because of b/124476339 that I\u0027ve been adding TODO\u0027s about, and partly because of the reason you mention here (which I didn\u0027t know about).\n\nSo I\u0027m not objecting to doing this, just the wanted to adjust the motivation. I suggest you add a TODO in apex/Android.sp like this one: http://cs/aosp-master/art/build/apex/Android.bp?l\u003d34-35\u0026rcl\u003d4080b8febed8b82957274882a96b2a7d8625c32e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "5a6e89174d6bb87ef30c45778ea8f9e1a909df78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
