@@ -179,8 +179,6 @@ java_library {
             javacflags: ["-XDignore.symbol.file"],
         },
     },
-
-    required: ["libjavacrypto"],
     java_version: "1.7",
 }
 
@@ -223,8 +221,6 @@ java_library {
     libs: ["core.intra.stubs"],
     patch_module: "java.base",
     system_modules: "core-intra-stubs-system-modules",
-
-    required: ["libjavacrypto"],
 }
 
 // A guaranteed unstripped version of conscrypt.
@@ -238,10 +234,7 @@ java_library {
     dex_preopt: {
         enabled: false,
     },
-
     no_framework_libs: true,
-
-    required: ["libjavacrypto"],
 }
 
 // Platform conscrypt crypto JNI library
