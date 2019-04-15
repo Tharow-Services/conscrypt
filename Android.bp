@@ -180,7 +180,7 @@ java_library {
         },
     },
 
-    required: ["libjavacrypto"],
+    host_required: ["libjavacrypto"],
     java_version: "1.7",
 }
 
@@ -229,7 +229,7 @@ java_library {
         "com.android.org.conscrypt",
     ],
 
-    required: ["libjavacrypto"],
+    host_required: ["libjavacrypto"],
 }
 
 // A guaranteed unstripped version of conscrypt.
@@ -374,7 +374,7 @@ java_test {
         //"-Xlint:-serial,-deprecation,-unchecked",
     ],
 
-    required: ["libjavacrypto"],
+    host_required: ["libjavacrypto"],
     java_version: "1.7",
 }
 
