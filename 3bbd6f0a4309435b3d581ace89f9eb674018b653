@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c5643bad_734bc68c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2019-04-15T18:09:12Z",
+      "side": 1,
+      "message": "I understand now. To be picky, I think you\u0027re still assuming quite a lot of the reader.\n\nSuggestion:\n\nPrevents libjavacrypto being pulled into /system/lib unnecessarily for target builds. libjavacrypto should not be in /system for target because it is only used by the conscrypt apex which has its own copy.\n\nPrevious to this change, there was a required: on the build target which caused the build system to make the libjavacrypto.so available at runtime via /system/lib. Now, there is only an explicit dependency for the host variant. The apex dependency onto libjavacrypto.so is already present in the apex definition found in conscrypt/apex.",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "3bbd6f0a4309435b3d581ace89f9eb674018b653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
