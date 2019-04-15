@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6c23467e_ab740c9f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2019-04-15T17:03:26Z",
+      "side": 1,
+      "message": "What is being changed?\nWhy?\n\nAs needed / if non-obvious: \n\nBehavior before change, why not ok.\nBehavior after change, why better.\n\nI went looking at the other changes in the topic but it\u0027s not obvious there either.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 8
+      },
+      "revId": "258a4d9e8e9881145598ad4247e908e2d4f86254",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
