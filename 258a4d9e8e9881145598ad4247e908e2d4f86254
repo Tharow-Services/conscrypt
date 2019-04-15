@@ -22,6 +22,30 @@
       "revId": "258a4d9e8e9881145598ad4247e908e2d4f86254",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f860567c_f443aa21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-04-15T17:08:25Z",
+      "side": 1,
+      "message": "Re-worded it so the reason for the change is more prominent at the start of the paragraph.",
+      "parentUuid": "6c23467e_ab740c9f",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 8
+      },
+      "revId": "258a4d9e8e9881145598ad4247e908e2d4f86254",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
