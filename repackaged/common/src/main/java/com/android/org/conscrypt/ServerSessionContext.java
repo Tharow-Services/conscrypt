@@ -22,12 +22,8 @@ import javax.net.ssl.SSLContext;
 /**
  * Caches server sessions. Indexes by session ID. Users typically look up
  * sessions using the ID provided by an SSL client.
- *
- * @hide
  * @hide This class is not part of the Android public SDK API
  */
-@libcore.api.IntraCoreApi
-@libcore.api.CorePlatformApi
 @Internal
 public final class ServerSessionContext extends AbstractSessionContext {
     private SSLServerSessionCache persistentCache;

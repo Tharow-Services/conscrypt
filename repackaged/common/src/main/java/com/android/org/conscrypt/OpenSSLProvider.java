@@ -30,8 +30,6 @@ import java.security.Provider;
  * href="http://csrc.nist.gov/groups/ST/crypto_apps_infra/csor/algorithms.html">NIST cryptographic
  * algorithms</a></li>
  * </ul>
- *
- * @hide
  * @hide This class is not part of the Android public SDK API
  */
 @libcore.api.CorePlatformApi
@@ -55,7 +53,7 @@ public final class OpenSSLProvider extends Provider {
     }
 
     public OpenSSLProvider(String providerName) {
-        this(providerName, false);
+        this(providerName, Platform.provideTrustManagerByDefault());
     }
 
     OpenSSLProvider(String providerName, boolean includeTrustManager) {
@@ -69,14 +67,14 @@ public final class OpenSSLProvider extends Provider {
 
         /* === SSL Contexts === */
         final String classOpenSSLContextImpl = PREFIX + "OpenSSLContextImpl";
-        final String tls12SSLContext = classOpenSSLContextImpl + "$TLSv12";
+        final String tls13SSLContext = classOpenSSLContextImpl + "$TLSv13";
         // Keep SSL as an alias to TLS
-        put("SSLContext.SSL", tls12SSLContext);
-        put("SSLContext.TLS", tls12SSLContext);
+        put("SSLContext.SSL", tls13SSLContext);
+        put("SSLContext.TLS", tls13SSLContext);
         put("SSLContext.TLSv1", classOpenSSLContextImpl + "$TLSv1");
         put("SSLContext.TLSv1.1", classOpenSSLContextImpl + "$TLSv11");
-        put("SSLContext.TLSv1.2", tls12SSLContext);
-        put("SSLContext.TLSv1.3", classOpenSSLContextImpl + "$TLSv13");
+        put("SSLContext.TLSv1.2", classOpenSSLContextImpl + "$TLSv12");
+        put("SSLContext.TLSv1.3", tls13SSLContext);
         put("SSLContext.Default", PREFIX + "DefaultSSLContextImpl");
 
         if (includeTrustManager) {
@@ -434,6 +432,7 @@ public final class OpenSSLProvider extends Provider {
                 "OpenSSLCipherChaCha20");
         putSymmetricCipherImplClass("ChaCha20/Poly1305/NoPadding",
                 "OpenSSLCipher$EVP_AEAD$ChaCha20");
+        put("Alg.Alias.Cipher.ChaCha20-Poly1305", "ChaCha20/Poly1305/NoPadding");
 
         /* === Mac === */
 

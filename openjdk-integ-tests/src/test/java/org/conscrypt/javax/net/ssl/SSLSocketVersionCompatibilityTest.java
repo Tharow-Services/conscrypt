@@ -198,7 +198,7 @@ public class SSLSocketVersionCompatibilityTest {
             public Void call() throws Exception {
                 server.startHandshake();
                 assertNotNull(server.getSession());
-                assertNull(getHandshakeSession(server));
+                assertNull(server.getHandshakeSession());
                 try {
                     server.getSession().getPeerCertificates();
                     fail();
@@ -399,7 +399,7 @@ public class SSLSocketVersionCompatibilityTest {
                         event.getPeerCertificateChain();
                     Principal peerPrincipal = event.getPeerPrincipal();
                     Principal localPrincipal = event.getLocalPrincipal();
-                    Socket socket = event.getSocket();
+                    SSLSocket socket = event.getSocket();
                     assertNotNull(session);
                     byte[] id = session.getId();
                     assertNotNull(id);
@@ -435,7 +435,7 @@ public class SSLSocketVersionCompatibilityTest {
                     assertNull(localPrincipal);
                     assertNotNull(socket);
                     assertSame(client, socket);
-                    assertNull(getHandshakeSession((SSLSocket) socket));
+                    assertNull(socket.getHandshakeSession());
                     synchronized (handshakeCompletedListenerCalled) {
                         handshakeCompletedListenerCalled[0] = true;
                         handshakeCompletedListenerCalled.notify();
@@ -645,7 +645,7 @@ public class SSLSocketVersionCompatibilityTest {
                 .clientProtocol(clientVersion)
                 .serverProtocol(serverVersion)
                 .build();
-        SSLContext clientContext = SSLContext.getInstance("TLS");
+        SSLContext clientContext = SSLContext.getInstance(clientVersion);
         X509KeyManager keyManager = new X509KeyManager() {
             @Override
             public String chooseClientAlias(String[] keyType, Principal[] issuers, Socket socket) {
@@ -694,8 +694,11 @@ public class SSLSocketVersionCompatibilityTest {
         });
         try {
             client.startHandshake();
+            // In TLS 1.3, the alert will only show up once we try to use the connection, since
+            // the client finishes the handshake without feedback from the server
+            client.getInputStream().read();
             fail();
-        } catch (SSLHandshakeException expected) {
+        } catch (SSLException expected) {
             // before we would get a NullPointerException from passing
             // due to the null PrivateKey return by the X509KeyManager.
         }
@@ -2272,15 +2275,6 @@ public class SSLSocketVersionCompatibilityTest {
     private static SSLContext defaultInit(SSLContext context) throws KeyManagementException {
         context.init(null, null, null);
         return context;
-    }
-
-    private static SSLSession getHandshakeSession(SSLSocket socket) {
-        try {
-            Method method = socket.getClass().getMethod("getHandshakeSession");
-            return (SSLSession) method.invoke(socket);
-        } catch (Exception e) {
-            return null;
-        }
     }
 
     // Assumes that the negotiated connection will be TLS 1.2

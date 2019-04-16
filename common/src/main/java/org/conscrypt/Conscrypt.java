@@ -22,6 +22,7 @@ import java.security.KeyManagementException;
 import java.security.PrivateKey;
 import java.security.Provider;
 import java.util.Properties;
+import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLContextSpi;
 import javax.net.ssl.SSLEngine;
@@ -31,6 +32,7 @@ import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSessionContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 /**
@@ -132,12 +134,12 @@ public final class Conscrypt {
     @Deprecated
     public static Provider newProvider(String providerName) {
         checkAvailability();
-        return new OpenSSLProvider(providerName, false);
+        return new OpenSSLProvider(providerName, Platform.provideTrustManagerByDefault());
     }
 
     public static class ProviderBuilder {
         private String name = Platform.getDefaultProviderName();
-        private boolean provideTrustManager;
+        private boolean provideTrustManager = Platform.provideTrustManagerByDefault();
 
         private ProviderBuilder() {}
 
@@ -152,9 +154,19 @@ public final class Conscrypt {
         /**
          * Causes the returned provider to provide an implementation of
          * {@link javax.net.ssl.TrustManagerFactory}.
+         * @deprecated Use provideTrustManager(true)
          */
+        @Deprecated
         public ProviderBuilder provideTrustManager() {
-            this.provideTrustManager = true;
+            return provideTrustManager(true);
+        }
+
+        /**
+         * Specifies whether the returned provider will provide an implementation of
+         * {@link javax.net.ssl.TrustManagerFactory}.
+         */
+        public ProviderBuilder provideTrustManager(boolean provide) {
+            this.provideTrustManager = provide;
             return this;
         }
 
@@ -695,4 +707,65 @@ public final class Conscrypt {
             int length) throws SSLException {
         return toConscrypt(engine).exportKeyingMaterial(label, context, length);
     }
+
+    /**
+     * Indicates whether the given {@link TrustManager} was created by this distribution of
+     * Conscrypt.
+     */
+    public static boolean isConscrypt(TrustManager trustManager) {
+        return trustManager instanceof TrustManagerImpl;
+    }
+
+    private static TrustManagerImpl toConscrypt(TrustManager trustManager) {
+        if (!isConscrypt(trustManager)) {
+            throw new IllegalArgumentException(
+                "Not a Conscrypt trust manager: " + trustManager.getClass().getName());
+        }
+        return (TrustManagerImpl) trustManager;
+    }
+
+    /**
+     * Set the default hostname verifier that will be used for HTTPS endpoint identification by
+     * Conscrypt trust managers.  If {@code null} (the default), endpoint identification will use
+     * the default hostname verifier set in
+     * {@link HttpsURLConnection#setDefaultHostnameVerifier(javax.net.ssl.HostnameVerifier)}.
+     */
+    public synchronized static void setDefaultHostnameVerifier(ConscryptHostnameVerifier verifier) {
+        TrustManagerImpl.setDefaultHostnameVerifier(verifier);
+    }
+
+    /**
+     * Returns the currently-set default hostname verifier for Conscrypt trust managers.
+     *
+     * @see #setDefaultHostnameVerifier(ConscryptHostnameVerifier)
+     */
+    public synchronized static ConscryptHostnameVerifier getDefaultHostnameVerifier(TrustManager trustManager) {
+        return TrustManagerImpl.getDefaultHostnameVerifier();
+    }
+
+    /**
+     * Set the hostname verifier that will be used for HTTPS endpoint identification by the
+     * given trust manager.  If {@code null} (the default), endpoint identification will use the
+     * default hostname verifier set in {@link #setDefaultHostnameVerifier(ConscryptHostnameVerifier)}.
+     *
+     * @throws IllegalArgumentException if the provided trust manager is not a Conscrypt trust
+     * manager per {@link #isConscrypt(TrustManager)}
+     */
+    public static void setHostnameVerifier(TrustManager trustManager, ConscryptHostnameVerifier verifier) {
+        toConscrypt(trustManager).setHostnameVerifier(verifier);
+    }
+
+    /**
+     * Returns the currently-set hostname verifier for the given trust manager.
+     *
+     * @throws IllegalArgumentException if the provided trust manager is not a Conscrypt trust
+     * manager per {@link #isConscrypt(TrustManager)}
+     *
+     * @see #setHostnameVerifier(TrustManager, ConscryptHostnameVerifier)
+     */
+    public static ConscryptHostnameVerifier getHostnameVerifier(TrustManager trustManager) {
+        return toConscrypt(trustManager).getHostnameVerifier();
+    }
+
+
 }

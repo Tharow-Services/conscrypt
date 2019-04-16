@@ -85,6 +85,10 @@ final class Platform {
         return "Conscrypt";
     }
 
+    static boolean provideTrustManagerByDefault() {
+        return false;
+    }
+
     public static FileDescriptor getFileDescriptor(Socket s) {
         try {
             Field f_impl = Socket.class.getDeclaredField("impl");
@@ -899,6 +903,11 @@ final class Platform {
             }
         }
         return null;
+    }
+
+    // X509ExtendedTrustManager was added in API 24
+    static boolean supportsX509ExtendedTrustManager() {
+        return Build.VERSION.SDK_INT > 23;
     }
 
     /**

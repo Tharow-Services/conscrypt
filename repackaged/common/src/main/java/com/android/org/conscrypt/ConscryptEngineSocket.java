@@ -34,11 +34,16 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.nio.ByteBuffer;
 import java.security.PrivateKey;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLEngineResult;
 import javax.net.ssl.SSLEngineResult.HandshakeStatus;
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.X509ExtendedTrustManager;
+import javax.net.ssl.X509TrustManager;
 
 /**
  * Implements crypto handling by delegating to {@link ConscryptEngine}.
@@ -96,7 +101,14 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
 
     private static ConscryptEngine newEngine(
             SSLParametersImpl sslParameters, final ConscryptEngineSocket socket) {
-        ConscryptEngine engine = new ConscryptEngine(sslParameters, socket.peerInfoProvider());
+        SSLParametersImpl modifiedParams;
+        if (Platform.supportsX509ExtendedTrustManager()) {
+            modifiedParams = sslParameters.cloneWithTrustManager(
+                    getDelegatingTrustManager(sslParameters.getX509TrustManager(), socket));
+        } else {
+            modifiedParams = sslParameters;
+        }
+        ConscryptEngine engine = new ConscryptEngine(modifiedParams, socket.peerInfoProvider());
 
         // When the handshake completes, notify any listeners.
         engine.setHandshakeListener(new HandshakeListener() {
@@ -113,6 +125,54 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
         // Transition the engine state to MODE_SET
         engine.setUseClientMode(sslParameters.getUseClientMode());
         return engine;
+    }
+
+    // Returns a trust manager that delegates to the given trust manager, but maps SSLEngine
+    // references to the given ConscryptEngineSocket.  Our internal engine will call
+    // the SSLEngine-receiving methods, but our callers expect the SSLSocket-receiving
+    // methods to get called.
+    private static X509TrustManager getDelegatingTrustManager(
+            final X509TrustManager delegate, final ConscryptEngineSocket socket) {
+        if (delegate instanceof X509ExtendedTrustManager) {
+            final X509ExtendedTrustManager extendedDelegate = (X509ExtendedTrustManager) delegate;
+            return new X509ExtendedTrustManager() {
+                @Override
+                public void checkClientTrusted(X509Certificate[] x509Certificates, String s,
+                        Socket socket) throws CertificateException {
+                    throw new AssertionError("Should not be called");
+                }
+                @Override
+                public void checkServerTrusted(X509Certificate[] x509Certificates, String s,
+                        Socket socket) throws CertificateException {
+                    throw new AssertionError("Should not be called");
+                }
+                @Override
+                public void checkClientTrusted(X509Certificate[] x509Certificates, String s,
+                        SSLEngine sslEngine) throws CertificateException {
+                    extendedDelegate.checkClientTrusted(x509Certificates, s, socket);
+                }
+                @Override
+                public void checkServerTrusted(X509Certificate[] x509Certificates, String s,
+                        SSLEngine sslEngine) throws CertificateException {
+                    extendedDelegate.checkServerTrusted(x509Certificates, s, socket);
+                }
+                @Override
+                public void checkClientTrusted(X509Certificate[] x509Certificates, String s)
+                        throws CertificateException {
+                    extendedDelegate.checkClientTrusted(x509Certificates, s);
+                }
+                @Override
+                public void checkServerTrusted(X509Certificate[] x509Certificates, String s)
+                        throws CertificateException {
+                    extendedDelegate.checkServerTrusted(x509Certificates, s);
+                }
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return extendedDelegate.getAcceptedIssuers();
+                }
+            };
+        }
+        return delegate;
     }
 
     @Override
@@ -171,7 +231,7 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
             while (!finished) {
                 switch (engine.getHandshakeStatus()) {
                     case NEED_UNWRAP:
-                        if (in.readInternal(EmptyArray.BYTE, 0, 0) < 0) {
+                        if (in.processDataFromSocket(EmptyArray.BYTE, 0, 0) < 0) {
                             // Can't complete the handshake due to EOF.
                             throw SSLUtils.toSSLHandshakeException(new EOFException());
                         }
@@ -664,7 +724,7 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
         public int read(byte[] b, int off, int len) throws IOException {
             startHandshake();
             synchronized (readLock) {
-                return readInternal(b, off, len);
+                return readUntilDataAvailable(b, off, len);
             }
         }
 
@@ -689,7 +749,21 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
             }
         }
 
-        private int readInternal(byte[] b, int off, int len) throws IOException {
+        private int readUntilDataAvailable(byte[] b, int off, int len) throws IOException {
+            int count;
+            do {
+                count = processDataFromSocket(b, off, len);
+            } while (count == 0);
+            return count;
+        }
+
+        // Returns any decrypted data from the engine.  If no data is currently present in the
+        // engine's output buffer, reads from the input socket until the engine has processed
+        // at least one TLS record, then returns any data in the output buffer or 0 if no
+        // data is available.  This is used both during handshaking (in which case, the records
+        // will produce no data and this method will return 0) and by the InputStream read()
+        // methods that expect records to produce application data.
+        private int processDataFromSocket(byte[] b, int off, int len) throws IOException {
             Platform.blockGuardOnNetwork();
             checkOpen();
 
