@@ -22,6 +22,30 @@
       "revId": "3bbd6f0a4309435b3d581ace89f9eb674018b653",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffc67115_1f47c8d7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-04-25T14:06:59Z",
+      "side": 1,
+      "message": "Now able to do this a slightly cleaner way, but re-worded to make it clear it\u0027s a workaround.",
+      "parentUuid": "c5643bad_734bc68c",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "3bbd6f0a4309435b3d581ace89f9eb674018b653",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
