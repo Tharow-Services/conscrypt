@@ -230,6 +230,13 @@ java_library {
     ],
 
     required: ["libjavacrypto"],
+    target: {
+        hostdex: {
+            required: [
+                "libjavacrypto",
+            ],
+        },
+    },
 }
 
 // A guaranteed unstripped version of conscrypt.
