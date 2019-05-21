@@ -202,13 +202,21 @@ filegroup {
 
 filegroup {
     name: "conscrypt_public_api_files",
-    srcs: ["publicapi/src/main/java/**/*.java"]
+    srcs: ["publicapi/src/main/java/**/*.java"],
 }
 
 // Create the conscrypt library from the source produced by the srcgen/generate_android_src.sh
 // script.
 java_library {
     name: "conscrypt",
+    visibility: [
+        "//external/okhttp",
+        "//external/robolectric-shadows",
+        "//external/wycheproof",
+        "//libcore",
+        "//system/apex/tests",
+        ":__subpackages__",
+    ],
     installable: true,
     hostdex: true,
 
@@ -224,12 +232,20 @@ java_library {
     patch_module: "java.base",
     system_modules: "core-intra-stubs-system-modules",
 
+    // Workaround for b/124476339: libjavacrypto is required for both APEX and
+    // hostdex builds, but adding a top-level required property results in
+    // it being installed to /system on Android.
+    // TODO(b/124476339): move required back to a top level property
+    target: {
+        hostdex: {
+            required: ["libjavacrypto"],
+        }
+    },
+
     permitted_packages: [
         "android.net.ssl",
         "com.android.org.conscrypt",
     ],
-
-    required: ["libjavacrypto"],
 }
 
 // A guaranteed unstripped version of conscrypt.
@@ -335,7 +351,6 @@ cc_library_static {
     sdk_version: "9",
     stl: "c++_shared",
 }
-
 
 // Make the conscrypt-tests library.
 java_test {
