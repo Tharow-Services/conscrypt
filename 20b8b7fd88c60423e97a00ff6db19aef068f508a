@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d50721a8_f650bea7",
+        "filename": "openjdk-integ-tests/src/test/java/org/conscrypt/javax/net/ssl/SSLEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-06-21T14:01:30Z",
+      "side": 1,
+      "message": "the new assertion\u0027s failure message isn\u0027t as good as the old one. Does something like Truth.assertThat(Arrays.asList(referenceEngine.getEnabledCipherSuites())).contains(session.getCipherSuite()) exist and work? Else we might need to construct our own failure message and pass it to assertTrue(String, boolean).",
+      "range": {
+        "startLine": 585,
+        "startChar": 24,
+        "endLine": 585,
+        "endChar": 34
+      },
+      "revId": "20b8b7fd88c60423e97a00ff6db19aef068f508a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
