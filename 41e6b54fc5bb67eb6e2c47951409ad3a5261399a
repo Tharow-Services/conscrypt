@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb3de918_6a102717",
+        "filename": "openjdk-integ-tests/src/test/java/org/conscrypt/javax/net/ssl/SSLEngineTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 587,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-06-21T17:04:44Z",
+      "side": 1,
+      "message": "FYI this is redundant, if you wrote\n\n + sessionSuite;\n\nhere then it\u0027d have exactly the same effect. Also, it might be helpful (up to you) to quote the list of suites that unexpectedly doesn\u0027t contain the one we\u0027re looking for, e.g.:\n\nString sessionSuite \u003d session.getCipherSuite();\nList\u003cString\u003e enabledSuites \u003d Arrays.asList(referenceEngine.getEnabledCipherSuites())\nassertTrue(\"Expected enabled suites to contain \" + sessionSuite + \", got: \" + enabledSuites, enabledSuites.contains(sessionSuite));",
+      "range": {
+        "startLine": 587,
+        "startChar": 33,
+        "endLine": 587,
+        "endChar": 83
+      },
+      "revId": "41e6b54fc5bb67eb6e2c47951409ad3a5261399a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
