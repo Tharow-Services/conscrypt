@@ -582,8 +582,8 @@ public class SSLEngineTest {
                         // By the point of the handshake where we're validating certificates,
                         // the hostname is known and the cipher suite should be agreed
                         assertEquals(referenceContext.host.getHostName(), session.getPeerHost());
-                        assertEquals(referenceEngine.getEnabledCipherSuites()[0],
-                            session.getCipherSuite());
+                        assertTrue(Arrays.asList(referenceEngine.getEnabledCipherSuites())
+                                           .contains(session.getCipherSuite()));
                     } catch (Exception e) {
                         throw new CertificateException("Something broke", e);
                     }

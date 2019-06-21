@@ -589,8 +589,9 @@ public class SSLEngineTest {
                                     // should be agreed
                                     assertEquals(referenceContext.host.getHostName(),
                                             session.getPeerHost());
-                                    assertEquals(referenceEngine.getEnabledCipherSuites()[0],
-                                            session.getCipherSuite());
+                                    assertTrue(
+                                            Arrays.asList(referenceEngine.getEnabledCipherSuites())
+                                                    .contains(session.getCipherSuite()));
                                 } catch (Exception e) {
                                     throw new CertificateException("Something broke", e);
                                 }
