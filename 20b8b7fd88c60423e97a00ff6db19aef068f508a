@@ -22,6 +22,30 @@
       "revId": "20b8b7fd88c60423e97a00ff6db19aef068f508a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e6d4384_a0bbb063",
+        "filename": "openjdk-integ-tests/src/test/java/org/conscrypt/javax/net/ssl/SSLEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-06-21T14:46:42Z",
+      "side": 1,
+      "message": "Good point.\n\nConscrypt currently doesn\u0027t have a dependency on Truth so I added a failure message.",
+      "parentUuid": "d50721a8_f650bea7",
+      "range": {
+        "startLine": 585,
+        "startChar": 24,
+        "endLine": 585,
+        "endChar": 34
+      },
+      "revId": "20b8b7fd88c60423e97a00ff6db19aef068f508a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
