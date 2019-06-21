@@ -582,8 +582,12 @@ public class SSLEngineTest {
                         // By the point of the handshake where we're validating certificates,
                         // the hostname is known and the cipher suite should be agreed
                         assertEquals(referenceContext.host.getHostName(), session.getPeerHost());
-                        assertEquals(referenceEngine.getEnabledCipherSuites()[0],
-                            session.getCipherSuite());
+                        String sessionSuite = session.getCipherSuite();
+                        String message = "Handshake session has invalid cipher suite: "
+                                + (sessionSuite == null ? "(null)" : sessionSuite);
+                        assertTrue(message,
+                                Arrays.asList(referenceEngine.getEnabledCipherSuites())
+                                        .contains(sessionSuite));
                     } catch (Exception e) {
                         throw new CertificateException("Something broke", e);
                     }
