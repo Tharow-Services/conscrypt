@@ -46,6 +46,30 @@
       "revId": "20b8b7fd88c60423e97a00ff6db19aef068f508a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab95209a_8c5e6d70",
+        "filename": "openjdk-integ-tests/src/test/java/org/conscrypt/javax/net/ssl/SSLEngineTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 585,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-06-24T10:42:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4e6d4384_a0bbb063",
+      "range": {
+        "startLine": 585,
+        "startChar": 24,
+        "endLine": 585,
+        "endChar": 34
+      },
+      "revId": "20b8b7fd88c60423e97a00ff6db19aef068f508a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
