@@ -1,0 +1,8 @@
+Verified+1: Adam Vartanian <flooey@google.com>
+Code-Review+2: Pete Bentley <prb@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Adam Vartanian <flooey@google.com>
+Submitted-at: Thu, 01 Aug 2019 13:49:09 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1092178
+Project: platform/external/conscrypt
+Branch: refs/heads/master
