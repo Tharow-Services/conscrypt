@@ -31,6 +31,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.KeyManager;
@@ -546,13 +547,14 @@ public class SSLEngineTest {
     }
 
     @Test
-    public void test_SSLEngine_getHandshakeSession_duringHandshake() throws Exception {
+    public void test_SSLEngine_getHandshakeSession_duringHandshake_client() throws Exception {
         // We can't reference the actual context we're using, since we need to pass
         // the test trust manager in to construct it, so create reference objects that
         // we can test against.
         final TestSSLContext referenceContext = TestSSLContext.create();
         final SSLEngine referenceEngine = referenceContext.clientContext.createSSLEngine();
 
+        final boolean[] wasCalled = new boolean[1];
         TestSSLContext c = TestSSLContext.newBuilder()
             .clientTrustManager(new X509ExtendedTrustManager() {
                 @Override
@@ -582,8 +584,15 @@ public class SSLEngineTest {
                         // By the point of the handshake where we're validating certificates,
                         // the hostname is known and the cipher suite should be agreed
                         assertEquals(referenceContext.host.getHostName(), session.getPeerHost());
-                        assertEquals(referenceEngine.getEnabledCipherSuites()[0],
-                            session.getCipherSuite());
+                        String sessionSuite = session.getCipherSuite();
+                        List<String> enabledSuites =
+                                Arrays.asList(referenceEngine.getEnabledCipherSuites());
+                        String message = "Handshake session has invalid cipher suite: "
+                                + (sessionSuite == null ? "(null)" : sessionSuite);
+                        assertTrue("Expected enabled suites to contain " + sessionSuite
+                                        + ", got: " + enabledSuites,
+                                enabledSuites.contains(sessionSuite));
+                        wasCalled[0] = true;
                     } catch (Exception e) {
                         throw new CertificateException("Something broke", e);
                     }
@@ -608,6 +617,88 @@ public class SSLEngineTest {
             }).build();
         TestSSLEnginePair pair = TestSSLEnginePair.create(c);
         pair.close();
+        assertTrue(wasCalled[0]);
+    }
+
+    @Test
+    public void test_SSLEngine_getHandshakeSession_duringHandshake_server() throws Exception {
+        // We can't reference the actual context we're using, since we need to pass
+        // the test trust manager in to construct it, so create reference objects that
+        // we can test against.
+        final TestSSLContext referenceContext = TestSSLContext.create();
+        final SSLEngine referenceEngine = referenceContext.clientContext.createSSLEngine();
+
+        final boolean[] wasCalled = new boolean[1];
+        TestSSLContext c = TestSSLContext.newBuilder()
+            .client(TestKeyStore.getClientCertificate())
+            .serverTrustManager(new X509ExtendedTrustManager() {
+                @Override
+                public void checkClientTrusted(X509Certificate[] x509Certificates, String s,
+                    Socket socket) throws CertificateException {
+                    throw new CertificateException("Shouldn't be called");
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] x509Certificates, String s,
+                    Socket socket) throws CertificateException {
+                    throw new CertificateException("Shouldn't be called");
+                }
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] x509Certificates, String s,
+                    SSLEngine sslEngine) throws CertificateException {
+                    try {
+                        SSLSession session = sslEngine.getHandshakeSession();
+                        assertNotNull(session);
+                        // By the point of the handshake where we're validating client certificates,
+                        // the cipher suite should be agreed and the server's own certificates
+                        // should have been delivered
+                        assertEquals(referenceEngine.getEnabledCipherSuites()[0],
+                            session.getCipherSuite());
+                        assertNotNull(session.getLocalCertificates());
+                        assertEquals("CN=localhost",
+                            ((X509Certificate) session.getLocalCertificates()[0])
+                                .getSubjectDN().getName());
+                        assertEquals("CN=Test Intermediate Certificate Authority",
+                            ((X509Certificate) session.getLocalCertificates()[0])
+                                .getIssuerDN().getName());
+                        wasCalled[0] = true;
+                    } catch (Exception e) {
+                        throw new CertificateException("Something broke", e);
+                    }
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] x509Certificates, String s,
+                    SSLEngine sslEngine) throws CertificateException {
+                    throw new CertificateException("Shouldn't be called");
+                }
+
+                @Override
+                public void checkClientTrusted(X509Certificate[] x509Certificates, String s)
+                    throws CertificateException {
+                    throw new CertificateException("Shouldn't be called");
+                }
+
+                @Override
+                public void checkServerTrusted(X509Certificate[] x509Certificates, String s)
+                    throws CertificateException {
+                    throw new CertificateException("Shouldn't be called");
+                }
+
+                @Override
+                public X509Certificate[] getAcceptedIssuers() {
+                    return referenceContext.serverTrustManager.getAcceptedIssuers();
+                }
+            }).build();
+        TestSSLEnginePair pair = TestSSLEnginePair.create(c, new TestSSLEnginePair.Hooks() {
+            @Override
+            void beforeBeginHandshake(SSLEngine client, SSLEngine server) {
+                server.setNeedClientAuth(true);
+            }
+        });
+        pair.close();
+        assertTrue(wasCalled[0]);
     }
 
     @Test
