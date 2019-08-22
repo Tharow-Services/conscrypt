@@ -17,8 +17,5 @@
 #include <openssl/crypto.h>
 
 int main(int, char**) {
-    // TODO: This can be removed once boringssl has been updated to perform
-    // a self test in a library constructor.
-    BORINGSSL_self_test();
     return 0;
 }
