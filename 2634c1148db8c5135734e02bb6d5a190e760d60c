@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c652a23f_cfedf219",
+        "filename": "apex/selftest/boringssl_self_test.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1014443
+      },
+      "writtenOn": "2019-08-23T13:29:50Z",
+      "side": 0,
+      "message": "if we drop this, I think we may need to write a unit-test that asserts the constructor was actually run. What do you think ?\n\n(it would help ensure that we didn\u0027t fall victim to some linker optimization or something like that..)",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 0
+      },
+      "revId": "2634c1148db8c5135734e02bb6d5a190e760d60c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
