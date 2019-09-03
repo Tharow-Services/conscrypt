@@ -518,8 +518,14 @@ public class SSLSocketTest {
                                     // should be agreed
                                     assertEquals(referenceContext.host.getHostName(),
                                             session.getPeerHost());
-                                    assertEquals(referenceClientSocket.getEnabledCipherSuites()[0],
-                                            session.getCipherSuite());
+                                    String sessionSuite = session.getCipherSuite();
+                                    List<String> enabledSuites = Arrays.asList(
+                                            referenceClientSocket.getEnabledCipherSuites());
+                                    String message = "Handshake session has invalid cipher suite: "
+                                            + (sessionSuite == null ? "(null)" : sessionSuite);
+                                    assertTrue("Expected enabled suites to contain " + sessionSuite
+                                                    + ", got: " + enabledSuites,
+                                            enabledSuites.contains(sessionSuite));
                                     wasCalled[0] = true;
                                 } catch (Exception e) {
                                     throw new CertificateException("Something broke", e);
