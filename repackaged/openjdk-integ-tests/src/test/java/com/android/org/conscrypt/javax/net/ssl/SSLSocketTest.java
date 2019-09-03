@@ -496,8 +496,12 @@ public class SSLSocketTest {
                                     // should be agreed
                                     assertEquals(referenceContext.host.getHostName(),
                                             session.getPeerHost());
-                                    assertEquals(referenceClientSocket.getEnabledCipherSuites()[0],
-                                            session.getCipherSuite());
+                                    String sessionSuite = session.getCipherSuite();
+                                    List<String> enabledSuites = Arrays.asList(
+                                            referenceClientSocket.getEnabledCipherSuites());
+                                    assertTrue("Expected enabled suites to contain " + sessionSuite
+                                                    + ", got: " + enabledSuites,
+                                            enabledSuites.contains(sessionSuite));
                                 } catch (Exception e) {
                                     throw new CertificateException("Something broke", e);
                                 }
