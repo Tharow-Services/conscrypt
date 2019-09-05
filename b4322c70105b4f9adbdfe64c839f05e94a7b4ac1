@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "042d7ccf_4629d14a",
+        "filename": "apex/ld.config.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2019-09-05T15:21:20Z",
+      "side": 1,
+      "message": "There are two ways to go on this:\n\nOne is to duplicate the full configs in the other ld.config.txt\u0027s, to minimise the semantic differences and keep the duplication to just mechanical copying as much as possible.\n\nThe other is to make a bespoke minimal config for the specific use case and avoid the duplication.\n\nI chose the latter here under the assumption that you only need libcrypto.so, and it has simple dependencies (which I haven\u0027t cheched), but it\u0027s not a clear cut decision.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "b4322c70105b4f9adbdfe64c839f05e94a7b4ac1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
