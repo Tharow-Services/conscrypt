@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51c48fc8_8b04b078",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1042885
+      },
+      "writtenOn": "2019-09-05T08:39:17Z",
+      "side": 1,
+      "message": "This one should also include com.android.org.conscrypt.java.security, com.android.org.conscrypt.java.security.cert, com.android.org.conscrypt.javax.crypto, and com.android.org.conscrypt.javax.net.ssl.  (We break up our tests a lot more than the source files.)",
+      "revId": "c36c8c09999f19e766b37fcc0bcf80b325fc11af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
