@@ -1,0 +1,8 @@
+Code-Review+2: Tobias Thierer <tobiast@google.com>
+Verified+1: Tobias Thierer <tobiast@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-by: Tobias Thierer <tobiast@google.com>
+Submitted-at: Sat, 07 Sep 2019 23:45:58 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1114517
+Project: platform/external/conscrypt
+Branch: refs/heads/master
