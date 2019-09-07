@@ -16,6 +16,24 @@
       "revId": "b4803a5fe2863540e627c74baec2ddd0e04b5ad1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6b481d82_fd519750",
+        "filename": "apex/ld.config.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1005967
+      },
+      "writtenOn": "2019-09-07T00:11:47Z",
+      "side": 1,
+      "message": "This sounds very reasonable.\n\nHow do we fix this problem for good? As is, every apex needs to do something special to accomodate hwasan. Logically, hwasan is coupled with libc.so (they have mutual depencies), so everything that can locate libc.so must be able to locate hwasan. One option would be to install hwasan as a symlink to /system/lib64, same as bionic libs. Another to simply install the library in /system/lib64, outside of any apex.",
+      "parentUuid": "16d9e8ee_a38283b5",
+      "revId": "b4803a5fe2863540e627c74baec2ddd0e04b5ad1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
