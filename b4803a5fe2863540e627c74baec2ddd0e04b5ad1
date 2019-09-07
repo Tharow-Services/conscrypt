@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16d9e8ee_a38283b5",
+        "filename": "apex/ld.config.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1229339
+      },
+      "writtenOn": "2019-09-07T00:05:58Z",
+      "side": 1,
+      "message": "This change adds /apex/com.android.runtime/${LIB} to the search paths of both the \"platform\" and the \"default\" namespaces. AFAIK, adding one directory to multiple namespaces\u0027 search paths can result in duplicate copies of the library at run-time. In this case, the dynamic linker might load the hwasan library into \"default\", then when it\u0027s loading something in \"platform\", it won\u0027t find the copy of hwasan it has already loaded. It could find the hwasan library using the \"platform\" search path, though, and load another copy.\n\nMaybe instead of adding /apex/com.android.runtime/${LIB} to the \"platform\" search path, we need to add a link from platform back to default?\n\ne.g.\n\n  namespace.platform.links \u003d default\n  namespace.platform.link.default.shared_libs +\u003d libclang_rt.hwasan-aarch64-android.so\n\nThe ART ld.config file currently places the bionic and ART libraries into a combined \"runtime\" namespace, and it has a link from platform to runtime. (b/139916951 might split them up.) That link doesn\u0027t mention the hwasan library, though, so 64-bit ART executables don\u0027t seem to work (I tested goog/master walleye_hwasan-userdebug):\n\n  walleye:/ # apex/com.android.art/bin/dexdump\n  CANNOT LINK EXECUTABLE \"apex/com.android.art/bin/dexdump\": library \"libclang_rt.hwasan-aarch64-android.so\" not found\n\nThis art/build change fixes dexdump:\n\ndiff --git a/build/apex/ld.config.txt b/build/apex/ld.config.txt\nindex 0ed6c1e79a..bef1bd71af 100644\n--- a/build/apex/ld.config.txt\n+++ b/build/apex/ld.config.txt\n@@ -82,6 +82,7 @@ namespace.platform.link.runtime.shared_libs +\u003d libicuuc.so\n namespace.platform.link.runtime.shared_libs +\u003d libnativebridge.so\n namespace.platform.link.runtime.shared_libs +\u003d libnativehelper.so\n namespace.platform.link.runtime.shared_libs +\u003d libnativeloader.so\n+namespace.platform.link.runtime.shared_libs +\u003d libclang_rt.hwasan-aarch64-android.so\n \n # TODO(b/122876336): Remove libpac.so once it\u0027s migrated to Webview\n namespace.platform.link.runtime.shared_libs +\u003d libpac.so",
+      "revId": "b4803a5fe2863540e627c74baec2ddd0e04b5ad1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
