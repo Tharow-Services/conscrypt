@@ -34,6 +34,24 @@
       "revId": "b4803a5fe2863540e627c74baec2ddd0e04b5ad1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a449e19_544ea52a",
+        "filename": "apex/ld.config.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2019-09-09T15:48:41Z",
+      "side": 1,
+      "message": "Two things to comment on here:\n\n-----\n\n#1: Given http://b/139916951#comment10, my aim in that ticket is to move the hwasan support lib (and other libclang_rt libs) to /system, but the dependencies between it and Bionic are unclear to me. If it should into the Runtime APEX then I think a symlink solution like for the other Bionic libs is the right way, to ensure it appears in the same namespace (default, aka platform) as Bionic. However in that case I do have concerns about the coupling between APEXes and Platform when either is compiled with hwasan and not the other.\n\nI\u0027d much appreciate your input on this, but please continue the discussion on http://b/139916951.\n\n-----\n\n#2: @Ryan, regarding the patch in your comment: Are you saying dexdump in hwasan builds is currently broken and requires that to work? If so, I wasn\u0027t aware of that - is there a ticket that tracks it?",
+      "parentUuid": "6b481d82_fd519750",
+      "revId": "b4803a5fe2863540e627c74baec2ddd0e04b5ad1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
