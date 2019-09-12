@@ -34,6 +34,24 @@
       "revId": "6f58b69702a35d49242439005f9961bf026d3829",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4d86cd6_9514bfd7",
+        "filename": "apex/ld.config.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2019-09-12T11:05:46Z",
+      "side": 1,
+      "message": "Yes. init logs to the kernel log, but the linker errors go to logcat.\n\n[   37.084556] c6      1 init: starting service \u0027exec 17 (/apex/com.android.conscrypt/bin/boringssl_self_test64)\u0027...\n[   37.087463] c6      1 init: SVC_EXEC service \u0027exec 17 (/apex/com.android.conscrypt/bin/boringssl_self_test64)\u0027 pid 972 (uid 0 gid 0+0 context default) started; waiting...\n[   37.120309] c7      1 init: Service \u0027exec 16 (/system/bin/gsid run-startup-tasks)\u0027 (pid 950) exited with status 0 oneshot service took 0.078000 seconds in background\n[   37.136362] c5      1 init: Service \u0027exec 17 (/apex/com.android.conscrypt/bin/boringssl_self_test64)\u0027 (pid 972) exited with status 1 waiting took 0.049000 seconds\n\nShould also mention that the main issue is that it apparently run too early for logs to be caught by logd. The rebooting is somewhat secondary, but it can also mean the device doesn\u0027t stay up long enough for the logcat to get sucked out.\n\nBut stepping back I think the real problem is that logcat logs get lost in early boot; they ought to get sent to the kernel log before logd has started.",
+      "parentUuid": "60264066_f25c9d16",
+      "revId": "6f58b69702a35d49242439005f9961bf026d3829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
