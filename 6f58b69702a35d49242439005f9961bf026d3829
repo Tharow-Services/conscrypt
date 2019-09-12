@@ -16,6 +16,24 @@
       "revId": "6f58b69702a35d49242439005f9961bf026d3829",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "60264066_f25c9d16",
+        "filename": "apex/ld.config.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-09-12T10:14:02Z",
+      "side": 1,
+      "message": "Just checking: Did you say that the issue didn\u0027t become clear via serial console because you only saw the return code of the binary rather than the linker error message?",
+      "parentUuid": "76e5121c_a47d64a4",
+      "revId": "6f58b69702a35d49242439005f9961bf026d3829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
