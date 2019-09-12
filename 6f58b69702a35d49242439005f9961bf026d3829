@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "76e5121c_a47d64a4",
+        "filename": "apex/ld.config.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2019-09-12T00:18:35Z",
+      "side": 1,
+      "message": "A trivial oversight that took a long time to sort out due to the difficulty of getting logcat logs out of binaries that fail early in the boot process and trigger reboot. :(",
+      "revId": "6f58b69702a35d49242439005f9961bf026d3829",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
