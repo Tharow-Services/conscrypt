@@ -16,6 +16,24 @@
       "revId": "c36c8c09999f19e766b37fcc0bcf80b325fc11af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "47a48ffb_9e3ca7ad",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1203210
+      },
+      "writtenOn": "2019-09-16T13:19:22Z",
+      "side": 1,
+      "message": "The include-filter option automatically includes all subpackages, so it already runs all these tests. (I just did `atest --test-mapping external/conscrypt/repackaged/common/src/main/java/com/android/org/conscrypt` to double-check this.)",
+      "parentUuid": "51c48fc8_8b04b078",
+      "revId": "c36c8c09999f19e766b37fcc0bcf80b325fc11af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
