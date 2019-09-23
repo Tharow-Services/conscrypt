@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1008570e_3c33c773",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-09-23T11:38:04Z",
+      "side": 1,
+      "message": "On Github, \"unbundled\" is how we refer to the version of Conscrypt made available as a standalone library, as opposed to the Android platform version.  But agreed, that terminology doesn\u0027t make much sense here.  I like conscrypt-host, but have no strong opinion about shoe-horning it all into a single module.",
+      "parentUuid": "b6b6cfc0_12315785",
+      "range": {
+        "startLine": 296,
+        "startChar": 3,
+        "endLine": 296,
+        "endChar": 12
+      },
+      "revId": "47f35df952f786ab3c98cb83e35d59465fb4b487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "954f1889_2aef19a4",
         "filename": "Android.bp",
         "patchSetId": 1
