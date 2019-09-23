@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1c5da504_234b3411",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 296,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2019-09-23T12:25:25Z",
+      "side": 1,
+      "message": "The name is consistent with bouncycastle\u0027s use of the term. Bouncycastle already has a bouncycastle-host which is an alias for bouncycastle-unbundled, has been deprecated and is only there for backwards compatibility until all references have been removed.\n\nMixing them into the same module would require merging the visibility of both existing modules which would make all variants of the resulting module more accessible than they need to be.",
+      "parentUuid": "1008570e_3c33c773",
+      "range": {
+        "startLine": 296,
+        "startChar": 3,
+        "endLine": 296,
+        "endChar": 12
+      },
+      "revId": "47f35df952f786ab3c98cb83e35d59465fb4b487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "954f1889_2aef19a4",
         "filename": "Android.bp",
         "patchSetId": 1
@@ -63,6 +87,24 @@
       "revId": "47f35df952f786ab3c98cb83e35d59465fb4b487",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f53a305_ff852ae2",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2019-09-23T12:25:25Z",
+      "side": 1,
+      "message": "Correct.",
+      "parentUuid": "954f1889_2aef19a4",
+      "revId": "47f35df952f786ab3c98cb83e35d59465fb4b487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
