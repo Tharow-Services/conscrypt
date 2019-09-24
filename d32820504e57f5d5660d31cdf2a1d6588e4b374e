@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "244c4f59_84bea299",
+        "filename": "apex/etc/init.rc",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-09-24T14:35:21Z",
+      "side": 1,
+      "message": "Sadly, triggers (e.g. ParsePropertyTriggers) are not allowed here. Only services are:\n\nhttps://android.googlesource.com/platform/system/core/+/master/init/builtins.cpp#1157",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 38
+      },
+      "revId": "d32820504e57f5d5660d31cdf2a1d6588e4b374e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
