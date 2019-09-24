@@ -45,6 +45,13 @@ android_app_certificate {
 }
 
 prebuilt_etc {
+    name: "com.android.conscrypt.init.rc",
+    src: "etc/init.rc",
+    filename: "init.rc",
+    installable: false,
+}
+
+prebuilt_etc {
     name: "com.android.conscrypt.ld.config.txt",
     src: "ld.config.txt",
     filename: "ld.config.txt",
@@ -60,5 +67,8 @@ apex {
     defaults: ["com.android.conscrypt-defaults"],
     manifest: "apex_manifest.json",
     binaries: ["boringssl_self_test"],
-    prebuilts: ["com.android.conscrypt.ld.config.txt"],
+    prebuilts: [
+        "com.android.conscrypt.init.rc",
+        "com.android.conscrypt.ld.config.txt",
+    ],
 }
