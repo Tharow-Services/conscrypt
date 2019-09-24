@@ -105,6 +105,24 @@
       "revId": "47f35df952f786ab3c98cb83e35d59465fb4b487",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fd7957a9_7105ff7a",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 298,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2019-09-24T10:42:02Z",
+      "side": 1,
+      "message": "Updated comment.",
+      "parentUuid": "1f53a305_ff852ae2",
+      "revId": "47f35df952f786ab3c98cb83e35d59465fb4b487",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
