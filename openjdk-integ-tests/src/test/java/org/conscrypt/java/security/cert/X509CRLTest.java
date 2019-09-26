@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (9cc435 Remove duplicate libraries that are provided by system modul)
 /*
  * Copyright (C) 2019 The Android Open Source Project
  *
@@ -150,3 +151,5 @@ public class X509CRLTest {
             });
     }
 }
+=======
+>>>>>>> BRANCH (51f20a Merge pull request #723 from prbprbprb/bump-version)

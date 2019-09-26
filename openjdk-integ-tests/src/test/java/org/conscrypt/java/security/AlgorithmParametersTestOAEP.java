@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (9cc435 Remove duplicate libraries that are provided by system modul)
 /*
  * Copyright (C) 2009 The Android Open Source Project
  *
@@ -267,3 +268,5 @@ public class AlgorithmParametersTestOAEP extends AbstractAlgorithmParametersTest
     }
 
 }
+=======
+>>>>>>> BRANCH (51f20a Merge pull request #723 from prbprbprb/bump-version)

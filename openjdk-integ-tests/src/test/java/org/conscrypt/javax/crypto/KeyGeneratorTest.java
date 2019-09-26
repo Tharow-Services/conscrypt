@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (9cc435 Remove duplicate libraries that are provided by system modul)
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
@@ -187,3 +188,5 @@ public class KeyGeneratorTest {
         assertNotNull(sk.getFormat());
     }
 }
+=======
+>>>>>>> BRANCH (51f20a Merge pull request #723 from prbprbprb/bump-version)
