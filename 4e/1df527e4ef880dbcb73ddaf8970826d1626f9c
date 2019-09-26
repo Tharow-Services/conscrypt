@@ -1,0 +1,11 @@
+Verified+1: Adam Vartanian <flooey@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+1: Pete Bentley <prb@google.com>
+Code-Review+2: Narayan Kamath <narayan@google.com>
+DrNo-Review+1: Narayan Kamath <narayan@google.com>
+Autosubmit+1: Adam Vartanian <flooey@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Thu, 26 Sep 2019 10:20:01 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1128296
+Project: platform/external/conscrypt
+Branch: refs/heads/android10-tests-dev
