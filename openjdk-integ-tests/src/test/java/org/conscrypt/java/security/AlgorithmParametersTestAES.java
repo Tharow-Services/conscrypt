@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (27184b Merge "Use libcrypto_static instead of libcrypto")
 /*
  * Copyright (C) 2009 The Android Open Source Project
  *
@@ -86,3 +87,5 @@ public class AlgorithmParametersTestAES extends AbstractAlgorithmParametersTest 
     }
 
 }
+=======
+>>>>>>> BRANCH (51e575 Merge pull request #727 from prbprbprb/srvname)
