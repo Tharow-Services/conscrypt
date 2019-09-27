@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (27184b Merge "Use libcrypto_static instead of libcrypto")
 /*
  * Copyright (C) 2013 The Android Open Source Project
  *
@@ -546,3 +547,5 @@ public class ECDHKeyAgreementTest {
         return providers;
     }
 }
+=======
+>>>>>>> BRANCH (51e575 Merge pull request #727 from prbprbprb/srvname)
