@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "142a737a_9e84e743",
+        "filename": "apex/selftest/boringssl_self_test.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-09-30T21:55:49Z",
+      "side": 1,
+      "message": "Add a comment here saying something like:\n\n# There are corresponding lines in /system/core/rootdir/init.rc for other\n# copies of boringssl_self_test{32,64}.\n\nand similarly a comment in that file pointing here. Otherwise, these two near-identical pieces of logic will be likely to diverge in future.\n\nFine to do in a follow-up CL because unlike this CL, the comment is not on the critical path to getting the functionality submitted.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 94
+      },
+      "revId": "5e52615f7f5b113992ad8f429954db7fa3a99f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
