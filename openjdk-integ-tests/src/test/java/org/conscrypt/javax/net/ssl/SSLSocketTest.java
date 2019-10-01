@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (27184b Merge "Use libcrypto_static instead of libcrypto")
 /*
  * Copyright (C) 2010 The Android Open Source Project
  *
@@ -1111,3 +1112,5 @@ public class SSLSocketTest {
     }
 
 }
+=======
+>>>>>>> BRANCH (51e575 Merge pull request #727 from prbprbprb/srvname)
