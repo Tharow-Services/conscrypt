@@ -46,6 +46,30 @@
       "revId": "5e52615f7f5b113992ad8f429954db7fa3a99f79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c22be13b_b42f0505",
+        "filename": "apex/selftest/boringssl_self_test.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-10-01T22:38:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "099d92ee_587cd813",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 94
+      },
+      "revId": "5e52615f7f5b113992ad8f429954db7fa3a99f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
