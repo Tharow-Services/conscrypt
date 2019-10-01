@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5d02a14c_959af856",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-10-01T15:48:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10a7a317_7ecaadc9",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 21
+      },
+      "revId": "2a01eca2119be0eb31e690c0815ecb4aab712702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6518648c_a6d29310",
         "filename": "common/src/test/java/org/conscrypt/java/security/AlgorithmParametersTestEC.java",
         "patchSetId": 7
@@ -45,6 +69,30 @@
       "revId": "2a01eca2119be0eb31e690c0815ecb4aab712702",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ffdb701_eadfbbc0",
+        "filename": "common/src/test/java/org/conscrypt/java/security/AlgorithmParametersTestEC.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-10-01T15:48:31Z",
+      "side": 1,
+      "message": "Hah. I cut and pasted it from a sibling file.  Done.",
+      "parentUuid": "6518648c_a6d29310",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "2a01eca2119be0eb31e690c0815ecb4aab712702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
