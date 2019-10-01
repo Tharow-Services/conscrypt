@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Android Open Source Project
+ * Copyright (C) 2017 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,8 @@ package org.conscrypt;
 
 import static org.conscrypt.TestUtils.installConscryptAsDefaultProvider;
 
+import org.conscrypt.ct.CTVerifierTest;
+import org.conscrypt.ct.SerializationTest;
 import org.conscrypt.java.security.AlgorithmParameterGeneratorTestDH;
 import org.conscrypt.java.security.AlgorithmParameterGeneratorTestDSA;
 import org.conscrypt.java.security.AlgorithmParametersPSSTest;
@@ -26,6 +28,7 @@ import org.conscrypt.java.security.AlgorithmParametersTestDES;
 import org.conscrypt.java.security.AlgorithmParametersTestDESede;
 import org.conscrypt.java.security.AlgorithmParametersTestDH;
 import org.conscrypt.java.security.AlgorithmParametersTestDSA;
+import org.conscrypt.java.security.AlgorithmParametersTestEC;
 import org.conscrypt.java.security.AlgorithmParametersTestGCM;
 import org.conscrypt.java.security.AlgorithmParametersTestOAEP;
 import org.conscrypt.java.security.KeyFactoryTestDH;
@@ -43,6 +46,8 @@ import org.conscrypt.java.security.cert.X509CRLTest;
 import org.conscrypt.java.security.cert.X509CertificateTest;
 import org.conscrypt.javax.crypto.AeadCipherTest;
 import org.conscrypt.javax.crypto.CipherBasicsTest;
+import org.conscrypt.javax.crypto.CipherTest;
+import org.conscrypt.javax.crypto.ECDHKeyAgreementTest;
 import org.conscrypt.javax.crypto.KeyGeneratorTest;
 import org.conscrypt.javax.net.ssl.HttpsURLConnectionTest;
 import org.conscrypt.javax.net.ssl.KeyManagerFactoryTest;
@@ -67,6 +72,13 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+        // org.conscrypt tests
+        CertPinManagerTest.class,
+        ChainStrengthAnalyzerTest.class,
+        TrustManagerImplTest.class,
+        // org.conscrypt.ct tests
+        CTVerifierTest.class,
+        SerializationTest.class,
         // java.security tests
         CertificateFactoryTest.class,
         X509CertificateTest.class,
@@ -79,6 +91,7 @@ import org.junit.runners.Suite;
         AlgorithmParametersTestDESede.class,
         AlgorithmParametersTestDH.class,
         AlgorithmParametersTestDSA.class,
+        AlgorithmParametersTestEC.class,
         AlgorithmParametersTestGCM.class,
         AlgorithmParametersTestOAEP.class,
         KeyFactoryTestDH.class,
@@ -94,8 +107,8 @@ import org.junit.runners.Suite;
         // javax.crypto tests
         AeadCipherTest.class,
         CipherBasicsTest.class,
-        // CipherTest.class,  // Lots of weird, broken behaviors in Sun* providers on OpenJDK 7
-        // ECDHKeyAgreementTest.class,  // EC keys are broken on OpenJDK 7
+        CipherTest.class,
+        ECDHKeyAgreementTest.class,
         KeyGeneratorTest.class,
         // javax.net.ssl tests
         HttpsURLConnectionTest.class,
@@ -116,7 +129,7 @@ import org.junit.runners.Suite;
         TrustManagerFactoryTest.class,
         X509KeyManagerTest.class,
 })
-public class ConscryptJava7Suite {
+public class ConscryptSuite {
 
     @BeforeClass
     public static void setupStatic() {
