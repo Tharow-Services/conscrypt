@@ -22,6 +22,30 @@
       "revId": "5e52615f7f5b113992ad8f429954db7fa3a99f79",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "099d92ee_587cd813",
+        "filename": "apex/selftest/boringssl_self_test.rc",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-10-01T09:45:50Z",
+      "side": 1,
+      "message": "Will do.  I\u0027ll also investigate whether it\u0027s possible to use an init_rc property for the non-vendor init code in the selftest blueprint, which would keep everything together.",
+      "parentUuid": "142a737a_9e84e743",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 94
+      },
+      "revId": "5e52615f7f5b113992ad8f429954db7fa3a99f79",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
