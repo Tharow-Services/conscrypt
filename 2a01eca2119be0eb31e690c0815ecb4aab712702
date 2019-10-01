@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "10a7a317_7ecaadc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-10-01T15:17:57Z",
+      "side": 1,
+      "message": "Add a line mentioning your local patch, and perhaps associated bug number for future work",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 21
+      },
+      "revId": "2a01eca2119be0eb31e690c0815ecb4aab712702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6518648c_a6d29310",
+        "filename": "common/src/test/java/org/conscrypt/java/security/AlgorithmParametersTestEC.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-10-01T15:17:57Z",
+      "side": 1,
+      "message": "Should be Android-added (with lowercase \"added\"). Same below.\n\nCan you also refer to http://b/\u003cnumber\u003e here once you\u0027ve filed the bug?",
+      "range": {
+        "startLine": 40,
+        "startChar": 13,
+        "endLine": 40,
+        "endChar": 26
+      },
+      "revId": "2a01eca2119be0eb31e690c0815ecb4aab712702",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
