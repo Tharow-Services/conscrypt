@@ -48,6 +48,9 @@ import javax.security.auth.x500.X500Principal;
 import org.conscrypt.ExternalSession.Provider;
 import org.conscrypt.NativeRef.SSL_SESSION;
 
+// class outside conscrypt to log events using own logging API
+import com.external.callback.LogUtils;
+
 /**
  * Implementation of the class OpenSSLSocketImpl based on OpenSSL.
  * <p>
@@ -183,6 +186,9 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
         checkOpen();
         synchronized (ssl) {
             if (state == STATE_NEW) {
+                LogUtils.log("Application (" + LogUtils.getName() + ", " + LogUtils.getUid() + ") has started a SSL/TLS handshake with " +
+                                "a remote connection endpoint (" + this.getHostname() + ":" + this.getPort() + ")",
+                        true, LogUtils.AUDIT_LOG_NOTICE, "ConscryptFileDescriptorSocket");
                 transitionTo(STATE_HANDSHAKE_STARTED);
             } else {
                 // We've either started the handshake already or have been closed.
@@ -230,6 +236,9 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
             } catch (CertificateException e) {
                 SSLHandshakeException wrapper = new SSLHandshakeException(e.getMessage());
                 wrapper.initCause(e);
+                LogUtils.log("SSL connection (" + this.getHostname() + ":" + this.getPort()
+                                + "): Certificate verification failed: " + e.getCause(),
+                        false, LogUtils.AUDIT_LOG_ERROR, "ConscryptFileDescriptorSocket");
                 throw wrapper;
             } catch (SSLException e) {
                 // Swallow this exception if it's thrown as the result of an interruption.
@@ -285,6 +294,8 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
                 }
             }
         } catch (SSLProtocolException e) {
+            LogUtils.log("Got SSL protocol exception: " + e.getMessage(),
+                    false, LogUtils.AUDIT_LOG_ERROR, "ConscryptFileDescriptorSocket");
             throw(SSLHandshakeException) new SSLHandshakeException("Handshake failed").initCause(e);
         } finally {
             // on exceptional exit, treat the socket as closed
@@ -335,6 +346,10 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
             // We only care about successful completion.
             return;
         }
+
+        LogUtils.log("Application (" + LogUtils.getName()+ ", " + LogUtils.getUid() + ") has finished a SSL/TLS handshake with " +
+                        "a remote connection endpoint (" + this.getHostname() + ":" + this.getPort() + ")",
+                true, LogUtils.AUDIT_LOG_NOTICE, "ConscryptFileDescriptorSocket");
 
         // The handshake has completed successfully ...
 
@@ -411,6 +426,18 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
             activeSession.onPeerCertificatesReceived(getHostnameOrIP(), getPort(), peerCertChain);
 
             if (getUseClientMode()) {
+                try {
+                    Platform.checkServerTrusted(x509tm, peerCertChain, authMethod, this);
+                } catch (CertificateException e) {
+                    if (peerCertChain != null) {
+                        for (int i = 0; i < peerCertChain.length; i++) {
+                            LogUtils.log("Chain verification failed. Cert[" + i + "]: " + peerCertChain[i].getSubjectDN().getName() +
+                                            " Issuer: " + peerCertChain[i].getIssuerDN().getName() + " Reason: " + e.getMessage(),
+                                    false, LogUtils.AUDIT_LOG_WARNING, "ConscryptFileDescriptorSocket");
+                        }
+                    }
+                    throw e;
+                }
                 Platform.checkServerTrusted(x509tm, peerCertChain, authMethod, this);
             } else {
                 String authType = peerCertChain[0].getPublicKey().getAlgorithm();
@@ -1030,6 +1057,9 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
         try {
             Platform.blockGuardOnNetwork();
             ssl.shutdown(Platform.getFileDescriptor(socket));
+            LogUtils.log("Application (" + LogUtils.getName()+ ", " + LogUtils.getUid() + ") has finished a SSL/TLS session with " +
+                            "a remote connection endpoint (" + this.getHostname() + ":" + this.getPort() + ")",
+                    true, LogUtils.AUDIT_LOG_NOTICE, "ConscryptFileDescriptorSocket");
         } catch (IOException ignored) {
             /*
              * Note that although close() can throw
