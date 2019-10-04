@@ -199,6 +199,7 @@ java_library {
         "//device:__subpackages__",
         "//external/robolectric-shadows",
         "//system/apex/tests",
+        "//build/soong/java", // for the dexpreopt module
         ":__subpackages__",
     ],
     installable: true,
