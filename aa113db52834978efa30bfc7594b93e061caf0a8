@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fc2ed26_099d849b",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-10-14T20:31:41Z",
+      "side": 1,
+      "message": "_If_ we want custom log callbacks to be registered then we probably don\u0027t want to call the log function from within the synchronized block; we probably need to log after the end of the synchronized block (although we may compute and store the message to be logged during this block).\n\nDo you care whether the logging is done from this (network) thread, or is a separate thread also fine? (Do you need any same-thread guarantee for safety of memory access or similar?)",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 29
+      },
+      "revId": "aa113db52834978efa30bfc7594b93e061caf0a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d23c306f_fc10faa7",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-10-14T20:31:41Z",
+      "side": 1,
+      "message": "What do you expect the semantics of this boolean argument to be?",
+      "range": {
+        "startLine": 194,
+        "startChar": 24,
+        "endLine": 194,
+        "endChar": 28
+      },
+      "revId": "aa113db52834978efa30bfc7594b93e061caf0a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0357a594_296dee30",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 449,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-10-14T20:31:41Z",
+      "side": 1,
+      "message": "I assume that it is merely an oversight that this line wasn\u0027t dropped in this for-discussion change, since it should be completely replaced by line 434. Please protest otherwise.",
+      "range": {
+        "startLine": 449,
+        "startChar": 0,
+        "endLine": 449,
+        "endChar": 85
+      },
+      "revId": "aa113db52834978efa30bfc7594b93e061caf0a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
