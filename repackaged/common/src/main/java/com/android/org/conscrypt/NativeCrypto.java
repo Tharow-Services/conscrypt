@@ -748,11 +748,6 @@ public final class NativeCrypto {
     private static final String SUPPORTED_PROTOCOL_TLSV1_2 = "TLSv1.2";
     static final String SUPPORTED_PROTOCOL_TLSV1_3 = "TLSv1.3";
 
-    static final String[] SUPPORTED_TLS_1_3_CIPHER_SUITES = new String[] {
-            "TLS_AES_128_GCM_SHA256",
-            "TLS_AES_256_GCM_SHA384",
-            "TLS_CHACHA20_POLY1305_SHA256",
-    };
 
     // SUPPORTED_TLS_1_2_CIPHER_SUITES_SET contains all the supported cipher suites for TLS 1.2,
     // using their Java names.
@@ -761,9 +756,6 @@ public final class NativeCrypto {
     // SUPPORTED_LEGACY_CIPHER_SUITES_SET contains all the supported cipher suites using the legacy
     // OpenSSL-style names.
     private static final Set<String> SUPPORTED_LEGACY_CIPHER_SUITES_SET = new HashSet<String>();
-
-    static final Set<String> SUPPORTED_TLS_1_3_CIPHER_SUITES_SET = new HashSet<String>(
-            Arrays.asList(SUPPORTED_TLS_1_3_CIPHER_SUITES));
 
     /**
      * TLS_EMPTY_RENEGOTIATION_INFO_SCSV is RFC 5746's renegotiation
@@ -842,6 +834,20 @@ public final class NativeCrypto {
         }
     }
 
+    static final String[] SUPPORTED_TLS_1_3_CIPHER_SUITES = HAS_AES_HARDWARE ?
+            new String[] {
+                    "TLS_AES_128_GCM_SHA256",
+                    "TLS_AES_256_GCM_SHA384",
+                    "TLS_CHACHA20_POLY1305_SHA256",
+            } :
+            new String[] {
+                    "TLS_CHACHA20_POLY1305_SHA256",
+                    "TLS_AES_128_GCM_SHA256",
+                    "TLS_AES_256_GCM_SHA384",
+            };
+
+    static final Set<String> SUPPORTED_TLS_1_3_CIPHER_SUITES_SET =
+            new HashSet<String>(Arrays.asList(SUPPORTED_TLS_1_3_CIPHER_SUITES));
     /**
      * Returns 1 if the BoringSSL believes the CPU has AES accelerated hardware
      * instructions. Used to determine cipher suite ordering.
