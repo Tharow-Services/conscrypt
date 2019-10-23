@@ -183,6 +183,8 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
         checkOpen();
         synchronized (ssl) {
             if (state == STATE_NEW) {
+                ConscryptLog.tlsHandshakeStart(
+                        "TLS handshake start %s:%d", getHostname(), getPort());
                 transitionTo(STATE_HANDSHAKE_STARTED);
             } else {
                 // We've either started the handshake already or have been closed.
@@ -230,6 +232,8 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
             } catch (CertificateException e) {
                 SSLHandshakeException wrapper = new SSLHandshakeException(e.getMessage());
                 wrapper.initCause(e);
+                ConscryptLog.tlsCertificateException(
+                        "Connecting to %s:%d: %s", e, getHostname(), getPort(), e);
                 throw wrapper;
             } catch (SSLException e) {
                 // Swallow this exception if it's thrown as the result of an interruption.
