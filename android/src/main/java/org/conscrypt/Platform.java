@@ -527,6 +527,14 @@ final class Platform {
     }
 
     /**
+     * Writes a log entry.
+     */
+    public static void log(
+            String namespace, int entryType, String formatString, Object... formatArgs) {
+        VendorLog.write(namespace, entryType, formatString, formatArgs);
+    }
+
+    /**
      * Logs to the system EventLog system.
      */
     @SuppressWarnings("LiteralClassName")
