@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f90b4bdb_e26814b2",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-11-26T10:32:32Z",
+      "side": 1,
+      "message": "nit, I think \"Conscrypt\" in this context.",
+      "range": {
+        "startLine": 542,
+        "startChar": 29,
+        "endLine": 542,
+        "endChar": 38
+      },
+      "revId": "33d4d30d49a5cb0ca1d0fea0bf56f9bf79f8f63a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
