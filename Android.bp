@@ -195,6 +195,11 @@ java_library {
         "//system/apex/tests",
         ":__subpackages__",
     ],
+    apex_available: [
+        "com.android.conscrypt",
+        "test_com.android.conscrypt",
+        "//apex_available:platform_noinstall",
+    ],
     installable: true,
     hostdex: true,
 
@@ -427,6 +432,10 @@ cc_library_shared {
             enabled: false,
         },
     },
+    apex_available: [
+        "com.android.conscrypt",
+        "test_com.android.conscrypt",
+    ],
 }
 
 // Unbundled Conscrypt jar for use by signapk tool
