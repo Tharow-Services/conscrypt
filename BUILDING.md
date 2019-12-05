@@ -10,10 +10,10 @@ Then to build, run:
 $ ./gradlew build
 ```
 
-To install the artifacts to your Maven local repository for use in your own project, run:
+To publish the artifacts to your Maven local repository for use in your own project, run:
 
 ```bash
-$ ./gradlew install
+$ ./gradlew publishToMavenLocal
 ```
 
 Prerequisites
@@ -127,4 +127,8 @@ To see coverage numbers, run the tests and then execute the jacocoTestReport rul
 ./gradlew check jacocoTestReport
 ```
 
+<<<<<<< HEAD   (58f8e7 Add device SDK for conscrypt module am: 403d50537c)
 The report will be placed in `openjdk/build/reports/jacoco/test/html/index.html`
+=======
+The report will be placed in `openjdk/build/reports/jacoco/test/html/index.html`
+>>>>>>> BRANCH (7a140c Merge pull request #791 from kruton/gha-boringssl)
