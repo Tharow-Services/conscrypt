@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cc1d4752_49356cfc",
+        "filename": "openjdk/src/test/java/org/conscrypt/PlatformTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-06T18:55:29Z",
+      "side": 1,
+      "message": "nit: I get that you\u0027re only integrating an upstream CL, but, what is this change trying to achieve? What\u0027s wrong with the previous assertEquals() code?\n\nIf it\u0027s trying to assertEquals on collections that might be Lists but where the order doesn\u0027t matter, then\n\nassertEquals(new HashSet\u003c\u003e(paramsIn.getSNIMatchers()),\n  new HashSet\u003c\u003e(paramsOut.getSNIMatchers()));\n\nwould still work and be a whole lot more readable. No?",
+      "range": {
+        "startLine": 184,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 0
+      },
+      "revId": "9191b9c66beda56938daabcb38042c4d1bd6ca6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
