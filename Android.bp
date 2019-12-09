@@ -564,3 +564,18 @@ sdk {
         "conscrypt-unbundled",
     ],
 }
+
+// Test SDK exposed by the Conscrypt module.
+sdk {
+    name: "conscrypt-module-test-sdk",
+    java_libs: [
+        // For use by robolectric.
+        "conscrypt",
+        // For use by art tests
+        "conscrypt-testdex",
+    ],
+    java_tests: [
+        // For use by CTS
+        "conscrypt-tests",
+    ],
+}
