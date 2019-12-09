@@ -94,6 +94,30 @@
       "revId": "9191b9c66beda56938daabcb38042c4d1bd6ca6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "30de155b_525998f2",
+        "filename": "openjdk/src/test/java/org/conscrypt/PlatformTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-12-09T18:13:46Z",
+      "side": 1,
+      "message": "Yup, it should be an error if there are dups.  Created https://github.com/google/conscrypt/pull/794 to address it.  Slight overkill but I didn\u0027t want to start migrating to Truth or pull in the Hamcrest libs.",
+      "parentUuid": "521e186d_6da4a6a1",
+      "range": {
+        "startLine": 184,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 0
+      },
+      "revId": "9191b9c66beda56938daabcb38042c4d1bd6ca6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
