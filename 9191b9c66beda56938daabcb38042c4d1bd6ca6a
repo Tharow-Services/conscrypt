@@ -118,6 +118,30 @@
       "revId": "9191b9c66beda56938daabcb38042c4d1bd6ca6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "09c08b4f_ddf2d0bc",
+        "filename": "openjdk/src/test/java/org/conscrypt/PlatformTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-09T21:50:48Z",
+      "side": 1,
+      "message": "\u003e Yup, it should be an error if there are dups.  Created\n\u003e https://github.com/google/conscrypt/pull/794 to address it.  \n\nThat code doesn\u0027t look like it errors on dupes? Also, in case of failure, in most cases one gets an error message that only contains the size of the collection which is not as helpful as the error message from:\n\nassertEquals(new HashSet\u003c\u003e(paramsIn.getSNIMatchers()), new HashSet\u003c\u003e(paramsIn.getSNIMatchers());\n\n\nIf you do want to enforce duplicates, then the following should work?\n\n assertEquals(sniMatcherSet(paramsIn), sniMatcherSet(paramsOut));\n\n\nprivate static\u003cT\u003e Set\u003cSNIMatcher\u003e sniMatcherSet(SSLParameters sslParameters) {\n  Collection\u003cSNIMatcher\u003e collection \u003d sslParameters.getSNIMatchers();\n  Set\u003cSNIMatcher\u003e result \u003d new HashSet\u003c\u003e(collection);\n  assertEquals(\"Should not have duplicates\", result.size(), collection.size());\n  return result;\n}\n\nThis seems vaguely appropriate given that SSLParameters.sniMatchers internally is a HashSet, anyway (but getSNIMatchers() makes a defensive copy into an unmodifiable List).\n\n\u003e Slight overkill but I didn\u0027t want to start migrating to Truth or pull in the Hamcrest libs.\n\nWhy not just use a simple local helper method like above? Can be understood without context (doesn\u0027t require anyone to learn what the semantics of assertContentsEqual are) and doesn\u0027t require everyone to get into the habit of looking into a separate test helpers class?",
+      "parentUuid": "30de155b_525998f2",
+      "range": {
+        "startLine": 184,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 0
+      },
+      "revId": "9191b9c66beda56938daabcb38042c4d1bd6ca6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
