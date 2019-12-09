@@ -70,6 +70,30 @@
       "revId": "9191b9c66beda56938daabcb38042c4d1bd6ca6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "521e186d_6da4a6a1",
+        "filename": "openjdk/src/test/java/org/conscrypt/PlatformTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-09T17:22:41Z",
+      "side": 1,
+      "message": "\u003e Actually, comparing sets directly won\u0027t work as it masks duplicates.  \n\nThe code here also masks duplicates (as in, duplicates in either a or b are ignored).\n\nWould you want them to cause the test to fail?",
+      "parentUuid": "b74f6767_7189ef3e",
+      "range": {
+        "startLine": 184,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 0
+      },
+      "revId": "9191b9c66beda56938daabcb38042c4d1bd6ca6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
