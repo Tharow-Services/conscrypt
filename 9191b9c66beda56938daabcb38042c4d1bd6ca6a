@@ -46,6 +46,30 @@
       "revId": "9191b9c66beda56938daabcb38042c4d1bd6ca6a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b74f6767_7189ef3e",
+        "filename": "openjdk/src/test/java/org/conscrypt/PlatformTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-12-09T15:11:58Z",
+      "side": 1,
+      "message": "Actually, comparing sets directly won\u0027t work as it masks duplicates.  \n\nWe actually declare theTruth as a dependency in build.gradle but don\u0027t use it anywhere (yet), so the best way forward might just be to start our own MoreAsserts class for this kind of thing and maybe consider a large-scale migration to Truth later.",
+      "parentUuid": "33a41d62_fa068390",
+      "range": {
+        "startLine": 184,
+        "startChar": 4,
+        "endLine": 191,
+        "endChar": 0
+      },
+      "revId": "9191b9c66beda56938daabcb38042c4d1bd6ca6a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
