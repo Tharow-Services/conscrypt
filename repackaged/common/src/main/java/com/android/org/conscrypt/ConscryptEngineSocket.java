@@ -432,6 +432,11 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
     }
 
     @Override
+    public void setHandshakeTimeout(int handshakeTimeoutMilliseconds) throws SocketException {
+        // Ignored
+    }
+
+    @Override
     @SuppressWarnings("UnsynchronizedOverridesSynchronized")
     public final void close() throws IOException {
         // TODO: Close SSL sockets using a background thread so they close gracefully.
