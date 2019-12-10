@@ -461,6 +461,16 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
     }
 
     @Override
+    public void setSoWriteTimeout(int writeTimeoutMilliseconds) throws SocketException {
+        // Not supported but ignored rather than throwing for compatibility: b/146041327
+    }
+
+    @Override
+    public void setHandshakeTimeout(int handshakeTimeoutMilliseconds) throws SocketException {
+        // Not supported but ignored rather than throwing for compatibility: b/146041327
+    }
+
+    @Override
     final void setApplicationProtocols(String[] protocols) {
         engine.setApplicationProtocols(protocols);
     }
