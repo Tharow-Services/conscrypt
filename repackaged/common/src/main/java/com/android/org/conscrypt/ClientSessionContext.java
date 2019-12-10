@@ -17,6 +17,7 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,7 +53,7 @@ public final class ClientSessionContext extends AbstractSessionContext {
      * Applications should not use this method. Instead use {@link
      * Conscrypt#setClientSessionCache(SSLContext, SSLClientSessionCache)}.
      */
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     public void setPersistentCache(SSLClientSessionCache persistentCache) {
         this.persistentCache = persistentCache;
@@ -119,7 +120,7 @@ public final class ClientSessionContext extends AbstractSessionContext {
      * @param port of server
      * @return cached session or null if none found
      */
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     private NativeSslSession getSession(String host, int port) {
         if (host == null) {
             return null;

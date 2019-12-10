@@ -17,6 +17,7 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
 import java.io.Serializable;
 import java.security.SecureRandomSpi;
 
@@ -29,7 +30,7 @@ import java.security.SecureRandomSpi;
 public final class OpenSSLRandom extends SecureRandomSpi implements Serializable {
     private static final long serialVersionUID = 8506210602917522861L;
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.IntraCoreApi
     public OpenSSLRandom() {}
 

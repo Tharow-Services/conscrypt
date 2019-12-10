@@ -17,6 +17,8 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
+import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 import java.io.InputStream;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -28,7 +30,6 @@ import java.security.spec.ECParameterSpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 
 /**
  * Represents a BoringSSL {@code EVP_PKEY}.
@@ -38,7 +39,7 @@ final class OpenSSLKey {
 
     private final boolean wrapped;
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     OpenSSLKey(long ctx) {
         this(ctx, false);
     }
@@ -51,7 +52,7 @@ final class OpenSSLKey {
     /**
      * Returns the EVP_PKEY context for use in JNI calls.
      */
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     NativeRef.EVP_PKEY getNativeRef() {
         return ctx;
     }
@@ -60,7 +61,7 @@ final class OpenSSLKey {
         return wrapped;
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     static OpenSSLKey fromPrivateKey(PrivateKey key) throws InvalidKeyException {
         if (key instanceof OpenSSLKeyHolder) {
             return ((OpenSSLKeyHolder) key).getOpenSSLKey();
@@ -263,7 +264,7 @@ final class OpenSSLKey {
         }
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     PublicKey getPublicKey() throws NoSuchAlgorithmException {
         switch (NativeCrypto.EVP_PKEY_type(ctx)) {
             case NativeConstants.EVP_PKEY_RSA:

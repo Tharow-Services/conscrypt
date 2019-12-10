@@ -17,6 +17,8 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
+import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.math.BigInteger;
@@ -50,7 +52,6 @@ import java.util.Set;
 import java.util.TimeZone;
 import javax.crypto.BadPaddingException;
 import javax.security.auth.x500.X500Principal;
-import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 
 /**
  * An implementation of {@link X509Certificate} based on BoringSSL.
@@ -60,8 +61,7 @@ import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 public final class OpenSSLX509Certificate extends X509Certificate {
     private static final long serialVersionUID = 1992239142393372128L;
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
-    private transient final long mContext;
+    @UnsupportedAppUsage private transient final long mContext;
     private transient Integer mHashCode;
 
     private final Date notBefore;
@@ -145,7 +145,7 @@ public final class OpenSSLX509Certificate extends X509Certificate {
         return certs;
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     public static OpenSSLX509Certificate fromX509PemInputStream(InputStream is)
             throws ParsingException {
         @SuppressWarnings("resource")

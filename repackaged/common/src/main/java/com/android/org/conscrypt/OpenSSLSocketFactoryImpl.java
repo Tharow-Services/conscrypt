@@ -20,6 +20,7 @@ package com.android.org.conscrypt;
 import static com.android.org.conscrypt.Platform.createEngineSocket;
 import static com.android.org.conscrypt.Platform.createFileDescriptorSocket;
 
+import android.compat.annotation.UnsupportedAppUsage;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -37,12 +38,11 @@ import javax.net.ssl.SSLSocketFactory;
 final class OpenSSLSocketFactoryImpl extends SSLSocketFactory {
     private static boolean useEngineSocketByDefault = SSLUtils.USE_ENGINE_SOCKET_BY_DEFAULT;
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
-    private final SSLParametersImpl sslParameters;
+    @UnsupportedAppUsage private final SSLParametersImpl sslParameters;
     private final IOException instantiationException;
     private boolean useEngineSocket = useEngineSocketByDefault;
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     OpenSSLSocketFactoryImpl() {
         SSLParametersImpl sslParametersLocal = null;
         IOException instantiationExceptionLocal = null;

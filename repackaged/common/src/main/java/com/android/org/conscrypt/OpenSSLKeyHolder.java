@@ -17,12 +17,13 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
+
 /**
  * Marker interface for classes that hold an {@link OpenSSLKey}.
  * @hide This class is not part of the Android public SDK API
  */
 @Internal
 public interface OpenSSLKeyHolder {
-    @dalvik.annotation.compat.UnsupportedAppUsage
-    OpenSSLKey getOpenSSLKey();
+    @UnsupportedAppUsage OpenSSLKey getOpenSSLKey();
 }

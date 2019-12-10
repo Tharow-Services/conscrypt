@@ -17,6 +17,7 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,19 +30,19 @@ import java.io.InputStream;
 class OpenSSLBIOInputStream extends FilterInputStream {
     private long ctx;
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     OpenSSLBIOInputStream(InputStream is, boolean isFinite) {
         super(is);
 
         ctx = NativeCrypto.create_BIO_InputStream(this, isFinite);
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     long getBioContext() {
         return ctx;
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     void release() {
         NativeCrypto.BIO_free_all(ctx);
     }

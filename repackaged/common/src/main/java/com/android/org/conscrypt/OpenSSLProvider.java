@@ -17,6 +17,7 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
 import java.security.Provider;
 
 /**
@@ -46,7 +47,7 @@ public final class OpenSSLProvider extends Provider {
     private static final String STANDARD_RSA_PUBLIC_KEY_INTERFACE_CLASS_NAME =
             "java.security.interfaces.RSAPublicKey";
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     public OpenSSLProvider() {
         this(Platform.getDefaultProviderName());

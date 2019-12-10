@@ -17,6 +17,7 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -61,15 +62,14 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
         super(socket, hostname, port, autoClose);
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @Override
     public String getHostname() {
         return super.getHostname();
     }
 
-    @dalvik.annotation.
-    compat.UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
-                  publicAlternatives = "Use {@link javax.net.ssl.SSLParameters#setServerNames}.")
+    @UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
+            publicAlternatives = "Use {@link javax.net.ssl.SSLParameters#setServerNames}.")
     @libcore.api.CorePlatformApi
     @Override
     public void
@@ -77,7 +77,7 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
         super.setHostname(hostname);
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @Override
     public String getHostnameOrIP() {
         return super.getHostnameOrIP();
@@ -88,20 +88,20 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
         return super.getFileDescriptor$();
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     @Override
     public void setSoWriteTimeout(int writeTimeoutMilliseconds) throws SocketException {
         super.setSoWriteTimeout(writeTimeoutMilliseconds);
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @Override
     public int getSoWriteTimeout() throws SocketException {
         return super.getSoWriteTimeout();
     }
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     @Override
     public void setHandshakeTimeout(int handshakeTimeoutMilliseconds) throws SocketException {
@@ -111,24 +111,18 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
     @Override
     public abstract SSLSession getHandshakeSession();
 
-    @dalvik.annotation.
-    compat.UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
-                  publicAlternatives =
-                          "Use {@link android.net.ssl.SSLSockets#setUseSessionTickets}.")
+    @UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
+            publicAlternatives = "Use {@link android.net.ssl.SSLSockets#setUseSessionTickets}.")
     @libcore.api.CorePlatformApi
     @Override
     public abstract void
     setUseSessionTickets(boolean useSessionTickets);
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
-    @Override
-    public abstract void setChannelIdEnabled(boolean enabled);
+    @UnsupportedAppUsage @Override public abstract void setChannelIdEnabled(boolean enabled);
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
-    @Override
-    public abstract byte[] getChannelId() throws SSLException;
+    @UnsupportedAppUsage @Override public abstract byte[] getChannelId() throws SSLException;
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     @Override
     public abstract void setChannelIdPrivateKey(PrivateKey privateKey);
@@ -136,7 +130,7 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
     /**
      * @deprecated NPN is not supported
      */
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     @Override
     @Deprecated
@@ -147,7 +141,7 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
     /**
      * @deprecated NPN is not supported
      */
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     @Override
     @Deprecated
@@ -158,8 +152,7 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
     /**
      * @deprecated use {@link #setApplicationProtocols(String[])} instead.
      */
-    @dalvik.annotation.compat.
-    UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
+    @UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
             publicAlternatives =
                     "Use {@link javax.net.ssl.SSLParameters#setApplicationProtocols(java.lang.String[])}.")
     @Override
@@ -172,10 +165,8 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
     /**
      * @deprecated use {@link #getApplicationProtocol()} instead.
      */
-    @dalvik.annotation.
-    compat.UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
-                  publicAlternatives =
-                          "Use {@link javax.net.ssl.SSLSocket#getApplicationProtocol()}.")
+    @UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
+            publicAlternatives = "Use {@link javax.net.ssl.SSLSocket#getApplicationProtocol()}.")
     @libcore.api.CorePlatformApi
     @Override
     @Deprecated
@@ -186,10 +177,9 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
     /**
      * @deprecated Use {@link #setAlpnProtocols(String[])} instead.
      */
-    @dalvik.annotation.
-    compat.UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
-                  publicAlternatives =
-                          "Use {@link javax.net.ssl.SSLParameters#setApplicationProtocols(java.lang.String[])}.")
+    @UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
+            publicAlternatives =
+                    "Use {@link javax.net.ssl.SSLParameters#setApplicationProtocols(java.lang.String[])}.")
     @libcore.api.CorePlatformApi
     @Override
     @Deprecated

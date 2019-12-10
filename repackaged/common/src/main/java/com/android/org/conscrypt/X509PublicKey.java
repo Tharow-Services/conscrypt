@@ -17,6 +17,7 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
 import java.security.PublicKey;
 import java.util.Arrays;
 
@@ -31,7 +32,7 @@ final class X509PublicKey implements PublicKey {
 
     private final byte[] encoded;
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     X509PublicKey(String algorithm, byte[] encoded) {
         this.algorithm = algorithm;
         this.encoded = encoded;

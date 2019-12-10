@@ -17,6 +17,7 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
 import com.android.org.conscrypt.io.IoUtils;
 import java.io.DataInputStream;
 import java.io.File;
@@ -131,7 +132,7 @@ public final class FileClientSessionCache {
             return host + "." + port;
         }
 
-        @dalvik.annotation.compat.UnsupportedAppUsage
+        @UnsupportedAppUsage
         @Override
         public synchronized byte[] getSessionData(String host, int port) {
             /*
@@ -331,7 +332,7 @@ public final class FileClientSessionCache {
      * @throws IOException if the file exists and is not a directory or if
      *  creating the directories fails
      */
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     public static synchronized SSLClientSessionCache usingDirectory(File directory)
             throws IOException {

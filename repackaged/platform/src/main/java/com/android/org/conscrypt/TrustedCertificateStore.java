@@ -17,6 +17,8 @@
 
 package com.android.org.conscrypt;
 
+import android.compat.annotation.UnsupportedAppUsage;
+import com.android.org.conscrypt.io.IoUtils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,7 +38,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import javax.security.auth.x500.X500Principal;
-import com.android.org.conscrypt.io.IoUtils;
 
 /**
  * A source for trusted root certificate authority (CA) certificates
@@ -129,7 +130,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
     private final File addedDir;
     private final File deletedDir;
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     public TrustedCertificateStore() {
         this(PreloadHolder.defaultCaCertsSystemDir, PreloadHolder.defaultCaCertsAddedDir,
@@ -499,7 +500,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
      * @throws CertificateException if there was a problem parsing the
      *             certificates
      */
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @UnsupportedAppUsage
     @libcore.api.CorePlatformApi
     public List<X509Certificate> getCertificateChain(X509Certificate leaf)
             throws CertificateException {
