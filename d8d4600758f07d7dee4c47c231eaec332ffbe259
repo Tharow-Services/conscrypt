@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3c9855_affdd4ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-11T13:41:22Z",
+      "side": 1,
+      "message": "is SSLCertificateSocketFactory the only client? Since that class is deprecated and we\u0027d rather drop it sooner than later, would it be feasible to drop it (and remove the methods from CorePlatformApi) before CorePlatformApi becomes stable? If so, consider filing a bug about it so we don\u0027t forget?",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 12,
+        "endChar": 57
+      },
+      "revId": "d8d4600758f07d7dee4c47c231eaec332ffbe259",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
