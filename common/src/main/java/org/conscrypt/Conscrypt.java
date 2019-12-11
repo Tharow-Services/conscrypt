@@ -263,7 +263,6 @@ public final class Conscrypt {
     /**
      * Configures the default socket to be created for all socket factory instances.
      */
-    @ExperimentalApi
     public static void setUseEngineSocketByDefault(boolean useEngineSocket) {
         OpenSSLSocketFactoryImpl.setUseEngineSocketByDefault(useEngineSocket);
         OpenSSLServerSocketFactoryImpl.setUseEngineSocketByDefault(useEngineSocket);
@@ -272,7 +271,6 @@ public final class Conscrypt {
     /**
      * Configures the socket to be created for the given socket factory instance.
      */
-    @ExperimentalApi
     public static void setUseEngineSocket(SSLSocketFactory factory, boolean useEngineSocket) {
         toConscrypt(factory).setUseEngineSocket(useEngineSocket);
     }
@@ -296,7 +294,6 @@ public final class Conscrypt {
     /**
      * Configures the socket to be created for the given server socket factory instance.
      */
-    @ExperimentalApi
     public static void setUseEngineSocket(SSLServerSocketFactory factory, boolean useEngineSocket) {
         toConscrypt(factory).setUseEngineSocket(useEngineSocket);
     }

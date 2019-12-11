@@ -16,6 +16,9 @@ package com.android.org.conscrypt {
 
   public final class Conscrypt {
     method public static javax.net.ssl.X509TrustManager getDefaultX509TrustManager() throws java.security.KeyManagementException;
+    method public static void setUseEngineSocket(javax.net.ssl.SSLSocketFactory, boolean);
+    method public static void setUseEngineSocket(javax.net.ssl.SSLServerSocketFactory, boolean);
+    method public static void setUseEngineSocketByDefault(boolean);
   }
 
   public interface ConscryptCertStore {

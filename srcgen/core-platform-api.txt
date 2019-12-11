@@ -1,5 +1,8 @@
 method:com.android.org.conscrypt.ClientSessionContext#setPersistentCache(SSLClientSessionCache)
 method:com.android.org.conscrypt.Conscrypt#getDefaultX509TrustManager()
+method:com.android.org.conscrypt.Conscrypt#setUseEngineSocketByDefault(boolean)
+method:com.android.org.conscrypt.Conscrypt#setUseEngineSocket(SSLSocketFactory,boolean)
+method:com.android.org.conscrypt.Conscrypt#setUseEngineSocket(SSLServerSocketFactory,boolean)
 method:com.android.org.conscrypt.FileClientSessionCache#usingDirectory(File)
 method:com.android.org.conscrypt.OpenSSLProvider#OpenSSLProvider()
 method:com.android.org.conscrypt.OpenSSLSocketImpl#getAlpnSelectedProtocol()
