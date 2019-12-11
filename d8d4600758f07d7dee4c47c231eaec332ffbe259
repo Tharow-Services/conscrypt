@@ -22,6 +22,30 @@
       "revId": "d8d4600758f07d7dee4c47c231eaec332ffbe259",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b4adcb8_d24cb86a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-12-11T14:15:04Z",
+      "side": 1,
+      "message": "Unfortunately I don\u0027t think it\u0027s feasible to drop SSLCertificateSocketFactory yet.  \n1) It was only deprecated in API 29\n2) AndroidHttpClient uses it.  That was deprecated in API 23 but is still used in some CTS tests and vendor code.\n\nHow about I scrap this topic and add a no-op implementation of ConscryptEngineSocket.setHandshakeTimeout()?  I tested that last night and it passes TH at least.\n\nWe have the option of adding a working implementation later, or we can document the slight behaviour difference for SSLCertificateSocketFactory. But it lets us land the switch to ConscryptEngineSocket without completely breaking framework or app code.",
+      "parentUuid": "fa3c9855_affdd4ca",
+      "range": {
+        "startLine": 12,
+        "startChar": 24,
+        "endLine": 12,
+        "endChar": 57
+      },
+      "revId": "d8d4600758f07d7dee4c47c231eaec332ffbe259",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
