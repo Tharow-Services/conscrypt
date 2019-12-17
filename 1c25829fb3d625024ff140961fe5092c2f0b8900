@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "074599f5_13f30475",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/ClientSessionContext.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2019-12-17T15:49:20Z",
+      "side": 1,
+      "message": "This is what ./srcgen/generate_android_src.sh does. I just tried to manually fix the indentation, but script reverts it to this one.",
+      "parentUuid": "322c5483_a4bd48e8",
+      "range": {
+        "startLine": 55,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "1c25829fb3d625024ff140961fe5092c2f0b8900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3c88694e_9ef01df6",
         "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/NativeCrypto.java",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-12-17T15:41:21Z",
       "side": 1,
       "message": "newlines removed - was this done by the script? (below too)",
+      "range": {
+        "startLine": 409,
+        "startChar": 4,
+        "endLine": 409,
+        "endChar": 56
+      },
+      "revId": "1c25829fb3d625024ff140961fe5092c2f0b8900",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3aadf1e_2ed744db",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 1061164
+      },
+      "writtenOn": "2019-12-17T15:49:20Z",
+      "side": 1,
+      "message": "Yeap, ./srcgen/generate_android_src.sh",
+      "parentUuid": "3c88694e_9ef01df6",
       "range": {
         "startLine": 409,
         "startChar": 4,
