@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Mathew Inwood <mathewi@google.com>
+Global-Approval+1: Mathew Inwood <mathewi@google.com>
+Submitted-by: satayev <satayev@google.com>
+Submitted-at: Tue, 17 Dec 2019 17:00:12 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1185457
+Project: platform/external/conscrypt
+Branch: refs/heads/master
