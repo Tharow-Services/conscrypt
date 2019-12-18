@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a64957f9_7094d0a4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-18T16:58:29Z",
+      "side": 1,
+      "message": "Is this sufficient for checking that we\u0027re not regressing on the issue / that this is now properly fixed?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 31
+      },
+      "revId": "a165a1c4a10ca7ac6e91b020ae4d6912cc1b4f47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
