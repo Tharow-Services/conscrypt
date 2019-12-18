@@ -22,6 +22,7 @@ namespace.default.link.platform.shared_libs  = libc.so
 namespace.default.link.platform.shared_libs += libm.so
 namespace.default.link.platform.shared_libs += libdl.so
 namespace.default.link.platform.shared_libs += liblog.so
+namespace.default.link.platform.shared_libs += libunwind.so
 namespace.default.link.platform.shared_libs += libclang_rt.hwasan-aarch64-android.so
 
 ###############################################################################
