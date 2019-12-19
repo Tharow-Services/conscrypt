@@ -283,6 +283,12 @@ final class Platform {
         }
     }
 
+    private static final handshakeEmptyMetricsCollector = new HandshakeEmptyMetricsCollector();
+
+    public static HandshakeMetricsCollector getHandshakeMetricsCollector() {
+        return handshakeEmptyMetricsCollector;
+    }
+
     static SSLEngine wrapEngine(ConscryptEngine engine) {
         return new Java8EngineWrapper(engine);
     }

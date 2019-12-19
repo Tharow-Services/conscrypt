@@ -548,6 +548,12 @@ final class Platform {
         }
     }
 
+    private static final handshakeEmptyMetricsCollector = new HandshakeEmptyMetricsCollector();
+    
+    public static HandshakeMetricsCollector getHandshakeMetricsCollector() {
+        return handshakeEmptyMetricsCollector;
+    }
+
     static SSLEngine wrapEngine(ConscryptEngine engine) {
         // For now, don't wrap on Android.
         return engine;
