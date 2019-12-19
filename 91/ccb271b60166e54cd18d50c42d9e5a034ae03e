@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Code-Review+2: Tobias Thierer <tobiast@google.com>
+Code-Review+2: Daulet Zhanguzin <dauletz@google.com>
+Submitted-by: Pete Bentley <prb@google.com>
+Submitted-at: Thu, 19 Dec 2019 11:34:28 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1185460
+Project: platform/external/conscrypt
+Branch: refs/heads/master
