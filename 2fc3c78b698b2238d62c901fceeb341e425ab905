@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "040ae397_61351279",
+        "filename": "common/src/main/java/org/conscrypt/HandshakeMetricsCollector.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-12-20T11:17:13Z",
+      "side": 1,
+      "message": "I think we\u0027re probably going to want a bunch of enums here rather than strings and booleans, although that probably means defining the Westworld atom protos first. Basically we\u0027re going to want to count things like:\nOperation attempted: e.g. TLS connect\nDetails: e.g. selected TLS protocol(s)\nOutcome: success, timeout, handshake failure etc\n\nI think the DNS resolver module implemented this kind of thing well, e.g. https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/proto/android/stats/dnsresolver/dns_resolver.proto\n\nWe do need to ensure we can build outside of AOSP though, which means that if we have to use the enums in common code we might need to have a java copy of them rather than rely on the protobufs :/ \n\nAlso (nit) I\u0027d rename the method to something like \"countOperation\", to make it very that clear we\u0027re not actually logging connections, just counting them.",
+      "range": {
+        "startLine": 29,
+        "startChar": 9,
+        "endLine": 29,
+        "endChar": 19
+      },
+      "revId": "2fc3c78b698b2238d62c901fceeb341e425ab905",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
