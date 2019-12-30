@@ -16,6 +16,24 @@
       "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24a4128d_0853becb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-12-30T16:50:08Z",
+      "side": 1,
+      "message": "Good point.  Removing some of them still results in a successful build and a working device so I guess they got added due to build system limitations at the time we created them.",
+      "parentUuid": "9c36a312_33d3752e",
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
