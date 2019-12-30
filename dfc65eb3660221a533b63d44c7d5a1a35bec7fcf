@@ -52,6 +52,24 @@
       "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d579e4dc_3d353455",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-12-30T17:31:25Z",
+      "side": 1,
+      "message": "I was slightly mistaken. These methods are actually called by reflection from non-Conscrypt code, e.g. java.security.Provider[1] so technically they\u0027re part of the Intra-core API.\n\nHowever the names of the classes to be instantiated are provided by Conscrypt\u0027s own OpenSSLProvider class, so it\u0027s impossible for the provided names to be out of sync with the actual names of the classes (we have tests for that).\n\nSo I\u0027m not convinced that tracking these classes as part of the Intra-core API is the correct thing to do.\n\nThere\u0027s no vendor risk here either, nothing should be constructing these objects except the public JSA methods (e.g. Cipher.getInstance) and the names of the services haven\u0027t changed, just the names of the classes implementing them.\n\nWDYT?\n\n[1] https://android.googlesource.com/platform/libcore/+/refs/heads/master/ojluni/src/main/java/java/security/Provider.java#1608",
+      "parentUuid": "f82e2e43_6df966d9",
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
