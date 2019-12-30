@@ -34,6 +34,24 @@
       "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f82e2e43_6df966d9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-30T17:00:49Z",
+      "side": 1,
+      "message": "What do you propose as the action here (remove them from the IntraCoreApi, revert Conscrypt\u0027s pull/654, investigate whether the OEMs that took Conscrypt module in Q carry changes to e.g. libcore to depend on those APIs, ...)?",
+      "parentUuid": "24a4128d_0853becb",
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
