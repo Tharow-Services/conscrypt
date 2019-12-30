@@ -70,6 +70,24 @@
       "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "147b3082_56d722c0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-30T18:34:16Z",
+      "side": 1,
+      "message": "I don\u0027t follow, where is the name of the class to be instantiated coming from at runtime?\n\nThe code you linked to in [1] doesn\u0027t have any hard coded class names or similar. Are the class names also returned by logic in Conscrypt Module? If so, which API returns them?",
+      "parentUuid": "d579e4dc_3d353455",
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
