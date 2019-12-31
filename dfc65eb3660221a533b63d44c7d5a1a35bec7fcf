@@ -88,6 +88,24 @@
       "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "476ccbf4_03dc8cd4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-12-31T10:56:33Z",
+      "side": 1,
+      "message": "All security providers extend java.security.Provider[1][2].  This base class implements the map from security service name to corresponding implementation class but does not populate it, along with the logic for creating instances of provider classes by reflection.\n\nOpenSSLProvider[3] is Conscrypt\u0027s implementation of Provider.  It populates the map from its constructor[4] using methods from the base class[5].  This is the expected pattern for all providers.  There is no other API to return these class names.  All of the public APIs which return a security service object, e.g. Cipher.getInstance[6] ultimately end up in Provider.newInstance[7].  There is no other API to obtain an instance of these classes and no safe way for application code to reflect for them.\n\nThus: The mapping from security service name to its implementing class are entirely static and local to the provider itself and so I would say do not form part of the intra-core API as they will always be self-consistent.  We could change the class names at will between module versions and it will not break any public APIs.\n\nWhat *is* important is that the security service names which are documented as being available e.g.[8] *are* available, and of course we have tests for that outside of Conscrypt[9][10]\n\n[1] https://developer.android.com/reference/java/security/Provider\n[2] https://android.googlesource.com/platform/libcore/+/refs/heads/master/ojluni/src/main/java/java/security/Provider.java#93\n[3] https://android.googlesource.com/platform/external/conscrypt/+/refs/heads/master/common/src/main/java/org/conscrypt/OpenSSLProvider.java#34\n[4] https://android.googlesource.com/platform/external/conscrypt/+/refs/heads/master/common/src/main/java/org/conscrypt/OpenSSLProvider.java#54\n[5] https://android.googlesource.com/platform/libcore/+/refs/heads/master/ojluni/src/main/java/java/security/Provider.java#327\n[6] https://developer.android.com/reference/javax/crypto/Cipher#getInstance(java.lang.String)\n[7] https://android.googlesource.com/platform/libcore/+/refs/heads/master/ojluni/src/main/java/java/security/Provider.java#1608\n[8] https://developer.android.com/reference/javax/crypto/Cipher (skip down to \"Android provides the following Cipher transformations\")\n[9] https://android.googlesource.com/platform/libcore/+/refs/heads/master/luni/src/test/java/libcore/java/security/ProviderTest.java#79\n[10] https://android.googlesource.com/platform/libcore/+/refs/heads/master/luni/src/test/java/libcore/javax/crypto/CipherTest.java",
+      "parentUuid": "147b3082_56d722c0",
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
