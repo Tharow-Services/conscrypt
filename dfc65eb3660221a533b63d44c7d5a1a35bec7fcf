@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "a792b8c2_365e704b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-31T12:45:02Z",
+      "side": 1,
+      "message": "Please be clearer / more specific, based on offline conversation it seemed you mean something like:\n\n\"Note that running\n\n  diff api/intra/{last,current}-api.txt  \n\nafter this CL shows several API elements that were removed, due to [...]. This is safe because [...]\".\n\nhowever I don\u0027t think it\u0027s true that that CL (moving nested classes out of OpenSSLCipher) explains all of the incompatible changes. For example, DefaultSSLContextImpl and its public ctor, OpenSSLCipherChaCha20, OpenSSLContextImpl, OpenSSLContextImpl.TLSv1 etc., OpenSSLECDHKeyAgreement, OpenSSLECKeyPairGenerator have all disappeared from the @IntraCoreApi and I don\u0027t think the above CL is responsible. How do we know that all of these removals are safe?\n\nPaul: Do you know why the removed API doesn\u0027t cause the check_api step of the build to fail? \n\n    check_api: {\n        current: {\n            api_file: \"api/intra/current-api.txt\",\n            removed_api_file: \"api/intra/current-removed.txt\",\n        },\n        last_released: {\n            api_file: \"api/intra/last-api.txt\",\n            removed_api_file: \"api/intra/last-removed.txt\",\n        },\n    },",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 64
+      },
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c36a312_33d3752e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
@@ -106,6 +129,24 @@
       "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a5ed5d83_6b93c3fd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-31T12:45:02Z",
+      "side": 1,
+      "message": "Thanks! Okay, sounds reasonable to rename Cipher implementation classes. App code that relies on old names would break on R devices anyway, plus it\u0027s not reasonable for an app to rely on an Cipher implementation class name. Also, while the class name isn\u0027t stable, the cipher name is stable, but even for those apps do in general need to deal with ciphers appearing and going away.\n\nSo, it seems reasonable to remove the Cipher implementation class names from the intra-core API.\n\nI\u0027ve also personally confirmed that there are no app string literals containing these class names.",
+      "parentUuid": "476ccbf4_03dc8cd4",
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
