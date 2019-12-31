@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3de7769e_141db17c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2019-12-31T13:41:23Z",
+      "side": 1,
+      "message": "Ugh, Meld\u0027s search function caught me out, I thought it searched both files.  Anyway, I still don\u0027t see any removals there:-\n$ for i in OpenSSLCipherChaCha20 OpenSSLContextImpl OpenSSLECDHKeyAgreement OpenSSLECKeyPairGenerator; do grep \"ctor.*$i\" *; done\ncurrent-api.txt:    ctor public OpenSSLCipherChaCha20();\nlast-api.txt:    ctor public OpenSSLCipherChaCha20();\ncurrent-api.txt:    ctor public OpenSSLContextImpl.TLSv1();\ncurrent-api.txt:    ctor public OpenSSLContextImpl.TLSv11();\ncurrent-api.txt:    ctor public OpenSSLContextImpl.TLSv12();\ncurrent-api.txt:    ctor public OpenSSLContextImpl.TLSv13();\nlast-api.txt:    ctor public OpenSSLContextImpl.TLSv1();\nlast-api.txt:    ctor public OpenSSLContextImpl.TLSv11();\nlast-api.txt:    ctor @dalvik.annotation.compat.UnsupportedAppUsage public OpenSSLContextImpl.TLSv12();\nlast-api.txt:    ctor public OpenSSLContextImpl.TLSv13();\ncurrent-api.txt:    ctor public OpenSSLECDHKeyAgreement();\nlast-api.txt:    ctor public OpenSSLECDHKeyAgreement();\ncurrent-api.txt:    ctor public OpenSSLECKeyPairGenerator();\nlast-api.txt:    ctor public OpenSSLECKeyPairGenerator();\n\n(I\u0027ll remove that UnsupportedAppUsage annotation, it doesn\u0027t belong in here)\n\nI did look at https://r.android.com/789990 earlier but no longer agree with the reasoning for the reasons we discussed.",
+      "parentUuid": "e891628c_a4da9587",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 64
+      },
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c36a312_33d3752e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
