@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "b5a1f592_b84beb28",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-31T14:16:19Z",
+      "side": 1,
+      "message": "\u003e Ugh, Meld\u0027s search function caught me out, I thought it searched both files.  Anyway, I still don\u0027t see any removals there:-\n\u003e $ for i in OpenSSLCipherChaCha20 OpenSSLContextImpl OpenSSLECDHKeyAgreement OpenSSLECKeyPairGenerator; do grep \"ctor.*$i\" *; done\n\u003e current-api.txt:    ctor public OpenSSLCipherChaCha20();\n\u003e last-api.txt:    ctor public OpenSSLCipherChaCha20();\n\nAh, I see. It\u0027s in both files but not in the same place (because of the removals/additions) so diff showed it as both an addition and a removal. Okay, that particular one is fine.\n\nIt does look through like the following ctorwas present in last-api.txt but is missing from current-api.txt:\n\nctor public DefaultSSLContextImpl() throws java.security.GeneralSecurityException, java.io.IOException;\n\nI guess it \"should\" be safe?\n\n(Also, ctor public OpenSSLContextImpl.TLSv12() has lost its @dalvik.annotation.compat.UnsupportedAppUsage annotation, and class DefaultSSLContextImpl lost its \"final\" modifier).\n\n\n\u003e I did look at https://r.android.com/789990 earlier but no longer \n\u003e agree with the reasoning for the reasons we discussed.\n\nI agree that it\u0027s probably safe in this instance, but going forward it still seems that either we need to somehow prove that all identifier names used for this reflective access come from Conscrypt Module without being hard-coded or persisted, or add those identifiers back to the @CorePlatformApi and keep them stable.\n\nPerhaps, as part of a follow-up CL, the API in Conscrypt that takes those Strings and performs reflection should assert that the Strings are \u003d\u003d (identical) to String objects held in Conscrypt\u0027s Provider? This in turn would require Conscrypt to construct String objects that are !\u003d the corresponding intern()\u0027ed version and to keep those objects on the heap for the lifetime of the process in order for the caller to prove that it got the String instance from a Conscrypt API during the runtime of the current process (as opposed to hard coding it or loading it from persistent storage)? WDYT?",
+      "parentUuid": "3de7769e_141db17c",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 64
+      },
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c36a312_33d3752e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
