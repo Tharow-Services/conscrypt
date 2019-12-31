@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e891628c_a4da9587",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2019-12-31T13:23:40Z",
+      "side": 1,
+      "message": "\u003e OpenSSLCipherChaCha20, OpenSSLContextImpl etc were all *added*\n\u003e to the API since qt-release, i.e. they\u0027re in current-api.txt and \n\u003e not last-api.txt. \n\nI don\u0027t think this is correct? This CL here is adding them to last-api.txt\n\n\u003e Aside from the Cipher implementation refactoring, the only removal is the public constructor for DefaultSSLContextImpl.  It\u0027s not used outside Conscrypt so again, I\u0027m not sure why it\u0027s listed in the API.  The public API is SSLContext.getInstance().\n\nThe reason why additional stuff is listed in the @IntraCoreApi is given in https://r.android.com/789990 although I\u0027m not sure if the reason is valid. It seems to say that @IntraCoreApi is needed because libcore code accesses these identifier via reflection, but I\u0027m not sure if that\u0027s a sufficient reason if libcore doesn\u0027t hard code those identifers and only gets them at runtime from invoking Conscrypt APIs.",
+      "parentUuid": "90be9c84_218fe407",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 64
+      },
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c36a312_33d3752e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
