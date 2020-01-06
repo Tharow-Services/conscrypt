@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d326dc7_f1c58f22",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2020-01-06T12:26:53Z",
+      "side": 1,
+      "message": "OOI - Apparent how? I thought if they were noted as incompatibilities the build would fail when it compared current with last...?\n\nIf something *is* flagging them but it\u0027s not fatal, is that something that needs to be fixed?\n\nIf it\u0027s safe to change them, is the problem that the classes were in the API in the first place and they could be removed?",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 10
+      },
+      "revId": "428dc344299eb53f46e686f06ae928bd69df509c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20396a46_59cf6276",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1038039
+      },
+      "writtenOn": "2020-01-06T12:26:53Z",
+      "side": 1,
+      "message": "TODO remove the \"I guess\" / question when you have the answer. Probably document the decision / change here instead.",
+      "range": {
+        "startLine": 17,
+        "startChar": 68,
+        "endLine": 17,
+        "endChar": 72
+      },
+      "revId": "428dc344299eb53f46e686f06ae928bd69df509c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
