@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fc601556_33fe06ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-06T12:39:16Z",
+      "side": 1,
+      "message": "Nothing flagged them and the build succeeded.  However with hindsight from working on http://r.android.com/1200180 I suspect I wasn\u0027t doing enough to trigger the checking, I suspect Soong doesn\u0027t consider the last-api.txt file as a dependency.",
+      "parentUuid": "6d326dc7_f1c58f22",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 10
+      },
+      "revId": "428dc344299eb53f46e686f06ae928bd69df509c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20396a46_59cf6276",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2020-01-06T12:26:53Z",
       "side": 1,
       "message": "TODO remove the \"I guess\" / question when you have the answer. Probably document the decision / change here instead.",
+      "range": {
+        "startLine": 17,
+        "startChar": 68,
+        "endLine": 17,
+        "endChar": 72
+      },
+      "revId": "428dc344299eb53f46e686f06ae928bd69df509c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff5435d8_3ea8e316",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-06T12:39:16Z",
+      "side": 1,
+      "message": "Yeah, I\u0027ll completely rewrite the commit message based on discussions herte",
+      "parentUuid": "20396a46_59cf6276",
       "range": {
         "startLine": 17,
         "startChar": 68,

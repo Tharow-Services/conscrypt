@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "9d823a0f_2029a146",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-06T12:39:16Z",
+      "side": 1,
+      "message": "\u003e\u003e OpenSSLContextImpl.TLSv12() has lost its @dalvik.annotation.compat.UnsupportedAppUsage\n\nThat was my bad, I thought it wasn\u0027t supposed to be there, I\u0027ll put it back and investigate why it isn\u0027t in the current-api file.\n\nThe DefaultSSLContextImpl change is also fine, again it\u0027s not referenced outside the Conscrypt module.",
+      "parentUuid": "b5a1f592_b84beb28",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 64
+      },
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c36a312_33d3752e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
