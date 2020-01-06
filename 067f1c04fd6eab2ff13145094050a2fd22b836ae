@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39e0e7eb_e443cf2c",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-01-06T16:32:37Z",
+      "side": 1,
+      "message": "Are there still implicit build targets for the stub sources and stub library?\n\nIf so, then that would potentially be a downside (build target names that are only generated in soong are not searchable because their full name doesn\u0027t occur in any .bp file). If so, would it be worth exposing them (e.g. by the java_sdk_library target explicitly specifying the full string names of those sub-targets)?",
+      "range": {
+        "startLine": 363,
+        "startChar": 11,
+        "endLine": 363,
+        "endChar": 42
+      },
+      "revId": "067f1c04fd6eab2ff13145094050a2fd22b836ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
