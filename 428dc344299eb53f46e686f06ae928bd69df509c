@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "be7955df_22c1ec0a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-06T12:41:05Z",
+      "side": 1,
+      "message": "That said, I just removed all of out/soong/.intermediates/external/conscrypt and still no errors.  And I would have expected the removal of ctor public DefaultSSLContextImpl() to trigger an error.",
+      "parentUuid": "fc601556_33fe06ec",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 10
+      },
+      "revId": "428dc344299eb53f46e686f06ae928bd69df509c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20396a46_59cf6276",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
