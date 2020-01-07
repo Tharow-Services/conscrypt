@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "147ffd08_6db08213",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-01-07T12:29:37Z",
+      "side": 1,
+      "message": "I\u0027m finding it difficult to review the differences between Android 10\u0027s (Conscrypt part of the ) intra core/coreplatform API vs. what this CL adds as last-api.txt. Would it be possible to upload the previous state (perhaps reordered to minimize the diff) as one patchset of last-api.txt and then upload another patchset of last-api.txt the way you want it? That way, I can review the differences in gerrit by comparing the two patchsets.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "7878e940c491a4c00d7111804515008270339df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
