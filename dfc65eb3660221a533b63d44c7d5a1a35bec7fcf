@@ -193,6 +193,30 @@
     },
     {
       "key": {
+        "uuid": "6ad560fb_18f08d14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2020-01-07T16:04:51Z",
+      "side": 1,
+      "message": "The UnsupportedAppUsage annotation should not be in the current.txt file for a couple of reasons.\n\n1) Generally Metalava only adds annotations to the .txt file if those annotations are defined in that .txt file as d.a.c.UAU is defined in libcore it is not part of conscrypt\u0027s .txt file and so should not be used in there. There is an argument that metalava\u0027s behavior is wrong but that is a separate issue.\n\n2) The d.a.c.UnsupportedAppUsage annotation is not being used anymore, or is in the process of being replaced so having them in the .txt file would just cause future churn.",
+      "parentUuid": "9efac3bb_7c2c5fbe",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 64
+      },
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c36a312_33d3752e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
