@@ -143,7 +143,7 @@ final class OpenSSLSocketFactoryImpl extends SSLSocketFactory {
     @Override
     public Socket createSocket(Socket socket, String hostname, int port, boolean autoClose)
             throws IOException {
-        Preconditions.checkNotNull(socket, "socket");
+        Objects.requireNonNull(socket, "socket");
         if (!socket.isConnected()) {
             throw new SocketException("Socket is not connected.");
         }
