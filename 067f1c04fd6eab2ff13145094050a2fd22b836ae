@@ -22,6 +22,30 @@
       "revId": "067f1c04fd6eab2ff13145094050a2fd22b836ae",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31a833a2_78361f4b",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2020-01-07T11:16:13Z",
+      "side": 1,
+      "message": "Yes. There are up to 6 different sub modules, explicitly specifying names for them would be quite yucky.\n\nAs mentioned elsewhere I think defining a convention for the naming of sub modules that is applied consistently across Soong would be useful but is outside the scope of this change.",
+      "parentUuid": "39e0e7eb_e443cf2c",
+      "range": {
+        "startLine": 363,
+        "startChar": 11,
+        "endLine": 363,
+        "endChar": 42
+      },
+      "revId": "067f1c04fd6eab2ff13145094050a2fd22b836ae",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
