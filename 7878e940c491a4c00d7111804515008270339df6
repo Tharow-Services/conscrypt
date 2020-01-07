@@ -70,6 +70,30 @@
       "revId": "7878e940c491a4c00d7111804515008270339df6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6c28808_2b038a83",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2020-01-07T18:49:29Z",
+      "side": 1,
+      "message": "I think that you have done that within this change, i.e. uploaded PatchSet 5 contains the unchanged contribution of conscrypt to Android 10 APIs and PatchSet 6 contains the changes. While that works those different patch sets are only available in gerrit. I usually do changes like that as two separate changes stacked on top of each other so they are also available in a normal git repository too.",
+      "parentUuid": "a7640911_479ca2da",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "7878e940c491a4c00d7111804515008270339df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
