@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "31c9dd34_0967dd94",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2020-01-07T11:53:47Z",
+      "side": 1,
+      "message": "Pete had done nothing wrong it was just that the \"check compatibility with previously released version of the API\" function was only enabled for api-stubs-docs and system-api-stubs-docs targets. When that was enabled (see https://r.android.com/1199958) for conscrypt targets the incompatibilities were found.",
+      "parentUuid": "be7955df_22c1ec0a",
+      "range": {
+        "startLine": 14,
+        "startChar": 6,
+        "endLine": 14,
+        "endChar": 10
+      },
+      "revId": "428dc344299eb53f46e686f06ae928bd69df509c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20396a46_59cf6276",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
