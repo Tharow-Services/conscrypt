@@ -169,6 +169,30 @@
     },
     {
       "key": {
+        "uuid": "9efac3bb_7c2c5fbe",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-07T12:45:04Z",
+      "side": 1,
+      "message": "No, I believe it should be in current.txt[1][2], but let\u0027s address that separately.\n\n[1] https://android.googlesource.com/platform/external/conscrypt/+/refs/heads/master/srcgen/unsupported-app-usage.json#236\n[2] https://android.googlesource.com/platform/external/conscrypt/+/refs/heads/master/repackaged/common/src/main/java/com/android/org/conscrypt/OpenSSLContextImpl.java#187",
+      "parentUuid": "acc11088_0dfc9945",
+      "range": {
+        "startLine": 13,
+        "startChar": 20,
+        "endLine": 13,
+        "endChar": 64
+      },
+      "revId": "dfc65eb3660221a533b63d44c7d5a1a35bec7fcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c36a312_33d3752e",
         "filename": "/COMMIT_MSG",
         "patchSetId": 1
