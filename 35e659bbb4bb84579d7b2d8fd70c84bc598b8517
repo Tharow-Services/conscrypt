@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "beeef322_6da174f7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-01-09T13:24:59Z",
+      "side": 1,
+      "message": "This is so awesome, thank you!",
+      "range": {
+        "startLine": 9,
+        "startChar": 5,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "35e659bbb4bb84579d7b2d8fd70c84bc598b8517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f80c737f_f1055758",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-01-09T13:24:59Z",
+      "side": 1,
+      "message": "Just checking that I understood it correctly: Are you saying that the APEXes can load libraries from /system/lib, but only if the symlink from /apex/\u003cmodule\u003e/lib to /system/lib exists (which in turn is the case only when the dependency from the apex onto that library is declared at build time)?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 48
+      },
+      "revId": "35e659bbb4bb84579d7b2d8fd70c84bc598b8517",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
