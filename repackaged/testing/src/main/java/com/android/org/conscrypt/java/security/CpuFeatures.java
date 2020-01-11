@@ -34,40 +34,46 @@ import java.util.regex.Pattern;
  * @hide This class is not part of the Android public SDK API
  */
 public class CpuFeatures {
+    static {
+        System.loadLibrary("conscrypttests");
+    }
+
     private CpuFeatures() {}
 
     public static boolean isAESHardwareAccelerated() {
-        List<String> features = getListFromCpuinfo("Features");
-        if (features != null && features.contains("aes")) {
-            return true;
-        }
+        if (isNativeBridgedABI()) {
+            // If we're in an emulated ABI, Conscrypt's NativeCrypto might bridge to
+            // a library that has accelerated AES instructions. See if Conscrypt
+            // detects that condition.
+            Class<?> nativeCrypto = findNativeCrypto();
+            if (nativeCrypto != null) {
+                try {
+                    Method EVP_has_aes_hardware =
+                            nativeCrypto.getDeclaredMethod("EVP_has_aes_hardware");
+                    EVP_has_aes_hardware.setAccessible(true);
+                    return ((Integer) EVP_has_aes_hardware.invoke(null)) == 1;
+                } catch (NoSuchMethodException ignored) {
+                } catch (SecurityException ignored) {
+                } catch (IllegalAccessException ignored) {
+                } catch (IllegalArgumentException ignored) {
+                } catch (InvocationTargetException e) {
+                    throw new IllegalArgumentException(e);
+                }
+            }
+        } else {
+            List<String> features = getListFromCpuinfo("Features");
+            if (features != null && features.contains("aes")) {
+                return true;
+            }
 
-        List<String> flags = getListFromCpuinfo("flags");
-        if (flags != null && flags.contains("aes")) {
-            return true;
-        }
+            List<String> flags = getListFromCpuinfo("flags");
+            if (flags != null && flags.contains("aes")) {
+                return true;
+            }
 
-        features = getCpuFeaturesMac();
-        if (features != null && features.contains("aes")) {
-            return true;
-        }
-
-        // If we're in an emulated ABI, Conscrypt's NativeCrypto might bridge to
-        // a library that has accelerated AES instructions. See if Conscrypt
-        // detects that condition.
-        Class<?> nativeCrypto = findNativeCrypto();
-        if (nativeCrypto != null) {
-            try {
-                Method EVP_has_aes_hardware =
-                        nativeCrypto.getDeclaredMethod("EVP_has_aes_hardware");
-                EVP_has_aes_hardware.setAccessible(true);
-                return ((Integer) EVP_has_aes_hardware.invoke(null)) == 1;
-            } catch (NoSuchMethodException ignored) {
-            } catch (SecurityException ignored) {
-            } catch (IllegalAccessException ignored) {
-            } catch (IllegalArgumentException ignored) {
-            } catch (InvocationTargetException e) {
-                throw new IllegalArgumentException(e);
+            features = getCpuFeaturesMac();
+            if (features != null && features.contains("aes")) {
+                return true;
             }
         }
 
@@ -148,4 +154,6 @@ public class CpuFeatures {
 
         return null;
     }
+
+    private static native boolean isNativeBridgedABI();
 }

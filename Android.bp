@@ -521,6 +521,19 @@ java_test {
     java_version: "1.7",
 }
 
+// Test JNI library.
+cc_library_shared {
+    name: "libconscrypttests",
+    visibility: [
+        "//cts/tests/libcore/luni",
+    ],
+    host_supported: true,
+
+    srcs: [
+        "testing/src/main/native/com_android_org_conscrypt_java_security_CpuFeatures.cpp",
+    ],
+}
+
 // Make the conscrypt-benchmarks library.
 java_test {
     name: "conscrypt-benchmarks",
