@@ -94,6 +94,30 @@
       "revId": "7878e940c491a4c00d7111804515008270339df6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf6d1f5f_61075103",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-27T17:52:44Z",
+      "side": 1,
+      "message": "Current and last API files are now identical which should make things easier.",
+      "parentUuid": "c6c28808_2b038a83",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 42
+      },
+      "revId": "7878e940c491a4c00d7111804515008270339df6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
