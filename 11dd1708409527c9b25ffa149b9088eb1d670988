@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34aff2b3_3fc61e9b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-01-29T18:40:11Z",
+      "side": 1,
+      "message": "Consider folding into the first line?\n\n\"Enable engine-based SSLSocket by default, attempt 2.\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "11dd1708409527c9b25ffa149b9088eb1d670988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15faed60_9db6c980",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-01-29T18:40:11Z",
+      "side": 1,
+      "message": "please be clear. You probably mean: by https://r.android.com/1218626",
+      "range": {
+        "startLine": 13,
+        "startChar": 44,
+        "endLine": 13,
+        "endChar": 54
+      },
+      "revId": "11dd1708409527c9b25ffa149b9088eb1d670988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fcc1c35_2ef318ba",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-01-29T18:40:11Z",
+      "side": 1,
+      "message": "nit: terminology. How about \"internal testers\", or even something like:\n\n\"All tests pass, and we won\u0027t get further confidence until this change hits internal testers, which is still a while away. Therefore, I have not prepared a revert CL at this point.\"",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 25
+      },
+      "revId": "11dd1708409527c9b25ffa149b9088eb1d670988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
