@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0a34ba17_5e59e7a4",
+        "filename": "testing/src/main/java/org/conscrypt/java/security/CpuFeatures.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1069898
+      },
+      "writtenOn": "2020-01-30T20:49:02Z",
+      "side": 1,
+      "message": "The essential part of native code isn\u0027t uname() itself, which only returns the arch supported by the host. The essential part are macroses that determine the target arch for the native code  (\"#if defined(__i386__)\" and such). If it\u0027s different from what host supports, we conclude that native code is running under emulation. I don\u0027t think we can determine that on java side.",
+      "parentUuid": "e5d124a7_c5837ce7",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "3cec4159df307293b022e2c1b56cf9cdfecbae99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f249525_69e2255a",
         "filename": "testing/src/main/native/com_android_org_conscrypt_java_security_CpuFeatures.cpp",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2020-01-30T17:48:37Z",
       "side": 1,
       "message": "Can we not use uname(2) here?  http://man7.org/linux/man-pages/man2/uname.2.html\n\nThen just looking at the machine field of the struct utsname.",
+      "revId": "3cec4159df307293b022e2c1b56cf9cdfecbae99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71ef5995_a075ec5c",
+        "filename": "testing/src/main/native/com_android_org_conscrypt_java_security_CpuFeatures.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1069898
+      },
+      "writtenOn": "2020-01-30T20:49:02Z",
+      "side": 1,
+      "message": "Good point, I\u0027ll give it a try.",
+      "parentUuid": "5f249525_69e2255a",
       "revId": "3cec4159df307293b022e2c1b56cf9cdfecbae99",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
