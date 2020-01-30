@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1d3acde7_f0235405",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-30T11:20:25Z",
+      "side": 1,
+      "message": "Dropped it. It\u0027s not all that relevant.",
+      "parentUuid": "34aff2b3_3fc61e9b",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "11dd1708409527c9b25ffa149b9088eb1d670988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "15faed60_9db6c980",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "d8ca68c6_792b6270",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-30T11:20:25Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "15faed60_9db6c980",
+      "range": {
+        "startLine": 13,
+        "startChar": 44,
+        "endLine": 13,
+        "endChar": 54
+      },
+      "revId": "11dd1708409527c9b25ffa149b9088eb1d670988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fcc1c35_2ef318ba",
         "filename": "/COMMIT_MSG",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "11dd1708409527c9b25ffa149b9088eb1d670988",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d2617a8f_1182d39f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-30T11:20:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8fcc1c35_2ef318ba",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 25
+      },
+      "revId": "11dd1708409527c9b25ffa149b9088eb1d670988",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
