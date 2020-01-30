@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e7ced9af_5e0946d4",
+        "filename": "apex/tests/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-30T17:24:48Z",
+      "side": 1,
+      "message": "Don\u0027t think you\u0027ll need this unless you start using androidx.core.os.BuildCompat, but feel free to leave it in for now to avoid needing another patch set.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 29
+      },
+      "revId": "b4609029302ae907731f9be7b31b3d42e3792440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
