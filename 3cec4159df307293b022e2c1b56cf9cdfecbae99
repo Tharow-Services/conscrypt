@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e5d124a7_c5837ce7",
+        "filename": "testing/src/main/java/org/conscrypt/java/security/CpuFeatures.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-30T17:48:37Z",
+      "side": 1,
+      "message": "Actually, I think you can do this without native code at all, see https://developer.android.com/reference/android/system/Os#uname()",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "3cec4159df307293b022e2c1b56cf9cdfecbae99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f249525_69e2255a",
+        "filename": "testing/src/main/native/com_android_org_conscrypt_java_security_CpuFeatures.cpp",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-01-30T17:48:37Z",
+      "side": 1,
+      "message": "Can we not use uname(2) here?  http://man7.org/linux/man-pages/man2/uname.2.html\n\nThen just looking at the machine field of the struct utsname.",
+      "revId": "3cec4159df307293b022e2c1b56cf9cdfecbae99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
