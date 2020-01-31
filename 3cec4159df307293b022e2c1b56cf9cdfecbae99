@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "4f614e33_75c6a764",
+        "filename": "testing/src/main/java/org/conscrypt/java/security/CpuFeatures.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1069898
+      },
+      "writtenOn": "2020-01-31T18:38:54Z",
+      "side": 1,
+      "message": "My goal is to fix the test, so it\u0027s absolutely fine with me \u003d). I didn\u0027t suggest it myself since @kroot thought that it\u0027d be a tautological way of testing things (see https://b.corp.google.com/issues/27908488#comment33).\n\nBtw, we\u0027d appreciate prioritizing the fix since it\u0027s the only remaining CTS failure for some devices (see b/148428955).",
+      "parentUuid": "b395d733_b8b3d7e7",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 35
+      },
+      "revId": "3cec4159df307293b022e2c1b56cf9cdfecbae99",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f249525_69e2255a",
         "filename": "testing/src/main/native/com_android_org_conscrypt_java_security_CpuFeatures.cpp",
         "patchSetId": 1
