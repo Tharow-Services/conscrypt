@@ -31,7 +31,6 @@ import org.junit.runners.JUnit4;
 public class KeyFactoryTestRSA extends
         AbstractKeyFactoryTest<RSAPublicKeySpec, RSAPrivateKeySpec> {
 
-    @SuppressWarnings("unchecked")
     public KeyFactoryTestRSA() {
         super("RSA", RSAPublicKeySpec.class, RSAPrivateKeySpec.class);
     }
