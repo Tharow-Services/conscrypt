@@ -37,7 +37,6 @@ import javax.net.ssl.TrustManager;
  * <p>Public to allow contruction via the provider framework.
  * @hide This class is not part of the Android public SDK API
  */
-@libcore.api.IntraCoreApi
 @Internal
 public abstract class OpenSSLContextImpl extends SSLContextSpi {
     /**
@@ -59,7 +58,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
     SSLParametersImpl sslParameters;
 
     /** Allows outside callers to get the preferred SSLContext. */
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @android.compat.annotation.UnsupportedAppUsage
     static OpenSSLContextImpl getPreferred() {
         return new TLSv13();
     }
@@ -71,7 +70,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
     }
 
     // BEGIN Android-added: Restore missing constructor that is used by apps
-    @dalvik.annotation.compat.UnsupportedAppUsage
+    @android.compat.annotation.UnsupportedAppUsage
     private OpenSSLContextImpl() throws GeneralSecurityException, IOException {
         this(NativeCrypto.TLSV13_PROTOCOLS, true);
     }
@@ -170,9 +169,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
      * Public to allow construction via the provider framework.
      * @hide This class is not part of the Android public SDK API
      */
-    @libcore.api.IntraCoreApi
     public static final class TLSv13 extends OpenSSLContextImpl {
-        @libcore.api.IntraCoreApi
         public TLSv13() {
             super(NativeCrypto.TLSV13_PROTOCOLS);
         }
@@ -182,10 +179,8 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
      * Public to allow construction via the provider framework.
      * @hide This class is not part of the Android public SDK API
      */
-    @libcore.api.IntraCoreApi
     public static final class TLSv12 extends OpenSSLContextImpl {
-        @dalvik.annotation.compat.UnsupportedAppUsage
-        @libcore.api.IntraCoreApi
+        @android.compat.annotation.UnsupportedAppUsage
         public TLSv12() {
             super(NativeCrypto.TLSV12_PROTOCOLS);
         }
@@ -195,9 +190,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
      * Public to allow construction via the provider framework.
      * @hide This class is not part of the Android public SDK API
      */
-    @libcore.api.IntraCoreApi
     public static final class TLSv11 extends OpenSSLContextImpl {
-        @libcore.api.IntraCoreApi
         public TLSv11() {
             super(NativeCrypto.TLSV11_PROTOCOLS);
         }
@@ -207,9 +200,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
      * Public to allow construction via the provider framework.
      * @hide This class is not part of the Android public SDK API
      */
-    @libcore.api.IntraCoreApi
     public static final class TLSv1 extends OpenSSLContextImpl {
-        @libcore.api.IntraCoreApi
         public TLSv1() {
             super(NativeCrypto.TLSV1_PROTOCOLS);
         }

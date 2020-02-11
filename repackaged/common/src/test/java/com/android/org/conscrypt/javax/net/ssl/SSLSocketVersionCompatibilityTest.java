@@ -419,6 +419,7 @@ public class SSLSocketVersionCompatibilityTest {
                         handshakeCompletedListenerCalled.notify();
                     }
                     handshakeCompletedListenerCalled[0] = true;
+                    socket.removeHandshakeCompletedListener(this);
                 } catch (RuntimeException e) {
                     throw e;
                 } catch (Exception e) {
@@ -1441,6 +1442,53 @@ public class SSLSocketVersionCompatibilityTest {
             }
         }
 
+        wrapping.close();
+
+        clientFuture.get();
+        server.close();
+    }
+
+    /**
+     * Test to confirm that an SSLSocket.close() on one
+     * thread will interrupt another thread blocked writing on the same
+     * socket.
+     *
+     * See also b/147323301 where close() triggered an infinite loop instead.
+     */
+    @Test
+    public void test_SSLSocket_interrupt_write_withAutoclose() throws Exception {
+        final TestSSLContext c = new TestSSLContext.Builder()
+                                         .clientProtocol(clientVersion)
+                                         .serverProtocol(serverVersion)
+                                         .build();
+        final Socket underlying = new Socket(c.host, c.port);
+        final SSLSocket wrapping = (SSLSocket) c.clientContext.getSocketFactory().createSocket(
+                underlying, c.host.getHostName(), c.port, true);
+        final byte[] data = new byte[1024 * 64];
+
+        Future<Void> clientFuture = runAsync(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                wrapping.startHandshake();
+                try {
+                    for (int i = 0; i < 64; i++) {
+                        wrapping.getOutputStream().write(data);
+                    }
+                    // Failure here means that no exception was thrown, so the data buffer is
+                    // probably too small.
+                    fail();
+                } catch (SocketException expected) {
+                    assertTrue(expected.getMessage().contains("closed"));
+                }
+                return null;
+            }
+        });
+        SSLSocket server = (SSLSocket) c.serverSocket.accept();
+        server.startHandshake();
+
+        // Read one byte so that both ends are in a fully connected state and data has
+        // started to flow, and then close the socket from this thread.
+        int unused = server.getInputStream().read();
         wrapping.close();
 
         clientFuture.get();

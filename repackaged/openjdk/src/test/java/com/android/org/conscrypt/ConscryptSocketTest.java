@@ -25,8 +25,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyListOf;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.when;
 
 import java.io.IOException;
@@ -62,6 +62,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 /**
@@ -290,6 +291,9 @@ public class ConscryptSocketTest {
             AbstractConscryptSocket socket =
                     socketType.newClientSocket(createContext(), listener, underlyingSocketType);
             socket.setHostname(hostname);
+            // getApplicationProtocol should initially return null and not trigger handshake:
+            // b/146235331
+            assertNull(Conscrypt.getApplicationProtocol(socket));
             if (alpnProtocols != null) {
                 Conscrypt.setApplicationProtocols(socket, alpnProtocols);
             }
@@ -474,7 +478,8 @@ public class ConscryptSocketTest {
 
         // Configure server selector
         ApplicationProtocolSelector selector = Mockito.mock(ApplicationProtocolSelector.class);
-        when(selector.selectApplicationProtocol(any(SSLSocket.class), anyListOf(String.class)))
+        when(selector.selectApplicationProtocol(
+                     any(SSLSocket.class), ArgumentMatchers.<String>anyList()))
                 .thenReturn("spdy/2");
         c.serverHooks.alpnProtocolSelector = selector;
 
@@ -494,7 +499,8 @@ public class ConscryptSocketTest {
 
         // Configure server selector
         ApplicationProtocolSelector selector = Mockito.mock(ApplicationProtocolSelector.class);
-        when(selector.selectApplicationProtocol(any(SSLSocket.class), anyListOf(String.class)))
+        when(selector.selectApplicationProtocol(
+                     any(SSLSocket.class), ArgumentMatchers.<String>anyList()))
                 .thenReturn("h2");
         c.serverHooks.alpnProtocolSelector = selector;
 
@@ -629,15 +635,23 @@ public class ConscryptSocketTest {
 
     @Test
     public void savedSessionWorksAfterClose() throws Exception {
+        String alpnProtocol = "spdy/2";
+        String[] alpnProtocols = new String[] {alpnProtocol};
         TestConnection connection = new TestConnection(new X509Certificate[] {cert, ca}, certKey);
+        connection.clientHooks.alpnProtocols = alpnProtocols;
+        connection.serverHooks.alpnProtocols = alpnProtocols;
         connection.doHandshakeSuccess();
 
         SSLSession session = connection.client.getSession();
         String cipherSuite = session.getCipherSuite();
+        String protocol = session.getProtocol();
+        assertEquals(alpnProtocol, Conscrypt.getApplicationProtocol(connection.client));
 
         connection.client.close();
 
         assertEquals(cipherSuite, session.getCipherSuite());
+        assertEquals(protocol, session.getProtocol());
+        assertEquals(alpnProtocol, Conscrypt.getApplicationProtocol(connection.client));
     }
 
     private static ServerSocket newServerSocket() throws IOException {

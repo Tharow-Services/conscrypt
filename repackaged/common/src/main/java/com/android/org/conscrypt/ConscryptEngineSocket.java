@@ -234,7 +234,8 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
                     case NEED_UNWRAP:
                         if (in.processDataFromSocket(EmptyArray.BYTE, 0, 0) < 0) {
                             // Can't complete the handshake due to EOF.
-                            throw SSLUtils.toSSLHandshakeException(new EOFException());
+                            throw SSLUtils.toSSLHandshakeException(
+                                    new EOFException("connection closed"));
                         }
                         break;
                     case NEED_WRAP: {
@@ -459,12 +460,17 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
             // Close the engine.
             engine.closeInbound();
             engine.closeOutbound();
-            
+
             // Release any resources we're holding
             if (in != null) {
                 in.release();
             }
         }
+    }
+
+    @Override
+    public void setHandshakeTimeout(int handshakeTimeoutMilliseconds) throws SocketException {
+        // Not supported but ignored rather than throwing for compatibility: b/146041327
     }
 
     @Override
@@ -634,6 +640,9 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
                 if (len != buffer.remaining()) {
                     throw new SSLException("Engine did not read the correct number of bytes");
                 }
+                if (engineResult.getStatus() == CLOSED && engineResult.bytesProduced() == 0) {
+                    throw new SocketException("Socket closed");
+                }
 
                 target.flip();
 
@@ -721,7 +730,7 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
                 if (count != 1) {
                     throw new SSLException("read incorrect number of bytes " + count);
                 }
-                return (int) singleByte[0];
+                return singleByte[0] & 0xff;
             }
         }
 

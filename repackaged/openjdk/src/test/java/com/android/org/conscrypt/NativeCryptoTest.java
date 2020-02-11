@@ -36,9 +36,14 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.mockito.Matchers.same;
+import static org.mockito.ArgumentMatchers.same;
 import static org.mockito.Mockito.when;
 
+import com.android.org.conscrypt.NativeCrypto.SSLHandshakeCallbacks;
+import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
+import com.android.org.conscrypt.io.IoUtils;
+import com.android.org.conscrypt.java.security.StandardNames;
+import com.android.org.conscrypt.java.security.TestKeyStore;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileDescriptor;
@@ -78,16 +83,11 @@ import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLProtocolException;
 import javax.security.auth.x500.X500Principal;
-import com.android.org.conscrypt.NativeCrypto.SSLHandshakeCallbacks;
-import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
-import com.android.org.conscrypt.io.IoUtils;
-import com.android.org.conscrypt.java.security.StandardNames;
-import com.android.org.conscrypt.java.security.TestKeyStore;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
 /**
@@ -98,7 +98,7 @@ public class NativeCryptoTest {
     private static final long NULL = 0;
     private static final FileDescriptor INVALID_FD = new FileDescriptor();
     private static final SSLHandshakeCallbacks DUMMY_CB =
-            new TestSSLHandshakeCallbacks(null, 0, null);
+            new TestSSLHandshakeCallbacks(null, 0, null, null);
 
     private static final long TIMEOUT_SECONDS = 5;
 
@@ -744,11 +744,14 @@ public class NativeCryptoTest {
         private final Socket socket;
         private final long sslNativePointer;
         private final Hooks hooks;
+        private final ApplicationProtocolSelectorAdapter alpnSelector;
 
-        TestSSLHandshakeCallbacks(Socket socket, long sslNativePointer, Hooks hooks) {
+        TestSSLHandshakeCallbacks(Socket socket, long sslNativePointer, Hooks hooks,
+                ApplicationProtocolSelectorAdapter alpnSelector) {
             this.socket = socket;
             this.sslNativePointer = sslNativePointer;
             this.hooks = hooks;
+            this.alpnSelector = alpnSelector;
         }
 
         private long[] certificateChainRefs;
@@ -893,6 +896,14 @@ public class NativeCryptoTest {
         public void serverCertificateRequested() {
             serverCertificateRequestedInvoked = true;
         }
+
+        @Override
+        public int selectApplicationProtocol(byte[] protocols) {
+            if (alpnSelector == null) {
+                fail("Should not be called when no alpnSelector");
+            }
+            return alpnSelector.selectApplicationProtocol(protocols);
+        }
     }
 
     static class ClientHooks extends Hooks {
@@ -1004,7 +1015,7 @@ public class NativeCryptoTest {
                                                           listener.getLocalPort())
                                                 : listener.accept());
                         if (timeout == -1) {
-                            return new TestSSLHandshakeCallbacks(socket, 0, null);
+                            return new TestSSLHandshakeCallbacks(socket, 0, null, null);
                         }
                         FileDescriptor fd =
                                 (FileDescriptor) m_Platform_getFileDescriptor.invoke(
@@ -1012,7 +1023,7 @@ public class NativeCryptoTest {
                         long c = hooks.getContext();
                         long s = hooks.beforeHandshake(c);
                         TestSSLHandshakeCallbacks callback =
-                                new TestSSLHandshakeCallbacks(socket, s, hooks);
+                                new TestSSLHandshakeCallbacks(socket, s, hooks, alpnSelector);
                         hooks.configureCallbacks(callback);
                         if (DEBUG) {
                             System.out.println("ssl=0x" + Long.toString(s, 16) + " handshake"
@@ -1031,7 +1042,7 @@ public class NativeCryptoTest {
                                 NativeCrypto.setApplicationProtocols(s, null, client, alpnProtocols);
                             }
                             if (!client && alpnSelector != null) {
-                                NativeCrypto.setApplicationProtocolSelector(s, null, alpnSelector);
+                                NativeCrypto.setHasApplicationProtocolSelector(s, null, true);
                             }
                             NativeCrypto.SSL_do_handshake(s, null, fd, callback, timeout);
                             session = NativeCrypto.SSL_get1_session(s, null);
@@ -2111,7 +2122,7 @@ public class NativeCryptoTest {
         ApplicationProtocolSelector selector = Mockito.mock(ApplicationProtocolSelector.class);
         SSLEngine engine = Mockito.mock(SSLEngine.class);
         ApplicationProtocolSelectorAdapter adapter = new ApplicationProtocolSelectorAdapter(engine, selector);
-        when(selector.selectApplicationProtocol(same(engine), Matchers.anyListOf(String.class)))
+        when(selector.selectApplicationProtocol(same(engine), ArgumentMatchers.<String>anyList()))
                 .thenReturn("spdy/2");
 
         ServerSocket listener = newServerSocket();
@@ -2150,7 +2161,7 @@ public class NativeCryptoTest {
         ApplicationProtocolSelector selector = Mockito.mock(ApplicationProtocolSelector.class);
         SSLEngine engine = Mockito.mock(SSLEngine.class);
         ApplicationProtocolSelectorAdapter adapter = new ApplicationProtocolSelectorAdapter(engine, selector);
-        when(selector.selectApplicationProtocol(same(engine), Matchers.anyListOf(String.class)))
+        when(selector.selectApplicationProtocol(same(engine), ArgumentMatchers.<String>anyList()))
                 .thenReturn("h2");
 
         ServerSocket listener = newServerSocket();
@@ -3132,6 +3143,7 @@ public class NativeCryptoTest {
         long pkeyCtx = getRawPkeyCtxForEncrypt();
         NativeRef.EVP_PKEY_CTX holder = new NativeRef.EVP_PKEY_CTX(pkeyCtx);
         NativeCrypto.EVP_PKEY_CTX_set_rsa_mgf1_md(pkeyCtx, NULL);
+        assertNotNull(holder);
     }
 
     @Test(expected = NullPointerException.class)
@@ -3142,8 +3154,9 @@ public class NativeCryptoTest {
     @Test(expected = NullPointerException.class)
     public void EVP_PKEY_CTX_set_rsa_oaep_md_NullMdCtx() throws Exception {
         long pkeyCtx = getRawPkeyCtxForEncrypt();
-        new NativeRef.EVP_PKEY_CTX(pkeyCtx);
+        NativeRef.EVP_PKEY_CTX holder = new NativeRef.EVP_PKEY_CTX(pkeyCtx);
         NativeCrypto.EVP_PKEY_CTX_set_rsa_oaep_md(pkeyCtx, NULL);
+        assertNotNull(holder);
     }
 
     @Test(expected = ParsingException.class)

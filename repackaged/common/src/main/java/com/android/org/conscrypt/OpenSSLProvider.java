@@ -32,6 +32,8 @@ import java.security.Provider;
  * </ul>
  * @hide This class is not part of the Android public SDK API
  */
+@libcore.
+api.IntraCoreApi
 @libcore.api.CorePlatformApi
 @Internal
 public final class OpenSSLProvider extends Provider {
@@ -46,9 +48,12 @@ public final class OpenSSLProvider extends Provider {
     private static final String STANDARD_RSA_PUBLIC_KEY_INTERFACE_CLASS_NAME =
             "java.security.interfaces.RSAPublicKey";
 
-    @dalvik.annotation.compat.UnsupportedAppUsage
-    @libcore.api.CorePlatformApi
-    public OpenSSLProvider() {
+    @android.compat.annotation
+            .UnsupportedAppUsage
+            @libcore.api
+            .IntraCoreApi
+            @libcore.api.CorePlatformApi
+            public OpenSSLProvider() {
         this(Platform.getDefaultProviderName());
     }
 
