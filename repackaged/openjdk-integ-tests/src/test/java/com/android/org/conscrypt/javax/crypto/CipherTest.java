@@ -55,7 +55,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import javax.crypto.AEADBadTagException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -479,11 +478,6 @@ public final class CipherTest {
 
     private static String providerKey(String algorithm, String provider) {
         return algorithm + ":" + provider;
-    }
-
-    private static boolean isKnownAlgorithm(String algorithm) {
-        algorithm = algorithm.toUpperCase(Locale.US);
-        return EXPECTED_BLOCK_SIZE.containsKey(algorithm);
     }
 
     private static void setExpectedSize(Map<String, Integer> map,
@@ -1006,37 +1000,6 @@ public final class CipherTest {
         Set<String> seenBaseCipherNames = new HashSet<String>();
         Set<String> seenCiphersWithModeAndPadding = new HashSet<String>();
 
-        String[] expectedAlgorithms = {
-            "RSA/ECB/OAEPPADDING:1",
-            "RSA/ECB/OAEPPADDING:2",
-            "RSA/ECB/OAEPPADDING:SUNJCE",
-
-            "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING:1",
-            "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING:2",
-            "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING:SUNJCE",
-            "RSA/ECB/OAEPWITHSHA-224ANDMGF1PADDING:1",
-            "RSA/ECB/OAEPWITHSHA-224ANDMGF1PADDING:2",
-            "RSA/ECB/OAEPWITHSHA-224ANDMGF1PADDING:SUNJCE",
-            "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING:1",
-            "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING:2",
-            "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING:SUNJCE",
-            "RSA/ECB/OAEPWITHSHA-384ANDMGF1PADDING:1",
-            "RSA/ECB/OAEPWITHSHA-384ANDMGF1PADDING:2",
-            "RSA/ECB/OAEPWITHSHA-384ANDMGF1PADDING:SUNJCE",
-            "RSA/ECB/OAEPWITHSHA-512ANDMGF1PADDING:1",
-            "RSA/ECB/OAEPWITHSHA-512ANDMGF1PADDING:2",
-            "RSA/ECB/OAEPWITHSHA-512ANDMGF1PADDING:SUNJCE",
-
-            "RSA:1",
-            "RSA:1:BC",
-            "RSA:2",
-            "RSA:SUNJCE",
-        };
-
-        Set<String> unvisitedAlgorithms = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
-        unvisitedAlgorithms.addAll(EXPECTED_BLOCK_SIZE.keySet());
-        unvisitedAlgorithms.removeAll(Arrays.asList(expectedAlgorithms));
-
         Provider[] providers = Security.getProviders();
         for (Provider provider : providers) {
             Set<Provider.Service> services = provider.getServices();
@@ -1047,9 +1010,6 @@ public final class CipherTest {
                 }
 
                 String algorithm = service.getAlgorithm().toUpperCase(Locale.US);
-                if (!isKnownAlgorithm(algorithm)) {
-                    continue;
-                }
 
                 /*
                  * Any specific modes and paddings aren't tested directly here,
@@ -1092,7 +1052,6 @@ public final class CipherTest {
                                + " with provider " + provider.getName() + "\n");
                     e.printStackTrace(out);
                 }
-                unvisitedAlgorithms.remove(algorithm);
 
                 Set<String> modes = StandardNames.getModesForCipher(algorithm);
                 if (modes != null) {
@@ -1108,21 +1067,12 @@ public final class CipherTest {
                                                + " with provider " + provider.getName() + "\n");
                                     e.printStackTrace(out);
                                 }
-                                boolean removed = unvisitedAlgorithms.remove(algorithmName);
-                                if (!removed) {
-                                    System.out.println(algorithmName);
-                                }
                             }
                         }
                     }
                 }
             }
         }
-
-        List<String> unvisited = new ArrayList<String>(unvisitedAlgorithms);
-        Collections.sort(unvisited);
-        assertEquals("All defined algorithms need to be tested at least once",
-            Collections.EMPTY_LIST, unvisited);
 
         seenCiphersWithModeAndPadding.removeAll(seenBaseCipherNames);
         assertEquals("Ciphers seen with mode and padding but not base cipher",
