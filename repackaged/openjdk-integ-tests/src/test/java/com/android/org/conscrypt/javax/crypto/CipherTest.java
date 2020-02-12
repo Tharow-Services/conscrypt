@@ -510,6 +510,11 @@ public final class CipherTest {
         return algorithm + ":" + provider;
     }
 
+    private static boolean isKnownAlgorithm(String algorithm) {
+        algorithm = algorithm.toUpperCase(Locale.US);
+        return EXPECTED_BLOCK_SIZE.containsKey(algorithm);
+    }
+
     private static void setExpectedSize(Map<String, Integer> map,
                                         String algorithm, int value) {
         algorithm = algorithm.toUpperCase(Locale.US);
@@ -1030,6 +1035,78 @@ public final class CipherTest {
         Set<String> seenBaseCipherNames = new HashSet<String>();
         Set<String> seenCiphersWithModeAndPadding = new HashSet<String>();
 
+        // TODO just add expectations here, individually verify that they are all required
+        // /Set<String> unvisitedAlgorithms = new HashSet<String>(EXPECTED_BLOCK_SIZE.keySet());
+        String[] expectedAlgorithms = {
+            "AES/CBC/PKCS7PADDING",
+            "AES/CFB/NOPADDING",
+            "AES/CFB/PKCS5PADDING",
+            "AES/CFB/PKCS7PADDING",
+            "AES/CTR/PKCS5PADDING",
+            "AES/CTR/PKCS7PADDING",
+            "AES/CTS/NOPADDING",
+            "AES/CTS/PKCS5PADDING",
+            "AES/CTS/PKCS7PADDING",
+            "AES/ECB/PKCS7PADDING",
+            "AES/OFB/NOPADDING",
+            "AES/OFB/PKCS5PADDING",
+            "AES/OFB/PKCS7PADDING",
+            "AES_128/CBC/PKCS7PADDING",
+            "AES_128/ECB/PKCS7PADDING",
+            "AES_256/CBC/PKCS7PADDING",
+            "AES_256/ECB/PKCS7PADDING",
+            "ARCFOUR",
+            "DESEDE/CBC/PKCS7PADDING",
+            "DESEDE/CFB/NOPADDING",
+            "DESEDE/CFB/PKCS5PADDING",
+            "DESEDE/CFB/PKCS7PADDING",
+            "DESEDE/CTR/NOPADDING",
+            "DESEDE/CTR/PKCS5PADDING",
+            "DESEDE/CTR/PKCS7PADDING",
+            "DESEDE/CTS/NOPADDING",
+            "DESEDE/CTS/PKCS5PADDING",
+            "DESEDE/CTS/PKCS7PADDING",
+            "DESEDE/ECB/NOPADDING",
+            "DESEDE/ECB/PKCS5PADDING",
+            "DESEDE/ECB/PKCS7PADDING",
+            "DESEDE/OFB/NOPADDING",
+            "DESEDE/OFB/PKCS5PADDING",
+            "DESEDE/OFB/PKCS7PADDING",
+            "PBEWITHMD5ANDTRIPLEDES",
+            "PBEWITHSHA1ANDDESEDE",
+            "RSA/ECB/NOPADDING:1",
+            "RSA/ECB/NOPADDING:1:BC",
+            "RSA/ECB/NOPADDING:2",
+            "RSA/ECB/NOPADDING:SUNJCE",
+            "RSA/ECB/OAEPPADDING:1",
+            "RSA/ECB/OAEPPADDING:2",
+            "RSA/ECB/OAEPPADDING:SUNJCE",
+            "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING:SUNJCE",
+            "RSA/ECB/OAEPWITHSHA-224ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-224ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-224ANDMGF1PADDING:SUNJCE",
+            "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING:SUNJCE",
+            "RSA/ECB/OAEPWITHSHA-384ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-384ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-384ANDMGF1PADDING:SUNJCE",
+            "RSA/ECB/OAEPWITHSHA-512ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-512ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-512ANDMGF1PADDING:SUNJCE",
+            "RSA/ECB/PKCS1PADDING:1",
+            "RSA/ECB/PKCS1PADDING:2",
+            "RSA/ECB/PKCS1PADDING:SUNJCE",
+            "RSA:1",
+            "RSA:1:BC",
+            "RSA:2",
+            "RSA:SUNJCE",
+        };
+        Set<String> unvisitedAlgorithms = new HashSet<String>(EXPECTED_BLOCK_SIZE.keySet());
+        unvisitedAlgorithms.removeAll(Arrays.asList(expectedAlgorithms));
+
         Provider[] providers = Security.getProviders();
         for (Provider provider : providers) {
             Set<Provider.Service> services = provider.getServices();
@@ -1040,6 +1117,9 @@ public final class CipherTest {
                 }
 
                 String algorithm = service.getAlgorithm().toUpperCase(Locale.US);
+                if (!isKnownAlgorithm(algorithm)) {
+                    continue;
+                }
 
                 /*
                  * Any specific modes and paddings aren't tested directly here,
@@ -1082,6 +1162,7 @@ public final class CipherTest {
                                + " with provider " + provider.getName() + "\n");
                     e.printStackTrace(out);
                 }
+                unvisitedAlgorithms.remove(algorithm);
 
                 Set<String> modes = StandardNames.getModesForCipher(algorithm);
                 if (modes != null) {
@@ -1097,12 +1178,18 @@ public final class CipherTest {
                                                + " with provider " + provider.getName() + "\n");
                                     e.printStackTrace(out);
                                 }
+                                unvisitedAlgorithms.remove(algorithmName);
                             }
                         }
                     }
                 }
             }
         }
+
+        // List<String> unvisited = new ArrayList<String>(unvisitedAlgorithms);
+        // Collections.sort(unvisited);
+        assertEquals("All defined algorithms need to be tested at least once",
+            Collections.EMPTY_SET, unvisitedAlgorithms);
 
         seenCiphersWithModeAndPadding.removeAll(seenBaseCipherNames);
         assertEquals("Ciphers seen with mode and padding but not base cipher",
