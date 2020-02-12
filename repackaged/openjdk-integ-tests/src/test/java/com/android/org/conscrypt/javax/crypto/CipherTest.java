@@ -55,6 +55,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.crypto.AEADBadTagException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -438,8 +439,6 @@ public final class CipherTest {
         }
 
         setExpectedBlockSize("RSA", "SunJCE",0);
-        setExpectedBlockSize("RSA/ECB/NoPadding", "SunJCE", 0);
-        setExpectedBlockSize("RSA/ECB/PKCS1Padding", "SunJCE", 0);
         setExpectedBlockSize("RSA/ECB/OAEPPadding", "SunJCE", 0);
         setExpectedBlockSize("RSA/ECB/OAEPWithSHA-1AndMGF1Padding", "SunJCE", 0);
         setExpectedBlockSize("RSA/ECB/OAEPWithSHA-224AndMGF1Padding", "SunJCE", 0);
@@ -448,16 +447,11 @@ public final class CipherTest {
         setExpectedBlockSize("RSA/ECB/OAEPWithSHA-512AndMGF1Padding", "SunJCE", 0);
 
         setExpectedBlockSize("RSA", Cipher.ENCRYPT_MODE, 256);
-        setExpectedBlockSize("RSA/ECB/NoPadding", Cipher.ENCRYPT_MODE, 256);
-        setExpectedBlockSize("RSA/ECB/PKCS1Padding", Cipher.ENCRYPT_MODE, 245);
 
         // BC strips the leading 0 for us even when NoPadding is specified
         setExpectedBlockSize("RSA", Cipher.ENCRYPT_MODE, "BC", 255);
-        setExpectedBlockSize("RSA/ECB/NoPadding", Cipher.ENCRYPT_MODE, "BC", 255);
 
         setExpectedBlockSize("RSA", Cipher.DECRYPT_MODE, 256);
-        setExpectedBlockSize("RSA/ECB/NoPadding", Cipher.DECRYPT_MODE, 256);
-        setExpectedBlockSize("RSA/ECB/PKCS1Padding", Cipher.DECRYPT_MODE, 256);
 
         // OAEP padding modes change the output and block size. SHA-1 is the default.
         setExpectedBlockSize("RSA/ECB/OAEPPadding", Cipher.ENCRYPT_MODE, 214);
@@ -485,6 +479,11 @@ public final class CipherTest {
 
     private static String providerKey(String algorithm, String provider) {
         return algorithm + ":" + provider;
+    }
+
+    private static boolean isKnownAlgorithm(String algorithm) {
+        algorithm = algorithm.toUpperCase(Locale.US);
+        return EXPECTED_BLOCK_SIZE.containsKey(algorithm);
     }
 
     private static void setExpectedSize(Map<String, Integer> map,
@@ -1007,6 +1006,37 @@ public final class CipherTest {
         Set<String> seenBaseCipherNames = new HashSet<String>();
         Set<String> seenCiphersWithModeAndPadding = new HashSet<String>();
 
+        String[] expectedAlgorithms = {
+            "RSA/ECB/OAEPPADDING:1",
+            "RSA/ECB/OAEPPADDING:2",
+            "RSA/ECB/OAEPPADDING:SUNJCE",
+
+            "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-1ANDMGF1PADDING:SUNJCE",
+            "RSA/ECB/OAEPWITHSHA-224ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-224ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-224ANDMGF1PADDING:SUNJCE",
+            "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-256ANDMGF1PADDING:SUNJCE",
+            "RSA/ECB/OAEPWITHSHA-384ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-384ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-384ANDMGF1PADDING:SUNJCE",
+            "RSA/ECB/OAEPWITHSHA-512ANDMGF1PADDING:1",
+            "RSA/ECB/OAEPWITHSHA-512ANDMGF1PADDING:2",
+            "RSA/ECB/OAEPWITHSHA-512ANDMGF1PADDING:SUNJCE",
+
+            "RSA:1",
+            "RSA:1:BC",
+            "RSA:2",
+            "RSA:SUNJCE",
+        };
+
+        Set<String> unvisitedAlgorithms = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        unvisitedAlgorithms.addAll(EXPECTED_BLOCK_SIZE.keySet());
+        unvisitedAlgorithms.removeAll(Arrays.asList(expectedAlgorithms));
+
         Provider[] providers = Security.getProviders();
         for (Provider provider : providers) {
             Set<Provider.Service> services = provider.getServices();
@@ -1017,6 +1047,9 @@ public final class CipherTest {
                 }
 
                 String algorithm = service.getAlgorithm().toUpperCase(Locale.US);
+                if (!isKnownAlgorithm(algorithm)) {
+                    continue;
+                }
 
                 /*
                  * Any specific modes and paddings aren't tested directly here,
@@ -1059,6 +1092,7 @@ public final class CipherTest {
                                + " with provider " + provider.getName() + "\n");
                     e.printStackTrace(out);
                 }
+                unvisitedAlgorithms.remove(algorithm);
 
                 Set<String> modes = StandardNames.getModesForCipher(algorithm);
                 if (modes != null) {
@@ -1074,12 +1108,21 @@ public final class CipherTest {
                                                + " with provider " + provider.getName() + "\n");
                                     e.printStackTrace(out);
                                 }
+                                boolean removed = unvisitedAlgorithms.remove(algorithmName);
+                                if (!removed) {
+                                    System.out.println(algorithmName);
+                                }
                             }
                         }
                     }
                 }
             }
         }
+
+        List<String> unvisited = new ArrayList<String>(unvisitedAlgorithms);
+        Collections.sort(unvisited);
+        assertEquals("All defined algorithms need to be tested at least once",
+            Collections.EMPTY_LIST, unvisited);
 
         seenCiphersWithModeAndPadding.removeAll(seenBaseCipherNames);
         assertEquals("Ciphers seen with mode and padding but not base cipher",
