@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "51a19f69_86d0b5ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-02-20T19:46:21Z",
+      "side": 1,
+      "message": "I don\u0027t understand enough to know why this means that libconscrypt_static doesn\u0027t need libandroidio, so I\u0027ll leave the review of this CL to prb@.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "17b0d18843558eac979c4a1c615e2913008242be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
