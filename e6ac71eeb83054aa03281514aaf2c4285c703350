@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2714e742_26a950ff",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-02-21T18:04:51Z",
+      "side": 1,
+      "message": "Android R",
+      "range": {
+        "startLine": 11,
+        "startChar": 16,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "e6ac71eeb83054aa03281514aaf2c4285c703350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
