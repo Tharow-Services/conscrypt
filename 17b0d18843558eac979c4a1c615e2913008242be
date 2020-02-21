@@ -22,6 +22,30 @@
       "revId": "17b0d18843558eac979c4a1c615e2913008242be",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e375a14c_92f28856",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-02-21T14:28:14Z",
+      "side": 1,
+      "message": "That was an error on my part, only libjavacrypto should need libandroidio.",
+      "parentUuid": "51a19f69_86d0b5ef",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "17b0d18843558eac979c4a1c615e2913008242be",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
