@@ -7,6 +7,17 @@
           "include-filter": "com.android.org.conscrypt"
         }
       ]
+    },
+    {
+      "name": "CtsKeystoreTestCases",
+      "options": [
+        {
+          "include-filter": "android.keystore.cts.KeyPairGeneratorTest"
+        },
+        {
+          "include-filter": "android.keystore.cts.CipherTest"
+        }
+      ]
     }
   ]
 }
