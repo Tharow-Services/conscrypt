@@ -1,0 +1,12 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+DrNo-Review+1: Rafi Ahmad <rafiahmad@google.com>
+Code-Review+2: Daulet Zhanguzin <dauletz@google.com>
+Code-Review+1: Pete Bentley <prb@google.com>
+Verified+1: Daulet Zhanguzin <dauletz@google.com>
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Autosubmit+1: Daulet Zhanguzin <dauletz@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Sat, 22 Feb 2020 09:48:13 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1232914
+Project: platform/external/conscrypt
+Branch: refs/heads/android10-tests-dev
