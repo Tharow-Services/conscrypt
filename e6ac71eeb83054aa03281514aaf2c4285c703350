@@ -22,6 +22,30 @@
       "revId": "e6ac71eeb83054aa03281514aaf2c4285c703350",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1e2eceb_c76c4517",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-02-22T19:17:16Z",
+      "side": 1,
+      "message": "Sorry, in retrospect my -1 was probably a bit heavy-handed. Also, I realize now that the sentence here is technically correct, because anything \u003e Q, i.e. anything \u003e 29 would have broken. What I didn\u0027t want to do was to state that SDK 30 \u003d\u003d R, but strictly speaking this commit message didn\u0027t do that.\n\nUndoing my -1. That said, the R constant that the code is referring to doesn\u0027t exist yet, so I guess that needs to happen first.",
+      "parentUuid": "2714e742_26a950ff",
+      "range": {
+        "startLine": 11,
+        "startChar": 16,
+        "endLine": 11,
+        "endChar": 23
+      },
+      "revId": "e6ac71eeb83054aa03281514aaf2c4285c703350",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
