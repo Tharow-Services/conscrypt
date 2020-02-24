@@ -54,6 +54,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.crypto.AEADBadTagException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -383,17 +384,13 @@ public final class CipherTest {
         setExpectedBlockSize("AES/OFB/PKCS7PADDING", 16);
         setExpectedBlockSize("AES/OFB/NOPADDING", 16);
         setExpectedBlockSize("AES_128/CBC/PKCS5PADDING", 16);
-        setExpectedBlockSize("AES_128/CBC/PKCS7PADDING", 16);
         setExpectedBlockSize("AES_128/CBC/NOPADDING", 16);
         setExpectedBlockSize("AES_128/ECB/PKCS5PADDING", 16);
-        setExpectedBlockSize("AES_128/ECB/PKCS7PADDING", 16);
         setExpectedBlockSize("AES_128/ECB/NOPADDING", 16);
         setExpectedBlockSize("AES_128/GCM/NOPADDING", 16);
         setExpectedBlockSize("AES_256/CBC/PKCS5PADDING", 16);
-        setExpectedBlockSize("AES_256/CBC/PKCS7PADDING", 16);
         setExpectedBlockSize("AES_256/CBC/NOPADDING", 16);
         setExpectedBlockSize("AES_256/ECB/PKCS5PADDING", 16);
-        setExpectedBlockSize("AES_256/ECB/PKCS7PADDING", 16);
         setExpectedBlockSize("AES_256/ECB/NOPADDING", 16);
         setExpectedBlockSize("AES_256/GCM/NOPADDING", 16);
         setExpectedBlockSize("PBEWITHMD5AND128BITAES-CBC-OPENSSL", 16);
@@ -413,7 +410,6 @@ public final class CipherTest {
         }
 
         setExpectedBlockSize("ARC4", 0);
-        setExpectedBlockSize("ARCFOUR", 0);
         setExpectedBlockSize("CHACHA20", 0);
         setExpectedBlockSize("CHACHA20/POLY1305/NOPADDING", 0);
         setExpectedBlockSize("PBEWITHSHAAND40BITRC4", 0);
@@ -427,27 +423,9 @@ public final class CipherTest {
 
         setExpectedBlockSize("DESEDE", 8);
         setExpectedBlockSize("DESEDE/CBC/PKCS5PADDING", 8);
-        setExpectedBlockSize("DESEDE/CBC/PKCS7PADDING", 8);
         setExpectedBlockSize("DESEDE/CBC/NOPADDING", 8);
-        setExpectedBlockSize("DESEDE/CFB/PKCS5PADDING", 8);
-        setExpectedBlockSize("DESEDE/CFB/PKCS7PADDING", 8);
-        setExpectedBlockSize("DESEDE/CFB/NOPADDING", 8);
-        setExpectedBlockSize("DESEDE/CTR/PKCS5PADDING", 8);
-        setExpectedBlockSize("DESEDE/CTR/PKCS7PADDING", 8);
-        setExpectedBlockSize("DESEDE/CTR/NOPADDING", 8);
-        setExpectedBlockSize("DESEDE/CTS/PKCS5PADDING", 8);
-        setExpectedBlockSize("DESEDE/CTS/PKCS7PADDING", 8);
-        setExpectedBlockSize("DESEDE/CTS/NOPADDING", 8);
-        setExpectedBlockSize("DESEDE/ECB/PKCS5PADDING", 8);
-        setExpectedBlockSize("DESEDE/ECB/PKCS7PADDING", 8);
-        setExpectedBlockSize("DESEDE/ECB/NOPADDING", 8);
-        setExpectedBlockSize("DESEDE/OFB/PKCS5PADDING", 8);
-        setExpectedBlockSize("DESEDE/OFB/PKCS7PADDING", 8);
-        setExpectedBlockSize("DESEDE/OFB/NOPADDING", 8);
         setExpectedBlockSize("PBEWITHSHAAND2-KEYTRIPLEDES-CBC", 8);
         setExpectedBlockSize("PBEWITHSHAAND3-KEYTRIPLEDES-CBC", 8);
-        setExpectedBlockSize("PBEWITHMD5ANDTRIPLEDES", 8);
-        setExpectedBlockSize("PBEWITHSHA1ANDDESEDE", 8);
 
 
         if (StandardNames.IS_RI) {
@@ -504,6 +482,13 @@ public final class CipherTest {
 
     private static String providerKey(String algorithm, String provider) {
         return algorithm + ":" + provider;
+    }
+
+    private static boolean isKnownAlgorithm(String algorithm) {
+        algorithm = algorithm.toUpperCase(Locale.US);
+        return EXPECTED_BLOCK_SIZE.containsKey(algorithm) ||
+            EXPECTED_BLOCK_SIZE.containsKey(modeKey(algorithm, Cipher.ENCRYPT_MODE)) ||
+            EXPECTED_BLOCK_SIZE.containsKey(modeKey(algorithm, Cipher.DECRYPT_MODE));
     }
 
     private static void setExpectedSize(Map<String, Integer> map,
@@ -1026,6 +1011,12 @@ public final class CipherTest {
         Set<String> seenBaseCipherNames = new HashSet<String>();
         Set<String> seenCiphersWithModeAndPadding = new HashSet<String>();
 
+        Set<String> unvisitedAlgorithms = new TreeSet<String>(String.CASE_INSENSITIVE_ORDER);
+        for (String override : EXPECTED_BLOCK_SIZE.keySet()) {
+            // Remove mode/provider specific overrides
+            unvisitedAlgorithms.add(override.split(":")[0]);
+        }
+
         Provider[] providers = Security.getProviders();
         for (Provider provider : providers) {
             Set<Provider.Service> services = provider.getServices();
@@ -1036,6 +1027,13 @@ public final class CipherTest {
                 }
 
                 String algorithm = service.getAlgorithm().toUpperCase(Locale.US);
+                if (!isSupported(algorithm, provider.getName())) {
+                    continue;
+                }
+
+                if (!isKnownAlgorithm(algorithm)) {
+                    continue;
+                }
 
                 /*
                  * Any specific modes and paddings aren't tested directly here,
@@ -1078,6 +1076,7 @@ public final class CipherTest {
                                + " with provider " + provider.getName() + "\n");
                     e.printStackTrace(out);
                 }
+                unvisitedAlgorithms.remove(algorithm);
 
                 Set<String> modes = StandardNames.getModesForCipher(algorithm);
                 if (modes != null) {
@@ -1093,12 +1092,18 @@ public final class CipherTest {
                                                + " with provider " + provider.getName() + "\n");
                                     e.printStackTrace(out);
                                 }
+                                unvisitedAlgorithms.remove(algorithmName);
                             }
                         }
                     }
                 }
             }
         }
+
+        List<String> unvisited = new ArrayList<String>(unvisitedAlgorithms);
+        Collections.sort(unvisited);
+        assertEquals("All defined algorithms need to be tested at least once",
+            Collections.EMPTY_LIST, unvisited);
 
         seenCiphersWithModeAndPadding.removeAll(seenBaseCipherNames);
         assertEquals("Ciphers seen with mode and padding but not base cipher",
