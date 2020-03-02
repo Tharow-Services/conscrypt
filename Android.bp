@@ -561,7 +561,9 @@ module_exports {
     host_supported: true,
     device_supported: false,
     java_libs: [
-        "conscrypt-unbundled",
+        // TODO(150451422) - Temporarily remove conscrypt-unbundled to avoid build breakage
+        // when building for multiple os types.
+        //"conscrypt-unbundled",
     ],
 }
 
