@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1cc4337e_9d940b41",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-03-09T12:34:31Z",
+      "side": 1,
+      "message": "Do you happen to know if this attribute is going away in the near to medium term future? The semantics seem pretty similar to min_sdk_version: \"29\", am I understanding this right?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "ded3e1153ff39af92d275addf95c785d77b6b787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
