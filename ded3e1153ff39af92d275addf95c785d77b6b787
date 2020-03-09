@@ -22,6 +22,30 @@
       "revId": "ded3e1153ff39af92d275addf95c785d77b6b787",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "61723bbd_a35b7281",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1415877
+      },
+      "writtenOn": "2020-03-09T13:07:51Z",
+      "side": 1,
+      "message": "Yes, you\u0027re right. b/150431944 for deprecating legacy_android10_support.\n\nFor now, they\u0027re used in different context.\n- min_sdk_version: to build modules in apexes.\n- legacy_android10_support: to build apex package itself. (technically, including apex_manifest.json file so that the package can be installed on Q)",
+      "parentUuid": "1cc4337e_9d940b41",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "ded3e1153ff39af92d275addf95c785d77b6b787",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
