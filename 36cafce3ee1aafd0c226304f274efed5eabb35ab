@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e32181e_af3de429",
+        "filename": "apex/Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-03-13T10:18:03Z",
+      "side": 1,
+      "message": "nit: Consider \"Android 10 (API 29),\"\n\nI personally keep having to look up the mapping between Android versions and API versions, so specifying this explicitly here may make this easier to read.\n\nOTOH, perhaps not worth changing this across N CLs. So not needed to do this before submitting.",
+      "range": {
+        "startLine": 31,
+        "startChar": 50,
+        "endLine": 31,
+        "endChar": 60
+      },
+      "revId": "36cafce3ee1aafd0c226304f274efed5eabb35ab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
