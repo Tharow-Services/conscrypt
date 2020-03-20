@@ -108,7 +108,8 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
         } else {
             modifiedParams = sslParameters;
         }
-        ConscryptEngine engine = new ConscryptEngine(modifiedParams, socket.peerInfoProvider());
+        ConscryptEngine engine =
+            new ConscryptEngine(modifiedParams, socket.peerInfoProvider(), socket);
 
         // When the handshake completes, notify any listeners.
         engine.setHandshakeListener(new HandshakeListener() {
@@ -631,6 +632,9 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
                 len -= engineResult.bytesConsumed();
                 if (len != buffer.remaining()) {
                     throw new SSLException("Engine did not read the correct number of bytes");
+                }
+                if (engineResult.getStatus() == CLOSED && engineResult.bytesProduced() == 0) {
+                    throw new SocketException("Socket closed");
                 }
 
                 target.flip();
