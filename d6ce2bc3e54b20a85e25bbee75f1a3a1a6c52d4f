@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ced77d12_61093fe3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1103203
+      },
+      "writtenOn": "2020-03-23T09:39:15Z",
+      "side": 1,
+      "message": "Could you also elaborate on why this CL drops \n  sdk_version: \"current\",\n?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 186
+      },
+      "revId": "d6ce2bc3e54b20a85e25bbee75f1a3a1a6c52d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
