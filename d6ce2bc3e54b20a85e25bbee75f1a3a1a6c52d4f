@@ -22,6 +22,30 @@
       "revId": "d6ce2bc3e54b20a85e25bbee75f1a3a1a6c52d4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "370f68f8_ee049618",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-03-24T11:26:19Z",
+      "side": 1,
+      "message": "From build failure:\n\nmodule \"MtsConscryptTestCases\" variant \"android_common\": compiles against Android API, but dependency \"core-test-rules\" is compiling against non-public Android API.Adjust sdk_version: property of the source or target module so that target module is built with the same or smaller API set than the source.\n\nTo address we either remove this constraint here or add sdk_version to core-test-rules. However since core-test-rules has multiple users, that might not work well.",
+      "parentUuid": "ced77d12_61093fe3",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 186
+      },
+      "revId": "d6ce2bc3e54b20a85e25bbee75f1a3a1a6c52d4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
