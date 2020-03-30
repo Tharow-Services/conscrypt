@@ -547,11 +547,15 @@ module_exports {
 module_exports {
     name: "conscrypt-module-test-exports",
     java_libs: [
-        // For use by robolectric.
+        // For use by robolectric and ART tests.
         "conscrypt",
     ],
     java_tests: [
         // For use by CTS
         "conscrypt-tests",
+    ],
+    native_shared_libs: [
+        // For use by ART tests on host.
+        "libjavacrypto",
     ],
 }
