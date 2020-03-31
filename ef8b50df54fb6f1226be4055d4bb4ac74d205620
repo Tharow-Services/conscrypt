@@ -22,6 +22,30 @@
       "revId": "ef8b50df54fb6f1226be4055d4bb4ac74d205620",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0281b3da_8b16b7ce",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1038443
+      },
+      "writtenOn": "2020-03-31T14:03:05Z",
+      "side": 1,
+      "message": "Oh right, yes looks like it.",
+      "parentUuid": "80c9c212_2b6faaeb",
+      "range": {
+        "startLine": 221,
+        "startChar": 30,
+        "endLine": 221,
+        "endChar": 38
+      },
+      "revId": "ef8b50df54fb6f1226be4055d4bb4ac74d205620",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
