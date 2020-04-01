@@ -94,6 +94,30 @@
       "revId": "3875f56b07c5c621f709c16f20231702fd5a4440",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83ae1d33_ac729579",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2020-04-01T16:41:42Z",
+      "side": 1,
+      "message": "If you need host only (or host and android) then you need to do something like this:\nmodule_exports {\n....\n   host_supported: true,\n   ... any host and android member properties....\n   target: {\n      android: {\n          ...all the existing android only member properties...\n      },\n      host: {\n          ...any host only member properties...\n      },\n   },\n}\n\ne.g. if libjavacrypto only needs host variants then this will do.\n\nmodule_exports {\n    name: \"conscrypt-module-test-exports\",\n    host_supported: true,\n    target: {\n        android: {\n            java_libs: [\n                // For use by robolectric and ART tests.\n                \"conscrypt\",\n            ],\n            java_tests: [\n                // For use by CTS\n                \"conscrypt-tests\",\n            ],\n        },\n        host: {\n            native_shared_libs: [\n                // For use by ART tests on host.\n                \"libjavacrypto\",\n            ],\n        },\n    },\n}\n\ne.g. if libjavacrypto needs host and android variants then this will do.\n\nmodule_exports {\n    name: \"conscrypt-module-test-exports\",\n    host_supported: true,\n    native_shared_libs: [\n        // For use by ART tests on host.\n        \"libjavacrypto\",\n    ],\n    target: {\n        android: {\n            java_libs: [\n                // For use by robolectric and ART tests.\n                \"conscrypt\",\n            ],\n            java_tests: [\n                // For use by CTS\n                \"conscrypt-tests\",\n            ],\n        },\n    },\n}",
+      "parentUuid": "e2cad467_cf1206d1",
+      "range": {
+        "startLine": 558,
+        "startChar": 35,
+        "endLine": 558,
+        "endChar": 39
+      },
+      "revId": "3875f56b07c5c621f709c16f20231702fd5a4440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
