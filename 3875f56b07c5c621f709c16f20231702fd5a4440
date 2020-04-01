@@ -46,6 +46,30 @@
       "revId": "3875f56b07c5c621f709c16f20231702fd5a4440",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02e303c9_d2acd7ec",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2020-04-01T15:56:19Z",
+      "side": 1,
+      "message": "I meant in this module_exports. I thought it was necessary in both places to create the right prebuilt modules. But if you\u0027ve checked that this does that then I\u0027m obviously mistaken.",
+      "parentUuid": "17e03dfe_ae82b38b",
+      "range": {
+        "startLine": 558,
+        "startChar": 35,
+        "endLine": 558,
+        "endChar": 39
+      },
+      "revId": "3875f56b07c5c621f709c16f20231702fd5a4440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
