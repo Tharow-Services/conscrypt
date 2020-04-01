@@ -22,6 +22,30 @@
       "revId": "3875f56b07c5c621f709c16f20231702fd5a4440",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e03dfe_ae82b38b",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1038443
+      },
+      "writtenOn": "2020-04-01T15:52:18Z",
+      "side": 1,
+      "message": "Yes, and the libjavacrypto definition above has it :)",
+      "parentUuid": "704fe8b2_f5911ec0",
+      "range": {
+        "startLine": 558,
+        "startChar": 35,
+        "endLine": 558,
+        "endChar": 39
+      },
+      "revId": "3875f56b07c5c621f709c16f20231702fd5a4440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
