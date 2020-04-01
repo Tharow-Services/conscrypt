@@ -70,6 +70,30 @@
       "revId": "3875f56b07c5c621f709c16f20231702fd5a4440",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e2cad467_cf1206d1",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 558,
+      "author": {
+        "id": 1038443
+      },
+      "writtenOn": "2020-04-01T16:02:36Z",
+      "side": 1,
+      "message": "Yeah I do get the x86 and x64 variants. I also get the arm/arm64 version as well unfortunately, but I don\u0027t think we have a host_only for such things. Paul do you know?",
+      "parentUuid": "02e303c9_d2acd7ec",
+      "range": {
+        "startLine": 558,
+        "startChar": 35,
+        "endLine": 558,
+        "endChar": 39
+      },
+      "revId": "3875f56b07c5c621f709c16f20231702fd5a4440",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
