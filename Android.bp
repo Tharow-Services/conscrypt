@@ -69,6 +69,8 @@ cc_defaults {
         "common/src/jni/main/cpp/conscrypt/trace.cc",
     ],
 
+    header_libs: ["jni_headers"],
+
     local_include_dirs: [
         "common/src/jni/main/include",
     ],
@@ -83,6 +85,8 @@ cc_defaults {
     local_include_dirs: [
         "common/src/jni/unbundled/include",
     ],
+
+    header_libs: ["jni_headers"],
 
     shared_libs: [
         "liblog",
@@ -546,12 +550,26 @@ module_exports {
 // Test libraries exposed by the Conscrypt module.
 module_exports {
     name: "conscrypt-module-test-exports",
-    java_libs: [
-        // For use by robolectric.
-        "conscrypt",
-    ],
-    java_tests: [
-        // For use by CTS
-        "conscrypt-tests",
-    ],
+    host_supported: true,
+    target: {
+        android: {
+            java_libs: [
+                // For use by robolectric and ART tests.
+                "conscrypt",
+            ],
+            java_tests: [
+                // For use by CTS
+                "conscrypt-tests",
+            ],
+        },
+        darwin: {
+            enabled: false,
+        },
+        // For use by ART tests on host.
+        not_windows: {
+            native_shared_libs: [
+                "libjavacrypto",
+            ],
+        },
+    },
 }
