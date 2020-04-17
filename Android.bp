@@ -106,6 +106,10 @@ cc_library {
         "conscrypt_global",
         "conscrypt_unbundled-jni-defaults",
     ],
+    stubs: {
+        symbol_file: "libconscrypt_jni.map.txt",
+        versions: ["1"],
+    },
 }
 
 cc_library_host_shared {
@@ -380,6 +384,10 @@ cc_defaults {
     srcs: ["common/src/jni/main/cpp/**/*.cc"],
     header_libs: ["jni_headers"],
     local_include_dirs: ["common/src/jni/main/include"],
+    stubs: {
+        symbol_file: "libjavacrypto.map.txt",
+        versions: ["1"],
+    },
 }
 
 // Platform conscrypt crypto JNI library
