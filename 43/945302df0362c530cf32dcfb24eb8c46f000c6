@@ -1,0 +1,10 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Code-Review+1: Nicolas Geoffray <ngeoffray@google.com>
+Code-Review+2: Pete Bentley <prb@google.com>
+Autosubmit+1: Jooyung Han <jooyung@google.com>
+Submitted-by: Treehugger Robot <treehugger-gerrit@google.com>
+Submitted-at: Wed, 22 Apr 2020 12:34:03 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1287214
+Project: platform/external/conscrypt
+Branch: refs/heads/master
