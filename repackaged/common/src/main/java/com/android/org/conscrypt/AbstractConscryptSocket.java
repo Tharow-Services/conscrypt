@@ -516,13 +516,11 @@ abstract class AbstractConscryptSocket extends SSLSocket implements AliasChooser
         return builder.toString();
     }
 
-    /** @hide */
     @Override
     public final String chooseServerAlias(X509KeyManager keyManager, String keyType) {
         return keyManager.chooseServerAlias(keyType, null, this);
     }
 
-    /** @hide */
     @Override
     public final String chooseClientAlias(
             X509KeyManager keyManager, X500Principal[] issuers, String[] keyTypes) {
