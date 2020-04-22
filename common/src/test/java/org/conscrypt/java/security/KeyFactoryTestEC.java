@@ -16,9 +16,14 @@
 package org.conscrypt.java.security;
 
 import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
+import java.security.interfaces.ECPrivateKey;
+import java.security.interfaces.ECPublicKey;
 import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.ECPublicKeySpec;
-import libcore.junit.util.EnableDeprecatedBouncyCastleAlgorithmsRule;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.ClassRule;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
@@ -28,14 +33,6 @@ import tests.util.ServiceTester;
 @RunWith(JUnit4.class)
 public class KeyFactoryTestEC extends
     AbstractKeyFactoryTest<ECPublicKeySpec, ECPrivateKeySpec> {
-
-  // BEGIN Android-Added: Allow access to deprecated BC algorithms.
-  // Allow access to deprecated BC algorithms in this test, so we can ensure they
-  // continue to work
-  @ClassRule
-  public static TestRule enableDeprecatedBCAlgorithmsRule =
-      EnableDeprecatedBouncyCastleAlgorithmsRule.getInstance();
-  // END Android-Added: Allow access to deprecated BC algorithms.
 
   public KeyFactoryTestEC() {
     super("EC", ECPublicKeySpec.class, ECPrivateKeySpec.class);
@@ -51,5 +48,23 @@ public class KeyFactoryTestEC extends
   @Override
   protected void check(KeyPair keyPair) throws Exception {
     new SignatureHelper("SHA256withECDSA").test(keyPair);
+  }
+
+  @Override
+  protected List<KeyPair> getKeys() throws NoSuchAlgorithmException, InvalidKeySpecException {
+    return Arrays.asList(
+        new KeyPair(
+            DefaultKeys.getPublicKey("EC"),
+            DefaultKeys.getPrivateKey("EC")
+        ),
+        new KeyPair(
+            new WrappedPublicKey(DefaultKeys.getPublicKey("EC")),
+            new WrappedPrivateKey(DefaultKeys.getPrivateKey("EC"))
+        ),
+        new KeyPair(
+            new WrappedECPublicKey((ECPublicKey)DefaultKeys.getPublicKey("EC")),
+            new WrappedECPrivateKey((ECPrivateKey)DefaultKeys.getPrivateKey("EC"))
+        )
+    );
   }
 }
