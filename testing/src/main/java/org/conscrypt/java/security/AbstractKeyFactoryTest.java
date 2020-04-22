@@ -17,9 +17,11 @@ package org.conscrypt.java.security;
 
 import java.security.KeyFactory;
 import java.security.KeyPair;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.Provider;
 import java.security.PublicKey;
+import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import org.junit.Test;
 import tests.util.ServiceTester;
@@ -53,10 +55,10 @@ public abstract class AbstractKeyFactoryTest<PublicKeySpec extends KeySpec, Priv
                 public void test(Provider p, String algorithm) throws Exception {
                     final KeyFactory factory = KeyFactory.getInstance(algorithm, p);
 
-                    final PrivateKeySpec privateKeySpec = factory.getKeySpec(DefaultKeys.getPrivateKey(algorithmName),
+                    final PrivateKeySpec privateKeySpec = factory.getKeySpec(getPrivateKey(),
                         privateKeySpecClass);
                     PrivateKey privateKey = factory.generatePrivate(privateKeySpec);
-                    final PublicKeySpec publicKeySpec = factory.getKeySpec(DefaultKeys.getPublicKey(algorithmName),
+                    final PublicKeySpec publicKeySpec = factory.getKeySpec(getPublicKey(),
                         publicKeySpecClass);
                     PublicKey publicKey = factory.generatePublic(publicKeySpec);
                     check(new KeyPair(publicKey, privateKey));
@@ -88,4 +90,12 @@ public abstract class AbstractKeyFactoryTest<PublicKeySpec extends KeySpec, Priv
     }
 
     protected void check(KeyPair keyPair) throws Exception {}
+
+    protected PublicKey getPublicKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        return DefaultKeys.getPublicKey(algorithmName);
+    }
+
+    protected PrivateKey getPrivateKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        return DefaultKeys.getPrivateKey(algorithmName);
+    }
 }
