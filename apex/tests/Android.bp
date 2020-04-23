@@ -20,6 +20,7 @@ android_test {
         "core-test-rules",
         "ctstestrunner-axt",
         "libcore-crypto-tests",
+        "core-tests-instrumentation",
         "junit",
     ],
 
@@ -35,4 +36,3 @@ android_test {
     ],
 
 }
-
