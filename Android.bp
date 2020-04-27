@@ -203,6 +203,9 @@ java_library {
         "com.android.conscrypt",
         "test_com.android.conscrypt",
     ],
+    // Conscrypt should support Q
+    min_sdk_version: "29",
+
     installable: true,
     // Hostdex is only for ART testing on host: ART build file has its
     // own hostdex support for conscrypt.
@@ -411,6 +414,7 @@ cc_library_shared {
         "com.android.conscrypt",
         "test_com.android.conscrypt",
     ],
+    min_sdk_version: "29",
 }
 
 // Unbundled Conscrypt jar for use by signapk tool
@@ -544,6 +548,9 @@ module_exports {
     device_supported: false,
     java_libs: [
         "conscrypt-unbundled",
+    ],
+    native_shared_libs: [
+        "libconscrypt_openjdk_jni",
     ],
 }
 
