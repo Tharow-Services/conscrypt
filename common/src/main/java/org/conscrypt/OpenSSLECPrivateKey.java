@@ -17,6 +17,7 @@
 package org.conscrypt;
 
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
@@ -157,11 +158,19 @@ final class OpenSSLECPrivateKey implements ECPrivateKey, OpenSSLKeyHolder {
 
     @Override
     public String getFormat() {
+        if (key.isEngineBased()) {
+            return null;
+        }
+
         return "PKCS#8";
     }
 
     @Override
     public byte[] getEncoded() {
+        if (key.isEngineBased()) {
+            return null;
+        }
+
         return NativeCrypto.EVP_marshal_private_key(key.getNativeRef());
     }
 
@@ -172,6 +181,10 @@ final class OpenSSLECPrivateKey implements ECPrivateKey, OpenSSLKeyHolder {
 
     @Override
     public BigInteger getS() {
+        if (key.isEngineBased()) {
+            throw new UnsupportedOperationException("private key value S cannot be extracted");
+        }
+
         return getPrivateKey();
     }
 
@@ -242,6 +255,10 @@ final class OpenSSLECPrivateKey implements ECPrivateKey, OpenSSLKeyHolder {
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
+        if (key.isEngineBased()) {
+            throw new NotSerializableException("engine-based keys cannot be serialized");
+        }
+
         stream.defaultWriteObject();
         stream.writeObject(getEncoded());
     }

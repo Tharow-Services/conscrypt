@@ -37,6 +37,8 @@ final class OpenSSLKey {
 
     private final boolean wrapped;
 
+    private final boolean engineBased;
+
     OpenSSLKey(long ctx) {
         this(ctx, false);
     }
@@ -44,6 +46,13 @@ final class OpenSSLKey {
     OpenSSLKey(long ctx, boolean wrapped) {
         this.ctx = new NativeRef.EVP_PKEY(ctx);
         this.wrapped = wrapped;
+        this.engineBased = false;
+    }
+
+    OpenSSLKey(long ctx, boolean wrapped, boolean engineBased) {
+        this.ctx = new NativeRef.EVP_PKEY(ctx);
+        this.wrapped = wrapped;
+        this.engineBased = engineBased;
     }
 
     /**
@@ -55,6 +64,10 @@ final class OpenSSLKey {
 
     boolean isWrapped() {
         return wrapped;
+    }
+
+    boolean isEngineBased() {
+        return engineBased;
     }
 
     static OpenSSLKey fromPrivateKey(PrivateKey key) throws InvalidKeyException {

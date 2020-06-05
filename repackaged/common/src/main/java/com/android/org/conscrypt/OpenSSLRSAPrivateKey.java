@@ -18,6 +18,7 @@
 package com.android.org.conscrypt;
 
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
@@ -171,7 +172,7 @@ class OpenSSLRSAPrivateKey implements RSAPrivateKey, OpenSSLKeyHolder {
     void readParams(byte[][] params) {
         if (params[0] == null) {
             throw new NullPointerException("modulus == null");
-        } else if (params[2] == null) {
+        } else if (params[2] == null && !key.isEngineBased()) {
             throw new NullPointerException("privateExponent == null");
         }
 
@@ -185,6 +186,9 @@ class OpenSSLRSAPrivateKey implements RSAPrivateKey, OpenSSLKeyHolder {
 
     @Override
     public final BigInteger getPrivateExponent() {
+        if (key.isEngineBased()) {
+            throw new UnsupportedOperationException("private exponent cannot be extracted");
+        }
         ensureReadParams();
         return privateExponent;
     }
@@ -197,11 +201,17 @@ class OpenSSLRSAPrivateKey implements RSAPrivateKey, OpenSSLKeyHolder {
 
     @Override
     public final byte[] getEncoded() {
+        if (key.isEngineBased()) {
+            return null;
+        }
         return NativeCrypto.EVP_marshal_private_key(key.getNativeRef());
     }
 
     @Override
     public final String getFormat() {
+        if (key.isEngineBased()) {
+            return null;
+        }
         return "PKCS#8";
     }
 
@@ -272,6 +282,9 @@ class OpenSSLRSAPrivateKey implements RSAPrivateKey, OpenSSLKeyHolder {
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
+        if (key.isEngineBased()) {
+            throw new NotSerializableException("engine-based keys can not be serialized");
+        }
         ensureReadParams();
         stream.defaultWriteObject();
     }

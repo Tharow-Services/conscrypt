@@ -17,7 +17,9 @@
 
 package com.android.org.conscrypt;
 
+import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
@@ -31,7 +33,6 @@ import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
-import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 
 /**
  * An implementation of a {@link PrivateKey} for EC keys based on BoringSSL.
@@ -158,11 +159,19 @@ final class OpenSSLECPrivateKey implements ECPrivateKey, OpenSSLKeyHolder {
 
     @Override
     public String getFormat() {
+        if (key.isEngineBased()) {
+            return null;
+        }
+
         return "PKCS#8";
     }
 
     @Override
     public byte[] getEncoded() {
+        if (key.isEngineBased()) {
+            return null;
+        }
+
         return NativeCrypto.EVP_marshal_private_key(key.getNativeRef());
     }
 
@@ -173,6 +182,10 @@ final class OpenSSLECPrivateKey implements ECPrivateKey, OpenSSLKeyHolder {
 
     @Override
     public BigInteger getS() {
+        if (key.isEngineBased()) {
+            throw new UnsupportedOperationException("private key value S cannot be extracted");
+        }
+
         return getPrivateKey();
     }
 
@@ -243,6 +256,10 @@ final class OpenSSLECPrivateKey implements ECPrivateKey, OpenSSLKeyHolder {
     }
 
     private void writeObject(ObjectOutputStream stream) throws IOException {
+        if (key.isEngineBased()) {
+            throw new NotSerializableException("engine-based keys cannot be serialized");
+        }
+
         stream.defaultWriteObject();
         stream.writeObject(getEncoded());
     }
