@@ -239,23 +239,39 @@ java_library {
     plugins: ["java_api_finder"],
 }
 
-// Referenced implicitly from conscrypt.module.platform.api.
+// Referenced implicitly from legacy.conscrypt.module.platform.api.
 filegroup {
-    name: "conscrypt.module.platform.api.api.public.latest",
+    name: "legacy.conscrypt.module.platform.api.api.public.latest",
     srcs: [
-        "api/platform/last-api.txt",
+        "api/legacy_platform/last-api.txt",
     ],
 }
 
-// Referenced implicitly from conscrypt.module.platform.api.
+// Referenced implicitly from legacy.conscrypt.module.platform.api.
 filegroup {
-    name: "conscrypt.module.platform.api-removed.api.public.latest",
+    name: "legacy.conscrypt.module.platform.api-removed.api.public.latest",
     srcs: [
-        "api/platform/last-removed.txt",
+        "api/legacy_platform/last-removed.txt",
     ],
 }
 
-// A library containing the core platform API stubs of the Conscrypt module.
+// Referenced implicitly from stable.conscrypt.module.platform.api.
+filegroup {
+    name: "stable.conscrypt.module.platform.api.api.public.latest",
+    srcs: [
+        "api/stable_platform/last-api.txt",
+    ],
+}
+
+// Referenced implicitly from stable.conscrypt.module.platform.api.
+filegroup {
+    name: "stable.conscrypt.module.platform.api-removed.api.public.latest",
+    srcs: [
+        "api/stable_platform/last-removed.txt",
+    ],
+}
+
+// Libraries containing the core platform API stubs of the Conscrypt module.
 //
 // Core platform APIs are only intended for use of other parts of the platform, not the
 // core library modules.
@@ -263,8 +279,11 @@ filegroup {
 // The API specification .txt files managed by this only contain the additional
 // classes/members that are in the platform API but which are not in the public
 // API.
+//
+// For notes on the legacy and stable versions see mmodules/core_platform_api/Android.bp.
+
 java_sdk_library {
-    name: "conscrypt.module.platform.api",
+    name: "legacy.conscrypt.module.platform.api",
     visibility: [
         "//external/wycheproof",
         "//libcore:__subpackages__",
@@ -277,7 +296,7 @@ java_sdk_library {
     srcs: [
         ":conscrypt_java_files",
     ],
-    api_dir: "api/platform",
+    api_dir: "api/legacy_platform",
     api_only: true,
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide",
@@ -288,6 +307,33 @@ java_sdk_library {
 
     sdk_version: "none",
     system_modules: "legacy-art-module-platform-api-stubs-system-modules",
+}
+
+java_sdk_library {
+    name: "stable.conscrypt.module.platform.api",
+    visibility: [
+        "//external/wycheproof",
+        "//libcore:__subpackages__",
+        // Visibility for prebuilt conscrypt-module-sdk from the prebuilt of
+        // this module.
+        // TODO(b/155921753): Restrict this when prebuilts are in their proper
+        // locations.
+        "//prebuilts:__subpackages__",
+    ],
+    srcs: [
+        ":conscrypt_java_files",
+    ],
+    api_dir: "api/stable_platform",
+    api_only: true,
+    droiddoc_options: [
+        "--hide-annotation libcore.api.Hide",
+        "--show-single-annotation libcore.api.CorePlatformApi\\(status=libcore.api.CorePlatformApi.Status.STABLE\\)",
+        "--skip-annotation-instance-methods=false",
+    ],
+    hostdex: true,
+
+    sdk_version: "none",
+    system_modules: "stable-art-module-platform-api-stubs-system-modules",
 }
 
 // Referenced implicitly from conscrypt.module.public.api.
@@ -549,7 +595,7 @@ sdk {
     java_sdk_libs: [
         "conscrypt.module.public.api",
         "conscrypt.module.intra.core.api",
-        "conscrypt.module.platform.api",
+        "legacy.conscrypt.module.platform.api",
     ],
     native_shared_libs: [
         "libconscrypt_jni",
