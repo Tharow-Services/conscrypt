@@ -203,6 +203,9 @@ java_library {
         "com.android.conscrypt",
         "test_com.android.conscrypt",
     ],
+    // Conscrypt should support Q
+    min_sdk_version: "29",
+
     installable: true,
     // Hostdex is only for ART testing on host: ART build file has its
     // own hostdex support for conscrypt.
@@ -265,6 +268,11 @@ java_sdk_library {
     visibility: [
         "//external/wycheproof",
         "//libcore:__subpackages__",
+        // Visibility for prebuilt conscrypt-module-sdk from the prebuilt of
+        // this module.
+        // TODO(b/155921753): Restrict this when prebuilts are in their proper
+        // locations.
+        "//prebuilts:__subpackages__",
     ],
     srcs: [
         ":conscrypt_java_files",
@@ -279,7 +287,7 @@ java_sdk_library {
     hostdex: true,
 
     sdk_version: "none",
-    system_modules: "art-module-platform-api-stubs-system-modules",
+    system_modules: "legacy-art-module-platform-api-stubs-system-modules",
 }
 
 // Referenced implicitly from conscrypt.module.public.api.
@@ -304,6 +312,11 @@ java_sdk_library {
     visibility: [
         "//frameworks/base",
         "//libcore",
+        // Visibility for prebuilt art-module-host-exports from the prebuilt of
+        // this module.
+        // TODO(b/155921753): Restrict this when prebuilts are in their proper
+        // locations.
+        "//prebuilts:__subpackages__",
     ],
     srcs: [
         ":conscrypt_public_api_files",
@@ -348,6 +361,11 @@ java_sdk_library {
     visibility: [
         "//external/okhttp",
         "//libcore:__subpackages__",
+        // Visibility for prebuilt conscrypt-module-sdk from the prebuilt of
+        // this module.
+        // TODO(b/155921753): Restrict this when prebuilts are in their proper
+        // locations.
+        "//prebuilts:__subpackages__",
     ],
     srcs: [
         ":conscrypt_java_files",
@@ -411,6 +429,7 @@ cc_library_shared {
         "com.android.conscrypt",
         "test_com.android.conscrypt",
     ],
+    min_sdk_version: "29",
 }
 
 // Unbundled Conscrypt jar for use by signapk tool
@@ -544,6 +563,9 @@ module_exports {
     device_supported: false,
     java_libs: [
         "conscrypt-unbundled",
+    ],
+    native_shared_libs: [
+        "libconscrypt_openjdk_jni",
     ],
 }
 
