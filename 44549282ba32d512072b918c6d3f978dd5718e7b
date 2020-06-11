@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4458bbcd_2dd3a129",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/OpenSSLRSAPrivateCrtKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-06-11T14:08:11Z",
+      "side": 1,
+      "message": "In the case of hardware-backed keys is it sufficient to just compare the public parts, on the assumption that the private parts must match by definition?  Or should we do something stricter?",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 76
+      },
+      "revId": "44549282ba32d512072b918c6d3f978dd5718e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
