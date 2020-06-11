@@ -37,6 +37,13 @@ final class OpenSSLKey {
 
     private final boolean wrapped;
 
+    // If true, indicates that this key is hardware-backed, e.g. stored in a TEE keystore.
+    // Conscrypt never creates such keys, but setting this field to true allows developers
+    // to create an EVP_PKEY from a hardware-backed key and then create an OpenSSLKey from it
+    // which can be used with Conscrypt.
+    // Hardware-backed keys cannot be serialised or have any private key material extracted.
+    private final boolean hardwareBacked;
+
     OpenSSLKey(long ctx) {
         this(ctx, false);
     }
@@ -44,6 +51,15 @@ final class OpenSSLKey {
     OpenSSLKey(long ctx, boolean wrapped) {
         this.ctx = new NativeRef.EVP_PKEY(ctx);
         this.wrapped = wrapped;
+        this.hardwareBacked = false;
+    }
+
+    // Constructor for users who need to set the |hardwareBacked| field to true.
+    // See the field documentation for more information.
+    OpenSSLKey(long ctx, boolean wrapped, boolean hardwareBacked) {
+        this.ctx = new NativeRef.EVP_PKEY(ctx);
+        this.wrapped = wrapped;
+        this.hardwareBacked = hardwareBacked;
     }
 
     /**
@@ -55,6 +71,10 @@ final class OpenSSLKey {
 
     boolean isWrapped() {
         return wrapped;
+    }
+
+    boolean isHardwareBacked() {
+        return hardwareBacked;
     }
 
     static OpenSSLKey fromPrivateKey(PrivateKey key) throws InvalidKeyException {
