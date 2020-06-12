@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "11b5cd45_21b75fbb",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-06-12T10:26:21Z",
+      "side": 1,
+      "message": "This constructor should just call the more expanded one with hardwareBacked \u003d false",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 14
+      },
+      "revId": "44549282ba32d512072b918c6d3f978dd5718e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4458bbcd_2dd3a129",
         "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/OpenSSLRSAPrivateCrtKey.java",
         "patchSetId": 1
