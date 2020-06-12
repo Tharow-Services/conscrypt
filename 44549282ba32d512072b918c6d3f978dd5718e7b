@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "bd682c09_db24648d",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLECPrivateKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-06-12T15:50:53Z",
+      "side": 1,
+      "message": "Also, digging a little deeper, it seems the |wrapped| field was introduced in https://r.android.com/103962 to cover a similar, but different use case but is no longer used anywhere...",
+      "parentUuid": "341f6b20_548698f6",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 163,
+        "endChar": 9
+      },
+      "revId": "44549282ba32d512072b918c6d3f978dd5718e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11b5cd45_21b75fbb",
         "filename": "common/src/main/java/org/conscrypt/OpenSSLKey.java",
         "patchSetId": 1
@@ -69,6 +93,30 @@
       "revId": "44549282ba32d512072b918c6d3f978dd5718e7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00ab3c6c_f1872804",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-06-12T15:50:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11b5cd45_21b75fbb",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 14
+      },
+      "revId": "44549282ba32d512072b918c6d3f978dd5718e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
