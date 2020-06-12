@@ -22,6 +22,30 @@
       "revId": "44549282ba32d512072b918c6d3f978dd5718e7b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2b42af78_cff9ea8d",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/OpenSSLRSAPrivateCrtKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1712232
+      },
+      "writtenOn": "2020-06-12T02:40:27Z",
+      "side": 1,
+      "message": "Hardware-backed key needs minimum exposure.\nSo, I think there is no need to add more conditions which has values related to Hardware-backed key.\nthank you",
+      "parentUuid": "4458bbcd_2dd3a129",
+      "range": {
+        "startLine": 224,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 76
+      },
+      "revId": "44549282ba32d512072b918c6d3f978dd5718e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
