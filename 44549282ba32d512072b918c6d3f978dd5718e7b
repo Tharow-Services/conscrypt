@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "341f6b20_548698f6",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLECPrivateKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-06-12T15:18:27Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s how Android KeyStore works. It has its own implementations of these classes served by its own separate security Provider, which might indeed be a better solution here in the long term.  However it wouldn\u0027t solve the app compat issue this change is addressing.\n\nNote that null is a documented return value here meaning \"this key does not support encoding\".",
+      "parentUuid": "f14a29a1_11861322",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 163,
+        "endChar": 9
+      },
+      "revId": "44549282ba32d512072b918c6d3f978dd5718e7b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "11b5cd45_21b75fbb",
         "filename": "common/src/main/java/org/conscrypt/OpenSSLKey.java",
         "patchSetId": 1
