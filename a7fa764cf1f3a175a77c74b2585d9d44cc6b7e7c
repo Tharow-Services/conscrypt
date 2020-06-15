@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "11c4c457_0c6273d2",
+        "filename": "apex/tests/AndroidTest.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-06-15T15:19:44Z",
+      "side": 1,
+      "message": "Obsolete since slow tests are excluded: ag/11570041, I\u0027d remove the timeout option so we use the default",
+      "range": {
+        "startLine": 32,
+        "startChar": 39,
+        "endLine": 32,
+        "endChar": 45
+      },
+      "revId": "a7fa764cf1f3a175a77c74b2585d9d44cc6b7e7c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
