@@ -21,7 +21,10 @@ import java.security.interfaces.ECPrivateKey;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.ECPublicKeySpec;
+<<<<<<< HEAD   (4efd91 Mark the entire conscrypt core/platform API as stable.)
 import libcore.junit.util.EnableDeprecatedBouncyCastleAlgorithmsRule;
+=======
+>>>>>>> BRANCH (12888f Merge pull request #844 from prbprbprb/engine_socket_close)
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.List;
