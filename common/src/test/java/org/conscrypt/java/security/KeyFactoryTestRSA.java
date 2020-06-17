@@ -30,10 +30,15 @@ import java.security.spec.RSAPrivateCrtKeySpec;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+<<<<<<< HEAD   (4efd91 Mark the entire conscrypt core/platform API as stable.)
 import libcore.junit.util.EnableDeprecatedBouncyCastleAlgorithmsRule;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.ClassRule;
+=======
+import java.util.Arrays;
+import java.util.List;
+>>>>>>> BRANCH (12888f Merge pull request #844 from prbprbprb/engine_socket_close)
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
