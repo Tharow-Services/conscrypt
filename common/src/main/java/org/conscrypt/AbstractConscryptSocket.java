@@ -39,7 +39,10 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.X509KeyManager;
 import javax.security.auth.x500.X500Principal;
+<<<<<<< HEAD   (4efd91 Mark the entire conscrypt core/platform API as stable.)
 import org.conscrypt.SSLParametersImpl.AliasChooser;
+=======
+>>>>>>> BRANCH (12888f Merge pull request #844 from prbprbprb/engine_socket_close)
 
 /**
  * Abstract base class for all Conscrypt {@link SSLSocket} classes.

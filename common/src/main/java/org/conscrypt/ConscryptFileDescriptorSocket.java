@@ -43,6 +43,11 @@ import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLProtocolException;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509TrustManager;
+<<<<<<< HEAD   (4efd91 Mark the entire conscrypt core/platform API as stable.)
+=======
+import javax.security.auth.x500.X500Principal;
+
+>>>>>>> BRANCH (12888f Merge pull request #844 from prbprbprb/engine_socket_close)
 import org.conscrypt.ExternalSession.Provider;
 import org.conscrypt.NativeRef.SSL_SESSION;
 
@@ -58,7 +63,12 @@ import org.conscrypt.NativeRef.SSL_SESSION;
  */
 class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
         implements NativeCrypto.SSLHandshakeCallbacks,
+<<<<<<< HEAD   (4efd91 Mark the entire conscrypt core/platform API as stable.)
                    SSLParametersImpl.PSKCallbacks {
+=======
+                   SSLParametersImpl.PSKCallbacks,
+                   SSLParametersImpl.AliasChooser {
+>>>>>>> BRANCH (12888f Merge pull request #844 from prbprbprb/engine_socket_close)
     private static final boolean DBG_STATE = false;
 
     // @GuardedBy("ssl");
@@ -1164,6 +1174,17 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
     @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     public final SecretKey getPSKKey(PSKKeyManager keyManager, String identityHint, String identity) {
         return keyManager.getKey(identityHint, identity, this);
+    }
+
+    @Override
+    public final String chooseServerAlias(X509KeyManager keyManager, String keyType) {
+        return keyManager.chooseServerAlias(keyType, null, this);
+    }
+
+    @Override
+    public final String chooseClientAlias(X509KeyManager keyManager, X500Principal[] issuers,
+                                          String[] keyTypes) {
+        return keyManager.chooseClientAlias(keyTypes, issuers, this);
     }
 
     private ClientSessionContext clientSessionContext() {
