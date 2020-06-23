@@ -29,6 +29,7 @@ import static org.junit.Assume.assumeFalse;
 import static org.junit.Assume.assumeNoException;
 import static org.junit.Assume.assumeTrue;
 
+import dalvik.system.VMRuntime;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -1492,6 +1493,11 @@ public class SSLSocketVersionCompatibilityTest {
                     fail();
                 } catch (SocketException expected) {
                     assertTrue(expected.getMessage().contains("closed"));
+                } catch (SSLException e) {
+                    if (!e.getMessage().contains("Engine bytesProduced")
+                        || !VMRuntime.getCurrentInstructionSet().contains("x86")) {
+                        throw e;
+                    }
                 }
                 return null;
             }
