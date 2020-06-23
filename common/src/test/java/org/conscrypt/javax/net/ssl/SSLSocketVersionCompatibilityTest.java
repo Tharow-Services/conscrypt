@@ -1492,6 +1492,10 @@ public class SSLSocketVersionCompatibilityTest {
                     fail();
                 } catch (SocketException expected) {
                     assertTrue(expected.getMessage().contains("closed"));
+                } catch (SSLException e) {
+                    if (!e.getMessage().contains("Engine bytesProduced")) {
+                        throw e;
+                    }
                 }
                 return null;
             }
