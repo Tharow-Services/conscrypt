@@ -44,12 +44,14 @@ import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509ExtendedTrustManager;
+import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
+import javax.security.auth.x500.X500Principal;
 
 /**
  * Implements crypto handling by delegating to {@link ConscryptEngine}.
  */
-class ConscryptEngineSocket extends OpenSSLSocketImpl {
+class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersImpl.AliasChooser {
     private static final ByteBuffer EMPTY_BUFFER = ByteBuffer.allocate(0);
 
     private final ConscryptEngine engine;
@@ -443,7 +445,9 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
             return;
         }
 
+        int previousState;
         synchronized (stateLock) {
+            previousState = state;
             if (state == STATE_CLOSED) {
                 // close() has already been called, so do nothing and return.
                 return;
@@ -455,16 +459,28 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
         }
 
         try {
-            // Close the underlying socket.
-            super.close();
-        } finally {
             // Close the engine.
             engine.closeInbound();
             engine.closeOutbound();
 
-            // Release any resources we're holding
-            if (in != null) {
-                in.release();
+            // Closing the outbound direction of a connected engine will trigger a TLS close
+            // notify, which we should try and send.
+            // If we don't, then closeOutbound won't be able to free resources because there are
+            // bytes queued for transmission so drain the queue those and call closeOutbound a
+            // second time.
+            if (previousState >= STATE_HANDSHAKE_STARTED) {
+                drainOutgoingQueue();
+                engine.closeOutbound();
+            }
+        } finally {
+            // In case of an exception thrown while closing the engine, we still need to close the
+            // underlying socket and release any resources the input stream is holding.
+            try {
+                super.close();
+            } finally {
+                if (in != null) {
+                    in.release();
+                }
             }
         }
     }
@@ -575,6 +591,17 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
         return super.getInputStream();
     }
 
+    @Override
+    public final String chooseServerAlias(X509KeyManager keyManager, String keyType) {
+        return keyManager.chooseServerAlias(keyType, null, this);
+    }
+
+    @Override
+    public final String chooseClientAlias(
+            X509KeyManager keyManager, X500Principal[] issuers, String[] keyTypes) {
+        return keyManager.chooseClientAlias(keyTypes, issuers, this);
+    }
+
     /**
      * Wrap bytes written to the underlying socket.
      */
@@ -642,7 +669,10 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl {
                     throw new SSLException("Engine did not read the correct number of bytes");
                 }
                 if (engineResult.getStatus() == CLOSED && engineResult.bytesProduced() == 0) {
-                    throw new SocketException("Socket closed");
+                    if (len > 0) {
+                        throw new SocketException("Socket closed");
+                    }
+                    break;
                 }
 
                 target.flip();
