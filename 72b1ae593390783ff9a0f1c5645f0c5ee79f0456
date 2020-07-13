@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "b23efe30_c2c90619",
+        "filename": "test-support/src/java/org/conscrypt/ConscryptInstrumentationListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-07-13T19:40:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6707f5c7_8b126920",
+      "range": {
+        "startLine": 51,
+        "startChar": 40,
+        "endLine": 51,
+        "endChar": 42
+      },
+      "revId": "72b1ae593390783ff9a0f1c5645f0c5ee79f0456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2703fc0d_9e637c31",
         "filename": "test-support/src/java/org/conscrypt/ConscryptInstrumentationListener.java",
         "patchSetId": 2
@@ -65,6 +89,30 @@
     },
     {
       "key": {
+        "uuid": "2928965b_2ba14802",
+        "filename": "test-support/src/java/org/conscrypt/ConscryptInstrumentationListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-07-13T19:40:48Z",
+      "side": 1,
+      "message": "Good catch, leftover from a refactoring.  Done.",
+      "parentUuid": "2703fc0d_9e637c31",
+      "range": {
+        "startLine": 157,
+        "startChar": 15,
+        "endLine": 157,
+        "endChar": 29
+      },
+      "revId": "72b1ae593390783ff9a0f1c5645f0c5ee79f0456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b4cc872c_7729980a",
         "filename": "test-support/src/java/org/conscrypt/ConscryptInstrumentationListener.java",
         "patchSetId": 2
@@ -76,6 +124,30 @@
       "writtenOn": "2020-07-13T19:25:46Z",
       "side": 1,
       "message": "seems like correct usage of siginfo requires calling isValid() first. Perhaps then isBlocked() should call isValid() itself (and return False if not valid) so the caller has less room for using it incorrectly.",
+      "range": {
+        "startLine": 164,
+        "startChar": 32,
+        "endLine": 164,
+        "endChar": 39
+      },
+      "revId": "72b1ae593390783ff9a0f1c5645f0c5ee79f0456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "480d6179_0157b885",
+        "filename": "test-support/src/java/org/conscrypt/ConscryptInstrumentationListener.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-07-13T19:40:48Z",
+      "side": 1,
+      "message": "That\u0027s not quite the semantics I need.  If the siginfo is invalid (which should never happen :)) then we don\u0027t know the state so need to keep looping until the timeout (or until we get valid info).\n\nI guess for this loop, returning true if it was invalid would work, but I was trying to keep the SignalMaskInfo class generic enough to re-use and true isn\u0027t always the correct answer.",
+      "parentUuid": "b4cc872c_7729980a",
       "range": {
         "startLine": 164,
         "startChar": 32,
