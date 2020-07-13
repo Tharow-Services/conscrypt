@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14803181_b8f9bc58",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-07-13T15:18:21Z",
+      "side": 1,
+      "message": "NB of course SignalMaskInfo should have tests, and if this turns out to be a longer-than-temporary solution then I will add some. 😊",
+      "revId": "72b1ae593390783ff9a0f1c5645f0c5ee79f0456",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
