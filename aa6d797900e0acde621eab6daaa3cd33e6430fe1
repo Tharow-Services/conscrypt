@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9f853dfd_206c0ac4",
+        "filename": "test-support/src/java/org/conscrypt/SignalMaskInfo.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2020-07-14T18:41:32Z",
+      "side": 1,
+      "message": "Should there be a copyright notice at the top of this file?",
+      "revId": "aa6d797900e0acde621eab6daaa3cd33e6430fe1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
