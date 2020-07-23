@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "84c40ec5_37f00f68",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-07-23T10:50:14Z",
+      "side": 1,
+      "message": "Lint errors are: Non-SDK API - Move Lcom/android/org/conscrypt/ConscryptEngineSocket;-\u003esetHostname(Ljava/lang/String;)V from blacklist to greylist-max-q.\n\nWhich is exactly what this change is intended to do\n\n",
+      "revId": "8ebc95684c24078ff04643f0f656f80c3fa8e277",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
