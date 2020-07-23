@@ -1,0 +1,10 @@
+Verified+1: Pete Bentley <prb@google.com>
+Code-Review+2: Daulet Zhanguzin <dauletz@google.com>
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint-1: Lint 🤖 <android-build-prod-ayeaye@system.gserviceaccount.com>
+Lint+2: Pete Bentley <prb@google.com>
+Submitted-by: Pete Bentley <prb@google.com>
+Submitted-at: Thu, 23 Jul 2020 10:50:24 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1370359
+Project: platform/external/conscrypt
+Branch: refs/heads/master
