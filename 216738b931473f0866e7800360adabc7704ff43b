@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f19ab23_cef7db51",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 520,
+      "author": {
+        "id": 1337669
+      },
+      "writtenOn": "2020-08-03T07:42:46Z",
+      "side": 1,
+      "message": "Because \"libjavacrypto\" is packaged in an APEX on device, thus not directly available, so only \"host.required:\" but not \"target.required:\"",
+      "range": {
+        "startLine": 518,
+        "startChar": 7,
+        "endLine": 520,
+        "endChar": 10
+      },
+      "revId": "216738b931473f0866e7800360adabc7704ff43b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
