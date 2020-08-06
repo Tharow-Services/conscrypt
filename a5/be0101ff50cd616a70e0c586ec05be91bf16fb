@@ -1,0 +1,7 @@
+Build-Cop-Override+1: Insaf Latypov <saferif@google.com>
+Bypass-Presubmit+1: Insaf Latypov <saferif@google.com>
+Submitted-by: Insaf Latypov <saferif@google.com>
+Submitted-at: Thu, 06 Aug 2020 16:02:50 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1393099
+Project: platform/external/conscrypt
+Branch: refs/heads/master
