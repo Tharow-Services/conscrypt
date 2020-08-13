@@ -19,6 +19,7 @@ package org.conscrypt;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.os.SystemClock;
 import android.util.Log;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
@@ -548,6 +549,16 @@ final class Platform {
         }
     }
 
+    static void logd(String message) {
+        try {
+            Class logClass = Class.forName("android.util.Log");
+            Method logMethod = logClass.getMethod("d", String.class, String.class);
+            logMethod.invoke(null, "conscrypt_metrics", message);
+        } catch (Exception e) {
+            // Fail silently
+        }
+    }
+
     static SSLEngine wrapEngine(ConscryptEngine engine) {
         // For now, don't wrap on Android.
         return engine;
@@ -1018,5 +1029,98 @@ final class Platform {
             }
         }
         return false;
+    }
+
+    /**
+     * Returns milliseconds elapsed since boot, including time spent in sleep.
+     * @return long number of milliseconds elapsed since boot
+     */
+    static long getMillisSinceBoot() {
+        return SystemClock.elapsedRealtime();
+    }
+
+    static void countTlsHandshake(
+            boolean success, String protocol, String cipherSuite, long duration) {
+        final String message = String.format("success:%b proto:%s cipher:%s duration:%s", success,
+                protocol, cipherSuite, duration);
+        logd(message);
+
+        StatsLog.write(StatsLog.TLS_HANDSHAKE, success, protocolToAtomEnum(protocol),
+                cipherSuiteToAtomEnum(cipherSuite), duration);
+    }
+
+    // Must be in sync with frameworks/base/cmds/statsd/src/atoms.proto
+    private static int protocolToAtomEnum(String protocol) {
+        switch (protocol) {
+            case "SSLv3":
+                return 1;
+            case "TLSv1":
+                return 2;
+            case "TLSv1_1":
+                return 3;
+            case "TLSv1_2":
+                return 4;
+            case "TLSv1_3":
+                return 5;
+            default:
+                return 0; // UNKNOWN_PROTO
+        }
+    }
+
+    // Must be in sync with frameworks/base/cmds/statsd/src/atoms.proto
+    private static int cipherSuiteToAtomEnum(String cipherSuite) {
+        switch (cipherSuite) {
+            case "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA":
+                return 1;
+            case "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA":
+                return 2;
+            case "TLS_RSA_WITH_AES_256_CBC_SHA":
+                return 3;
+            case "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA":
+                return 4;
+            case "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA":
+                return 5;
+            case "TLS_RSA_WITH_AES_128_CBC_SHA":
+                return 6;
+            case "SSL_RSA_WITH_3DES_EDE_CBC_SHA":
+                return 7;
+            // TLSv1.2 cipher suites
+            case "TLS_RSA_WITH_AES_128_GCM_SHA256":
+                return 8;
+            case "TLS_RSA_WITH_AES_256_GCM_SHA384":
+                return 9;
+            case "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256":
+                return 10;
+            case "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384":
+                return 11;
+            case "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256":
+                return 12;
+            case "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384":
+                return 13;
+            case "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256":
+                return 14;
+            case "TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256":
+                return 15;
+            // Pre-Shared Key (PSK) cipher suites
+            case "TLS_PSK_WITH_AES_128_CBC_SHA":
+                return 16;
+            case "TLS_PSK_WITH_AES_256_CBC_SHA":
+                return 17;
+            case "TLS_ECDHE_PSK_WITH_AES_128_CBC_SHA":
+                return 18;
+            case "TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA":
+                return 19;
+            case "TLS_ECDHE_PSK_WITH_CHACHA20_POLY1305_SHA256":
+                return 20;
+            // TLS 1.3 cipher suites
+            case "TLS_AES_128_GCM_SHA256":
+                return 21;
+            case "TLS_AES_256_GCM_SHA384":
+                return 22;
+            case "TLS_CHACHA20_POLY1305_SHA256":
+                return 23;
+            default:
+                return 0; // UNKNOWN_CIPHER_SUITE
+        }
     }
 }
