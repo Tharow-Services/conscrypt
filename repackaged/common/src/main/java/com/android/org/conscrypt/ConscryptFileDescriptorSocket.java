@@ -118,6 +118,8 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
     private int writeTimeoutMilliseconds = 0;
     private int handshakeTimeoutMilliseconds = -1; // -1 = same as timeout; 0 = infinite
 
+    private long handshakeStartedMillis;
+
     // The constructors should not be called except from the Platform class, because we may
     // want to construct a subclass instead.
     ConscryptFileDescriptorSocket(SSLParametersImpl sslParameters) throws IOException {
@@ -332,11 +334,18 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks / info_callback
     public final void onSSLStateChange(int type, int val) {
         if (type != NativeConstants.SSL_CB_HANDSHAKE_DONE) {
+            Platform.countTlsHandshake(false, activeSession.getProtocol(),
+                    activeSession.getCipherSuite(),
+                    Platform.getMillisSinceBoot() - handshakeStartedMillis);
             // We only care about successful completion.
             return;
         }
 
         // The handshake has completed successfully ...
+
+        Platform.countTlsHandshake(true, activeSession.getProtocol(),
+                activeSession.getCipherSuite(),
+                Platform.getMillisSinceBoot() - handshakeStartedMillis);
 
         // First, update the state.
         synchronized (ssl) {
