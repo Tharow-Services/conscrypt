@@ -151,6 +151,29 @@ final class SSLUtils {
          * The engine has been closed.
          */
         static final int STATE_CLOSED = 8;
+
+        static String getDescription(int state) {
+            switch (state) {
+                case STATE_NEW:
+                    return "STATE_NEW";
+                case STATE_MODE_SET:
+                    return "STATE_MODE_SET";
+                case STATE_HANDSHAKE_STARTED:
+                    return "STATE_HANDSHAKE_STARTED";
+                case STATE_HANDSHAKE_COMPLETED:
+                    return "STATE_HANDSHAKE_COMPLETED";
+                case STATE_READY:
+                    return "STATE_READY";
+                case STATE_CLOSED_INBOUND:
+                    return "STATE_CLOSED_INBOUND";
+                case STATE_CLOSED_OUTBOUND:
+                    return "STATE_CLOSED_OUTBOUND";
+                case STATE_CLOSED:
+                    return "STATE_CLOSED";
+                default:
+                    return "STATE_UNKNOWN:" + state;
+            }
+        }
     }
 
     /**

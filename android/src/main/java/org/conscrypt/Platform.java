@@ -19,6 +19,7 @@ package org.conscrypt;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Build;
+import android.os.SystemClock;
 import android.util.Log;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
@@ -548,6 +549,16 @@ final class Platform {
         }
     }
 
+    static void logd(String message) {
+        try {
+            Class logClass = Class.forName("android.util.Log");
+            Method logMethod = logClass.getMethod("d", String.class, String.class);
+            logMethod.invoke(null, "conscrypt_metrics", message);
+        } catch (Exception e) {
+            // Fail silently
+        }
+    }
+
     static SSLEngine wrapEngine(ConscryptEngine engine) {
         // For now, don't wrap on Android.
         return engine;
@@ -1018,5 +1029,33 @@ final class Platform {
             }
         }
         return false;
+    }
+
+    /**
+     * Returns milliseconds elapsed since boot, including time spen in sleep.
+     * @return long
+     */
+    public static long getMillisSinceBoot() {
+        return SystemClock.elapsedRealtime();
+    }
+
+    public static void logTlsHandshakeMetrics(
+            boolean success, String protocol, String cipherSuite, long duration) {
+        final String message = String.format("success:%b proto:%s cipher:%s duration:%s", success,
+                protocol, cipherSuite, duration);
+        logd(message);
+
+        StatsLog.write(StatsLog.TLS_HANDSHAKE, success, protocolToAtomEnum(protocol),
+                cipherSuiteToAtomEnum(cipherSuite), duration);
+    }
+
+    private static int protocolToAtomEnum(String protocol) {
+        // stub implementation
+        return 2;
+    }
+
+    private static int cipherSuiteToAtomEnum(String cipherSuite) {
+        // stub implementation
+        return 3;
     }
 }

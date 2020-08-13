@@ -331,6 +331,8 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
     @Override
     @SuppressWarnings("unused") // used by NativeCrypto.SSLHandshakeCallbacks / info_callback
     public final void onSSLStateChange(int type, int val) {
+        Platform.logEvent(
+                "ConscryptFileDescriptorSocket:onSSLStateChange | type:" + type + ", val:" + val);
         if (type != NativeConstants.SSL_CB_HANDSHAKE_DONE) {
             // We only care about successful completion.
             return;
