@@ -36,6 +36,8 @@ final class ActiveSession implements ConscryptSession {
     private AbstractSessionContext sessionContext;
     private byte[] id;
     private long creationTime;
+    private long handshakeStartedMillis;
+    private long handshakeFinishedMillis;
     private String protocol;
     private String applicationProtocol;
     private String peerHost;
@@ -75,6 +77,22 @@ final class ActiveSession implements ConscryptSession {
             }
         }
         return creationTime;
+    }
+
+    public long getHandshakeStartedMillis() {
+        return handshakeStartedMillis;
+    }
+
+    public void setHandshakeStartedMillis(long handshakeStartedMillis) {
+        this.handshakeStartedMillis = handshakeStartedMillis;
+    }
+
+    public long getHandshakeFinishedMillis() {
+        return handshakeFinishedMillis;
+    }
+
+    public void setHandshakeFinishedMillis(long handshakeFinishedMillis) {
+        this.handshakeFinishedMillis = handshakeFinishedMillis;
     }
 
     /**

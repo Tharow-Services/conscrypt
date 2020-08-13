@@ -26,6 +26,7 @@ import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.lang.System;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -281,6 +282,14 @@ final class Platform {
         } catch (Exception e) {
             // Do not log and fail silently
         }
+
+        try {
+            Class logClass = Class.forName("android.util.Log");
+            Method logMethod = logClass.getMethod("d", String.class, String.class);
+            logMethod.invoke(null, "conscrypt_metrics", message);
+        } catch (Exception e) {
+            // Fail silently
+        }
     }
 
     static SSLEngine wrapEngine(ConscryptEngine engine) {
@@ -529,5 +538,13 @@ final class Platform {
             }
         }
         return false;
+    }
+
+    /**
+     * Returns milliseconds elapsed since boot, including time spen in sleep.
+     * @return long
+     */
+    public static long getMillisSinceBoot() {
+        return System.currentTimeMillis();
     }
 }

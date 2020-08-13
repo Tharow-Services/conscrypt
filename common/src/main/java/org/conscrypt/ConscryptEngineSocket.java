@@ -196,6 +196,8 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersIm
                         engine.beginHandshake();
                         in = new SSLInputStream();
                         out = new SSLOutputStream();
+                        Platform.logEvent(
+                                "ConscryptEngineSocket:startHandshake | STATE_NEW --> STATE_HANDSHAKE_STARTED");
                     } else {
                         // We've either started the handshake already or have been closed.
                         // Do nothing in both cases.
@@ -519,6 +521,7 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersIm
     }
 
     private void onHandshakeFinished() {
+        Platform.logEvent("ConscryptEngineSocket:onHandshakeFinished");
         boolean notify = false;
         synchronized (stateLock) {
             if (state != STATE_CLOSED) {

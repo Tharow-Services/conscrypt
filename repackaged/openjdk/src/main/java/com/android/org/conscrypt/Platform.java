@@ -786,4 +786,13 @@ final class Platform {
             });
         }
     }
+
+    /**
+     *
+     * @return long
+     */
+    @SuppressWarnings("unused")
+    public static long getMillisSinceBoot() {
+        return 0;
+    }
 }

@@ -422,6 +422,8 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
 
         transitionTo(STATE_HANDSHAKE_STARTED);
 
+        activeSession.setHandshakeStartedMillis(Platform.getMillisSinceBoot());
+
         boolean releaseResources = true;
         try {
             // Prepare the SSL object for the handshake.
@@ -449,6 +451,13 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
                 Platform.logEvent(logMessage);
             }
             closeAll();
+
+            activeSession.setHandshakeFinishedMillis(Platform.getMillisSinceBoot());
+            Platform.logEvent(String.format(
+                    "ConscryptEngine:finishHandshake() | EVT status:failure proto:%s start:%d end:%d exception:%s",
+                    activeSession.getProtocol(), activeSession.getHandshakeStartedMillis(),
+                    activeSession.getHandshakeFinishedMillis(), e.toString()));
+
             throw SSLUtils.toSSLHandshakeException(e);
         } finally {
             if (releaseResources) {
@@ -1001,6 +1010,11 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
 
     private void finishHandshake() throws SSLException {
         handshakeFinished = true;
+        activeSession.setHandshakeFinishedMillis(Platform.getMillisSinceBoot());
+        Platform.logEvent(String.format(
+                "ConscryptEngine:finishHandshake() | EVT status:success proto:%s start:%d end:%d now:%d",
+                activeSession.getProtocol(), activeSession.getHandshakeStartedMillis(),
+                activeSession.getHandshakeFinishedMillis(), Platform.getMillisSinceBoot()));
         // Notify the listener, if provided.
         if (handshakeListener != null) {
             handshakeListener.onHandshakeFinished();
@@ -1569,14 +1583,19 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
         synchronized (ssl) {
             switch (type) {
                 case SSL_CB_HANDSHAKE_START: {
+                    Platform.logEvent("ConscryptEngine:onSSLStateChange | handshake started");
                     // For clients, this will allow the NEED_UNWRAP status to be
                     // returned.
                     transitionTo(STATE_HANDSHAKE_STARTED);
                     break;
                 }
                 case SSL_CB_HANDSHAKE_DONE: {
+                    Platform.logEvent("ConscryptEngine:onSSLStateChange | handshake done");
                     if (state != STATE_HANDSHAKE_STARTED
                             && state != STATE_READY_HANDSHAKE_CUT_THROUGH) {
+                        Platform.logEvent(
+                                "ConscryptEngine:onSSLStateChange | Completed handshake while in mode "
+                                + state);
                         throw new IllegalStateException(
                                 "Completed handshake while in mode " + state);
                     }
@@ -1822,15 +1841,23 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
             case STATE_HANDSHAKE_STARTED: {
                 handshakeFinished = false;
                 activeSession = new ActiveSession(ssl, sslParameters.getSessionContext());
+                activeSession.setHandshakeStartedMillis(Platform.getMillisSinceBoot());
+                Platform.logEvent("ConscryptEngine:transitionTo | STATE_HANDSHAKE_STARTED");
                 break;
             }
             case STATE_CLOSED: {
                 if (!ssl.isClosed() && state >= STATE_HANDSHAKE_STARTED && state < STATE_CLOSED) {
                     closedSession = new SessionSnapshot(activeSession);
+                    String message = String.format(
+                            "ConscryptEngine:transitionTo | STATE_CLOSED proto:%s cipher:%s",
+                            closedSession.getProtocol(), closedSession.getCipherSuite());
+                    Platform.logEvent(message);
                 }
                 break;
             }
             default: {
+                Platform.logEvent("ConscryptEngine:transitionTo | "
+                        + SSLUtils.EngineStates.getDescription(newState));
                 break;
             }
         }
