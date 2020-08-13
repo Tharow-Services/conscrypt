@@ -785,4 +785,20 @@ final class Platform {
             });
         }
     }
+
+    /**
+     *
+     * @return long
+     */
+    @SuppressWarnings("unused")
+    public static long getMillisSinceBoot() {
+        return 0;
+    }
+
+    /**
+     *
+     */
+    @SuppressWarnings("unused")
+    public static void logTlsHandshakeMetrics(
+            boolean success, String protocol, String cipherSuite, long duration) {}
 }

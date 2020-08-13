@@ -60,6 +60,9 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersIm
     private SSLOutputStream out;
     private SSLInputStream in;
 
+    private long handshakeStartedMillis;
+    private long handshakeFinishedMillis;
+
     private BufferAllocator bufferAllocator = ConscryptEngine.getDefaultBufferAllocator();
 
     // @GuardedBy("stateLock");
@@ -193,10 +196,20 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersIm
                     // Initialize the handshake if we haven't already.
                     if (state == STATE_NEW) {
                         state = STATE_HANDSHAKE_STARTED;
+                        Platform.logEvent(
+                                "ConscryptEngineSocket:startHandshake | NEW --> HANDSHAKE_STARTED, saved started time");
+                        handshakeStartedMillis = Platform.getMillisSinceBoot();
+                        Platform.logEvent(
+                                "ConscryptEngineSocket:startHandshake | before engine.beginHandshake()");
                         engine.beginHandshake();
+                        Platform.logEvent(
+                                "ConscryptEngineSocket:startHandshake | after engine.beginHandshake()");
                         in = new SSLInputStream();
                         out = new SSLOutputStream();
                     } else {
+                        Platform.logEvent(
+                                "ConscryptEngineSocket:startHandshake | STATE != NEW, state:"
+                                + SSLUtils.EngineStates.getDescription(state));
                         // We've either started the handshake already or have been closed.
                         // Do nothing in both cases.
                         //
@@ -206,15 +219,44 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersIm
                     }
                 }
 
+                Platform.logEvent("ConscryptEngineSocket:startHandshake | before doHandshake");
                 doHandshake();
+                Platform.logEvent("ConscryptEngineSocket:startHandshake | after doHandshake");
             }
         } catch (SSLException e) {
+            handshakeFinishedMillis = Platform.getMillisSinceBoot();
+            Platform.logEvent(String.format(
+                    "from:startHandshake#SSLException status:failed proto:%s cipher:%s duration:%s",
+                    engine.getSession().getProtocol(), engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis));
+
+            Platform.logTlsHandshakeMetrics(false, engine.getSession().getProtocol(),
+                    engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis);
             close();
             throw e;
         } catch (IOException e) {
+            handshakeFinishedMillis = Platform.getMillisSinceBoot();
+            Platform.logEvent(String.format(
+                    "from:startHandshake#IOException status:failed proto:%s cipher:%s duration:%s",
+                    engine.getSession().getProtocol(), engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis));
+
+            Platform.logTlsHandshakeMetrics(false, engine.getSession().getProtocol(),
+                    engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis);
             close();
             throw e;
         } catch (Exception e) {
+            handshakeFinishedMillis = Platform.getMillisSinceBoot();
+            Platform.logEvent(String.format(
+                    "from:startHandshake#IOException status:failed proto:%s cipher:%s duration:%s",
+                    engine.getSession().getProtocol(), engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis));
+
+            Platform.logTlsHandshakeMetrics(false, engine.getSession().getProtocol(),
+                    engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis);
             close();
             // Convert anything else to a handshake exception.
             throw SSLUtils.toSSLHandshakeException(e);
@@ -225,7 +267,11 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersIm
         try {
             boolean finished = false;
             while (!finished) {
-                switch (engine.getHandshakeStatus()) {
+                SSLEngineResult.HandshakeStatus status = engine.getHandshakeStatus();
+                Platform.logEvent(
+                        "ConscryptEngineSocket:doHandshake | engine.getHandshakeStatus() = "
+                        + SSLUtils.EngineStates.getDescription(state));
+                switch (status) {
                     case NEED_UNWRAP:
                         if (in.processDataFromSocket(EmptyArray.BYTE, 0, 0) < 0) {
                             // Can't complete the handshake due to EOF.
@@ -247,9 +293,18 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersIm
                     case FINISHED: {
                         // Handshake is complete.
                         finished = true;
+                        handshakeFinishedMillis = Platform.getMillisSinceBoot();
+                        Platform.logEvent(
+                                String.format("status:success proto:%s cipher:%s duration:%s",
+                                        engine.getSession().getProtocol(),
+                                        engine.getSession().getCipherSuite(),
+                                        handshakeFinishedMillis - handshakeStartedMillis));
                         break;
                     }
                     default: {
+                        Platform.logEvent(
+                                "ConscryptEngineSocket:doHandshake | engine.getHandshakeStatus() = "
+                                + SSLUtils.EngineStates.getDescription(state));
                         throw new IllegalStateException(
                             "Unknown handshake status: " + engine.getHandshakeStatus());
                     }
@@ -257,12 +312,39 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersIm
             }
         } catch (SSLException e) {
             drainOutgoingQueue();
+            handshakeFinishedMillis = Platform.getMillisSinceBoot();
+            Platform.logEvent(String.format(
+                    "from:doHandshake#SSLException status:failed proto:%s cipher:%s duration:%s",
+                    engine.getSession().getProtocol(), engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis));
+
+            Platform.logTlsHandshakeMetrics(false, engine.getSession().getProtocol(),
+                    engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis);
             close();
             throw e;
         } catch (IOException e) {
+            handshakeFinishedMillis = Platform.getMillisSinceBoot();
+            Platform.logEvent(String.format(
+                    "from:doHandshake#IOException status:failed proto:%s cipher:%s duration:%s",
+                    engine.getSession().getProtocol(), engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis));
+
+            Platform.logTlsHandshakeMetrics(false, engine.getSession().getProtocol(),
+                    engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis);
             close();
             throw e;
         } catch (Exception e) {
+            handshakeFinishedMillis = Platform.getMillisSinceBoot();
+            Platform.logEvent(String.format(
+                    "from:doHandshake#Exception status:failed proto:%s cipher:%s duration:%s",
+                    engine.getSession().getProtocol(), engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis));
+
+            Platform.logTlsHandshakeMetrics(false, engine.getSession().getProtocol(),
+                    engine.getSession().getCipherSuite(),
+                    handshakeFinishedMillis - handshakeStartedMillis);
             close();
             // Convert anything else to a handshake exception.
             throw SSLUtils.toSSLHandshakeException(e);
@@ -519,6 +601,7 @@ class ConscryptEngineSocket extends OpenSSLSocketImpl implements SSLParametersIm
     }
 
     private void onHandshakeFinished() {
+        Platform.logEvent("ConscryptEngineSocket:onHandshakeFinished");
         boolean notify = false;
         synchronized (stateLock) {
             if (state != STATE_CLOSED) {
