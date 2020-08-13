@@ -786,4 +786,16 @@ final class Platform {
             });
         }
     }
+
+    @SuppressWarnings("unused")
+    static long getMillisSinceBoot() {
+        return 0;
+    }
+
+    @SuppressWarnings("unused")
+    static void countTlsHandshake(
+            boolean success, String protocol, String cipherSuite, long duration) {}
+
+    @SuppressWarnings("unused")
+    static void logd(String message) {}
 }

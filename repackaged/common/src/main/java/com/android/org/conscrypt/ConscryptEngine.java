@@ -421,7 +421,6 @@ final class ConscryptEngine extends AbstractConscryptEngine implements NativeCry
         }
 
         transitionTo(STATE_HANDSHAKE_STARTED);
-
         boolean releaseResources = true;
         try {
             // Prepare the SSL object for the handshake.
