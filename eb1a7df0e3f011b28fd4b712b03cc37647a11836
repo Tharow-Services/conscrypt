@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8bddbfbf_974d30e5",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-08-19T18:10:33Z",
+      "side": 1,
+      "message": "do we need this field? we are going to count the event as soon as we are done",
+      "range": {
+        "startLine": 64,
+        "startChar": 17,
+        "endLine": 64,
+        "endChar": 40
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "de6526d6_bed59f45",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-08-19T18:10:33Z",
+      "side": 1,
+      "message": "are these meant to be checked in? This might be too noisy to log on real devices",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 42
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4c9f0d9_ef952d3a",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-08-19T18:10:33Z",
+      "side": 1,
+      "message": "countTlsHandshake() is a better name to indicate that we only measuring aggregated counts",
+      "range": {
+        "startLine": 553,
+        "startChar": 23,
+        "endLine": 553,
+        "endChar": 45
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "989e48a3_70ddd571",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-08-19T18:10:33Z",
+      "side": 1,
+      "message": "don\u0027t you need to implement these?",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 30
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
