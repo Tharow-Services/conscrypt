@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "040121f9_b2da4670",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-08-19T18:12:00Z",
+      "side": 1,
+      "message": "As I think I mentioned, this will actually log to the system event log, not logcat so you should probably add a new method rather than extending this one.",
+      "range": {
+        "startLine": 534,
+        "startChar": 0,
+        "endLine": 534,
+        "endChar": 49
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb1c0f0c_45401ae2",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-08-19T18:12:00Z",
+      "side": 1,
+      "message": "nit: \"spent\"",
+      "range": {
+        "startLine": 1037,
+        "startChar": 63,
+        "endLine": 1037,
+        "endChar": 67
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b0caa4d9_13ce9a5c",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngine.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1573,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-08-19T18:12:00Z",
+      "side": 1,
+      "message": "I think for now it\u0027s better not to log events from ConscryptEngine to avoid duplicating data that comes from ConscryptEngineSocket - because every ConscryptEngineSocket also has its own ConscryptEngine.",
+      "range": {
+        "startLine": 1573,
+        "startChar": 0,
+        "endLine": 1573,
+        "endChar": 94
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8bddbfbf_974d30e5",
         "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
         "patchSetId": 2
@@ -41,6 +110,121 @@
         "startChar": 0,
         "endLine": 199,
         "endChar": 42
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09f56a44_36341240",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-08-19T18:12:00Z",
+      "side": 1,
+      "message": "There\u0027s a lot of duplication between the catch clauses.  I think factor the metric code out to its own method for clarity and it looks like you can delete the SSLException clause (SSLException is a subclass of IOException).",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 68
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2450500_2a1b0281",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-08-19T18:12:00Z",
+      "side": 1,
+      "message": "This will be the main logging point for successful connections, so make sure you track handshakeFinishedMillis here too.",
+      "range": {
+        "startLine": 604,
+        "startChar": 27,
+        "endLine": 604,
+        "endChar": 68
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "721a5456_b7500dc1",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-08-19T18:12:00Z",
+      "side": 1,
+      "message": "needs to log the same things as ConscryptEngineSocket...",
+      "range": {
+        "startLine": 335,
+        "startChar": 17,
+        "endLine": 335,
+        "endChar": 63
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c8b3cbe_1fa4166c",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-08-19T18:12:00Z",
+      "side": 1,
+      "message": "This will be the error cases",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 56
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b64436d0_32878247",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-08-19T18:12:00Z",
+      "side": 1,
+      "message": "And if we get here then the handshake was successful",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 55
       },
       "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
