@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ec72eeda_c4ecc036",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 534,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "Extracted \"logd\" method.",
+      "parentUuid": "040121f9_b2da4670",
+      "range": {
+        "startLine": 534,
+        "startChar": 0,
+        "endLine": 534,
+        "endChar": 49
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "eb1c0f0c_45401ae2",
         "filename": "android/src/main/java/org/conscrypt/Platform.java",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "0ea5601b_c00d5616",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1037,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb1c0f0c_45401ae2",
+      "range": {
+        "startLine": 1037,
+        "startChar": 63,
+        "endLine": 1037,
+        "endChar": 67
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b0caa4d9_13ce9a5c",
         "filename": "common/src/main/java/org/conscrypt/ConscryptEngine.java",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86dd8932_401901d3",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngine.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1573,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0caa4d9_13ce9a5c",
+      "range": {
+        "startLine": 1573,
+        "startChar": 0,
+        "endLine": 1573,
+        "endChar": 94
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "e6fabe99_a67925f4",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "No, that\u0027s solely for debugging purposes",
+      "parentUuid": "de6526d6_bed59f45",
+      "range": {
+        "startLine": 199,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 42
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "09f56a44_36341240",
         "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
         "patchSetId": 2
@@ -128,6 +224,30 @@
       "writtenOn": "2020-08-19T18:12:00Z",
       "side": 1,
       "message": "There\u0027s a lot of duplication between the catch clauses.  I think factor the metric code out to its own method for clarity and it looks like you can delete the SSLException clause (SSLException is a subclass of IOException).",
+      "range": {
+        "startLine": 315,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 68
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26ac86f5_d0ae2b2f",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "These three identical logging statements were added to test all possible code flow paths, especially to test cases like socket r/w errors or unexpected socket closure which can potentially be not covered only with SSLException.\n\nI haven\u0027t tested/investigated it well and it should be studied carefully so we always don\u0027t miss any failed handshakes.",
+      "parentUuid": "09f56a44_36341240",
       "range": {
         "startLine": 315,
         "startChar": 0,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "e5a956fb_7a0d0f59",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "I\u0027ve already tracked it from doHandshake() but can track from here. Do you think it\u0027s a better place?",
+      "parentUuid": "a2450500_2a1b0281",
+      "range": {
+        "startLine": 604,
+        "startChar": 27,
+        "endLine": 604,
+        "endChar": 68
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "721a5456_b7500dc1",
         "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
         "patchSetId": 2
@@ -183,6 +327,30 @@
       "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ac7cd8f_01bca102",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 335,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "721a5456_b7500dc1",
+      "range": {
+        "startLine": 335,
+        "startChar": 17,
+        "endLine": 335,
+        "endChar": 63
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "e05a574a_1349ff3c",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7c8b3cbe_1fa4166c",
+      "range": {
+        "startLine": 337,
+        "startChar": 0,
+        "endLine": 337,
+        "endChar": 56
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b64436d0_32878247",
         "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
         "patchSetId": 2
@@ -229,6 +421,30 @@
       "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "257581ed_d2b3bf06",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b64436d0_32878247",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 341,
+        "endChar": 55
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "5ff10ac3_2b527624",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4c9f0d9_ef952d3a",
+      "range": {
+        "startLine": 553,
+        "startChar": 23,
+        "endLine": 553,
+        "endChar": 45
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "989e48a3_70ddd571",
         "filename": "platform/src/main/java/org/conscrypt/Platform.java",
         "patchSetId": 2
@@ -275,6 +515,30 @@
       "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18595afe_a9192884",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 564,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T14:25:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "989e48a3_70ddd571",
+      "range": {
+        "startLine": 564,
+        "startChar": 0,
+        "endLine": 564,
+        "endChar": 30
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
