@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7349a5ae_63242293",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-08-20T15:04:55Z",
+      "side": 1,
+      "message": "Currently open questions:\n\n1. Dependencies\nAndroid.bp has added dependency on \"framework\". This allows to import Android specific APIs (android.util.Stats{Event,Log} and android.os.SystemClock). The caveat is that \"framework\" target\u0027s documentation is quite ambiguous and it\u0027s not clear whether it\u0027s sufficient to depend on that since \"This framework module is NOT installed to the device\". I\u0027m pretty sure that those classes will be loaded in runtime but we still don\u0027t have guarantees. Maybe there\u0027s a better target to depend on.\n\nAlternatively, we can load those methods via reflection (as it has already been done in Platform.logEvent()) though it has to be tested.\n\n2. Time measurement\nAccording to Android docs, android.os.SystemClock#elapsedRealtime() is the best way of measuring time spans in our case, and is guaranteed to be monotonic. However, this API is not available in bundled Android, so I currently use System.currentTimeMillis() which is not guaranteed to be monotonic. We will probably need to use reflection to load desired method.\n",
+      "revId": "0ad9931b12a0636b0f52cd3b02e9956c951ae8a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    }
+  ]
+}
