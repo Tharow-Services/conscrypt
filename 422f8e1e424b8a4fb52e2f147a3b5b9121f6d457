@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "48c912a4_0e440ae0",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/Platform.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 588,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-08-21T16:53:47Z",
+      "side": 1,
+      "message": "ideally you\u0027d use strongly-typed generated fields and then cast them to int",
+      "range": {
+        "startLine": 587,
+        "startChar": 12,
+        "endLine": 588,
+        "endChar": 25
+      },
+      "revId": "422f8e1e424b8a4fb52e2f147a3b5b9121f6d457",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
