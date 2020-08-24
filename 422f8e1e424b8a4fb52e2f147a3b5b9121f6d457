@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a3824c2_668518f0",
+        "filename": "Android.bp",
+        "patchSetId": 8
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1038443
+      },
+      "writtenOn": "2020-08-24T14:06:24Z",
+      "side": 1,
+      "message": "You cannot do that - conscrypt should not depend on framework code to be built. Doesn\u0027t statsd offer stubs to link against?",
+      "range": {
+        "startLine": 221,
+        "startChar": 0,
+        "endLine": 221,
+        "endChar": 20
+      },
+      "revId": "422f8e1e424b8a4fb52e2f147a3b5b9121f6d457",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48c912a4_0e440ae0",
         "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/Platform.java",
         "patchSetId": 8
