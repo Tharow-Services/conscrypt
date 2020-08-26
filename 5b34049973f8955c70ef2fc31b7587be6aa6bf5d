@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "550a499c_f0d3a469",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 316,
+      "author": {
+        "id": 1463964
+      },
+      "writtenOn": "2020-08-26T21:23:14Z",
+      "side": 1,
+      "message": "nit: suggest rephrasing for the TODO here - removing the visibility for IPsec once the CorePlatformApi is available",
+      "range": {
+        "startLine": 315,
+        "startChar": 30,
+        "endLine": 316,
+        "endChar": 42
+      },
+      "revId": "5b34049973f8955c70ef2fc31b7587be6aa6bf5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
