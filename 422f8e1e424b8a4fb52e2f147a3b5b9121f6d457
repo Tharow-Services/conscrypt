@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "795e70fa_cece3e74",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 561,
+      "author": {
+        "id": 1038443
+      },
+      "writtenOn": "2020-08-27T13:02:44Z",
+      "side": 1,
+      "message": "On the stubs, it doesn\u0027t need to be frameworks stubs AFAIK, as it should be statsd stubs? The statsd team could give more info.",
+      "parentUuid": "bb5a66ec_ec4b340f",
+      "range": {
+        "startLine": 561,
+        "startChar": 17,
+        "endLine": 561,
+        "endChar": 22
+      },
+      "revId": "422f8e1e424b8a4fb52e2f147a3b5b9121f6d457",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7300d596_3220cfea",
         "filename": "platform/src/main/java/org/conscrypt/Platform.java",
         "patchSetId": 8
