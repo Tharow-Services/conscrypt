@@ -22,6 +22,30 @@
       "revId": "bf63d518138971c0a710b1eab491a4bd56493b30",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f847b145_58a5410e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1415877
+      },
+      "writtenOn": "2020-09-01T11:46:17Z",
+      "side": 1,
+      "message": "Sure.\n\n- JNI libraries are opened by libnativeloader.\n- JNI libs with in apexes are accessible from the linker namespaces of the apexes. (e.g  libjavacrypto is from com_android_conscrypt).\n- The linker namespace should be visible for libnativeloader to open a lib from it.\n\nhttps://cs.android.com/android/platform/superproject/+/master:art/libnativeloader/native_loader.cpp;l\u003d103\n\ncom.android.conscrypt is already visible.\nhttps://cs.android.com/android/platform/superproject/+/master:system/linkerconfig/contents/section/system.cc;l\u003d52\n\nThis change tries to be explicit about JNI lib so that linkerconfig can remove hard-coded references.",
+      "parentUuid": "384dc561_e3704fc2",
+      "range": {
+        "startLine": 16,
+        "startChar": 58,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "bf63d518138971c0a710b1eab491a4bd56493b30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
