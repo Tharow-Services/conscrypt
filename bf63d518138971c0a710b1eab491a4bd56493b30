@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "384dc561_e3704fc2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-09-01T11:24:34Z",
+      "side": 1,
+      "message": "Can you clarify the visibility change, please? libjavacrypto should only be visible to conscrypt.jar in the Conscrypt APEX.",
+      "range": {
+        "startLine": 16,
+        "startChar": 58,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "bf63d518138971c0a710b1eab491a4bd56493b30",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
+    }
+  ]
+}
