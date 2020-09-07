@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "d08d35db_86a363d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-09-07T12:23:36Z",
+      "side": 1,
+      "message": "Sorry, draft comment I forgot to send two weeks ago!",
+      "revId": "422f8e1e424b8a4fb52e2f147a3b5b9121f6d457",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a3824c2_668518f0",
         "filename": "Android.bp",
         "patchSetId": 8

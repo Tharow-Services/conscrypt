@@ -307,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "a72d07d4_3061b3e8",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptEngineSocket.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 604,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-09-07T12:23:36Z",
+      "side": 1,
+      "message": "Nah, that\u0027s fine (sorry! forgot to reply to this in my last update).",
+      "parentUuid": "e5a956fb_7a0d0f59",
+      "range": {
+        "startLine": 604,
+        "startChar": 27,
+        "endLine": 604,
+        "endChar": 68
+      },
+      "revId": "eb1a7df0e3f011b28fd4b712b03cc37647a11836",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "721a5456_b7500dc1",
         "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
         "patchSetId": 2
