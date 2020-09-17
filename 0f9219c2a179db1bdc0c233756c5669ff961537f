@@ -16,6 +16,24 @@
       "revId": "0f9219c2a179db1bdc0c233756c5669ff961537f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "694db248_13d5142b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-09-17T17:59:03Z",
+      "side": 1,
+      "message": "That CL originated in AOSP Master, so this CL has no actual changes to make.  Maybe simplest just to drop it from your topic?",
+      "parentUuid": "1626246b_282eac0f",
+      "revId": "0f9219c2a179db1bdc0c233756c5669ff961537f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": true
     }
   ]
 }
