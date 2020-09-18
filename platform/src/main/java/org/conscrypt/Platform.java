@@ -503,8 +503,8 @@ final class Platform {
         return new TrustedCertificateStore();
     }
 
-    static CertBlacklist newDefaultBlacklist() {
-        return CertBlacklistImpl.getDefault();
+    static CertBlocklist newDefaultBlocklist() {
+        return CertBlocklistImpl.getDefault();
     }
 
     static CTLogStore newDefaultLogStore() {
@@ -529,5 +529,9 @@ final class Platform {
             }
         }
         return false;
+    }
+
+    public static ConscryptHostnameVerifier getDefaultHostnameVerifier() {
+        return Conscrypt.wrapHostnameVerifier(HttpsURLConnection.getDefaultHostnameVerifier());
     }
 }
