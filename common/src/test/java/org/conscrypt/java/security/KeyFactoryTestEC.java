@@ -25,8 +25,6 @@ import libcore.junit.util.EnableDeprecatedBouncyCastleAlgorithmsRule;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.ClassRule;
-import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import tests.util.ServiceTester;
