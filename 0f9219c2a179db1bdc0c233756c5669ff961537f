@@ -34,6 +34,24 @@
       "revId": "0f9219c2a179db1bdc0c233756c5669ff961537f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c70cd56_613f03b6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1086523
+      },
+      "writtenOn": "2020-09-21T18:28:44Z",
+      "side": 1,
+      "message": "This is mainly to help git to understand the merge (to avoid more complex merges in the future).",
+      "parentUuid": "694db248_13d5142b",
+      "revId": "0f9219c2a179db1bdc0c233756c5669ff961537f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889",
+      "unresolved": false
     }
   ]
 }
