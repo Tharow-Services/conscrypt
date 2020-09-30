@@ -19,7 +19,6 @@ import static org.junit.Assert.fail;
 
 import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.Provider;
 import java.security.PublicKey;
@@ -30,10 +29,13 @@ import java.security.spec.RSAPrivateCrtKeySpec;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+<<<<<<< HEAD   (91c826 Merge "Merge android11-tests-dev.")
 import libcore.junit.util.EnableDeprecatedBouncyCastleAlgorithmsRule;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.ClassRule;
+=======
+>>>>>>> BRANCH (4f9efb Merge pull request #897 from prbprbprb/imports)
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
