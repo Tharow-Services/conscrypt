@@ -653,8 +653,12 @@ public class SSLEngineTest {
                         // By the point of the handshake where we're validating client certificates,
                         // the cipher suite should be agreed and the server's own certificates
                         // should have been delivered
-                        assertEquals(referenceEngine.getEnabledCipherSuites()[0],
-                            session.getCipherSuite());
+                        String sessionSuite = session.getCipherSuite();
+                        List<String> enabledSuites =
+                                Arrays.asList(referenceEngine.getEnabledCipherSuites());
+                        assertTrue("Expected enabled suites to contain " + sessionSuite
+                                        + ", got: " + enabledSuites,
+                                enabledSuites.contains(sessionSuite));
                         assertNotNull(session.getLocalCertificates());
                         assertEquals("CN=localhost",
                             ((X509Certificate) session.getLocalCertificates()[0])
