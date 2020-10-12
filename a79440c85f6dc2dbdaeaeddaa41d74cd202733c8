@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0984d55d_3415ed62",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1003723
+      },
+      "writtenOn": "2020-10-12T22:39:41Z",
+      "side": 1,
+      "message": "+2\u0027ing to unblock for smoreland",
+      "revId": "a79440c85f6dc2dbdaeaeddaa41d74cd202733c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
