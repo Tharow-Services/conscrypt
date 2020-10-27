@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7905272_6d59ffa7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-10-27T14:10:52Z",
+      "side": 1,
+      "message": "So much for avoiding merge conflicts later, presubmit is failing because other changes in this patch require a newer boringssl.\n\nWill abandon and do a CL specifically for the failing test.\n",
+      "revId": "0487e5649b9daec756c1674bb1ebcb4f45df9b81",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
