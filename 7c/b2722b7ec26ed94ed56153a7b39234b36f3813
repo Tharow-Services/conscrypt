@@ -1,0 +1,8 @@
+Presubmit-Verified+1: Treehugger Robot <treehugger-gerrit@google.com>
+Lint+1: Lint 🤖 <ayeaye-gerrit@google.com>
+Code-Review+2: Daulet Zhanguzin <dauletz@google.com>
+Submitted-by: Pete Bentley <prb@google.com>
+Submitted-at: Tue, 27 Oct 2020 09:48:17 +0000
+Reviewed-on: https://android-review.googlesource.com/c/platform/external/conscrypt/+/1474297
+Project: platform/external/conscrypt
+Branch: refs/heads/master
