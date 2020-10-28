@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fef88dc0_e2411bd6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1352498
+      },
+      "writtenOn": "2020-10-28T03:23:34Z",
+      "side": 1,
+      "message": "Hi Daulet, could you please CR+2 to this one? Thanks.\n\n",
+      "revId": "43392c496cc3fb14815a89f618160a7b3f88e431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
