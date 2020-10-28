@@ -16,6 +16,23 @@
       "message": "Hi Daulet, could you please CR+2 to this one? Thanks.\n\n",
       "revId": "43392c496cc3fb14815a89f618160a7b3f88e431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dea482e5_63ce2014",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-10-28T11:48:23Z",
+      "side": 1,
+      "message": "doesn\u0027t this need Merged-In attribute so it won\u0027t conflict when this branch merges with other branches?",
+      "revId": "43392c496cc3fb14815a89f618160a7b3f88e431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
