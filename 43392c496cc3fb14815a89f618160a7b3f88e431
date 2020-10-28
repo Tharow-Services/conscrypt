@@ -69,6 +69,23 @@
       "parentUuid": "99b5092a_aca89160",
       "revId": "43392c496cc3fb14815a89f618160a7b3f88e431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4da4c4b9_0f4a736a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2020-10-28T21:04:41Z",
+      "side": 1,
+      "message": "Please CP this change to aosp/master",
+      "revId": "43392c496cc3fb14815a89f618160a7b3f88e431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
