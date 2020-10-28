@@ -86,6 +86,23 @@
       "message": "Please CP this change to aosp/master",
       "revId": "43392c496cc3fb14815a89f618160a7b3f88e431",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "01a6c25a_2002d847",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2020-10-28T21:21:44Z",
+      "side": 1,
+      "message": "Please set Autosubmit +1 for this CL",
+      "revId": "43392c496cc3fb14815a89f618160a7b3f88e431",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
