@@ -33,6 +33,24 @@
       "message": "I trust your data, but I\u0027ll be surprised if these all turn out to be unused as there are no public alternatives for some useful functionality, e.g. setSoWriteTimeout().",
       "revId": "a872f900e937c36d3061ac29bc7965d4c7b8695a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aecb6a01_21733e75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010681
+      },
+      "writtenOn": "2020-10-29T15:54:13Z",
+      "side": 1,
+      "message": "Thanks. We\u0027ll be on the lookout for any issues caused.",
+      "parentUuid": "b07719a5_b90840aa",
+      "revId": "a872f900e937c36d3061ac29bc7965d4c7b8695a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
