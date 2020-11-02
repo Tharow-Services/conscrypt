@@ -61,6 +61,7 @@ import javax.net.ssl.X509TrustManager;
 import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTPolicy;
 import org.conscrypt.metrics.CipherSuite;
+import org.conscrypt.metrics.ConscryptStatsLog;
 import org.conscrypt.metrics.Protocol;
 
 /**

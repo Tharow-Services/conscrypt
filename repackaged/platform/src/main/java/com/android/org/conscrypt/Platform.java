@@ -28,6 +28,7 @@ import com.android.org.conscrypt.ct.CTLogStoreImpl;
 import com.android.org.conscrypt.ct.CTPolicy;
 import com.android.org.conscrypt.ct.CTPolicyImpl;
 import com.android.org.conscrypt.metrics.CipherSuite;
+import com.android.org.conscrypt.metrics.ConscryptStatsLog;
 import com.android.org.conscrypt.metrics.Protocol;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
