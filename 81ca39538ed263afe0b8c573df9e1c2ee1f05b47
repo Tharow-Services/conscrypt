@@ -16,6 +16,23 @@
       "message": "LGTM. This matches the current Conscrypt functionality + RFC 5705 defined function",
       "revId": "81ca39538ed263afe0b8c573df9e1c2ee1f05b47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "552fe708_024bad7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1604402
+      },
+      "writtenOn": "2020-11-04T11:35:34Z",
+      "side": 1,
+      "message": "+1 will wait for tests",
+      "revId": "81ca39538ed263afe0b8c573df9e1c2ee1f05b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
