@@ -34,6 +34,23 @@
       "parentUuid": "f0cd15af_42d06bbf",
       "revId": "1cbe0cde5cc823b2406265f7a18ca3e10b6716aa",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5ba2f230_deadf542",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-06T11:42:20Z",
+      "side": 1,
+      "message": "Sorry, I didn\u0027t notice the new patch set.",
+      "revId": "1cbe0cde5cc823b2406265f7a18ca3e10b6716aa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
