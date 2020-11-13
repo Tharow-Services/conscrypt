@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be966716_9fa982cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-11-13T11:52:51Z",
+      "side": 1,
+      "message": "Since depending on frameworks stubs introduced a build failure I reimplemented metrics with reflection calls. Also moved ConscryptStatsLog to common package and removed genrule. \n\nThe downside of this approach is that we don\u0027t have a way to test/control frameworks api changes and/or add new fields (if we do add them) automatically.",
+      "revId": "65322a7b75e6436e60d5c7f665eb7ec39e4dc78c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
