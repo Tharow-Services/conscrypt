@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a9899647_45f37dad",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-16T11:46:41Z",
+      "side": 1,
+      "message": "I\u0027d split this into a separate classes for readability and testability, something that actually provides the subset of the Stats* classes we need. e.g. the code in write() would end up looking \"normal\".\nReflexiveStatsEvent.Builder builder \u003d ReflexiveStatsEvent.newBuilder()\nbuilder.setAtomId() // etc\nstatslog \u003d new ReflexiveStatsLog()\nstatslog.write(builder.build())\n\nTo avoid lots of boilerplate (and improve testability), you might want to write a small helper class along the lines of https://cs.android.com/android/platform/superproject/+/master:external/okhttp/okhttp/src/main/java/com/squareup/okhttp/internal/OptionalMethod.java\n\nThat we\u0027ll need some tests\nFairly easy: ensure the reflexive classes generate the same results as the Framework ones (you should be able to link against the framework easily in a CTS test)\nHarder: Test that the write method here generates the same result as the generated version.  I.e. we need something that will definitively break if the atom proto changes but ConscryptStatsLog isn\u0027t updated to match.",
+      "revId": "4d775d2deac82ff6686e6ebea1f5fb7b9411f224",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
