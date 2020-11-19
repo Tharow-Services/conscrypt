@@ -2,6 +2,7 @@
 package android.net.ssl {
 
   public class SSLEngines {
+    method public static boolean isSupportedEngine(@NonNull javax.net.ssl.SSLEngine);
     method public static void setUseSessionTickets(@NonNull javax.net.ssl.SSLEngine, boolean);
   }
 
