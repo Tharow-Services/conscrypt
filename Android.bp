@@ -190,15 +190,20 @@ filegroup {
 
 // Create the conscrypt library from the source produced by the srcgen/generate_android_src.sh
 // script.
-java_library {
+java_sdk_library {
     name: "conscrypt",
     visibility: [
         "//art/build",
         "//device:__subpackages__",
-        "//external/robolectric-shadows",
+        // TODO(b/165823103): Remove visiblity for IPsec once CorePlatformApi is available
+        "//packages/modules/IPsec",
         "//system/apex/tests",
         ":__subpackages__",
     ],
+	impl_library_visibility: [
+        "//art/build",
+        "//external/robolectric-shadows",
+	],
     apex_available: [
         "com.android.conscrypt",
         "test_com.android.conscrypt",
@@ -217,6 +222,14 @@ java_library {
     ],
 
     libs: ["unsupportedappusage"],
+
+stub_only_libs: [
+        // Make nullability annotations available when compiling stubs.
+        // They are provided as a separate library because while the
+        // annotations are not themselves part of the public API provided by
+        // this module they are used in the stubs.
+        "stub-annotations",
+		],
 
     // Conscrypt can be updated independently from the other core libraries so it must only depend
     // on public SDK and intra-core APIs.
@@ -237,6 +250,12 @@ java_library {
     ],
 
     plugins: ["java_api_finder"],
+
+    api_dir: "api/public",
+    droiddoc_options: [
+        // Emit nullability annotations from the source to the stub files.
+        "--include-annotations",
+    ],
 }
 
 // Referenced implicitly from conscrypt.module.platform.api.
@@ -291,6 +310,9 @@ java_sdk_library {
 
     sdk_version: "none",
     system_modules: "legacy-art-module-platform-api-stubs-system-modules",
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
 }
 
 // Referenced implicitly from conscrypt.module.public.api.
@@ -309,6 +331,7 @@ filegroup {
     ],
 }
 
+/*
 // A library containing the public API stubs of the Conscrypt module.
 java_sdk_library {
     name: "conscrypt.module.public.api",
@@ -338,7 +361,11 @@ java_sdk_library {
 
     sdk_version: "none",
     system_modules: "art-module-public-api-stubs-system-modules",
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
 }
+*/
 
 // Referenced implicitly from conscrypt.module.intra.core.api.
 filegroup {
@@ -387,6 +414,9 @@ java_sdk_library {
 
     sdk_version: "none",
     system_modules: "art-module-intra-core-api-stubs-system-modules",
+
+    // Don't copy any output files to the dist.
+    no_dist: true,
 }
 
 // Platform conscrypt crypto JNI library
@@ -570,7 +600,7 @@ java_test {
 sdk {
     name: "conscrypt-module-sdk",
     java_sdk_libs: [
-        "conscrypt.module.public.api",
+        "conscrypt",
         "conscrypt.module.intra.core.api",
         "conscrypt.module.platform.api",
     ],
@@ -600,7 +630,7 @@ module_exports {
         android: {
             java_libs: [
                 // For use by robolectric and ART tests.
-                "conscrypt",
+                "conscrypt.impl",
             ],
             java_tests: [
                 // For use by CTS
