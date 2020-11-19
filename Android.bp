@@ -331,7 +331,6 @@ filegroup {
     ],
 }
 
-/*
 // A library containing the public API stubs of the Conscrypt module.
 java_sdk_library {
     name: "conscrypt.module.public.api",
@@ -365,7 +364,6 @@ java_sdk_library {
     // Don't copy any output files to the dist.
     no_dist: true,
 }
-*/
 
 // Referenced implicitly from conscrypt.module.intra.core.api.
 filegroup {
