@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c6c4e4d2_151bd657",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-20T11:37:41Z",
+      "side": 1,
+      "message": "Nice! Only a few minor nits...\n\nDon\u0027t forget, needs submitting upstream.",
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a0d71dc2_748536bd",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-20T11:37:41Z",
+      "side": 1,
+      "message": "final?",
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "23139ec2_cb4f74d0",
+        "filename": "common/src/main/java/org/conscrypt/metrics/OptionalMethod.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-20T11:37:41Z",
+      "side": 1,
+      "message": "final and probably package-private",
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9feccb0a_fd0c9d96",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-20T11:37:41Z",
+      "side": 1,
+      "message": "\"around\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 22,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77107e73_1e1ee7c8",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-20T11:37:41Z",
+      "side": 1,
+      "message": "Probably worth caching this in a static field too.",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ef2d19f2_cd5b1303",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-20T11:37:41Z",
+      "side": 1,
+      "message": "\"around\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 22,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
