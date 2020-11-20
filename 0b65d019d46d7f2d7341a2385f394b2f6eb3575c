@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e5e5258_ed5c81c0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2020-11-20T12:49:41Z",
+      "side": 1,
+      "message": "Michael, would you mind ARV+1 this please. The files in api are removed because they are no longer used. The files in prebuilt/sdk/30/public/api/conscrypt* are used instead.",
+      "revId": "0b65d019d46d7f2d7341a2385f394b2f6eb3575c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
