@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d4233b5f_937d786d",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-11-21T16:38:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0d71dc2_748536bd",
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "23139ec2_cb4f74d0",
@@ -52,6 +70,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "34f11408_c1329abe",
+        "filename": "common/src/main/java/org/conscrypt/metrics/OptionalMethod.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-11-21T16:38:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "23139ec2_cb4f74d0",
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9feccb0a_fd0c9d96",
@@ -65,6 +101,30 @@
       "writtenOn": "2020-11-20T11:37:41Z",
       "side": 1,
       "message": "\"around\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 22,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a450e13f_6dba7eec",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-11-21T16:38:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9feccb0a_fd0c9d96",
       "range": {
         "startLine": 21,
         "startChar": 22,
@@ -98,6 +158,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d41d6a6b_cba51000",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-11-21T16:38:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "77107e73_1e1ee7c8",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ef2d19f2_cd5b1303",
@@ -111,6 +195,30 @@
       "writtenOn": "2020-11-20T11:37:41Z",
       "side": 1,
       "message": "\"around\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 22,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "bb5abe572f98a73d8aa703cfe9d31490b1945b61",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9c3669f_064a5728",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-11-21T16:38:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef2d19f2_cd5b1303",
       "range": {
         "startLine": 21,
         "startChar": 22,
