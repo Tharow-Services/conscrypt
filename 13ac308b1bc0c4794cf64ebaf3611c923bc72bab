@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "458ef521_4749708a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-21T16:39:38Z",
+      "side": 1,
+      "message": "LGTM but please submit to Github first.",
+      "revId": "13ac308b1bc0c4794cf64ebaf3611c923bc72bab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
