@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "83714775_bed244fe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2020-11-27T15:45:07Z",
+      "side": 1,
+      "message": "Imported with\n\n$ git merge -X theirs --commit --no-ff aosp/upstream-master",
+      "revId": "a8e4e6250e587ac726c718f62bc91344c137951b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
