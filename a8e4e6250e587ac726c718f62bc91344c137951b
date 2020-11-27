@@ -16,6 +16,23 @@
       "message": "Imported with\n\n$ git merge -X theirs --commit --no-ff aosp/upstream-master",
       "revId": "a8e4e6250e587ac726c718f62bc91344c137951b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a850928_8418a7c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-11-27T17:10:44Z",
+      "side": 1,
+      "message": "LGTM but:\n1) Need to run srcgen/generate_android_source.sh for the repackaged copies\n2) Please test against all of CtsLibcoreTestCases as the presubmits don\u0027t always catch errors in native crypto changes.",
+      "revId": "a8e4e6250e587ac726c718f62bc91344c137951b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
