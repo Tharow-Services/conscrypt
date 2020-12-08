@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "80d36bd3_a89ea1ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-12-08T14:56:57Z",
+      "side": 1,
+      "message": "Sorry for the relationship chain but it was the easiest way to record all the upstream change ids (re-land previous change, merge upstream, then merge upstream reverts,",
+      "revId": "3ab6f2f720f101e8d96e5d610bd4daea7f8f2f06",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
