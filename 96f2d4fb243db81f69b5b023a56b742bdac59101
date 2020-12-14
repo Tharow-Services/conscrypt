@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad7620d7_36054926",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2020-12-14T09:18:59Z",
+      "side": 1,
+      "message": "Already merged in aosp/1520783 and its relation chain.",
+      "revId": "96f2d4fb243db81f69b5b023a56b742bdac59101",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
