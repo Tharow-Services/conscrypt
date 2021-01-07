@@ -20,6 +20,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "99b0b56d_880ef5de",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-01-07T13:32:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d88028f_ef18e442",
+      "revId": "d7ade888b6405bc58c39531bb8b41c9e4cb95fc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "86018665_6d95bf86",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 1
@@ -48,6 +66,24 @@
       "writtenOn": "2021-01-07T13:21:05Z",
       "side": 1,
       "message": "Don\u0027t remember why (upstream failed to build with it or smth) but I changed multicatch to two separate catch clauses.",
+      "revId": "d7ade888b6405bc58c39531bb8b41c9e4cb95fc4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c78db41a_de9175a4",
+        "filename": "common/src/main/java/org/conscrypt/metrics/OptionalMethod.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-01-07T13:32:41Z",
+      "side": 1,
+      "message": "Hmm upstream source compatibility should be 1.7 but yeah, does ring a bell.  Reverted for now, will do a pass over all these as part of https://github.com/google/conscrypt/issues/949",
+      "parentUuid": "159fa851_1860e433",
       "revId": "d7ade888b6405bc58c39531bb8b41c9e4cb95fc4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
