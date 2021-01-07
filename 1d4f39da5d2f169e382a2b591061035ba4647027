@@ -36,6 +36,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "84cdc6a6_a8483999",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2021-01-07T16:57:20Z",
+      "side": 1,
+      "message": "+2 first. For my opinion about readability, you may just fix it when porting back to upstream.",
+      "revId": "1d4f39da5d2f169e382a2b591061035ba4647027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7587d0b4_c3dab694",
