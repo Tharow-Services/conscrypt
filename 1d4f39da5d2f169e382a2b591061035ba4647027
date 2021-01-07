@@ -34,6 +34,23 @@
       "parentUuid": "3f60b482_36f4d33e",
       "revId": "1d4f39da5d2f169e382a2b591061035ba4647027",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7587d0b4_c3dab694",
+        "filename": "common/src/main/java/org/conscrypt/metrics/OptionalMethod.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2021-01-07T16:55:39Z",
+      "side": 1,
+      "message": "Just my opinion about the readability here. How about\n\nif (clazz \u003d\u003d null) {\n    return null;\n}\n... original code ...\n\n\nAlso, if methodName can be null, getMethod() call will throw NPE, but not NoSuchMethodException. May also check null of methodName\nif (clazz \u003d\u003d null || methodName \u003d\u003d null) {\n    return null;\n}\n... original code ...",
+      "revId": "1d4f39da5d2f169e382a2b591061035ba4647027",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
