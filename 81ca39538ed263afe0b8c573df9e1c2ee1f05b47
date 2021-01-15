@@ -50,6 +50,23 @@
       "message": "Nikita, can you please take a look from an API-Review pov.",
       "revId": "81ca39538ed263afe0b8c573df9e1c2ee1f05b47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5efe74a0_9f14995b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1432579
+      },
+      "writtenOn": "2021-01-15T13:59:55Z",
+      "side": 1,
+      "message": "LGTM, but please add CTS tests before submitting",
+      "revId": "81ca39538ed263afe0b8c573df9e1c2ee1f05b47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
