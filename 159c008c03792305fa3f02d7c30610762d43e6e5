@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e897c53_fee63e7e",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/NativeSsl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 698,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2021-02-03T12:48:46Z",
+      "side": 1,
+      "message": "Is double close() allowed?",
+      "range": {
+        "startLine": 698,
+        "startChar": 20,
+        "endLine": 698,
+        "endChar": 32
+      },
+      "revId": "159c008c03792305fa3f02d7c30610762d43e6e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
