@@ -26,6 +26,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "3747608f_767d1933",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-02-03T13:53:25Z",
+      "side": 1,
+      "message": "I think we\u0027re fine here. From \"Java Concurrency in Practice\" sec 3.5.2:\n\"A properly constructed object can be safely published by [...] Storing a reference to it in a volatile field\".  As this is a primitive not an object reference, the same should hold aside from no need to ensure it\u0027s \"properly constructed\".\n\nThanks for checking though!",
+      "parentUuid": "1a925d0d_d993626d",
+      "range": {
+        "startLine": 660,
+        "startChar": 87,
+        "endLine": 660,
+        "endChar": 90
+      },
+      "revId": "159c008c03792305fa3f02d7c30610762d43e6e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4e897c53_fee63e7e",
         "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/NativeSsl.java",
         "patchSetId": 3
