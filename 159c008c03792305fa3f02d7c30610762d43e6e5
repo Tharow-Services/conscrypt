@@ -3,6 +3,29 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "1a925d0d_d993626d",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 660,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2021-02-03T12:54:54Z",
+      "side": 1,
+      "message": "Possibly I am wrong: write in constructor is not done under lock.readLock, so this second read is racy and can return 0. Approach used in close() method(reading into local first) will work for sure.",
+      "range": {
+        "startLine": 660,
+        "startChar": 87,
+        "endLine": 660,
+        "endChar": 90
+      },
+      "revId": "159c008c03792305fa3f02d7c30610762d43e6e5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "4e897c53_fee63e7e",
         "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/NativeSsl.java",
         "patchSetId": 3
