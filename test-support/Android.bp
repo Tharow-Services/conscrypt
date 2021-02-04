@@ -13,6 +13,14 @@
 // limitations under the License.
 
 // Conscrypt test support classes.
+package {
+// http://go/android-license-faq
+    // A large-scale-change added 'default_applicable_licenses' to import
+    // the below license kinds from "external_conscrypt_license":
+    //   SPDX-license-identifier-Apache-2.0
+    default_applicable_licenses: ["external_conscrypt_license"],
+}
+
 java_library {
     name: "conscrypt-support",
     visibility: [
