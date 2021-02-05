@@ -43,6 +43,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "2d089318_ba87e013",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLX25519PublicKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-02-05T17:11:02Z",
+      "side": 1,
+      "message": "Yup, only private keys implement Destroyable[1] for apps to clear sensitive data from memory.  For public keys the coordinate should always be present.\n\n[1] https://developer.android.com/reference/javax/security/auth/Destroyable",
+      "parentUuid": "c5321b2b_3466aafb",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "c4ed50156896ef17907d034d5d19adff67a519a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "ef8f87d3_78e3a164",
         "filename": "common/src/main/java/org/conscrypt/OpenSSLXDHKeyFactory.java",
         "patchSetId": 1
@@ -54,6 +78,30 @@
       "writtenOn": "2021-02-05T16:57:30Z",
       "side": 1,
       "message": "nit: is that order right?",
+      "range": {
+        "startLine": 85,
+        "startChar": 65,
+        "endLine": 85,
+        "endChar": 104
+      },
+      "revId": "c4ed50156896ef17907d034d5d19adff67a519a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d1116df_ad97b124",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLXDHKeyFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-02-05T17:11:02Z",
+      "side": 1,
+      "message": "I *think* so.  That\u0027s the order we reverted to in https://github.com/google/conscrypt/pull/937 but we never really got to the bottom of it.",
+      "parentUuid": "ef8f87d3_78e3a164",
       "range": {
         "startLine": 85,
         "startChar": 65,
