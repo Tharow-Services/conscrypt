@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27d51047_41452c5b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-02-05T19:08:06Z",
+      "side": 1,
+      "message": "Tests fail on Android - need to skip some BC algorithms and can\u0027t initialise AndroidKeyStore MACs with non-KeyStore keys.  I have a fix CL but will do the upstream/downstream dance on Monday.",
+      "revId": "fef17eee14d4dc76184d18c0c2769b0a2e6365d1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
