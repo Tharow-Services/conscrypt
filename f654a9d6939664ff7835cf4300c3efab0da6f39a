@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4630a443_ef813c82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-02-05T21:09:05Z",
+      "side": 1,
+      "message": "Pre-emptively cherry-picked upstream #969.",
+      "revId": "f654a9d6939664ff7835cf4300c3efab0da6f39a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
