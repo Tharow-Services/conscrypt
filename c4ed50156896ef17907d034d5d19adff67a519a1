@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "167d0a57_002f84a6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-02-05T16:41:14Z",
+      "side": 1,
+      "message": "Already reviewed upstream, currently running tests on AOSP.",
+      "revId": "c4ed50156896ef17907d034d5d19adff67a519a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
