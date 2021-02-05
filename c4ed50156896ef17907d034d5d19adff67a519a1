@@ -16,6 +16,52 @@
       "message": "Already reviewed upstream, currently running tests on AOSP.",
       "revId": "c4ed50156896ef17907d034d5d19adff67a519a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c5321b2b_3466aafb",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLX25519PublicKey.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2021-02-05T16:57:30Z",
+      "side": 1,
+      "message": "Is there a reason why PrivateKey behaviour is different?",
+      "range": {
+        "startLine": 82,
+        "startChar": 19,
+        "endLine": 82,
+        "endChar": 25
+      },
+      "revId": "c4ed50156896ef17907d034d5d19adff67a519a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef8f87d3_78e3a164",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLXDHKeyFactory.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2021-02-05T16:57:30Z",
+      "side": 1,
+      "message": "nit: is that order right?",
+      "range": {
+        "startLine": 85,
+        "startChar": 65,
+        "endLine": 85,
+        "endChar": 104
+      },
+      "revId": "c4ed50156896ef17907d034d5d19adff67a519a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
