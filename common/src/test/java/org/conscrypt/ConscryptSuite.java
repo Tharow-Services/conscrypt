@@ -66,6 +66,9 @@ import org.conscrypt.javax.net.ssl.SSLSocketTest;
 import org.conscrypt.javax.net.ssl.SSLSocketVersionCompatibilityTest;
 import org.conscrypt.javax.net.ssl.TrustManagerFactoryTest;
 import org.conscrypt.javax.net.ssl.X509KeyManagerTest;
+import org.conscrypt.metrics.CipherSuiteTest;
+import org.conscrypt.metrics.OptionalMethodTest;
+import org.conscrypt.metrics.ProtocolTest;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -95,6 +98,7 @@ import org.junit.runners.Suite;
         AlgorithmParametersTestEC.class,
         AlgorithmParametersTestGCM.class,
         AlgorithmParametersTestOAEP.class,
+        CipherSuiteTest.class,
         KeyFactoryTestDH.class,
         KeyFactoryTestDSA.class,
         KeyFactoryTestEC.class,
@@ -115,6 +119,8 @@ import org.junit.runners.Suite;
         HttpsURLConnectionTest.class,
         KeyManagerFactoryTest.class,
         KeyStoreBuilderParametersTest.class,
+        OptionalMethodTest.class,
+        ProtocolTest.class,
         SNIHostNameTest.class,
         SSLContextTest.class,
         SSLEngineTest.class,
