@@ -39,6 +39,30 @@
       },
       "revId": "f654a9d6939664ff7835cf4300c3efab0da6f39a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "11e554e5_13d05367",
+        "filename": "common/src/test/java/org/conscrypt/MacTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-02-08T11:36:12Z",
+      "side": 1,
+      "message": "Good point.  I\u0027ll do it on the upstream CL and pick it up here on the next merge.",
+      "parentUuid": "688559f5_f908abe8",
+      "range": {
+        "startLine": 52,
+        "startChar": 33,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "f654a9d6939664ff7835cf4300c3efab0da6f39a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
