@@ -16,6 +16,29 @@
       "message": "Pre-emptively cherry-picked upstream #969.",
       "revId": "f654a9d6939664ff7835cf4300c3efab0da6f39a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "688559f5_f908abe8",
+        "filename": "common/src/test/java/org/conscrypt/MacTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2021-02-08T10:47:35Z",
+      "side": 1,
+      "message": "nit: probably should be below static fields.",
+      "range": {
+        "startLine": 52,
+        "startChar": 33,
+        "endLine": 52,
+        "endChar": 44
+      },
+      "revId": "f654a9d6939664ff7835cf4300c3efab0da6f39a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
