@@ -39,6 +39,30 @@
       },
       "revId": "1d50972143e526cd454f8bcf34c537d8c1bfb379",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a3eb7129_83af81b3",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLEnginesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-02-11T16:32:34Z",
+      "side": 1,
+      "message": "As soon as assertThrows lands in external/junit I\u0027ll happily switch to it :)",
+      "parentUuid": "a641d266_1a01ca63",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 52
+      },
+      "revId": "1d50972143e526cd454f8bcf34c537d8c1bfb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
