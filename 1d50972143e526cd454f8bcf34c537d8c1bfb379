@@ -16,6 +16,29 @@
       "message": "No functional change in latest patchlevel, I just expanded the javadoc as it was a little sparse for a public API.",
       "revId": "1d50972143e526cd454f8bcf34c537d8c1bfb379",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a641d266_1a01ca63",
+        "filename": "publicapi/src/test/java/android/net/ssl/SSLEnginesTest.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1432579
+      },
+      "writtenOn": "2021-02-11T16:29:51Z",
+      "side": 1,
+      "message": "(Feel free to keep things as it is, if you prefer).\n\nI think it\u0027s discouraged to use @Test(expected \u003d ...). See: go/java-testing/exceptions",
+      "range": {
+        "startLine": 128,
+        "startChar": 4,
+        "endLine": 128,
+        "endChar": 52
+      },
+      "revId": "1d50972143e526cd454f8bcf34c537d8c1bfb379",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
