@@ -203,6 +203,12 @@ public final class NativeCrypto {
 
     static native int ECDSA_verify(byte[] data, byte[] sig, NativeRef.EVP_PKEY pkey);
 
+    // --- Curve25519 --------------
+
+    static native boolean X25519(byte[] out, byte[] privateKey, byte[] publicKey) throws InvalidKeyException;
+
+    static native void X25519_keypair(byte[] outPublicKey, byte[] outPrivateKey);
+
     // --- Message digest functions --------------
 
     // These return const references
@@ -345,6 +351,20 @@ public final class NativeCrypto {
     static native int EVP_AEAD_CTX_open_buf(long evpAead, byte[] key, int tagLengthInBytes, ByteBuffer out,
                                             byte[] nonce, ByteBuffer input, byte[] ad)
             throws ShortBufferException, BadPaddingException;
+
+    // --- CMAC functions ------------------------------------------------------
+
+    static native long CMAC_CTX_new();
+
+    static native void CMAC_CTX_free(long ctx);
+
+    static native void CMAC_Init(NativeRef.CMAC_CTX ctx, byte[] key);
+
+    static native void CMAC_Update(NativeRef.CMAC_CTX ctx, byte[] in, int inOffset, int inLength);
+
+    static native void CMAC_UpdateDirect(NativeRef.CMAC_CTX ctx, long inPtr, int inLength);
+
+    static native byte[] CMAC_Final(NativeRef.CMAC_CTX ctx);
 
     // --- HMAC functions ------------------------------------------------------
 
