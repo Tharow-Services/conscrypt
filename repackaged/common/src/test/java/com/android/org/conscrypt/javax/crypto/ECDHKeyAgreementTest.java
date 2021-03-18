@@ -465,6 +465,18 @@ public class ECDHKeyAgreementTest {
         if (providers == null) {
             return new Provider[0];
         }
+        // Do not test AndroidKeyStore as KeyAgreement provider. It only handles Android
+        // Keystore-backed keys. It's OKish not to test AndroidKeyStore here because it's tested by
+        // cts/tests/test/keystore.
+        List<Provider> filteredProvidersList = new ArrayList<Provider>(providers.length);
+        for (Provider provider : providers) {
+            if ("AndroidKeyStore".equals(provider.getName())) {
+                continue;
+            }
+            filteredProvidersList.add(provider);
+        }
+        providers = filteredProvidersList.toArray(new Provider[0]);
+
         // Sort providers by name to guarantee deterministic order in which providers are used in
         // the tests.
         return sortByName(providers);
@@ -481,7 +493,8 @@ public class ECDHKeyAgreementTest {
         // cts/tests/test/keystore.
         List<Provider> filteredProvidersList = new ArrayList<Provider>(providers.length);
         for (Provider provider : providers) {
-            if ("AndroidKeyStore".equals(provider.getName())) {
+            // TODO: Revert to equality test once Keystore v1 is removed.
+            if (provider.getName().startsWith("AndroidKeyStore")) {
                 continue;
             }
             filteredProvidersList.add(provider);
