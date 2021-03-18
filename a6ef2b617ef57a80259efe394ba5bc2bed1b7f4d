@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea490f7b_577783e6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-03-18T15:23:27Z",
+      "side": 1,
+      "message": "Copied from jdanis\u0027 change in internal.\n\nMy only concern here is the (slight) potential for app breakage due to keymaster v1 accepting keys from other Providers but not v2.",
+      "revId": "a6ef2b617ef57a80259efe394ba5bc2bed1b7f4d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
