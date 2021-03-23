@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "baddf6b9_ecc032f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-03-23T11:05:35Z",
+      "side": 1,
+      "message": "Changed the visibility of OptionalMethod to allow testing. Will upstream separately.",
+      "revId": "1e28fe992aaad52b3cf8af93bf8f85a53f75816b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
