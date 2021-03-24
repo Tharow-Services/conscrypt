@@ -22,6 +22,30 @@
       },
       "revId": "06656b43155159fa852bb9142ec58e2b182c3f22",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b46de85_83c3803a",
+        "filename": "apex/tests/Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1498356
+      },
+      "writtenOn": "2021-03-24T17:41:54Z",
+      "side": 0,
+      "message": "\"mts-conscrypt\" implies \"mts\" already",
+      "parentUuid": "856f75d4_6455765f",
+      "range": {
+        "startLine": 35,
+        "startChar": 9,
+        "endLine": 35,
+        "endChar": 12
+      },
+      "revId": "06656b43155159fa852bb9142ec58e2b182c3f22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
