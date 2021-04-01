@@ -33,6 +33,23 @@
       "message": "NB I\u0027ll upstream this after we decide the best approach.",
       "revId": "e0134f62b3665e8205e5b52674093affd02da512",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "39f096ad_0df27702",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-04-01T16:14:06Z",
+      "side": 1,
+      "message": "I\u0027m going to submit this now to unblock the rest of the chain.  We can revisit next week if there\u0027s a better way of doing this.",
+      "revId": "e0134f62b3665e8205e5b52674093affd02da512",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
