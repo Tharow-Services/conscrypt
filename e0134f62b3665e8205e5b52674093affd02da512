@@ -16,6 +16,23 @@
       "message": "Fixes IllegalAccessError when testing BufferUtils methods.\n\nPaul: Is there a better way of doing this?  I don\u0027t think we can use @TestApi from libcore or Conscrypt, but I also don\u0027t really want to create lots of public/@hide methods for testing[1] when they should really be package private.\n\n[1] We have a bunch of other tests which don\u0027t run on Android for the same reason.",
       "revId": "e0134f62b3665e8205e5b52674093affd02da512",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f22e0c92_e7f3a1e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-04-01T14:08:42Z",
+      "side": 1,
+      "message": "NB I\u0027ll upstream this after we decide the best approach.",
+      "revId": "e0134f62b3665e8205e5b52674093affd02da512",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
