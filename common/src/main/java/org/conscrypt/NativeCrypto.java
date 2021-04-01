@@ -1446,7 +1446,11 @@ public final class NativeCrypto {
     /**
      * Return {@code true} if BoringSSL has been built in FIPS mode.
      */
+<<<<<<< HEAD   (e0134f Make BufferUtils visible for testing.)
     static native boolean usesBoringSSL_FIPS_mode();
+=======
+    static native boolean usesBoringSsl_FIPS_mode();
+>>>>>>> BRANCH (d042cc Remove Travis CI testing on Java 7. (#996))
 
     /**
      * Used for testing only.

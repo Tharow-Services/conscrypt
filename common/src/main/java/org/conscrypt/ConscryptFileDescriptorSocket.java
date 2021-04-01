@@ -45,7 +45,11 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
 import javax.security.auth.x500.X500Principal;
+<<<<<<< HEAD   (e0134f Make BufferUtils visible for testing.)
 import org.conscrypt.ExternalSession.Provider;
+=======
+
+>>>>>>> BRANCH (d042cc Remove Travis CI testing on Java 7. (#996))
 import org.conscrypt.NativeRef.SSL_SESSION;
 
 /**

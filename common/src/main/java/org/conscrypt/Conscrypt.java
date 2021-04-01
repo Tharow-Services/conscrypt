@@ -61,9 +61,15 @@ public final class Conscrypt {
     /**
      * Return {@code true} if BoringSSL has been built in FIPS mode.
      */
+<<<<<<< HEAD   (e0134f Make BufferUtils visible for testing.)
     public static boolean isBoringSSLFIPSBuild() {
         try {
             return NativeCrypto.usesBoringSSL_FIPS_mode();
+=======
+    public static boolean isBoringSslFIPSBuild() {
+        try {
+            return NativeCrypto.usesBoringSsl_FIPS_mode();
+>>>>>>> BRANCH (d042cc Remove Travis CI testing on Java 7. (#996))
         } catch (Throwable e) {
             return false;
         }

@@ -21,6 +21,7 @@ import static org.conscrypt.Preconditions.checkArgument;
 
 import java.nio.ByteBuffer;
 
+<<<<<<< HEAD   (e0134f Make BufferUtils visible for testing.)
 /**
  * Utility methods for dealing with arrays of ByteBuffers.
  *
@@ -109,6 +110,91 @@ public final class BufferUtils {
         int needed = maxAmount;
         for (ByteBuffer buffer : buffers) {
             int remaining = buffer.remaining();
+=======
+final class BufferUtils {
+    private BufferUtils() {}
+
+    /**
+     * Throws {@link IllegalArgumentException} if any of the buffers in the array are null.
+     */
+    static void checkNotNull(ByteBuffer[] buffers) {
+        for (ByteBuffer buffer : buffers) {
+            if (buffer == null) {
+                throw new IllegalArgumentException("Null buffer in array");
+            }
+        }
+    }
+
+    /**
+     * Returns the total number of bytes remaining in the buffer array.
+     */
+    static long remaining(ByteBuffer[] buffers) {
+        long size = 0;
+        for (ByteBuffer buffer : buffers) {
+            size += buffer.remaining();
+        }
+        return size;
+    }
+
+    /**
+     * Marks {@code toConsume} bytes of data as consumed from the buffer array.
+     *
+     * @throws IllegalArgumentException if there are fewer than {@code toConsume} bytes remaining
+     */
+    static void consume(ByteBuffer[] sourceBuffers, int toConsume) {
+        for (ByteBuffer sourceBuffer : sourceBuffers) {
+            int amount = min(sourceBuffer.remaining(), toConsume);
+            if (amount > 0) {
+                sourceBuffer.position(sourceBuffer.position() + amount);
+                toConsume -= amount;
+                if (toConsume == 0) {
+                    break;
+                }
+            }
+        }
+        if (toConsume > 0) {
+            throw new IllegalArgumentException("toConsume > data size");
+        }
+    }
+
+    /**
+     * Looks for a buffer in the buffer array which EITHER is larger than {@code minSize} AND
+     * has no preceding non-empty buffers OR is the only non-empty buffer in the array.
+     */
+    static ByteBuffer getBufferLargerThan(ByteBuffer[] buffers, int minSize) {
+        int length = buffers.length;
+        for (int i = 0; i < length; i++) {
+            ByteBuffer buffer = buffers[i];
+            int remaining = buffer.remaining();
+            if (remaining > 0) {
+                if (remaining >= minSize) {
+                    return buffer;
+                }
+                for (int j = i + 1; j < length; j++) {
+                    if (buffers[j].remaining() > 0) {
+                        return null;
+                    }
+                }
+                return buffer;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Copies up to {@code maxAmount} bytes from a buffer array to {@code destination}.
+     * The copied data is <b>not</b> marked as consumed from the source buffers, on the
+     * assumption the copy will be passed to some method which will consume between 0 and
+     * {@code maxAmount} bytes which can then be reflected in the source array using the
+     * {@code consume()} method.
+     *
+     */
+    static ByteBuffer copyNoConsume(ByteBuffer[] buffers, ByteBuffer destination, int maxAmount) {
+	checkArgument(destination.remaining() >= maxAmount, "Destination buffer too small");
+	int needed = maxAmount;
+        for (ByteBuffer buffer : buffers) {
+	    int remaining = buffer.remaining();
+>>>>>>> BRANCH (d042cc Remove Travis CI testing on Java 7. (#996))
             if (remaining > 0) {
                 // If this buffer can fit completely then copy it all, otherwise temporarily
                 // adjust its limit to fill so as to the output buffer completely
