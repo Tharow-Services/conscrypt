@@ -557,8 +557,11 @@ final class Platform {
         ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, proto.getId(),
                 suite.getId(), dur);
     }
+<<<<<<< HEAD   (e0134f Make BufferUtils visible for testing.)
 
     public static boolean isJavaxCertificateSupported() {
         return true;
     }
+=======
+>>>>>>> BRANCH (d042cc Remove Travis CI testing on Java 7. (#996))
 }
