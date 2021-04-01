@@ -50,6 +50,24 @@
       "message": "I\u0027m going to submit this now to unblock the rest of the chain.  We can revisit next week if there\u0027s a better way of doing this.",
       "revId": "e0134f62b3665e8205e5b52674093affd02da512",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c9567bc0_43d91fc6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2021-04-01T18:10:38Z",
+      "side": 1,
+      "message": "I don\u0027t know of a better way. ART doesn\u0027t treat the test and implementation packages as being the same even though they have the same name. I\u0027m not 100% sure why.",
+      "parentUuid": "696a991c_7360cd3d",
+      "revId": "e0134f62b3665e8205e5b52674093affd02da512",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
