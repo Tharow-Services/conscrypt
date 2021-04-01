@@ -24,6 +24,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+<<<<<<< HEAD   (e0134f Make BufferUtils visible for testing.)
+=======
+
+>>>>>>> BRANCH (d042cc Remove Travis CI testing on Java 7. (#996))
 @RunWith(JUnit4.class)
 public class MetricsTest {
     public static final int TLS_HANDSHAKE_REPORTED = 317;
