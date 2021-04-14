@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "342da957_a217b462",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060959
+      },
+      "writtenOn": "2021-04-14T18:49:24Z",
+      "side": 1,
+      "message": "Changed to use visibility instead as java_sdk_library_import doesn\u0027t appear to support stub visibility.",
+      "revId": "d6735859621b8b1a79c7de799b9ba6eb63b91677",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
