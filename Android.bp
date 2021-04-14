@@ -348,6 +348,7 @@ java_sdk_library {
 // A library containing the public API stubs of the Conscrypt module.
 java_sdk_library {
     name: "conscrypt.module.public.api",
+    stubs_library_visibility: ["//visibility:public"],
     visibility: [
         "//frameworks/base",
         "//frameworks/base/api",
