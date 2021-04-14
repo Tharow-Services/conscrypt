@@ -1,0 +1,10 @@
+{
+  "mainline-presubmit": [
+    {
+      "name": "MtsConscryptTestCases[com.google.android.conscrypt.apex]"
+    },
+    {
+      "name": "MtsConscryptFdSocketTestCases[com.google.android.conscrypt.apex]"
+    }
+  ]
+}
