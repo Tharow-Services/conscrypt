@@ -1,0 +1,7 @@
+{
+  "mainline-presubmit": [
+    {
+      "name": "MtsConscryptTestCases[com.google.android.conscrypt.apex]"
+    }
+  ]
+}
