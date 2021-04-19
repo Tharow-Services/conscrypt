@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4860ab91_cd375770",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2021-04-19T21:41:59Z",
+      "side": 1,
+      "message": "PTAL. I had to add the conscrypt-for-host to the module_exports in a separate change to the one that changes how the conscrypt library is exported otherwise it breaks the master-art-host builds which use conscrypt prebuilts. After this has been submitted and prebuilts have been build then will need to update the conscrypt prebuilts and then submit the follow up CL.",
+      "revId": "6e8a57c0dee35bd3a8d31ec8d626174c1d7d9e37",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
