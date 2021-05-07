@@ -16,6 +16,7 @@
 
 package org.conscrypt.java.security.cert;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
@@ -32,8 +33,12 @@ import java.security.cert.X509CRL;
 import java.security.cert.X509CRLEntry;
 import java.security.cert.X509Certificate;
 import java.util.Collections;
+<<<<<<< HEAD   (8b779c Make conscrypt test apex visible in vendor directory)
 import libcore.junit.util.EnableDeprecatedBouncyCastleAlgorithmsRule;
 import org.junit.ClassRule;
+=======
+import org.conscrypt.TestUtils;
+>>>>>>> BRANCH (7542cd Remove unnecessary const_cast. (#1008))
 import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
@@ -102,6 +107,12 @@ public class X509CRLTest {
             + "nDN0LLg=\n"
             + "-----END X509 CRL-----\n";
 
+    private static final String CRL_TBS_BASE64 =
+            "MIG7AgEBMA0GCSqGSIb3DQEBCwUAMFUxCzAJBgNVBAYTAkdCMSQwIgYDVQQKExtD"
+            + "ZXJ0aWZpY2F0ZSBUcmFuc3BhcmVuY3kgQ0ExDjAMBgNVBAgTBVdhbGVzMRAwDgYD"
+            + "VQQHEwdFcncgV2VuFw0xOTA4MDcxMDI3MTBaFw0xOTA5MDYxMDI3MTBaMCIwIAIB"
+            + "BxcNMTkwODA3MTAyNjU0WjAMMAoGA1UdFQQDCgEBoA4wDDAKBgNVHRQEAwIBAg==";
+
     private static final String UNKNOWN_SIGNATURE_OID =
         "-----BEGIN X509 CRL-----\n"
             + "MIIBVzCBvgIBATAQBgwqhkiG9xIEAYS3CQIFADBVMQswCQYDVQQGEwJHQjEkMCIG\n"
@@ -137,6 +148,9 @@ public class X509CRLTest {
                         fail();
                     } catch (SignatureException expected) {
                     }
+
+                    byte[] expectedTBSCertList = TestUtils.decodeBase64(CRL_TBS_BASE64);
+                    assertArrayEquals(expectedTBSCertList, crl.getTBSCertList());
 
                     assertTrue(crl.isRevoked(revoked));
                     X509CRLEntry entry = crl.getRevokedCertificate(revoked);
