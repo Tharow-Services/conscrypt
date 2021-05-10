@@ -16,6 +16,23 @@
       "message": "rpl:  Is this safe to do on ART?  (Or in general)\n\nBackground: Each Conscrypt SSLSocket holds a reference to an object implementing the interface SslHandshakeCallbacks and calls into it at various points during the TLS handshake.  Prior to this change, JNI GetMethodID() is called on the concrete object before every callback. After this change, init code calls GetMethodID() on the interface and caches that, then the callback code uses this when calling methods of the concrete object.\n\nI\u0027m _fairly_ confident about this change as (a) we have tests which set different callbacks and they don\u0027t fail and (b) I wrote some JNI code (on the RI) which does the same thing and it works fine.\n",
       "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c66abdc_d7d88747",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2021-05-10T08:42:44Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t speak C++.",
+      "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
