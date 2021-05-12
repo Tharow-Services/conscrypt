@@ -72,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8cf9bf30_0c754f3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018108
+      },
+      "writtenOn": "2021-05-12T16:56:27Z",
+      "side": 1,
+      "message": "This shall currently work on ART.\n\njmethodID and jfieldID are not `jobject`, so you cannot really create global references to them. And this CL correctly keeps the classes alive with global references. (See the \"Accessing Fields and Methods\" section in the first page you linked.)",
+      "parentUuid": "53f0c303_fffacf2c",
+      "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "de1c927f_bca2d3d5",
         "filename": "common/src/jni/main/cpp/conscrypt/jniutil.cc",
         "patchSetId": 1
