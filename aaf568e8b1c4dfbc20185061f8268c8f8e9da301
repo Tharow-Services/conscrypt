@@ -51,6 +51,52 @@
       "parentUuid": "c2ab19cc_7abc5851",
       "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "de1c927f_bca2d3d5",
+        "filename": "common/src/jni/main/cpp/conscrypt/jniutil.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1018108
+      },
+      "writtenOn": "2021-05-12T15:37:01Z",
+      "side": 1,
+      "message": "Looking at `conscrypt/jniutil.h`, this is the same as `findClass()`. Why are there two different functions for the same thing? Maybe we should contribute a cleanup CL upstream?",
+      "range": {
+        "startLine": 90,
+        "startChar": 33,
+        "endLine": 90,
+        "endChar": 52
+      },
+      "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "738121ab_c51b45ba",
+        "filename": "common/src/jni/main/cpp/conscrypt/jniutil.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1018108
+      },
+      "writtenOn": "2021-05-12T15:37:01Z",
+      "side": 1,
+      "message": "Upstream: Why not add a helper `getStaticMethodRef()` to `conscrypt/jniutil.h`?",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 52
+      },
+      "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
