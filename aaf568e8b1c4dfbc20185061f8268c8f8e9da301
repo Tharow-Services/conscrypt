@@ -33,6 +33,24 @@
       "message": "Sorry, I don\u0027t speak C++.",
       "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "53f0c303_fffacf2c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2021-05-12T14:43:19Z",
+      "side": 1,
+      "message": "I thought this was fine at first, but after reading https://docs.oracle.com/javase/8/docs/technotes/guides/jni/spec/design.html and https://developer.android.com/training/articles/perf-jni#local-and-global-references I think you need to promote those local method references to global ones using `NewGlobalRef`, if you intend to use them in a function/method other than the one that created them.\n\nAdding Vladimir to keep me honest.",
+      "parentUuid": "c2ab19cc_7abc5851",
+      "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
