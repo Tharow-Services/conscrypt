@@ -231,9 +231,7 @@ filegroup {
 java_library {
     name: "conscrypt",
     visibility: [
-        "//art/build",
         "//device:__subpackages__",
-        "//external/robolectric-shadows",
         "//system/apex/tests",
         ":__subpackages__",
     ],
@@ -275,6 +273,20 @@ java_library {
     ],
 
     plugins: ["java_api_finder"],
+}
+
+// Java library for use on host, e.g. by robolectric.
+java_library {
+    name: "conscrypt-for-host",
+    visibility: [
+        "//art/build",
+        "//external/robolectric-shadows",
+    ],
+    static_libs: [
+        "conscrypt",
+    ],
+    sdk_version: "none",
+    system_modules: "none",
 }
 
 // Referenced implicitly from conscrypt.module.platform.api.
@@ -349,6 +361,7 @@ java_sdk_library {
 java_sdk_library {
     name: "conscrypt.module.public.api",
     visibility: [
+        "//packages/modules/common/sdk",
         "//frameworks/base",
         "//frameworks/base/api",
         "//libcore",
@@ -625,6 +638,9 @@ java_test {
 // Device SDK exposed by the Conscrypt module.
 sdk {
     name: "conscrypt-module-sdk",
+    java_boot_libs: [
+        "conscrypt",
+    ],
     java_sdk_libs: [
         "conscrypt.module.public.api",
         "conscrypt.module.intra.core.api",
@@ -656,7 +672,7 @@ module_exports {
         android: {
             java_libs: [
                 // For use by robolectric and ART tests.
-                "conscrypt",
+                "conscrypt-for-host",
             ],
             java_tests: [
                 // For use by CTS
