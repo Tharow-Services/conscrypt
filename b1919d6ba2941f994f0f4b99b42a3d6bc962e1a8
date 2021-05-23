@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b60f87de_cdc8f3c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2021-05-23T22:18:19Z",
+      "side": 1,
+      "message": "PTAL. I improved the comments both in the commit and the Android.bp file.",
+      "revId": "b1919d6ba2941f994f0f4b99b42a3d6bc962e1a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
