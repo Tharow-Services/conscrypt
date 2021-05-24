@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3f2d48b_f0287a25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2021-05-24T08:42:16Z",
+      "side": 1,
+      "message": "Mathew, would you mind replying to Pete\u0027s comment.",
+      "revId": "b1919d6ba2941f994f0f4b99b42a3d6bc962e1a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1d7cddcc_8506c865",
@@ -31,6 +48,30 @@
       "writtenOn": "2021-05-24T08:05:58Z",
       "side": 1,
       "message": "Am I right in thinking this is only used for the SDK and when targeting O or below?\n\nBecause many of these methods no longer exist or have been renamed.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 62
+      },
+      "revId": "b1919d6ba2941f994f0f4b99b42a3d6bc962e1a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3f5da894_f5f5835a",
+        "filename": "apex/hiddenapi/hiddenapi-max-target-o-low-priority.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2021-05-24T08:42:16Z",
+      "side": 1,
+      "message": "They are nothing to do with the Android SDK they only affect implementation dex jars.\n\nIf the members do not exist then the flags are silently ignored. Which is what allowed you to remove/rename the methods. This is done intentionally, possibly to keep this file as a historical record.\n\nApps that target O and below should still be able to use these methods. Removing them could potentially cause app compat issues for those apps.\n\nFTR I temporarily disabled the ignoring of invalid methods and produced the following list of methods that have been changed since O.\n\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003e\u003cinit\u003e(Ljava/util/Set;Ljava/util/Set;)V\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003ecloseQuietly(Ljava/io/Closeable;)V\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003egetDefault()Lcom/android/org/conscrypt/CertBlacklist;\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003eHEX_TABLE:[B\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003eisHex(Ljava/lang/String;)Z\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003eisPubkeyHash(Ljava/lang/String;)Z\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003eisPublicKeyBlackListed(Ljava/security/PublicKey;)Z\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003eisSerialNumberBlackListed(Ljava/math/BigInteger;)Z\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003elogger:Ljava/util/logging/Logger;\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003epubkeyBlacklist:Ljava/util/Set;\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003ereadBlacklist(Ljava/lang/String;)Ljava/lang/String;\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003ereadFileAsBytes(Ljava/lang/String;)Ljava/io/ByteArrayOutputStream;\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003ereadFileAsString(Ljava/lang/String;)Ljava/lang/String;\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003ereadPublicKeyBlackList(Ljava/lang/String;)Ljava/util/Set;\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003ereadSerialBlackList(Ljava/lang/String;)Ljava/util/Set;\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003eserialBlacklist:Ljava/util/Set;\n  Lcom/android/org/conscrypt/CertBlacklist;-\u003etoHex([B)[B\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003e\u003cinit\u003e()V\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003e\u003cinit\u003e(Ljava/lang/String;I)V\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003e\u003cinit\u003e(Ljava/lang/String;ILjava/net/InetAddress;I)V\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003e\u003cinit\u003e(Ljava/net/InetAddress;I)V\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003e\u003cinit\u003e(Ljava/net/InetAddress;ILjava/net/InetAddress;I)V\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003e\u003cinit\u003e(Ljava/net/Socket;Ljava/lang/String;IZ)V\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003eautoClose:Z\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003echeckOpen()V\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003egetActiveSession()Ljavax/net/ssl/SSLSession;\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003egetFileDescriptor$()Ljava/io/FileDescriptor;\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003eisDelegating()Z\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003elisteners:Ljava/util/List;\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003enotifyHandshakeCompletedListeners()V\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003epeerHostname:Ljava/lang/String;\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003epeerInfoProvider()Lcom/android/org/conscrypt/PeerInfoProvider;\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003epeerInfoProvider:Lcom/android/org/conscrypt/PeerInfoProvider;\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003epeerPort:I\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003ereadTimeoutMilliseconds:I\n  Lcom/android/org/conscrypt/ConscryptSocketBase;-\u003esetApplicationProtocolSelector(Lcom/android/org/conscrypt/ApplicationProtocolSelectorAdapter;)V\n  Lcom/android/org/conscrypt/NativeRef;-\u003econtext:J\n  Lcom/android/org/conscrypt/OpenSSLX509Certificate;-\u003ewithDeletedExtension(Ljava/lang/String;)Lcom/android/org/conscrypt/OpenSSLX509Certificate;\n  Lcom/android/org/conscrypt/TrustManagerImpl;-\u003e\u003cinit\u003e(Ljava/security/KeyStore;Lcom/android/org/conscrypt/CertPinManager;Lcom/android/org/conscrypt/TrustedCertificateStore;)V\n  Lcom/android/org/conscrypt/TrustManagerImpl;-\u003e\u003cinit\u003e(Ljava/security/KeyStore;Lcom/android/org/conscrypt/CertPinManager;Lcom/android/org/conscrypt/TrustedCertificateStore;Lcom/android/org/conscrypt/CertBlacklist;)V\n  Lcom/android/org/conscrypt/TrustManagerImpl;-\u003e\u003cinit\u003e(Ljava/security/KeyStore;Lcom/android/org/conscrypt/CertPinManager;Lcom/android/org/conscrypt/TrustedCertificateStore;Lcom/android/org/conscrypt/CertBlacklist;Lcom/android/org/conscrypt/ct/CTLogStore;Lcom/android/org/conscrypt/ct/CTVerifier;Lcom/android/org/conscrypt/ct/CTPolicy;)V\n  Lcom/android/org/conscrypt/TrustManagerImpl;-\u003eblacklist:Lcom/android/org/conscrypt/CertBlacklist;\n  Lcom/android/org/conscrypt/TrustManagerImpl;-\u003echeckBlacklist(Ljava/security/cert/X509Certificate;)V\n  Lcom/android/org/conscrypt/TrustManagerImpl;-\u003eisUserAddedCertificate(Ljava/security/cert/X509Certificate;)Z\n  Lcom/android/org/conscrypt/TrustManagerImpl;-\u003etrustedCertificateStore:Lcom/android/org/conscrypt/TrustedCertificateStore;",
+      "parentUuid": "1d7cddcc_8506c865",
       "range": {
         "startLine": 1,
         "startChar": 0,
