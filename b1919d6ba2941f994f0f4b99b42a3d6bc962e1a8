@@ -16,6 +16,29 @@
       "message": "PTAL. I improved the comments both in the commit and the Android.bp file.",
       "revId": "b1919d6ba2941f994f0f4b99b42a3d6bc962e1a8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1d7cddcc_8506c865",
+        "filename": "apex/hiddenapi/hiddenapi-max-target-o-low-priority.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-05-24T08:05:58Z",
+      "side": 1,
+      "message": "Am I right in thinking this is only used for the SDK and when targeting O or below?\n\nBecause many of these methods no longer exist or have been renamed.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 62
+      },
+      "revId": "b1919d6ba2941f994f0f4b99b42a3d6bc962e1a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
