@@ -88,6 +88,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "81faa1b7_856dfc55",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-06-18T09:40:00Z",
+      "side": 1,
+      "message": "\u003e This shall currently work on ART.\n\u003e \n\u003e[...] And this CL correctly keeps the classes alive with global references.\n\nOn that basis, let\u0027s submit this as-is and I\u0027ll do Vladimir\u0027s cleanup suggestions as a follow-up and it keeps the Github -\u003e AOSP merge flow cleaner.",
+      "parentUuid": "8cf9bf30_0c754f3e",
+      "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de1c927f_bca2d3d5",
@@ -125,6 +143,30 @@
       "side": 1,
       "message": "We actually develop Conscrypt primarily upstream, so we can totally do that along with your other cleanup suggestion, and rpl\u0027s point about promoting to global refs.\n\nI\u0027ll get those done and send back out for review.",
       "parentUuid": "de1c927f_bca2d3d5",
+      "range": {
+        "startLine": 90,
+        "startChar": 33,
+        "endLine": 90,
+        "endChar": 52
+      },
+      "revId": "aaf568e8b1c4dfbc20185061f8268c8f8e9da301",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4746e94d_9c4f14a2",
+        "filename": "common/src/jni/main/cpp/conscrypt/jniutil.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-06-18T09:40:00Z",
+      "side": 1,
+      "message": "As per other thread, I\u0027ll do this as a separate CL upstream.",
+      "parentUuid": "6f7f65d2_4e4b0639",
       "range": {
         "startLine": 90,
         "startChar": 33,
