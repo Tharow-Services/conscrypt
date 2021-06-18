@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76adaf9f_a5d4dc88",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-06-18T09:26:19Z",
+      "side": 1,
+      "message": "I\u0027m not sure it makes sense to have separate OWNERS for Conscrypt and BC anymore.\n\nMaybe just point them both at libcore/OWNERS?",
+      "revId": "d6ddfc31623097ccac1afe8384932411d5e83b24",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
