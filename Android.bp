@@ -231,9 +231,7 @@ filegroup {
 java_library {
     name: "conscrypt",
     visibility: [
-        "//art/build",
         "//device:__subpackages__",
-        "//external/robolectric-shadows",
         "//system/apex/tests",
         ":__subpackages__",
     ],
@@ -275,6 +273,20 @@ java_library {
     ],
 
     plugins: ["java_api_finder"],
+}
+
+// Java library for use on host, e.g. by robolectric.
+java_library {
+    name: "conscrypt-for-host",
+    visibility: [
+        "//art/build",
+        "//external/robolectric-shadows",
+    ],
+    static_libs: [
+        "conscrypt",
+    ],
+    sdk_version: "none",
+    system_modules: "none",
 }
 
 // Referenced implicitly from conscrypt.module.platform.api.
@@ -334,21 +346,23 @@ java_sdk_library {
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide",
         "--show-single-annotation libcore.api.CorePlatformApi\\(status=libcore.api.CorePlatformApi.Status.STABLE\\)",
-        "--skip-annotation-instance-methods=false",
     ],
     hostdex: true,
 
     sdk_version: "none",
     system_modules: "legacy-art-module-platform-api-stubs-system-modules",
 
-    // Don't copy any output files to the dist.
-    no_dist: true,
+    dist_group: "android",
+    dist_stem: "conscrypt-coreplatform",
+    // TODO: remove this when Conscrypt's @CorePlatformApi has been migrated to @SystemApi
+    unsafe_ignore_missing_latest_api: true,
 }
 
 // A library containing the public API stubs of the Conscrypt module.
 java_sdk_library {
     name: "conscrypt.module.public.api",
     visibility: [
+        "//packages/modules/common/sdk",
         "//frameworks/base",
         "//frameworks/base/api",
         "//libcore",
@@ -382,6 +396,7 @@ java_sdk_library {
 
     sdk_version: "none",
     system_modules: "art-module-public-api-stubs-system-modules",
+    dist_group: "android",
 }
 
 // Referenced implicitly from conscrypt.module.intra.core.api.
@@ -434,7 +449,6 @@ java_sdk_library {
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide",
         "--show-single-annotation libcore.api.IntraCoreApi",
-        "--skip-annotation-instance-methods=false",
     ],
 
     sdk_version: "none",
@@ -625,6 +639,9 @@ java_test {
 // Device SDK exposed by the Conscrypt module.
 sdk {
     name: "conscrypt-module-sdk",
+    bootclasspath_fragments: [
+        "com.android.conscrypt-bootclasspath-fragment",
+    ],
     java_sdk_libs: [
         "conscrypt.module.public.api",
         "conscrypt.module.intra.core.api",
@@ -656,7 +673,7 @@ module_exports {
         android: {
             java_libs: [
                 // For use by robolectric and ART tests.
-                "conscrypt",
+                "conscrypt-for-host",
             ],
             java_tests: [
                 // For use by CTS
