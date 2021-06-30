@@ -350,7 +350,8 @@ java_sdk_library {
     hostdex: true,
 
     sdk_version: "none",
-    system_modules: "legacy-art-module-platform-api-stubs-system-modules",
+    // ART's module-lib stub is an identical replacement of ART's core-platform-api stub.
+    system_modules: "art-module-lib-api-stubs-system-modules",
 
     dist_group: "android",
     dist_stem: "conscrypt-coreplatform",
