@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8243b30_80e0f36f",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2021-07-01T13:41:22Z",
+      "side": 1,
+      "message": "Given that we will be remove everything core platform at some point this comment is unnecessary here. The commit message is sufficient.",
+      "revId": "7b46825b13d1c533be561851f53fc47b75e411a5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
