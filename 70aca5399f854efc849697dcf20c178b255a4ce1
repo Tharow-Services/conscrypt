@@ -33,6 +33,24 @@
       "message": "I think this needs Merged-In.",
       "revId": "70aca5399f854efc849697dcf20c178b255a4ce1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48fbcdc5_5e240fe7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060959
+      },
+      "writtenOn": "2021-07-02T12:43:14Z",
+      "side": 1,
+      "message": "There were some discrepancies in the libcore @CPA build rules. Fixed now.",
+      "parentUuid": "0f8f1926_a68dc4b4",
+      "revId": "70aca5399f854efc849697dcf20c178b255a4ce1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
