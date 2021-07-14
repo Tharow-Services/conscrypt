@@ -327,8 +327,8 @@ filegroup {
 java_sdk_library {
     name: "conscrypt.module.platform.api",
     visibility: [
+        "//build/soong/java/core-libraries",
         "//external/wycheproof",
-        "//libcore:__subpackages__",
         // Visibility for prebuilt conscrypt-module-sdk from the prebuilt of
         // this module.
         // TODO(b/155921753): Restrict this when prebuilts are in their proper
@@ -350,7 +350,7 @@ java_sdk_library {
     hostdex: true,
 
     sdk_version: "none",
-    system_modules: "legacy-art-module-platform-api-stubs-system-modules",
+    system_modules: "art-module-lib-api-stubs-system-modules",
 
     dist_group: "android",
     dist_stem: "conscrypt-coreplatform",
@@ -362,10 +362,10 @@ java_sdk_library {
 java_sdk_library {
     name: "conscrypt.module.public.api",
     visibility: [
-        "//packages/modules/common/sdk",
+        "//build/soong/java/core-libraries",
         "//frameworks/base",
         "//frameworks/base/api",
-        "//libcore",
+        "//packages/modules/common/sdk",
         // TODO(b/165823103): Remove visiblity for IPsec once CorePlatformApi is available
         "//packages/modules/IPsec",
         // Visibility for prebuilt art-module-host-exports from the prebuilt of
