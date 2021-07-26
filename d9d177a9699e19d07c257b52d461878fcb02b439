@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "191be67c_70817124",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2021-07-26T15:55:38Z",
+      "side": 1,
+      "message": "It is partial cherry-pick from recent github PR?",
+      "revId": "d9d177a9699e19d07c257b52d461878fcb02b439",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
