@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "374f099c_f10f791f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-07-30T08:17:43Z",
+      "side": 1,
+      "message": "Thanks!\n\nNeeds to be submitted upstream really, so that we don\u0027t lose it in an update: https://github.com/google/conscrypt\n\n\nI can do that for you if you don\u0027t want the pain of setting up a Github workflow.",
+      "revId": "404dec4cd5a2a23f038f35929186da31ff6f6dd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
