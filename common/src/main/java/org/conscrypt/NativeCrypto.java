@@ -85,6 +85,7 @@ public final class NativeCrypto {
 
     // --- DSA/RSA public/private key handling functions -----------------------
 
+    @RequiredForTesting
     static native long EVP_PKEY_new_RSA(byte[] n, byte[] e, byte[] d, byte[] p, byte[] q,
             byte[] dmp1, byte[] dmq1, byte[] iqmp);
 
@@ -997,10 +998,12 @@ public final class NativeCrypto {
             SUPPORTED_PROTOCOL_TLSV1_3,
     };
 
+    @RequiredForTesting
     static String[] getSupportedProtocols() {
         return SUPPORTED_PROTOCOLS.clone();
     }
 
+    @RequiredForTesting
     private static class Range {
         public final String min;
         public final String max;
@@ -1010,6 +1013,7 @@ public final class NativeCrypto {
         }
     }
 
+    @RequiredForTesting
     private static Range getProtocolRange(String[] protocols) {
         // TLS protocol negotiation only allows a min and max version
         // to be set, despite the Java API allowing a sparse set of
@@ -1227,6 +1231,7 @@ public final class NativeCrypto {
      * A collection of callbacks from the native OpenSSL code that are
      * related to the SSL handshake initiated by SSL_do_handshake.
      */
+    @RequiredForTesting
     interface SSLHandshakeCallbacks {
         /**
          * Verify that the certificate chain is trusted.
