@@ -559,6 +559,11 @@ java_test {
         "repackaged/common/src/test/java/**/*.java",
         "repackaged/testing/src/main/java/**/*.java",
         "publicapi/src/test/java/**/*.java",
+        "repackaged/openjdk/src/test/java/**/*.java",
+    ],
+    exclude_srcs: [
+        // TestClient class used in OpenSSLServerSocketImplTest isn't defined anywhere
+        "repackaged/openjdk/src/test/java/com/android/org/conscrypt/OpenSSLServerSocketImplTest.java",
     ],
     java_resource_dirs: [
         // Resource directories do not need repackaging.

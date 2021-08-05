@@ -88,7 +88,8 @@ public final class NativeCrypto {
     // --- DSA/RSA public/private key handling functions -----------------------
 
     @android.compat.annotation.UnsupportedAppUsage
-    static native long EVP_PKEY_new_RSA(byte[] n, byte[] e, byte[] d, byte[] p, byte[] q,
+    @RequiredForTesting
+    public static native long EVP_PKEY_new_RSA(byte[] n, byte[] e, byte[] d, byte[] p, byte[] q,
             byte[] dmp1, byte[] dmq1, byte[] iqmp);
 
     static native int EVP_PKEY_type(NativeRef.EVP_PKEY pkey);
@@ -1030,25 +1031,24 @@ public final class NativeCrypto {
             SUPPORTED_PROTOCOL_TLSV1_3,
     };
 
-    static String[] getSupportedProtocols() {
+    @RequiredForTesting
+    public static String[] getSupportedProtocols() {
         return SUPPORTED_PROTOCOLS.clone();
     }
 
-    private static class Range {
+    @RequiredForTesting
+    public static class Range {
         public final String min;
         public final String max;
+
         public Range(String min, String max) {
             this.min = min;
             this.max = max;
         }
     }
 
-    private static Range getProtocolRange(String[] protocols) {
-        // TLS protocol negotiation only allows a min and max version
-        // to be set, despite the Java API allowing a sparse set of
-        // protocols to be enabled.  Use the lowest contiguous range
-        // of protocols provided by the caller, which is what we've
-        // done historically.
+    @RequiredForTesting
+    public static Range getProtocolRange(String[] protocols) {
         List<String> protocolsList = Arrays.asList(protocols);
         String min = null;
         String max = null;
@@ -1264,32 +1264,27 @@ public final class NativeCrypto {
     static native long d2i_SSL_SESSION(byte[] data) throws IOException;
 
     /**
-     * A collection of callbacks from the native OpenSSL code that are
-     * related to the SSL handshake initiated by SSL_do_handshake.
+     * A collection of callbacks from the native OpenSSL code that are related to the SSL handshake
+     * initiated by SSL_do_handshake.
      */
-    interface SSLHandshakeCallbacks {
+    @RequiredForTesting
+    public interface SSLHandshakeCallbacks {
         /**
          * Verify that the certificate chain is trusted.
-         *
-         * @param certificateChain chain of X.509 certificates in their encoded form
-         * @param authMethod auth algorithm name
-         *
-         * @throws CertificateException if the certificate is untrusted
+         * @param certificateChain  chain of X.509 certificates in their encoded form
+         * @param authMethod  auth algorithm name
+         * @throws CertificateException  if the certificate is untrusted
          */
         @SuppressWarnings("unused")
         void verifyCertificateChain(byte[][] certificateChain, String authMethod)
                 throws CertificateException;
 
         /**
-         * Called on an SSL client when the server requests (or
-         * requires a certificate). The client can respond by using
-         * SSL_use_certificate and SSL_use_PrivateKey to set a
-         * certificate if has an appropriate one available, similar to
-         * how the server provides its certificate.
-         *
-         * @param keyTypes key types supported by the server,
-         * convertible to strings with #keyType
-         * @param asn1DerEncodedX500Principals CAs known to the server
+         * Called on an SSL client when the server requests (or requires a certificate). The client
+         * can respond by using SSL_use_certificate and SSL_use_PrivateKey to set a certificate if
+         * has an appropriate one available, similar to how the server provides its certificate.
+         * @param keyTypes  key types supported by the server, convertible to strings with #keyType
+         * @param asn1DerEncodedX500Principals  CAs known to the server
          */
         @SuppressWarnings("unused")
         void clientCertificateRequested(
@@ -1297,40 +1292,35 @@ public final class NativeCrypto {
                 throws CertificateEncodingException, SSLException;
 
         /**
-         * Called when acting as a server during ClientHello processing before a decision
-         * to resume a session is made. This allows the selection of the correct server
-         * certificate based on things like Server Name Indication (SNI).
-         *
-         * @throws IOException if there was an error during certificate selection.
+         * Called when acting as a server during ClientHello processing before a decision to resume
+         * a session is made. This allows the selection of the correct server certificate based on
+         * things like Server Name Indication (SNI).
+         * @throws IOException  if there was an error during certificate selection.
          */
         @SuppressWarnings("unused") void serverCertificateRequested() throws IOException;
 
         /**
          * Gets the key to be used in client mode for this connection in Pre-Shared Key (PSK) key
          * exchange.
-         *
-         * @param identityHint PSK identity hint provided by the server or {@code null} if no hint
-         *        provided.
-         * @param identity buffer to be populated with PSK identity (NULL-terminated modified UTF-8)
-         *        by this method. This identity will be provided to the server.
-         * @param key buffer to be populated with key material by this method.
-         *
-         * @return number of bytes this method stored in the {@code key} buffer or {@code 0} if an
-         *         error occurred in which case the handshake will be aborted.
+         * @param identityHint  PSK identity hint provided by the server or  {@code  null}  if no
+         *         hint provided.
+         * @param identity  buffer to be populated with PSK identity (NULL-terminated modified
+         *         UTF-8) by this method. This identity will be provided to the server.
+         * @param key  buffer to be populated with key material by this method.
+         * @return  number of bytes this method stored in the  {@code  key}  buffer or  {@code  0}
+         *         if an error occurred in which case the handshake will be aborted.
          */
         int clientPSKKeyRequested(String identityHint, byte[] identity, byte[] key);
 
         /**
          * Gets the key to be used in server mode for this connection in Pre-Shared Key (PSK) key
          * exchange.
-         *
-         * @param identityHint PSK identity hint provided by this server to the client or
-         *        {@code null} if no hint was provided.
-         * @param identity PSK identity provided by the client.
-         * @param key buffer to be populated with key material by this method.
-         *
-         * @return number of bytes this method stored in the {@code key} buffer or {@code 0} if an
-         *         error occurred in which case the handshake will be aborted.
+         * @param identityHint  PSK identity hint provided by this server to the client or {@code
+         *         null}  if no hint was provided.
+         * @param identity  PSK identity provided by the client.
+         * @param key  buffer to be populated with key material by this method.
+         * @return  number of bytes this method stored in the  {@code  key}  buffer or  {@code  0}
+         *         if an error occurred in which case the handshake will be aborted.
          */
         int serverPSKKeyRequested(String identityHint, String identity, byte[] key);
 
@@ -1340,31 +1330,28 @@ public final class NativeCrypto {
         @SuppressWarnings("unused") void onSSLStateChange(int type, int val);
 
         /**
-         * Called when a new session has been established and may be added to the session cache.
-         * The callee is responsible for incrementing the reference count on the returned session.
+         * Called when a new session has been established and may be added to the session cache. The
+         * callee is responsible for incrementing the reference count on the returned session.
          */
         @SuppressWarnings("unused") void onNewSessionEstablished(long sslSessionNativePtr);
 
         /**
-         * Called for servers where TLS < 1.3 (TLS 1.3 uses session tickets rather than
-         * application session caches).
-         *
-         * <p/>Looks up the session by ID in the application's session cache. If a valid session
-         * is returned, this callback is responsible for incrementing the reference count (and any
-         * required synchronization).
-         *
-         * @param id the ID of the session to find.
-         * @return the cached session or {@code 0} if no session was found matching the given ID.
+         * Called for servers where TLS < 1.3 (TLS 1.3 uses session tickets rather than application
+         * session caches). <p/>Looks up the session by ID in the application's session cache. If a
+         * valid session is returned, this callback is responsible for incrementing the reference
+         * count (and any required synchronization).
+         * @param id  the ID of the session to find.
+         * @return  the cached session or  {@code  0}  if no session was found matching the given
+         *         ID.
          */
         @SuppressWarnings("unused") long serverSessionRequested(byte[] id);
 
         /**
-         * Called when acting as a server, the socket has an {@link
-         * ApplicationProtocolSelectorAdapter} associated with it,  and the application protocol
+         * Called when acting as a server, the socket has an  {@link
+         * ApplicationProtocolSelectorAdapter}  associated with it,  and the application protocol
          * needs to be selected.
-         *
-         * @param applicationProtocols list of application protocols in length-prefix format
-         * @return the index offset of the selected protocol
+         * @param applicationProtocols  list of application protocols in length-prefix format
+         * @return  the index offset of the selected protocol
          */
         @SuppressWarnings("unused") int selectApplicationProtocol(byte[] applicationProtocols);
     }
