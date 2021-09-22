@@ -39,6 +39,23 @@
       "message": "Please resolve CL comments",
       "revId": "852401e830b48cffe809402ee340903a6bb7432e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9814c2a4_4e362263",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2021-09-22T22:56:07Z",
+      "side": 1,
+      "message": "Please Autosubmit vote for the CL",
+      "revId": "852401e830b48cffe809402ee340903a6bb7432e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
