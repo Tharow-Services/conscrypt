@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b1b99a8_b518ff25",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1222074
+      },
+      "writtenOn": "2021-09-22T22:58:54Z",
+      "side": 1,
+      "message": "Please set Autosubmit vote for the CL ",
+      "revId": "424702a3385c5b7361c3c4667cbf7284d8264a22",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
