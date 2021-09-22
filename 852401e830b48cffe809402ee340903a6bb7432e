@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "412ab366_f775b2ad",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1244622
+      },
+      "writtenOn": "2021-09-22T22:14:51Z",
+      "side": 1,
+      "message": "assumptions to work",
+      "range": {
+        "startLine": 23,
+        "startChar": 48,
+        "endLine": 23,
+        "endChar": 66
+      },
+      "revId": "852401e830b48cffe809402ee340903a6bb7432e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
