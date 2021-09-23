@@ -22,6 +22,30 @@
       },
       "revId": "19a264e6bfe9ac196a9fb69eaadb8b0091fb8585",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be6f8acd_f036ebcf",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1064724
+      },
+      "writtenOn": "2021-09-23T11:14:20Z",
+      "side": 1,
+      "message": "A recent change in the framework forces us to use bytecode manipulation on ActivityThread. ActivityThread depends on TrustedCertificateStore from the conscrypt library, and the ASM analyzer we use for bytecode manipulation requires loading all dependent classes. None of the classes from conscrypt end up inside layoutlib.",
+      "parentUuid": "1275563f_85153916",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 35
+      },
+      "revId": "19a264e6bfe9ac196a9fb69eaadb8b0091fb8585",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
