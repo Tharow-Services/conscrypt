@@ -25,6 +25,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import com.android.org.conscrypt.TestUtils;
 import com.android.org.conscrypt.java.security.StandardNames;
@@ -433,6 +434,10 @@ public class SSLSocketTest {
                 clientContext.getSocketFactory().createSocket(c.host, c.port);
         client.setEnabledProtocols(new String[] {"TLSv1.2", "TLSv1"});
         final SSLSocket server = (SSLSocket) c.serverSocket.accept();
+        String[] supportedServerProtocols = server.getSupportedProtocols();
+        assumeTrue("TLSv1 is not supported. Test Not applicable. ",
+                   Arrays.asList(supportedServerProtocols).contains("TLSv1"));
+
         server.setEnabledProtocols(new String[] {"TLSv1.2", "TLSv1.1", "TLSv1"});
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Void> future = executor.submit(new Callable<Void>() {
@@ -464,6 +469,10 @@ public class SSLSocketTest {
                 clientContext.getSocketFactory().createSocket(c.host, c.port);
         client.setEnabledProtocols(new String[] {"TLSv1.2", "TLSv1"});
         final SSLSocket server = (SSLSocket) c.serverSocket.accept();
+        String[] supportedServerProtocols = server.getSupportedProtocols();
+        assumeTrue("TLSv1 is not supported. Test Not applicable. ",
+                   Arrays.asList(supportedServerProtocols).contains("TLSv1"));
+
         server.setEnabledProtocols(new String[] {"TLSv1.1", "TLSv1"});
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Void> future = executor.submit(new Callable<Void>() {
@@ -1053,6 +1062,10 @@ public class SSLSocketTest {
         final SSLSocket client = (SSLSocket) context.clientContext.getSocketFactory().createSocket(
                 context.host, context.port);
         final SSLSocket server = (SSLSocket) context.serverSocket.accept();
+        String[] supportedServerProtocols = server.getSupportedProtocols();
+        assumeTrue("TLSv1 is not supported. Test Not applicable. ",
+                   Arrays.asList(supportedServerProtocols).contains("TLSv1"));
+
         final String[] serverCipherSuites = server.getEnabledCipherSuites();
         // Add TLS_FALLBACK_SCSV
         final String[] clientCipherSuites = new String[serverCipherSuites.length + 1];
