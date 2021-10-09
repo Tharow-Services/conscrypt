@@ -27,7 +27,10 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.android.org.conscrypt.TestUtils;
+<<<<<<< TARGET BRANCH (9afc3b [automerger skipped] CipherTest should skip unknown algorith)
 import com.android.org.conscrypt.TestUtils.BufferType;
+=======
+>>>>>>> SOURCE BRANCH (43392c Make testing of handshake session cipher suite consistent.)
 import com.android.org.conscrypt.java.security.StandardNames;
 import com.android.org.conscrypt.java.security.TestKeyStore;
 import java.io.IOException;
