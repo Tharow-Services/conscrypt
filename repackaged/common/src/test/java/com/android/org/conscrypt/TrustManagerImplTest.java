@@ -22,8 +22,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.android.org.conscrypt.java.security.TestKeyStore;
+<<<<<<< HEAD   (73d346 [automerger skipped] Make testing of handshake session ciphe)
 import com.android.org.conscrypt.javax.net.ssl.TestHostnameVerifier;
+=======
+>>>>>>> BRANCH (9fb306 [DO NOT MERGE] CTS 11: Work around blocklist class name chan)
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.security.KeyStore;
 import java.security.Principal;
 import java.security.cert.Certificate;
@@ -32,6 +36,11 @@ import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.List;
 import javax.net.ssl.HandshakeCompletedListener;
+<<<<<<< HEAD   (73d346 [automerger skipped] Make testing of handshake session ciphe)
+=======
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+>>>>>>> BRANCH (9fb306 [DO NOT MERGE] CTS 11: Work around blocklist class name chan)
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLSession;
@@ -165,13 +174,22 @@ public class TrustManagerImplTest {
 
             // Override the global default hostname verifier with a Conscrypt-specific one that
             // always passes.  Both scenarios should pass.
+<<<<<<< HEAD   (73d346 [automerger skipped] Make testing of handshake session ciphe)
             Conscrypt.setHostnameVerifier(tmi, new ConscryptHostnameVerifier() {
+=======
+            HostnameVerifier alwaysTrue = new HostnameVerifier() {
+>>>>>>> BRANCH (9fb306 [DO NOT MERGE] CTS 11: Work around blocklist class name chan)
                 @Override
+<<<<<<< HEAD   (73d346 [automerger skipped] Make testing of handshake session ciphe)
                 public boolean verify(
                         X509Certificate[] certificates, String s, SSLSession sslSession) {
+=======
+                public boolean verify(String hostname, SSLSession session) {
+>>>>>>> BRANCH (9fb306 [DO NOT MERGE] CTS 11: Work around blocklist class name chan)
                     return true;
                 }
-            });
+            };
+            HttpsURLConnection.setDefaultHostnameVerifier(alwaysTrue);
 
             certs = tmi.getTrustedChainForServer(chain, "RSA",
                     new FakeSSLSocket(new FakeSSLSession(badHostname, chain), params));
@@ -183,8 +201,12 @@ public class TrustManagerImplTest {
 
             // Now set an instance-specific verifier on the trust manager.  The bad hostname should
             // fail again.
+<<<<<<< HEAD   (73d346 [automerger skipped] Make testing of handshake session ciphe)
             Conscrypt.setHostnameVerifier(
                     tmi, Conscrypt.wrapHostnameVerifier(new TestHostnameVerifier()));
+=======
+            Conscrypt.setHostnameVerifier(tmi, wrapVerifier(new TestHostnameVerifier()));
+>>>>>>> BRANCH (9fb306 [DO NOT MERGE] CTS 11: Work around blocklist class name chan)
 
             try {
                 tmi.getTrustedChainForServer(chain, "RSA",
@@ -213,6 +235,30 @@ public class TrustManagerImplTest {
         } finally {
             Conscrypt.setDefaultHostnameVerifier(null);
         }
+    }
+
+    /*
+     * Wrap a HostnameVerifier in a ConscryptHostnameVerifier.
+     * In the Android platform ConscryptHostnameVerifier is a private API and the interface
+     * definition changed between Android 11 and Android 12.
+     * If an Android 12 Conscrypt module is present then there will also be a (non-public)
+     * method to wrap it with the correct interface.
+     * If an earlier module is present then the interface is the same as in the CTS 11 codebase
+     * and so we can just wrap it directly with an anonymous class.
+     * See also b/195615915
+     */
+    private ConscryptHostnameVerifier wrapVerifier(final HostnameVerifier verifier)
+            throws Exception {
+        Method wrapMethod = TestUtils.findWrapVerifierMethod();
+        if (wrapMethod != null) {
+            return (ConscryptHostnameVerifier) wrapMethod.invoke(null, verifier);
+        }
+        return new ConscryptHostnameVerifier() {
+            @Override
+            public boolean verify(String hostname, SSLSession session) {
+                return verifier.verify(hostname, session);
+            }
+        };
     }
 
     private X509TrustManager trustManager(X509Certificate ca) throws Exception {
