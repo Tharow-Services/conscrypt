@@ -254,6 +254,9 @@ java_library {
     ],
 
     libs: ["unsupportedappusage"],
+    lint: {
+        strict_updatability_linting: true,
+    },
 
     // Conscrypt can be updated independently from the other core libraries so it must only depend
     // on public SDK and intra-core APIs.
@@ -345,6 +348,9 @@ java_sdk_library {
     api_lint: {
         enabled: true,
     },
+    lint: {
+        strict_updatability_linting: true,
+    },
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide",
         "--show-single-annotation libcore.api.CorePlatformApi\\(status=libcore.api.CorePlatformApi.Status.STABLE\\)",
@@ -389,6 +395,9 @@ java_sdk_library {
 
     api_dir: "api/public",
     api_only: true,
+    lint: {
+        strict_updatability_linting: true,
+    },
     droiddoc_options: [
         // Emit nullability annotations from the source to the stub files.
         "--include-annotations",
@@ -448,6 +457,10 @@ java_sdk_library {
     ],
     api_dir: "api/intra",
     api_only: true,
+    lint: {
+        strict_updatability_linting: true,
+    },
+
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide",
         "--show-single-annotation libcore.api.IntraCoreApi",
