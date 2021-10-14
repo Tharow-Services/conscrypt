@@ -49,6 +49,11 @@ apex_defaults {
     // - build artifacts (lib/javalib/bin) against Android 10 SDK
     //   so that the artifacts can run.
     min_sdk_version: "29",
+
+    uses_sdks: [
+        // Prevent conscrypt from unintentionally depending on new ART APIs.
+        "art-module-sdk@1",
+    ],
 }
 
 filegroup {
