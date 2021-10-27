@@ -39,6 +39,30 @@
       },
       "revId": "79ef7cf942cd91b56af5eeb556110a82e10fb0de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ca3e49b_a3993b74",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4183,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-10-27T12:47:09Z",
+      "side": 1,
+      "message": "From https://linux.die.net/man/3/printf\n\"The precision\n\nAn optional precision, in the form of a period (\u0027.\u0027) followed by an optional decimal digit string. Instead of a decimal digit string one may write \"*\" or \"*m$\" (for some decimal integer m) to specify that the precision is given in the next argument, or in the m-th argument, respectively, which must be of type int.\"\n\n(I\u0027d never heard of the *m$ variant before!)\n\ni.e. it\u0027ll format data as a string, truncating it to len characters.\n\nHowever I\u0027m going to have to abandon this change for a couple of reasons:\n1) This doesn\u0027t actually compile on Android (len is ssize_t, aka long, and Android Clang demands an int).\n\n2) This isn\u0027t the change I intended to merge! This is https://github.com/google/conscrypt/pull/1032 which I thought was already in AOSP but apparently not and https://github.com/google/conscrypt/pull/1040 doesn\u0027t figure in the CL, so my upstream merge has not gone well.  I\u0027ll abandon this and rebuild my local git branches to get both changes in (doesn\u0027t look like we\u0027re missing any others)",
+      "parentUuid": "96aa35ba_9dd9be57",
+      "range": {
+        "startLine": 4183,
+        "startChar": 22,
+        "endLine": 4183,
+        "endChar": 77
+      },
+      "revId": "79ef7cf942cd91b56af5eeb556110a82e10fb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
