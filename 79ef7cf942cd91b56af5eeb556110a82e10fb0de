@@ -16,6 +16,29 @@
       "message": "(not yet verified)",
       "revId": "79ef7cf942cd91b56af5eeb556110a82e10fb0de",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96aa35ba_9dd9be57",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 4183,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2021-10-27T12:16:30Z",
+      "side": 1,
+      "message": "nit: out of curiosity - I guess %p is for gen, but how does \"%.*s\" handles len and data arguments?",
+      "range": {
+        "startLine": 4183,
+        "startChar": 22,
+        "endLine": 4183,
+        "endChar": 77
+      },
+      "revId": "79ef7cf942cd91b56af5eeb556110a82e10fb0de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
