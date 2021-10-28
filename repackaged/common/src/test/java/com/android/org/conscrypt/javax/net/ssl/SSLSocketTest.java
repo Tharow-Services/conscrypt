@@ -1099,7 +1099,10 @@ public class SSLSocketTest {
 
     @Test
     public void test_SSLSocket_tlsFallback_byVersion() throws Exception {
-        for (final String protocol : new String[] { "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3" }) {
+        SSLSocketFactory sf = (SSLSocketFactory) SSLSocketFactory.getDefault();
+        SSLSocket ssl = (SSLSocket) sf.createSocket();
+        String[] supportedServerProtocols = ssl.getSupportedProtocols();
+        for (final String protocol : supportedServerProtocols) {
             SSLSocketFactory factory = new DelegatingSSLSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault()) {
                 @Override protected SSLSocket configureSocket(SSLSocket socket) {
                     socket.setEnabledProtocols(new String[] {protocol});
