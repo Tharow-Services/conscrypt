@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "550579d9_abc4dcaa",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-10-28T17:52:08Z",
+      "side": 1,
+      "message": "Thanks! Again, this looks fine in principle, but needs packaging differently (the repackaged directory tree is auto-generated) and maybe refactoring a little.  I\u0027ll look into that tomorrow and communicate on the bug.\n\nPlease remove Kenny, Narayan and Tobias from the reviewers as they no longer work on Conscrypt.",
+      "revId": "02f5ea73d78b026b67f9c6f555c8d578102830ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
