@@ -34,6 +34,24 @@
       "parentUuid": "95c2b44b_213c6496",
       "revId": "fb5ed896fd7260586b19f0aed7225865937aaeab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "078974fd_070d5de3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-10-29T09:04:08Z",
+      "side": 1,
+      "message": "Yes, sorry, we don\u0027t often get Conscrypt submissions via AOSP so we haven\u0027t really documented the flow... I\u0027ll do that! Essentially though:\n\nThe source of truth for Conscrypt is Github, and an automated job periodically syncs that to external/conscrypt on AOSP in the special branch upstream-master. This doesn\u0027t contain any of the files under repackaged/\n\nupstream-master gets manually merged into the AOSP master branch, then there\u0027s a script in srcgen/generate_android_src.sh which repackages everything into repackaged/ - this does two things; it changes all the package names to com.android.org.conscrypt (to avoid naming conflicts with apps bundling org.conscrypt.Conscrypt) and adds some Android-specific annotations.\n\nThen, as you note, the contents of repackaged/ are what actually gets built and installed on the device or built and used for tests.\n\nSo any change needs to go in the non-repackaged tree too or it will get blown away the next time someone runs generate_android_src.sh",
+      "parentUuid": "84889371_2d81ff9f",
+      "revId": "fb5ed896fd7260586b19f0aed7225865937aaeab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
