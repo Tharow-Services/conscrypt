@@ -52,6 +52,24 @@
       "parentUuid": "84889371_2d81ff9f",
       "revId": "fb5ed896fd7260586b19f0aed7225865937aaeab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8dc0f239_5a22102e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1772704
+      },
+      "writtenOn": "2021-11-01T13:33:21Z",
+      "side": 1,
+      "message": "Thanks for information. I updated patch with both files.\nPlease let me know \n1) if there is an automated flow to copy this to Conscript Git, \n2) If I should push directly to Conscript Git, please let me know which branch.\n\nBecause GM is disabling TLSv1, we probably have few more upstream to do.",
+      "parentUuid": "078974fd_070d5de3",
+      "revId": "fb5ed896fd7260586b19f0aed7225865937aaeab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
