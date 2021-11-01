@@ -70,6 +70,24 @@
       "parentUuid": "078974fd_070d5de3",
       "revId": "fb5ed896fd7260586b19f0aed7225865937aaeab",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd34f069_9f4f2fdb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2021-11-01T19:07:54Z",
+      "side": 1,
+      "message": "I\u0027ve incorporated this and https://r.android.com/1843513 in upstream change https://github.com/google/conscrypt/pull/1043 and will aim to get that into AOSP ASAP.\n\nNote that simply skipping the tests which reference TLSv1 isn\u0027t possible as they are actually important tests of negotiation behaviour, so they just needed to be changed to avoid TLSv1.\n\nAlso note that this isn\u0027t sufficient to pass CTS, but I\u0027ll expand on that in the linked bug.",
+      "parentUuid": "8dc0f239_5a22102e",
+      "revId": "fb5ed896fd7260586b19f0aed7225865937aaeab",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
