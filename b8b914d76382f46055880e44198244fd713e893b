@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7508bf59_417ed130",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2021-11-05T18:05:26Z",
+      "side": 1,
+      "message": "Should there be test which ensures behaviour when only TLSv1 is supported by client/server/both?",
+      "revId": "b8b914d76382f46055880e44198244fd713e893b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
