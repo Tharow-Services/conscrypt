@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0ccd6319_14af9131",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1772704
+      },
+      "writtenOn": "2021-11-12T16:20:58Z",
+      "side": 1,
+      "message": "Hello Daniel, can you please help with merging this fix. It is very important for us to test the new CTS update.",
+      "revId": "3b5ac3e6fbf1ec9cc2d5e22e92553bf5c0be81d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
