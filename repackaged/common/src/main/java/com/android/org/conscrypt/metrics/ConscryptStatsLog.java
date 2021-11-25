@@ -42,6 +42,8 @@ public final class ConscryptStatsLog {
         ReflexiveStatsEvent event =
                 ReflexiveStatsEvent.buildEvent(code, success, protocol, cipherSuite, duration);
 
-        ReflexiveStatsLog.write(event);
+        if (event != null) {
+            ReflexiveStatsLog.write(event);
+        }
     }
 }

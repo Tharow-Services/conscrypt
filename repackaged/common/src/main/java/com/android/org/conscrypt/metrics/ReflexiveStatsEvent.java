@@ -57,13 +57,17 @@ public class ReflexiveStatsEvent {
     public static ReflexiveStatsEvent buildEvent(
             int atomId, boolean success, int protocol, int cipherSuite, int duration) {
         ReflexiveStatsEvent.Builder builder = ReflexiveStatsEvent.newBuilder();
-        builder.setAtomId(atomId);
-        builder.writeBoolean(success);
-        builder.writeInt(protocol);
-        builder.writeInt(cipherSuite);
-        builder.writeInt(duration);
-        builder.usePooledBuffer();
-        return builder.build();
+        try {
+            builder.setAtomId(atomId);
+            builder.writeBoolean(success);
+            builder.writeInt(protocol);
+            builder.writeInt(cipherSuite);
+            builder.writeInt(duration);
+            builder.usePooledBuffer();
+            return builder.build();
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     /**
