@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b6d34c70_caf14568",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1772704
+      },
+      "writtenOn": "2022-01-25T21:22:12Z",
+      "side": 1,
+      "message": "Trying to mimic the same strategy used for 1882478 but for CtsLibcoreTestCases",
+      "revId": "d091d52242bc103b3d22669084e56a2bd5aa48e6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
