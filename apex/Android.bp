@@ -24,7 +24,6 @@ package {
 
 apex_defaults {
     name: "com.android.conscrypt-defaults",
-    updatable: true,
     androidManifest: ":com.android.conscrypt-androidManifest",
     compile_multilib: "both",
     bootclasspath_fragments: ["com.android.conscrypt-bootclasspath-fragment"],
@@ -48,7 +47,7 @@ apex_defaults {
     //   so that the package can be installed.
     // - build artifacts (lib/javalib/bin) against Android 10 SDK
     //   so that the artifacts can run.
-    min_sdk_version: "29",
+    defaults: ["q-launched-apex-module"],
 }
 
 filegroup {
