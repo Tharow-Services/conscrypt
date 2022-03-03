@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5bbe9469_14ab7992",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-03-03T17:57:18Z",
+      "side": 1,
+      "message": "Can you update the comment to match the change, please.",
+      "range": {
+        "startLine": 43,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 60
+      },
+      "revId": "51f8b0ad9c2e3c625940704a3fc9af080dfa6c78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
