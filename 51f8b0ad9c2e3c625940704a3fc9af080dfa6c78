@@ -22,6 +22,30 @@
       },
       "revId": "51f8b0ad9c2e3c625940704a3fc9af080dfa6c78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "234061e5_6e7caae5",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1930744
+      },
+      "writtenOn": "2022-03-03T18:34:54Z",
+      "side": 1,
+      "message": "The change is still doing the same thing, that is, keeping the min_sdk_version 29, since fetching it from defaults now instead. \n\nSo I believe the comment should still hold correct as it is now. Kindly correct me if I am wrong?",
+      "parentUuid": "5bbe9469_14ab7992",
+      "range": {
+        "startLine": 43,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 60
+      },
+      "revId": "51f8b0ad9c2e3c625940704a3fc9af080dfa6c78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
