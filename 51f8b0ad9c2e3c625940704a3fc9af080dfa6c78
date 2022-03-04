@@ -46,6 +46,30 @@
       },
       "revId": "51f8b0ad9c2e3c625940704a3fc9af080dfa6c78",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e8ff58c_462b4ef3",
+        "filename": "apex/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1060959
+      },
+      "writtenOn": "2022-03-04T13:07:48Z",
+      "side": 1,
+      "message": "It\u0027s no longer this build file that says min_sdk_version should be 29, that\u0027s in the defaults now. I\u0027d suggest just saying q-launched-apex-module is what enables the build guarantees",
+      "parentUuid": "234061e5_6e7caae5",
+      "range": {
+        "startLine": 43,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 60
+      },
+      "revId": "51f8b0ad9c2e3c625940704a3fc9af080dfa6c78",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
