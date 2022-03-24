@@ -16,6 +16,24 @@
       "message": "Hi, I wasn\u0027t able to determine the steps to run the NativeCryptoTest so haven\u0027t attempted to add a test here (yet). I\u0027m just working in the Android tree and using the Android build so perhaps it\u0027s a no brainer with gradle.",
       "revId": "d6c550cdc9ba7d4ef039dd336bde7da071ff3002",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ad09655d_551c57d4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-03-24T17:24:12Z",
+      "side": 1,
+      "message": "Yeah, NativeCryptoTest doesn\u0027t actually run under CTS as it uses package private APIs that you can\u0027t get to from a CTS test.  Any failures that are occurring are probably due to NativeCryptoArgTest which uses reflection to test behaviour with invalid arguments.",
+      "parentUuid": "491a4b0b_04eef944",
+      "revId": "d6c550cdc9ba7d4ef039dd336bde7da071ff3002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
