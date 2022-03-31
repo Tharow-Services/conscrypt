@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ba570561_eec36655",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2022-03-31T17:00:27Z",
+      "side": 1,
+      "message": "LGTM, but it looks like I don\u0027t have owners. I\u0027m assuming the \u0027[DO NOT MERGE]\u0027 refers to the reverted cl, and not this, but it might be made clearer if the order of the two is reversed in the commit message.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "a2a7a2bac9bd824ccdb187a163bf0b357ad50a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dd7494fa_dc8e1417",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2022-03-31T17:00:27Z",
+      "side": 1,
+      "message": "Can\u0027t seem to find this through gerrit (I also tried searching using some keywords). Found an Android cs link https://cs.android.com/android/_/android/platform/external/conscrypt/+/07ab837bac17c5f4a81baa3ce715cb8ccb98b6df which might be useful to link.",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "a2a7a2bac9bd824ccdb187a163bf0b357ad50a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
