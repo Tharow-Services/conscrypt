@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd903d2e_12750527",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1244622
+      },
+      "writtenOn": "2022-04-01T23:34:45Z",
+      "side": 1,
+      "message": "https://android-review.googlesource.com/q/I6cfc7be57313d3026b0bb68a6cd7c5ff2b7eeb92 overrides this change.",
+      "revId": "750c4ad358ea80eb434e61b61dfab6fab3388cb6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
