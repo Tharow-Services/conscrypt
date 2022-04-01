@@ -70,6 +70,24 @@
       "parentUuid": "6bd33941_74d4d083",
       "revId": "d6c550cdc9ba7d4ef039dd336bde7da071ff3002",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03ea9b42_4abcb9bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-04-01T13:52:25Z",
+      "side": 1,
+      "message": "Resolved once https://r.android.com/2051302 merges.",
+      "parentUuid": "865faba9_5350d2f9",
+      "revId": "d6c550cdc9ba7d4ef039dd336bde7da071ff3002",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
