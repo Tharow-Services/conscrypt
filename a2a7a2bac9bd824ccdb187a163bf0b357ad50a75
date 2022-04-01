@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9aceabfd_0f4bc233",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-04-01T15:10:11Z",
+      "side": 1,
+      "message": "Thanks!  Both the reverted CL and this one are DO NOT MERGE, so I thought it was clearer just to move the wording to the start of the synopsis.  The rogue CL only landed in AOSP master, not any downstream branches, so the revert needs to be limited too.",
+      "parentUuid": "ba570561_eec36655",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 21
+      },
+      "revId": "a2a7a2bac9bd824ccdb187a163bf0b357ad50a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dd7494fa_dc8e1417",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-03-31T17:00:27Z",
       "side": 1,
       "message": "Can\u0027t seem to find this through gerrit (I also tried searching using some keywords). Found an Android cs link https://cs.android.com/android/_/android/platform/external/conscrypt/+/07ab837bac17c5f4a81baa3ce715cb8ccb98b6df which might be useful to link.",
+      "range": {
+        "startLine": 9,
+        "startChar": 20,
+        "endLine": 9,
+        "endChar": 61
+      },
+      "revId": "a2a7a2bac9bd824ccdb187a163bf0b357ad50a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5ce66a6_ee62e8a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-04-01T15:10:11Z",
+      "side": 1,
+      "message": "Yeah, that\u0027s a Git commit hash - the revert was generated with `git revert` as there\u0027s no AOSP Gerrit change for the CL being reverted that can be referenced.\n\nThe canonical way to locate changes by Git hash is via Gitiles, e.g. https://android.googlesource.com/platform/external/conscrypt/+/7695b63fa18266d84aed394903b252431abecc7d, I\u0027ll add a link.",
+      "parentUuid": "dd7494fa_dc8e1417",
       "range": {
         "startLine": 9,
         "startChar": 20,
