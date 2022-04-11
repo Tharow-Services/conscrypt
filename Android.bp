@@ -100,7 +100,6 @@ cc_defaults {
         "common/src/jni/main/cpp/conscrypt/jniutil.cc",
         "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
         "common/src/jni/main/cpp/conscrypt/netutil.cc",
-        "common/src/jni/main/cpp/conscrypt/trace.cc",
     ],
 
     header_libs: ["jni_headers"],
@@ -612,7 +611,7 @@ java_test {
             enabled: false,
         },
     },
-    java_version: "1.7",
+    java_version: "1.8",
 }
 
 // Make the conscrypt-benchmarks library.
@@ -649,7 +648,7 @@ java_test {
             enabled: false,
         },
     },
-    java_version: "1.7",
+    java_version: "1.8",
 }
 
 // Device SDK exposed by the Conscrypt module.

@@ -35,6 +35,7 @@ import org.conscrypt.java.security.KeyFactoryTestDH;
 import org.conscrypt.java.security.KeyFactoryTestDSA;
 import org.conscrypt.java.security.KeyFactoryTestEC;
 import org.conscrypt.java.security.KeyFactoryTestRSA;
+import org.conscrypt.java.security.KeyFactoryTestRSACrt;
 import org.conscrypt.java.security.KeyPairGeneratorTest;
 import org.conscrypt.java.security.KeyPairGeneratorTestDH;
 import org.conscrypt.java.security.KeyPairGeneratorTestDSA;
@@ -50,6 +51,7 @@ import org.conscrypt.javax.crypto.CipherBasicsTest;
 import org.conscrypt.javax.crypto.CipherTest;
 import org.conscrypt.javax.crypto.ECDHKeyAgreementTest;
 import org.conscrypt.javax.crypto.KeyGeneratorTest;
+import org.conscrypt.javax.crypto.ScryptTest;
 import org.conscrypt.javax.crypto.XDHKeyAgreementTest;
 import org.conscrypt.javax.net.ssl.HttpsURLConnectionTest;
 import org.conscrypt.javax.net.ssl.KeyManagerFactoryTest;
@@ -80,8 +82,9 @@ import org.junit.runners.Suite;
         // org.conscrypt tests
         CertPinManagerTest.class,
         ChainStrengthAnalyzerTest.class,
-        TrustManagerImplTest.class,
         HostnameVerifierTest.class,
+        NativeCryptoArgTest.class,
+        TrustManagerImplTest.class,
         // org.conscrypt.ct tests
         CTVerifierTest.class,
         SerializationTest.class,
@@ -106,6 +109,7 @@ import org.junit.runners.Suite;
         KeyFactoryTestDSA.class,
         KeyFactoryTestEC.class,
         KeyFactoryTestRSA.class,
+        KeyFactoryTestRSACrt.class,
         KeyPairGeneratorTest.class,
         KeyPairGeneratorTestDH.class,
         KeyPairGeneratorTestDSA.class,
@@ -127,6 +131,7 @@ import org.junit.runners.Suite;
         KeyStoreBuilderParametersTest.class,
         OptionalMethodTest.class,
         ProtocolTest.class,
+        ScryptTest.class,
         SNIHostNameTest.class,
         SSLContextTest.class,
         SSLEngineTest.class,
