@@ -264,7 +264,7 @@ java_library {
     target: {
         // boringssl_self_test needed in both /system/bin and /apex/com.android.conscrypt/bin
         android: {
-            required: ["boringssl_self_test"],
+            required: ["boringssl_self_test", "prng_seeder"],
         },
     },
 
