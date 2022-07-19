@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e107ec93_d3643ccd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1071150
+      },
+      "writtenOn": "2022-07-19T07:39:15Z",
+      "side": 1,
+      "message": "Moved from internal master: http://ag/19326986\n\nPete, is there anything more we need for http://cl/427725427?",
+      "revId": "7de00e130924f5249583ec1165343ddbdf7a2a71",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
