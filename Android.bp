@@ -575,6 +575,7 @@ java_test {
     visibility: [
         "//cts/tests/libcore/luni",
         "//external/conscrypt/apex/tests",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     hostdex: true,
     srcs: [
@@ -629,6 +630,9 @@ java_test {
         "repackaged/testing/src/main/java/**/*.java",
         "repackaged/benchmark-base/src/main/java/**/*.java",
         "repackaged/benchmark-android/src/main/java/**/*.java",
+    ],
+    visibility: [
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     sdk_version: "none",
     system_modules: "art-module-intra-core-api-stubs-system-modules",
