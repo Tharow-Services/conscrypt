@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52880891_bde27958",
+        "filename": "Android.mk",
+        "patchSetId": 6
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-08-15T15:28:48Z",
+      "side": 1,
+      "message": "What platform is this for?  I\u0027m guessing something like Eureka?  If so, please comment as such and move into a subdirectory for this architecture, e.g. eureka/",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 66
+      },
+      "revId": "9e48b3120028bd00e4f5aed1e9e5af32b06f2040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87bfac15_a459ccb1",
+        "filename": "Android.mk",
+        "patchSetId": 6
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-08-15T15:28:48Z",
+      "side": 1,
+      "message": "I don\u0027t see any of these below.",
+      "range": {
+        "startLine": 48,
+        "startChar": 35,
+        "endLine": 48,
+        "endChar": 66
+      },
+      "revId": "9e48b3120028bd00e4f5aed1e9e5af32b06f2040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d09c7df3_03210dc1",
+        "filename": "constants/NativeConstants.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-08-15T15:28:48Z",
+      "side": 1,
+      "message": "These are subject to change (very infrequently), so ideally please generate them as part if your build.\n\nIf there is some compelling reason why you can\u0027t do that then please \nmove your constants/ directory down a level, to the same directory as your .mk file.",
+      "range": {
+        "startLine": 19,
+        "startChar": 12,
+        "endLine": 19,
+        "endChar": 27
+      },
+      "revId": "9e48b3120028bd00e4f5aed1e9e5af32b06f2040",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
