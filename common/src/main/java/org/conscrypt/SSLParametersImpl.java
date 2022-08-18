@@ -23,6 +23,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.security.Security;
 import java.security.UnrecoverableKeyException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -105,6 +106,8 @@ final class SSLParametersImpl implements Cloneable {
     boolean useSessionTickets;
     private Boolean useSni;
 
+    private int providersHash = -1;
+
     /**
      * Whether the TLS Channel ID extension is enabled. This field is
      * server-side only.
@@ -125,6 +128,14 @@ final class SSLParametersImpl implements Cloneable {
             throws KeyManagementException {
         this.serverSessionContext = serverSessionContext;
         this.clientSessionContext = clientSessionContext;
+
+        if (providersHash < 0) {
+            providersHash = Arrays.hashCode(Security.getProviders());
+        } else {
+            if (providersHash != Arrays.hashCode(Security.getProviders())) {
+                throw new KeyManagementException("CAMBIARON");
+            }
+        }
 
         // initialize key managers
         if (kms == null) {
