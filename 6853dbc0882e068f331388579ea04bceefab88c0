@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34d3aba8_363091b0",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-08-23T13:19:11Z",
+      "side": 1,
+      "message": "This has been around a lot longer than since S... Or is S the first release that uses min_sdk_version?",
+      "range": {
+        "startLine": 555,
+        "startChar": 4,
+        "endLine": 555,
+        "endChar": 25
+      },
+      "revId": "6853dbc0882e068f331388579ea04bceefab88c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
