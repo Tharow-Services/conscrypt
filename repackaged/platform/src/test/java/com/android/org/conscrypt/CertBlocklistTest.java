@@ -36,6 +36,7 @@ public class CertBlocklistTest extends TestCase {
     private static final String BLOCKLISTED_CHAIN = "blocklist_test_chain.pem";
     private static final String BLOCKLIST_FALLBACK_VALID_CA = "blocklist_test_valid_ca.pem";
     private static final String BLOCKLISTED_VALID_CHAIN = "blocklist_test_valid_chain.pem";
+    private static final String VALID_CHAIN_WITH_COMMENTS = "valid_chain_with_comments.pem";
 
     /**
      * Ensure that the test blocklisted CA is actually blocklisted by default.
@@ -75,6 +76,20 @@ public class CertBlocklistTest extends TestCase {
      */
     public void testBlocklistedIntermediateFallback() throws Exception {
         X509Certificate[] chain = loadCertificates(BLOCKLISTED_VALID_CHAIN);
+        X509Certificate blocklistedCa = loadCertificate(BLOCKLIST_CA);
+        X509Certificate validCa = loadCertificate(BLOCKLIST_FALLBACK_VALID_CA);
+        assertTrusted(chain, getTrustManager(blocklistedCa, validCa));
+        // Check that without the trusted_ca the chain is invalid (since it only chains to a
+        // blocklisted ca)
+        assertUntrusted(chain, getTrustManager(blocklistedCa));
+    }
+
+    public void testBlocklistedCommentsIntermediateFallback() throws Exception {
+        System.out.println("EEEBOLUDOc");
+        X509Certificate[] chain = loadCertificates(VALID_CHAIN_WITH_COMMENTS);
+        if (chain.length == 0) {
+            fail("SSSIIIIIIII");
+        }
         X509Certificate blocklistedCa = loadCertificate(BLOCKLIST_CA);
         X509Certificate validCa = loadCertificate(BLOCKLIST_FALLBACK_VALID_CA);
         assertTrusted(chain, getTrustManager(blocklistedCa, validCa));

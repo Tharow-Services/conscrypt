@@ -33,6 +33,7 @@ import org.junit.runners.JUnit4;
 public class CTVerifierTest {
     private OpenSSLX509Certificate ca;
     private OpenSSLX509Certificate cert;
+    private OpenSSLX509Certificate certWithComments;
     private OpenSSLX509Certificate certEmbedded;
     private CTVerifier ctVerifier;
 
@@ -42,6 +43,8 @@ public class CTVerifierTest {
         cert = OpenSSLX509Certificate.fromX509PemInputStream(openTestFile("cert.pem"));
         certEmbedded = OpenSSLX509Certificate.fromX509PemInputStream(
                 openTestFile("cert-ct-embedded.pem"));
+        certWithComments = OpenSSLX509Certificate.fromX509PemInputStream(
+                openTestFile("ca-cert-with-comments.pem"));
 
         PublicKey key = TestUtils.readPublicKeyPemFile("ct-server-key-public.pem");
 

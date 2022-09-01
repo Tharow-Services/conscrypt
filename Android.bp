@@ -232,6 +232,8 @@ java_library {
     name: "conscrypt",
     visibility: [
         "//device:__subpackages__",
+        "//system/apex/tests",
+        "//frameworks/base/apct-tests/perftests/core",
         ":__subpackages__",
     ],
     apex_available: [
@@ -281,6 +283,7 @@ java_library {
         "//art/build",
         "//external/robolectric-shadows",
         "//frameworks/layoutlib",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     static_libs: [
         "conscrypt",
@@ -334,6 +337,7 @@ java_sdk_library {
         // TODO(b/155921753): Restrict this when prebuilts are in their proper
         // locations.
         "//prebuilts:__subpackages__",
+        "//frameworks/base/apct-tests/perftests/core",
 
         // DO NOT REMOVE: Legacy visibility, needed for snapshots that are
         // generated for the S build.
@@ -377,6 +381,7 @@ java_sdk_library {
         // TODO(b/155921753): Restrict this when prebuilts are in their proper
         // locations.
         "//prebuilts:__subpackages__",
+        "//frameworks/base/apct-tests/perftests/core",
 
         // DO NOT REMOVE: Legacy visibility, needed for snapshots that are
         // generated for the S build.
@@ -456,6 +461,7 @@ java_sdk_library {
         // TODO(b/155921753): Restrict this when prebuilts are in their proper
         // locations.
         "//prebuilts:__subpackages__",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     srcs: [
         ":conscrypt_java_files",
