@@ -38,8 +38,16 @@ import java.util.List;
  */
 @Internal
 public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
+    private static final byte[] PEM_MARKER = new byte[] {
+            '-', '-', '-', '-', '-', 'B', 'E', 'G', 'I', 'N', ' ', 'C', 'E', 'R', 'T', 'I',
+    };
+
     private static final byte[] PKCS7_MARKER = new byte[] {
             '-', '-', '-', '-', '-', 'B', 'E', 'G', 'I', 'N', ' ', 'P', 'K', 'C', 'S', '7'
+    };
+
+    private static final byte[] BIGOTE_MARKER = new byte[] {
+            'E', 'E', 'E', 'E', 'E', 'B', 'I', 'G', 'O', 'T', 'E', ' ', 'A', 'L', 'T', 'A'
     };
 
     private static final int PUSHBACK_SIZE = 64;
@@ -94,6 +102,76 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
         return idx < header.length && header[idx] == 0x06;
     }
 
+//    private static boolean isMaybePem(InputStream inputStream) throws ParsingException {
+//        PushbackInputStream pbis;
+//        System.err.println("HELPER");
+//        try {
+//            pbis = new PushbackInputStream(inputStream, PEM_MARKER.length);
+//            boolean markSupported = false;
+//            if (pbis.markSupported()) {
+//                System.err.println("HAYRESET");
+//                markSupported  = true;
+//                pbis.mark(Integer.MAX_VALUE);
+//            }
+//            while (true) {
+//                System.err.println("TRUE");
+//                final byte[] buffer = new byte[PEM_MARKER.length];
+//
+//                final int len = pbis.read(buffer);
+//                System.err.println(buffer);
+//                if (len < 0) {
+//                    System.err.println("tAEMPTY");
+//                    if (markSupported)
+//                        pbis.reset();
+//                    return false;
+//                }
+//
+//                if (len == PEM_MARKER.length && Arrays.equals(PEM_MARKER, buffer)) {
+//                    System.err.println("SALIMO");
+//                    if (markSupported)
+//                        pbis.reset();
+//                    return true;
+//                }
+//
+//                if (len == PKCS7_MARKER.length && Arrays.equals(BIGOTE_MARKER, buffer)) {
+//                    // System.wtf.println("EEE BIGOTE");
+//                    throw new ParsingException("VAMOBIGOTE");
+//                }
+//
+//                pbis.unread(buffer, 0, len);
+//                pbis.skip(1);
+//            }
+//        } catch (Exception e) {
+//            System.err.println("EERROR");
+//            throw new ParsingException("AEAEAE: " + e.getMessage());
+//        }
+//    }
+
+    private static boolean isMaybePem(InputStream inputStream) throws ParsingException {
+        PushbackInputStream pbis;
+        System.err.println("HELPER");
+        try {
+            pbis = new PushbackInputStream(inputStream, PEM_MARKER.length);
+            System.err.println("TRUE");
+            final byte[] buffer = new byte[PEM_MARKER.length];
+
+            final int len = pbis.read(buffer);
+            if (len < 0) {
+                /* No need to reset here. The stream was empty or EOF. */
+                throw new ParsingException("inStream is empty");
+            }
+            System.err.println(buffer);
+            if (len == PKCS7_MARKER.length && Arrays.equals(BIGOTE_MARKER, buffer)) {
+                // System.wtf.println("EEE BIGOTE");
+                throw new ParsingException("VAMOBIGOTE");
+            }
+            pbis.unread(buffer, 0, len);
+        } catch (Exception e) {
+            System.err.println("EERROR");
+            throw new ParsingException("AEAEAE: " + e.getMessage());
+        }
+        return false;
+    }
     /**
      * The code for X509 Certificates and CRL is pretty much the same. We use
      * this abstract class to share the code between them. This makes it ugly,
@@ -101,6 +179,7 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
      */
     private static abstract class Parser<T> {
         T generateItem(InputStream inStream) throws ParsingException {
+            System.out.println("PARCERO");
             if (inStream == null) {
                 throw new ParsingException("inStream == null");
             }
@@ -110,6 +189,11 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
                 inStream.mark(PKCS7_MARKER.length);
             }
 
+//            if (isMaybePem(inStream)) {
+//                return fromX509PemInputStream(inStream);
+//            }
+
+            System.out.println("INTENTANDO");
             final PushbackInputStream pbis = new PushbackInputStream(inStream, PUSHBACK_SIZE);
             try {
                 final byte[] buffer = new byte[PKCS7_MARKER.length];
@@ -118,6 +202,11 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
                 if (len < 0) {
                     /* No need to reset here. The stream was empty or EOF. */
                     throw new ParsingException("inStream is empty");
+                }
+
+                if (len == PKCS7_MARKER.length && Arrays.equals(BIGOTE_MARKER, buffer)) {
+                    // System.wtf.println("EEE BIGOTE");
+                    throw new ParsingException("VAMOBIGOTE");
                 }
                 pbis.unread(buffer, 0, len);
 
@@ -148,6 +237,7 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
 
         Collection<? extends T> generateItems(InputStream inStream)
                 throws ParsingException {
+            System.out.println("EESTE");
             if (inStream == null) {
                 throw new ParsingException("inStream == null");
             }
@@ -171,8 +261,14 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
                 pbis.unread(buffer, 0, len);
 
                 if (len == PKCS7_MARKER.length && Arrays.equals(PKCS7_MARKER, buffer)) {
+                    System.out.println("ESELOTROPEM");
                     return fromPkcs7PemInputStream(pbis);
                 }
+//
+//                if (len == PKCS7_MARKER.length && Arrays.equals(BIGOTE_MARKER, buffer)) {
+//                    // System.wtf.println("EEE BIGOTE");
+//                    throw new ParsingException("VAMOBIGOTE");
+//                }
 
                 if (isMaybePkcs7(buffer)) {
                     return fromPkcs7DerInputStream(pbis);
@@ -204,6 +300,7 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
                 }
 
                 try {
+                    System.err.println("ALFINALTANTOKILOMBO");
                     c = generateItem(pbis);
                     coll.add(c);
                 } catch (ParsingException e) {

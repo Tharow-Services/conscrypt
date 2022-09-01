@@ -18,6 +18,7 @@ package org.conscrypt;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.PushbackInputStream;
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -56,6 +57,16 @@ import org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
  */
 @Internal
 public final class OpenSSLX509Certificate extends X509Certificate {
+    private static final byte[] PEM_MARKER = new byte[] {
+            '-', '-', '-', '-', '-', 'B', 'E', 'G', 'I', 'N', ' ', 'C', 'E', 'R', 'T', 'I',
+    };
+
+    private static final byte[] BIGOTE_MARKER = new byte[] {
+            'E', 'E', 'E', 'E', 'E', 'B', 'I', 'G', 'O', 'T', 'E', ' ', 'A', 'L', 'T', 'A'
+    };
+
+    private static final int PUSHBACK_SIZE = 64;
+
     private static final long serialVersionUID = 1992239142393372128L;
 
     private transient final long mContext;
@@ -146,6 +157,39 @@ public final class OpenSSLX509Certificate extends X509Certificate {
 
     public static OpenSSLX509Certificate fromX509PemInputStream(InputStream is)
             throws ParsingException {
+//        PushbackInputStream pbis;
+//        System.err.println("ENTRAMO");
+//        try {
+//            pbis = new PushbackInputStream(is, PUSHBACK_SIZE);
+//            while (true) {
+//                System.err.println("TRUE");
+//                final byte[] buffer = new byte[PEM_MARKER.length];
+//
+//                final int len = pbis.read(buffer);
+//                System.err.println(buffer);
+//                if (len < 0) {
+//                    System.err.println("tAEMPTY");
+//                    /* No need to reset here. The stream was empty or EOF. */
+//                    throw new ParsingException("inStream is empty");
+//                }
+//
+//                if (len == PEM_MARKER.length && Arrays.equals(PEM_MARKER, buffer)) {
+//                    System.err.println("SALIMO");
+//                    pbis.unread(buffer, 0, len);
+//                    break;
+//                }
+//                if (len == PEM_MARKER.length && Arrays.equals(BIGOTE_MARKER, buffer)) {
+//                    // System.wtf.println("EEE BIGOTE");
+//                    throw new ParsingException("VAMOBIGOTE");
+//                }
+//                pbis.unread(buffer, 0, len);
+//                pbis.skip(1);
+//            }
+//        } catch (Exception e) {
+//            System.err.println("EERROR");
+//            throw new ParsingException(e);
+//        }
+        System.err.println("EN EL OTRO");
         @SuppressWarnings("resource")
         final OpenSSLBIOInputStream bis = new OpenSSLBIOInputStream(is, true);
 

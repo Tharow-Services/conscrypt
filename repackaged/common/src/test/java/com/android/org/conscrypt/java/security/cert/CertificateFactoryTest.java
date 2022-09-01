@@ -88,8 +88,8 @@ public class CertificateFactoryTest {
             EnableDeprecatedBouncyCastleAlgorithmsRule.getInstance();
     // END Android-Added: Allow access to deprecated BC algorithms.
 
-    private static final String VALID_CERTIFICATE_PEM =
-            "-----BEGIN CERTIFICATE-----\n"
+    private static final String VALID_CERTIFICATE_PEM = "EEEEEBIGOTE ALTA LLANTA\n"
+            + "-----BEGIN CERTIFICATE-----\n"
             + "MIIDITCCAoqgAwIBAgIQL9+89q6RUm0PmqPfQDQ+mjANBgkqhkiG9w0BAQUFADBM\n"
             + "MQswCQYDVQQGEwJaQTElMCMGA1UEChMcVGhhd3RlIENvbnN1bHRpbmcgKFB0eSkg\n"
             + "THRkLjEWMBQGA1UEAxMNVGhhd3RlIFNHQyBDQTAeFw0wOTEyMTgwMDAwMDBaFw0x\n"
