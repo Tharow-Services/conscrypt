@@ -100,7 +100,6 @@ cc_defaults {
         "common/src/jni/main/cpp/conscrypt/jniutil.cc",
         "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
         "common/src/jni/main/cpp/conscrypt/netutil.cc",
-        "common/src/jni/main/cpp/conscrypt/trace.cc",
     ],
 
     header_libs: ["jni_headers"],
@@ -233,7 +232,6 @@ java_library {
     name: "conscrypt",
     visibility: [
         "//device:__subpackages__",
-        "//system/apex/tests",
         ":__subpackages__",
     ],
     apex_available: [
@@ -336,6 +334,10 @@ java_sdk_library {
         // TODO(b/155921753): Restrict this when prebuilts are in their proper
         // locations.
         "//prebuilts:__subpackages__",
+
+        // DO NOT REMOVE: Legacy visibility, needed for snapshots that are
+        // generated for the S build.
+        "//libcore/mmodules/core_platform_api",
     ],
     srcs: [
         ":conscrypt_java_files",
@@ -375,6 +377,10 @@ java_sdk_library {
         // TODO(b/155921753): Restrict this when prebuilts are in their proper
         // locations.
         "//prebuilts:__subpackages__",
+
+        // DO NOT REMOVE: Legacy visibility, needed for snapshots that are
+        // generated for the S build.
+        "//libcore",
     ],
     srcs: [
         ":conscrypt_public_api_files",
@@ -612,7 +618,7 @@ java_test {
             enabled: false,
         },
     },
-    java_version: "1.7",
+    java_version: "1.8",
 }
 
 // Make the conscrypt-benchmarks library.
@@ -649,19 +655,19 @@ java_test {
             enabled: false,
         },
     },
-    java_version: "1.7",
+    java_version: "1.8",
 }
 
 // Device SDK exposed by the Conscrypt module.
 sdk {
     name: "conscrypt-module-sdk",
-    bootclasspath_fragments: [
-        "com.android.conscrypt-bootclasspath-fragment",
+    apexes: [
+        // Adds exportable dependencies of the APEX to the sdk,
+        // e.g. *classpath_fragments.
+        "com.android.conscrypt",
     ],
     java_sdk_libs: [
-        "conscrypt.module.public.api",
         "conscrypt.module.intra.core.api",
-        "conscrypt.module.platform.api",
     ],
     native_shared_libs: [
         "libconscrypt_jni",
