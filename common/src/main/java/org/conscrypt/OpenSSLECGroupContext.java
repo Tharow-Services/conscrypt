@@ -30,7 +30,7 @@ import java.util.Map;
 /**
  * Represents a BoringSSL EC_GROUP object.
  */
-final class OpenSSLECGroupContext {
+public final class OpenSSLECGroupContext {
     private static final Map<String, String> ALIASES = new HashMap<>();
     static {
         // Workaround for OpenSSL not supporting SECG names for NIST P-256 (aka
@@ -50,7 +50,14 @@ final class OpenSSLECGroupContext {
         this.groupCtx = groupCtx;
     }
 
-    static OpenSSLECGroupContext getCurveByName(String curveName) {
+    /**
+     * Constructs a new OpenSSLECGroupContext for a specified curve name.
+     * @param curveName a curve name, or it's OID. eg. secp224r1, secp384r1, secp256r1,
+     *                 1.3.132.0.35(secp521r1) etc.
+     * @return an OpenSSLECGroupContext object. Or NULL if curve is not supported.
+     * @throws NullPointerException for null parameter.
+     */
+    public static OpenSSLECGroupContext getCurveByName(String curveName) {
         if (ALIASES.containsKey(curveName)) {
             curveName = ALIASES.get(curveName);
         }
@@ -171,7 +178,11 @@ final class OpenSSLECGroupContext {
         return NativeCrypto.EC_GROUP_get_curve_name(groupCtx);
     }
 
-    ECParameterSpec getECParameterSpec() {
+    /**
+     * Construct and return ECParameterSpec for the OpenSSLECGroupContext of specific curve.
+     * @return an ECParameterSpec for this OpenSSLECGroupContext.
+     */
+    public ECParameterSpec getECParameterSpec() {
         final String curveName = NativeCrypto.EC_GROUP_get_curve_name(groupCtx);
 
         final byte[][] curveParams = NativeCrypto.EC_GROUP_get_curve(groupCtx);

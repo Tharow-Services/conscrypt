@@ -45,6 +45,8 @@ method:com.android.org.conscrypt.TrustManagerImpl#getTrustedChainForServer(X509C
 method:com.android.org.conscrypt.TrustManagerImpl#handleTrustStorageUpdate()
 method:com.android.org.conscrypt.TrustManagerImpl#TrustManagerImpl(KeyStore)
 method:com.android.org.conscrypt.TrustManagerImpl#TrustManagerImpl(KeyStore,CertPinManager,ConscryptCertStore)
+method:com.android.org.conscrypt.OpenSSLECGroupContext#getCurveByName(String)
+method:com.android.org.conscrypt.OpenSSLECGroupContext#getECParameterSpec()
 type:com.android.org.conscrypt.CertPinManager
 type:com.android.org.conscrypt.ClientSessionContext
 type:com.android.org.conscrypt.Conscrypt
@@ -56,3 +58,4 @@ type:com.android.org.conscrypt.SSLClientSessionCache
 type:com.android.org.conscrypt.TrustedCertificateIndex
 type:com.android.org.conscrypt.TrustedCertificateStore
 type:com.android.org.conscrypt.TrustManagerImpl
+type:com.android.org.conscrypt.OpenSSLECGroupContext

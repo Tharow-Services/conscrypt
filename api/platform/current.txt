@@ -25,6 +25,11 @@ package com.android.org.conscrypt {
     method public static com.android.org.conscrypt.SSLClientSessionCache usingDirectory(java.io.File) throws java.io.IOException;
   }
 
+  public final class OpenSSLECGroupContext {
+    method public static com.android.org.conscrypt.OpenSSLECGroupContext getCurveByName(String);
+    method public java.security.spec.ECParameterSpec getECParameterSpec();
+  }
+
   public final class OpenSSLProvider extends java.security.Provider {
     ctor public OpenSSLProvider();
   }
