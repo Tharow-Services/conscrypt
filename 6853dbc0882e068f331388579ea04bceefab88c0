@@ -22,6 +22,30 @@
       },
       "revId": "6853dbc0882e068f331388579ea04bceefab88c0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdeab20c_529df3ee",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 555,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2022-09-12T13:32:59Z",
+      "side": 1,
+      "message": "S is the first release for which we generate an SDK snapshot for conscrypt that includes this module.",
+      "parentUuid": "34d3aba8_363091b0",
+      "range": {
+        "startLine": 555,
+        "startChar": 4,
+        "endLine": 555,
+        "endChar": 25
+      },
+      "revId": "6853dbc0882e068f331388579ea04bceefab88c0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
