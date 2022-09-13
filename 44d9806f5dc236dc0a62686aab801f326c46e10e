@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "36516112_6ce32daf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2022-09-13T11:21:57Z",
+      "side": 1,
+      "message": "I was added by the lint bot, not sure if the review is actually needed. I left some comments for API-review anyway first.",
+      "revId": "44d9806f5dc236dc0a62686aab801f326c46e10e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "150e60aa_c2cb6129",
+        "filename": "api/platform/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2022-09-13T11:21:57Z",
+      "side": 1,
+      "message": "prb@, do we use nullability annotation for Conscrypt?",
+      "range": {
+        "startLine": 29,
+        "startChar": 51,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "44d9806f5dc236dc0a62686aab801f326c46e10e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c1ba8fb_c553871e",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/OpenSSLECGroupContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2022-09-13T11:21:57Z",
+      "side": 1,
+      "message": "I would expect the method name getContextByCurveName(String). But is this method naming scheme consistent with the rest of Conscrypt? \n\nCan you add some javadoc? e.g. return null if the curve is not found, alias is supported, if it throws NullPointerException for null name, etc.\n\nEC means elliptic curve here?",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 74
+      },
+      "revId": "44d9806f5dc236dc0a62686aab801f326c46e10e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "131a650c_9144ac10",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/OpenSSLECGroupContext.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2022-09-13T11:21:57Z",
+      "side": 1,
+      "message": "nit: add some javadoc.",
+      "revId": "44d9806f5dc236dc0a62686aab801f326c46e10e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
