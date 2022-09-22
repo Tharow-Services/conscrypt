@@ -16,6 +16,24 @@
       "message": "I do apologise, but after seeing some similar code I realised that this is actually possible using public APIs, it\u0027s just not obvious because JCA...Sorry!\n\ne.g.\n```\n  public ECParameterSpec getCurveSpec(String name)\n      throws NoSuchAlgorithmException, InvalidParameterSpecException {\n    AlgorithmParameters parameters \u003d AlgorithmParameters.getInstance(\"EC\");\n    parameters.init(new ECGenParameterSpec(name));\n    return parameters.getParameterSpec(ECParameterSpec.class);\n  }\n```",
       "revId": "c5bc58fcf7cc2696973cb3eaaed7919e79fe65ef",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d366f545_36c258f6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1896276
+      },
+      "writtenOn": "2022-09-22T10:45:42Z",
+      "side": 1,
+      "message": "That is an interesting solution and it worked perfectly for me.\nThanks for update!",
+      "parentUuid": "4b835983_9e68b85f",
+      "revId": "c5bc58fcf7cc2696973cb3eaaed7919e79fe65ef",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
