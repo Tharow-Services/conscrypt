@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bddb5819_21d6a750",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1890055
+      },
+      "writtenOn": "2022-10-04T16:43:22Z",
+      "side": 1,
+      "message": "nit: please add a more specific change description?",
+      "revId": "c8e872802d9a5f5b9edd49b67c941b602a5e415e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
