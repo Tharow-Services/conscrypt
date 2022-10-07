@@ -16,6 +16,24 @@
       "message": "Please confirm before submitting whether this is part of the work for b/250619543 as Conscrypt is currently *not* in the dcla.",
       "revId": "401bbe389d2401bd1d618cb7ff11c8db00541a5e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3191d1cf_2f957c3f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1890055
+      },
+      "writtenOn": "2022-10-07T14:44:02Z",
+      "side": 1,
+      "message": "Hi Pete, that\u0027s correct, since it contains libcrypto, Conscrypt has been added to the list of modules to which we apply DCLA. This will apply starting on the November release.",
+      "parentUuid": "533cd6a7_ca7df725",
+      "revId": "401bbe389d2401bd1d618cb7ff11c8db00541a5e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
