@@ -16,6 +16,24 @@
       "message": "Can you please update the comment above to match.",
       "revId": "6c17c4b9c5d31efe33620d90bad7e4e41eb9e0ed",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ee46036f_9a0860ce",
+        "filename": "apex/Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1949445
+      },
+      "writtenOn": "2022-10-07T13:41:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "91576764_f06e8ba1",
+      "revId": "6c17c4b9c5d31efe33620d90bad7e4e41eb9e0ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
