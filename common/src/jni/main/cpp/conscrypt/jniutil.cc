@@ -109,8 +109,13 @@ void init(JavaVM* vm, JNIEnv* env) {
     buffer_positionMethod = getMethodRef(env, bufferClass, "position", "()I");
     buffer_limitMethod = getMethodRef(env, bufferClass, "limit", "()I");
     buffer_isDirectMethod = getMethodRef(env, bufferClass, "isDirect", "()Z");
+<<<<<<< HEAD   (187fc0 Merge changes Ic3506ceb,Idd7b3c4a)
     sslHandshakeCallbacks_verifyCertificateChain = getMethodRef(
             env, sslHandshakeCallbacksClass, "verifyCertificateChain", "([[BLjava/lang/String;)V");
+=======
+    sslHandshakeCallbacks_verifyCertificateChain =
+	    getMethodRef(env, sslHandshakeCallbacksClass, "verifyCertificateChain", "([[BLjava/lang/String;)V");
+>>>>>>> BRANCH (f7a495 Make OptionalMethod return null if invoked on a null receive)
     sslHandshakeCallbacks_onSSLStateChange =
             getMethodRef(env, sslHandshakeCallbacksClass, "onSSLStateChange", "(II)V");
     sslHandshakeCallbacks_clientCertificateRequested = getMethodRef(
