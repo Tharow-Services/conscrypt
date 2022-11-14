@@ -1,6 +1,15 @@
 // Signature format: 2.0
 package com.android.org.conscrypt {
 
+  public final class Conscrypt {
+    method public static com.android.org.conscrypt.Conscrypt.ProviderBuilder newProviderBuilder();
+  }
+
+  public static class Conscrypt.ProviderBuilder {
+    method public java.security.Provider build();
+    method public com.android.org.conscrypt.Conscrypt.ProviderBuilder setName(String);
+  }
+
   public class OpenSSLMessageDigestJDK extends java.security.MessageDigestSpi implements java.lang.Cloneable {
   }
 
