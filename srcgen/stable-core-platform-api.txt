@@ -1,5 +1,6 @@
 method:com.android.org.conscrypt.ClientSessionContext#setPersistentCache(SSLClientSessionCache)
 method:com.android.org.conscrypt.Conscrypt#getDefaultX509TrustManager()
+method:com.android.org.conscrypt.Conscrypt#newProviderBuilder()
 method:com.android.org.conscrypt.FileClientSessionCache#usingDirectory(File)
 method:com.android.org.conscrypt.OpenSSLProvider#OpenSSLProvider()
 method:com.android.org.conscrypt.OpenSSLSocketImpl#getAlpnSelectedProtocol()
@@ -11,6 +12,8 @@ method:com.android.org.conscrypt.OpenSSLSocketImpl#setHostname(String)
 method:com.android.org.conscrypt.OpenSSLSocketImpl#setNpnProtocols(byte[])
 method:com.android.org.conscrypt.OpenSSLSocketImpl#setSoWriteTimeout(int)
 method:com.android.org.conscrypt.OpenSSLSocketImpl#setUseSessionTickets(boolean)
+method:com.android.org.conscrypt.ProviderBuilder#build()
+method:com.android.org.conscrypt.ProviderBuilder#setName(String)
 method:com.android.org.conscrypt.TrustedCertificateIndex#findAllByIssuerAndSignature(X509Certificate)
 method:com.android.org.conscrypt.TrustedCertificateIndex#findByIssuerAndSignature(X509Certificate)
 method:com.android.org.conscrypt.TrustedCertificateIndex#findBySubjectAndPublicKey(X509Certificate)
@@ -52,6 +55,7 @@ type:com.android.org.conscrypt.ConscryptCertStore
 type:com.android.org.conscrypt.FileClientSessionCache
 type:com.android.org.conscrypt.OpenSSLProvider
 type:com.android.org.conscrypt.OpenSSLSocketImpl
+type:com.android.org.conscrypt.ProviderBuilder
 type:com.android.org.conscrypt.SSLClientSessionCache
 type:com.android.org.conscrypt.TrustedCertificateIndex
 type:com.android.org.conscrypt.TrustedCertificateStore
