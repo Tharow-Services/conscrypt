@@ -44,6 +44,7 @@ import javax.net.ssl.X509TrustManager;
  * Core API for creating and configuring all Conscrypt types.
  * @hide This class is not part of the Android public SDK API
  */
+@libcore.api.IntraCoreApi
 @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
 @SuppressWarnings("unused")
 public final class Conscrypt {
@@ -165,6 +166,7 @@ public final class Conscrypt {
     /**
      * @hide This class is not part of the Android public SDK API
      */
+    @libcore.api.IntraCoreApi
     public static class ProviderBuilder {
         private String name = Platform.getDefaultProviderName();
         private boolean provideTrustManager = Platform.provideTrustManagerByDefault();
@@ -175,6 +177,7 @@ public final class Conscrypt {
         /**
          * Sets the name of the Provider to be built.
          */
+        @libcore.api.IntraCoreApi
         public ProviderBuilder setName(String name) {
             this.name = name;
             return this;
@@ -208,11 +211,13 @@ public final class Conscrypt {
             return this;
         }
 
+        @libcore.api.IntraCoreApi
         public Provider build() {
             return new OpenSSLProvider(name, provideTrustManager, defaultTlsProtocol);
         }
     }
 
+    @libcore.api.IntraCoreApi
     public static ProviderBuilder newProviderBuilder() {
         return new ProviderBuilder();
     }
