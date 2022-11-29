@@ -267,7 +267,7 @@ java_library {
         android: {
             required: [
                 "boringssl_self_test",
-                "prng_seeder",
+//                "prng_seeder",
             ],
         },
     },
