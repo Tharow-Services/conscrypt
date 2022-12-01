@@ -178,6 +178,7 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
     /**
      * @deprecated use {@link #getApplicationProtocol()} instead.
      */
+<<<<<<< HEAD   (3593e5 [automerger skipped] Update test certs for CertBlocklistTest)
     @android.compat.annotation
             .UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
                     publicAlternatives =
@@ -186,6 +187,16 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
             @Override
             @Deprecated
             public final byte[] getAlpnSelectedProtocol() {
+=======
+    @android.compat.annotation.
+    UnsupportedAppUsage(maxTargetSdk = dalvik.annotation.compat.VersionCodes.Q,
+            publicAlternatives = "Use {@code javax.net.ssl.SSLSocket#getApplicationProtocol()}.")
+    @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
+    @Override
+    @Deprecated
+    public final byte[]
+    getAlpnSelectedProtocol() {
+>>>>>>> CHANGE (f90f11 Add conscrypt updatable certificates.)
         return SSLUtils.toProtocolBytes(getApplicationProtocol());
     }
 
