@@ -85,8 +85,12 @@ import javax.security.auth.x500.X500Principal;
 @libcore.api.CorePlatformApi
 @Internal
 public class TrustedCertificateStore implements ConscryptCertStore {
+<<<<<<< HEAD   (5864a5 Update test certs for CertBlocklistTest)
 
     private static final String PREFIX_SYSTEM = "system:";
+=======
+    private static String PREFIX_SYSTEM = "system:";
+>>>>>>> CHANGE (f90f11 Add conscrypt updatable certificates.)
     private static final String PREFIX_USER = "user:";
 
     public static final boolean isSystem(String alias) {
@@ -105,7 +109,12 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         static {
             String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
             String ANDROID_DATA = System.getenv("ANDROID_DATA");
-            defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
+            File updatableDir = new File("/apex/com.android.conscrypt/cacerts");
+            if (updatableDir.exists()) {
+                defaultCaCertsSystemDir = updatableDir;
+            } else {
+                defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
+            }
             setDefaultUserDirectory(new File(ANDROID_DATA + "/misc/keychain"));
         }
     }
@@ -135,6 +144,10 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             public TrustedCertificateStore() {
         this(PreloadHolder.defaultCaCertsSystemDir, PreloadHolder.defaultCaCertsAddedDir,
                 PreloadHolder.defaultCaCertsDeletedDir);
+    }
+
+    public TrustedCertificateStore(File baseDir) {
+        this(baseDir, PreloadHolder.defaultCaCertsAddedDir, PreloadHolder.defaultCaCertsDeletedDir);
     }
 
     public TrustedCertificateStore(File systemDir, File addedDir, File deletedDir) {
