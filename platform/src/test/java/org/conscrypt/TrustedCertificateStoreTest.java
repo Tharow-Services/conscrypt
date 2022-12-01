@@ -24,6 +24,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStore.TrustedCertificateEntry;
@@ -51,11 +53,10 @@ import org.conscrypt.java.security.TestKeyStore;
 public class TrustedCertificateStoreTest extends TestCase {
     private static final Random tempFileRandom = new Random();
 
-    private final File dirTest = new File(System.getProperty("java.io.tmpdir", "."),
-            "cert-store-test" + tempFileRandom.nextInt());
-    private final File dirSystem = new File(dirTest, "system");
-    private final File dirAdded = new File(dirTest, "added");
-    private final File dirDeleted = new File(dirTest, "removed");
+    private static File dirTest;
+    private static File dirSystem;
+    private static File dirAdded;
+    private static File dirDeleted;
 
     private static X509Certificate CA1;
     private static X509Certificate CA2;
@@ -393,6 +394,10 @@ public class TrustedCertificateStoreTest extends TestCase {
     private TrustedCertificateStore store;
 
     @Override protected void setUp() {
+        dirTest = new File(System.getProperty("java.io.tmpdir"));
+        dirSystem = new File(dirTest, "system");
+        dirAdded = new File(dirTest, "added");
+        dirDeleted = new File(dirTest, "removed");
         setupStore();
     }
 
@@ -787,6 +792,8 @@ public class TrustedCertificateStoreTest extends TestCase {
         // expected names.
         CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
         File dir = new File(System.getenv("ANDROID_ROOT") + "/etc/security/cacerts");
+        assertTrue(dir.exists());
+        assertEquals(dir, "/system/etc/security/cacerts");
         int systemCertFileCount = 0;
         for (File actualFile : listFilesNoNull(dir)) {
             if (!actualFile.isFile()) {
@@ -809,7 +816,64 @@ public class TrustedCertificateStoreTest extends TestCase {
             assertNotNull("Trust anchor not found for system certificate " + actualFile,
                     store.getTrustAnchor(cert));
         }
+        assertTrue(systemCertFileCount > 0);
 
+        // Assert that all files corresponding to all system certs/aliases known to the store are
+        // present.
+        int systemCertAliasCount = 0;
+        for (String alias : store.aliases()) {
+            if (!TrustedCertificateStore.isSystem(alias)) {
+                continue;
+            }
+            systemCertAliasCount++;
+            // Checking that the certificate is stored in a file is extraneous given the current
+            // implementation of the class under test. We do it just in case the implementation
+            // changes.
+            X509Certificate cert = (X509Certificate) store.getCertificate(alias);
+            File expectedFile = store.getCertificateFile(dir, cert);
+            if (!expectedFile.isFile()) {
+                fail("Missing certificate file for alias " + alias + ": "
+                        + expectedFile.getAbsolutePath());
+            }
+        }
+
+        assertEquals("Number of system cert files and aliases doesn't match", systemCertFileCount,
+                systemCertAliasCount);
+    }
+
+    public void testSystemCaCertsUseCorrectFileNamesUp() throws Exception {
+        TrustedCertificateStore store = new TrustedCertificateStore();
+
+        // Assert that all the certificates in the system cacerts directory are stored in files with
+        // expected names.
+        CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+        File dir = new File("/apex/com.android.conscrypt/etc/security/cacerts");
+        assertEquals(dir.getPath(), "/apex/com.android.conscrypt/etc/security/cacerts");
+        assertTrue(dir.exists());
+        int systemCertFileCount = 0;
+        for (File actualFile : listFilesNoNull(dir)) {
+            if (!actualFile.isFile()) {
+                continue;
+            }
+            systemCertFileCount++;
+            X509Certificate cert = (X509Certificate) certificateFactory.generateCertificate(
+                    new ByteArrayInputStream(readFully(actualFile)));
+
+            File expectedFile = store.getCertificateFile(dir, cert);
+            assertEquals("Updatable certificate stored in the wrong file",
+                    expectedFile.getAbsolutePath(), actualFile.getAbsolutePath());
+
+            // The two statements below indirectly assert that the certificate can be looked up
+            // from a file (hopefully the same one as the expectedFile above). As opposed to
+            // getCertifiacteFile above, these are the actual methods used when verifying chain of
+            // trust. Thus, we assert that they work as expected for all system certificates.
+            assertNotNull("Issuer certificate not found for updatable certificate " + actualFile,
+                    store.findIssuer(cert));
+            assertNotNull("Trust anchor not found for updatable certificate " + actualFile,
+                    store.getTrustAnchor(cert));
+        }
+
+        assertTrue(systemCertFileCount > 0);
         // Assert that all files corresponding to all system certs/aliases known to the store are
         // present.
         int systemCertAliasCount = 0;
