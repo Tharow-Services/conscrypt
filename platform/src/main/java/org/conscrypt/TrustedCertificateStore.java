@@ -81,8 +81,7 @@ import org.conscrypt.io.IoUtils;
  */
 @Internal
 public class TrustedCertificateStore implements ConscryptCertStore {
-
-    private static final String PREFIX_SYSTEM = "system:";
+    private static String PREFIX_SYSTEM = "system:";
     private static final String PREFIX_USER = "user:";
 
     public static final boolean isSystem(String alias) {
@@ -100,7 +99,13 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         static {
             String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
             String ANDROID_DATA = System.getenv("ANDROID_DATA");
-            defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
+            File updatableDir = new File("/apex/com.android.conscrypt/cacerts");
+            if (updatableDir.exists()) {
+                PREFIX_SYSTEM = "user:";
+                defaultCaCertsSystemDir = updatableDir;
+            } else {
+                defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
+            }
             setDefaultUserDirectory(new File(ANDROID_DATA + "/misc/keychain"));
         }
     }
