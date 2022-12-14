@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "693bab06_819f038a",
+        "filename": "apex/ca-certificates/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2022-12-14T10:57:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "be9b1e18_e1ddffee",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "733f95e788786745eb84ef9850c7acbb6e74f9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "89e40eef_6b23d819",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-13T16:11:40Z",
       "side": 1,
       "message": "Definitely comment that this is a temporary solution.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 22
+      },
+      "revId": "733f95e788786745eb84ef9850c7acbb6e74f9b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5c79712_1e80c5db",
+        "filename": "apex/ca-certificates/Android.bp",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2022-12-14T10:57:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89e40eef_6b23d819",
       "range": {
         "startLine": 32,
         "startChar": 0,
