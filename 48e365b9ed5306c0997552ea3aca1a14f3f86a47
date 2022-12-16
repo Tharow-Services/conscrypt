@@ -16,6 +16,24 @@
       "message": "Is there a bug/reasoning for this?",
       "revId": "48e365b9ed5306c0997552ea3aca1a14f3f86a47",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4edfc7a9_ed6cff20",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1962375
+      },
+      "writtenOn": "2022-12-16T20:15:01Z",
+      "side": 1,
+      "message": "The `java_api_contribution` modules defined in each API domains per API surfaces will provide information about the directories of the API signature files to the `java_api_library` module, which will create the Java stubs using the provided API signature files.",
+      "parentUuid": "9038f2bb_21e8ace6",
+      "revId": "48e365b9ed5306c0997552ea3aca1a14f3f86a47",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
