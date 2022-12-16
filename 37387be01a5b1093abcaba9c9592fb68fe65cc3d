@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "35435ee8_6ed839a2",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2022-12-16T11:22:21Z",
+      "side": 1,
+      "message": "Ah, I think that\u0027s why the presubmit was failing. Thanks",
+      "parentUuid": "89a5040b_ed820b2c",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 40
+      },
+      "revId": "37387be01a5b1093abcaba9c9592fb68fe65cc3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01f4ebbc_8a48410c",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-12-16T10:55:54Z",
       "side": 1,
       "message": "There\u0027s a lot of duplication between this test and the previous one, which will make this harder to maintain.  How about factoring out the common code into a private method and have each test call that, passing the path of the store to test?",
+      "range": {
+        "startLine": 843,
+        "startChar": 16,
+        "endLine": 843,
+        "endChar": 54
+      },
+      "revId": "37387be01a5b1093abcaba9c9592fb68fe65cc3d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4fe1777c_4986b5e7",
+        "filename": "platform/src/test/java/org/conscrypt/TrustedCertificateStoreTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 843,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2022-12-16T11:22:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01f4ebbc_8a48410c",
       "range": {
         "startLine": 843,
         "startChar": 16,
