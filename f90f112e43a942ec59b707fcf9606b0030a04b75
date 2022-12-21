@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03b34390_cdbd02bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2022-12-21T17:57:16Z",
+      "side": 1,
+      "message": "Patchset 14 should fix the test breakage in `TrustedCertificateStoreTest`.",
+      "revId": "f90f112e43a942ec59b707fcf9606b0030a04b75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
