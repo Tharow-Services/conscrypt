@@ -767,3 +767,12 @@ java_api_contribution {
         "//build/orchestrator/apis",
     ],
 }
+
+java_api_contribution {
+    name: "conscrypt-system-stubs",
+    api_surface: "system",
+    api_file: "api/public/system-current.txt",
+    visibility: [
+        "//build/orchestrator/apis",
+    ],
+}
