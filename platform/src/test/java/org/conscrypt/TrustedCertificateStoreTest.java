@@ -393,15 +393,15 @@ public class TrustedCertificateStoreTest extends TestCase {
 
     private TrustedCertificateStore store;
 
-    @Override protected void setUp() {
-        dirTest = new File(System.getProperty("java.io.tmpdir"));
+    @Override protected void setUp() throws Exception {
+        dirTest = Files.createTempDirectory("cert-store-test").toFile();
         dirSystem = new File(dirTest, "system");
         dirAdded = new File(dirTest, "added");
         dirDeleted = new File(dirTest, "removed");
         setupStore();
     }
 
-    private void setupStore() {
+    private void setupStore() throws Exception {
         dirSystem.mkdirs();
         cleanStore();
         createStore();
@@ -411,11 +411,11 @@ public class TrustedCertificateStoreTest extends TestCase {
         store = new TrustedCertificateStore(dirSystem, dirAdded, dirDeleted);
     }
 
-    @Override protected void tearDown() {
+    @Override protected void tearDown() throws Exception {
         cleanStore();
     }
 
-    private void cleanStore() {
+    private void cleanStore() throws Exception {
         for (File dir : new File[] { dirSystem, dirAdded, dirDeleted, dirTest }) {
             File[] files = dir.listFiles();
             if (files == null) {
@@ -428,7 +428,7 @@ public class TrustedCertificateStoreTest extends TestCase {
         store = null;
     }
 
-    private void resetStore() {
+    private void resetStore() throws Exception {
         cleanStore();
         setupStore();
     }
