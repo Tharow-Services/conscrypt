@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51ae7a85_5a229937",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-01-12T10:13:52Z",
+      "side": 1,
+      "message": "Same comment as the framework change :)",
+      "revId": "f50d185080e7d3e4512af2fd2cd31d9886645c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
