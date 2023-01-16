@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f02fa73_64101850",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2023-01-16T15:34:07Z",
+      "side": 1,
+      "message": "Looks good as far as I\u0027m concerned (it just needs to be a non-null value). A slightly more sensible default would be to take the build creation time, but I\u0027m not sure it matters.",
+      "revId": "053a31dfa106c5b8e530e8f21fb55650580c1979",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
