@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cd21658d_2fbc3068",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-01-17T12:01:04Z",
+      "side": 1,
+      "message": "Doh! Forgot to `git add` the repackaged versions of the new files...",
+      "revId": "6f7c66a32e40448a303bff129b9c0862316e4cf2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
