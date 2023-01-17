@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d18b36a0_7e1f6a31",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-01-17T10:57:58Z",
+      "side": 1,
+      "message": "Not expecting this to cause any issues on Android, but I\u0027ll make sure the test monitors are aware when it merges, just in case.",
+      "revId": "5cca77b6e786e0423ae9e980a882645467d24f39",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
