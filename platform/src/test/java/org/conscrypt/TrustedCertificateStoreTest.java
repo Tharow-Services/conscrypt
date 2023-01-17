@@ -408,7 +408,7 @@ public class TrustedCertificateStoreTest extends TestCase {
     }
 
     private void createStore() {
-        store = new TrustedCertificateStore(dirSystem, dirAdded, dirDeleted);
+        store = new TrustedCertificateStore(dirSystem, null, dirAdded, dirDeleted);
     }
 
     @Override protected void tearDown() {
@@ -416,7 +416,7 @@ public class TrustedCertificateStoreTest extends TestCase {
     }
 
     private void cleanStore() {
-        for (File dir : new File[] { dirSystem, dirAdded, dirDeleted, dirTest }) {
+        for (File dir : new File[] {dirSystem, null, dirAdded, dirDeleted, dirTest}) {
             File[] files = dir.listFiles();
             if (files == null) {
                 continue;
