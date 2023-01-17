@@ -422,7 +422,7 @@ public class TrustedCertificateStoreTest extends TestCase {
     }
 
     private void cleanStore() {
-        for (File dir : new File[] { dirSystem, dirAdded, dirDeleted, dirTest }) {
+        for (File dir : new File[] {dirSystem, dirAdded, dirDeleted, dirTest}) {
             File[] files = dir.listFiles();
             if (files == null) {
                 continue;
