@@ -16,6 +16,24 @@
       "message": "Sorry,I\u0027ve been pondering this and don\u0027t have a great solution. I think to avoid confusion and be consistent we should return a real date,ideally something useful like the build time of the APEX (which isn\u0027t trivial to get 😞)\n\nHow about for now to make tests pass we make it something arbitrary like 1 Jan 2023, and we\u0027ll work on something better.",
       "revId": "f50d185080e7d3e4512af2fd2cd31d9886645c2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40ae3747_42a5f5b1",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1078064
+      },
+      "writtenOn": "2023-01-24T11:03:38Z",
+      "side": 0,
+      "message": "SGTM.",
+      "parentUuid": "4591b3a9_40009d16",
+      "revId": "f50d185080e7d3e4512af2fd2cd31d9886645c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
