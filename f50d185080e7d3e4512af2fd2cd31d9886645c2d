@@ -34,6 +34,24 @@
       "parentUuid": "4591b3a9_40009d16",
       "revId": "f50d185080e7d3e4512af2fd2cd31d9886645c2d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e218c1c8_e773b163",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-01-25T10:14:32Z",
+      "side": 0,
+      "message": "Done. For what it\u0027s worth this type of testing issue should be resolved through the property setting.",
+      "parentUuid": "40ae3747_42a5f5b1",
+      "revId": "f50d185080e7d3e4512af2fd2cd31d9886645c2d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
