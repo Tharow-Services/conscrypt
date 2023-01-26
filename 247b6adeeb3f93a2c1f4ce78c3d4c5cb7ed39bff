@@ -70,6 +70,30 @@
       },
       "revId": "247b6adeeb3f93a2c1f4ce78c3d4c5cb7ed39bff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "881de0cb_d6174546",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-01-26T11:22:08Z",
+      "side": 1,
+      "message": "Thanks!\n\nDoubt we can call that from Conscrypt\u0027s static initialisers though.",
+      "parentUuid": "f08d824a_16c81d8e",
+      "range": {
+        "startLine": 240,
+        "startChar": 19,
+        "endLine": 240,
+        "endChar": 30
+      },
+      "revId": "247b6adeeb3f93a2c1f4ce78c3d4c5cb7ed39bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
