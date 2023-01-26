@@ -46,6 +46,30 @@
       },
       "revId": "247b6adeeb3f93a2c1f4ce78c3d4c5cb7ed39bff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f08d824a_16c81d8e",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2023-01-26T11:20:36Z",
+      "side": 1,
+      "message": "FYI: in time detection we use [1] for lower bound detection.\n\n[1] http://cs/aosp-master/frameworks/base/services/core/java/com/android/server/timedetector/ServiceConfigAccessor.java;l\u003d62;rcl\u003d9dbe342cedee8e0d8993177cf39472bcb6c1a683",
+      "parentUuid": "a1971b6f_8dda656b",
+      "range": {
+        "startLine": 240,
+        "startChar": 19,
+        "endLine": 240,
+        "endChar": 30
+      },
+      "revId": "247b6adeeb3f93a2c1f4ce78c3d4c5cb7ed39bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
