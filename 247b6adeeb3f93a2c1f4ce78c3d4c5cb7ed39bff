@@ -22,6 +22,30 @@
       },
       "revId": "247b6adeeb3f93a2c1f4ce78c3d4c5cb7ed39bff",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a1971b6f_8dda656b",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-01-26T10:13:18Z",
+      "side": 1,
+      "message": "Before we ship it, we should make this value more useful, e.g. the build time of the APEX, which would be roughly equivalent to what we do today with the system cacerts.",
+      "parentUuid": "2b3ac155_5c55966d",
+      "range": {
+        "startLine": 240,
+        "startChar": 19,
+        "endLine": 240,
+        "endChar": 30
+      },
+      "revId": "247b6adeeb3f93a2c1f4ce78c3d4c5cb7ed39bff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
