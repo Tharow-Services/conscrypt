@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 
 import android.util.StatsEvent;
 import org.conscrypt.TestUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -30,6 +31,7 @@ public class MetricsTest {
 
     // Tests that ReflexiveEvent produces the same event as framework's.
     @Test
+    @Ignore // Ignore on CTS 12 only: b/259508875
     public void test_reflexiveEvent() throws Exception {
         TestUtils.assumeStatsLogAvailable();
 
@@ -39,11 +41,12 @@ public class MetricsTest {
                                                  .writeInt(1) // protocol
                                                  .writeInt(2) // cipher suite
                                                  .writeInt(100) // duration
+                                                 .writeInt(3) // source
                                                  .usePooledBuffer()
                                                  .build();
 
         ReflexiveStatsEvent reflexiveStatsEvent =
-                ReflexiveStatsEvent.buildEvent(TLS_HANDSHAKE_REPORTED, false, 1, 2, 100);
+                ReflexiveStatsEvent.buildEvent(TLS_HANDSHAKE_REPORTED, false, 1, 2, 100, 3);
         StatsEvent constructedEvent = (StatsEvent) reflexiveStatsEvent.getStatsEvent();
 
         // TODO(nikitai): Figure out how to use hidden (@hide) getters from StatsEvent
