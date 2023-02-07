@@ -45,9 +45,19 @@ import org.conscrypt.java.security.TestKeyStore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 
-@RunWith(JUnit4.class)
+@RunWith(Parameterized.class)
 public class SSLSessionTest {
+    @Parameters
+    public static Object[] data() {
+        return new Object[] {"true", "false"};
+    }
+
+    @Parameter public String mApexCertsEnabled;
+
     @Test
     public void test_SSLSocket_TestSSLSessions_create() {
         TestSSLSessions s = TestSSLSessions.create();
@@ -157,6 +167,7 @@ public class SSLSessionTest {
 
     @Test
     public void test_SSLSession_getLocalCertificates() throws Exception {
+        System.setProperty("apex.certs.enabled", mApexCertsEnabled);
         TestSSLSessions s = TestSSLSessions.create();
         assertNull(s.invalid.getLocalCertificates());
         assertNull(s.client.getLocalCertificates());
