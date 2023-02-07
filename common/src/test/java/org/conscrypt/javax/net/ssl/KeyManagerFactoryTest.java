@@ -56,11 +56,21 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
 import tests.util.ServiceTester;
 
-@RunWith(JUnit4.class)
+@RunWith(Parameterized.class)
 public class KeyManagerFactoryTest {
     private TestKeyStore testKeyStore;
+
+    @Parameters
+    public static Object[] data() {
+        return new Object[] {"true", "false"};
+    }
+
+    @Parameter public String mApexCertsEnabled;
 
     @Before
     public void setUp() throws Exception {
@@ -80,6 +90,7 @@ public class KeyManagerFactoryTest {
 
     @Test
     public void test_KeyManagerFactory_getDefaultAlgorithm() throws Exception {
+        System.setProperty("system.certs.enabled", mApexCertsEnabled);
         String algorithm = KeyManagerFactory.getDefaultAlgorithm();
         assertEquals(StandardNames.KEY_MANAGER_FACTORY_DEFAULT, algorithm);
         KeyManagerFactory kmf = KeyManagerFactory.getInstance(algorithm);
@@ -311,6 +322,7 @@ public class KeyManagerFactoryTest {
 
     @Test
     public void test_KeyManagerFactory_getInstance() throws Exception {
+        System.setProperty("system.certs.enabled", mApexCertsEnabled);
         ServiceTester.test("KeyManagerFactory")
             .run(new ServiceTester.Test() {
                 @Override
@@ -336,6 +348,7 @@ public class KeyManagerFactoryTest {
     // to test it on OpenJDK anyway
     @Test
     public void test_KeyManagerFactory_Conscrypt() throws Exception {
+        System.setProperty("system.certs.enabled", mApexCertsEnabled);
         KeyManagerFactory kmf = new KeyManagerFactory(new KeyManagerFactoryImpl(),
             TestUtils.getConscryptProvider(), KeyManagerFactory.getDefaultAlgorithm()) { };
         test_KeyManagerFactory(kmf);
