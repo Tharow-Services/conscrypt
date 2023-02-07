@@ -100,7 +100,8 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
             String ANDROID_DATA = System.getenv("ANDROID_DATA");
             File updatableDir = new File("/apex/com.android.conscrypt/cacerts");
-            if (updatableDir.exists() && !(updatableDir.list().length == 0)) {
+            if (updatableDir.exists() && !(updatableDir.list().length == 0)
+                    && ("true" == System.getProperty("apex.certs.enabled"))) {
                 defaultCaCertsSystemDir = updatableDir;
             } else {
                 defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
