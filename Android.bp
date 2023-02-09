@@ -414,6 +414,10 @@ java_sdk_library {
     // Emit nullability annotations from the source to the stub files.
     annotations_enabled: true,
 
+    permitted_packages: [
+        "com.android.org.conscrypt",
+    ],
+
     java_version: "1.9",
 
     sdk_version: "none",
@@ -471,6 +475,10 @@ java_sdk_library {
     droiddoc_options: [
         "--hide-annotation libcore.api.Hide",
         "--show-single-annotation libcore.api.IntraCoreApi",
+    ],
+
+    permitted_packages: [
+        "com.android.org.conscrypt",
     ],
 
     sdk_version: "none",
