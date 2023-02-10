@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e10e364b_2dca551d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-02-10T09:53:34Z",
+      "side": 1,
+      "message": "What does permitted_packages do? Does it restrict usage of the library? Is it related in any way to the visibility property?\n\nI\u0027m not sure what the correct settings for our components are. Adding mast@ for insight.",
+      "revId": "e6838a896b4d1c28556bec59f4b82c5eede9c93b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
