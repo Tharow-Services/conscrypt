@@ -16,6 +16,47 @@
       "message": "What does permitted_packages do? Does it restrict usage of the library? Is it related in any way to the visibility property?\n\nI\u0027m not sure what the correct settings for our components are. Adding mast@ for insight.",
       "revId": "e6838a896b4d1c28556bec59f4b82c5eede9c93b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72f4be49_04c3393e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-02-10T10:07:22Z",
+      "side": 1,
+      "message": "\"permitted_packages [list of string], If not empty, classes are restricted to the specified packages and their sub-packages\" \n\nMy understanding is that means only classes in `permitted_packages` are allowed in this SDK library, which sounds like a good thing.",
+      "parentUuid": "e10e364b_2dca551d",
+      "revId": "e6838a896b4d1c28556bec59f4b82c5eede9c93b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "39292a2c_35ceb53a",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-02-10T10:07:22Z",
+      "side": 1,
+      "message": "Conscrypt\u0027s public APIs are all in the `android.net.ssl` package.",
+      "range": {
+        "startLine": 418,
+        "startChar": 9,
+        "endLine": 418,
+        "endChar": 34
+      },
+      "revId": "e6838a896b4d1c28556bec59f4b82c5eede9c93b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
