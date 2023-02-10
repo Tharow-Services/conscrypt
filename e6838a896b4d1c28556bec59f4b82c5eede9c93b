@@ -57,6 +57,30 @@
       },
       "revId": "e6838a896b4d1c28556bec59f4b82c5eede9c93b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e49ecec6_5eac2005",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-02-10T10:09:22Z",
+      "side": 1,
+      "message": "(In which case isn\u0027t it a bug that this CL can get PV+2 with the wrong package listed here?)",
+      "parentUuid": "39292a2c_35ceb53a",
+      "range": {
+        "startLine": 418,
+        "startChar": 9,
+        "endLine": 418,
+        "endChar": 34
+      },
+      "revId": "e6838a896b4d1c28556bec59f4b82c5eede9c93b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
