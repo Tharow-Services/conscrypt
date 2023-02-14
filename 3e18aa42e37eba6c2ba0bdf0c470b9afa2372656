@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "606840de_fdb46f49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-02-14T17:58:39Z",
+      "side": 1,
+      "message": "Added a Merged-In tag to the commit message 😊",
+      "revId": "3e18aa42e37eba6c2ba0bdf0c470b9afa2372656",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
