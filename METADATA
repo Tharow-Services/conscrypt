@@ -1,3 +1,19 @@
+# This project was upgraded with external_updater.
+# Usage: tools/external_updater/updater.sh update conscrypt
+# For more info, check https://cs.android.com/android/platform/superproject/+/master:tools/external_updater/README.md
+
+name: "conscrypt"
+description: "Conscrypt is a Java Security Provider that implements parts of the Java Cryptography Extension and Java Secure Socket Extension."
 third_party {
+  url {
+    type: GIT
+    value: "https://github.com/google/conscrypt.git"
+  }
+  version: "1de9b815fe937681bcc7973fe57899d202ccb325"
   license_type: NOTICE
+  last_upgrade_date {
+    year: 2023
+    month: 2
+    day: 17
+  }
 }
