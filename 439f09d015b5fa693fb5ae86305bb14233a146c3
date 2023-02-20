@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a38b915c_bc3003ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-02-20T18:48:05Z",
+      "side": 1,
+      "message": "I don\u0027t think KeyManagerFactoryTest and SSLSessionTest have any dependency on the root CA store, do they?",
+      "revId": "439f09d015b5fa693fb5ae86305bb14233a146c3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
