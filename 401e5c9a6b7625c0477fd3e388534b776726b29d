@@ -70,6 +70,30 @@
       },
       "revId": "401e5c9a6b7625c0477fd3e388534b776726b29d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d3bff2b2_5ff78199",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-02-21T16:17:53Z",
+      "side": 0,
+      "message": "Looks like you\u0027re hitting one of the `FatalError()`s in here: https://cs.android.com/android/platform/superproject/+/master:external/conscrypt/common/src/jni/main/cpp/conscrypt/jniutil.cc",
+      "parentUuid": "ea5afa11_5fedb3d3",
+      "range": {
+        "startLine": 511,
+        "startChar": 9,
+        "endLine": 511,
+        "endChar": 15
+      },
+      "revId": "401e5c9a6b7625c0477fd3e388534b776726b29d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
