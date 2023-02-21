@@ -94,6 +94,30 @@
       },
       "revId": "401e5c9a6b7625c0477fd3e388534b776726b29d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27781f14_f90ad72b",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2023-02-21T16:32:57Z",
+      "side": 0,
+      "message": "I had only updated the libjavacrypto.so files in the prebuilts. After updating everything in prebuilts/module_sdk/conscrypt/current/test-exports I get no native crashes in the libcore tests.",
+      "parentUuid": "d3bff2b2_5ff78199",
+      "range": {
+        "startLine": 511,
+        "startChar": 9,
+        "endLine": 511,
+        "endChar": 15
+      },
+      "revId": "401e5c9a6b7625c0477fd3e388534b776726b29d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
