@@ -22,6 +22,30 @@
       },
       "revId": "401e5c9a6b7625c0477fd3e388534b776726b29d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9d376d5_c2615581",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-02-21T16:00:39Z",
+      "side": 0,
+      "message": "I believe it changes less often but still no guarantees so yeah, let\u0027s make that static too.",
+      "parentUuid": "b5a05909_7b7fbd5a",
+      "range": {
+        "startLine": 511,
+        "startChar": 9,
+        "endLine": 511,
+        "endChar": 15
+      },
+      "revId": "401e5c9a6b7625c0477fd3e388534b776726b29d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
