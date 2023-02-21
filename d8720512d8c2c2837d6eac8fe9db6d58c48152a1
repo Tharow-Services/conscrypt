@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "74fcced6_29f0a8a7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1949106
+      },
+      "writtenOn": "2023-02-21T16:27:27Z",
+      "side": 1,
+      "message": "NA",
+      "parentUuid": "135f5e7c_41c15969",
+      "revId": "d8720512d8c2c2837d6eac8fe9db6d58c48152a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "dc37e48b_6af4b745",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-02-21T13:11:30Z",
       "side": 1,
       "message": "This project doesn\u0027t use external_updater (yet!).",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 117
+      },
+      "revId": "d8720512d8c2c2837d6eac8fe9db6d58c48152a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2bdaa22c_2d100f52",
+        "filename": "METADATA",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1949106
+      },
+      "writtenOn": "2023-02-21T16:27:27Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "dc37e48b_6af4b745",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -72,6 +114,24 @@
       "side": 1,
       "message": "Yeah, that\u0027s not the last commit that was merged.  I make it a56ab5c684e88341e30122a0e6012d7142d10f62",
       "parentUuid": "8acf3dda_46c4e901",
+      "revId": "d8720512d8c2c2837d6eac8fe9db6d58c48152a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9548a90c_42c6fe44",
+        "filename": "METADATA",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1949106
+      },
+      "writtenOn": "2023-02-21T16:27:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "975a450e_83a02cc2",
       "revId": "d8720512d8c2c2837d6eac8fe9db6d58c48152a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
