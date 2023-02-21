@@ -46,6 +46,30 @@
       },
       "revId": "401e5c9a6b7625c0477fd3e388534b776726b29d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea5afa11_5fedb3d3",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2023-02-21T16:12:20Z",
+      "side": 0,
+      "message": "Done.\n\nBtw, with a new prebuilt drop I no longer get \"stack smashing detected\", but libcore tests still fail:\n\n```\n      native:   _JNIEnv::FatalError(char const*)\n      native:    libnativehelper/include_jni/jni.h:539\n      native:   conscrypt::jniutil::jniRegisterNativeMethods(_JNIEnv*, char const*, JNINativeMethod const*, int)\n      native:    external/conscrypt/common/src/jni/main/cpp/conscrypt/jniutil.cc:163\n      native: #12 pc 0008dca0  /usr/local/google/home/mast/android/master-art/out/host/linux-x86/lib64/libjavacrypto.so (JNI_OnLoad+112)\n      native:   libconscrypt_JNI_OnLoad(_JavaVM*, void*)\n      native:    external/conscrypt/common/src/jni/main/cpp/conscrypt/jniload.cc:43\n      native:   JNI_OnLoad\n      native:    external/conscrypt/common/src/jni/main/cpp/conscrypt/jniload.cc:64\n      native: #13 pc 006c214e  /usr/local/google/home/mast/android/master-art/out/host/linux-x86/lib64/libart.so (art::JavaVMExt::LoadNativeLibrary+3310)\n      native:   art::JavaVMExt::LoadNativeLibrary(_JNIEnv*, std::__1::basic_string\u003cchar, std::__1::char_traits\u003cchar\u003e, std::__1::allocator\u003cchar\u003e\u003e const\u0026, _jobject*, _jclass*, std::__1::basic_string\u003cchar, std::__1::char_traits\u003cchar\u003e, std::__1::allocator\u003cchar\u003e\u003e*)\n      native:    art/runtime/jni/java_vm_ext.cc:1110\n      native: #14 pc 00006181  /usr/local/google/home/mast/android/master-art/out/host/linux-x86/lib64/libopenjdkjvm.so (JVM_NativeLoad+385)\n      native:   JVM_NativeLoad\n      native:    art/openjdkjvm/OpenjdkJvm.cc:363\n```\n\nI reckon this is still a step in the right direction, so I\u0027ll do a new prebuilt drop after this has landed and then we\u0027ll go from there.",
+      "parentUuid": "c9d376d5_c2615581",
+      "range": {
+        "startLine": 511,
+        "startChar": 9,
+        "endLine": 511,
+        "endChar": 15
+      },
+      "revId": "401e5c9a6b7625c0477fd3e388534b776726b29d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
