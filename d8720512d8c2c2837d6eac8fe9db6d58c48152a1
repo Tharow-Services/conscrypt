@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "135f5e7c_41c15969",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2023-02-21T13:13:08Z",
+      "side": 1,
+      "message": "nit: would be good to add a bug reference if applicable",
+      "revId": "d8720512d8c2c2837d6eac8fe9db6d58c48152a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "dc37e48b_6af4b745",
         "filename": "METADATA",
         "patchSetId": 1
@@ -20,6 +37,23 @@
         "endLine": 3,
         "endChar": 117
       },
+      "revId": "d8720512d8c2c2837d6eac8fe9db6d58c48152a1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8acf3dda_46c4e901",
+        "filename": "METADATA",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1373934
+      },
+      "writtenOn": "2023-02-21T13:13:08Z",
+      "side": 1,
+      "message": "@prb@google.com: I couldn\u0027t quickly find currently imported version anywhere in project files, could you check it?",
       "revId": "d8720512d8c2c2837d6eac8fe9db6d58c48152a1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
