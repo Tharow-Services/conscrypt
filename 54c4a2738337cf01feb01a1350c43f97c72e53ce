@@ -16,6 +16,29 @@
       "message": "Ping. I think the TH failures are unrelated.",
       "revId": "54c4a2738337cf01feb01a1350c43f97c72e53ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32937d32_89104002",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2023-02-28T13:57:19Z",
+      "side": 1,
+      "message": "What specific problem is this trying to avoid? Why would having prebuilts of the shared libraris for these not work just as well?",
+      "range": {
+        "startLine": 523,
+        "startChar": 12,
+        "endLine": 524,
+        "endChar": 77
+      },
+      "revId": "54c4a2738337cf01feb01a1350c43f97c72e53ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
