@@ -39,6 +39,30 @@
       },
       "revId": "54c4a2738337cf01feb01a1350c43f97c72e53ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1dbd556f_1d3a8e14",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2023-02-28T16:16:57Z",
+      "side": 1,
+      "message": "These dependencies don\u0027t have a stable ABIs. If they\u0027re prebuilt DSOs, they may conflict with different versions of the same .so files used elsewhere.\n\nThis is a general problem with prebuilt having unstable dependencies on other prebuilts: We only want to use these versions of them for these specific dependencies, so if they remained .so\u0027s they\u0027d either need unique names, i.e. something like `libcrypto-used-from-libjavacrypto.so`, or else we\u0027d need to set up linker namespaces on host as well.",
+      "parentUuid": "32937d32_89104002",
+      "range": {
+        "startLine": 523,
+        "startChar": 12,
+        "endLine": 524,
+        "endChar": 77
+      },
+      "revId": "54c4a2738337cf01feb01a1350c43f97c72e53ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
