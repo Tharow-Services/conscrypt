@@ -87,6 +87,30 @@
       },
       "revId": "54c4a2738337cf01feb01a1350c43f97c72e53ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "27592a4b_cc7d28c9",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1373864
+      },
+      "writtenOn": "2023-03-01T16:55:50Z",
+      "side": 1,
+      "message": "\u003e How will these conflict with \"different versions of the same .so files used elsewhere\"? Where will those different versions come from?\n\nThere are [prebuilt libcrypto-host.so files](https://cs.android.com/search?q\u003dlibcrypto-host%5C.so\u0026sq\u003d\u0026ss\u003dandroid) that presumably are used by something somewhere. They will likely be built from different versions than this one. I haven\u0027t investigated exactly where they get used, but to be able to dismiss the risk of the wrong version getting loaded somewhere we\u0027d have to guarantee they aren\u0027t used in any process where libjavacrypto.so is loaded, and that seems difficult.\n\n\u003e If the ABI is incompatible then surely these would not be being used?\n\nThey could be used by other prebuilts getting dropped at the same time. I think this argument applies to them too, i.e. prebuilts/build-tools should also link libcrypto statically, but they don\u0027t, and it\u0027s after all safe to link dynamically in no more than one prebuilt drop if all others don\u0027t do that.\n\n\u003e What are the advantages/disadvantages of doing [linker namespaces] instead of this?\n\nThey are only implemented by the Bionic linker, and on host we need to work with the standard GNU linker, so it\u0027s not really feasible.",
+      "parentUuid": "fecc5173_78cab772",
+      "range": {
+        "startLine": 523,
+        "startChar": 12,
+        "endLine": 524,
+        "endChar": 77
+      },
+      "revId": "54c4a2738337cf01feb01a1350c43f97c72e53ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
