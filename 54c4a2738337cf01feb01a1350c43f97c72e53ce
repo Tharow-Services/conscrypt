@@ -63,6 +63,30 @@
       },
       "revId": "54c4a2738337cf01feb01a1350c43f97c72e53ce",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fecc5173_78cab772",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 1039338
+      },
+      "writtenOn": "2023-03-01T15:30:13Z",
+      "side": 1,
+      "message": "I don\u0027t understand all the intricacies of shared library loading on the host (it has been a LONG time since I did any native coding on the host and I am sure it has changed a lot since) so forgive my questions if they are obvious.\n\nHow will these conflict with \"different versions of the same .so files used elsewhere\"? Where will those different versions come from?\n\nIf the ABI is incompatible then surely these would not be being used?\n\n\u003e or else we\u0027d need to set up linker namespaces on host as well.\n\nWhat are the advantages/disadvantages of doing that instead of this?",
+      "parentUuid": "1dbd556f_1d3a8e14",
+      "range": {
+        "startLine": 523,
+        "startChar": 12,
+        "endLine": 524,
+        "endChar": 77
+      },
+      "revId": "54c4a2738337cf01feb01a1350c43f97c72e53ce",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
