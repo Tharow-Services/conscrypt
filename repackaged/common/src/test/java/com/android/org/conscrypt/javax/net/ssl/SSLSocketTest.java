@@ -37,9 +37,11 @@ import com.android.org.conscrypt.tlswire.handshake.EllipticCurve;
 import com.android.org.conscrypt.tlswire.handshake.EllipticCurvesHelloExtension;
 import com.android.org.conscrypt.tlswire.handshake.HelloExtension;
 import com.android.org.conscrypt.tlswire.util.TlsProtocolVersion;
+import java.io.BufferedReader;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -426,6 +428,9 @@ public class SSLSocketTest {
      */
     @Test
     public void test_SSLSocket_noncontiguousProtocols_useLower() throws Exception {
+        // This test case needs three TLS versions to test this scenario.
+        // Currently automotive only supports two TLS versions. Hence skiping this testcase.
+        if (isHardwareAutomotive()) return;
         TestSSLContext c = TestSSLContext.create();
         SSLContext clientContext = c.clientContext;
         SSLSocket client = (SSLSocket)
@@ -457,6 +462,9 @@ public class SSLSocketTest {
      */
     @Test
     public void test_SSLSocket_noncontiguousProtocols_canNegotiate() throws Exception {
+        // This test case needs three TLS versions to test this scenario.
+        // Currently automotive only supports two TLS versions. Hence skiping this testcase.
+        if (isHardwareAutomotive()) return;
         TestSSLContext c = TestSSLContext.create();
         SSLContext clientContext = c.clientContext;
         SSLSocket client = (SSLSocket)
@@ -1019,7 +1027,9 @@ public class SSLSocketTest {
         Future<Void> s = runAsync(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                server.setEnabledProtocols(new String[]{"TLSv1.2", "TLSv1.1"});
+                // Updated TLS versions, since automotive only supports TLSv1.2 and above.
+                if (isHardwareAutomotive()) server.setEnabledProtocols(new String[]{"TLSv1.3", "TLSv1.2"});
+                else server.setEnabledProtocols(new String[]{"TLSv1.2", "TLSv1.1"});
                 server.startHandshake();
                 return null;
             }
@@ -1027,7 +1037,9 @@ public class SSLSocketTest {
         Future<Void> c = runAsync(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                client.setEnabledProtocols(new String[]{"TLSv1.1"});
+                // Updated TLS versions, since automotive only supports TLSv1.2 and above.
+                if (isHardwareAutomotive()) client.setEnabledProtocols(new String[]{"TLSv1.2"});
+                else client.setEnabledProtocols(new String[]{"TLSv1.1"});
                 client.startHandshake();
                 return null;
             }
@@ -1048,6 +1060,9 @@ public class SSLSocketTest {
     @Test
     public void test_SSLSocket_sendsTlsFallbackScsv_InappropriateFallback_Failure()
             throws Exception {
+        // Automotive only supports TLSv1.2 and above and these verions does not supports TLS_FALLBACK_SCSV.
+        // Skiping this testcase as it is an invalid case for automotive.
+        if (isHardwareAutomotive()) return;
         TestSSLContext context = TestSSLContext.create();
         final SSLSocket client = (SSLSocket) context.clientContext.getSocketFactory().createSocket(
                 context.host, context.port);
@@ -1098,7 +1113,11 @@ public class SSLSocketTest {
 
     @Test
     public void test_SSLSocket_tlsFallback_byVersion() throws Exception {
-        for (final String protocol : new String[] { "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3" }) {
+        String[] supportedProtocols = null;
+        // Updated TLS versions, since automotive only supports TLSv1.2 and above.
+        if (isHardwareAutomotive()) supportedProtocols = new String[] { "TLSv1.2", "TLSv1.3" };
+        else supportedProtocols = SSLContext.getDefault().getDefaultSSLParameters().getProtocols();
+        for (final String protocol : supportedProtocols) {
             SSLSocketFactory factory = new DelegatingSSLSocketFactory((SSLSocketFactory) SSLSocketFactory.getDefault()) {
                 @Override protected SSLSocket configureSocket(SSLSocket socket) {
                     socket.setEnabledProtocols(new String[] {protocol});
@@ -1136,4 +1155,31 @@ public class SSLSocketTest {
         }
     }
 
+    protected boolean isHardwareAutomotive() {
+        String expected_variant = "automotive";
+        String prop = readSystemProperty("ro.hardware.type");
+        if (prop.equals(expected_variant)) return true;
+        return false;
+    }
+
+    private String readSystemProperty(String propName) {
+        Process process = null;
+        BufferedReader bufferedReader = null;
+        try {
+            process = new ProcessBuilder().command("/system/bin/getprop", propName).redirectErrorStream(true).start();
+            bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = bufferedReader.readLine();
+            if (line == null) line = "";
+            return line;
+        } catch (Exception e) {
+            return "";
+        } finally{
+            if (bufferedReader != null){
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {}
+            }
+            if (process != null) process.destroy();
+        }
+    }
 }
