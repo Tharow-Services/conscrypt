@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5db28b85_e78f6291",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-03-28T21:55:36Z",
+      "side": 1,
+      "message": "I missed that we used to have a BC X509CertificateFactory, so this test needs re-working to take account of it.  The other tests that landed at the same time were agnostic about Conscrypt throwing the correct exception so we should be able to revert this in isolation and then fix.",
+      "revId": "55f75a645170bb5cbcd072121c57556d73f8b515",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
