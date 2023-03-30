@@ -16,6 +16,24 @@
       "message": "Seems to break `HttpsURLConnectionTest`",
       "revId": "af289bed7ed17dc6138da62db42370b1c3472172",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "51b74eff_62708ba8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-03-30T18:51:42Z",
+      "side": 1,
+      "message": "Never mind, I had to wipe the test device and forgot to reconnect it to wifi 😕",
+      "parentUuid": "63e0e1a4_7a931974",
+      "revId": "af289bed7ed17dc6138da62db42370b1c3472172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
