@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "63e0e1a4_7a931974",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-03-30T18:43:54Z",
+      "side": 1,
+      "message": "Seems to break `HttpsURLConnectionTest`",
+      "revId": "af289bed7ed17dc6138da62db42370b1c3472172",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
