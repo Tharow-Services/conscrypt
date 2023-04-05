@@ -73,6 +73,7 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.X509ExtendedTrustManager;
 import org.junit.After;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -380,12 +381,12 @@ public class SSLSocketTest {
      * Tests that when the client has a hole in their supported protocol list, the
      * lower span of contiguous protocols is used in practice.
      */
-    @Test
+    // @Test Skip until a new version of TLS becomes available
     public void test_SSLSocket_noncontiguousProtocols_useLower() throws Exception {
         TestSSLContext c = TestSSLContext.create();
         SSLContext clientContext = c.clientContext;
-        SSLSocket client = (SSLSocket)
-                clientContext.getSocketFactory().createSocket(c.host, c.port);
+        SSLSocket client =
+                (SSLSocket) clientContext.getSocketFactory().createSocket(c.host, c.port);
         client.setEnabledProtocols(new String[] {"TLSv1.3", "TLSv1.1"});
         final SSLSocket server = (SSLSocket) c.serverSocket.accept();
         server.setEnabledProtocols(new String[] {"TLSv1.3", "TLSv1.2", "TLSv1.1"});
@@ -410,11 +411,12 @@ public class SSLSocketTest {
      * for both client and server isn't supported by the other.
      */
     @Test
+    @Ignore("Skip until a new version of TLS becomes available")
     public void test_SSLSocket_noncontiguousProtocols_canNegotiate() throws Exception {
         TestSSLContext c = TestSSLContext.create();
         SSLContext clientContext = c.clientContext;
-        SSLSocket client = (SSLSocket)
-                clientContext.getSocketFactory().createSocket(c.host, c.port);
+        SSLSocket client =
+                (SSLSocket) clientContext.getSocketFactory().createSocket(c.host, c.port);
         client.setEnabledProtocols(new String[] {"TLSv1.3", "TLSv1.1"});
         final SSLSocket server = (SSLSocket) c.serverSocket.accept();
         server.setEnabledProtocols(new String[] {"TLSv1.2", "TLSv1.1"});
@@ -927,12 +929,12 @@ public class SSLSocketTest {
         assertFalse(Arrays.asList(client.getEnabledCipherSuites())
                             .contains(StandardNames.CIPHER_SUITE_FALLBACK));
         Future<Void> s = runAsync(() -> {
-            server.setEnabledProtocols(new String[] {"TLSv1.2", "TLSv1.1"});
+            server.setEnabledProtocols(new String[] {"TLSv1.3", "TLSv1.2"});
             server.startHandshake();
             return null;
         });
         Future<Void> c = runAsync(() -> {
-            client.setEnabledProtocols(new String[] {"TLSv1.1"});
+            client.setEnabledProtocols(new String[] {"TLSv1.2"});
             client.startHandshake();
             return null;
         });
@@ -950,6 +952,7 @@ public class SSLSocketTest {
     }
 
     @Test
+    @Ignore("Skip until a new version of TLS becomes available")
     public void test_SSLSocket_sendsTlsFallbackScsv_InappropriateFallback_Failure()
             throws Exception {
         TestSSLContext context = TestSSLContext.create();
