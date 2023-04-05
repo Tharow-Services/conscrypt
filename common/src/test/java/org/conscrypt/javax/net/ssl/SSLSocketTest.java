@@ -380,7 +380,7 @@ public class SSLSocketTest {
      * Tests that when the client has a hole in their supported protocol list, the
      * lower span of contiguous protocols is used in practice.
      */
-    @Test
+    // @Test Skip until a new version of TLS becomes available
     public void test_SSLSocket_noncontiguousProtocols_useLower() throws Exception {
         TestSSLContext c = TestSSLContext.create();
         SSLContext clientContext = c.clientContext;
@@ -409,7 +409,7 @@ public class SSLSocketTest {
      * Tests that protocol negotiation succeeds when the highest-supported protocol
      * for both client and server isn't supported by the other.
      */
-    @Test
+    // @Test Skip until a new version of TLS becomes available
     public void test_SSLSocket_noncontiguousProtocols_canNegotiate() throws Exception {
         TestSSLContext c = TestSSLContext.create();
         SSLContext clientContext = c.clientContext;
@@ -929,12 +929,12 @@ public class SSLSocketTest {
         assertFalse(Arrays.asList(client.getEnabledCipherSuites())
                             .contains(StandardNames.CIPHER_SUITE_FALLBACK));
         Future<Void> s = runAsync(() -> {
-            server.setEnabledProtocols(new String[]{"TLSv1.2", "TLSv1.1"});
+            server.setEnabledProtocols(new String[] {"TLSv1.3", "TLSv1.2"});
             server.startHandshake();
             return null;
         });
         Future<Void> c = runAsync(() -> {
-            client.setEnabledProtocols(new String[]{"TLSv1.1"});
+            client.setEnabledProtocols(new String[] {"TLSv1.2"});
             client.startHandshake();
             return null;
         });
@@ -951,7 +951,7 @@ public class SSLSocketTest {
                         || cause.getMessage().contains("INAPPROPRIATE_FALLBACK"));
     }
 
-    @Test
+    // @Test Skip until a new version of TLS becomes available
     public void test_SSLSocket_sendsTlsFallbackScsv_InappropriateFallback_Failure()
             throws Exception {
         TestSSLContext context = TestSSLContext.create();
@@ -967,7 +967,7 @@ public class SSLSocketTest {
             server.setEnabledProtocols(new String[] {"TLSv1.2", "TLSv1.1"});
             server.setEnabledCipherSuites(serverCipherSuites);
             SSLHandshakeException expected =
-                assertThrows(SSLHandshakeException.class, server::startHandshake);
+                    assertThrows(SSLHandshakeException.class, server::startHandshake);
             Throwable cause = expected.getCause();
             assertEquals(SSLProtocolException.class, cause.getClass());
             assertInappropriateFallbackIsCause(cause);
@@ -977,7 +977,7 @@ public class SSLSocketTest {
             client.setEnabledProtocols(new String[]{"TLSv1.1"});
             client.setEnabledCipherSuites(clientCipherSuites);
             SSLHandshakeException expected =
-                assertThrows(SSLHandshakeException.class, client::startHandshake);
+                    assertThrows(SSLHandshakeException.class, client::startHandshake);
             Throwable cause = expected.getCause();
             assertEquals(SSLProtocolException.class, cause.getClass());
             assertInappropriateFallbackIsCause(cause);
