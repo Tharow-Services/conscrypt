@@ -757,4 +757,60 @@ public final class TestUtils {
     public static void assumeJava8() {
         Assume.assumeTrue("Require Java 8: " + javaVersion(), isJavaVersion(8));
     }
+<<<<<<< HEAD   (55b8ed Make XDH key sizes 255 within Android11-tests-dev)
+=======
+
+    public static void assumeEngineSocket() {
+        Assume.assumeTrue(getUseEngineSocketByDefault());
+    }
+
+    public static String osName() {
+        return System.getProperty("os.name").toLowerCase(Locale.US).replaceAll("[^a-z0-9]+", "");
+    }
+
+    public static boolean isLinux() {
+        return osName().startsWith("linux");
+    }
+
+    public static boolean isWindows() {
+        return osName().startsWith("windows");
+    }
+
+    public static boolean isOsx() {
+        String name = osName();
+        return name.startsWith("macosx") || name.startsWith("osx");
+    }
+
+    public static void assumeXecClassesAvailable() {
+        Assume.assumeTrue(findClass("java.security.spec.XECPrivateKeySpec") != null);
+    }
+
+    // Find base method via reflection due to possible version skew on Android
+    // and visibility issues when building with Gradle.
+    public static boolean isTlsV1Deprecated() {
+        try {
+            return (Boolean) conscryptClass("Platform")
+                    .getDeclaredMethod("isTlsV1Deprecated")
+                    .invoke(null);
+        } catch (NoSuchMethodException e) {
+            return false;
+        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
+            throw new IllegalStateException("Reflection failure", e);
+        }
+    }
+
+    // Find base method via reflection due to possible version skew on Android
+    // and visibility issues when building with Gradle.
+    public static boolean isTlsV1Supported() {
+        try {
+            return (Boolean) conscryptClass("Platform")
+                    .getDeclaredMethod("isTlsV1Supported")
+                    .invoke(null);
+        } catch (NoSuchMethodException e) {
+            return true;
+        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
+            throw new IllegalStateException("Reflection failure", e);
+        }
+    }
+>>>>>>> CHANGE (71f493 Remove TLS 1.0 and 1.1 from the list of supported protocols.)
 }

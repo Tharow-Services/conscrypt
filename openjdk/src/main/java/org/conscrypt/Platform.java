@@ -785,4 +785,32 @@ final class Platform {
             });
         }
     }
+<<<<<<< HEAD   (55b8ed Make XDH key sizes 255 within Android11-tests-dev)
+=======
+
+    public static ConscryptHostnameVerifier getDefaultHostnameVerifier() {
+        return  OkHostnameVerifier.strictInstance();
+    }
+
+    @SuppressWarnings("unused")
+    static long getMillisSinceBoot() {
+        return 0;
+    }
+
+    @SuppressWarnings("unused")
+    static void countTlsHandshake(
+            boolean success, String protocol, String cipherSuite, long duration) {}
+
+    public static boolean isJavaxCertificateSupported() {
+        return JAVA_VERSION < 15;
+    }
+
+    public static boolean isTlsV1Deprecated() {
+        return true;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return true;
+    }
+>>>>>>> CHANGE (71f493 Remove TLS 1.0 and 1.1 from the list of supported protocols.)
 }

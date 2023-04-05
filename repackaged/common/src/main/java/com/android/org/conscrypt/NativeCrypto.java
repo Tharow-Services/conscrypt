@@ -740,9 +740,14 @@ public final class NativeCrypto {
 
     // --- SSL handling --------------------------------------------------------
 
+<<<<<<< HEAD   (55b8ed Make XDH key sizes 255 within Android11-tests-dev)
     static final String OBSOLETE_PROTOCOL_SSLV3 = "SSLv3";
     private static final String SUPPORTED_PROTOCOL_TLSV1 = "TLSv1";
     private static final String SUPPORTED_PROTOCOL_TLSV1_1 = "TLSv1.1";
+=======
+    static final String DEPRECATED_PROTOCOL_TLSV1 = "TLSv1";
+    static final String DEPRECATED_PROTOCOL_TLSV1_1 = "TLSv1.1";
+>>>>>>> CHANGE (71f493 Remove TLS 1.0 and 1.1 from the list of supported protocols.)
     private static final String SUPPORTED_PROTOCOL_TLSV1_2 = "TLSv1.2";
     static final String SUPPORTED_PROTOCOL_TLSV1_3 = "TLSv1.3";
 
@@ -972,6 +977,22 @@ public final class NativeCrypto {
 
     static native void set_SSL_psk_server_callback_enabled(long ssl, NativeSsl ssl_holder, boolean enabled);
 
+<<<<<<< HEAD   (55b8ed Make XDH key sizes 255 within Android11-tests-dev)
+=======
+    private static final String[] ENABLED_PROTOCOLS_TLSV1 = Platform.isTlsV1Deprecated()
+            ? new String[0]
+            : new String[] {
+                    DEPRECATED_PROTOCOL_TLSV1,
+                    DEPRECATED_PROTOCOL_TLSV1_1,
+            };
+
+    private static final String[] SUPPORTED_PROTOCOLS_TLSV1 = Platform.isTlsV1Supported()
+            ? new String[] {
+                DEPRECATED_PROTOCOL_TLSV1,
+                DEPRECATED_PROTOCOL_TLSV1_1,
+            } : new String[0];
+
+>>>>>>> CHANGE (71f493 Remove TLS 1.0 and 1.1 from the list of supported protocols.)
     /** Protocols to enable by default when "TLSv1.3" is requested. */
     static final String[] TLSV13_PROTOCOLS = new String[] {
             SUPPORTED_PROTOCOL_TLSV1,
@@ -994,12 +1015,19 @@ public final class NativeCrypto {
     static final String[] TLSV1_PROTOCOLS = TLSV11_PROTOCOLS;
 
     static final String[] DEFAULT_PROTOCOLS = TLSV13_PROTOCOLS;
+<<<<<<< HEAD   (55b8ed Make XDH key sizes 255 within Android11-tests-dev)
     private static final String[] SUPPORTED_PROTOCOLS = new String[] {
             SUPPORTED_PROTOCOL_TLSV1,
             SUPPORTED_PROTOCOL_TLSV1_1,
+=======
+
+    // If we ever get a new protocol go look for tests which are skipped using
+    // assumeTlsV11Enabled()
+    private static final String[] SUPPORTED_PROTOCOLS = ArrayUtils.concatValues(
+            SUPPORTED_PROTOCOLS_TLSV1,
+>>>>>>> CHANGE (71f493 Remove TLS 1.0 and 1.1 from the list of supported protocols.)
             SUPPORTED_PROTOCOL_TLSV1_2,
-            SUPPORTED_PROTOCOL_TLSV1_3,
-    };
+            SUPPORTED_PROTOCOL_TLSV1_3);
 
     static String[] getSupportedProtocols() {
         return SUPPORTED_PROTOCOLS.clone();
@@ -1069,11 +1097,15 @@ public final class NativeCrypto {
             if (protocol == null) {
                 throw new IllegalArgumentException("protocols contains null");
             }
+<<<<<<< HEAD   (55b8ed Make XDH key sizes 255 within Android11-tests-dev)
             if (!protocol.equals(SUPPORTED_PROTOCOL_TLSV1)
                     && !protocol.equals(SUPPORTED_PROTOCOL_TLSV1_1)
                     && !protocol.equals(SUPPORTED_PROTOCOL_TLSV1_2)
                     && !protocol.equals(SUPPORTED_PROTOCOL_TLSV1_3)
                     && !protocol.equals(OBSOLETE_PROTOCOL_SSLV3)) {
+=======
+            if (!Arrays.asList(SUPPORTED_PROTOCOLS).contains(protocol)) {
+>>>>>>> CHANGE (71f493 Remove TLS 1.0 and 1.1 from the list of supported protocols.)
                 throw new IllegalArgumentException("protocol " + protocol + " is not supported");
             }
         }
