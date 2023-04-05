@@ -780,9 +780,8 @@ public final class NativeCrypto {
 
     // --- SSL handling --------------------------------------------------------
 
-    static final String OBSOLETE_PROTOCOL_SSLV3 = "SSLv3";
-    private static final String DEPRECATED_PROTOCOL_TLSV1 = "TLSv1";
-    private static final String DEPRECATED_PROTOCOL_TLSV1_1 = "TLSv1.1";
+    static final String DEPRECATED_PROTOCOL_TLSV1 = "TLSv1";
+    static final String DEPRECATED_PROTOCOL_TLSV1_1 = "TLSv1.1";
     private static final String SUPPORTED_PROTOCOL_TLSV1_2 = "TLSv1.2";
     static final String SUPPORTED_PROTOCOL_TLSV1_3 = "TLSv1.3";
 
@@ -1045,9 +1044,11 @@ public final class NativeCrypto {
     static final String[] TLSV1_PROTOCOLS = TLSV11_PROTOCOLS;
 
     static final String[] DEFAULT_PROTOCOLS = TLSV13_PROTOCOLS;
-    private static final String[] SUPPORTED_PROTOCOLS = new String[] {
-            DEPRECATED_PROTOCOL_TLSV1,
-            DEPRECATED_PROTOCOL_TLSV1_1,
+
+    // If we ever get a new protocol go look for tests which are skipped using 
+    // assumeTlsV11Enabled()
+    private static final String[] SUPPORTED_PROTOCOLS = ArrayUtils.concatValues(
+            ENABLED_PROTOCOLS_TLSV1,
             SUPPORTED_PROTOCOL_TLSV1_2,
             SUPPORTED_PROTOCOL_TLSV1_3,
     };
