@@ -1071,9 +1071,10 @@ public final class NativeCrypto {
     static final String[] TLSV1_PROTOCOLS = TLSV11_PROTOCOLS;
 
     static final String[] DEFAULT_PROTOCOLS = TLSV13_PROTOCOLS;
+
+    // Re-enable common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java
+    // if we ever get a new protocol
     private static final String[] SUPPORTED_PROTOCOLS = new String[] {
-            DEPRECATED_PROTOCOL_TLSV1,
-            DEPRECATED_PROTOCOL_TLSV1_1,
             SUPPORTED_PROTOCOL_TLSV1_2,
             SUPPORTED_PROTOCOL_TLSV1_3,
     };
