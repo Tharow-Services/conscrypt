@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bfafe8b1_ee8c3541",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-04-18T15:10:30Z",
+      "side": 1,
+      "message": "Yes, will do",
+      "parentUuid": "cef02c02_c89a39b3",
+      "revId": "082c5dcc3f6f0bb6fa426f85e6f428d441961fd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "49cad570_66b54943",
@@ -31,6 +49,30 @@
       "writtenOn": "2023-04-18T14:46:53Z",
       "side": 1,
       "message": "nit: Only provide a message to `fail()` if it\u0027s not obvious what the failure is.\n\nnit2: And for new exception tests, using `assertThrows()` is preferred anyway. 😊",
+      "range": {
+        "startLine": 4681,
+        "startChar": 0,
+        "endLine": 4681,
+        "endChar": 70
+      },
+      "revId": "082c5dcc3f6f0bb6fa426f85e6f428d441961fd1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a939bff_22c5ca99",
+        "filename": "common/src/test/java/org/conscrypt/javax/crypto/CipherTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 4681,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-04-18T15:10:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "49cad570_66b54943",
       "range": {
         "startLine": 4681,
         "startChar": 0,
