@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "48f64a59_0aa835e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976460
+      },
+      "writtenOn": "2023-05-08T14:17:33Z",
+      "side": 1,
+      "message": "Disabling the tests for all automotive device implementations is likely too course. Would it be possible to make this configurable so that the workaround only applies, when an OEM or local law demands TLS \u003e\u003d 1.2?",
+      "revId": "aad84a2cfd3fe24ce8663049b4d3a9e34108ace6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
