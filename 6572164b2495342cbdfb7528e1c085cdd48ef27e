@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c21ba34_7b38d648",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-05-11T11:27:28Z",
+      "side": 1,
+      "message": "LGTM, though would be good to add tests that validate the old protocols are not available anymore.",
+      "revId": "6572164b2495342cbdfb7528e1c085cdd48ef27e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
