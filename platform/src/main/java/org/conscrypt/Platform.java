@@ -25,6 +25,7 @@ import android.system.Os;
 import android.system.StructTimeval;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.System;
@@ -523,6 +524,10 @@ final class Platform {
 
     static CTPolicy newDefaultPolicy(CTLogStore logStore) {
         return new CTPolicyImpl(logStore, 2);
+    }
+
+    static CTLogStore newLogStore(String logSource) {
+        return new CTLogStoreImpl(new File(logSource));
     }
 
     static boolean serverNamePermitted(SSLParametersImpl parameters, String serverName) {

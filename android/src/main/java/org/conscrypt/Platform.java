@@ -1016,6 +1016,10 @@ final class Platform {
         return null;
     }
 
+    static CTLogStore newLogStore(String logSource) {
+        return null;
+    }
+
     static CTPolicy newDefaultPolicy(CTLogStore logStore) {
         return null;
     }

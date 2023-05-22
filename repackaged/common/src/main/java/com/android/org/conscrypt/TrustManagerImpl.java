@@ -160,24 +160,23 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
     public TrustManagerImpl(KeyStore keyStore, CertPinManager manager) {
         this(keyStore, manager, null);
     }
-
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
     public TrustManagerImpl(
             KeyStore keyStore, CertPinManager manager, ConscryptCertStore certStore) {
-        this(keyStore, manager, certStore, null);
+        this(keyStore, manager, certStore, null, null);
     }
 
+    @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
     public TrustManagerImpl(KeyStore keyStore, CertPinManager manager, ConscryptCertStore certStore,
-            CertBlocklist blocklist) {
-        this(keyStore, manager, certStore, blocklist, null, null, null);
+            String logSource) {
+        this(keyStore, manager, certStore, logSource, null);
     }
 
     /**
      * For testing only.
      */
     public TrustManagerImpl(KeyStore keyStore, CertPinManager manager, ConscryptCertStore certStore,
-            CertBlocklist blocklist, CTLogStore ctLogStore, CTVerifier ctVerifier,
-            CTPolicy ctPolicy) {
+            String logSource, CertBlocklist blocklist) {
         CertPathValidator validatorLocal = null;
         CertificateFactory factoryLocal = null;
         KeyStore rootKeyStoreLocal = null;
@@ -212,12 +211,11 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         if (blocklist == null) {
             blocklist = Platform.newDefaultBlocklist();
         }
-        if (ctLogStore == null) {
+        CTLogStore ctLogStore;
+        if (logSource != null) {
+            ctLogStore = Platform.newLogStore(logSource);
+        } else {
             ctLogStore = Platform.newDefaultLogStore();
-        }
-
-        if (ctPolicy == null) {
-            ctPolicy = Platform.newDefaultPolicy(ctLogStore);
         }
 
         this.pinManager = manager;
@@ -231,7 +229,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         this.err = errLocal;
         this.blocklist = blocklist;
         this.ctVerifier = new CTVerifier(ctLogStore);
-        this.ctPolicy = ctPolicy;
+        this.ctPolicy = Platform.newDefaultPolicy(ctLogStore);
     }
 
     @SuppressWarnings("JdkObsolete") // KeyStore#aliases is the only API available

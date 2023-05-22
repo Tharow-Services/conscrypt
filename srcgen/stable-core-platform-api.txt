@@ -45,6 +45,7 @@ method:com.android.org.conscrypt.TrustManagerImpl#getTrustedChainForServer(X509C
 method:com.android.org.conscrypt.TrustManagerImpl#handleTrustStorageUpdate()
 method:com.android.org.conscrypt.TrustManagerImpl#TrustManagerImpl(KeyStore)
 method:com.android.org.conscrypt.TrustManagerImpl#TrustManagerImpl(KeyStore,CertPinManager,ConscryptCertStore)
+method:com.android.org.conscrypt.TrustManagerImpl#TrustManagerImpl(KeyStore,CertPinManager,ConscryptCertStore,String)
 type:com.android.org.conscrypt.CertPinManager
 type:com.android.org.conscrypt.ClientSessionContext
 type:com.android.org.conscrypt.Conscrypt

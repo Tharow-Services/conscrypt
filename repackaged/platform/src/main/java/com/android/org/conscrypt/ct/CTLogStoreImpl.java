@@ -96,6 +96,12 @@ public class CTLogStoreImpl implements CTLogStore {
         this.fallbackLogs = fallbackLogs;
     }
 
+    public CTLogStoreImpl(File userLogDir) {
+        this.userLogDir = userLogDir;
+        this.systemLogDir = defaultSystemLogDir;
+        this.fallbackLogs = getDefaultFallbackLogs();
+    }
+
     @Override
     public CTLogInfo getKnownLog(byte[] logId) {
         ByteBuffer buf = ByteBuffer.wrap(logId);
