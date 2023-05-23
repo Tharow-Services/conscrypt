@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d929ea5c_48692cf9",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-05-23T09:57:09Z",
+      "side": 1,
+      "message": "Fix applied.",
+      "parentUuid": "f404974f_3b5822f0",
+      "revId": "b6d793a6b11caee4fe1064004fad6fa01d4a0d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ae1cbab5_835fbce3",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-23T09:52:42Z",
       "side": 1,
       "message": "```suggestion\n    @Test\n    @Ignore(\"Skip until a new version of TLS becomes available\")\n```",
+      "revId": "b6d793a6b11caee4fe1064004fad6fa01d4a0d1d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15a732bc_dbba0335",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 412,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-05-23T09:57:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ae1cbab5_835fbce3",
       "revId": "b6d793a6b11caee4fe1064004fad6fa01d4a0d1d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
