@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3603b6be_86167124",
+        "filename": "repackaged/common/src/test/java/com/android/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-05-23T12:48:07Z",
+      "side": 1,
+      "message": "```suggestion\n    @Test\n    @Ignore(\"Skip until a new version of TLS becomes available\")\n```\n\nSomehow I missed this one last time.",
+      "revId": "2ed5f98fefe7fa743bb3fa4981657ec51b425bdd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
