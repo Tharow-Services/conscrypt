@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f3f86752_07e0e03d",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-05-23T09:30:31Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "c7b59123_b6bc76f5",
+      "revId": "1d3f90421247b8f5ed35f0dc356ea29ff5c51c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "35b4ac18_ded6942d",
@@ -31,6 +49,24 @@
       "writtenOn": "2023-05-11T11:27:28Z",
       "side": 0,
       "message": "Maybe to keep this test and skip it.",
+      "revId": "1d3f90421247b8f5ed35f0dc356ea29ff5c51c3b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8967699e_2b1b793d",
+        "filename": "repackaged/common/src/test/java/com/android/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-05-23T09:30:31Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "35b4ac18_ded6942d",
       "revId": "1d3f90421247b8f5ed35f0dc356ea29ff5c51c3b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
