@@ -253,6 +253,7 @@ bootclasspath_fragment {
         // result in a build failure due to inconsistent flags.
         package_prefixes: [
             "android.net.ssl",
+            "android.security.crypto",
             "com.android.org.conscrypt",
         ],
     },
