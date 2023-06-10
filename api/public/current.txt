@@ -15,3 +15,27 @@ package android.net.ssl {
 
 }
 
+package android.security.crypto {
+
+  public class Hpke {
+    ctor public Hpke(android.security.crypto.HpkeSuite);
+    method public android.security.crypto.HpkeResult export(int, @Nullable byte[]);
+    method public byte[] open(@NonNull byte[], @Nullable byte[]);
+    method public android.security.crypto.HpkeResult seal(@NonNull byte[], @Nullable byte[]);
+    method public void setupBaseRecipient(@NonNull byte[], @NonNull java.security.PrivateKey, @Nullable byte[]);
+    method public void setupBaseSender(@NonNull java.security.PublicKey, @Nullable byte[]);
+  }
+
+  public final class HpkeResult {
+    method public byte[] getEnc();
+    method public byte[] getOutput();
+  }
+
+  public final class HpkeSuite {
+    field public static final android.security.crypto.HpkeSuite DHKEM_X25519_HKDF_SHA256_HKDF_SHA256_AES_128_GCM;
+    field public static final android.security.crypto.HpkeSuite DHKEM_X25519_HKDF_SHA256_HKDF_SHA256_AES_256_GCM;
+    field public static final android.security.crypto.HpkeSuite DHKEM_X25519_HKDF_SHA256_HKDF_SHA256_CHACHA20POLY1305;
+  }
+
+}
+

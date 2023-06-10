@@ -82,6 +82,8 @@ import org.junit.runners.Suite;
         CertPinManagerTest.class,
         ChainStrengthAnalyzerTest.class,
         HostnameVerifierTest.class,
+        HpkeTest.class,
+        HpkeTestVectorsTest.class,
         NativeCryptoArgTest.class,
         TrustManagerImplTest.class,
         // org.conscrypt.ct tests
@@ -147,10 +149,8 @@ import org.junit.runners.Suite;
         X509KeyManagerTest.class,
 })
 public class ConscryptSuite {
-
     @BeforeClass
     public static void setupStatic() {
         installConscryptAsDefaultProvider();
     }
-
 }

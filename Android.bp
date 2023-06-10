@@ -274,6 +274,7 @@ java_library {
 
     permitted_packages: [
         "android.net.ssl",
+        "android.security.crypto",
         "com.android.org.conscrypt",
     ],
 }
@@ -606,6 +607,7 @@ java_test {
         // Resource directories do not need repackaging.
         "openjdk/src/test/resources",
         "common/src/test/resources",
+        "publicapi/src/test/resources",
     ],
 
     sdk_version: "none",
