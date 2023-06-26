@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1a9f90e_4212b38e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976460
+      },
+      "writtenOn": "2023-06-26T16:21:14Z",
+      "side": 1,
+      "message": "LGTM. Do comment if code-guideline is inline with CTS and the general solution is accepted.",
+      "revId": "77c3772fde05ef16e19f5f994503baf9332358e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
