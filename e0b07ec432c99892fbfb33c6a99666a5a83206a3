@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c24f02a5_0b7b60d1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-03T11:45:31Z",
+      "side": 1,
+      "message": "Identical to previously reviewed https://r.android.com/2637192 except this time I didn\u0027t mess up the `git merge`....",
+      "revId": "e0b07ec432c99892fbfb33c6a99666a5a83206a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
