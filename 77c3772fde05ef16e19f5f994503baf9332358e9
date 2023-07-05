@@ -16,6 +16,23 @@
       "message": "LGTM. Do comment if code-guideline is inline with CTS and the general solution is accepted.",
       "revId": "77c3772fde05ef16e19f5f994503baf9332358e9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3395ea1e_e6aaaf73",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-05T11:44:18Z",
+      "side": 1,
+      "message": "Thank-you for the CL! However, these tests are still needed, they just need adapting to avoid TLS 1.x.\n\nThat work has been done in https://r.android.com/2648361 which we will backport to CTS 12, 12L and 13.",
+      "revId": "77c3772fde05ef16e19f5f994503baf9332358e9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
