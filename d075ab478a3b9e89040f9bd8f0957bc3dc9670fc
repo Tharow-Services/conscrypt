@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06996bc5_9bcac28d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-11T16:55:18Z",
+      "side": 1,
+      "message": "Cherry-pick fix in patchset 2: enabled Java 1.8 for conscrypt-tests to allow the cherry-picked tests to compile.  This is fine for tests on CTS 12 onwards and should have been done sooner.\n\nNo functional impact.",
+      "revId": "d075ab478a3b9e89040f9bd8f0957bc3dc9670fc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
