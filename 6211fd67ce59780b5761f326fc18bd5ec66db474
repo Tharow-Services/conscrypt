@@ -46,6 +46,30 @@
       },
       "revId": "6211fd67ce59780b5761f326fc18bd5ec66db474",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a4a55fd_6cea679b",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-11T17:34:20Z",
+      "side": 1,
+      "message": "Ah, I missed that, sorry.\n\nI guess that means we need a plan to droidfood this change before it goes out via Mainline to ensure we don\u0027t break the existing logging, as the reflection based code is frighteningly fragile.",
+      "parentUuid": "982d44e2_c6ec6b44",
+      "range": {
+        "startLine": 562,
+        "startChar": 50,
+        "endLine": 562,
+        "endChar": 72
+      },
+      "revId": "6211fd67ce59780b5761f326fc18bd5ec66db474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
