@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "657f52e5_6b02995a",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-11T16:46:23Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this be `TlsHandshakeReportedV2`\u0027s value?\nAlso (1) I think you need to write the fields in the same order as the atom and (2) I think we should keep writing V1 stats until we have a baseline of CV2 stats.",
+      "range": {
+        "startLine": 562,
+        "startChar": 50,
+        "endLine": 562,
+        "endChar": 72
+      },
+      "revId": "6211fd67ce59780b5761f326fc18bd5ec66db474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
