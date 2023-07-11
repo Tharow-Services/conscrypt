@@ -22,6 +22,30 @@
       },
       "revId": "6211fd67ce59780b5761f326fc18bd5ec66db474",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "982d44e2_c6ec6b44",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-07-11T17:17:16Z",
+      "side": 1,
+      "message": "Don\u0027t know if you saw the discussion with Rafal from the logging team within https://googleplex-android-review.git.corp.google.com/c/platform/frameworks/proto_logging/+/23904790, but basically he suggested we should maintain our original atom and add uid\u0027s to it. It\u0027s so because that way we don\u0027t need to go through another privacy review for AttributionNodes (which I was told we wouldn\u0027t need during office hours but oh well), and because that way we can have the info we need while maintaining the same experiment. Also I am writing the fields in the same order as the atom now that uid is last.",
+      "parentUuid": "657f52e5_6b02995a",
+      "range": {
+        "startLine": 562,
+        "startChar": 50,
+        "endLine": 562,
+        "endChar": 72
+      },
+      "revId": "6211fd67ce59780b5761f326fc18bd5ec66db474",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
