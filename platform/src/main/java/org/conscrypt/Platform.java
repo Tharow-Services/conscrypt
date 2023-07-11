@@ -20,6 +20,7 @@ import static android.system.OsConstants.SOL_SOCKET;
 import static android.system.OsConstants.SO_SNDTIMEO;
 import static org.conscrypt.metrics.Source.SOURCE_MAINLINE;
 
+import android.os.Binder;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.StructTimeval;
@@ -560,7 +561,8 @@ final class Platform {
         int duration = (int) durationLong;
 
         ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, proto.getId(),
-                suite.getId(), duration, SOURCE_MAINLINE);
+                suite.getId(), duration, SOURCE_MAINLINE,
+                new int[] {Os.getuid(), Binder.getCallingUid()});
     }
 
     public static boolean isJavaxCertificateSupported() {
