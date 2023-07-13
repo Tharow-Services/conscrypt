@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a62e7b77_9860d7e8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-07-13T15:15:49Z",
+      "side": 1,
+      "message": "Bypassing lint because the DO NOT SUBMIT comment is a warning related to the order in which to merge this CL.",
+      "revId": "5864a51aa3ddad61526f7ed038f1610a42b725b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
