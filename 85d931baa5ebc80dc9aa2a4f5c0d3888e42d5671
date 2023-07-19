@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec01e71e_0a324d1e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1060907
+      },
+      "writtenOn": "2023-07-19T18:59:08Z",
+      "side": 1,
+      "message": "I\u0027m sorry, I know nothing about X.509 - if you need platsec to look at it brambonne@ is your best bet.",
+      "revId": "85d931baa5ebc80dc9aa2a4f5c0d3888e42d5671",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
