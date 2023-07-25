@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ef8217a_9834145f",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-25T17:47:38Z",
+      "side": 1,
+      "message": "Sorry, missed it earlier but the try/catch belong in `getSdkVersion()`, really",
+      "range": {
+        "startLine": 117,
+        "startChar": 14,
+        "endLine": 117,
+        "endChar": 48
+      },
+      "revId": "209981dea085d0f72404ea29180701d7ee25ba5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
