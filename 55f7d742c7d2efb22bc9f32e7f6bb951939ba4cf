@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "59b1d897_88e036a6",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-25T13:01:34Z",
+      "side": 1,
+      "message": "Move this inside shouldUseApex too for clarity.",
+      "range": {
+        "startLine": 107,
+        "startChar": 23,
+        "endLine": 107,
+        "endChar": 35
+      },
+      "revId": "55f7d742c7d2efb22bc9f32e7f6bb951939ba4cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3ba3d0f9_e62a8e0b",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-25T13:01:34Z",
+      "side": 1,
+      "message": "Maybe make this package private so we can test it and also use it in tests.",
+      "range": {
+        "startLine": 115,
+        "startChar": 8,
+        "endLine": 115,
+        "endChar": 15
+      },
+      "revId": "55f7d742c7d2efb22bc9f32e7f6bb951939ba4cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b32ce77_e392b209",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-25T13:01:34Z",
+      "side": 1,
+      "message": "I think we need to hard code the int value here, as this constant wasn\u0027t added until Android T so it\u0027ll cause class load errors on earlier releases.",
+      "range": {
+        "startLine": 120,
+        "startChar": 77,
+        "endLine": 120,
+        "endChar": 93
+      },
+      "revId": "55f7d742c7d2efb22bc9f32e7f6bb951939ba4cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
