@@ -22,6 +22,30 @@
       },
       "revId": "209981dea085d0f72404ea29180701d7ee25ba5d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1b81a60c_da626afe",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-07-25T18:24:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4ef8217a_9834145f",
+      "range": {
+        "startLine": 117,
+        "startChar": 14,
+        "endLine": 117,
+        "endChar": 48
+      },
+      "revId": "209981dea085d0f72404ea29180701d7ee25ba5d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
