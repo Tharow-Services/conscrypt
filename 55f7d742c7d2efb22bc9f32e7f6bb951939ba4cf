@@ -97,6 +97,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7996bd74_378948b0",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-25T13:18:40Z",
+      "side": 1,
+      "message": "Actually (and sorry for all the comments), how about we move this into a getSdkVersion() method that returns an Integer (possibly null).  That way we can mock it in tests.",
+      "range": {
+        "startLine": 119,
+        "startChar": 23,
+        "endLine": 119,
+        "endChar": 33
+      },
+      "revId": "55f7d742c7d2efb22bc9f32e7f6bb951939ba4cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5b32ce77_e392b209",
         "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
         "patchSetId": 1
