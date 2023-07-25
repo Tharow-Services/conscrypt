@@ -18,6 +18,8 @@
 package com.android.org.conscrypt;
 
 import com.android.org.conscrypt.io.IoUtils;
+import com.android.org.conscrypt.metrics.OptionalMethod;
+import dalvik.annotation.compat.VersionCodes;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -104,8 +106,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
             String ANDROID_DATA = System.getenv("ANDROID_DATA");
             File updatableDir = new File("/apex/com.android.conscrypt/cacerts");
-            if ((System.getProperty("system.certs.enabled") != null)
-                    && (System.getProperty("system.certs.enabled")).equals("true")) {
+            if (!shouldUseApex()) {
                 defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
             } else if (updatableDir.exists() && !(updatableDir.list().length == 0)) {
                 defaultCaCertsSystemDir = updatableDir;
@@ -113,6 +114,21 @@ public class TrustedCertificateStore implements ConscryptCertStore {
                 defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
             }
             setDefaultUserDirectory(new File(ANDROID_DATA + "/misc/keychain"));
+        }
+
+        private static boolean shouldUseApex() {
+            try {
+                OptionalMethod getSdkVersion = new OptionalMethod(
+                        Class.forName("dalvik.system.VMRuntime"), "getSdkVersion");
+                Object sdkVersion = getSdkVersion.invokeStatic();
+                if ((sdkVersion != null) && ((int) sdkVersion < VersionCodes.UPSIDE_DOWN_CAKE))
+                    return false;
+            } catch (ClassNotFoundException e) {
+            }
+            if ((System.getProperty("system.certs.enabled") != null)
+                    && (System.getProperty("system.certs.enabled")).equals("true"))
+                return false;
+            return true;
         }
     }
 
