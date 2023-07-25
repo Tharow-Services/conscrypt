@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "566559d2_954b19d7",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-07-25T16:15:48Z",
+      "side": 1,
+      "message": "Gah, I missed it too but this should have been:\n`if ((sdkVersion \u003d\u003d null) || ((int) sdkVersion \u003c 34))`\n\nConfirmed by testing on Android 11 with the module.\n\nAlso Android code style is to use braces even for single line conditionals.\n\nI suggest we revert this CL and make a new one or cherry-picking is going to be a nightmare.  Also maybe let\u0027s not submit to AOSP until we have tests.",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 68
+      },
+      "revId": "0e07856b42d2434bbbbdfd786eb0420f630e4221",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
