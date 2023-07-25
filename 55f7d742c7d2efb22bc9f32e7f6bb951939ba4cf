@@ -118,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "380601ad_61494a91",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-07-25T13:35:00Z",
+      "side": 1,
+      "message": "yeah, done, no worries.",
+      "parentUuid": "7996bd74_378948b0",
+      "range": {
+        "startLine": 119,
+        "startChar": 23,
+        "endLine": 119,
+        "endChar": 33
+      },
+      "revId": "55f7d742c7d2efb22bc9f32e7f6bb951939ba4cf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5b32ce77_e392b209",
