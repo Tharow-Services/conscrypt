@@ -22,6 +22,29 @@
       },
       "revId": "0e07856b42d2434bbbbdfd786eb0420f630e4221",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b43d0c0_3658966c",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-07-25T16:34:49Z",
+      "side": 1,
+      "message": "Wouldn\u0027t this be more clear as `\"true\".equals(System.getProperty(\"system.certs.enabled\")`? Or even better `Objects.equals(\"true\", System.getProperty(\"system.certs.enabled\")`.",
+      "range": {
+        "startLine": 119,
+        "startChar": 15,
+        "endLine": 120,
+        "endChar": 83
+      },
+      "revId": "0e07856b42d2434bbbbdfd786eb0420f630e4221",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
