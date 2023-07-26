@@ -828,6 +828,7 @@ public class TrustedCertificateStoreTest extends TestCase {
         assertFalse(store.isUserAddedCertificate(getCa2()));
     }
 
+<<<<<<< TARGET BRANCH (f934dc Check Android version for cert sources (properly).)
     @Test
     public void testSystemCaCertsUseCorrectFileNames() throws Exception {
         File dir = new File(System.getenv("ANDROID_ROOT") + "/etc/security/cacerts");
@@ -842,6 +843,11 @@ public class TrustedCertificateStoreTest extends TestCase {
 
     private void useCorrectFileNamesTest(File dir) throws Exception {
         TrustedCertificateStore store = new TrustedCertificateStore(dir.getAbsoluteFile());
+=======
+    // TODO(b/293296163): re-enable once https://r.android.com/2675835 ships via Mainline.
+    private void dontTestSystemCaCertsUseCorrectFileNames() throws Exception {
+        TrustedCertificateStore store = new TrustedCertificateStore();
+>>>>>>> SOURCE BRANCH (1e0263 [DO NOT MERGE] Disable system certificate test.)
 
         // Assert that all the certificates in the system cacerts directory are stored in files with
         // expected names.
