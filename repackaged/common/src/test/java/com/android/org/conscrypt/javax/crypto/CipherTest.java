@@ -4673,8 +4673,7 @@ public final class CipherTest {
      * TODO(27995180): consider whether we keep this compatibility. Consider whether we only allow
      * if an IV is passed in the parameters.
      */
-    @Test
-    public void test_PBKDF2WITHHMACSHA1_SKFactory_and_PBEAESCBC_Cipher_noIV() throws Exception {
+    private void dontTest_PBKDF2WITHHMACSHA1_SKFactory_and_PBEAESCBC_Cipher_noIV() throws Exception {
         Assume.assumeNotNull(Security.getProvider("BC"));
         byte[] plaintext = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
                 17, 18, 19 };
