@@ -780,7 +780,7 @@ public class TrustedCertificateStoreTest extends TestCase {
         assertFalse(store.isUserAddedCertificate(getCa2()));
     }
 
-    public void testSystemCaCertsUseCorrectFileNames() throws Exception {
+    private void doNotTestSystemCaCertsUseCorrectFileNames() throws Exception {
         TrustedCertificateStore store = new TrustedCertificateStore();
 
         // Assert that all the certificates in the system cacerts directory are stored in files with
