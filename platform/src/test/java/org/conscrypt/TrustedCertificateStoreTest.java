@@ -780,8 +780,12 @@ public class TrustedCertificateStoreTest extends TestCase {
         assertFalse(store.isUserAddedCertificate(getCa2()));
     }
 
+<<<<<<< HEAD   (5b3f03 [automerger skipped] Disable system certificate test. am: c9)
     // TODO(b/293296163): re-enable once https://r.android.com/2675835 ships via Mainline.
     private void dontTestSystemCaCertsUseCorrectFileNames() throws Exception {
+=======
+    private void doNotTestSystemCaCertsUseCorrectFileNames() throws Exception {
+>>>>>>> CHANGE (8d9466 Disable TrustedCertificateStoreTest)
         TrustedCertificateStore store = new TrustedCertificateStore();
 
         // Assert that all the certificates in the system cacerts directory are stored in files with
