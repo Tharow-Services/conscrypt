@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19d8c3fe_f3c9efc2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1973455
+      },
+      "writtenOn": "2023-08-16T16:52:06Z",
+      "side": 1,
+      "message": "Please add the reference bug ID in the commit message.",
+      "revId": "7b3b75fed3d214a1a1cb89ffda8d1a47be5a28c8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
