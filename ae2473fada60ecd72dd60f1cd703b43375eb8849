@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47a4b4b3_d3ffe759",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1089769
+      },
+      "writtenOn": "2023-08-22T09:06:33Z",
+      "side": 1,
+      "message": "Samip, Ross, could you approve DrNo for this revert?",
+      "revId": "ae2473fada60ecd72dd60f1cd703b43375eb8849",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
