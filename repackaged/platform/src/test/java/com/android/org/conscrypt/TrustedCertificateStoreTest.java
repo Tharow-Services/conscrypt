@@ -48,7 +48,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.security.auth.x500.X500Principal;
-import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,7 +61,7 @@ import org.junit.runners.Parameterized.Parameters;
  */
 @SuppressWarnings("unused")
 @RunWith(Parameterized.class)
-public class TrustedCertificateStoreTest extends TestCase {
+public class TrustedCertificateStoreTest {
     private static final Random tempFileRandom = new Random();
 
     private static File dirTest;
