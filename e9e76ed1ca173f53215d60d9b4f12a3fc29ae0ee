@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb36180f_1339e3dd",
+        "filename": "platform/src/test/java/org/conscrypt/TrustedCertificateStoreTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2023-08-29T10:48:47Z",
+      "side": 1,
+      "message": "It probably should cause compile error.",
+      "range": {
+        "startLine": 411,
+        "startChar": 4,
+        "endLine": 411,
+        "endChar": 13
+      },
+      "revId": "e9e76ed1ca173f53215d60d9b4f12a3fc29ae0ee",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
