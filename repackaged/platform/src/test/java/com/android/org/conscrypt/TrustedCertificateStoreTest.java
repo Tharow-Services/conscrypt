@@ -48,6 +48,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.security.auth.x500.X500Principal;
+import junit.framework.TestCase;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -56,20 +57,12 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 /**
  * @hide This class is not part of the Android public SDK API
  */
 @SuppressWarnings("unused")
 @RunWith(Parameterized.class)
-public class TrustedCertificateStoreTest {
+public class TrustedCertificateStoreTest extends TestCase {
     private static final Random tempFileRandom = new Random();
 
     private static File dirTest;
@@ -420,6 +413,7 @@ public class TrustedCertificateStoreTest {
     private TrustedCertificateStore store;
 
     @Before
+    @Override
     public void setUp() throws Exception {
         dirTest = Files.createTempDirectory("cert-store-test").toFile();
         dirSystem = new File(dirTest, "system");
@@ -440,6 +434,7 @@ public class TrustedCertificateStoreTest {
     }
 
     @After
+    @Override
     public void tearDown() {
         cleanStore();
     }
