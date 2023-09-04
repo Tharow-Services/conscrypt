@@ -59,7 +59,7 @@ public class XDHKeyAgreementTest {
     private PublicKey rfc7748X25519PublicKey;
 
     private void setupKeys(Provider p) throws Exception {
-        KeyFactory kf = KeyFactory.getInstance("XDH", p);
+        KeyFactory kf = KeyFactory.getInstance(getAlgorithm(), p);
 
         byte[] privateKey;
         if ("SunEC".equalsIgnoreCase(p.getName())
@@ -84,17 +84,26 @@ public class XDHKeyAgreementTest {
 
     @Test
     public void test_XDHKeyAgreement() throws Exception {
+<<<<<<< HEAD   (75b91a Merge "Adding HPKE support for crypto operations per RFC-918)
         for (Provider p : Security.getProviders("KeyAgreement.XDH")) {
             // Skip testing Android Keystore as it's covered by CTS tests.
             if ("AndroidKeyStore".equals(p.getName())) {
                 continue;
             }
+=======
+        final String keyAgreementAlgorithm = String.format("KeyAgreement.%s", getAlgorithm());
+        for (Provider p : Security.getProviders(keyAgreementAlgorithm)) {
+>>>>>>> BRANCH (e65479 Add support for X25519 algorithm alias to XDH (#1156))
             setupKeys(p);
 
-            KeyAgreement ka = KeyAgreement.getInstance("XDH", p);
+            KeyAgreement ka = KeyAgreement.getInstance(getAlgorithm(), p);
 
             test_x25519_keyAgreement_rfc7748_kat_success(ka);
         }
+    }
+
+    protected String getAlgorithm() {
+        return "XDH";
     }
 
     private void test_x25519_keyAgreement_rfc7748_kat_success(KeyAgreement ka) throws Exception {
