@@ -54,6 +54,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+<<<<<<< HEAD   (c91c2e Add support for X25519 algorithm alias to XDH.)
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -62,10 +63,16 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+=======
+>>>>>>> BRANCH (a1971d Upstream multiple AOSP changes. (#1162))
 
 @SuppressWarnings("unused")
 @RunWith(Parameterized.class)
+<<<<<<< HEAD   (c91c2e Add support for X25519 algorithm alias to XDH.)
 public class TrustedCertificateStoreTest {
+=======
+public class TrustedCertificateStoreTest extends TestCase {
+>>>>>>> BRANCH (a1971d Upstream multiple AOSP changes. (#1162))
     private static final Random tempFileRandom = new Random();
 
     private static File dirTest;
@@ -416,6 +423,10 @@ public class TrustedCertificateStoreTest {
     private TrustedCertificateStore store;
 
     @Before
+<<<<<<< HEAD   (c91c2e Add support for X25519 algorithm alias to XDH.)
+=======
+    @Override
+>>>>>>> BRANCH (a1971d Upstream multiple AOSP changes. (#1162))
     public void setUp() throws Exception {
         dirTest = Files.createTempDirectory("cert-store-test").toFile();
         dirSystem = new File(dirTest, "system");
@@ -436,6 +447,10 @@ public class TrustedCertificateStoreTest {
     }
 
     @After
+<<<<<<< HEAD   (c91c2e Add support for X25519 algorithm alias to XDH.)
+=======
+    @Override
+>>>>>>> BRANCH (a1971d Upstream multiple AOSP changes. (#1162))
     public void tearDown() {
         cleanStore();
     }
