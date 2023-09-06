@@ -69,6 +69,23 @@
       "parentUuid": "54ef6161_2f6affee",
       "revId": "a3f3728e7d0f8bb03446f87b129f49df7f41e2f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "50796a14_d6019760",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1973455
+      },
+      "writtenOn": "2023-09-06T16:25:17Z",
+      "side": 1,
+      "message": "Please add the reference bug ID in the commit message.",
+      "revId": "a3f3728e7d0f8bb03446f87b129f49df7f41e2f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
