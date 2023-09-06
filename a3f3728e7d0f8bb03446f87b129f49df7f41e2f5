@@ -51,6 +51,24 @@
       "message": "Adding Samip and Ross for DrNo review. PTAL.",
       "revId": "a3f3728e7d0f8bb03446f87b129f49df7f41e2f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a3e96ab_71bb8e3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-09-06T12:15:33Z",
+      "side": 1,
+      "message": "This cherry-pick is needed for b/295272346.",
+      "parentUuid": "54ef6161_2f6affee",
+      "revId": "a3f3728e7d0f8bb03446f87b129f49df7f41e2f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
