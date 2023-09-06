@@ -16,6 +16,24 @@
       "message": "Does having multiple Merged-In tags work?",
       "revId": "a3f3728e7d0f8bb03446f87b129f49df7f41e2f5",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "77d8cabc_4678f61c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-09-06T10:46:06Z",
+      "side": 1,
+      "message": "I think so. We\u0027d need them anyway, unless they\u0027re transferable, but I think the merge check misses it. If we see merge conflicts, then it doesn\u0027t work...",
+      "parentUuid": "f44d27a2_f823e577",
+      "revId": "a3f3728e7d0f8bb03446f87b129f49df7f41e2f5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
