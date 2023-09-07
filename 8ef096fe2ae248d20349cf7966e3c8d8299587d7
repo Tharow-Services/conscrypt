@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "17ad61e1_15b07690",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2023-09-07T11:04:29Z",
+      "side": 1,
+      "message": "FYI. Only the other CL needs to go into android12-tests-dev, but not this CL.\nExample: https://r.android.com/2627182",
+      "revId": "8ef096fe2ae248d20349cf7966e3c8d8299587d7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
