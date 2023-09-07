@@ -70,6 +70,8 @@ import javax.crypto.spec.PBEParameterSpec;
 import javax.crypto.spec.PSource;
 import javax.crypto.spec.SecretKeySpec;
 import libcore.junit.util.EnableDeprecatedBouncyCastleAlgorithmsRule;
+import libcore.test.annotation.NonCts;
+import libcore.test.reasons.NonCtsReasons;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.conscrypt.Conscrypt;
 import org.conscrypt.TestUtils;
@@ -4645,6 +4647,7 @@ public final class CipherTest {
      * TODO(27995180): consider whether we keep this compatibility. Consider whether we only allow
      * if an IV is passed in the parameters.
      */
+    @NonCts(bug = 287231726, reason = NonCtsReasons.NON_BREAKING_BEHAVIOR_FIX)
     @Test
     public void test_PBKDF2WITHHMACSHA1_SKFactory_and_PBEAESCBC_Cipher_noIV() throws Exception {
         Assume.assumeNotNull(Security.getProvider("BC"));
