@@ -72,7 +72,10 @@ import javax.crypto.spec.PSource;
 import javax.crypto.spec.SecretKeySpec;
 import libcore.junit.util.EnableDeprecatedBouncyCastleAlgorithmsRule;
 import libcore.test.annotation.NonCts;
+<<<<<<< HEAD   (487859 Mark noIv test as NonCts)
 import libcore.test.reasons.NonCtsReasons;
+=======
+>>>>>>> BRANCH (9f2d8f Mark noIv test as NonCts am: ef94246894 am: 40fb5584db)
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.conscrypt.Conscrypt;
 import org.conscrypt.TestUtils;
@@ -4666,7 +4669,12 @@ public final class CipherTest {
      * PBEWITHSHAAND128BITAES-CBC-BC cipher. The former is PKCS5 and the latter is PKCS12, and so
      * mixing them is not recommended.
      */
+<<<<<<< HEAD   (487859 Mark noIv test as NonCts)
     @NonCts(bug = 287231726, reason = NonCtsReasons.NON_BREAKING_BEHAVIOR_FIX)
+=======
+    @NonCts(bug = 287231726, reason = "The test asserts buggy or non-breaking "
+            + "behaviors, but the behavior has been fixed in the future ART module version.")
+>>>>>>> BRANCH (9f2d8f Mark noIv test as NonCts am: ef94246894 am: 40fb5584db)
     @Test
     public void test_PBKDF2WITHHMACSHA1_SKFactory_and_PBEAESCBC_Cipher_noIV() throws Exception {
         Assume.assumeNotNull(Security.getProvider("BC"));
