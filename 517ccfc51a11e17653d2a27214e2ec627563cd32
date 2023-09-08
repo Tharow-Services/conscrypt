@@ -16,6 +16,24 @@
       "message": "Presubmit indicates that this CL doesn\u0027t build.\n\nI think that only expectations/skippedCtsTest.txt, i.e. https://r.android.com/2745513 needs to be cherry-picked into android12-tests-dev.",
       "revId": "517ccfc51a11e17653d2a27214e2ec627563cd32",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dd68c6b5_0e8864b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-09-08T09:51:05Z",
+      "side": 1,
+      "message": "I think ctsReasons isn\u0027t in 12. But I\u0027ve cherry picked that to 12 too",
+      "parentUuid": "1c0501dd_decbb871",
+      "revId": "517ccfc51a11e17653d2a27214e2ec627563cd32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
