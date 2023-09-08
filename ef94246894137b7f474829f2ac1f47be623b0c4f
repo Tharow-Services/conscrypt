@@ -16,6 +16,24 @@
       "message": "+2 for now but ideally let\u0027s move this test out of Conscrypt.",
       "revId": "ef94246894137b7f474829f2ac1f47be623b0c4f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e155af4f_2688d22e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-09-08T12:23:46Z",
+      "side": 1,
+      "message": "Yeah, I\u0027ve filed b/299598212 on me to follow up with that.",
+      "parentUuid": "600e5120_e59809a3",
+      "revId": "ef94246894137b7f474829f2ac1f47be623b0c4f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
