@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c0501dd_decbb871",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2023-09-08T09:48:01Z",
+      "side": 1,
+      "message": "Presubmit indicates that this CL doesn\u0027t build.\n\nI think that only expectations/skippedCtsTest.txt, i.e. https://r.android.com/2745513 needs to be cherry-picked into android12-tests-dev.",
+      "revId": "517ccfc51a11e17653d2a27214e2ec627563cd32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
