@@ -84,6 +84,14 @@ import org.conscrypt.metrics.OptionalMethod;
 public class TrustedCertificateStore implements ConscryptCertStore {
     private static String PREFIX_SYSTEM = "system:";
     private static final String PREFIX_USER = "user:";
+    // Java property to set in unit tests to disable Apex certificates.
+    static final String APEX_DISABLE_JAVA_PROPERTY =  "apex.certs.disabled";
+    // Relative path to lag file to use for disabling Apex certs for integration testing.
+    static final String APEX_DISABLE_FLAG_FILE = "/etc/security/DISABLE_APEX_CERTS";
+    // Path to Apex certificate directory.
+    static final String APEX_PATH = "/apex/com.android.conscrypt/cacerts";
+    // Relative path to system certificates dir.
+    static final String SYSTEM_PATH = "/etc/security/cacerts";
 
     public static final boolean isSystem(String alias) {
         return alias.startsWith(PREFIX_SYSTEM);
@@ -92,45 +100,63 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         return alias.startsWith(PREFIX_USER);
     }
 
-    private static class PreloadHolder {
-        private static File defaultCaCertsSystemDir;
+    static class PreloadHolder {
+        static File defaultCaCertsSystemDir;
         private static File defaultCaCertsAddedDir;
         private static File defaultCaCertsDeletedDir;
 
         static {
             String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
             String ANDROID_DATA = System.getenv("ANDROID_DATA");
-            File updatableDir = new File("/apex/com.android.conscrypt/cacerts");
-            if (shouldUseApex(updatableDir)) {
-                defaultCaCertsSystemDir = updatableDir;
+            File apexDir = new File(APEX_PATH);
+            if (shouldUseApex(apexDir, ANDROID_ROOT)) {
+                defaultCaCertsSystemDir = apexDir;
             } else {
-                defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
+                defaultCaCertsSystemDir = new File(ANDROID_ROOT + SYSTEM_PATH);
             }
             setDefaultUserDirectory(new File(ANDROID_DATA + "/misc/keychain"));
         }
+    }
 
-        static boolean shouldUseApex(File updatableDir) {
-            Object sdkVersion = getSdkVersion();
-            if ((sdkVersion == null) || ((int) sdkVersion < 34))
-                return false;
-            if ((System.getProperty("system.certs.enabled") != null)
-                    && (System.getProperty("system.certs.enabled")).equals("true"))
-                return false;
-            if (updatableDir.exists() && !(updatableDir.list().length == 0))
-                return true;
-            return false;
-        }
+    public static boolean shouldUseApex(File apexDir, String systemRoot) {
+        return isSdkAtLeast(34)
+            && noJavaPropertyOverride()
+            && noFlagFileOverride(systemRoot)
+            && isValidCertStore(apexDir);
+    }
 
-        static Object getSdkVersion() {
-            try {
-                OptionalMethod getSdkVersion =
-                        new OptionalMethod(Class.forName("dalvik.system.VMRuntime"),
-                                            "getSdkVersion");
-                return getSdkVersion.invokeStatic();
-            } catch (ClassNotFoundException e) {
-                return null;
+    public static boolean isSdkAtLeast(int required) {
+        Integer version;
+        try {
+            OptionalMethod getSdkVersion =
+                new OptionalMethod(Class.forName("dalvik.system.VMRuntime"),
+                    "getSdkVersion");
+            version = (Integer) getSdkVersion.invokeStatic();
+            if (version == null) {
+                return false;  // Method does not exist until API 31.
             }
+        } catch (ClassNotFoundException e) {
+            return false;      // Shouldn't happen.
         }
+        return version >= required;
+    }
+
+    public static boolean noJavaPropertyOverride() {
+        return !"true".equals(System.getProperty(APEX_DISABLE_JAVA_PROPERTY));
+    }
+
+    public static boolean noFlagFileOverride(String systemRoot) {
+        File flagFile = new File(systemRoot + APEX_DISABLE_FLAG_FILE);
+        return !flagFile.exists();
+    }
+
+    public static boolean isValidCertStore(File store) {
+        // Assume that if there are files there, and they're readable then it's valid.
+        if (store.exists()) {
+            String[] files = store.list();
+            return files != null && files.length > 0;
+        }
+        return false;
     }
 
     private static final CertificateFactory CERT_FACTORY;
