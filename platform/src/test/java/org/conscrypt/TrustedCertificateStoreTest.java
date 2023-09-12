@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStore.TrustedCertificateEntry;
@@ -48,9 +47,12 @@ import java.util.concurrent.TimeoutException;
 import javax.security.auth.x500.X500Principal;
 import org.conscrypt.java.security.TestKeyStore;
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
@@ -64,7 +66,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 @SuppressWarnings("unused")
-@RunWith(Parameterized.class)
+@RunWith(Enclosed.class)
 public class TrustedCertificateStoreTest {
     private static final Random tempFileRandom = new Random();
 
@@ -406,514 +408,578 @@ public class TrustedCertificateStoreTest {
         }
     }
 
-    @Parameters(name = "{0}")
-    public static Object[] data() {
-        return new Object[] {"true", "false"};
-    }
+    @RunWith(Parameterized.class)
+    public static class ParameterizedTests {
 
-    @Parameter public String mApexCertsEnabled;
+        @Parameters(name = "{0}")
+        public static Object[] data() {
+            return new Object[]{"true", "false"};
+        }
 
-    private TrustedCertificateStore store;
+        @Parameter
 
-    @Before
-    public void setUp() throws Exception {
-        dirTest = Files.createTempDirectory("cert-store-test").toFile();
-        dirSystem = new File(dirTest, "system");
-        dirAdded = new File(dirTest, "added");
-        dirDeleted = new File(dirTest, "removed");
-        setupStore();
-    }
 
-    private void setupStore() {
-        dirSystem.mkdirs();
-        cleanStore();
-        createStore();
-    }
+        public String apexCertsDisabled;
 
-    private void createStore() {
-        System.setProperty("system.certs.enabled", mApexCertsEnabled);
-        store = new TrustedCertificateStore(dirSystem, dirAdded, dirDeleted);
-    }
+        private TrustedCertificateStore store;
 
-    @After
-    public void tearDown() {
-        cleanStore();
-    }
+        @Before
+        public void setUp() throws Exception {
+            System.setProperty(TrustedCertificateStore.APEX_DISABLE_JAVA_PROPERTY,
+                apexCertsDisabled);
 
-    private void cleanStore() {
-        for (File dir : new File[] { dirSystem, dirAdded, dirDeleted, dirTest }) {
-            File[] files = dir.listFiles();
-            if (files == null) {
-                continue;
+            dirTest = Files.createTempDirectory("cert-store-test").toFile();
+            dirSystem = new File(dirTest, "system");
+            dirAdded = new File(dirTest, "added");
+            dirDeleted = new File(dirTest, "removed");
+            setupStore();
+        }
+
+        @After
+        public void after() {
+            System.clearProperty(TrustedCertificateStore.APEX_DISABLE_JAVA_PROPERTY);
+        }
+
+        private void setupStore() {
+            dirSystem.mkdirs();
+            cleanStore();
+            createStore();
+        }
+
+        private void createStore() {
+            store = new TrustedCertificateStore(dirSystem, dirAdded, dirDeleted);
+        }
+
+        @After
+        public void tearDown() {
+            cleanStore();
+        }
+
+        private void cleanStore() {
+            for (File dir : new File[]{dirSystem, dirAdded, dirDeleted, dirTest}) {
+                File[] files = dir.listFiles();
+                if (files == null) {
+                    continue;
+                }
+                for (File file : files) {
+                    assertTrue("Should delete " + file.getPath(), file.delete());
+                }
             }
-            for (File file : files) {
-                assertTrue("Should delete " + file.getPath(), file.delete());
+            store = null;
+        }
+
+        private void resetStore() {
+            cleanStore();
+            setupStore();
+        }
+
+        @Test
+        public void testEmptyDirectories() throws Exception {
+            assertEmpty();
+        }
+
+        @Test
+        public void testOneSystemOneDeleted() throws Exception {
+            install(getCa1(), getAliasSystemCa1());
+            store.deleteCertificateEntry(getAliasSystemCa1());
+            assertEmpty();
+            assertDeleted(getCa1(), getAliasSystemCa1());
+        }
+
+        @Test
+        public void testTwoSystemTwoDeleted() throws Exception {
+            install(getCa1(), getAliasSystemCa1());
+            store.deleteCertificateEntry(getAliasSystemCa1());
+            install(getCa2(), getAliasSystemCa2());
+            store.deleteCertificateEntry(getAliasSystemCa2());
+            assertEmpty();
+            assertDeleted(getCa1(), getAliasSystemCa1());
+            assertDeleted(getCa2(), getAliasSystemCa2());
+        }
+
+        @Test
+        public void testPartialFileIsIgnored() throws Exception {
+            File file = file(getAliasSystemCa1());
+            file.getParentFile().mkdirs();
+            OutputStream os = new FileOutputStream(file);
+            os.write(0);
+            os.close();
+            assertTrue(file.exists());
+            assertEmpty();
+            assertTrue(file.exists());
+        }
+
+        private void assertEmpty() throws Exception {
+            try {
+                store.getCertificate(null);
+                fail();
+            } catch (NullPointerException expected) {
             }
-        }
-        store = null;
-    }
+            assertNull(store.getCertificate(""));
 
-    private void resetStore() {
-        cleanStore();
-        setupStore();
-    }
+            try {
+                store.getCreationDate(null);
+                fail();
+            } catch (NullPointerException expected) {
+            }
+            assertNull(store.getCreationDate(""));
 
-    @Test
-    public void testEmptyDirectories() throws Exception {
-        assertEmpty();
-    }
+            Set<String> s = store.aliases();
+            assertNotNull(s);
+            assertTrue(s.isEmpty());
+            assertAliases();
 
-    @Test
-    public void testOneSystemOneDeleted() throws Exception {
-        install(getCa1(), getAliasSystemCa1());
-        store.deleteCertificateEntry(getAliasSystemCa1());
-        assertEmpty();
-        assertDeleted(getCa1(), getAliasSystemCa1());
-    }
+            Set<String> u = store.userAliases();
+            assertNotNull(u);
+            assertTrue(u.isEmpty());
 
-    @Test
-    public void testTwoSystemTwoDeleted() throws Exception {
-        install(getCa1(), getAliasSystemCa1());
-        store.deleteCertificateEntry(getAliasSystemCa1());
-        install(getCa2(), getAliasSystemCa2());
-        store.deleteCertificateEntry(getAliasSystemCa2());
-        assertEmpty();
-        assertDeleted(getCa1(), getAliasSystemCa1());
-        assertDeleted(getCa2(), getAliasSystemCa2());
-    }
+            try {
+                store.containsAlias(null);
+                fail();
+            } catch (NullPointerException expected) {
+            }
+            assertFalse(store.containsAlias(""));
 
-    @Test
-    public void testPartialFileIsIgnored() throws Exception {
-        File file = file(getAliasSystemCa1());
-        file.getParentFile().mkdirs();
-        OutputStream os = new FileOutputStream(file);
-        os.write(0);
-        os.close();
-        assertTrue(file.exists());
-        assertEmpty();
-        assertTrue(file.exists());
-    }
+            assertNull(store.getCertificateAlias(null));
+            assertNull(store.getCertificateAlias(getCa1()));
 
-    private void assertEmpty() throws Exception {
-        try {
-            store.getCertificate(null);
-            fail();
-        } catch (NullPointerException expected) {
-        }
-        assertNull(store.getCertificate(""));
+            try {
+                store.getTrustAnchor(null);
+                fail();
+            } catch (NullPointerException expected) {
+            }
+            assertNull(store.getTrustAnchor(getCa1()));
 
-        try {
-            store.getCreationDate(null);
-            fail();
-        } catch (NullPointerException expected) {
-        }
-        assertNull(store.getCreationDate(""));
+            try {
+                store.findIssuer(null);
+                fail();
+            } catch (NullPointerException expected) {
+            }
+            assertNull(store.findIssuer(getCa1()));
 
-        Set<String> s = store.aliases();
-        assertNotNull(s);
-        assertTrue(s.isEmpty());
-        assertAliases();
+            try {
+                store.installCertificate(null);
+                fail();
+            } catch (NullPointerException expected) {
+            }
 
-        Set<String> u = store.userAliases();
-        assertNotNull(u);
-        assertTrue(u.isEmpty());
+            store.deleteCertificateEntry(null);
+            store.deleteCertificateEntry("");
 
-        try {
-            store.containsAlias(null);
-            fail();
-        } catch (NullPointerException expected) {
-        }
-        assertFalse(store.containsAlias(""));
-
-        assertNull(store.getCertificateAlias(null));
-        assertNull(store.getCertificateAlias(getCa1()));
-
-        try {
-            store.getTrustAnchor(null);
-            fail();
-        } catch (NullPointerException expected) {
-        }
-        assertNull(store.getTrustAnchor(getCa1()));
-
-        try {
-            store.findIssuer(null);
-            fail();
-        } catch (NullPointerException expected) {
-        }
-        assertNull(store.findIssuer(getCa1()));
-
-        try {
-            store.installCertificate(null);
-            fail();
-        } catch (NullPointerException expected) {
+            String[] userFiles = dirAdded.list();
+            assertTrue(userFiles == null || userFiles.length == 0);
         }
 
-        store.deleteCertificateEntry(null);
-        store.deleteCertificateEntry("");
-
-        String[] userFiles = dirAdded.list();
-        assertTrue(userFiles == null || userFiles.length == 0);
-    }
-
-    @Test
-    public void testTwoSystem() throws Exception {
-        testTwo(getCa1(), getAliasSystemCa1(),
+        @Test
+        public void testTwoSystem() throws Exception {
+            testTwo(getCa1(), getAliasSystemCa1(),
                 getCa2(), getAliasSystemCa2());
-    }
+        }
 
-    @Test
-    public void testTwoUser() throws Exception {
-        testTwo(getCa1(), getAliasUserCa1(),
+        @Test
+        public void testTwoUser() throws Exception {
+            testTwo(getCa1(), getAliasUserCa1(),
                 getCa2(), getAliasUserCa2());
-    }
+        }
 
-    @Test
-    public void testOneSystemOneUser() throws Exception {
-        testTwo(getCa1(), getAliasSystemCa1(),
+        @Test
+        public void testOneSystemOneUser() throws Exception {
+            testTwo(getCa1(), getAliasSystemCa1(),
                 getCa2(), getAliasUserCa2());
-    }
+        }
 
-    @Test
-    public void testTwoSystemSameSubject() throws Exception {
-        testTwo(getCa1(), getAliasSystemCa1(),
+        @Test
+        public void testTwoSystemSameSubject() throws Exception {
+            testTwo(getCa1(), getAliasSystemCa1(),
                 getCa3WithCa1Subject(), getAliasSystemCa3Collision());
-    }
+        }
 
-    @Test
-    public void testTwoUserSameSubject() throws Exception {
-        testTwo(getCa1(), getAliasUserCa1(),
+        @Test
+        public void testTwoUserSameSubject() throws Exception {
+            testTwo(getCa1(), getAliasUserCa1(),
                 getCa3WithCa1Subject(), getAliasUserCa3Collision());
 
-        store.deleteCertificateEntry(getAliasUserCa1());
-        assertDeleted(getCa1(), getAliasUserCa1());
-        assertTombstone(getAliasUserCa1());
-        assertRootCa(getCa3WithCa1Subject(), getAliasUserCa3Collision());
-        assertAliases(getAliasUserCa3Collision());
+            store.deleteCertificateEntry(getAliasUserCa1());
+            assertDeleted(getCa1(), getAliasUserCa1());
+            assertTombstone(getAliasUserCa1());
+            assertRootCa(getCa3WithCa1Subject(), getAliasUserCa3Collision());
+            assertAliases(getAliasUserCa3Collision());
 
-        store.deleteCertificateEntry(getAliasUserCa3Collision());
-        assertDeleted(getCa3WithCa1Subject(), getAliasUserCa3Collision());
-        assertNoTombstone(getAliasUserCa3Collision());
-        assertNoTombstone(getAliasUserCa1());
-        assertEmpty();
-    }
-
-    @Test
-    public void testOneSystemOneUserSameSubject() throws Exception {
-        testTwo(getCa1(), getAliasSystemCa1(),
-                getCa3WithCa1Subject(), getAliasUserCa3());
-        testTwo(getCa1(), getAliasUserCa1(),
-                getCa3WithCa1Subject(), getAliasSystemCa3());
-    }
-
-    private void testTwo(X509Certificate x1, String alias1,
-                         X509Certificate x2, String alias2) {
-        install(x1, alias1);
-        install(x2, alias2);
-        assertRootCa(x1, alias1);
-        assertRootCa(x2, alias2);
-        assertAliases(alias1, alias2);
-    }
-
-    @Test
-    public void testOneSystemOneUserOneDeleted() throws Exception {
-        install(getCa1(), getAliasSystemCa1());
-        store.installCertificate(getCa2());
-        store.deleteCertificateEntry(getAliasSystemCa1());
-        assertDeleted(getCa1(), getAliasSystemCa1());
-        assertRootCa(getCa2(), getAliasUserCa2());
-        assertAliases(getAliasUserCa2());
-    }
-
-    @Test
-    public void testOneSystemOneUserOneDeletedSameSubject() throws Exception {
-        install(getCa1(), getAliasSystemCa1());
-        store.installCertificate(getCa3WithCa1Subject());
-        store.deleteCertificateEntry(getAliasSystemCa1());
-        assertDeleted(getCa1(), getAliasSystemCa1());
-        assertRootCa(getCa3WithCa1Subject(), getAliasUserCa3());
-        assertAliases(getAliasUserCa3());
-    }
-
-    @Test
-    public void testUserMaskingSystem() throws Exception {
-        install(getCa1(), getAliasSystemCa1());
-        install(getCa1(), getAliasUserCa1());
-        assertMasked(getCa1(), getAliasSystemCa1());
-        assertRootCa(getCa1(), getAliasUserCa1());
-        assertAliases(getAliasSystemCa1(), getAliasUserCa1());
-    }
-
-    @Test
-    public void testChain() throws Exception {
-        testChain(getAliasSystemChain1(), getAliasSystemChain2());
-        testChain(getAliasSystemChain1(), getAliasUserChain2());
-        testChain(getAliasUserChain1(), getAliasSystemCa1());
-        testChain(getAliasUserChain1(), getAliasUserChain2());
-    }
-
-    private void testChain(String alias1, String alias2) throws Exception {
-        install(getChain()[1], alias1);
-        install(getChain()[2], alias2);
-        assertIntermediateCa(getChain()[1], alias1);
-        assertRootCa(getChain()[2], alias2);
-        assertAliases(alias1, alias2);
-        assertEquals(getChain()[2], store.findIssuer(getChain()[1]));
-        assertEquals(getChain()[1], store.findIssuer(getChain()[0]));
-
-        X509Certificate[] expected = getChain();
-        List<X509Certificate> actualList = store.getCertificateChain(expected[0]);
-
-        assertEquals("Generated CA list should be same length", expected.length, actualList.size());
-        for (int i = 0; i < expected.length; i++) {
-            assertEquals("Chain value should be the same for position " + i, expected[i],
-                    actualList.get(i));
+            store.deleteCertificateEntry(getAliasUserCa3Collision());
+            assertDeleted(getCa3WithCa1Subject(), getAliasUserCa3Collision());
+            assertNoTombstone(getAliasUserCa3Collision());
+            assertNoTombstone(getAliasUserCa1());
+            assertEmpty();
         }
-        resetStore();
-    }
 
-    @Test
-    public void testMissingSystemDirectory() throws Exception {
-        cleanStore();
-        createStore();
-        assertEmpty();
-    }
+        @Test
+        public void testOneSystemOneUserSameSubject() throws Exception {
+            testTwo(getCa1(), getAliasSystemCa1(),
+                getCa3WithCa1Subject(), getAliasUserCa3());
+            testTwo(getCa1(), getAliasUserCa1(),
+                getCa3WithCa1Subject(), getAliasSystemCa3());
+        }
 
-    @Test
-    public void testWithExistingUserDirectories() throws Exception {
-        dirAdded.mkdirs();
-        dirDeleted.mkdirs();
-        install(getCa1(), getAliasSystemCa1());
-        assertRootCa(getCa1(), getAliasSystemCa1());
-        assertAliases(getAliasSystemCa1());
-    }
+        private void testTwo(X509Certificate x1, String alias1,
+            X509Certificate x2, String alias2) {
+            install(x1, alias1);
+            install(x2, alias2);
+            assertRootCa(x1, alias1);
+            assertRootCa(x2, alias2);
+            assertAliases(alias1, alias2);
+        }
 
-    @Test
-    public void testIsTrustAnchorWithReissuedgetCa() throws Exception {
-        PublicKey publicKey = getPrivate().getCertificate().getPublicKey();
-        PrivateKey privateKey = getPrivate().getPrivateKey();
-        String name = "CN=CA4";
-        X509Certificate ca1 = TestKeyStore.createCa(publicKey, privateKey, name);
-        Thread.sleep(1 * 1000); // wait to ensure CAs vary by expiration
-        X509Certificate ca2 = TestKeyStore.createCa(publicKey, privateKey, name);
-        assertFalse(ca1.equals(ca2));
+        @Test
+        public void testOneSystemOneUserOneDeleted() throws Exception {
+            install(getCa1(), getAliasSystemCa1());
+            store.installCertificate(getCa2());
+            store.deleteCertificateEntry(getAliasSystemCa1());
+            assertDeleted(getCa1(), getAliasSystemCa1());
+            assertRootCa(getCa2(), getAliasUserCa2());
+            assertAliases(getAliasUserCa2());
+        }
 
-        String systemAlias = alias(false, ca1, 0);
-        install(ca1, systemAlias);
-        assertRootCa(ca1, systemAlias);
-        assertEquals(ca1, store.getTrustAnchor(ca2));
-        assertEquals(ca1, store.findIssuer(ca2));
-        resetStore();
+        @Test
+        public void testOneSystemOneUserOneDeletedSameSubject() throws Exception {
+            install(getCa1(), getAliasSystemCa1());
+            store.installCertificate(getCa3WithCa1Subject());
+            store.deleteCertificateEntry(getAliasSystemCa1());
+            assertDeleted(getCa1(), getAliasSystemCa1());
+            assertRootCa(getCa3WithCa1Subject(), getAliasUserCa3());
+            assertAliases(getAliasUserCa3());
+        }
 
-        String userAlias = alias(true, ca1, 0);
-        store.installCertificate(ca1);
-        assertRootCa(ca1, userAlias);
-        assertNotNull(store.getTrustAnchor(ca2));
-        assertEquals(ca1, store.findIssuer(ca2));
-        resetStore();
-    }
+        @Test
+        public void testUserMaskingSystem() throws Exception {
+            install(getCa1(), getAliasSystemCa1());
+            install(getCa1(), getAliasUserCa1());
+            assertMasked(getCa1(), getAliasSystemCa1());
+            assertRootCa(getCa1(), getAliasUserCa1());
+            assertAliases(getAliasSystemCa1(), getAliasUserCa1());
+        }
 
-    @Test
-    public void testInstallEmpty() throws Exception {
-        store.installCertificate(getCa1());
-        assertRootCa(getCa1(), getAliasUserCa1());
-        assertAliases(getAliasUserCa1());
+        @Test
+        public void testChain() throws Exception {
+            testChain(getAliasSystemChain1(), getAliasSystemChain2());
+            testChain(getAliasSystemChain1(), getAliasUserChain2());
+            testChain(getAliasUserChain1(), getAliasSystemCa1());
+            testChain(getAliasUserChain1(), getAliasUserChain2());
+        }
 
-        // reinstalling should not change anything
-        store.installCertificate(getCa1());
-        assertRootCa(getCa1(), getAliasUserCa1());
-        assertAliases(getAliasUserCa1());
-    }
+        private void testChain(String alias1, String alias2) throws Exception {
+            install(getChain()[1], alias1);
+            install(getChain()[2], alias2);
+            assertIntermediateCa(getChain()[1], alias1);
+            assertRootCa(getChain()[2], alias2);
+            assertAliases(alias1, alias2);
+            assertEquals(getChain()[2], store.findIssuer(getChain()[1]));
+            assertEquals(getChain()[1], store.findIssuer(getChain()[0]));
 
-    @Test
-    public void testInstallEmptySystemExists() throws Exception {
-        install(getCa1(), getAliasSystemCa1());
-        assertRootCa(getCa1(), getAliasSystemCa1());
-        assertAliases(getAliasSystemCa1());
+            X509Certificate[] expected = getChain();
+            List<X509Certificate> actualList = store.getCertificateChain(expected[0]);
 
-        // reinstalling should not affect system CA
-        store.installCertificate(getCa1());
-        assertRootCa(getCa1(), getAliasSystemCa1());
-        assertAliases(getAliasSystemCa1());
-    }
+            assertEquals("Generated CA list should be same length", expected.length,
+                actualList.size());
+            for (int i = 0; i < expected.length; i++) {
+                assertEquals("Chain value should be the same for position " + i, expected[i],
+                    actualList.get(i));
+            }
+            resetStore();
+        }
 
-    @Test
-    public void testInstallEmptyDeletedSystemExists() throws Exception {
-        install(getCa1(), getAliasSystemCa1());
-        store.deleteCertificateEntry(getAliasSystemCa1());
-        assertEmpty();
-        assertDeleted(getCa1(), getAliasSystemCa1());
+        @Test
+        public void testMissingSystemDirectory() throws Exception {
+            cleanStore();
+            createStore();
+            assertEmpty();
+        }
 
-        // installing should restore deleted system CA
-        store.installCertificate(getCa1());
-        assertRootCa(getCa1(), getAliasSystemCa1());
-        assertAliases(getAliasSystemCa1());
-    }
+        @Test
+        public void testWithExistingUserDirectories() throws Exception {
+            dirAdded.mkdirs();
+            dirDeleted.mkdirs();
+            install(getCa1(), getAliasSystemCa1());
+            assertRootCa(getCa1(), getAliasSystemCa1());
+            assertAliases(getAliasSystemCa1());
+        }
 
-    @Test
-    public void testDeleteEmpty() throws Exception {
-        store.deleteCertificateEntry(getAliasSystemCa1());
-        assertEmpty();
-        assertDeleted(getCa1(), getAliasSystemCa1());
-    }
+        @Test
+        public void testIsTrustAnchorWithReissuedgetCa() throws Exception {
+            PublicKey publicKey = getPrivate().getCertificate().getPublicKey();
+            PrivateKey privateKey = getPrivate().getPrivateKey();
+            String name = "CN=CA4";
+            X509Certificate ca1 = TestKeyStore.createCa(publicKey, privateKey, name);
+            Thread.sleep(1 * 1000); // wait to ensure CAs vary by expiration
+            X509Certificate ca2 = TestKeyStore.createCa(publicKey, privateKey, name);
+            assertFalse(ca1.equals(ca2));
 
-    @Test
-    public void testDeleteUser() throws Exception {
-        store.installCertificate(getCa1());
-        assertRootCa(getCa1(), getAliasUserCa1());
-        assertAliases(getAliasUserCa1());
+            String systemAlias = alias(false, ca1, 0);
+            install(ca1, systemAlias);
+            assertRootCa(ca1, systemAlias);
+            assertEquals(ca1, store.getTrustAnchor(ca2));
+            assertEquals(ca1, store.findIssuer(ca2));
+            resetStore();
 
-        store.deleteCertificateEntry(getAliasUserCa1());
-        assertEmpty();
-        assertDeleted(getCa1(), getAliasUserCa1());
-        assertNoTombstone(getAliasUserCa1());
-    }
+            String userAlias = alias(true, ca1, 0);
+            store.installCertificate(ca1);
+            assertRootCa(ca1, userAlias);
+            assertNotNull(store.getTrustAnchor(ca2));
+            assertEquals(ca1, store.findIssuer(ca2));
+            resetStore();
+        }
 
-    @Test
-    public void testDeleteSystem() throws Exception {
-        install(getCa1(), getAliasSystemCa1());
-        assertRootCa(getCa1(), getAliasSystemCa1());
-        assertAliases(getAliasSystemCa1());
+        @Test
+        public void testInstallEmpty() throws Exception {
+            store.installCertificate(getCa1());
+            assertRootCa(getCa1(), getAliasUserCa1());
+            assertAliases(getAliasUserCa1());
 
-        store.deleteCertificateEntry(getAliasSystemCa1());
-        assertEmpty();
-        assertDeleted(getCa1(), getAliasSystemCa1());
+            // reinstalling should not change anything
+            store.installCertificate(getCa1());
+            assertRootCa(getCa1(), getAliasUserCa1());
+            assertAliases(getAliasUserCa1());
+        }
 
-        // deleting again should not change anything
-        store.deleteCertificateEntry(getAliasSystemCa1());
-        assertEmpty();
-        assertDeleted(getCa1(), getAliasSystemCa1());
-    }
+        @Test
+        public void testInstallEmptySystemExists() throws Exception {
+            install(getCa1(), getAliasSystemCa1());
+            assertRootCa(getCa1(), getAliasSystemCa1());
+            assertAliases(getAliasSystemCa1());
 
-    @Test
-    public void testGetLoopedCert() throws Exception {
-        install(getCertLoopEe(), getAliasCertLoopEe());
-        install(getCertLoopCa1(), getAliasCertLoopCa1());
-        install(getCertLoopCa2(), getAliasCertLoopCa2());
+            // reinstalling should not affect system CA
+            store.installCertificate(getCa1());
+            assertRootCa(getCa1(), getAliasSystemCa1());
+            assertAliases(getAliasSystemCa1());
+        }
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<List<X509Certificate>> future = executor
+        @Test
+        public void testInstallEmptyDeletedSystemExists() throws Exception {
+            install(getCa1(), getAliasSystemCa1());
+            store.deleteCertificateEntry(getAliasSystemCa1());
+            assertEmpty();
+            assertDeleted(getCa1(), getAliasSystemCa1());
+
+            // installing should restore deleted system CA
+            store.installCertificate(getCa1());
+            assertRootCa(getCa1(), getAliasSystemCa1());
+            assertAliases(getAliasSystemCa1());
+        }
+
+        @Test
+        public void testDeleteEmpty() throws Exception {
+            store.deleteCertificateEntry(getAliasSystemCa1());
+            assertEmpty();
+            assertDeleted(getCa1(), getAliasSystemCa1());
+        }
+
+        @Test
+        public void testDeleteUser() throws Exception {
+            store.installCertificate(getCa1());
+            assertRootCa(getCa1(), getAliasUserCa1());
+            assertAliases(getAliasUserCa1());
+
+            store.deleteCertificateEntry(getAliasUserCa1());
+            assertEmpty();
+            assertDeleted(getCa1(), getAliasUserCa1());
+            assertNoTombstone(getAliasUserCa1());
+        }
+
+        @Test
+        public void testDeleteSystem() throws Exception {
+            install(getCa1(), getAliasSystemCa1());
+            assertRootCa(getCa1(), getAliasSystemCa1());
+            assertAliases(getAliasSystemCa1());
+
+            store.deleteCertificateEntry(getAliasSystemCa1());
+            assertEmpty();
+            assertDeleted(getCa1(), getAliasSystemCa1());
+
+            // deleting again should not change anything
+            store.deleteCertificateEntry(getAliasSystemCa1());
+            assertEmpty();
+            assertDeleted(getCa1(), getAliasSystemCa1());
+        }
+
+        @Test
+        public void testGetLoopedCert() throws Exception {
+            install(getCertLoopEe(), getAliasCertLoopEe());
+            install(getCertLoopCa1(), getAliasCertLoopCa1());
+            install(getCertLoopCa2(), getAliasCertLoopCa2());
+
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            Future<List<X509Certificate>> future = executor
                 .submit(new Callable<List<X509Certificate>>() {
                     @Override
                     public List<X509Certificate> call() throws Exception {
                         return store.getCertificateChain(getCertLoopEe());
                     }
                 });
-        executor.shutdown();
-        final List<X509Certificate> certs;
-        try {
-            certs = future.get(10, TimeUnit.SECONDS);
-        } catch (TimeoutException e) {
-            fail("Could not finish building chain; possibly confused by loops");
-            return; // Not actually reached.
-        }
-        assertEquals(3, certs.size());
-        assertEquals(getCertLoopEe(), certs.get(0));
-        assertEquals(getCertLoopCa1(), certs.get(1));
-        assertEquals(getCertLoopCa2(), certs.get(2));
-    }
-
-    @Test
-    public void testIsUserAddedCertificate() throws Exception {
-        assertFalse(store.isUserAddedCertificate(getCa1()));
-        assertFalse(store.isUserAddedCertificate(getCa2()));
-        install(getCa1(), getAliasSystemCa1());
-        assertFalse(store.isUserAddedCertificate(getCa1()));
-        assertFalse(store.isUserAddedCertificate(getCa2()));
-        install(getCa1(), getAliasUserCa1());
-        assertTrue(store.isUserAddedCertificate(getCa1()));
-        assertFalse(store.isUserAddedCertificate(getCa2()));
-        install(getCa2(), getAliasUserCa2());
-        assertTrue(store.isUserAddedCertificate(getCa1()));
-        assertTrue(store.isUserAddedCertificate(getCa2()));
-        store.deleteCertificateEntry(getAliasUserCa1());
-        assertFalse(store.isUserAddedCertificate(getCa1()));
-        assertTrue(store.isUserAddedCertificate(getCa2()));
-        store.deleteCertificateEntry(getAliasUserCa2());
-        assertFalse(store.isUserAddedCertificate(getCa1()));
-        assertFalse(store.isUserAddedCertificate(getCa2()));
-    }
-
-    @Test
-    public void testSystemCaCertsUseCorrectFileNames() throws Exception {
-        File dir = new File(System.getenv("ANDROID_ROOT") + "/etc/security/cacerts");
-        useCorrectFileNamesTest(dir);
-    }
-
-    @Test
-    public void testSystemCaCertsUseCorrectFileNamesUpdatable() throws Exception {
-        File dir = new File("/apex/com.android.conscrypt/cacerts");
-        useCorrectFileNamesTest(dir);
-    }
-
-    private void useCorrectFileNamesTest(File dir) throws Exception {
-        TrustedCertificateStore store = new TrustedCertificateStore(dir.getAbsoluteFile());
-
-        // Assert that all the certificates in the system cacerts directory are stored in files with
-        // expected names.
-        CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-        assertTrue(dir.exists());
-        int systemCertFileCount = 0;
-        for (File actualFile : listFilesNoNull(dir)) {
-            if (!actualFile.isFile()) {
-                continue;
+            executor.shutdown();
+            final List<X509Certificate> certs;
+            try {
+                certs = future.get(10, TimeUnit.SECONDS);
+            } catch (TimeoutException e) {
+                fail("Could not finish building chain; possibly confused by loops");
+                return; // Not actually reached.
             }
-            systemCertFileCount++;
-            X509Certificate cert = (X509Certificate) certificateFactory.generateCertificate(
+            assertEquals(3, certs.size());
+            assertEquals(getCertLoopEe(), certs.get(0));
+            assertEquals(getCertLoopCa1(), certs.get(1));
+            assertEquals(getCertLoopCa2(), certs.get(2));
+        }
+
+        @Test
+        public void testIsUserAddedCertificate() throws Exception {
+            assertFalse(store.isUserAddedCertificate(getCa1()));
+            assertFalse(store.isUserAddedCertificate(getCa2()));
+            install(getCa1(), getAliasSystemCa1());
+            assertFalse(store.isUserAddedCertificate(getCa1()));
+            assertFalse(store.isUserAddedCertificate(getCa2()));
+            install(getCa1(), getAliasUserCa1());
+            assertTrue(store.isUserAddedCertificate(getCa1()));
+            assertFalse(store.isUserAddedCertificate(getCa2()));
+            install(getCa2(), getAliasUserCa2());
+            assertTrue(store.isUserAddedCertificate(getCa1()));
+            assertTrue(store.isUserAddedCertificate(getCa2()));
+            store.deleteCertificateEntry(getAliasUserCa1());
+            assertFalse(store.isUserAddedCertificate(getCa1()));
+            assertTrue(store.isUserAddedCertificate(getCa2()));
+            store.deleteCertificateEntry(getAliasUserCa2());
+            assertFalse(store.isUserAddedCertificate(getCa1()));
+            assertFalse(store.isUserAddedCertificate(getCa2()));
+        }
+
+        @Test
+        public void testSystemCaCertsUseCorrectFileNames() throws Exception {
+            File dir = new File(System.getenv("ANDROID_ROOT") + "/etc/security/cacerts");
+            useCorrectFileNamesTest(dir);
+        }
+
+        @Test
+        public void testSystemCaCertsUseCorrectFileNamesUpdatable() throws Exception {
+            File dir = new File("/apex/com.android.conscrypt/cacerts");
+            useCorrectFileNamesTest(dir);
+        }
+
+        private void useCorrectFileNamesTest(File dir) throws Exception {
+            TrustedCertificateStore store = new TrustedCertificateStore(dir.getAbsoluteFile());
+
+            // Assert that all the certificates in the system cacerts directory are stored in files with
+            // expected names.
+            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+            assertTrue(dir.exists());
+            int systemCertFileCount = 0;
+            for (File actualFile : listFilesNoNull(dir)) {
+                if (!actualFile.isFile()) {
+                    continue;
+                }
+                systemCertFileCount++;
+                X509Certificate cert = (X509Certificate) certificateFactory.generateCertificate(
                     new ByteArrayInputStream(readFully(actualFile)));
 
-            File expectedFile = store.getCertificateFile(dir, cert);
-            assertEquals("Updatable certificate stored in the wrong file",
+                File expectedFile = store.getCertificateFile(dir, cert);
+                assertEquals("Updatable certificate stored in the wrong file",
                     expectedFile.getAbsolutePath(), actualFile.getAbsolutePath());
 
-            // The two statements below indirectly assert that the certificate can be looked up
-            // from a file (hopefully the same one as the expectedFile above). As opposed to
-            // getCertificateFile above, these are the actual methods used when verifying chain of
-            // trust. Thus, we assert that they work as expected for all system certificates.
-            assertNotNull("Issuer certificate not found for updatable certificate " + actualFile,
+                // The two statements below indirectly assert that the certificate can be looked up
+                // from a file (hopefully the same one as the expectedFile above). As opposed to
+                // getCertificateFile above, these are the actual methods used when verifying chain of
+                // trust. Thus, we assert that they work as expected for all system certificates.
+                assertNotNull(
+                    "Issuer certificate not found for updatable certificate " + actualFile,
                     store.findIssuer(cert));
-            assertNotNull("Trust anchor not found for updatable certificate " + actualFile,
+                assertNotNull("Trust anchor not found for updatable certificate " + actualFile,
                     store.getTrustAnchor(cert));
-        }
-
-        assertTrue(systemCertFileCount > 0);
-        // Assert that all files corresponding to all system certs/aliases known to the store are
-        // present.
-        int systemCertAliasCount = 0;
-        for (String alias : store.aliases()) {
-            if (!TrustedCertificateStore.isSystem(alias)) {
-                continue;
             }
-            systemCertAliasCount++;
-            // Checking that the certificate is stored in a file is extraneous given the current
-            // implementation of the class under test. We do it just in case the implementation
-            // changes.
-            X509Certificate cert = (X509Certificate) store.getCertificate(alias);
-            File expectedFile = store.getCertificateFile(dir, cert);
-            if (!expectedFile.isFile()) {
-                fail("Missing certificate file for alias " + alias
+
+            assertTrue(systemCertFileCount > 0);
+            // Assert that all files corresponding to all system certs/aliases known to the store are
+            // present.
+            int systemCertAliasCount = 0;
+            for (String alias : store.aliases()) {
+                if (!TrustedCertificateStore.isSystem(alias)) {
+                    continue;
+                }
+                systemCertAliasCount++;
+                // Checking that the certificate is stored in a file is extraneous given the current
+                // implementation of the class under test. We do it just in case the implementation
+                // changes.
+                X509Certificate cert = (X509Certificate) store.getCertificate(alias);
+                File expectedFile = store.getCertificateFile(dir, cert);
+                if (!expectedFile.isFile()) {
+                    fail("Missing certificate file for alias " + alias
                         + ": " + expectedFile.getAbsolutePath());
+                }
             }
+
+            assertEquals("Number of system cert files and aliases doesn't match",
+                systemCertFileCount, systemCertAliasCount);
         }
 
-        assertEquals("Number of system cert files and aliases doesn't match",
-                systemCertFileCount, systemCertAliasCount);
-    }
-
-    @Test
-    public void testMultipleIssuers() throws Exception {
-        Set<X509Certificate> result;
-        install(getMultipleIssuersCa1(), getAliasMultipleIssuersCa1());
-        result = store.findAllIssuers(getMultipleIssuersEe());
-        assertEquals("Unexpected number of issuers found", 1, result.size());
-        assertTrue("findAllIssuers does not contain expected issuer",
+        @Test
+        public void testMultipleIssuers() throws Exception {
+            Set<X509Certificate> result;
+            install(getMultipleIssuersCa1(), getAliasMultipleIssuersCa1());
+            result = store.findAllIssuers(getMultipleIssuersEe());
+            assertEquals("Unexpected number of issuers found", 1, result.size());
+            assertTrue("findAllIssuers does not contain expected issuer",
                 result.contains(getMultipleIssuersCa1()));
-        install(getMultipleIssuersCa1Cross(), getAliasMultipleIssuersCa1Cross());
-        result = store.findAllIssuers(getMultipleIssuersEe());
-        assertEquals("findAllIssuers did not return all issuers", 2, result.size());
-        assertTrue("findAllIssuers does not contain CA1",
+            install(getMultipleIssuersCa1Cross(), getAliasMultipleIssuersCa1Cross());
+            result = store.findAllIssuers(getMultipleIssuersEe());
+            assertEquals("findAllIssuers did not return all issuers", 2, result.size());
+            assertTrue("findAllIssuers does not contain CA1",
                 result.contains(getMultipleIssuersCa1()));
-        assertTrue("findAllIssuers does not contain CA1 signed by CA2",
+            assertTrue("findAllIssuers does not contain CA1 signed by CA2",
                 result.contains(getMultipleIssuersCa1Cross()));
+        }
+        private void assertRootCa(X509Certificate x, String alias) {
+            assertIntermediateCa(x, alias);
+            assertEquals(x, store.findIssuer(x));
+        }
+
+        @SuppressWarnings("JdkObsolete") // Date is used in public API TrustedCertificateKeyStoreSpi
+        private void assertTrusted(X509Certificate x, String alias) {
+            assertEquals(x, store.getCertificate(alias));
+            assertEquals(file(alias).lastModified(), store.getCreationDate(alias).getTime());
+            assertTrue(store.containsAlias(alias));
+            assertEquals(x, store.getTrustAnchor(x));
+        }
+
+        private void assertIntermediateCa(X509Certificate x, String alias) {
+            assertTrusted(x, alias);
+            assertEquals(alias, store.getCertificateAlias(x));
+        }
+
+        private void assertMasked(X509Certificate x, String alias) {
+            assertTrusted(x, alias);
+            assertFalse(alias.equals(store.getCertificateAlias(x)));
+        }
+
+        private void assertDeleted(X509Certificate x, String alias) {
+            assertNull(store.getCertificate(alias));
+            assertFalse(store.containsAlias(alias));
+            assertNull(store.getCertificateAlias(x));
+            assertNull(store.getTrustAnchor(x));
+            assertEquals(store.allSystemAliases().contains(alias),
+                store.getCertificate(alias, true) != null);
+        }
+
+        private void assertAliases(String... aliases) {
+            Set<String> expected = new HashSet<String>(Arrays.asList(aliases));
+            Set<String> actual = new HashSet<String>();
+            for (String alias : store.aliases()) {
+                boolean system = TrustedCertificateStore.isSystem(alias);
+                boolean user = TrustedCertificateStore.isUser(alias);
+                if (system || user) {
+                    assertEquals(system, store.allSystemAliases().contains(alias));
+                    assertEquals(user, store.userAliases().contains(alias));
+                    actual.add(alias);
+                } else {
+                    throw new AssertionError(alias);
+                }
+            }
+            assertEquals(expected, actual);
+        }
     }
 
     private static File[] listFilesNoNull(File dir) {
@@ -939,65 +1005,92 @@ public class TrustedCertificateStoreTest {
         }
     }
 
-    private void assertRootCa(X509Certificate x, String alias) {
-        assertIntermediateCa(x, alias);
-        assertEquals(x, store.findIssuer(x));
+    @RunWith(JUnit4.class)
+    public static class OtherTests {
+        private String systemRoot;
+
+        @Before
+        public void before() {
+            systemRoot = System.getenv("ANDROID_ROOT");
+        }
+
+
+        // Running on actual device or with same filesystem layout
+        private boolean isApexDevice() {
+            return "/system".equals(systemRoot) && new File(TrustedCertificateStore.APEX_PATH).exists();
+        }
+        @Test
+        public void defaultCase() {
+            assertTrue(TrustedCertificateStore.noJavaPropertyOverride());
+            assertTrue(TrustedCertificateStore.noFlagFileOverride(systemRoot));
+        }
+
+        @Test
+        public void defaultCase_WithApex() {
+            Assume.assumeTrue(isApexDevice());
+            // If apex looks mounted when running MTS then it should have a valid cert store,
+            // and so use of that store should only depend on API level.
+            File apexDir = new File(TrustedCertificateStore.APEX_PATH);
+            assertTrue(TrustedCertificateStore.isValidCertStore(apexDir));
+            assertEquals(TrustedCertificateStore.isSdkAtLeast(34),
+                TrustedCertificateStore.shouldUseApex(apexDir, systemRoot));
+        }
+
+        @Test
+        public void javaOverride() {
+            try {
+                assertTrue(TrustedCertificateStore.noJavaPropertyOverride());
+
+                System.setProperty(TrustedCertificateStore.APEX_DISABLE_JAVA_PROPERTY, "unknown");
+                assertTrue(TrustedCertificateStore.noJavaPropertyOverride());
+
+                System.setProperty(TrustedCertificateStore.APEX_DISABLE_JAVA_PROPERTY, "true");
+                assertFalse(TrustedCertificateStore.noJavaPropertyOverride());
+            } finally {
+                System.clearProperty(TrustedCertificateStore.APEX_DISABLE_JAVA_PROPERTY);
+                assertTrue(TrustedCertificateStore.noJavaPropertyOverride());
+            }
+        }
+
+        @Test
+        public void fileOverride() throws Exception {
+            assertTrue(TrustedCertificateStore.noFlagFileOverride(systemRoot));
+
+            File testRoot = Files.createTempDirectory("flagfile").toFile();
+            assertTrue(TrustedCertificateStore.noFlagFileOverride(testRoot.getAbsolutePath()));
+
+            int index = TrustedCertificateStore.APEX_DISABLE_FLAG_FILE.lastIndexOf('/');
+            String dirName = TrustedCertificateStore.APEX_DISABLE_FLAG_FILE.substring(0, index);
+            File dir = new File(testRoot.getAbsolutePath() + dirName);
+            assertTrue(dir.mkdirs());
+            File flagFile = new File(testRoot + TrustedCertificateStore.APEX_DISABLE_FLAG_FILE);
+            new FileOutputStream(flagFile).close();
+            assertFalse(TrustedCertificateStore.noFlagFileOverride(testRoot.getAbsolutePath()));
+        }
+
+        @Test
+        public void validStore() throws Exception {
+            // System store should always be valid.
+            assertTrue(TrustedCertificateStore.isValidCertStore(
+                new File(systemRoot + TrustedCertificateStore.SYSTEM_PATH)));
+
+            // Empty store should never be valid.
+            File empty = Files.createTempDirectory("flagfile").toFile();
+            assertFalse(TrustedCertificateStore.isValidCertStore(empty));
+        }
     }
 
-    @SuppressWarnings("JdkObsolete") // Date is used in public API TrustedCertificateKeyStoreSpi
-    private void assertTrusted(X509Certificate x, String alias) {
-        assertEquals(x, store.getCertificate(alias));
-        assertEquals(file(alias).lastModified(), store.getCreationDate(alias).getTime());
-        assertTrue(store.containsAlias(alias));
-        assertEquals(x, store.getTrustAnchor(x));
-    }
 
-    private void assertIntermediateCa(X509Certificate x, String alias) {
-        assertTrusted(x, alias);
-        assertEquals(alias, store.getCertificateAlias(x));
-    }
-
-    private void assertMasked(X509Certificate x, String alias) {
-        assertTrusted(x, alias);
-        assertFalse(alias.equals(store.getCertificateAlias(x)));
-    }
-
-    private void assertDeleted(X509Certificate x, String alias) {
-        assertNull(store.getCertificate(alias));
-        assertFalse(store.containsAlias(alias));
-        assertNull(store.getCertificateAlias(x));
-        assertNull(store.getTrustAnchor(x));
-        assertEquals(store.allSystemAliases().contains(alias),
-                     store.getCertificate(alias, true) != null);
-    }
-
-    private void assertTombstone(String alias) {
+    private static void assertTombstone(String alias) {
         assertTrue(TrustedCertificateStore.isUser(alias));
         File file = file(alias);
         assertTrue(file.exists());
         assertEquals(0, file.length());
     }
 
-    private void assertNoTombstone(String alias) {
+    private static void assertNoTombstone(String alias) {
         assertTrue(TrustedCertificateStore.isUser(alias));
         assertFalse(file(alias).exists());
-    }
-
-    private void assertAliases(String... aliases) {
-        Set<String> expected = new HashSet<String>(Arrays.asList(aliases));
-        Set<String> actual = new HashSet<String>();
-        for (String alias : store.aliases()) {
-            boolean system = TrustedCertificateStore.isSystem(alias);
-            boolean user = TrustedCertificateStore.isUser(alias);
-            if (system || user) {
-                assertEquals(system, store.allSystemAliases().contains(alias));
-                assertEquals(user, store.userAliases().contains(alias));
-                actual.add(alias);
-            } else {
-                throw new AssertionError(alias);
-            }
-        }
-        assertEquals(expected, actual);
     }
 
     /**
@@ -1016,7 +1109,7 @@ public class TrustedCertificateStoreTest {
     /**
      * Install certificate under specified alias
      */
-    private void install(X509Certificate x, String alias) {
+    private static void install(X509Certificate x, String alias) {
         try {
             File file = file(alias);
             file.getParentFile().mkdirs();
@@ -1031,7 +1124,7 @@ public class TrustedCertificateStoreTest {
     /**
      * Compute file for an alias
      */
-    private File file(String alias) {
+    private static File file(String alias) {
         File dir;
         if (TrustedCertificateStore.isSystem(alias)) {
             dir = dirSystem;
