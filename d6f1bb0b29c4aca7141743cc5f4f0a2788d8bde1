@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3b79288_16d51e53",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-09-13T08:54:41Z",
+      "side": 1,
+      "message": "Could this affect production in some undesired way? Or /etc/security is locked down there?",
+      "revId": "d6f1bb0b29c4aca7141743cc5f4f0a2788d8bde1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
