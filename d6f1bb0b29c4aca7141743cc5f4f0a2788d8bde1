@@ -16,6 +16,24 @@
       "message": "Could this affect production in some undesired way? Or /etc/security is locked down there?",
       "revId": "d6f1bb0b29c4aca7141743cc5f4f0a2788d8bde1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00d5c9a0_99c2a39f",
+        "filename": "platform/src/main/java/org/conscrypt/TrustedCertificateStore.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-09-13T08:58:18Z",
+      "side": 1,
+      "message": "On user builds, /system is read-only and protected by dm-verity, so it\u0027s only possible to create this file on debug/rooted builds, at which point all bets are off anyway.\n\nThe bigger problem is this CL and the end to end test do not exercise the equivalent code in the framework for Network Security Config :/\n\nIt doesn\u0027t seem smart to duplicate it all there, so I\u0027m looking at options.",
+      "parentUuid": "d3b79288_16d51e53",
+      "revId": "d6f1bb0b29c4aca7141743cc5f4f0a2788d8bde1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
