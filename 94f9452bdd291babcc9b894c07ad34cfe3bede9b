@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9137148_4e429adc",
+        "filename": "repackaged/common/src/test/java/com/android/org/conscrypt/javax/crypto/CipherTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 4661,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-09-14T09:34:41Z",
+      "side": 0,
+      "message": "This change should also go in the source version of this file, external/conscrypt/common/src/test/java/org/conscrypt/javax/crypto/CipherTest.java",
+      "range": {
+        "startLine": 4661,
+        "startChar": 18,
+        "endLine": 4661,
+        "endChar": 27
+      },
+      "revId": "94f9452bdd291babcc9b894c07ad34cfe3bede9b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
