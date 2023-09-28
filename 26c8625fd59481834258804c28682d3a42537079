@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "007fdef3_0444f95e",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-09-28T14:25:22Z",
+      "side": 1,
+      "message": "nit:spurious blank line",
+      "revId": "26c8625fd59481834258804c28682d3a42537079",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
