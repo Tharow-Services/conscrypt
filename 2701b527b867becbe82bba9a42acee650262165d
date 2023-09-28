@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0e9649b_48fcd08d",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-09-28T09:53:35Z",
+      "side": 1,
+      "message": "I think we should cache this value, e.g. in one of the static {} blocks above, otherwise we\u0027re doing expensive work on every TLS handshake.",
+      "range": {
+        "startLine": 86,
+        "startChar": 18,
+        "endLine": 86,
+        "endChar": 31
+      },
+      "revId": "2701b527b867becbe82bba9a42acee650262165d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
