@@ -16,6 +16,24 @@
       "message": "nit:spurious blank line",
       "revId": "26c8625fd59481834258804c28682d3a42537079",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3aa9f23_91df8073",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-09-28T14:28:21Z",
+      "side": 1,
+      "message": "Ah, that explains the mismatch between line count. Thanks",
+      "parentUuid": "007fdef3_0444f95e",
+      "revId": "26c8625fd59481834258804c28682d3a42537079",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
