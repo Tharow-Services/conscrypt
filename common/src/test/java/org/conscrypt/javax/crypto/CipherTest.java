@@ -4652,6 +4652,7 @@ public final class CipherTest {
         assertEquals(Arrays.toString(c1.doFinal()), Arrays.toString(c2.doFinal()));
     }
 
+<<<<<<< HEAD   (9f2d8f Mark noIv test as NonCts am: ef94246894 am: 40fb5584db)
     /**
      * http://b/27224566
      * http://b/27994930
@@ -4726,6 +4727,8 @@ public final class CipherTest {
         assertEquals(Arrays.toString(plaintext), Arrays.toString(cipher.doFinal(ciphertext)));
     }
 
+=======
+>>>>>>> CHANGE (d80aba Move Iv tests to libcore)
     private static Cipher createAesCipher(int opmode) {
         try {
             final Cipher c = Cipher.getInstance("AES/ECB/NoPadding");
