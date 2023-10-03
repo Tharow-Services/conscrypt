@@ -4657,6 +4657,7 @@ public final class CipherTest {
         assertEquals(Arrays.toString(c1.doFinal()), Arrays.toString(c2.doFinal()));
     }
 
+<<<<<<< HEAD   (7b8db4 [DO NOT MERGE] Disable system certificate test.)
     /**
      * http://b/27224566
      * http://b/27994930
@@ -4729,6 +4730,8 @@ public final class CipherTest {
         assertEquals(Arrays.toString(plaintext), Arrays.toString(cipher.doFinal(ciphertext)));
     }
 
+=======
+>>>>>>> CHANGE (d80aba Move Iv tests to libcore)
     private static Cipher createAesCipher(int opmode) {
         try {
             final Cipher c = Cipher.getInstance("AES/ECB/NoPadding");
