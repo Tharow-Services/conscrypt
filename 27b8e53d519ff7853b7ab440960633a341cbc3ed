@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e08b669d_9afe980f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-10-05T12:08:47Z",
+      "side": 1,
+      "message": "I believe this was fixed by https://github.com/google/conscrypt/pull/1086",
+      "revId": "27b8e53d519ff7853b7ab440960633a341cbc3ed",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
