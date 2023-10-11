@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f83f0e2_35a514d2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2023-10-11T15:24:07Z",
+      "side": 1,
+      "message": "Assume that you will have a look at the presubmit.",
+      "revId": "ae8c0538a1a4130fa6ba0be9591dde3161efc7ea",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
