@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "919b2c08_4ca13626",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-10-12T11:29:14Z",
+      "side": 1,
+      "message": "Ugh, this is wrong (adds duplicate imports), but I guess we can fix that post-submit rather than hold up your topic.",
+      "revId": "7f5d1079b04c58c4b2627d276c32e3bd656ccee7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
