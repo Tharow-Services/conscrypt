@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5bd4adf8_9ec0fecf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 16
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-10-16T09:41:14Z",
+      "side": 1,
+      "message": "This is pretty much the second stage.  For the initial change I think we should just remove TLS v1.0 and v1.1 from the list of default protocols, e.g. `NativeCrypto.TLSV13_PROTOCOLS`, which are the lists used to populate `SSLContext` instances.  So we also need to keep the tests, but they may need adapting, e.g. to create an `SSLContext` which enables TLSv1.x if they need multiple protocols enabled.\n\nBonus points for putting it behind a flag so we can control the rollout.  We haven\u0027t wired up Mainline flags to Conscrypt before so maybe just adda couple of method to Platform.java (`isTlsV1Deprecated()` etc) and we can figure out the flag part in a separate CL.",
+      "revId": "898f46798311014f8a45cd509f63ec5bebe168bd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
