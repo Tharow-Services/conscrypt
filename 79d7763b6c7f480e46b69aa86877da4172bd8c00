@@ -52,6 +52,24 @@
       "parentUuid": "6e8ccc46_40482b78",
       "revId": "79d7763b6c7f480e46b69aa86877da4172bd8c00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c93a4da_c11101e9",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-10-18T09:27:28Z",
+      "side": 1,
+      "message": "I think it\u0027s OK to have the default vs supported logic, the slightly confusing thing is that the choice comes from `isTlsV1Deprecated`. Can be good to have a comment that mentions that with TLSv1 not deprecated include it in the default protocols list by using supported protocols. Though, now that the code is moved in NativeCrypto that will be more obvious anyway.",
+      "parentUuid": "a360141a_c9a4bef5",
+      "revId": "79d7763b6c7f480e46b69aa86877da4172bd8c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
