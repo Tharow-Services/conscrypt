@@ -34,6 +34,24 @@
       "parentUuid": "a2a89504_31333fb9",
       "revId": "79d7763b6c7f480e46b69aa86877da4172bd8c00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a360141a_c9a4bef5",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-18T09:22:22Z",
+      "side": 1,
+      "message": "I\u0027ve switched the logic over to NativeCrypto, I think the convention of Supported vs Default as all available vs the ones we want to make available is fine there. Let me know.",
+      "parentUuid": "6e8ccc46_40482b78",
+      "revId": "79d7763b6c7f480e46b69aa86877da4172bd8c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
