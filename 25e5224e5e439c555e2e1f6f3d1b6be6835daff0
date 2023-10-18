@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a19ca29_8deb156c",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-18T10:10:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daf3bdde_19665018",
+      "range": {
+        "startLine": 1010,
+        "startChar": 0,
+        "endLine": 1010,
+        "endChar": 62
+      },
+      "revId": "25e5224e5e439c555e2e1f6f3d1b6be6835daff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1ab7b10_98e76268",
