@@ -1027,8 +1027,6 @@ public final class NativeCrypto {
 
     /** Protocols to enable by default when "TLSv1.3" is requested. */
     static final String[] TLSV13_PROTOCOLS = new String[] {
-            SUPPORTED_PROTOCOL_TLSV1,
-            SUPPORTED_PROTOCOL_TLSV1_1,
             SUPPORTED_PROTOCOL_TLSV1_2,
             SUPPORTED_PROTOCOL_TLSV1_3,
     };
@@ -1054,7 +1052,7 @@ public final class NativeCrypto {
             SUPPORTED_PROTOCOL_TLSV1_3,
     };
 
-    static String[] getSupportedProtocols() {
+    public static String[] getSupportedProtocols() {
         return SUPPORTED_PROTOCOLS.clone();
     }
 

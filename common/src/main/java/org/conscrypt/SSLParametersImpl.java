@@ -38,6 +38,7 @@ import javax.net.ssl.X509ExtendedKeyManager;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
 import javax.security.auth.x500.X500Principal;
+import org.conscrypt.Platform;
 
 /**
  * The instances of this class encapsulate all the info
@@ -145,7 +146,7 @@ final class SSLParametersImpl implements Cloneable {
 
         // initialize the list of cipher suites and protocols enabled by default
         enabledProtocols = NativeCrypto.checkEnabledProtocols(
-                protocols == null ? NativeCrypto.DEFAULT_PROTOCOLS : protocols).clone();
+                protocols == null ? getDefaultProtocols() : protocols).clone();
         boolean x509CipherSuitesNeeded = (x509KeyManager != null) || (x509TrustManager != null);
         boolean pskCipherSuitesNeeded = pskKeyManager != null;
         enabledCipherSuites = getDefaultCipherSuites(
@@ -154,6 +155,13 @@ final class SSLParametersImpl implements Cloneable {
         // We ignore the SecureRandom passed in by the caller. The native code below
         // directly accesses /dev/urandom, which makes it irrelevant.
     }
+  
+  private String[] getDefaultProtocols() {
+    if (Platform.isTlsV1Deprecated()) {
+      return NativeCrypto.DEFAULT_PROTOCOLS;
+    }
+    return NativeCrypto.getSupportedProtocols();
+  }
 
     // Copy constructor for the purposes of changing the final fields
     @SuppressWarnings("deprecation")  // for PSKKeyManager
