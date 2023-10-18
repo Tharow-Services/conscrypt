@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a2a89504_31333fb9",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-10-18T08:50:52Z",
+      "side": 1,
+      "message": "This does look a bit odd when reading it - why would you return default protocols only when TLS v1 is deprecated? I understand the reasoning, but I needed to dig through the other parts of the change. I\u0027d implement getDefaultProtocols as a static method in NativeCrypto and be explicit there how it chooses what the defaults are. If needed it should take a bool argument.",
+      "revId": "79d7763b6c7f480e46b69aa86877da4172bd8c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
