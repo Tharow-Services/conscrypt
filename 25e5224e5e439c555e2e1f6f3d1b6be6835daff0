@@ -144,6 +144,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "daf3bdde_19665018",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-10-18T10:05:33Z",
+      "side": 1,
+      "message": "Hmm, you\u0027re right, that would be a breaking change.\n\nHowever we still need to remove 1.x from `TLSV12_PROTOCOLS`, so then `TLSV11_PROTOCOLS` needs to become what `TLSV12_PROTOCOLS` is currently (1.2, 1.1 and 1.1), and no change to `TLSV1_PROTOCOLS`.",
+      "parentUuid": "61ac9297_be2123f7",
+      "range": {
+        "startLine": 1010,
+        "startChar": 0,
+        "endLine": 1010,
+        "endChar": 62
+      },
+      "revId": "25e5224e5e439c555e2e1f6f3d1b6be6835daff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e1ab7b10_98e76268",
         "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
         "patchSetId": 3
