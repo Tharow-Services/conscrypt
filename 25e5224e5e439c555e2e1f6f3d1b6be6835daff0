@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2432e6bf_257cbc3d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-18T09:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7766feb7_37310de4",
+      "range": {
+        "startLine": 7,
+        "startChar": 40,
+        "endLine": 7,
+        "endChar": 49
+      },
+      "revId": "25e5224e5e439c555e2e1f6f3d1b6be6835daff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "266681df_9d0b78b2",
@@ -37,6 +61,30 @@
       "writtenOn": "2023-10-18T09:46:53Z",
       "side": 1,
       "message": "Also here.",
+      "range": {
+        "startLine": 1004,
+        "startChar": 0,
+        "endLine": 1006,
+        "endChar": 0
+      },
+      "revId": "25e5224e5e439c555e2e1f6f3d1b6be6835daff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e9dd8e3f_2aef8628",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1006,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-18T09:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "266681df_9d0b78b2",
       "range": {
         "startLine": 1004,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "61ac9297_be2123f7",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1010,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-18T09:59:49Z",
+      "side": 1,
+      "message": "Hmm, I think since this (1.2) is more secure we could just keep it. That way we also minimize the changes we\u0027re doing.",
+      "parentUuid": "3079399b_345b7393",
+      "range": {
+        "startLine": 1010,
+        "startChar": 0,
+        "endLine": 1010,
+        "endChar": 62
+      },
+      "revId": "25e5224e5e439c555e2e1f6f3d1b6be6835daff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e1ab7b10_98e76268",
@@ -83,6 +155,30 @@
       "writtenOn": "2023-10-18T09:46:53Z",
       "side": 1,
       "message": "Let\u0027s maybe rename them to `DEPRECATED_...` for clarity too?",
+      "range": {
+        "startLine": 1017,
+        "startChar": 12,
+        "endLine": 1017,
+        "endChar": 36
+      },
+      "revId": "25e5224e5e439c555e2e1f6f3d1b6be6835daff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "450ebae3_693c56ee",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1017,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-18T09:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e1ab7b10_98e76268",
       "range": {
         "startLine": 1017,
         "startChar": 12,
@@ -110,6 +206,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a85d68c7_3408ff25",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 1023,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-18T09:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f3fc2ed5_3ad54439",
+      "revId": "25e5224e5e439c555e2e1f6f3d1b6be6835daff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5ba19bfb_181a7203",
@@ -123,6 +237,30 @@
       "writtenOn": "2023-10-18T09:46:53Z",
       "side": 1,
       "message": "I think `false` here, so no behaviour change by default in the platform.  Then we can roll it in stages out by making this into feature flag, once the tests are fully agnostic.",
+      "range": {
+        "startLine": 572,
+        "startChar": 15,
+        "endLine": 572,
+        "endChar": 19
+      },
+      "revId": "25e5224e5e439c555e2e1f6f3d1b6be6835daff0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37b431b5_2087e736",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 572,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-18T09:59:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ba19bfb_181a7203",
       "range": {
         "startLine": 572,
         "startChar": 15,
