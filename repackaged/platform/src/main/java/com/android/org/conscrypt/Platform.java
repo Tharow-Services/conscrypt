@@ -531,4 +531,8 @@ final class Platform {
         }
         return false;
     }
+
+    public static boolean isTlsV1Deprecated() {
+        return false;
+    }
 }
