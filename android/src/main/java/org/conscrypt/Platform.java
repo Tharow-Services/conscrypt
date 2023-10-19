@@ -1019,4 +1019,47 @@ final class Platform {
         }
         return false;
     }
+<<<<<<< HEAD   (7b8db4 [DO NOT MERGE] Disable system certificate test.)
+=======
+
+    public static ConscryptHostnameVerifier getDefaultHostnameVerifier() {
+        return OkHostnameVerifier.strictInstance();
+    }
+
+    /**
+     * Returns milliseconds elapsed since boot, including time spent in sleep.
+     * @return long number of milliseconds elapsed since boot
+     */
+    static long getMillisSinceBoot() {
+        return SystemClock.elapsedRealtime();
+    }
+
+    static void countTlsHandshake(
+            boolean success, String protocol, String cipherSuite, long durationLong) {
+        // Statsd classes appeared in SDK 30 and aren't available in earlier versions
+
+        if (Build.VERSION.SDK_INT >= 30) {
+            Protocol proto = Protocol.forName(protocol);
+            CipherSuite suite = CipherSuite.forName(cipherSuite);
+            int duration = (int) durationLong;
+
+            writeStats(success, proto.getId(), suite.getId(), duration);
+        }
+    }
+
+    @TargetApi(30)
+    private static void writeStats(
+            boolean success, int protocol, int cipherSuite, int duration) {
+        ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, protocol,
+                cipherSuite, duration, SOURCE_GMS, new int[] {Os.getuid(), Binder.getCallingUid()});
+    }
+
+    public static boolean isJavaxCertificateSupported() {
+        return true;
+    }
+
+    public static boolean isTlsV1Deprecated() {
+        return false;
+    }
+>>>>>>> CHANGE (7b36b7 Revert "Revert "Remove TLS 1.0 and 1.1 from the list of defa)
 }

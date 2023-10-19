@@ -786,4 +786,28 @@ final class Platform {
             });
         }
     }
+<<<<<<< HEAD   (7b8db4 [DO NOT MERGE] Disable system certificate test.)
+=======
+
+    public static ConscryptHostnameVerifier getDefaultHostnameVerifier() {
+        return OkHostnameVerifier.strictInstance();
+    }
+
+    @SuppressWarnings("unused")
+    static long getMillisSinceBoot() {
+        return 0;
+    }
+
+    @SuppressWarnings("unused")
+    static void countTlsHandshake(
+            boolean success, String protocol, String cipherSuite, long duration) {}
+
+    public static boolean isJavaxCertificateSupported() {
+        return JAVA_VERSION < 15;
+    }
+
+    public static boolean isTlsV1Deprecated() {
+        return true;
+    }
+>>>>>>> CHANGE (7b36b7 Revert "Revert "Remove TLS 1.0 and 1.1 from the list of defa)
 }
