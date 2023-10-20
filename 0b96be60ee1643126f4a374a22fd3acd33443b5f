@@ -22,6 +22,30 @@
       },
       "revId": "0b96be60ee1643126f4a374a22fd3acd33443b5f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdc84138_f7252955",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-20T09:07:29Z",
+      "side": 1,
+      "message": "Sorry about that. Didn\u0027t run it because I just did this as a revert.",
+      "parentUuid": "ebcb2a15_5ac190ca",
+      "range": {
+        "startLine": 573,
+        "startChar": 15,
+        "endLine": 573,
+        "endChar": 19
+      },
+      "revId": "0b96be60ee1643126f4a374a22fd3acd33443b5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
