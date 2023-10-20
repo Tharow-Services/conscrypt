@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ebcb2a15_5ac190ca",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-10-20T07:38:43Z",
+      "side": 1,
+      "message": "I think you forgot to re-run `generate_android_src.sh`... We changed this back to `false`, remember?",
+      "range": {
+        "startLine": 573,
+        "startChar": 15,
+        "endLine": 573,
+        "endChar": 19
+      },
+      "revId": "0b96be60ee1643126f4a374a22fd3acd33443b5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
