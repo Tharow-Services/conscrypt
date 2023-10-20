@@ -16,6 +16,24 @@
       "message": "While you\u0027re in here, maybe also `libcore.javax.net` (the rest of `libcore.java.net` is fairly uninteresting from a TLS p-o-v).",
       "revId": "62266c5f7d33336c157b325d97337b73d70b7552",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e66ebb0_869670a5",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/TEST_MAPPING",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2023-10-20T09:27:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0546ec4c_34547ce9",
+      "revId": "62266c5f7d33336c157b325d97337b73d70b7552",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
