@@ -46,6 +46,30 @@
       },
       "revId": "0b96be60ee1643126f4a374a22fd3acd33443b5f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "116cb00c_61160e84",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-10-20T09:15:39Z",
+      "side": 1,
+      "message": "Yeah, it was wrong in the first CL too, there should have been no behaviour change 😄\n\nOn the plus side it flushed out the bugs in URLConnectionTest!",
+      "parentUuid": "bdc84138_f7252955",
+      "range": {
+        "startLine": 573,
+        "startChar": 15,
+        "endLine": 573,
+        "endChar": 19
+      },
+      "revId": "0b96be60ee1643126f4a374a22fd3acd33443b5f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
