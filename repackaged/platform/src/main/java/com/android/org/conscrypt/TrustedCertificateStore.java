@@ -135,6 +135,11 @@ public class TrustedCertificateStore implements ConscryptCertStore {
                 return null;
             }
         }
+
+        static void setDefaultUserDirectory(File root) {
+          defaultCaCertsAddedDir = new File(root, "cacerts-added");
+          defaultCaCertsDeletedDir = new File(root, "cacerts-removed");
+        }
     }
 
     private static final CertificateFactory CERT_FACTORY;
@@ -148,8 +153,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
 
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
     public static void setDefaultUserDirectory(File root) {
-        PreloadHolder.defaultCaCertsAddedDir = new File(root, "cacerts-added");
-        PreloadHolder.defaultCaCertsDeletedDir = new File(root, "cacerts-removed");
+        PreloadHolder.setDefaultUserDirectory(root);
     }
 
     private final File systemDir;
