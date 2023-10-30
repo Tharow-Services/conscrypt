@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (ed4e34 Merge "Throw correct exception on CMAC key size errors." int)
 /*
  * Copyright (C) 2017 The Android Open Source Project
  *
@@ -163,3 +164,5 @@ public class ConscryptSuite {
     }
 
 }
+=======
+>>>>>>> BRANCH (deb0c2 Rationalise test suite classes. (#1177))
