@@ -35,6 +35,7 @@ import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.lang.Integer;
 import java.lang.System;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -57,6 +58,7 @@ import java.security.spec.InvalidParameterSpecException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SNIHostName;
@@ -570,6 +572,17 @@ final class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return false;
+        String deprecatedStr = System.getProperty("tls_deprecation.population");
+        if (deprecatedStr == null || deprecatedStr.isEmpty()) {
+          return false;
+        }
+        Integer deprecatedInt = 0;
+        try {
+          deprecatedInt = Integer.parseint(deprecatedStr);
+        } catch (NumberFormatException e) {
+          return false;
+        }
+        Random random = new Random();
+        return (random.nextFloat() * 100) > deprecatedInt;
     }
 }
