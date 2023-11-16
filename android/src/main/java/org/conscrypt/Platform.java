@@ -29,6 +29,7 @@ import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.lang.Integer;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -38,6 +39,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketImpl;
+import java.util.Random;
 import java.security.AlgorithmParameters;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -1083,6 +1085,17 @@ final class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return false;
+        String deprecatedStr = System.getProperty("tls_deprecation.population");
+        if (deprecatedStr == null || deprecatedStr.isEmpty()) {
+          return false;
+        }
+        int deprecatedInt = 0;
+        try { 
+          deprecatedInt = Integer.parseint(deprecatedStr);
+        } catch (NumberFormatException e) {
+          return false;
+        }
+        Random random = new Random();
+        return (random.nextFloat() * 100) > deprecatedInt;
     }
 }
