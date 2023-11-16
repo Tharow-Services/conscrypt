@@ -40,6 +40,7 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.lang.Integer;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -71,6 +72,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.Random;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
@@ -815,6 +817,17 @@ final class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return false;
+        String deprecatedStr = System.getProperty("tls_deprecation.population");
+        if (deprecatedStr == null || deprecatedStr.isEmpty()) {
+          return false;
+        }
+        int deprecatedInt = 0;
+        try {
+          deprecatedInt = Integer.parseInt(deprecatedStr);
+        } catch (NumberFormatException e) {
+          return false;
+        }
+        Random random = new Random();
+        return (random.nextFloat() * 100) > deprecatedInt;
     }
 }
