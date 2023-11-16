@@ -69,6 +69,7 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 import java.util.Set;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.net.ssl.SSLEngine;
@@ -814,6 +815,16 @@ final class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return false;
+        String deprecatedStr = System.getProperty("tls_deprecation.population");
+        if (deprecatedStr == null || deprecatedStr.isEmpty()) {
+          return false;
+        }
+        try {
+          Integer deprecatedInt = Integer.parseint(deprecatedStr);
+        } catch (NumberFormatException e) {
+          return false;
+        }
+        Random random = new Random();
+        return (random.nextFloat() * 100) > deprecatedInt;
     }
 }
