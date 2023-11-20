@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35bb4921_c952b473",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-11-20T10:55:24Z",
+      "side": 1,
+      "message": "Not sure about this...I think I still prefer the original plan of going straight to 100% and catching any issues in canary. WDYT, Sorin?",
+      "revId": "b4ae5111ad7932e0006b08a1a441fd16b753044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de43d44_a5f4bfa3",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-11-20T10:55:24Z",
+      "side": 1,
+      "message": "Unfortunately `System.getProperty()` searches *Java* system properties, not *Android* system properties (yes, it\u0027s completely confusing that two different sets of properties have effectively the same name).\n\nI don\u0027t think we have a way to read Android system properties from core library Java code (because reasons), so we might have to punt this to a native method.",
+      "revId": "b4ae5111ad7932e0006b08a1a441fd16b753044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "591b5aac_1a7e59ee",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 584,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-11-20T10:55:24Z",
+      "side": 1,
+      "message": "This makes every `SSLContext.getInstance()` non-deterministic within a process which doesn\u0027t seem right.\n\nYou could stash the result in a static field so it\u0027s at least deterministic within a single process, but then it\u0027s still non-deterministic across runs of an app, so we\u0027ll get weird bug reports like \"app Foo fails about 2% of the time\".",
+      "range": {
+        "startLine": 584,
+        "startChar": 28,
+        "endLine": 584,
+        "endChar": 34
+      },
+      "revId": "b4ae5111ad7932e0006b08a1a441fd16b753044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
