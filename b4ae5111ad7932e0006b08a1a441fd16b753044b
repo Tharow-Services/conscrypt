@@ -20,6 +20,46 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "07021127_6bce2ea6",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1093,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-11-20T11:05:38Z",
+      "side": 1,
+      "message": "nit: whitespace",
+      "range": {
+        "startLine": 1093,
+        "startChar": 13,
+        "endLine": 1093,
+        "endChar": 14
+      },
+      "revId": "b4ae5111ad7932e0006b08a1a441fd16b753044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2722eaf8_9328d912",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1099,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2023-11-20T11:05:38Z",
+      "side": 1,
+      "message": "Doesn\u0027t this make it quite unpredictable? I mean on the same device (and even same app) you will get inconsistent response. Users may see occasional errors, but it won\u0027t be reproducible in a constant fashion.\n\nMaybe to cache the decision and reuse it?",
+      "revId": "b4ae5111ad7932e0006b08a1a441fd16b753044b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "8de43d44_a5f4bfa3",
         "filename": "platform/src/main/java/org/conscrypt/Platform.java",
         "patchSetId": 6
