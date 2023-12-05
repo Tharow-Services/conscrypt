@@ -1065,7 +1065,7 @@ public final class NativeCrypto {
     static final String[] TLSV1_PROTOCOLS = TLSV11_PROTOCOLS;
 
     static final String[] DEFAULT_PROTOCOLS = TLSV13_PROTOCOLS;
-    private static final String[] SUPPORTED_PROTOCOLS = new String[] {
+    static final String[] SUPPORTED_PROTOCOLS = new String[] {
             DEPRECATED_PROTOCOL_TLSV1,
             DEPRECATED_PROTOCOL_TLSV1_1,
             SUPPORTED_PROTOCOL_TLSV1_2,

@@ -30,6 +30,7 @@ import javax.net.ssl.SSLServerSocketFactory;
 import javax.net.ssl.SSLSessionContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
+import com.android.org.conscrypt.Platform;
 
 /**
  * OpenSSL-backed SSLContext service provider interface.
@@ -170,22 +171,23 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
 
     /**
      * Public to allow construction via the provider framework.
-     * @hide This class is not part of the Android public SDK API
      */
     public static final class TLSv13 extends OpenSSLContextImpl {
         public TLSv13() {
-            super(NativeCrypto.TLSV13_PROTOCOLS);
+            super(Platform.isTlsV1Deprecated() ?
+                      NativeCrypto.TLSV13_PROTOCOLS :
+                      NativeCrypto.SUPPORTED_PROTOCOLS);
         }
     }
-
+  
     /**
      * Public to allow construction via the provider framework.
-     * @hide This class is not part of the Android public SDK API
      */
     public static final class TLSv12 extends OpenSSLContextImpl {
-        @android.compat.annotation.UnsupportedAppUsage
         public TLSv12() {
-            super(NativeCrypto.TLSV12_PROTOCOLS);
+            super(Platform.isTlsV1Deprecated() ?
+                      NativeCrypto.TLSV12_PROTOCOLS :
+                      NativeCrypto.SUPPORTED_PROTOCOLS);
         }
     }
 
