@@ -170,22 +170,21 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
 
     /**
      * Public to allow construction via the provider framework.
-     * @hide This class is not part of the Android public SDK API
      */
     public static final class TLSv13 extends OpenSSLContextImpl {
         public TLSv13() {
-            super(NativeCrypto.TLSV13_PROTOCOLS);
+            super(Platform.isTlsV1Deprecated() ?
+                      NativeCrypto.TLSV13_PROTOCOLS : NativeCrypto.DEFAULT_PROTOCOLS);
         }
     }
-
+  
     /**
      * Public to allow construction via the provider framework.
-     * @hide This class is not part of the Android public SDK API
      */
     public static final class TLSv12 extends OpenSSLContextImpl {
-        @android.compat.annotation.UnsupportedAppUsage
         public TLSv12() {
-            super(NativeCrypto.TLSV12_PROTOCOLS);
+            super(Platform.isTlsV1Deprecated() ?
+                      NativeCrypto.TLSV12_PROTOCOLS : NativeCrypto.DEFAULT_PROTOCOLS);
         }
     }
 
