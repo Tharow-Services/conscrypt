@@ -269,11 +269,24 @@ int throwForEvpError(JNIEnv* env, int reason, const char* message,
                      int (*defaultThrow)(JNIEnv*, const char*)) {
     switch (reason) {
         case EVP_R_MISSING_PARAMETERS:
+<<<<<<< HEAD   (2891ca [automerger skipped] Merge: Make tests agnostic about TLS v1)
+=======
+        case EVP_R_INVALID_PEER_KEY:
+        case EVP_R_DECODE_ERROR:
+        case EVP_R_NOT_A_PRIVATE_KEY:
+>>>>>>> CHANGE (3493ac Merge Conscrypt upstream.)
             return throwInvalidKeyException(env, message);
             break;
         case EVP_R_UNSUPPORTED_ALGORITHM:
             return throwNoSuchAlgorithmException(env, message);
             break;
+<<<<<<< HEAD   (2891ca [automerger skipped] Merge: Make tests agnostic about TLS v1)
+=======
+        case EVP_R_INVALID_BUFFER_SIZE:
+        case EVP_R_BUFFER_TOO_SMALL:
+            return throwIllegalArgumentException(env, message);
+            break;
+>>>>>>> CHANGE (3493ac Merge Conscrypt upstream.)
         default:
             return defaultThrow(env, message);
             break;
