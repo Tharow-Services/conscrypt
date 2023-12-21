@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f490dc7f_08a522ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-12-21T13:54:39Z",
+      "side": 1,
+      "message": "Mea culpa: This can\u0027t actually land until after https://r.android.com/2887887 as that removes some dependencies on Key implementation classes from the API classes.",
+      "revId": "b445a7f6fd703084a3d9e154e027392f2e235729",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
