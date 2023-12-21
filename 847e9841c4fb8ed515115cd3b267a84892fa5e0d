@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "53d946b9_b0e9a17e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-12-21T12:49:12Z",
+      "side": 1,
+      "message": "LGTM but I don\u0027t have a vote here 😊\n\nThere are a few other external projects that have similar legacy setups and could use bringing into line with just OWNERS approval: boringssl, bouncycastle and wycheproof spring to mind.",
+      "revId": "847e9841c4fb8ed515115cd3b267a84892fa5e0d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
