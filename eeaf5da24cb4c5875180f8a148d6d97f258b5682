@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3208289_d2e064fc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2023-12-21T12:13:05Z",
+      "side": 1,
+      "message": "Probably won\u0027t merge this until the new year as it needs a matching CL to exclude various tests from ART minus Conscrypt configs or they will fail.",
+      "revId": "eeaf5da24cb4c5875180f8a148d6d97f258b5682",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
