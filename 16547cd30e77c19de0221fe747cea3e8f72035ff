@@ -1,5 +1,23 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ec4ad3f7_ac1a261b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1884045
+      },
+      "writtenOn": "2024-01-04T17:28:22Z",
+      "side": 1,
+      "message": "Thank you for the quick fix! Please cherry-pick it to udc-mainline-prod.",
+      "revId": "16547cd30e77c19de0221fe747cea3e8f72035ff",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
