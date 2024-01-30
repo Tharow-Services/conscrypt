@@ -41,32 +41,18 @@ public class MetricsTest {
         Object sdkVersion = getSdkVersion();
         StatsEvent frameworkStatsEvent;
         ReflexiveStatsEvent reflexiveStatsEvent;
-        if ((sdkVersion != null) && ((int) sdkVersion > 32)) {
-            frameworkStatsEvent = StatsEvent.newBuilder()
-                                                 .setAtomId(TLS_HANDSHAKE_REPORTED)
-                                                 .writeBoolean(false)
-                                                 .writeInt(1) // protocol
-                                                 .writeInt(2) // cipher suite
-                                                 .writeInt(100) // duration
-                                                 .writeInt(3) // source
-                                                 .writeIntArray(new int[] {0}) // uids
-                                                 .usePooledBuffer()
-                                                 .build();
-            reflexiveStatsEvent = ReflexiveStatsEvent.buildEvent(
-                TLS_HANDSHAKE_REPORTED, false, 1, 2, 100, 3, new int[] {0});
-        } else {
-            frameworkStatsEvent = StatsEvent.newBuilder()
-                                                 .setAtomId(TLS_HANDSHAKE_REPORTED)
-                                                 .writeBoolean(false)
-                                                 .writeInt(1) // protocol
-                                                 .writeInt(2) // cipher suite
-                                                 .writeInt(100) // duration
-                                                 .writeInt(3) // source
-                                                 .usePooledBuffer()
-                                                 .build();
-            reflexiveStatsEvent = ReflexiveStatsEvent.buildEvent(
-                TLS_HANDSHAKE_REPORTED, false, 1, 2, 100, 3);
-        }
+        frameworkStatsEvent = StatsEvent.newBuilder()
+                                                .setAtomId(TLS_HANDSHAKE_REPORTED)
+                                                .writeBoolean(false)
+                                                .writeInt(1) // protocol
+                                                .writeInt(2) // cipher suite
+                                                .writeInt(100) // duration
+                                                .writeInt(3) // source
+                                                .writeInt(7) // uid
+                                                .usePooledBuffer()
+                                                .build();
+        reflexiveStatsEvent = ReflexiveStatsEvent.buildEvent(
+            TLS_HANDSHAKE_REPORTED, false, 1, 2, 100, 3, 7);
 
         StatsEvent constructedEvent = (StatsEvent) reflexiveStatsEvent.getStatsEvent();
 
@@ -100,16 +86,4 @@ public class MetricsTest {
             }
         }
     }
-
-    static Object getSdkVersion() {
-        try {
-            OptionalMethod getSdkVersion =
-                    new OptionalMethod(Class.forName("dalvik.system.VMRuntime"),
-                                        "getSdkVersion");
-            return getSdkVersion.invokeStatic();
-        } catch (ClassNotFoundException e) {
-            return null;
-        }
-    }
-
 }

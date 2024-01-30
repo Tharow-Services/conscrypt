@@ -1075,7 +1075,7 @@ final class Platform {
     private static void writeStats(
             boolean success, int protocol, int cipherSuite, int duration) {
         ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, protocol,
-                cipherSuite, duration, SOURCE_GMS, new int[] {Os.getuid(), Binder.getCallingUid()});
+                cipherSuite, duration, SOURCE_GMS, Binder.getCallingUid());
     }
 
     public static boolean isJavaxCertificateSupported() {
