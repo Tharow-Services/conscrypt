@@ -49,8 +49,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
+<<<<<<< HEAD   (ef9424 Mark noIv test as NonCts)
 import java.util.function.Predicate;
 
+=======
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
+
+import javax.net.ssl.HostnameVerifier;
+>>>>>>> BRANCH (5dc9cd Merge: Make tests agnostic about TLS v1.x.)
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLEngineResult;
@@ -363,6 +370,7 @@ public final class TestUtils {
         SSLContext jdkContext = newClientSslContext(getJdkProvider());
         SSLContext conscryptContext = newClientSslContext(getConscryptProvider());
         // No point building a Set here due to small list sizes.
+<<<<<<< HEAD   (ef9424 Mark noIv test as NonCts)
         List<String> conscryptProtocols = getSupportedProtocols(conscryptContext);
         Predicate<String> predicate = p -> conscryptProtocols.contains(p)
             // TODO(prb): Certificate auth fails when connecting Conscrypt and JDK's TLS 1.3.
@@ -375,6 +383,29 @@ public final class TestUtils {
         SSLContext conscryptContext = newClientSslContext(getConscryptProvider());
         Set<String> conscryptCiphers =  new HashSet<>(getSupportedCiphers(conscryptContext));
         Predicate<String> predicate = c -> isTlsCipherSuite(c) && conscryptCiphers.contains(c);
+=======
+        final List<String> conscryptProtocols = getSupportedProtocols(conscryptContext);
+        // TODO(prb): Certificate auth fails when connecting Conscrypt and JDK's TLS 1.3.
+        Predicate<String> predicate = new Predicate<String>() {
+            @Override
+            public boolean test(String string) {
+              return conscryptProtocols.contains(string) && !string.equals(PROTOCOL_TLS_V1_3);
+            }
+        };
+        return getSupportedProtocols(jdkContext, predicate);
+    }
+
+    public static String[] getCommonCipherSuites() {
+        SSLContext jdkContext = newClientSslContext(getJdkProvider());
+        SSLContext conscryptContext = newClientSslContext(getConscryptProvider());
+        final Set<String> conscryptCiphers =  new HashSet<>(getSupportedCiphers(conscryptContext));
+        Predicate<String> predicate = new Predicate<String>() {
+            @Override
+            public boolean test(String string) {
+              return isTlsCipherSuite(string) && conscryptCiphers.contains(string);
+            }
+        };
+>>>>>>> BRANCH (5dc9cd Merge: Make tests agnostic about TLS v1.x.)
         return getSupportedCiphers(jdkContext, predicate);
     }
 
@@ -383,6 +414,7 @@ public final class TestUtils {
     }
 
     public static String[] getSupportedCiphers(SSLContext ctx, Predicate<String> predicate) {
+<<<<<<< HEAD   (ef9424 Mark noIv test as NonCts)
         return Arrays.stream(ctx.getDefaultSSLParameters().getCipherSuites())
             .filter(predicate)
             .toArray(String[]::new);
@@ -396,6 +428,33 @@ public final class TestUtils {
         return Arrays.stream(ctx.getDefaultSSLParameters().getProtocols())
             .filter(predicate)
             .toArray(String[]::new);
+=======
+        IntFunction<String[]> transform = new IntFunction<String[]>() {
+            @Override
+            public String[] apply(int value) {
+                return new String[value];
+            }
+        };
+        return Arrays.stream(ctx.getDefaultSSLParameters().getCipherSuites())
+            .filter(predicate)
+            .toArray(transform);
+    }
+
+    public static List<String> getSupportedProtocols(SSLContext ctx) {
+        return Arrays.asList(ctx.getDefaultSSLParameters().getProtocols());
+    }
+
+    public static String[] getSupportedProtocols(SSLContext ctx, Predicate<String> predicate) {
+        IntFunction<String[]> transform = new IntFunction<String[]>() {
+            @Override
+            public String[] apply(int value) {
+                return new String[value];
+            }
+        };
+        return Arrays.stream(ctx.getDefaultSSLParameters().getProtocols())
+            .filter(predicate)
+            .toArray(transform);
+>>>>>>> BRANCH (5dc9cd Merge: Make tests agnostic about TLS v1.x.)
     }
 
     private static boolean isTlsCipherSuite(String cipher) {
