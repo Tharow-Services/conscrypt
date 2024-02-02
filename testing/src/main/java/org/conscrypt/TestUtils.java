@@ -27,6 +27,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -51,7 +52,6 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Predicate;
-
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLEngineResult;
@@ -308,6 +308,15 @@ public final class TestUtils {
             }
         }
         throw ex;
+    }
+
+    // Return a Class by name or null
+    public static Class<?> findClass(String name) {
+        try {
+            return Class.forName(name);
+        } catch (ClassNotFoundException ignored) {
+            return null;
+        }
     }
 
     static SSLSocketFactory setUseEngineSocket(
@@ -805,5 +814,23 @@ public final class TestUtils {
     public static boolean isOsx() {
         String name = osName();
         return name.startsWith("macosx") || name.startsWith("osx");
+    }
+
+    public static void assumeXecClassesAvailable() {
+        Assume.assumeTrue(findClass("java.security.spec.XECPrivateKeySpec") != null);
+    }
+
+    // Find base method via reflection due to possible version skew on Android
+    // and visibility issues when building with Gradle.
+    public static boolean isTlsV1Deprecated() {
+        try {
+            return (Boolean) conscryptClass("Platform")
+                    .getDeclaredMethod("isTlsV1Deprecated")
+                    .invoke(null);
+        } catch (NoSuchMethodException e) {
+            return false;
+        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
+            throw new IllegalStateException("Reflection failure", e);
+        }
     }
 }
