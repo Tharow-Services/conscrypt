@@ -36,6 +36,9 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.lang.String;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import javax.security.auth.x500.X500Principal;
 
@@ -98,6 +101,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
 
     private static class PreloadHolder {
         private static File defaultCaCertsSystemDir;
+        private static File defaultCaCertsSystem2Dir;
         private static File defaultCaCertsAddedDir;
         private static File defaultCaCertsDeletedDir;
 
@@ -107,6 +111,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             File updatableDir = new File("/apex/com.android.conscrypt/cacerts");
             if (shouldUseApex(updatableDir)) {
                 defaultCaCertsSystemDir = updatableDir;
+                defaultCaCertsSystem2Dir = new File(ANDROID_ROOT + "/etc/security/cacerts")
             } else {
                 defaultCaCertsSystemDir = new File(ANDROID_ROOT + "/etc/security/cacerts");
             }
@@ -153,6 +158,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
     }
 
     private final File systemDir;
+    private final File system2Dir;
     private final File addedDir;
     private final File deletedDir;
 
@@ -167,8 +173,9 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         this(baseDir, PreloadHolder.defaultCaCertsAddedDir, PreloadHolder.defaultCaCertsDeletedDir);
     }
 
-    public TrustedCertificateStore(File systemDir, File addedDir, File deletedDir) {
+    public TrustedCertificateStore(File systemDir, File system2Dir, File addedDir, File deletedDir) {
         this.systemDir = systemDir;
+        this.system2Dir = system2Dir;
         this.addedDir = addedDir;
         this.deletedDir = deletedDir;
     }
@@ -201,6 +208,9 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         File file;
         if (isSystem(alias)) {
             file = new File(systemDir, alias.substring(PREFIX_SYSTEM.length()));
+            if (file == null ) {
+                file = new File(system2Dir, alias.substring(PREFIX_SYSTEM.length()));
+            }
         } else if (isUser(alias)) {
             file = new File(addedDir, alias.substring(PREFIX_USER.length()));
         } else {
@@ -280,6 +290,8 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         Set<String> result = new HashSet<String>();
         addAliases(result, PREFIX_USER, addedDir);
         addAliases(result, PREFIX_SYSTEM, systemDir);
+        if (system2Dir != null)
+            addAliases(result, PREFIX_SYSTEM, system2Dir);
         return result;
     }
 
@@ -297,7 +309,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         }
         for (String filename : files) {
             String alias = prefix + filename;
-            if (containsAlias(alias)) {
+            if (containsAlias(alias) && !result.contains(alias)) {
                 result.add(alias);
             }
         }
@@ -306,7 +318,12 @@ public class TrustedCertificateStore implements ConscryptCertStore {
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
     public Set<String> allSystemAliases() {
         Set<String> result = new HashSet<String>();
-        String[] files = systemDir.list();
+        List<String> files = ArrayList<String>(Arrays.asList(systemDir.list()));
+        if (system2Dir != null) {
+            List<String> files2 = ArrayList<String>(Arrays.asList(system2Dir.list()));
+            files2.removeAll(files);
+            files.addAll(files2);
+        }
         if (files == null) {
             return result;
         }
@@ -349,7 +366,12 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         File system = getCertificateFile(systemDir, x);
         if (system.exists()) {
             return PREFIX_SYSTEM + system.getName();
-        }
+        } else {
+          File system2 = getCertificateFile(system2Dir, x);
+          if (system2.exists()) {
+            return PREFIX_SYSTEM + system2.getName();
+          }
+
         return null;
     }
 
@@ -415,6 +437,13 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         if (system != null && !isDeletedSystemCertificate(system)) {
             return system;
         }
+        X509Certificate system2 = findCert(system2Dir,
+                                          c.getSubjectX500Principal(),
+                                          selector,
+                                          X509Certificate.class);
+        if (system2 != null && !isDeletedSystemCertificate(system2)) {
+            return system2;
+        }
         return null;
     }
 
@@ -445,6 +474,10 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         X509Certificate system = findCert(systemDir, issuer, selector, X509Certificate.class);
         if (system != null && !isDeletedSystemCertificate(system)) {
             return system;
+        }
+        X509Certificate system2 = findCert(system2Dir, issuer, selector, X509Certificate.class);
+        if (system2 != null && !isDeletedSystemCertificate(system2)) {
+            return system2;
         }
         return null;
     }
@@ -489,6 +522,14 @@ public class TrustedCertificateStore implements ConscryptCertStore {
                 issuers.addAll(systemCerts);
             } else {
                 issuers = systemCerts;
+            }
+        }
+        Set<X509Certificate> system2Certs = findCertSet(system2Dir, issuer, selector);
+        if (system2Certs != null) {
+            if (issuers != null) {
+                issuers.addAll(system2Certs);
+            } else {
+                issuers = system2Certs;
             }
         }
         return (issuers != null) ? issuers : Collections.<X509Certificate>emptySet();
@@ -649,6 +690,22 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             // return taking no further action.
             return;
         }
+        File system2 = getCertificateFile(system2Dir, cert);
+        if (system2.exists()) {
+            File deleted = getCertificateFile(deletedDir, cert);
+            if (deleted.exists()) {
+                // we have a system cert that was marked deleted.
+                // remove the deleted marker to expose the original
+                if (!deleted.delete()) {
+                    throw new IOException("Could not remove " + deleted);
+                }
+                return;
+            }
+            // otherwise we just have a dup of an existing system cert.
+            // return taking no further action.
+            return;
+        }
+
         File user = getCertificateFile(addedDir, cert);
         if (user.exists()) {
             // we have an already installed user cert, bail.
