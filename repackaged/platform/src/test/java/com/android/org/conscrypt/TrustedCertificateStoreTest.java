@@ -436,7 +436,7 @@ public class TrustedCertificateStoreTest {
 
     private void createStore() {
         System.setProperty("system.certs.enabled", mApexCertsEnabled);
-        store = new TrustedCertificateStore(dirSystem, dirAdded, dirDeleted);
+        store = new TrustedCertificateStore(dirSystem, null, dirAdded, dirDeleted);
     }
 
     @After
