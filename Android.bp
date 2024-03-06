@@ -496,6 +496,12 @@ java_sdk_library {
     lint: {
         baseline_filename: "lint-baseline.xml",
     },
+
+    // This module's output stubs contain apis defined in "conscrypt.module.public.api.stubs",
+    // but adding "conscrypt.module.public.api" as a dependency of this module leads to circular
+    // dependency and requires further bootstrapping. Thus, disable stubs generation from the
+    // api signature files and generate stubs from the source Java files instead.
+    build_from_text_stub: false,
 }
 
 // Platform conscrypt crypto JNI library
