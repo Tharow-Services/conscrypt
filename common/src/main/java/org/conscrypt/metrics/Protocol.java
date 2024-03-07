@@ -30,7 +30,7 @@ public enum Protocol {
     TLSv1_1(3),
     TLSv1_2(4),
     TLSv1_3(5),
-    TLS_PROTO_FAILED(0xFFFF),
+    TLS_PROTO_FAILED(15),
     ;
 
     final byte id;
