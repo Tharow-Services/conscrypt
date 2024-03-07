@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ff6feab0_60744d7c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-03-07T15:08:26Z",
+      "side": 1,
+      "message": "Also in `external/conscrypt/Android.bp`? Might as well get them all in the same CL...",
+      "revId": "eef729505796fb7de825fd0af289be5aa5dbd92f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
