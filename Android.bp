@@ -238,8 +238,8 @@ java_library {
         "com.android.conscrypt",
         "test_com.android.conscrypt",
     ],
-    // Conscrypt should support Q
-    min_sdk_version: "29",
+    // Conscrypt should support R
+    min_sdk_version: "30",
 
     installable: true,
     // Hostdex is only for ART testing on host: ART build file has its
