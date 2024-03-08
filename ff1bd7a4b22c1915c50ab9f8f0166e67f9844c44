@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82f75ab0_72f99d02",
+        "filename": "Android.bp",
+        "patchSetId": 4
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-03-08T08:54:43Z",
+      "side": 1,
+      "message": "Also here, for consistency.",
+      "range": {
+        "startLine": 553,
+        "startChar": 4,
+        "endLine": 553,
+        "endChar": 19
+      },
+      "revId": "ff1bd7a4b22c1915c50ab9f8f0166e67f9844c44",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
