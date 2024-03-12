@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "831feb12_3b42faeb",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-03-12T16:59:06Z",
+      "side": 1,
+      "message": "Is there a way to make sure we don\u0027t miss this whenever we add a new TLS version?",
+      "revId": "f6616b2b9c181b77cf8d974455f10cf559ce7711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
