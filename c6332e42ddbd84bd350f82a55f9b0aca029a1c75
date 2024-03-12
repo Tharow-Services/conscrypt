@@ -41,6 +41,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf4cc840_d0902a0b",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-12T18:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0744b964_a0ded5fe",
+      "range": {
+        "startLine": 1049,
+        "startChar": 16,
+        "endLine": 1049,
+        "endChar": 17
+      },
+      "revId": "c6332e42ddbd84bd350f82a55f9b0aca029a1c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a898a978_9d14a5ba",
@@ -54,6 +78,54 @@
       "writtenOn": "2024-03-12T18:07:34Z",
       "side": 1,
       "message": "Again, this test should be being skipped due to the `assumeTlsV11Enabled()` and shouldn\u0027t need modifying.",
+      "range": {
+        "startLine": 941,
+        "startChar": 0,
+        "endLine": 941,
+        "endChar": 76
+      },
+      "revId": "c6332e42ddbd84bd350f82a55f9b0aca029a1c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c6f8711_6f318e2a",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-12T18:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a898a978_9d14a5ba",
+      "range": {
+        "startLine": 941,
+        "startChar": 0,
+        "endLine": 941,
+        "endChar": 76
+      },
+      "revId": "c6332e42ddbd84bd350f82a55f9b0aca029a1c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9887d0d2_8d0d87a9",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-12T18:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a898a978_9d14a5ba",
       "range": {
         "startLine": 941,
         "startChar": 0,

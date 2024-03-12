@@ -52,6 +52,42 @@
       "parentUuid": "03ccdde4_cbe091be",
       "revId": "f6616b2b9c181b77cf8d974455f10cf559ce7711",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3dc1637_fe11c1f0",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-12T18:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aae0bed_8310a649",
+      "revId": "f6616b2b9c181b77cf8d974455f10cf559ce7711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c83ed0cb_d7ac75b8",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-12T18:46:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4aae0bed_8310a649",
+      "revId": "f6616b2b9c181b77cf8d974455f10cf559ce7711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
