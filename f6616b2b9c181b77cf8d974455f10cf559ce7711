@@ -16,6 +16,24 @@
       "message": "Is there a way to make sure we don\u0027t miss this whenever we add a new TLS version?",
       "revId": "f6616b2b9c181b77cf8d974455f10cf559ce7711",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "03ccdde4_cbe091be",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-12T17:15:21Z",
+      "side": 1,
+      "message": "I added a little warning in NativeCrypto. Is that enough?",
+      "parentUuid": "831feb12_3b42faeb",
+      "revId": "f6616b2b9c181b77cf8d974455f10cf559ce7711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
