@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ef31a34_f965d882",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 783,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-03-12T18:07:34Z",
+      "side": 0,
+      "message": "Let\u0027s remove this as well now.",
+      "range": {
+        "startLine": 783,
+        "startChar": 0,
+        "endLine": 783,
+        "endChar": 47
+      },
+      "revId": "4ae577dce173cb392e28692d64382e3a4a44f129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b7ea366_50126c55",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-03-12T18:07:34Z",
+      "side": 0,
+      "message": "Also needs to be gated (think GMS), e.g. `if (Platform.isTlsV1Supported())`\n\nAlso, simply removing the protocols from this array will cause unnecessary app compat issues.  In addition to this change, have a look at the code in [`SSLParamtersImpl`](https://cs.android.com/android/platform/superproject/main/+/main:external/conscrypt/common/src/main/java/org/conscrypt/SSLParametersImpl.java;l\u003d284-285;drc\u003d7b36b7db3850b2b506df796de2895d203e87755b) and [`NativeSsl`](https://cs.android.com/android/platform/superproject/main/+/main:external/conscrypt/repackaged/common/src/main/java/com/android/org/conscrypt/NativeSsl.java;l\u003d310-313;drc\u003d18b776ba278d0d2eb6490dfeaf4ab9f671e9e948) that quietly filters SSLv3 and only throws if the connection fails after filtering unsupported protocols.",
+      "revId": "4ae577dce173cb392e28692d64382e3a4a44f129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

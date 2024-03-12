@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0744b964_a0ded5fe",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-03-12T18:07:34Z",
+      "side": 1,
+      "message": "Note that the junit Assumes should already take care of those tests, so maybe reword this as something like \"go look for tests which are skipped using `assumeTlsV11Enabled()`\"",
+      "range": {
+        "startLine": 1049,
+        "startChar": 16,
+        "endLine": 1049,
+        "endChar": 17
+      },
+      "revId": "c6332e42ddbd84bd350f82a55f9b0aca029a1c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a898a978_9d14a5ba",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 941,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-03-12T18:07:34Z",
+      "side": 1,
+      "message": "Again, this test should be being skipped due to the `assumeTlsV11Enabled()` and shouldn\u0027t need modifying.",
+      "range": {
+        "startLine": 941,
+        "startChar": 0,
+        "endLine": 941,
+        "endChar": 76
+      },
+      "revId": "c6332e42ddbd84bd350f82a55f9b0aca029a1c75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

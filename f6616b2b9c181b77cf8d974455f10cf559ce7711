@@ -34,6 +34,24 @@
       "parentUuid": "831feb12_3b42faeb",
       "revId": "f6616b2b9c181b77cf8d974455f10cf559ce7711",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4aae0bed_8310a649",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-03-12T18:07:34Z",
+      "side": 1,
+      "message": "These tests shouldn\u0027t need to be ignored - the `TestUtils.assumeTlsV11Enabled(clientContext);` checks ought to take care of it - if not, there\u0027s a bug somewhere.",
+      "parentUuid": "03ccdde4_cbe091be",
+      "revId": "f6616b2b9c181b77cf8d974455f10cf559ce7711",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
