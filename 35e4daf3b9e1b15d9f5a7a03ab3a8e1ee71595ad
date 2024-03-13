@@ -16,6 +16,24 @@
       "message": "Add `Bug:`, `Test:` and maybe `Merged-In:` I assume you don\u0027t want to get this merged in other branches.",
       "revId": "35e4daf3b9e1b15d9f5a7a03ab3a8e1ee71595ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ed3d889_e6abe009",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-13T17:13:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "59df02ee_e8c23210",
+      "revId": "35e4daf3b9e1b15d9f5a7a03ab3a8e1ee71595ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
