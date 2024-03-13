@@ -34,6 +34,24 @@
       "parentUuid": "22e7e713_1ccf8171",
       "revId": "2299b8a2fcadb89b5c7eeb0990252e456151493c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c17abd4_a2d60283",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2024-03-13T17:29:58Z",
+      "side": 1,
+      "message": "\u003e I guess the changes would just be noop by the time it reaches main.\n\nLet\u0027s see what happens :) automerger linter says this: https://screenshot.googleplex.com/ALvVErnzgZvv7vg . I don\u0027t know what \"non-blank\" merge in aosp/main and internal branches will be.\n\n\u003e The bugs I\u0027ve gotten are from 12L\n\nI\u0027d expect it to be identical to Android 12. But we can cherry-pick them later.",
+      "parentUuid": "1f96d977_bfe2db83",
+      "revId": "2299b8a2fcadb89b5c7eeb0990252e456151493c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
