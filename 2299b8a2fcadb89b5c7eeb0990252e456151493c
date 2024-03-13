@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "22e7e713_1ccf8171",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2024-03-13T17:21:33Z",
+      "side": 1,
+      "message": "Surprised that no merge-conflict happened w/o \"Merged-In: I47ea1507edadc4d8f22f954797c14ee2a4ce8861\". \n\nWhy this change is not needed in android12-tests-dev?",
+      "revId": "2299b8a2fcadb89b5c7eeb0990252e456151493c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
