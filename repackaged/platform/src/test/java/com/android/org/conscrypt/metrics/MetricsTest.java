@@ -100,6 +100,73 @@ public class MetricsTest {
             }
         }
     }
+  
+    @Test
+    public void test_reflexiveEvent2() throws Exception {
+        TestUtils.assumeStatsLogAvailable();
+
+        Object sdkVersion = getSdkVersion();
+        StatsEvent frameworkStatsEvent;
+        ReflexiveStatsEvent reflexiveStatsEvent;
+        if ((sdkVersion != null) && ((int) sdkVersion > 32)) {
+            frameworkStatsEvent = StatsEvent.newBuilder()
+                                                 .setAtomId(TLS_HANDSHAKE_REPORTED)
+                                                 .writeBoolean(false)
+                                                 .writeInt(65563) // protocol
+                                                 .writeInt(65563) // cipher suite
+                                                 .writeInt(100) // duration
+                                                 .writeInt(3) // source
+                                                 .writeIntArray(new int[] {0}) // uids
+                                                 .usePooledBuffer()
+                                                 .build();
+            reflexiveStatsEvent = ReflexiveStatsEvent.buildEvent(
+                TLS_HANDSHAKE_REPORTED, false, 65563, 65563, 100, 3, new int[] {0});
+        } else {
+            frameworkStatsEvent = StatsEvent.newBuilder()
+                                                 .setAtomId(TLS_HANDSHAKE_REPORTED)
+                                                 .writeBoolean(false)
+                                                 .writeInt(65563) // protocol
+                                                 .writeInt(65563) // cipher suite
+                                                 .writeInt(100) // duration
+                                                 .writeInt(3) // source
+                                                 .usePooledBuffer()
+                                                 .build();
+            reflexiveStatsEvent = ReflexiveStatsEvent.buildEvent(
+                TLS_HANDSHAKE_REPORTED, false, 65563, 65563, 100, 3);
+        }
+
+        StatsEvent constructedEvent = (StatsEvent) reflexiveStatsEvent.getStatsEvent();
+
+        // TODO(nikitai): Figure out how to use hidden (@hide) getters from StatsEvent
+        // to eliminate the use of reflection
+        int fid = (Integer) frameworkStatsEvent.getClass()
+                          .getMethod("getAtomId")
+                          .invoke(frameworkStatsEvent);
+        int cid = (Integer) constructedEvent.getClass()
+                          .getMethod("getAtomId")
+                          .invoke(constructedEvent);
+        assertEquals(fid, cid);
+
+        int fnb = (Integer) frameworkStatsEvent.getClass()
+                          .getMethod("getNumBytes")
+                          .invoke(frameworkStatsEvent);
+        int cnb = (Integer) constructedEvent.getClass()
+                          .getMethod("getNumBytes")
+                          .invoke(constructedEvent);
+        assertEquals(fnb, cnb);
+
+        byte[] fbytes = (byte[]) frameworkStatsEvent.getClass()
+                                .getMethod("getBytes")
+                                .invoke(frameworkStatsEvent);
+        byte[] cbytes =
+                (byte[]) constructedEvent.getClass().getMethod("getBytes").invoke(constructedEvent);
+        for (int i = 0; i < fnb; i++) {
+            // skip encoded timestamp (bytes 1-8)
+            if (i < 1 || i > 8) {
+                assertEquals(fbytes[i], cbytes[i]);
+            }
+        }
+    }
 
     static Object getSdkVersion() {
         try {
