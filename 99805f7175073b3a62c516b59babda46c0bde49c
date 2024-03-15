@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "87dfd44c_00a81c59",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1976460
+      },
+      "writtenOn": "2024-03-15T11:00:23Z",
+      "side": 1,
+      "message": "LGTM. Pete and Miguel to assess if this can be accepted (for Android 12).",
+      "revId": "99805f7175073b3a62c516b59babda46c0bde49c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
