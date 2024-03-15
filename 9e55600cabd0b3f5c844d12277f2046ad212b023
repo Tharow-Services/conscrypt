@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f9eb5c6_cfcbb7f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-03-15T10:58:52Z",
+      "side": 1,
+      "message": "Thanks!\n\nI think this will need to go further back though, to wherever we initially landed XDH which looks like android12-tests-dev: https://cs.android.com/android/platform/superproject/+/android12-tests-dev:external/conscrypt/common/src/test/java/org/conscrypt/java/security/ (I don\u0027t see it in android11).  Maybe land this and cherry-pick again to avoid Dr No latency.\n\nAlso, will need Merged-In: I47ea1507edadc4d8f22f954797c14ee2a4ce8861 or it\u0027ll cause merge conflicts downstream.\n\nFWIW I think 256 is the correct value (for X25519 at least) but that breaks interop tests with the RI.",
+      "revId": "9e55600cabd0b3f5c844d12277f2046ad212b023",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
