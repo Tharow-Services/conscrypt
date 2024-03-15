@@ -24,10 +24,13 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeTrue;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -83,6 +86,45 @@ import tests.util.Pair;
 public class SSLSocketTest {
     private ExecutorService executor;
     private ThreadGroup threadGroup;
+
+    /**
+     * Versions of TLS that can be offered when negotiating a secure socket.
+     */
+    public enum TlsVersion {
+      TLS_1_3("TLSv1.3"), // 2018.
+      TLS_1_2("TLSv1.2"), // 2008.
+      TLS_1_1("TLSv1.1"), // 2006.
+      TLS_1_0("TLSv1"),   // 1999.
+      SSL_3_0("SSLv3"),   // 1996.
+      ;
+
+      final String javaName;
+
+      private TlsVersion(String javaName) {
+        this.javaName = javaName;
+      }
+
+      public static TlsVersion forJavaName(String javaName) {
+        switch (javaName) {
+          case "TLSv1.3":
+            return TLS_1_3;
+          case "TLSv1.2":
+            return TLS_1_2;
+          case "TLSv1.1":
+            return TLS_1_1;
+          case "TLSv1":
+            return TLS_1_0;
+          case "SSLv3":
+            return SSL_3_0;
+          default:
+            throw new IllegalArgumentException("Unexpected TLS version: " + javaName);
+        }
+      }
+
+      public String javaName() {
+        return javaName;
+      }
+    }
 
     @Before
     public void setup() {
@@ -422,6 +464,9 @@ public class SSLSocketTest {
      */
     @Test
     public void test_SSLSocket_noncontiguousProtocols_useLower() throws Exception {
+        // This test case needs three TLS versions to test this scenario.
+        // For target device, which only supports TLSv1.2 or greater, test can be igonored
+        assumeTrue(!minSupportedTlsVersionIs(TlsVersion.TLS_1_2));
         TestSSLContext c = TestSSLContext.create();
         SSLContext clientContext = c.clientContext;
         // Can't test fallback without at least 3 protocol versions enabled.
@@ -455,6 +500,9 @@ public class SSLSocketTest {
      */
     @Test
     public void test_SSLSocket_noncontiguousProtocols_canNegotiate() throws Exception {
+        // This test case needs three TLS versions to test this scenario. Certain OEM does not
+        // support TLS versions lesser than 1.2.In such case this test cannot be executed.
+        assumeTrue(!minSupportedTlsVersionIs(TlsVersion.TLS_1_2));
         TestSSLContext c = TestSSLContext.create();
         SSLContext clientContext = c.clientContext;
         // Can't test fallback without at least 3 protocol versions enabled.
@@ -1021,7 +1069,12 @@ public class SSLSocketTest {
         Future<Void> s = runAsync(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                server.setEnabledProtocols(new String[]{"TLSv1.2", "TLSv1.1"});
+                // Change TLS versions if OEM does not support legacy TLS versions.
+                if (minSupportedTlsVersionIs(TlsVersion.TLS_1_2)) {
+                    server.setEnabledProtocols(new String[]{"TLSv1.3", "TLSv1.2"});
+                } else {
+                    server.setEnabledProtocols(new String[]{"TLSv1.2", "TLSv1.1"});
+                }
                 server.startHandshake();
                 return null;
             }
@@ -1029,7 +1082,12 @@ public class SSLSocketTest {
         Future<Void> c = runAsync(new Callable<Void>() {
             @Override
             public Void call() throws Exception {
-                client.setEnabledProtocols(new String[]{"TLSv1.1"});
+                // Update TLS versions if OEM does not support legacy TLS versions.
+                if (minSupportedTlsVersionIs(TlsVersion.TLS_1_2)) {
+                    client.setEnabledProtocols(new String[]{"TLSv1.2"});
+                } else {
+                    client.setEnabledProtocols(new String[]{"TLSv1.1"});
+                }
                 client.startHandshake();
                 return null;
             }
@@ -1050,6 +1108,9 @@ public class SSLSocketTest {
     @Test
     public void test_SSLSocket_sendsTlsFallbackScsv_InappropriateFallback_Failure()
             throws Exception {
+        // Skip test case if minimum TLS version supported by the target device is TLSv1.2
+        // TLS_FALLBACK_SCSV is not required for TLSv1.2 or greater
+        assumeTrue(!minSupportedTlsVersionIs(TlsVersion.TLS_1_2));
         TestSSLContext context = TestSSLContext.create();
         // TLS_FALLBACK_SCSV is only applicable to TLS <= 1.2
         TestUtils.assumeTlsV11Enabled(context.clientContext);
@@ -1102,8 +1163,13 @@ public class SSLSocketTest {
 
     @Test
     public void test_SSLSocket_tlsFallback_byVersion() throws Exception {
-        String[] supportedProtocols =
-                SSLContext.getDefault().getDefaultSSLParameters().getProtocols();
+        String[] supportedProtocols;
+        // Change TLS versions if OEM does not support legacy TLS versions
+        if (minSupportedTlsVersionIs(TlsVersion.TLS_1_2)) {
+            supportedProtocols = new String[] { "TLSv1.2", "TLSv1.3" };
+        } else {
+            supportedProtocols = SSLContext.getDefault().getDefaultSSLParameters().getProtocols();
+        }
         for (final String protocol : supportedProtocols) {
             SSLSocketFactory factory = new DelegatingSSLSocketFactory(
                     (SSLSocketFactory) SSLSocketFactory.getDefault()) {
@@ -1143,4 +1209,46 @@ public class SSLSocketTest {
         }
     }
 
+    /* This function checks if minimum TLS version supported by the platform is
+     * same as the TLS version passed to the function
+     */
+    private boolean minSupportedTlsVersionIs(TlsVersion tlsVersion) {
+        boolean minSuppotedTLS = false;
+        String minTlsVersionString = readVendorProperty("ro.vendor.ssl.min.proto.version");
+
+        try {
+            TlsVersion minTlsVersion = TlsVersion.forJavaName(minTlsVersionString);
+            if (minTlsVersion.equals(tlsVersion)) {
+                minSuppotedTLS = true;
+            }
+        } catch(IllegalArgumentException ex) {
+        }
+
+        return minSuppotedTLS;
+    }
+
+    private String readVendorProperty(String propName) {
+        Process process = null;
+        BufferedReader bufferedReader = null;
+        try {
+            process = new ProcessBuilder().command("/system/bin/getprop", propName).redirectErrorStream(true).start();
+            bufferedReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = bufferedReader.readLine();
+            if (line == null) {
+                line = "";
+            }
+            return line;
+        } catch (Exception e) {
+            return "";
+        } finally{
+            if (bufferedReader != null){
+                try {
+                    bufferedReader.close();
+                } catch (IOException e) {}
+            }
+            if (process != null) {
+                process.destroy();
+            }
+        }
+    }
 }
