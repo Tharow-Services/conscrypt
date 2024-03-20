@@ -117,6 +117,24 @@
       "parentUuid": "da792a04_4dabf46a",
       "revId": "4ae577dce173cb392e28692d64382e3a4a44f129",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5142ed69_be59f547",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 1049,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-03-20T16:45:45Z",
+      "side": 0,
+      "message": "Right, but I still think we need two flag methods.\n\nisTlsV1Deprecated() - if true then we remove TLSv1.x from the lists of default protocols.\n\nisTlsV1Supported() - if false then remove TLSv1.x form the list of supported protocols and filter them if passed to SSLParameters.setProtocols()",
+      "parentUuid": "746fdcad_cf53047f",
+      "revId": "4ae577dce173cb392e28692d64382e3a4a44f129",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
