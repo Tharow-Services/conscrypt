@@ -16,6 +16,98 @@
       "message": "Please upstream this one so we can get it into GMS too.",
       "revId": "17bb9e423eec10dcf0525297aeda38146248d3dc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d0f1a16_a04fb63c",
+        "filename": "common/src/main/java/org/conscrypt/metrics/CipherSuite.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2024-03-21T10:38:07Z",
+      "side": 1,
+      "message": "Can we avoid changing the numbers by using `int` here?",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 19
+      },
+      "revId": "17bb9e423eec10dcf0525297aeda38146248d3dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a53b4b28_cfdc93dd",
+        "filename": "common/src/main/java/org/conscrypt/metrics/Protocol.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2024-03-21T10:38:07Z",
+      "side": 1,
+      "message": "Can we avoid changing the enum value by using `int` here?",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 18
+      },
+      "revId": "17bb9e423eec10dcf0525297aeda38146248d3dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb95bce1_ae9f4684",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/metrics/CipherSuite.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2024-03-21T10:38:07Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 19
+      },
+      "revId": "17bb9e423eec10dcf0525297aeda38146248d3dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cedd4173_497a6ca0",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/metrics/Protocol.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1373412
+      },
+      "writtenOn": "2024-03-21T10:38:07Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 18
+      },
+      "revId": "17bb9e423eec10dcf0525297aeda38146248d3dc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
