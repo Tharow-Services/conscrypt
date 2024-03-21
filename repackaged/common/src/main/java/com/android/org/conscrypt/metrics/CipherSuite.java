@@ -83,7 +83,7 @@ public enum CipherSuite {
         }
     }
 
-    private CipherSuite(int id) {
+    public CipherSuite(int id) {
         this.id = (short) id;
     }
 }

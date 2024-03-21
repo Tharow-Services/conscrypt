@@ -20,4 +20,14 @@ public class CipherSuiteTest {
         }
         assertSame(CipherSuite.UNKNOWN_CIPHER_SUITE, CipherSuite.forName("random junk"));
     }
+
+    @Test
+    public void consistenc2() {
+        for (CipherSuite cipherSuite : CipherSuite.values()) {
+            assertSame(cipherSuite, CipherSuite.forName(cipherSuite.name()));
+            assertSame(CipherSuite.getId(), CipherSuite(CipherSuite.valueOf(cipherSuite.name())));
+        }
+        assertSame(CipherSuite.TLS_CIPHER_FAILED, CipherSuite.forName("TLS_CIPHER_FAILED"));
+        assertSame(CipherSuite.TLS_CIPHER_FAILED, CipherSuite(65535));
+    }
 }
