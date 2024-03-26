@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5c20493c_5c6562cd",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1051,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-26T12:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eecd9680_994743a7",
+      "range": {
+        "startLine": 1051,
+        "startChar": 0,
+        "endLine": 1051,
+        "endChar": 35
+      },
+      "revId": "1d38297eed6383b2cbaadbb6b4dd876ad6c6267f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d6ba246e_472b5f1c",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-03-20T16:45:45Z",
       "side": 1,
       "message": "I don\u0027t think `OBSOLETE_PROTOCOL_SSLV3` should have been in here 😊 but that bug was masked by the fact we were filtering it.\n\nThe test here should be `SUPPORTED_PROTOCOLS.contains(protocol)` so it follows the `isTlsV1Supported()` flag.\n\n\nThere is no `Array.contains()`, so it might be worth creating s Set?",
+      "range": {
+        "startLine": 1133,
+        "startChar": 0,
+        "endLine": 1133,
+        "endChar": 70
+      },
+      "revId": "1d38297eed6383b2cbaadbb6b4dd876ad6c6267f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c630c4be_5760e808",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1133,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-26T12:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d6ba246e_472b5f1c",
       "range": {
         "startLine": 1133,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1424736c_5f1f6842",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-26T12:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a0d76ad7_af5e6c28",
+      "range": {
+        "startLine": 288,
+        "startChar": 0,
+        "endLine": 288,
+        "endChar": 64
+      },
+      "revId": "1d38297eed6383b2cbaadbb6b4dd876ad6c6267f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6639fa72_af5f8b98",
@@ -93,6 +165,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76173141_5a220b40",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 436,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-26T12:56:00Z",
+      "side": 1,
+      "message": "Yeah, agreed.",
+      "parentUuid": "6639fa72_af5f8b98",
+      "range": {
+        "startLine": 436,
+        "startChar": 0,
+        "endLine": 436,
+        "endChar": 67
+      },
+      "revId": "1d38297eed6383b2cbaadbb6b4dd876ad6c6267f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "01ac8190_819c19b9",
@@ -106,6 +202,30 @@
       "writtenOn": "2024-03-20T16:45:45Z",
       "side": 1,
       "message": "Ah, glad this test failed, I forgot about testing!\n\nNeeds updating to check that SSLv3 and SSL both throw IllegalArgumentException now.\n\nAnd then a similar test for TLSv1.x that checks they get filtered, but only if !isTlsv1Supported()\n\nAlso, bonus points for using assertThrows() rather than try/fail idioms.",
+      "range": {
+        "startLine": 1939,
+        "startChar": 11,
+        "endLine": 1939,
+        "endChar": 12
+      },
+      "revId": "1d38297eed6383b2cbaadbb6b4dd876ad6c6267f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a9a9261_5634e99a",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketVersionCompatibilityTest.java",
+        "patchSetId": 27
+      },
+      "lineNbr": 1939,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-03-26T12:56:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "01ac8190_819c19b9",
       "range": {
         "startLine": 1939,
         "startChar": 11,
