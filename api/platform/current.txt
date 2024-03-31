@@ -98,6 +98,7 @@ package com.android.org.conscrypt {
   public class TrustedCertificateStore implements com.android.org.conscrypt.ConscryptCertStore {
     ctor public TrustedCertificateStore();
     method public java.util.Set<java.lang.String> aliases();
+    method public java.util.Set<java.lang.String> allManagedAliases();
     method public java.util.Set<java.lang.String> allSystemAliases();
     method public boolean containsAlias(String);
     method public void deleteCertificateEntry(String) throws java.security.cert.CertificateException, java.io.IOException;
@@ -111,7 +112,8 @@ package com.android.org.conscrypt {
     method public java.io.File getCertificateFile(java.io.File, java.security.cert.X509Certificate);
     method public java.util.Date getCreationDate(String);
     method public java.security.cert.X509Certificate getTrustAnchor(java.security.cert.X509Certificate);
-    method public void installCertificate(java.security.cert.X509Certificate) throws java.security.cert.CertificateException, java.io.IOException;
+    method @Deprecated public void installCertificate(java.security.cert.X509Certificate) throws java.security.cert.CertificateException, java.io.IOException;
+    method public void installCertificate(boolean, java.security.cert.X509Certificate) throws java.security.cert.CertificateException, java.io.IOException;
     method public static final boolean isUser(String);
     method public boolean isUserAddedCertificate(java.security.cert.X509Certificate);
     method public static void setDefaultUserDirectory(java.io.File);
