@@ -85,9 +85,13 @@ import javax.security.auth.x500.X500Principal;
 @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
 @Internal
 public class TrustedCertificateStore implements ConscryptCertStore {
+    private static final String PREFIX_MANAGED = "managed:";
     private static String PREFIX_SYSTEM = "system:";
     private static final String PREFIX_USER = "user:";
 
+    public static final boolean isManaged(String alias) {
+        return alias.startsWith(PREFIX_MANAGED);
+    }
     public static final boolean isSystem(String alias) {
         return alias.startsWith(PREFIX_SYSTEM);
     }
@@ -97,6 +101,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
     }
 
     private static class PreloadHolder {
+        private static File defaultCaCertsManagedDir;
         private static File defaultCaCertsSystemDir;
         private static File defaultCaCertsAddedDir;
         private static File defaultCaCertsDeletedDir;
@@ -105,6 +110,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
             String ANDROID_DATA = System.getenv("ANDROID_DATA");
             File updatableDir = new File("/apex/com.android.conscrypt/cacerts");
+            defaultCaCertsManagedDir = new File(ANDROID_DATA + "/misc/cacerts_managed");
             if (shouldUseApex(updatableDir)) {
                 defaultCaCertsSystemDir = updatableDir;
             } else {
@@ -152,6 +158,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         PreloadHolder.defaultCaCertsDeletedDir = new File(root, "cacerts-removed");
     }
 
+    private final File managedDir;
     private final File systemDir;
     private final File addedDir;
     private final File deletedDir;
@@ -159,15 +166,18 @@ public class TrustedCertificateStore implements ConscryptCertStore {
     @android.compat.annotation.UnsupportedAppUsage
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
     public TrustedCertificateStore() {
-        this(PreloadHolder.defaultCaCertsSystemDir, PreloadHolder.defaultCaCertsAddedDir,
-                PreloadHolder.defaultCaCertsDeletedDir);
+        this(PreloadHolder.defaultCaCertsManagedDir, PreloadHolder.defaultCaCertsSystemDir,
+                PreloadHolder.defaultCaCertsAddedDir, PreloadHolder.defaultCaCertsDeletedDir);
     }
 
     public TrustedCertificateStore(File baseDir) {
-        this(baseDir, PreloadHolder.defaultCaCertsAddedDir, PreloadHolder.defaultCaCertsDeletedDir);
+        this(PreloadHolder.defaultCaCertsManagedDir, baseDir, PreloadHolder.defaultCaCertsAddedDir,
+                PreloadHolder.defaultCaCertsDeletedDir);
     }
 
-    public TrustedCertificateStore(File systemDir, File addedDir, File deletedDir) {
+    public TrustedCertificateStore(
+            File managedDir, File systemDir, File addedDir, File deletedDir) {
+        this.managedDir = managedDir;
         this.systemDir = systemDir;
         this.addedDir = addedDir;
         this.deletedDir = deletedDir;
@@ -181,7 +191,8 @@ public class TrustedCertificateStore implements ConscryptCertStore {
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
     public Certificate getCertificate(String alias, boolean includeDeletedSystem) {
         File file = fileForAlias(alias);
-        if (file == null || (isUser(alias) && isTombstone(file))) {
+        if (file == null || (isUser(alias) && isTombstone(file))
+                || (isManaged(alias) && isTombstone(file))) {
             return null;
         }
         X509Certificate cert = readCertificate(file);
@@ -201,6 +212,8 @@ public class TrustedCertificateStore implements ConscryptCertStore {
         File file;
         if (isSystem(alias)) {
             file = new File(systemDir, alias.substring(PREFIX_SYSTEM.length()));
+        } else if (isManaged(alias)) {
+            file = new File(managedDir, alias.substring(PREFIX_MANAGED.length()));
         } else if (isUser(alias)) {
             file = new File(addedDir, alias.substring(PREFIX_USER.length()));
         } else {
@@ -278,6 +291,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
     public Set<String> aliases() {
         Set<String> result = new HashSet<String>();
+        addAliases(result, PREFIX_MANAGED, managedDir);
         addAliases(result, PREFIX_USER, addedDir);
         addAliases(result, PREFIX_SYSTEM, systemDir);
         return result;
@@ -301,6 +315,22 @@ public class TrustedCertificateStore implements ConscryptCertStore {
                 result.add(alias);
             }
         }
+    }
+
+    @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
+    public Set<String> allManagedAliases() {
+        Set<String> result = new HashSet<String>();
+        String[] files = managedDir.list();
+        if (files == null) {
+            return result;
+        }
+        for (String filename : files) {
+            String alias = PREFIX_MANAGED + filename;
+            if (containsAlias(alias, true)) {
+                result.add(alias);
+            }
+        }
+        return result;
     }
 
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
@@ -339,6 +369,10 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             return null;
         }
         X509Certificate x = (X509Certificate) c;
+        File managed = getCertificateFile(managedDir, x);
+        if (managed.exists()) {
+            return PREFIX_MANAGED + managed.getName();
+        }
         File user = getCertificateFile(addedDir, x);
         if (user.exists()) {
             return PREFIX_USER + user.getName();
@@ -351,6 +385,14 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             return PREFIX_SYSTEM + system.getName();
         }
         return null;
+    }
+
+    /**
+     * Returns true to indicate that the certificate was added by the
+     * device owner, false otherwise.
+     */
+    public boolean isManagedCertificate(X509Certificate cert) {
+        return getCertificateFile(managedDir, cert).exists();
     }
 
     /**
@@ -401,6 +443,11 @@ public class TrustedCertificateStore implements ConscryptCertStore {
                 return ca.getPublicKey().equals(c.getPublicKey());
             }
         };
+        X509Certificate managed =
+                findCert(managedDir, c.getSubjectX500Principal(), selector, X509Certificate.class);
+        if (managed != null) {
+            return managed;
+        }
         X509Certificate user = findCert(addedDir,
                                         c.getSubjectX500Principal(),
                                         selector,
@@ -438,6 +485,10 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             }
         };
         X500Principal issuer = c.getIssuerX500Principal();
+        X509Certificate managed = findCert(managedDir, issuer, selector, X509Certificate.class);
+        if (managed != null) {
+            return managed;
+        }
         X509Certificate user = findCert(addedDir, issuer, selector, X509Certificate.class);
         if (user != null) {
             return user;
@@ -465,6 +516,10 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             }
         };
         X500Principal issuer = c.getIssuerX500Principal();
+        Set<X509Certificate> managedCerts = findCertSet(managedDir, issuer, selector);
+        if (managedCerts != null) {
+            issuers = managedCerts;
+        }
         Set<X509Certificate> userAddedCerts = findCertSet(addedDir, issuer, selector);
         if (userAddedCerts != null) {
             issuers = userAddedCerts;
@@ -624,13 +679,24 @@ public class TrustedCertificateStore implements ConscryptCertStore {
     }
 
     /**
+     * @deprecated Use {@link #installCertificate(boolean[], java.security.cert.X509Certificate)}
+     *         instead.
+     */
+    @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
+    @Deprecated
+    public void installCertificate(X509Certificate cert) throws IOException, CertificateException {
+        installCertificate(false, cert);
+    }
+
+    /**
      * This non-{@code KeyStoreSpi} public interface is used by the
      * {@code KeyChainService} to install new CA certificates. It
      * silently ignores the certificate if it already exists in the
      * store.
      */
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
-    public void installCertificate(X509Certificate cert) throws IOException, CertificateException {
+    public void installCertificate(boolean isManaged, X509Certificate cert)
+            throws IOException, CertificateException {
         if (cert == null) {
             throw new NullPointerException("cert == null");
         }
@@ -647,6 +713,13 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             }
             // otherwise we just have a dup of an existing system cert.
             // return taking no further action.
+            return;
+        }
+        File managed = getCertificateFile(managedDir, cert);
+        if (isManaged) {
+            if (!managed.exists()) {
+                writeCertificate(managed, cert);
+            }
             return;
         }
         File user = getCertificateFile(addedDir, cert);
@@ -689,7 +762,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             writeCertificate(deleted, cert);
             return;
         }
-        if (isUser(alias)) {
+        if (isUser(alias) || isManaged(alias)) {
             // truncate the file to make a tombstone by opening and closing.
             // we need ensure that we don't leave a gap before a valid cert.
             new FileOutputStream(file).close();
@@ -700,7 +773,7 @@ public class TrustedCertificateStore implements ConscryptCertStore {
     }
 
     private void removeUnnecessaryTombstones(String alias) throws IOException {
-        if (!isUser(alias)) {
+        if (!isUser(alias) && !isManaged(alias)) {
             throw new AssertionError(alias);
         }
         int dotIndex = alias.lastIndexOf('.');
@@ -708,14 +781,24 @@ public class TrustedCertificateStore implements ConscryptCertStore {
             throw new AssertionError(alias);
         }
 
-        String hash = alias.substring(PREFIX_USER.length(), dotIndex);
+        File dir = null;
+        String hash = null;
+        if (isUser(alias)) {
+            dir = addedDir;
+            hash = alias.substring(PREFIX_USER.length(), dotIndex);
+        } else if (isManaged(alias)) {
+            dir = managedDir;
+            hash = alias.substring(PREFIX_MANAGED.length(), dotIndex);
+        } else {
+            throw new AssertionError(alias);
+        }
         int lastTombstoneIndex = Integer.parseInt(alias.substring(dotIndex + 1));
 
-        if (file(addedDir, hash, lastTombstoneIndex + 1).exists()) {
+        if (file(dir, hash, lastTombstoneIndex + 1).exists()) {
             return;
         }
         while (lastTombstoneIndex >= 0) {
-            File file = file(addedDir, hash, lastTombstoneIndex);
+            File file = file(dir, hash, lastTombstoneIndex);
             if (!isTombstone(file)) {
                 break;
             }
