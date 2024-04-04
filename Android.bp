@@ -290,6 +290,7 @@ java_library {
         "//external/robolectric-shadows",
         "//external/robolectric",
         "//frameworks/layoutlib",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     static_libs: [
         "conscrypt",
