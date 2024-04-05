@@ -790,3 +790,39 @@ module_exports {
         },
     },
 }
+
+
+java_test {
+    name: "ConscryptMicrobenchmarks",
+
+    srcs: [
+        "benchmarks/src/*.java",
+    ],
+
+    static_libs: [
+        "apct-perftests-utils",
+        "androidx.benchmark_benchmark-common",
+        "androidx.benchmark_benchmark-junit4",
+        "androidx.annotation_annotation",
+        "compatibility-device-util-axt",
+        "conscrypt-for-host",
+        "conscrypt-tests",
+        "guava",
+    ],
+
+    libs: ["android.test.base"],
+
+    data: [
+        ":perfetto_artifacts",
+    ],
+
+    platform_apis: true,
+
+    test_suites: ["device-tests"],
+
+    errorprone: {
+        javacflags: [
+            "-Xep:ReturnValueIgnored:WARN",
+        ],
+    },
+}
