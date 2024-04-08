@@ -790,3 +790,46 @@ module_exports {
         },
     },
 }
+
+
+java_test {
+    name: "ConscryptMicrobenchmarks",
+
+    srcs: [
+        "repackaged/benchmarks/src/*.java",
+        "repackaged/testing/src/main/java/**/*.java",
+    ],
+
+    libs: [
+        "android.test.base",
+        "conscrypt",
+        "junit",
+        "junit-params",
+        "bouncycastle-unbundled",
+        "bouncycastle-bcpkix-unbundled",
+        "bouncycastle-ocsp-unbundled",
+        "caliper-api-target",
+    ],
+
+    static_libs: [
+        "apct-perftests-utils",
+        "androidx.benchmark_benchmark-common",
+        "androidx.benchmark_benchmark-junit4",
+        "androidx.annotation_annotation",
+        "compatibility-device-util-axt",
+    ],
+    
+    data: [
+        ":perfetto_artifacts",
+    ],
+
+    platform_apis: true,
+
+    test_suites: ["device-tests"],
+
+    errorprone: {
+        javacflags: [
+            "-Xep:ReturnValueIgnored:WARN",
+        ],
+    },
+}
