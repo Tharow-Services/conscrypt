@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ae6b142_a4110eb6",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketVersionCompatibilityTest.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 1972,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-04-09T15:52:10Z",
+      "side": 1,
+      "message": "`assumeFalse(isTlsV1Supported())` :)",
+      "revId": "58e8e499c51f2f23e2c0d18b6c166925580b8805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
