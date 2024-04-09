@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce4c14d6_66d88391",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 1135,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-04-09T10:08:39Z",
+      "side": 1,
+      "message": "_Might_ be worth caching this in a Set in a static private field.\n\nThat way it\u0027s a few bytes of extra Zygote memory and we save some object creation here.\n\nThen again, most apps probably never call setEnabledProtocols, so meh.",
+      "revId": "9a4f41288f9b048ac6dbdfdcb57caa32898235a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5a88def_25a7165a",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketVersionCompatibilityTest.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 1953,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-04-09T10:08:39Z",
+      "side": 1,
+      "message": "This seems like the wrong behaviour.\n\nAs per what we did were doing SSLv3 (lines 1939 and 1940 in the base revision) these protocols should _only_ get filtered during `setEnabledProtocols()` and an exception is thrown later if we fail to connect (which we don\u0027t seem to have a test for 😐).\n\ni.e. you should be able to drop the Assume, setEnabledProtocols() to {TLSv1, TLSv1.1} and then check the size of getEnabledProtocols() which will be 0 or 2 depending on isTlsV1Supported().\n\nNote also that \"TLSv1.0\" is *not* a valid protocol (it\u0027s \"TLSv1\") so that assert is going to pass for the wrong reasons.\n\nThe rest of the code looks mostly right, so I\u0027m wondering if these tests are passing?",
+      "revId": "9a4f41288f9b048ac6dbdfdcb57caa32898235a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68fa1c36_2d197a1c",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketVersionCompatibilityTest.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-04-09T10:08:39Z",
+      "side": 1,
+      "message": "I think you need one more test too, to ensure that if isTlsV1Supported() is false then isTlsV1Enabled() is also false.",
+      "range": {
+        "startLine": 1956,
+        "startChar": 7,
+        "endLine": 1956,
+        "endChar": 12
+      },
+      "revId": "9a4f41288f9b048ac6dbdfdcb57caa32898235a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
