@@ -790,3 +790,63 @@ module_exports {
         },
     },
 }
+
+
+android_test {
+    name: "ConscryptMicrobenchmarks",
+
+    srcs: [
+        "repackaged/benchmarks/src/*.java",
+        "repackaged/testing/src/main/java/**/*.java",
+    ],
+
+    static_libs: [
+        "apct-perftests-utils",
+        "androidx.benchmark_benchmark-common",
+        "androidx.benchmark_benchmark-junit4",
+        "androidx.annotation_annotation",
+        "compatibility-device-util-axt",
+    ],
+
+    libs: [
+        "android.test.base",
+        "conscrypt",
+        "junit",
+        "junit-params",
+        "bouncycastle-unbundled",
+        "bouncycastle-bcpkix-unbundled",
+        "bouncycastle-ocsp-unbundled",
+    ],
+
+    data: [
+        ":perfetto_artifacts",
+    ],
+
+    platform_apis: true,
+
+    test_suites: ["device-tests"],
+
+    errorprone: {
+        javacflags: [
+            "-Xep:ReturnValueIgnored:WARN",
+        ],
+    },
+    sdk_version: "none",
+    system_modules: "art-module-intra-core-api-stubs-system-modules",
+    javacflags: [
+        "-Xmaxwarns 9999999",
+        //"-Xlint:all",
+        //"-Xlint:-serial,-deprecation,-unchecked",
+    ],
+
+    target: {
+        host: {
+            required: ["libjavacrypto"],
+        },
+        darwin: {
+            // required module "libjavacrypto" is disabled on darwin
+            enabled: false,
+        },
+    },
+    java_version: "1.8",
+}
