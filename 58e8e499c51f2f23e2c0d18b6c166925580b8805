@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "40700b55_1ddf05f4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-04-09T17:18:42Z",
+      "side": 1,
+      "message": "Thank you!",
+      "parentUuid": "d6207f1f_1a3756b8",
+      "revId": "58e8e499c51f2f23e2c0d18b6c166925580b8805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ae6b142_a4110eb6",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-04-09T15:52:10Z",
       "side": 1,
       "message": "`assumeFalse(isTlsV1Supported())` :)",
+      "revId": "58e8e499c51f2f23e2c0d18b6c166925580b8805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7fcdd3eb_e03632c4",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketVersionCompatibilityTest.java",
+        "patchSetId": 45
+      },
+      "lineNbr": 1972,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-04-09T17:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0ae6b142_a4110eb6",
       "revId": "58e8e499c51f2f23e2c0d18b6c166925580b8805",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

@@ -35,6 +35,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "577def47_917478a8",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketVersionCompatibilityTest.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 1953,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-04-09T17:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5a88def_25a7165a",
+      "revId": "9a4f41288f9b048ac6dbdfdcb57caa32898235a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "68fa1c36_2d197a1c",
@@ -48,6 +66,30 @@
       "writtenOn": "2024-04-09T10:08:39Z",
       "side": 1,
       "message": "I think you need one more test too, to ensure that if isTlsV1Supported() is false then isTlsV1Enabled() is also false.",
+      "range": {
+        "startLine": 1956,
+        "startChar": 7,
+        "endLine": 1956,
+        "endChar": 12
+      },
+      "revId": "9a4f41288f9b048ac6dbdfdcb57caa32898235a8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c2b6baf9_a5f962ce",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketVersionCompatibilityTest.java",
+        "patchSetId": 43
+      },
+      "lineNbr": 1956,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-04-09T17:18:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68fa1c36_2d197a1c",
       "range": {
         "startLine": 1956,
         "startChar": 7,
