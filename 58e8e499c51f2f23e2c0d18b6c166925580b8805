@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d6207f1f_1a3756b8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 45
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-04-09T16:23:16Z",
+      "side": 1,
+      "message": "The latest TH failure is subtle and the message is confusing.\n\nIt\u0027s actually complaining because it mistakenly thinks `SSLSocket.getSupportedProtocols()` *should* include TLSv1.x.\n\nSo the fix is to make StandardNames.SSL_SOCKET_PROTOCOLS conditional on isTlsV1Supported()... Similar to https://r.android.com/2862205",
+      "revId": "58e8e499c51f2f23e2c0d18b6c166925580b8805",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ae6b142_a4110eb6",
