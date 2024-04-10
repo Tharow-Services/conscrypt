@@ -33,6 +33,24 @@
       "message": "\\o/\n\nBoot test failures _look_ unrelated, but to be sure please flash to a device and run (at least) MtsConscryptTestCases",
       "revId": "e498df47e8e08cd18badeefed410f4e09b454585",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9c696112_d0f53d24",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-04-10T16:50:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25fded93_3b9bc537",
+      "revId": "e498df47e8e08cd18badeefed410f4e09b454585",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
