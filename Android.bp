@@ -290,6 +290,7 @@ java_library {
         "//external/robolectric-shadows",
         "//external/robolectric",
         "//frameworks/layoutlib",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     static_libs: [
         "conscrypt",
@@ -350,6 +351,7 @@ java_sdk_library {
         // DO NOT REMOVE: Legacy visibility, needed for snapshots that are
         // generated for the S build.
         "//libcore/mmodules/core_platform_api",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     srcs: [
         ":conscrypt_java_files",
@@ -399,6 +401,7 @@ java_sdk_library {
         // DO NOT REMOVE: Legacy visibility, needed for snapshots that are
         // generated for the S build.
         "//libcore",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     srcs: [
         ":conscrypt_public_api_files",
@@ -642,6 +645,7 @@ java_test {
         "//cts/tests/libcore/luni",
         "//external/conscrypt/apex/tests",
         "//libcore",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     hostdex: true,
     srcs: [
@@ -691,6 +695,62 @@ java_test {
         baseline_filename: "lint-baseline.xml",
     },
 }
+
+android_library {
+    name: "conscrypt-test-utils",
+    visibility: [
+        "//frameworks/base/apct-tests/perftests/core",
+    ],
+    hostdex: true,
+    java_version: "1.8",
+    sdk_version: "none",
+    system_modules: "art-module-intra-core-api-stubs-system-modules",
+    srcs: [
+        "repackaged/testing/src/main/java/**/*.java",
+    ],
+    libs: [
+        "conscrypt",
+        "conscrypt",
+        "core-test-rules",
+        "junit",
+    ],
+    static_libs: [
+        "bouncycastle-unbundled",
+        "bouncycastle-bcpkix-unbundled",
+        "bouncycastle-ocsp-unbundled",
+    ],
+    lint: {
+        baseline_filename: "lint-baseline.xml",
+    },
+}
+
+
+// java_library {
+//     name: "conscrypt-test-utils",
+//     visibility: [
+//         "//frameworks/base/apct-tests/perftests/core",
+//     ],
+//     hostdex: true,
+//     java_version: "1.8",
+//     sdk_version: "none",
+//     system_modules: "art-module-intra-core-api-stubs-system-modules",
+//     srcs: [
+//         "repackaged/testing/src/main/java/**/*.java",
+//     ],
+//     libs: [
+//         "conscrypt",
+//         "core-test-rules",
+//         "junit",
+//     ],
+//     static_libs: [
+//         "bouncycastle-unbundled",
+//         "bouncycastle-bcpkix-unbundled",
+//         "bouncycastle-ocsp-unbundled",
+//     ],
+//     lint: {
+//         baseline_filename: "lint-baseline.xml",
+//     },
+// }
 
 // Make the conscrypt-benchmarks library.
 java_test {
@@ -770,6 +830,7 @@ module_exports {
             java_libs: [
                 // For use by robolectric and ART tests.
                 "conscrypt-for-host",
+                "conscrypt-test-utils",
             ],
             java_tests: [
                 // For use by CTS
