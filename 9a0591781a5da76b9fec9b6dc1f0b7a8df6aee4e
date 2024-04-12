@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2238bff2_c2ba0319",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-04-12T12:43:04Z",
+      "side": 1,
+      "message": "Doesn\u0027t trigger any libcore test failures.",
+      "revId": "9a0591781a5da76b9fec9b6dc1f0b7a8df6aee4e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
