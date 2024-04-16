@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "506afc0d_c812bd7e",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-04-16T16:35:59Z",
+      "side": 1,
+      "message": "I think you need to be careful with the ordering here, in case protocols is ever null (which the current code allows), e.g.\n```\nrequestedProtocols \u003d protocols \u003d\u003d null ? NativeCrypto.getDefaultProtocols() : protocols).clone();\n// Then filter\n```\nYou also need to set `isEnabledProtocolsFiltered` if any are filtered 😊",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 38
+      },
+      "revId": "137864fe90402bed8e5dcf99f806516688fcee07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
