@@ -4437,16 +4437,31 @@ static jbyteArray NativeCrypto_CMAC_Final(JNIEnv* env, jclass, jobject cmacCtxRe
     return resultArray.release();
 }
 
+static void NativeCrypto_CMAC_Reset(JNIEnv* env, jclass, jobject cmacCtxRef) {
+    CHECK_ERROR_QUEUE_ON_RETURN;
+    CMAC_CTX* cmacCtx = fromContextObject<CMAC_CTX>(env, cmacCtxRef);
+    JNI_TRACE("CMAC_Reset(%p)", cmacCtx);
+
+    if (cmacCtx == nullptr) {
+        return;
+    }
+
+    if (!CMAC_Reset(cmacCtx)) {
+        JNI_TRACE("CMAC_Reset(%p) => threw exception", cmacCtx);
+        conscrypt::jniutil::throwExceptionFromBoringSSLError(env, "CMAC_Reset");
+        return;
+    }
+}
+
 static jlong NativeCrypto_HMAC_CTX_new(JNIEnv* env, jclass) {
     CHECK_ERROR_QUEUE_ON_RETURN;
     JNI_TRACE("HMAC_CTX_new");
-    auto hmacCtx = new HMAC_CTX;
+    auto hmacCtx = HMAC_CTX_new();
     if (hmacCtx == nullptr) {
         conscrypt::jniutil::throwOutOfMemory(env, "Unable to allocate HMAC_CTX");
         return 0;
     }
 
-    HMAC_CTX_init(hmacCtx);
     return reinterpret_cast<jlong>(hmacCtx);
 }
 
@@ -4458,8 +4473,7 @@ static void NativeCrypto_HMAC_CTX_free(JNIEnv* env, jclass, jlong hmacCtxRef) {
         conscrypt::jniutil::throwNullPointerException(env, "hmacCtx == null");
         return;
     }
-    HMAC_CTX_cleanup(hmacCtx);
-    delete hmacCtx;
+    HMAC_CTX_free(hmacCtx);
 }
 
 static void NativeCrypto_HMAC_Init_ex(JNIEnv* env, jclass, jobject hmacCtxRef, jbyteArray keyArray,
@@ -4564,6 +4578,24 @@ static jbyteArray NativeCrypto_HMAC_Final(JNIEnv* env, jclass, jobject hmacCtxRe
     }
     memcpy(resultBytes.get(), result, len);
     return resultArray.release();
+}
+
+static void NativeCrypto_HMAC_Reset(JNIEnv* env, jclass, jobject hmacCtxRef) {
+    CHECK_ERROR_QUEUE_ON_RETURN;
+    HMAC_CTX* hmacCtx = fromContextObject<HMAC_CTX>(env, hmacCtxRef);
+    JNI_TRACE("HMAC_Reset(%p)", hmacCtx);
+
+    if (hmacCtx == nullptr) {
+        return;
+    }
+
+    // HMAC_Init_ex with all nulls will reuse the existing key. This is slightly
+    // more efficient than re-initializing the context with the key again.
+    if (!HMAC_Init_ex(hmacCtx, /*key=*/nullptr, /*key_len=*/0, /*md=*/nullptr, /*impl=*/nullptr)) {
+        JNI_TRACE("HMAC_Reset(%p) => threw exception", hmacCtx);
+        conscrypt::jniutil::throwExceptionFromBoringSSLError(env, "HMAC_Init_ex");
+        return;
+    }
 }
 
 static void NativeCrypto_RAND_bytes(JNIEnv* env, jclass, jbyteArray output) {
@@ -10812,6 +10844,50 @@ static jboolean NativeCrypto_usesBoringSsl_FIPS_mode() {
     return FIPS_mode();
 }
 
+/**
+ * Scrypt support
+ */
+
+static jbyteArray NativeCrypto_Scrypt_generate_key(JNIEnv* env, jclass, jbyteArray password, jbyteArray salt,
+                                                   jint n, jint r, jint p, jint key_len) {
+    CHECK_ERROR_QUEUE_ON_RETURN;
+    JNI_TRACE("Scrypt_generate_key(%p, %p, %d, %d, %d, %d)", password, salt, n, r, p, key_len);
+
+    if (password == nullptr) {
+        conscrypt::jniutil::throwNullPointerException(env, "password == null");
+        JNI_TRACE("Scrypt_generate_key() => password == null");
+        return nullptr;
+    }
+    if (salt == nullptr) {
+        conscrypt::jniutil::throwNullPointerException(env, "salt == null");
+        JNI_TRACE("Scrypt_generate_key() => salt == null");
+        return nullptr;
+    }
+
+    jbyteArray key_bytes = env->NewByteArray(static_cast<jsize>(key_len));
+    ScopedByteArrayRW out_key(env, key_bytes);
+    if (out_key.get() == nullptr) {
+        conscrypt::jniutil::throwNullPointerException(env, "out_key == null");
+        JNI_TRACE("Scrypt_generate_key() => out_key == null");
+        return nullptr;
+    }
+
+    size_t memory_limit = 1u << 29;
+    ScopedByteArrayRO password_bytes(env, password);
+    ScopedByteArrayRO salt_bytes(env, salt);
+
+    int result = EVP_PBE_scrypt(reinterpret_cast<const char*>(password_bytes.get()), password_bytes.size(),
+                                reinterpret_cast<const uint8_t*>(salt_bytes.get()), salt_bytes.size(),
+                                n, r, p, memory_limit,
+                                reinterpret_cast<uint8_t*>(out_key.get()), key_len);
+
+    if (result <= 0) {
+        conscrypt::jniutil::throwExceptionFromBoringSSLError(env, "Scrypt_generate_key");
+        return nullptr;
+    }
+    return key_bytes;
+}
+
 // TESTING METHODS BEGIN
 
 static int NativeCrypto_BIO_read(JNIEnv* env, jclass, jlong bioRef, jbyteArray outputJavaBytes) {
@@ -10989,6 +11065,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
         CONSCRYPT_NATIVE_METHOD(CMAC_Update, "(" REF_CMAC_CTX "[BII)V"),
         CONSCRYPT_NATIVE_METHOD(CMAC_UpdateDirect, "(" REF_CMAC_CTX "JI)V"),
         CONSCRYPT_NATIVE_METHOD(CMAC_Final, "(" REF_CMAC_CTX ")[B"),
+        CONSCRYPT_NATIVE_METHOD(CMAC_Reset, "(" REF_CMAC_CTX ")V"),
         CONSCRYPT_NATIVE_METHOD(EVP_PKEY_new_RSA, "([B[B[B[B[B[B[B[B)J"),
         CONSCRYPT_NATIVE_METHOD(EVP_PKEY_new_EC_KEY, "(" REF_EC_GROUP REF_EC_POINT "[B)J"),
         CONSCRYPT_NATIVE_METHOD(EVP_PKEY_type, "(" REF_EVP_PKEY ")I"),
@@ -11109,6 +11186,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
         CONSCRYPT_NATIVE_METHOD(HMAC_Update, "(" REF_HMAC_CTX "[BII)V"),
         CONSCRYPT_NATIVE_METHOD(HMAC_UpdateDirect, "(" REF_HMAC_CTX "JI)V"),
         CONSCRYPT_NATIVE_METHOD(HMAC_Final, "(" REF_HMAC_CTX ")[B"),
+        CONSCRYPT_NATIVE_METHOD(HMAC_Reset, "(" REF_HMAC_CTX ")V"),
         CONSCRYPT_NATIVE_METHOD(RAND_bytes, "([B)V"),
         CONSCRYPT_NATIVE_METHOD(create_BIO_InputStream, ("(" REF_BIO_IN_STREAM "Z)J")),
         CONSCRYPT_NATIVE_METHOD(create_BIO_OutputStream, "(Ljava/io/OutputStream;)J"),
@@ -11287,6 +11365,7 @@ static JNINativeMethod sNativeCryptoMethods[] = {
         CONSCRYPT_NATIVE_METHOD(ENGINE_SSL_force_read, "(J" REF_SSL SSL_CALLBACKS ")V"),
         CONSCRYPT_NATIVE_METHOD(ENGINE_SSL_shutdown, "(J" REF_SSL SSL_CALLBACKS ")V"),
         CONSCRYPT_NATIVE_METHOD(usesBoringSsl_FIPS_mode, "()Z"),
+        CONSCRYPT_NATIVE_METHOD(Scrypt_generate_key, "([B[BIIII)[B"),
 
         // Used for testing only.
         CONSCRYPT_NATIVE_METHOD(BIO_read, "(J[B)I"),
