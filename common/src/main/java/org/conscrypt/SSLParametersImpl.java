@@ -144,9 +144,16 @@ final class SSLParametersImpl implements Cloneable {
             x509TrustManager = findFirstX509TrustManager(tms);
         }
 
+        String[] filteredProtocols =
+                filterFromProtocols(protocols, Arrays.asList(Platform.isTlsV1Supported()
+                    ? new String[0]
+                    : new String[] {
+                        NativeCrypto.DEPRECATED_PROTOCOL_TLSV1,
+                        NativeCrypto.DEPRECATED_PROTOCOL_TLSV1_1,
+                    }));
         // initialize the list of cipher suites and protocols enabled by default
         enabledProtocols = NativeCrypto.checkEnabledProtocols(
-                protocols == null ? NativeCrypto.getDefaultProtocols() : protocols).clone();
+                filteredProtocols == null ? NativeCrypto.getDefaultProtocols() : filteredProtocols).clone();
         boolean x509CipherSuitesNeeded = (x509KeyManager != null) || (x509TrustManager != null);
         boolean pskCipherSuitesNeeded = pskKeyManager != null;
         enabledCipherSuites = getDefaultCipherSuites(
