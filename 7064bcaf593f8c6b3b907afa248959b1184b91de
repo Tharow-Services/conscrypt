@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f78f1b95_8d8cbacb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-04-17T09:35:30Z",
+      "side": 1,
+      "message": "No biggie, but ideally should land after https://r.android.com/3044472 in all branches it gets  CP-ed too.",
+      "revId": "7064bcaf593f8c6b3b907afa248959b1184b91de",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
