@@ -33,6 +33,24 @@
       "message": "Hi, we\u0027ve spoken to Malek but there\u0027s a mismatch between the set of tests that are failing. Please let us know which ones actually need to be address, because testing should already be agnostic about whether these protocols are available or not.",
       "revId": "61763b6f6a7a41bdf2765ac8fcbad753054d6adc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "68dc7a62_22d38778",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015606
+      },
+      "writtenOn": "2024-04-18T13:40:14Z",
+      "side": 1,
+      "message": "This ticket was created in 2022, when initially the failure was seen for\ncom.squareup.okhttp.CallTest#recoverFromTlsHandshakeFailure_Async\ncom.squareup.okhttp.CallTest#recoverFromTlsHandshakeFailure\ncom.squareup.okhttp.URLConnectionTest#connectViaHttpsWithSSLFallback\n\nAt that time LibCore module execution was still in false state with many tests not executed,\nLater, once the module was true we also found out the SSL handshake related errors similar root cause as reported ticket, below were the test cases failed\n\ntest_SSLSocket_tlsFallback_byVersion\ntest_SSLSocket_sendsNoTlsFallbackScsv_Fallback_Success\ntest_SSLSocket_sendsTlsFallbackScsv_InappropriateFallback_Failure\ntest_SSLSocket_noncontiguousProtocols_canNegotiate\ntest_SSLSocket_noncontiguousProtocols_useLower\n\nReason: since the method of lower TLS version is not available and not support by the product, all the above tests are failing.\n\nWe did not report any new ticket but use the existing google ticket - [AAE Cariad][Porsche] Failing CTS in case of strengthen requirements to BoringSSL [249495768] - Issue Tracker (google.com)\nAnd updated the Meeting protocol with the internal ticket and failure count as 16 (all above testcase i.e 8 for both 32 and 64 bit)\n\nThere were changes made to the test case, as mentioned in the ticket comment on 25-Oct,2023\nOkHttp test cases passed but the 5 tests related to CtsLibcoreTestcases Module still failed.\n\nTest suite: Android 12 R11 (12_r11 / 11399545)",
+      "parentUuid": "f7182291_ba285fc7",
+      "revId": "61763b6f6a7a41bdf2765ac8fcbad753054d6adc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
