@@ -27,6 +27,7 @@ import com.android.org.conscrypt.Internal;
  * SignedCertificateTimestamp structure, as defined by RFC6962 Section 3.2.
  * @hide This class is not part of the Android public SDK API
  */
+@libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
 @Internal
 public class SignedCertificateTimestamp {
     /**
@@ -144,4 +145,3 @@ public class SignedCertificateTimestamp {
         return output.toByteArray();
     }
 }
-
