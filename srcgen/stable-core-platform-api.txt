@@ -56,3 +56,5 @@ type:com.android.org.conscrypt.SSLClientSessionCache
 type:com.android.org.conscrypt.TrustedCertificateIndex
 type:com.android.org.conscrypt.TrustedCertificateStore
 type:com.android.org.conscrypt.TrustManagerImpl
+type:com.android.org.conscrypt.ct.CertificateEntry
+type:com.android.org.conscrypt.ct.SignedCertificateTimestamp

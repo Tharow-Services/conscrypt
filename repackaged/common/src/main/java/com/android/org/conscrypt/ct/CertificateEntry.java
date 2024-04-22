@@ -41,6 +41,7 @@ import com.android.org.conscrypt.OpenSSLX509Certificate;
  * } CertificateEntry;
  * @hide This class is not part of the Android public SDK API
  */
+@libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
 @Internal
 public class CertificateEntry {
     /**
@@ -136,4 +137,3 @@ public class CertificateEntry {
         Serialization.writeVariableBytes(output, certificate, CTConstants.CERTIFICATE_LENGTH_BYTES);
     }
 }
-
