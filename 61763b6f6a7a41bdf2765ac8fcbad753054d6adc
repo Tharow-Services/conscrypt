@@ -51,6 +51,23 @@
       "parentUuid": "f7182291_ba285fc7",
       "revId": "61763b6f6a7a41bdf2765ac8fcbad753054d6adc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d066a7d9_334f4053",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-04-24T09:28:03Z",
+      "side": 1,
+      "message": "Can you please copy this code to external/conscrypt/common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java ? That file is actually the source of truth for repackaged/ files",
+      "revId": "61763b6f6a7a41bdf2765ac8fcbad753054d6adc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
