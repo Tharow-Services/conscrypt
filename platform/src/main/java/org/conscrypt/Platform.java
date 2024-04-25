@@ -539,7 +539,7 @@ final class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return true;
+        return false;
     }
 
     public static boolean isTlsV1Supported() {
