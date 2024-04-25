@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cd3c86d_551845e6",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2024-04-25T08:39:08Z",
+      "side": 1,
+      "message": "You can switch over strings.",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 41
+      },
+      "revId": "dfd74a40dd445c1083d9dfef792a4bd664d14ff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba5fb1fa_8702de73",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 468,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2024-04-25T08:39:08Z",
+      "side": 1,
+      "message": "This should be `assumeTrue`",
+      "range": {
+        "startLine": 466,
+        "startChar": 8,
+        "endLine": 468,
+        "endChar": 9
+      },
+      "revId": "dfd74a40dd445c1083d9dfef792a4bd664d14ff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13dbdb53_016bc05f",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1169,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2024-04-25T08:39:08Z",
+      "side": 1,
+      "message": "Better to omit it.",
+      "range": {
+        "startLine": 1169,
+        "startChar": 35,
+        "endLine": 1169,
+        "endChar": 42
+      },
+      "revId": "dfd74a40dd445c1083d9dfef792a4bd664d14ff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0275095_6d73c235",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 1228,
+      "author": {
+        "id": 1793992
+      },
+      "writtenOn": "2024-04-25T08:39:08Z",
+      "side": 1,
+      "message": "Please fix indentation.",
+      "range": {
+        "startLine": 1227,
+        "startChar": 0,
+        "endLine": 1228,
+        "endChar": 11
+      },
+      "revId": "dfd74a40dd445c1083d9dfef792a4bd664d14ff5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
