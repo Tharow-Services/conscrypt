@@ -33,6 +33,24 @@
       "message": "1) Better to do it as a revert for clarity\n2) I think we should leave this as-is in main to get DF feedback, WDYT Sorin?",
       "revId": "2964856eecd0440b2d11029205017e6e6de6a189",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7e806943_f6073025",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-04-30T19:28:50Z",
+      "side": 1,
+      "message": "Yes, we should keep in main and revert in mainline.",
+      "parentUuid": "127183ff_1cb4e193",
+      "revId": "2964856eecd0440b2d11029205017e6e6de6a189",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
