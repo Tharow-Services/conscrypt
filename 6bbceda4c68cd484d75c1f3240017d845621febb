@@ -16,6 +16,23 @@
       "message": "LGTM.",
       "revId": "6bbceda4c68cd484d75c1f3240017d845621febb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6cd84e1f_6b90366c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-05-01T10:25:21Z",
+      "side": 1,
+      "message": "Hey, just had a discussion about this internally, and we don\u0027t think we should include such oem specific code within cts like this.",
+      "revId": "6bbceda4c68cd484d75c1f3240017d845621febb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
