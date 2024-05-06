@@ -51,6 +51,24 @@
       "parentUuid": "6cd84e1f_6b90366c",
       "revId": "6bbceda4c68cd484d75c1f3240017d845621febb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b30fa94_87e9fcd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2015606
+      },
+      "writtenOn": "2024-05-06T09:32:08Z",
+      "side": 1,
+      "message": "The patch is about device supporting TLS version irrespective Automotive or non-Automotive devices.\nIf any DUT, does not support TLS \u003c 1.2, then the test will be skipped. \nIf this property “ro.vendor.ssl.min.proto.version” is not defined in the framework of DUT then the test will run as originally defined.\nAnd this property can be used by and vendor (Automotive or non-Automotive)",
+      "parentUuid": "498417b5_ea4a7a6e",
+      "revId": "6bbceda4c68cd484d75c1f3240017d845621febb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
