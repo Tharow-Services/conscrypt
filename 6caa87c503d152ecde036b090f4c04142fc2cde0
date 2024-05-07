@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "787d44fe_d96c4003",
+        "filename": "api/platform/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-05-07T12:42:03Z",
+      "side": 1,
+      "message": "Looks like you need to explicitly list the methods too.",
+      "revId": "6caa87c503d152ecde036b090f4c04142fc2cde0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
