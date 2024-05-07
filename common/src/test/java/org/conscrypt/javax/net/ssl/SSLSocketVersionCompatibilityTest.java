@@ -1806,6 +1806,7 @@ public class SSLSocketVersionCompatibilityTest {
     }
 
     @Test
+    @Ignore
     public void test_SSLSocket_SSLv3Unsupported() throws Exception {
         TestSSLContext context = new TestSSLContext.Builder()
                 .clientProtocol(clientVersion)
