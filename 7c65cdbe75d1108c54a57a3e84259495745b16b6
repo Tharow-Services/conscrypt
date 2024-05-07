@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f37ee42e_d177454c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-05-07T12:34:11Z",
+      "side": 1,
+      "message": "Isn\u0027t this the wrong way around?  I.E the test should run on MTS but not CTS (which is unfortunately more work, but I\u0027m on the hook for that).",
+      "revId": "7c65cdbe75d1108c54a57a3e84259495745b16b6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
