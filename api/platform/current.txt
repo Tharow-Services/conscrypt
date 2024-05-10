@@ -1,4 +1,20 @@
 // Signature format: 2.0
+package android.net.ssl {
+
+  public class SSLEngines {
+    method @Nullable public static byte[] exportKeyingMaterial(@NonNull javax.net.ssl.SSLEngine, @NonNull String, @Nullable byte[], int) throws javax.net.ssl.SSLException;
+    method public static boolean isSupportedEngine(@NonNull javax.net.ssl.SSLEngine);
+    method public static void setUseSessionTickets(@NonNull javax.net.ssl.SSLEngine, boolean);
+  }
+
+  public class SSLSockets {
+    method @Nullable public static byte[] exportKeyingMaterial(@NonNull javax.net.ssl.SSLSocket, @NonNull String, @Nullable byte[], int) throws javax.net.ssl.SSLException;
+    method public static boolean isSupportedSocket(@NonNull javax.net.ssl.SSLSocket);
+    method public static void setUseSessionTickets(@NonNull javax.net.ssl.SSLSocket, boolean);
+  }
+
+}
+
 package com.android.org.conscrypt {
 
   public interface CertPinManager {
@@ -34,11 +50,13 @@ package com.android.org.conscrypt {
     method public final void connect(java.net.SocketAddress) throws java.io.IOException;
     method public final void connect(java.net.SocketAddress, int) throws java.io.IOException;
     method @Deprecated public final byte[] getAlpnSelectedProtocol();
+    method public abstract javax.net.ssl.SSLSession getHandshakeSession();
     method @Deprecated public final byte[] getNpnSelectedProtocol();
     method public final int getPort();
     method public final int getSoTimeout() throws java.net.SocketException;
     method public void removeHandshakeCompletedListener(javax.net.ssl.HandshakeCompletedListener);
     method public final void sendUrgentData(int) throws java.io.IOException;
+    method @Deprecated public final void setAlpnProtocols(String[]);
     method @Deprecated public final void setAlpnProtocols(byte[]);
     method public abstract void setChannelIdPrivateKey(java.security.PrivateKey);
     method public void setHandshakeTimeout(int) throws java.net.SocketException;
@@ -59,7 +77,11 @@ package com.android.org.conscrypt {
     method public void checkClientTrusted(java.security.cert.X509Certificate[], String) throws java.security.cert.CertificateException;
     method public void checkClientTrusted(java.security.cert.X509Certificate[], String, java.net.Socket) throws java.security.cert.CertificateException;
     method public void checkClientTrusted(java.security.cert.X509Certificate[], String, javax.net.ssl.SSLEngine) throws java.security.cert.CertificateException;
+    method public void checkServerTrusted(java.security.cert.X509Certificate[], String) throws java.security.cert.CertificateException;
     method public java.util.List<java.security.cert.X509Certificate> checkServerTrusted(java.security.cert.X509Certificate[], String, String) throws java.security.cert.CertificateException;
+    method public void checkServerTrusted(java.security.cert.X509Certificate[], String, java.net.Socket) throws java.security.cert.CertificateException;
+    method public void checkServerTrusted(java.security.cert.X509Certificate[], String, javax.net.ssl.SSLEngine) throws java.security.cert.CertificateException;
+    method public java.security.cert.X509Certificate[] getAcceptedIssuers();
     method public java.util.List<java.security.cert.X509Certificate> getTrustedChainForServer(java.security.cert.X509Certificate[], String, java.net.Socket) throws java.security.cert.CertificateException;
     method public java.util.List<java.security.cert.X509Certificate> getTrustedChainForServer(java.security.cert.X509Certificate[], String, javax.net.ssl.SSLEngine) throws java.security.cert.CertificateException;
     method public void handleTrustStorageUpdate();

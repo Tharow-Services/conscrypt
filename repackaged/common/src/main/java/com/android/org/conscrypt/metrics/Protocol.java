@@ -32,9 +32,10 @@ public enum Protocol {
     TLSv1_1(3),
     TLSv1_2(4),
     TLSv1_3(5),
+    TLS_PROTO_FAILED(0xFFFF),
     ;
 
-    final byte id;
+    final int id;
 
     public int getId() {
         return this.id;
@@ -52,12 +53,14 @@ public enum Protocol {
                 return TLSv1_2;
             case "TLSv1.3":
                 return TLSv1_3;
+            case "TLS_PROTO_FAILED":
+                return TLS_PROTO_FAILED;
             default:
                 return UNKNOWN_PROTO;
         }
     }
 
     private Protocol(int id) {
-        this.id = (byte) id;
+        this.id = id;
     }
 }

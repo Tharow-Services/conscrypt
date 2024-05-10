@@ -155,8 +155,8 @@ public class KeyPairGeneratorTest {
         putKeySize("DSA", 512);
         putKeySize("DSA", 512+64);
         putKeySize("DSA", 1024);
-        putKeySize("RSA", 512);
-        putKeySize("RSASSA-PSS", 512);
+        putKeySize("RSA", 2048);
+        putKeySize("RSASSA-PSS", 2048);
         putKeySize("DH", 512);
         putKeySize("DH", 512+64);
         putKeySize("DH", 1024);
@@ -167,7 +167,7 @@ public class KeyPairGeneratorTest {
         putKeySize("EC", 256);
         putKeySize("EC", 384);
         putKeySize("EC", 521);
-        putKeySize("XDH", 256);
+        putKeySize("XDH", 255);
     }
 
     /** Elliptic Curve Crypto named curves that should be supported. */

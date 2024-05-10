@@ -48,6 +48,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TimeZone;
 import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
 import javax.security.auth.x500.X500Principal;
 import org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 
@@ -58,7 +59,7 @@ import org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 public final class OpenSSLX509Certificate extends X509Certificate {
     private static final long serialVersionUID = 1992239142393372128L;
 
-    private transient final long mContext;
+    private transient volatile long mContext;
     private transient Integer mHashCode;
 
     private final Date notBefore;
@@ -383,8 +384,8 @@ public final class OpenSSLX509Certificate extends X509Certificate {
             NativeCrypto.X509_verify(mContext, this, pkey.getNativeRef());
         } catch (RuntimeException e) {
             throw new CertificateException(e);
-        } catch (BadPaddingException e) {
-            throw new SignatureException();
+        } catch (BadPaddingException | IllegalBlockSizeException e) {
+            throw new SignatureException(e);
         }
     }
 
@@ -577,8 +578,10 @@ public final class OpenSSLX509Certificate extends X509Certificate {
     @SuppressWarnings("deprecation")
     protected void finalize() throws Throwable {
         try {
-            if (mContext != 0) {
-                NativeCrypto.X509_free(mContext, this);
+            long toFree = mContext;
+            if (toFree != 0) {
+                mContext = 0;
+                NativeCrypto.X509_free(toFree, this);
             }
         } finally {
             super.finalize();

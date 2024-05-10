@@ -20,6 +20,8 @@ package com.android.org.conscrypt.javax.net.ssl;
 import static com.android.org.conscrypt.TestUtils.UTF_8;
 import static com.android.org.conscrypt.TestUtils.isLinux;
 import static com.android.org.conscrypt.TestUtils.isOsx;
+import static com.android.org.conscrypt.TestUtils.isTlsV1Deprecated;
+import static com.android.org.conscrypt.TestUtils.isTlsV1Supported;
 import static com.android.org.conscrypt.TestUtils.isWindows;
 import static com.android.org.conscrypt.TestUtils.osName;
 import static org.junit.Assert.assertArrayEquals;
@@ -28,6 +30,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
@@ -73,7 +76,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -1030,6 +1032,119 @@ public class SSLSocketVersionCompatibilityTest {
         }
         pair.close();
     }
+
+    @Test
+    public void test_SSLSocket_ShutdownInput() throws Exception {
+        // Fdsocket throws SslException rather than returning EOF after input shutdown
+        // on Windows, but we won't be fixing it as that implementation is already deprecated.
+        assumeFalse("Skipping shutdownInput() test on Windows", isWindows());
+
+        final TestSSLContext c = new TestSSLContext.Builder()
+                                         .clientProtocol(clientVersion)
+                                         .serverProtocol(serverVersion)
+                                         .build();
+        byte[] buffer = new byte[1];
+        TestSSLSocketPair pair = TestSSLSocketPair.create(c).connect();
+        SSLSocket server = pair.server;
+        SSLSocket client = pair.client;
+        assertFalse(server.isClosed());
+        assertFalse(client.isClosed());
+        InputStream input = client.getInputStream();
+        client.shutdownInput();
+        assertFalse(client.isClosed());
+        assertFalse(server.isClosed());
+        // Shutdown after shutdown is not OK
+        SocketException exception = assertThrows(SocketException.class, client::shutdownInput);
+        assertTrue(exception.getMessage().contains("already shutdown"));
+
+        // The following operations should succeed, same as after close()
+        HandshakeCompletedListener listener = e -> {};
+        client.addHandshakeCompletedListener(listener);
+        assertNotNull(client.getEnabledCipherSuites());
+        assertNotNull(client.getEnabledProtocols());
+        client.getEnableSessionCreation();
+        client.getNeedClientAuth();
+        assertNotNull(client.getSession());
+        assertNotNull(client.getSSLParameters());
+        assertNotNull(client.getSupportedProtocols());
+        client.getUseClientMode();
+        client.getWantClientAuth();
+        client.removeHandshakeCompletedListener(listener);
+        client.setEnabledCipherSuites(new String[0]);
+        client.setEnabledProtocols(new String[0]);
+        client.setEnableSessionCreation(false);
+        client.setNeedClientAuth(false);
+        client.setSSLParameters(client.getSSLParameters());
+        client.setWantClientAuth(false);
+
+        // The following operations should succeed, unlike after close()
+        client.startHandshake();
+        client.getInputStream();
+        client.getOutputStream();
+        assertEquals(-1, input.read());
+        assertEquals(-1, input.read(buffer));
+        assertEquals(0, input.available());
+
+        pair.close();
+    }
+
+    @Test
+    public void test_SSLSocket_ShutdownOutput() throws Exception {
+        final TestSSLContext c = new TestSSLContext.Builder()
+                                         .clientProtocol(clientVersion)
+                                         .serverProtocol(serverVersion)
+                                         .build();
+        byte[] buffer = new byte[1];
+        TestSSLSocketPair pair = TestSSLSocketPair.create(c).connect();
+        SSLSocket server = pair.server;
+        SSLSocket client = pair.client;
+        assertFalse(server.isClosed());
+        assertFalse(client.isClosed());
+        OutputStream output = client.getOutputStream();
+        client.shutdownOutput();
+        assertFalse(client.isClosed());
+        assertFalse(server.isClosed());
+        // Shutdown after shutdown is not OK
+        SocketException exception = assertThrows(SocketException.class, client::shutdownOutput);
+        assertTrue(exception.getMessage().contains("already shutdown"));
+
+        // The following operations should succeed, same as after close()
+        HandshakeCompletedListener listener = e -> {};
+        client.addHandshakeCompletedListener(listener);
+        assertNotNull(client.getEnabledCipherSuites());
+        assertNotNull(client.getEnabledProtocols());
+        client.getEnableSessionCreation();
+        client.getNeedClientAuth();
+        assertNotNull(client.getSession());
+        assertNotNull(client.getSSLParameters());
+        assertNotNull(client.getSupportedProtocols());
+        client.getUseClientMode();
+        client.getWantClientAuth();
+        client.removeHandshakeCompletedListener(listener);
+        client.setEnabledCipherSuites(new String[0]);
+        client.setEnabledProtocols(new String[0]);
+        client.setEnableSessionCreation(false);
+        client.setNeedClientAuth(false);
+        client.setSSLParameters(client.getSSLParameters());
+        client.setWantClientAuth(false);
+
+        // The following operations should succeed, unlike after close()
+        client.startHandshake();
+        client.getInputStream();
+        client.getOutputStream();
+
+        // Any output should fail
+        try {
+            output.write(buffer);
+            fail();
+        } catch (SocketException | SSLException expected) {
+            // Expected.
+            // SocketException is correct but the old fd-based implementation
+            // throws SSLException, and it's not worth changing it at this late stage.
+        }
+        pair.close();
+    }
+
     /**
      * b/3350645 Test to confirm that an SSLSocket.close() performing
      * an SSL_shutdown does not throw an IOException if the peer
@@ -1823,15 +1938,40 @@ public class SSLSocketVersionCompatibilityTest {
                 .build();
         final SSLSocket client =
                 (SSLSocket) context.clientContext.getSocketFactory().createSocket();
-        // For app compatibility, SSLv3 is stripped out when setting only.
-        client.setEnabledProtocols(new String[] {"SSLv3"});
+        assertThrows(IllegalArgumentException.class, () -> client.setEnabledProtocols(new String[] {"SSLv3"}));
+        assertThrows(IllegalArgumentException.class, () -> client.setEnabledProtocols(new String[] {"SSL"}));
+    }
+
+    @Test
+    public void test_SSLSocket_TLSv1Supported() throws Exception {
+        assumeTrue(isTlsV1Supported());
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1"});
+        assertEquals(2, client.getEnabledProtocols().length);
+    }
+
+    @Test
+    public void test_SSLSocket_TLSv1Unsupported() throws Exception {
+        assumeFalse(isTlsV1Supported());
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1"});
         assertEquals(0, client.getEnabledProtocols().length);
-        try {
-            client.setEnabledProtocols(new String[] {"SSL"});
-            fail("SSLSocket should not support SSL protocol");
-        } catch (IllegalArgumentException expected) {
-            // Ignored.
-        }
+    }
+
+    @Test
+    public void test_TLSv1Unsupported_notEnabled() throws Exception {
+        assumeTrue(!isTlsV1Supported());
+        assertTrue(isTlsV1Deprecated());
     }
 
     // Under some circumstances, the file descriptor socket may get finalized but still

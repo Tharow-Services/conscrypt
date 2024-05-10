@@ -18,7 +18,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.conscrypt.mts">
 
-  <uses-sdk android:minSdkVersion="29"   android:targetSdkVersion="29" />
+  <uses-sdk android:minSdkVersion="30"   android:targetSdkVersion="30" />
   <uses-permission android:name="android.permission.INTERNET" />
 
   <application>
@@ -28,8 +28,6 @@
   <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner"
                    android:targetPackage="com.android.conscrypt.mts"
                    android:label="MTS tests for the Conscrypt mainline module">
-    <meta-data android:name="listener"
-               android:value="com.android.cts.runner.CtsTestRunListener" />
   </instrumentation>
 
 </manifest>

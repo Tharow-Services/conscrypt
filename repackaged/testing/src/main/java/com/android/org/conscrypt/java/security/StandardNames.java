@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import com.android.org.conscrypt.TestUtils;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -152,19 +153,36 @@ public final class StandardNames {
             provideCipherPaddings("AES", new String[] {"PKCS7Padding"});
         }
 
-        provideSslContextEnabledProtocols("TLS", TLSVersion.TLSv1, TLSVersion.TLSv13);
-        provideSslContextEnabledProtocols("TLSv1", TLSVersion.TLSv1, TLSVersion.TLSv12);
-        provideSslContextEnabledProtocols("TLSv1.1", TLSVersion.TLSv1, TLSVersion.TLSv12);
-        provideSslContextEnabledProtocols("TLSv1.2", TLSVersion.TLSv1, TLSVersion.TLSv12);
-        provideSslContextEnabledProtocols("TLSv1.3", TLSVersion.TLSv1, TLSVersion.TLSv13);
-        provideSslContextEnabledProtocols("Default", TLSVersion.TLSv1, TLSVersion.TLSv13);
+        if (TestUtils.isTlsV1Supported()) {
+            provideSslContextEnabledProtocols("TLS", TLSVersion.TLSv1, TLSVersion.TLSv13);
+            provideSslContextEnabledProtocols("TLSv1", TLSVersion.TLSv1, TLSVersion.TLSv12);
+            provideSslContextEnabledProtocols("TLSv1.1", TLSVersion.TLSv1, TLSVersion.TLSv12);
+            provideSslContextEnabledProtocols("TLSv1.2", TLSVersion.TLSv1, TLSVersion.TLSv12);
+            provideSslContextEnabledProtocols("TLSv1.3", TLSVersion.TLSv1, TLSVersion.TLSv13);
+            provideSslContextEnabledProtocols("Default", TLSVersion.TLSv1, TLSVersion.TLSv13);
+        } else {
+            provideSslContextEnabledProtocols("TLS", TLSVersion.TLSv12, TLSVersion.TLSv13);
+            provideSslContextEnabledProtocols("TLSv1.2", TLSVersion.TLSv12, TLSVersion.TLSv12);
+            provideSslContextEnabledProtocols("TLSv1.3", TLSVersion.TLSv12, TLSVersion.TLSv13);
+            provideSslContextEnabledProtocols("Default", TLSVersion.TLSv12, TLSVersion.TLSv13);
+        }
     }
 
     public static final String SSL_CONTEXT_PROTOCOLS_DEFAULT = "Default";
+    public static final Set<String> SSL_CONTEXT_PROTOCOLS_ALL = new HashSet<String>(
+            Arrays.asList("TLS", "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3"));
     public static final Set<String> SSL_CONTEXT_PROTOCOLS = new HashSet<String>(
-            Arrays.asList(SSL_CONTEXT_PROTOCOLS_DEFAULT, "TLS", "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3"));
+            Arrays.asList(SSL_CONTEXT_PROTOCOLS_DEFAULT, "TLS", "TLSv1.2", "TLSv1.3"));
     public static final Set<String> SSL_CONTEXT_PROTOCOLS_WITH_DEFAULT_CONFIG = new HashSet<String>(
             Arrays.asList(SSL_CONTEXT_PROTOCOLS_DEFAULT, "TLS", "TLSv1.3"));
+    // Deprecated TLS protocols... May or may not be present or enabled.
+    public static final Set<String> SSL_CONTEXT_PROTOCOLS_DEPRECATED = new HashSet<>();
+    static {
+        if (TestUtils.isTlsV1Deprecated()) {
+            SSL_CONTEXT_PROTOCOLS_DEPRECATED.add("TLSv1");
+            SSL_CONTEXT_PROTOCOLS_DEPRECATED.add("TLSv1.1");
+        }
+    }
 
     public static final Set<String> KEY_TYPES = new HashSet<String>(
             Arrays.asList("RSA", "DSA", "DH_RSA", "DH_DSA", "EC", "EC_EC", "EC_RSA"));
@@ -176,8 +194,15 @@ public final class StandardNames {
         }
     }
 
-    public static final Set<String> SSL_SOCKET_PROTOCOLS =
-            new HashSet<String>(Arrays.asList("TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3"));
+    public static final Set<String> SSL_SOCKET_PROTOCOLS = new HashSet<>();
+    static {
+        SSL_SOCKET_PROTOCOLS.add("TLSv1.2");
+        SSL_SOCKET_PROTOCOLS.add("TLSv1.3");
+        if (TestUtils.isTlsV1Supported()) {
+            SSL_SOCKET_PROTOCOLS.add("TLSv1");
+            SSL_SOCKET_PROTOCOLS.add("TLSv1.1");
+        }
+    }
 
     private enum TLSVersion {
         SSLv3("SSLv3"),
@@ -411,10 +436,13 @@ public final class StandardNames {
      * assertSupportedProtocols additionally verifies that all
      * supported protocols where in the input array.
      */
-    private static void assertSupportedProtocols(Set<String> expected, String[] protocols) {
-        Set<String> remainingProtocols = assertValidProtocols(expected, protocols);
+    private static void assertSupportedProtocols(Set<String> valid, String[] protocols) {
+        Set<String> remainingProtocols = assertValidProtocols(valid, protocols);
+
+        // TODO(prb) Temporarily ignore TLSv1.x: See comment for assertSSLContextEnabledProtocols()
+        remainingProtocols.removeAll(SSL_CONTEXT_PROTOCOLS_DEPRECATED);
+
         assertEquals("Missing protocols", Collections.EMPTY_SET, remainingProtocols);
-        assertEquals(expected.size(), protocols.length);
     }
 
     /**
@@ -455,9 +483,16 @@ public final class StandardNames {
     }
 
     public static void assertSSLContextEnabledProtocols(String version, String[] protocols) {
-        assertEquals("For protocol \"" + version + "\"",
-                Arrays.toString(SSL_CONTEXT_PROTOCOLS_ENABLED.get(version)),
-                Arrays.toString(protocols));
+        Set<String> expected =
+                new HashSet<>(Arrays.asList(SSL_CONTEXT_PROTOCOLS_ENABLED.get(version)));
+        Set<String> actual = new HashSet<>(Arrays.asList(protocols));
+
+        // Ignore deprecated protocols, which are set earlier based
+        // on Platform.isTlsV1Deprecated().
+        expected.removeAll(SSL_CONTEXT_PROTOCOLS_DEPRECATED);
+        actual.removeAll(SSL_CONTEXT_PROTOCOLS_DEPRECATED);
+
+        assertEquals("For protocol \"" + version + "\"", expected, actual);
     }
 
     /**

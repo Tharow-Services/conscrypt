@@ -76,8 +76,7 @@ final class NativeSsl {
     static NativeSsl newInstance(SSLParametersImpl parameters,
             SSLHandshakeCallbacks handshakeCallbacks, AliasChooser chooser,
             PSKCallbacks pskCallbacks) throws SSLException {
-        AbstractSessionContext ctx = parameters.getSessionContext();
-        long ssl = NativeCrypto.SSL_new(ctx.sslCtxNativePointer, ctx);
+        long ssl = parameters.getSessionContext().newSsl();
         return new NativeSsl(ssl, parameters, handshakeCallbacks, chooser, pskCallbacks);
     }
 
@@ -309,8 +308,9 @@ final class NativeSsl {
 
         if (parameters.getEnabledProtocols().length == 0 && parameters.isEnabledProtocolsFiltered) {
             throw new SSLHandshakeException("No enabled protocols; "
-                    + NativeCrypto.OBSOLETE_PROTOCOL_SSLV3
-                    + " is no longer supported and was filtered from the list");
+                    + NativeCrypto.DEPRECATED_PROTOCOL_TLSV1
+                    + " and " + NativeCrypto.DEPRECATED_PROTOCOL_TLSV1_1
+                    + " are no longer supported and were filtered from the list");
         }
         NativeCrypto.setEnabledProtocols(ssl, this, parameters.enabledProtocols);
         NativeCrypto.setEnabledCipherSuites(

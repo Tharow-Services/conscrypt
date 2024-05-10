@@ -59,15 +59,21 @@ public enum CipherSuite {
     TLS_AES_128_GCM_SHA256(0x1301),
     TLS_AES_256_GCM_SHA384(0x1302),
     TLS_CHACHA20_POLY1305_SHA256(0x1303),
+
+    TLS_CIPHER_FAILED(0xFFFF),
     ;
 
-    final short id;
+    final int id;
 
     public int getId() {
         return this.id;
     }
 
     public static CipherSuite forName(String name) {
+        if ("SSL_RSA_WITH_3DES_EDE_CBC_SHA".equals(name)) {
+            // JCA StandardNames shenanigans.
+            return TLS_RSA_WITH_3DES_EDE_CBC_SHA;
+        }
         try {
             return CipherSuite.valueOf(name);
         } catch (IllegalArgumentException e) {
@@ -76,6 +82,6 @@ public enum CipherSuite {
     }
 
     private CipherSuite(int id) {
-        this.id = (short) id;
+        this.id = id;
     }
 }

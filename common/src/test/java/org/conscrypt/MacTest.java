@@ -22,6 +22,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -31,6 +32,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 import java.security.spec.AlgorithmParameterSpec;
 import java.util.HashSet;
@@ -125,6 +127,11 @@ public class MacTest {
             macBytes = generateReusingMac(algorithm, keyBytes, msgBytes);
             assertArrayEquals(failMessage("Re-use Mac", baseFailMsg, macBytes),
                     expectedBytes, macBytes);
+
+            // Calculated using a pre-loved Mac with the same key
+            macBytes = generateReusingMacSameKey(algorithm, secretKey, msgBytes);
+            assertArrayEquals(failMessage("Re-use Mac same key", baseFailMsg, macBytes),
+                    expectedBytes, macBytes);
         }
     }
 
@@ -145,6 +152,8 @@ public class MacTest {
                     mac = Mac.getInstance(algorithm, provider);
                     assertEquals(algorithm, mac.getAlgorithm());
                     assertEquals(provider, mac.getProvider());
+                    // It's not an error to reset an uninitialised Mac.
+                    mac.reset();
                     if (key != null) {
                         // TODO(prb) Ensure we have at least one test vector for every
                         // MAC in Conscrypt and Android.
@@ -164,7 +173,7 @@ public class MacTest {
     }
 
     @Test
-    public void invalidKeyThrows() {
+    public void invalidKeyTypeThrows() {
         newMacServiceTester()
             // BC actually accepts RSA public keys for these algorithms for some reason.
             .skipCombination("BC", "PBEWITHHMACSHA")
@@ -185,6 +194,16 @@ public class MacTest {
                     }
                 }
             });
+    }
+
+    @Test
+    public void invalidCmacKeySizeThrows() throws Exception {
+        // TODO(prb): extend to other Macs, deal with inconsistencies between providers.
+        Mac mac = Mac.getInstance("AESCMAC", conscryptProvider);
+        byte[] keyBytes = new byte[1];
+        SecretKeySpec key = new SecretKeySpec(keyBytes, "RawBytes");
+
+        assertThrows(InvalidKeyException.class, () -> mac.init(key));
     }
 
     @Test
@@ -366,6 +385,19 @@ public class MacTest {
         mac.init(key);
         mac.update(message);
         return mac.doFinal();
+    }
+
+    private byte[] generateReusingMacSameKey(String algorithm, SecretKeySpec key, byte[] message)
+            throws Exception {
+        Mac mac = getConscryptMac(algorithm, key);
+
+        // Calculate a MAC over some other message.
+        byte[] otherMessage = new byte[message.length];
+        mac.doFinal(otherMessage);
+
+        // The MAC should now have been reset to compute a new MAC with the same
+        // key.
+        return mac.doFinal(message);
     }
 
     private Mac getConscryptMac(String algorithm) throws Exception {

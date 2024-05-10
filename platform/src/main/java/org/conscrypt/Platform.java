@@ -61,7 +61,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
-import libcore.net.NetworkSecurityPolicy;
 import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTLogStoreImpl;
 import org.conscrypt.ct.CTPolicy;
@@ -264,35 +263,6 @@ final class Platform {
         }
     }
 
-    /**
-     * Wraps an old AndroidOpenSSL key instance. This is not needed on platform
-     * builds since we didn't backport, so return null.
-     */
-    static OpenSSLKey wrapRsaKey(PrivateKey key) {
-        return null;
-    }
-
-    /**
-     * Logs to the system EventLog system.
-     */
-    static void logEvent(String message) {
-        try {
-            Class processClass = Class.forName("android.os.Process");
-            Object processInstance = processClass.newInstance();
-            Method myUidMethod = processClass.getMethod("myUid", (Class[]) null);
-            int uid = (Integer) myUidMethod.invoke(processInstance);
-
-            Class eventLogClass = Class.forName("android.util.EventLog");
-            Object eventLogInstance = eventLogClass.newInstance();
-            Method writeEventMethod = eventLogClass.getMethod(
-                    "writeEvent", new Class[] {Integer.TYPE, Object[].class});
-            writeEventMethod.invoke(eventLogInstance, 0x534e4554 /* SNET */,
-                    new Object[] {"conscrypt", uid, message});
-        } catch (Exception e) {
-            // Do not log and fail silently
-        }
-    }
-
     static SSLEngine wrapEngine(ConscryptEngine engine) {
         return new Java8EngineWrapper(engine);
     }
@@ -491,8 +461,7 @@ final class Platform {
     }
 
     static boolean isCTVerificationRequired(String hostname) {
-        return NetworkSecurityPolicy.getInstance().isCertificateTransparencyVerificationRequired(
-                hostname);
+        return false;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -560,10 +529,19 @@ final class Platform {
         int duration = (int) durationLong;
 
         ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, proto.getId(),
-                suite.getId(), duration, SOURCE_MAINLINE);
+                suite.getId(), duration, SOURCE_MAINLINE,
+                new int[] {Os.getuid()});
     }
 
     public static boolean isJavaxCertificateSupported() {
         return true;
+    }
+
+    public static boolean isTlsV1Deprecated() {
+        return true;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return false;
     }
 }
