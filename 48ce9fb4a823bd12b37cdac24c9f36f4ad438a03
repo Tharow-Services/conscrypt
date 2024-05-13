@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96f8f22f_94770dba",
+        "filename": "platform/src/main/java/org/conscrypt/CertBlocklistImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-05-13T13:15:25Z",
+      "side": 1,
+      "message": "The fact that this key is here means the CTS test doesn\u0027t actually test any on the file generation or loading.  Maybe best to extend the test a but by checking one of the known-blocked certs is also in there?",
+      "range": {
+        "startLine": 181,
+        "startChar": 31,
+        "endLine": 181,
+        "endChar": 71
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "08644f3c_86f4d37c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "platform/src/main/java/org/conscrypt/CertBlocklistImpl.java",
+              "range": {
+                "startLine": 178,
+                "startChar": 0,
+                "endLine": 183,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "48ce9fb4a823bd12b37cdac24c9f36f4ad438a03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
