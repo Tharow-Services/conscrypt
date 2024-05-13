@@ -212,12 +212,34 @@ genrule {
     tools: ["conscrypt_generate_constants"],
 }
 
+sh_binary_host {
+    name: "conscrypt_generate_blocklist",
+    src: "constants/src/gen/sh/generate_blocklist.sh",
+}
+
+genrule {
+    name: "conscrypt-unbundled_generated_blocklist",
+    out: ["org/conscrypt/StaticBlocklist.java"],
+    srcs: ["constants/src/gen/sh/blocklist_*.txt"],
+    cmd: "$(location conscrypt_generate_blocklist) $(in) > $(out)",
+    tools: ["conscrypt_generate_blocklist"],
+}
+
+genrule {
+    name: "conscrypt_generated_blocklist",
+    out: ["com/android/org/conscrypt/StaticBlocklist.java"],
+    srcs: ["constants/src/gen/sh/blocklist_*.txt"],
+    cmd: "$(location conscrypt_generate_blocklist) $(in) com.android.org.conscrypt > $(out)",
+    tools: ["conscrypt_generate_blocklist"],
+}
+
 filegroup {
     name: "conscrypt_java_files",
     srcs: [
         "repackaged/common/src/main/java/**/*.java",
         "repackaged/platform/src/main/java/**/*.java",
         ":conscrypt_generated_constants",
+        ":conscrypt_generated_blocklist",
     ],
 }
 
@@ -574,6 +596,7 @@ java_library {
         "common/src/main/java/**/*.java",
         "openjdk/src/main/java/**/*.java",
         ":conscrypt-unbundled_generated_constants",
+        ":conscrypt-unbundled_generated_blocklist",
     ],
     javacflags: ["-XDignore.symbol.file"],
     java_version: "1.8",
