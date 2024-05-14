@@ -40,6 +40,30 @@
       ],
       "revId": "48ce9fb4a823bd12b37cdac24c9f36f4ad438a03",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70ded11f_74b90581",
+        "filename": "platform/src/main/java/org/conscrypt/CertBlocklistImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-05-14T02:07:37Z",
+      "side": 1,
+      "message": "Ack, done in aosp/3084805 (need to merge ag/27303552 first).",
+      "parentUuid": "96f8f22f_94770dba",
+      "range": {
+        "startLine": 181,
+        "startChar": 31,
+        "endLine": 181,
+        "endChar": 71
+      },
+      "revId": "48ce9fb4a823bd12b37cdac24c9f36f4ad438a03",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
