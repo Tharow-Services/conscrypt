@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a80447e7_c6cb33bf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363994
+      },
+      "writtenOn": "2024-05-15T10:06:08Z",
+      "side": 1,
+      "message": "Apologies for the review delay; I was out for a few days.\n\nThis LGTM, on the assumption that we\u0027re not inadvertently breaking intentional TLS inspection done by app developers themselves (with keys specified in the nsconfig); I left some details on the design doc, but I think it should be fine :)\n\nI generated the blocklist locally, and it matches the contents of blocklist_520c4f3ee56ce.txt.",
+      "revId": "0e03298d6e71250faf7979b63aded2fa8104565b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
