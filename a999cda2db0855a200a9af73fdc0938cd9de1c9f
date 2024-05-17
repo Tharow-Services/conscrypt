@@ -16,6 +16,23 @@
       "message": "Submit *after* https://r.android.com/3093203",
       "revId": "a999cda2db0855a200a9af73fdc0938cd9de1c9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "117f1c9c_24fa60ed",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1209463
+      },
+      "writtenOn": "2024-05-17T22:46:19Z",
+      "side": 1,
+      "message": "Hi, Please resolve CL comments. Thanks",
+      "revId": "a999cda2db0855a200a9af73fdc0938cd9de1c9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
