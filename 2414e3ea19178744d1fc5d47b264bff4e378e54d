@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55a8fd49_9cb4b046",
+        "filename": "constants/src/gen/sh/extract_SPKIBlockList.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-05-17T11:53:55Z",
+      "side": 1,
+      "message": "This line seems truncated, should probably be `-outform DER | sha1sum`\n\nGiven almost all the entries are .pem files not .key, I\u0027m wondering how this script worked?",
+      "range": {
+        "startLine": 68,
+        "startChar": 79,
+        "endLine": 68,
+        "endChar": 101
+      },
+      "revId": "2414e3ea19178744d1fc5d47b264bff4e378e54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -70,6 +70,24 @@
       "parentUuid": "ade7cb77_cf837b6d",
       "revId": "0e03298d6e71250faf7979b63aded2fa8104565b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "03f7e45e_829d02f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-05-17T11:53:55Z",
+      "side": 1,
+      "message": "Talking of formats, it\u0027s a shame the Android side sha1\u0027s the key because one can transform the C++ array declaration in cert_verify_proc_blocklist.inc to valid Java in about 10 lines of awk, which I did before I realised....",
+      "parentUuid": "93fbc31c_4417d7ef",
+      "revId": "0e03298d6e71250faf7979b63aded2fa8104565b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
