@@ -52,6 +52,24 @@
       "parentUuid": "632a7b80_2493a360",
       "revId": "0e03298d6e71250faf7979b63aded2fa8104565b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93fbc31c_4417d7ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363994
+      },
+      "writtenOn": "2024-05-17T09:45:45Z",
+      "side": 1,
+      "message": "Thanks! Re-confirmed that I\u0027m getting the same output from your script.\n\nTwo additional questions:\n1. Are we confident that the Chromium format will remain stable enough for this to keep working? Maybe it doesn\u0027t matter that much if we\u0027re not automating it.\n2. Could you maybe amend the testing CL to ensure the script doesn\u0027t accidentally add one of the certs from the knownInterception list (just checking for the non-presence of one of them should be sufficient)?",
+      "parentUuid": "ade7cb77_cf837b6d",
+      "revId": "0e03298d6e71250faf7979b63aded2fa8104565b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
