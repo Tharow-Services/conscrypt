@@ -34,6 +34,24 @@
       "parentUuid": "a80447e7_c6cb33bf",
       "revId": "0e03298d6e71250faf7979b63aded2fa8104565b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ade7cb77_cf837b6d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-05-17T04:26:11Z",
+      "side": 1,
+      "message": "Agreed. I\u0027ve updated the list (and script) to only capture the blocked certificates (and not the \"known interception\" ones). PTAL. Thanks.",
+      "parentUuid": "632a7b80_2493a360",
+      "revId": "0e03298d6e71250faf7979b63aded2fa8104565b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
