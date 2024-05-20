@@ -33,6 +33,24 @@
       "message": "Hi, Please resolve CL comments. Thanks",
       "revId": "a999cda2db0855a200a9af73fdc0938cd9de1c9f",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d06f4403_7c162820",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-05-20T09:14:46Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c51c3b9c_499df722",
+      "revId": "a999cda2db0855a200a9af73fdc0938cd9de1c9f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
