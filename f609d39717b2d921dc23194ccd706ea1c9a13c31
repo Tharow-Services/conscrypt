@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ab4c9c4_b7d0ead4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-05-22T11:21:46Z",
+      "side": 1,
+      "message": "Please double check the list of branches this is going to merge into (see linter) is correct before submitting.",
+      "revId": "f609d39717b2d921dc23194ccd706ea1c9a13c31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
