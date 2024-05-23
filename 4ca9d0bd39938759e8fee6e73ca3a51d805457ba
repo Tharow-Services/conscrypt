@@ -1,0 +1,45 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0b269a6_70397b93",
+        "filename": "platform/src/main/java/org/conscrypt/CertBlocklistImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-05-23T08:20:49Z",
+      "side": 1,
+      "message": "I\u0027m not sure this is a good idea... If someone accidentally publishes entries then a billion logcats will cry out in terror.",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 83
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "5e2a7a48_c73c4c31",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "platform/src/main/java/org/conscrypt/CertBlocklistImpl.java",
+              "range": {
+                "startLine": 148,
+                "startChar": 0,
+                "endLine": 153,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "4ca9d0bd39938759e8fee6e73ca3a51d805457ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
