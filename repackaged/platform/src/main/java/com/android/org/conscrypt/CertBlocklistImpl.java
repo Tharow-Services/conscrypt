@@ -33,7 +33,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,6 +49,7 @@ public final class CertBlocklistImpl implements CertBlocklist {
     private final Set<BigInteger> serialBlocklist;
     private final Set<ByteString> sha1PubkeyBlocklist;
     private final Set<ByteString> sha256PubkeyBlocklist;
+    private Map<ByteString, Boolean> cache;
 
     /**
      * public for testing only.
@@ -57,6 +60,7 @@ public final class CertBlocklistImpl implements CertBlocklist {
 
     public CertBlocklistImpl(Set<BigInteger> serialBlocklist, Set<ByteString> sha1PubkeyBlocklist,
             Set<ByteString> sha256PubkeyBlocklist) {
+        this.cache = new ConcurrentHashMap<>();
         this.serialBlocklist = serialBlocklist;
         this.sha1PubkeyBlocklist = sha1PubkeyBlocklist;
         this.sha256PubkeyBlocklist = sha256PubkeyBlocklist;
@@ -251,7 +255,7 @@ public final class CertBlocklistImpl implements CertBlocklist {
     }
 
     private static boolean isPublicKeyBlockListed(
-            byte[] encodedPublicKey, Set<ByteString> blocklist, String hashType) {
+            ByteString encodedPublicKey, Set<ByteString> blocklist, String hashType) {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance(hashType);
@@ -259,7 +263,7 @@ public final class CertBlocklistImpl implements CertBlocklist {
             logger.log(Level.SEVERE, "Unable to get " + hashType + " MessageDigest", e);
             return false;
         }
-        ByteString out = new ByteString(toHex(md.digest(encodedPublicKey)));
+        ByteString out = new ByteString(toHex(md.digest(encodedPublicKey.bytes)));
         if (blocklist.contains(out)) {
             return true;
         }
@@ -268,17 +272,24 @@ public final class CertBlocklistImpl implements CertBlocklist {
 
     @Override
     public boolean isPublicKeyBlockListed(PublicKey publicKey) {
-        byte[] encoded = publicKey.getEncoded();
+        ByteString encodedPublicKey = new ByteString(publicKey.getEncoded());
+        Boolean cachedResult = cache.get(encodedPublicKey);
+        if (cachedResult != null) {
+            return cachedResult.booleanValue();
+        }
         if (!sha1PubkeyBlocklist.isEmpty()) {
-            if (isPublicKeyBlockListed(encoded, sha1PubkeyBlocklist, "SHA-1")) {
+            if (isPublicKeyBlockListed(encodedPublicKey, sha1PubkeyBlocklist, "SHA-1")) {
+                cache.put(encodedPublicKey, true);
                 return true;
             }
         }
         if (!sha256PubkeyBlocklist.isEmpty()) {
-            if (isPublicKeyBlockListed(encoded, sha256PubkeyBlocklist, "SHA-256")) {
+            if (isPublicKeyBlockListed(encodedPublicKey, sha256PubkeyBlocklist, "SHA-256")) {
+                cache.put(encodedPublicKey, true);
                 return true;
             }
         }
+        cache.put(encodedPublicKey, false);
         return false;
     }
 
