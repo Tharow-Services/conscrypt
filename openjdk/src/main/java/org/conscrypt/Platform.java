@@ -81,6 +81,7 @@ import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTPolicy;
+import org.conscrypt.metrics.OptionalMethod;
 import sun.security.x509.AlgorithmId;
 
 /**
@@ -804,6 +805,20 @@ final class Platform {
     }
 
     public static boolean isTlsV1Supported() {
-        return false;
+        Object sdkVersion = getSdkVersion();
+        if ((sdkVersion == null) || ((int) sdkVersion < 35))
+            return false;
+        return true;
+    }
+
+    static Object getSdkVersion() {
+        try {
+            OptionalMethod getSdkVersion =
+                    new OptionalMethod(Class.forName("dalvik.system.VMRuntime"),
+                                        "getSdkVersion");
+            return getSdkVersion.invokeStatic();
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
     }
 }
