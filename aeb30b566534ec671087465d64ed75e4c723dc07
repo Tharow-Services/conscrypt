@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8923de8f_160259bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1878380
+      },
+      "writtenOn": "2024-05-28T17:25:38Z",
+      "side": 1,
+      "message": "Hi Sorin, since Victor is currently OOO, would you have sufficient context to review this CL?",
+      "revId": "aeb30b566534ec671087465d64ed75e4c723dc07",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
