@@ -541,6 +541,10 @@ final class Platform {
         return true;
     }
 
+    public static boolean isTlsV1Filtered() {
+        return true;
+    }
+
     public static boolean isTlsV1Supported() {
         return false;
     }
