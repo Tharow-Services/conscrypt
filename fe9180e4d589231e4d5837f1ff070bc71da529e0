@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6b1ace44_eb1f690d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1981170
+      },
+      "writtenOn": "2024-05-30T18:32:30Z",
+      "side": 1,
+      "message": "Please review this cherry-pick for change\n\nhttps://googleplex-android-review.git.corp.google.com/c/platform/external/conscrypt/+/26895586",
+      "revId": "fe9180e4d589231e4d5837f1ff070bc71da529e0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
