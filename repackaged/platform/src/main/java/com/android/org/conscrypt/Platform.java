@@ -30,6 +30,7 @@ import com.android.org.conscrypt.ct.CTPolicy;
 import com.android.org.conscrypt.ct.CTPolicyImpl;
 import com.android.org.conscrypt.metrics.CipherSuite;
 import com.android.org.conscrypt.metrics.ConscryptStatsLog;
+import com.android.org.conscrypt.metrics.OptionalMethod;
 import com.android.org.conscrypt.metrics.Protocol;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
@@ -542,7 +543,25 @@ final class Platform {
         return true;
     }
 
-    public static boolean isTlsV1Supported() {
+    public static boolean isTlsV1Filtered() {
+        Object sdkVersion = getSdkVersion();
+        if ((sdkVersion == null) || ((int) sdkVersion < 35))
+            return true;
         return false;
+    }
+
+    public static boolean isTlsV1Supported() {
+      return false;
+    }
+
+    static Object getSdkVersion() {
+        try {
+            OptionalMethod getSdkVersion =
+                    new OptionalMethod(Class.forName("dalvik.system.VMRuntime"),
+                                        "getSdkVersion");
+            return getSdkVersion.invokeStatic();
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
     }
 }
