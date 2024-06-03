@@ -27,6 +27,7 @@ import android.system.Os;
 import android.util.Log;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import dalvik.system.VMRuntime;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -66,6 +67,7 @@ import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTPolicy;
 import org.conscrypt.metrics.CipherSuite;
 import org.conscrypt.metrics.ConscryptStatsLog;
+import org.conscrypt.metrics.OptionalMethod;
 import org.conscrypt.metrics.Protocol;
 
 /**
@@ -976,7 +978,14 @@ final class Platform {
         return true;
     }
 
-    public static boolean isTlsV1Supported() {
+    public static boolean isTlsV1Filtered() {
+        Object sdkVersion =  VMRuntime.getRuntime().getTargetSdkVersion();
+        if ((sdkVersion == null) || ((int) sdkVersion < 35))
+            return true;
         return false;
+    }
+
+    public static boolean isTlsV1Supported() {
+      return false;
     }
 }

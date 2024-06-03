@@ -36,6 +36,7 @@ import static java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 
+import dalvik.system.VMRuntime;
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -81,6 +82,7 @@ import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTPolicy;
+import org.conscrypt.metrics.OptionalMethod;
 import sun.security.x509.AlgorithmId;
 
 /**
@@ -803,7 +805,14 @@ final class Platform {
         return true;
     }
 
-    public static boolean isTlsV1Supported() {
+    public static boolean isTlsV1Filtered() {
+        Object sdkVersion =  VMRuntime.getRuntime().getTargetSdkVersion();
+        if ((sdkVersion == null) || ((int) sdkVersion < 35))
+            return true;
         return false;
+    }
+
+    public static boolean isTlsV1Supported() {
+      return false;
     }
 }
