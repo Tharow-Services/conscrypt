@@ -804,7 +804,11 @@ final class Platform {
         return true;
     }
 
-    public static boolean isTlsV1Supported() {
+    public static boolean isTlsV1Filtered() {
         return false;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return true;
     }
 }
