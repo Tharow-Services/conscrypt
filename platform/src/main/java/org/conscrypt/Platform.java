@@ -25,6 +25,7 @@ import android.system.Os;
 import android.system.StructTimeval;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import dalvik.system.VMRuntime;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.System;
@@ -67,6 +68,7 @@ import org.conscrypt.ct.CTPolicy;
 import org.conscrypt.ct.CTPolicyImpl;
 import org.conscrypt.metrics.CipherSuite;
 import org.conscrypt.metrics.ConscryptStatsLog;
+import org.conscrypt.metrics.OptionalMethod;
 import org.conscrypt.metrics.Protocol;
 import sun.security.x509.AlgorithmId;
 
@@ -539,6 +541,13 @@ final class Platform {
 
     public static boolean isTlsV1Deprecated() {
         return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        Object sdkVersion =  VMRuntime.getRuntime().getTargetSdkVersion();
+        if ((sdkVersion == null) || ((int) sdkVersion < 35))
+            return true;
+        return false;
     }
 
     public static boolean isTlsV1Supported() {
