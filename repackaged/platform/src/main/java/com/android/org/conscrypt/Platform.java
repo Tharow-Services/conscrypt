@@ -30,9 +30,11 @@ import com.android.org.conscrypt.ct.CTPolicy;
 import com.android.org.conscrypt.ct.CTPolicyImpl;
 import com.android.org.conscrypt.metrics.CipherSuite;
 import com.android.org.conscrypt.metrics.ConscryptStatsLog;
+import com.android.org.conscrypt.metrics.OptionalMethod;
 import com.android.org.conscrypt.metrics.Protocol;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import dalvik.system.VMRuntime;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.System;
@@ -540,6 +542,10 @@ final class Platform {
 
     public static boolean isTlsV1Deprecated() {
         return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        return false;
     }
 
     public static boolean isTlsV1Supported() {

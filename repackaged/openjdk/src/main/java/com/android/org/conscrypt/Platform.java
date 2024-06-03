@@ -82,6 +82,7 @@ import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
 import com.android.org.conscrypt.ct.CTLogStore;
 import com.android.org.conscrypt.ct.CTPolicy;
+import com.android.org.conscrypt.metrics.OptionalMethod;
 import sun.security.x509.AlgorithmId;
 
 /**
@@ -802,6 +803,10 @@ final class Platform {
 
     public static boolean isTlsV1Deprecated() {
         return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        return false;
     }
 
     public static boolean isTlsV1Supported() {
