@@ -33,6 +33,24 @@
       "message": "I think it would be helpful if you merge this change and https://r.android.com/3108077 so we can see what\u0027s going on in a single place.\n\nWe don\u0027t need to worry about app compat on openjdk or the android standalone builds, because apps always know what version of conscrypt they\u0027re getting, so I think the returns from these methods should be:\n\nisTlsV1Deprecated - true everywhere\nisTlsV1Supported - false everywhere\nisTlsV1Filtered - false everywhere *except* on platform builds IFF targetSdkLevel \u003c 35.\n\nNote targetSdkVersion *not* sdkVersion. VMRuntime.getTargetSdkVersion is a system api so you should be able to call it directly on platform builds.  You\u0027ll probably have to add it to the platform stubs when you upstream this change.\n\nAlso we\u0027ll need some tests... Have a look at ObjectStreamClassTest for an example of using SwitchTargetSdkVersionRule.",
       "revId": "c831cea9466b18503ddb09916255267deef7287a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd6f7a08_d583a8ef",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-04T15:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "928584e4_9ad6d655",
+      "revId": "c831cea9466b18503ddb09916255267deef7287a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }

@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "291b5cc1_7debac9e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-04T15:07:30Z",
+      "side": 1,
+      "message": "Cider being weird",
+      "parentUuid": "6ed4809c_d507b4a2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "9bd5915057c453a7ede8451c431200f7c71b0e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb3a57f8_41ba37ff",
@@ -61,6 +85,30 @@
       "writtenOn": "2024-06-04T13:10:16Z",
       "side": 1,
       "message": "Sorry, my bad, I meant to add these comments in `platform/.../Platform.java`.\n\nFor this file (`android/...`) just return false... It won\u0027t be able to call getTargetSdkVersion anyway.",
+      "range": {
+        "startLine": 981,
+        "startChar": 0,
+        "endLine": 981,
+        "endChar": 74
+      },
+      "revId": "9bd5915057c453a7ede8451c431200f7c71b0e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "57bdc945_9084cae5",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 981,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-04T15:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fb3a57f8_41ba37ff",
       "range": {
         "startLine": 981,
         "startChar": 0,
@@ -94,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "232450c8_d9d70e53",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 988,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-04T15:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "63fd347c_a653ea28",
+      "range": {
+        "startLine": 988,
+        "startChar": 15,
+        "endLine": 988,
+        "endChar": 19
+      },
+      "revId": "9bd5915057c453a7ede8451c431200f7c71b0e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "513f20ad_da9f9367",
@@ -107,6 +179,30 @@
       "writtenOn": "2024-06-04T13:10:16Z",
       "side": 1,
       "message": "false",
+      "range": {
+        "startLine": 811,
+        "startChar": 13,
+        "endLine": 811,
+        "endChar": 17
+      },
+      "revId": "9bd5915057c453a7ede8451c431200f7c71b0e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8a9df5b_6626261b",
+        "filename": "openjdk/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 811,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-04T15:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "513f20ad_da9f9367",
       "range": {
         "startLine": 811,
         "startChar": 13,
@@ -140,6 +236,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "38d714cc_47ff4f19",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 547,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-04T15:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f862ba0e_87eccd80",
+      "range": {
+        "startLine": 547,
+        "startChar": 0,
+        "endLine": 547,
+        "endChar": 60
+      },
+      "revId": "9bd5915057c453a7ede8451c431200f7c71b0e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "67c9f7af_d9bc4480",
@@ -153,6 +273,30 @@
       "writtenOn": "2024-06-04T13:10:16Z",
       "side": 1,
       "message": "false?",
+      "range": {
+        "startLine": 553,
+        "startChar": 15,
+        "endLine": 553,
+        "endChar": 19
+      },
+      "revId": "9bd5915057c453a7ede8451c431200f7c71b0e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "734db28c_3032a93d",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 12
+      },
+      "lineNbr": 553,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-04T15:07:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "67c9f7af_d9bc4480",
       "range": {
         "startLine": 553,
         "startChar": 15,
