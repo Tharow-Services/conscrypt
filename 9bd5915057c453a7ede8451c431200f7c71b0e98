@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a7bdc48b_6be5c705",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-06-04T14:31:09Z",
+      "side": 1,
+      "message": "I\u0027ve seen Cider G adding these sort of messages before. Not sure why.",
+      "parentUuid": "6ed4809c_d507b4a2",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "9bd5915057c453a7ede8451c431200f7c71b0e98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "fb3a57f8_41ba37ff",
         "filename": "android/src/main/java/org/conscrypt/Platform.java",
         "patchSetId": 12
