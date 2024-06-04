@@ -27,6 +27,7 @@ import android.system.Os;
 import android.util.Log;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import dalvik.system.VMRuntime;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -66,6 +67,7 @@ import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTPolicy;
 import org.conscrypt.metrics.CipherSuite;
 import org.conscrypt.metrics.ConscryptStatsLog;
+import org.conscrypt.metrics.OptionalMethod;
 import org.conscrypt.metrics.Protocol;
 
 /**
@@ -976,7 +978,25 @@ final class Platform {
         return true;
     }
 
+    public static boolean isTlsV1Filtered() {
+        Object targetSdkVersion = getTargetSdkVersion();
+        if ((targetSdkVersion == null) || ((int) targetSdkVersion > 34))
+            return false;
+        return true;
+    }
+
     public static boolean isTlsV1Supported() {
         return false;
+    }
+
+    static Object getTargetSdkVersion() {
+        try {
+            OptionalMethod getSdkVersion =
+                    new OptionalMethod(Class.forName("dalvik.system.VMRuntime"),
+                                        "getTargetSdkVersion");
+            return getSdkVersion.invokeStatic();
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
     }
 }
