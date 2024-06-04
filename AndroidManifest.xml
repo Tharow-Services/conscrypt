@@ -1,0 +1,13 @@
+<!-- 
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.android.org.conscrypt">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application android:usesCleartextTraffic="true">
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner"
+                     android:targetPackage="com.android.org.conscrypt"
+                     android:label="CTS Libcore test cases">
+    </instrumentation>
+
+</manifest> -->
