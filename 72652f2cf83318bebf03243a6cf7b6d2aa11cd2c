@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b257410e_4ae932ce",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketVersionCompatibilityTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-04T16:03:15Z",
+      "side": 1,
+      "message": "This seems wrong...`SSLSocket.setEnabledProtocols()` should call `SSLParameters. setEnabledProtocols()` which should throw in `NativeCrypto.checkEnabledProtocols()` - because `isTlsV1Supported()` is `false` and we didn\u0027t filter the V1 protocols from the list.",
+      "range": {
+        "startLine": 2001,
+        "startChar": 0,
+        "endLine": 2001,
+        "endChar": 81
+      },
+      "revId": "72652f2cf83318bebf03243a6cf7b6d2aa11cd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
