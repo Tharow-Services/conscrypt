@@ -25,6 +25,7 @@ import android.system.Os;
 import android.system.StructTimeval;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import dalvik.system.VMRuntime;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.System;
@@ -541,7 +542,14 @@ final class Platform {
         return true;
     }
 
-    public static boolean isTlsV1Supported() {
+    public static boolean isTlsV1Filtered() {
+        Object sdkVersion = VMRuntime.getTargetSdkVersion();
+        if ((sdkVersion == null) || ((int) sdkVersion > 34))
+            return true;
         return false;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return true;
     }
 }
