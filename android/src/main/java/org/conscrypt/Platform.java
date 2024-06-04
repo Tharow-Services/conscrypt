@@ -27,6 +27,7 @@ import android.system.Os;
 import android.util.Log;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import dalvik.system.VMRuntime;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -974,6 +975,10 @@ final class Platform {
 
     public static boolean isTlsV1Deprecated() {
         return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        return false;
     }
 
     public static boolean isTlsV1Supported() {
