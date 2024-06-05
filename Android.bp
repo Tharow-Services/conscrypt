@@ -290,6 +290,7 @@ java_library {
         "//external/robolectric-shadows",
         "//external/robolectric",
         "//frameworks/layoutlib",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     static_libs: [
         "conscrypt",
@@ -350,6 +351,7 @@ java_sdk_library {
         // DO NOT REMOVE: Legacy visibility, needed for snapshots that are
         // generated for the S build.
         "//libcore/mmodules/core_platform_api",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     srcs: [
         ":conscrypt_java_files",
@@ -399,6 +401,7 @@ java_sdk_library {
         // DO NOT REMOVE: Legacy visibility, needed for snapshots that are
         // generated for the S build.
         "//libcore",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     srcs: [
         ":conscrypt_public_api_files",
@@ -477,6 +480,7 @@ java_sdk_library {
         // TODO(b/155921753): Restrict this when prebuilts are in their proper
         // locations.
         "//prebuilts:__subpackages__",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     srcs: [
         ":conscrypt_java_files",
@@ -635,6 +639,48 @@ cc_library_static {
     stl: "c++_shared",
 }
 
+java_library {
+    name: "conscrypt-tests-lib2",
+    visibility: [
+        "//frameworks/base/apct-tests/perftests/core",
+    ],
+    device_supported: true,
+    host_supported: true,
+    srcs: [
+        "common/src/main/java/**/*.java",
+        "testing/src/main/java/**/*.java",
+    ],
+    libs: [
+        "junit",
+    ],
+}
+
+// java_library {
+//     name: "conscrypt-tests-lib",
+//     visibility: [
+//         "//frameworks/base/apct-tests/perftests/core",
+//     ],
+//     // Conscrypt should support R
+//     min_sdk_version: "30",
+//     srcs: [
+//         "repackaged/platform/src/test/java/**/*.java",
+//         "repackaged/common/src/test/java/**/*.java",
+//         "repackaged/testing/src/main/java/**/*.java",
+//     ],
+//     libs: [
+//         "conscrypt",
+//         "core-test-rules",
+//         "junit",
+//         "mockito-target-minus-junit4",
+//         "framework-statsd.stubs.module_lib",
+//     ],
+//     sdk_version: "none",
+//     system_modules: "none",
+//     lint: {
+//         baseline_filename: "lint-baseline.xml",
+//     },
+// }
+
 // Make the conscrypt-tests library.
 java_test {
     name: "conscrypt-tests",
@@ -642,6 +688,7 @@ java_test {
         "//cts/tests/libcore/luni",
         "//external/conscrypt/apex/tests",
         "//libcore",
+        "//frameworks/base/apct-tests/perftests/core",
     ],
     hostdex: true,
     srcs: [
