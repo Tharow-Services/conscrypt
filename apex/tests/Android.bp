@@ -27,6 +27,7 @@ android_test {
     static_libs: [
         "conscrypt-support",
         "conscrypt-tests",
+        "conscrypt-microbenchmarks",
         "core-test-rules",
         "ctstestrunner-axt",
         "libcore-crypto-tests",
@@ -52,6 +53,7 @@ android_test {
     static_libs: [
         "conscrypt-support",
         "conscrypt-tests",
+        "conscrypt-microbenchmarks",
         "core-test-rules",
         "ctstestrunner-axt",
         "libcore-crypto-tests",

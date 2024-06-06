@@ -774,6 +774,7 @@ module_exports {
             java_tests: [
                 // For use by CTS
                 "conscrypt-tests",
+                "conscrypt-microbenchmarks",
             ],
             native_shared_libs: [
                 "libjavacrypto",
@@ -789,4 +790,73 @@ module_exports {
             ],
         },
     },
+}
+
+
+java_test {
+    name: "conscrypt-microbenchmarks",
+
+    srcs: [
+        "repackaged/benchmarks/src/*.java",
+        "repackaged/testing/src/main/java/**/*.java",
+    ],
+
+    visibility: [
+        "//cts/tests/libcore/luni",
+        "//external/conscrypt/apex/tests",
+        "//libcore",
+    ],
+    static_libs: [
+        "androidx.appcompat_appcompat",
+        "androidx.test.rules",
+        "androidx.annotation_annotation",
+        "apct-perftests-utils",
+        "androidx.benchmark_benchmark-common",
+        "androidx.benchmark_benchmark-junit4",
+        "androidx.annotation_annotation",
+        "compatibility-device-util-axt",
+    ],
+
+    libs: [
+        "android.test.base",
+        "conscrypt",
+        "junit",
+        "junit-params",
+        "bouncycastle-unbundled",
+        "bouncycastle-bcpkix-unbundled",
+        "bouncycastle-ocsp-unbundled",
+    ],
+
+    data: [
+        ":perfetto_artifacts",
+        ":cts-dalvik-device-test-runner",
+    ],
+
+    platform_apis: true,
+
+    test_suites: ["device-tests"],
+
+    errorprone: {
+        javacflags: [
+            "-Xep:ReturnValueIgnored:WARN",
+        ],
+    },
+    sdk_version: "none",
+    system_modules: "art-module-intra-core-api-stubs-system-modules",
+    javacflags: [
+        "-Xmaxwarns 9999999",
+        //"-Xlint:all",
+        //"-Xlint:-serial,-deprecation,-unchecked",
+    ],
+    host_required: ["cts-dalvik-host-test-runner"],
+    target: {
+        host: {
+            required: ["libjavacrypto"],
+        },
+        darwin: {
+            // required module "libjavacrypto" is disabled on darwin
+            enabled: false,
+        },
+    },
+    java_version: "1.8",
 }
