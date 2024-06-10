@@ -319,7 +319,7 @@ public final class TestUtils {
         }
     }
 
-    static SSLSocketFactory setUseEngineSocket(
+    public static SSLSocketFactory setUseEngineSocket(
             SSLSocketFactory conscryptFactory, boolean useEngineSocket) {
         try {
             Class<?> clazz = conscryptClass("Conscrypt");
@@ -332,7 +332,7 @@ public final class TestUtils {
         }
     }
 
-    static SSLServerSocketFactory setUseEngineSocket(
+    public static SSLServerSocketFactory setUseEngineSocket(
             SSLServerSocketFactory conscryptFactory, boolean useEngineSocket) {
         try {
             Class<?> clazz = conscryptClass("Conscrypt");
