@@ -111,10 +111,10 @@ public enum ChannelType {
         }
     };
 
-    abstract SSLSocket newClientSocket(SSLSocketFactory factory, InetAddress address, int port)
+    public abstract SSLSocket newClientSocket(SSLSocketFactory factory, InetAddress address, int port)
             throws IOException;
-    abstract ServerSocket newServerSocket(SSLServerSocketFactory factory) throws IOException;
-    abstract SSLSocket accept(ServerSocket socket, SSLSocketFactory factory) throws IOException;
+    public abstract ServerSocket newServerSocket(SSLServerSocketFactory factory) throws IOException;
+    public abstract SSLSocket accept(ServerSocket socket, SSLSocketFactory factory) throws IOException;
 
     private static SSLSocket clientMode(Socket socket) {
         SSLSocket sslSocket = (SSLSocket) socket;
