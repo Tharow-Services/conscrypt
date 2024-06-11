@@ -22,6 +22,30 @@
       },
       "revId": "72652f2cf83318bebf03243a6cf7b6d2aa11cd2c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2fc1e2f6_212b0b24",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketVersionCompatibilityTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 2001,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-11T09:29:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b257410e_4ae932ce",
+      "range": {
+        "startLine": 2001,
+        "startChar": 0,
+        "endLine": 2001,
+        "endChar": 81
+      },
+      "revId": "72652f2cf83318bebf03243a6cf7b6d2aa11cd2c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
