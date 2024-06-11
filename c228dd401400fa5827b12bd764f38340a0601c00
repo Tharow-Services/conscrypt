@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f13be9f5_7cbcc1ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-06-11T14:21:24Z",
+      "side": 1,
+      "message": "Please add a bug number and test.",
+      "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "97c1f576_83de1f18",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -14,6 +31,80 @@
       "writtenOn": "2024-06-11T14:20:37Z",
       "side": 1,
       "message": "Love the title! 😊\n\nBut can you please and a `Bug:` and `Test:` and maybe a few words on why.\n\nAlso, is this change independent of https://r.androoid.com/3105657 or do they need submitted in order?",
+      "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5cf8b4b9_7673cda5",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-06-11T14:21:24Z",
+      "side": 1,
+      "message": "nit: whitespace",
+      "range": {
+        "startLine": 157,
+        "startChar": 24,
+        "endLine": 157,
+        "endChar": 25
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "3d7159ce_5034e04a",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+              "range": {
+                "startLine": 157,
+                "startChar": 0,
+                "endLine": 158,
+                "endChar": 0
+              },
+              "replacement": "                        NativeCrypto.OBSOLETE_PROTOCOL_SSLV3,\n"
+            },
+            {
+              "path": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+              "range": {
+                "startLine": 305,
+                "startChar": 0,
+                "endLine": 306,
+                "endChar": 0
+              },
+              "replacement": "                        NativeCrypto.OBSOLETE_PROTOCOL_SSLV3,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "69942ebe_a63b40b8",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-06-11T14:21:24Z",
+      "side": 1,
+      "message": "nit: whitespace",
+      "range": {
+        "startLine": 305,
+        "startChar": 24,
+        "endLine": 305,
+        "endChar": 25
+      },
       "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
