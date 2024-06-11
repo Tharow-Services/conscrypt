@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e43794e0_d0eebb7f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-11T14:21:28Z",
+      "side": 1,
+      "message": "* https://r.android.com/3105657",
+      "parentUuid": "97c1f576_83de1f18",
+      "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5cf8b4b9_7673cda5",
         "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 2
