@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "97c1f576_83de1f18",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-11T14:20:37Z",
+      "side": 1,
+      "message": "Love the title! 😊\n\nBut can you please and a `Bug:` and `Test:` and maybe a few words on why.\n\nAlso, is this change independent of https://r.androoid.com/3105657 or do they need submitted in order?",
+      "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
