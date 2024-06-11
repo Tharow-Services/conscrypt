@@ -149,6 +149,14 @@ final class SSLParametersImpl implements Cloneable {
           enabledProtocols = NativeCrypto.getDefaultProtocols().clone();
         } else {
             String[] filteredProtocols =
+<<<<<<< PATCH SET (ef4fe6 Gate tls removal by api level)
+                    filterFromProtocols(protocols, Arrays.asList(!Platform.isTlsV1Filtered()
+                        ? new String[0]
+                        : new String[] {
+                            NativeCrypto.DEPRECATED_PROTOCOL_TLSV1,
+                            NativeCrypto.DEPRECATED_PROTOCOL_TLSV1_1,
+                        }));
+=======
                     filterFromProtocols(protocols, Arrays.asList(Platform.isTlsV1Supported()
                     ? new String[] {
                         NativeCrypto.OBSOLETE_PROTOCOL_SSLV3,
@@ -158,6 +166,7 @@ final class SSLParametersImpl implements Cloneable {
                         NativeCrypto.DEPRECATED_PROTOCOL_TLSV1,
                         NativeCrypto.DEPRECATED_PROTOCOL_TLSV1_1,
                     }));
+>>>>>>> BASE      (a073e2 Bring back sslv3)
             isEnabledProtocolsFiltered = protocols.length != filteredProtocols.length;
             enabledProtocols = NativeCrypto.checkEnabledProtocols(filteredProtocols).clone();
         }
@@ -297,10 +306,15 @@ final class SSLParametersImpl implements Cloneable {
             throw new IllegalArgumentException("protocols == null");
         }
         String[] filteredProtocols =
+<<<<<<< PATCH SET (ef4fe6 Gate tls removal by api level)
+                filterFromProtocols(protocols, Arrays.asList(!Platform.isTlsV1Filtered()
+                    ? new String[0]
+=======
                 filterFromProtocols(protocols, Arrays.asList(Platform.isTlsV1Supported()
                     ? new String[] {
                         NativeCrypto.OBSOLETE_PROTOCOL_SSLV3,
                     }
+>>>>>>> BASE      (a073e2 Bring back sslv3)
                     : new String[] {
                         NativeCrypto.OBSOLETE_PROTOCOL_SSLV3,
                         NativeCrypto.DEPRECATED_PROTOCOL_TLSV1,

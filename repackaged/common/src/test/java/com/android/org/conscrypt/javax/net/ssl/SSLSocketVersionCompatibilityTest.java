@@ -17,6 +17,9 @@
 
 package com.android.org.conscrypt.javax.net.ssl;
 
+import libcore.junit.util.SwitchTargetSdkVersionRule;
+import libcore.junit.util.SwitchTargetSdkVersionRule.TargetSdkVersion;
+
 import static com.android.org.conscrypt.TestUtils.UTF_8;
 import static com.android.org.conscrypt.TestUtils.isLinux;
 import static com.android.org.conscrypt.TestUtils.isOsx;
@@ -112,7 +115,9 @@ import javax.net.ssl.X509TrustManager;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import tests.net.DelegatingSSLSocketFactory;
@@ -126,6 +131,9 @@ import tests.util.Pair;
  */
 @RunWith(Parameterized.class)
 public class SSLSocketVersionCompatibilityTest {
+
+    @Rule
+    public TestRule switchTargetSdkVersionRule = SwitchTargetSdkVersionRule.getInstance();
 
     @Parameterized.Parameters(name = "{index}: {0} client, {1} server")
     public static Iterable<Object[]> data() {
@@ -1974,6 +1982,34 @@ public class SSLSocketVersionCompatibilityTest {
         client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1"});
         assertEquals(0, client.getEnabledProtocols().length);
     }
+
+    @TargetSdkVersion(34)
+    @Test
+    public void test_TLSv1Filtered_34() throws Exception {
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"});
+        assertEquals(1, client.getEnabledProtocols().length);
+        assertEquals("TLSv1.2", client.getEnabledProtocols()[0]);
+    }
+
+    @TargetSdkVersion(35)
+    @Test
+    public void test_TLSv1Filtered_35() throws Exception {
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        assertThrows(IllegalArgumentException.class, () ->
+            client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"}));
+    }
+
 
     @Test
     public void test_TLSv1Unsupported_notEnabled() throws Exception {
