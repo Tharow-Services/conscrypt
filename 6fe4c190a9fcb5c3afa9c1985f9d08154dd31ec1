@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c08e9dc1_eadb2360",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-11T15:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07309cc4_d5255d95",
+      "revId": "6fe4c190a9fcb5c3afa9c1985f9d08154dd31ec1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cf4ae901_e26e523a",
@@ -31,6 +49,24 @@
       "writtenOn": "2024-06-11T14:23:40Z",
       "side": 1,
       "message": "Unused.",
+      "revId": "6fe4c190a9fcb5c3afa9c1985f9d08154dd31ec1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "443274c8_069c30ce",
+        "filename": "openjdk/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 18
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-11T15:49:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cf4ae901_e26e523a",
       "revId": "6fe4c190a9fcb5c3afa9c1985f9d08154dd31ec1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
