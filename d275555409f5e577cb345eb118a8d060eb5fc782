@@ -22,6 +22,30 @@
       },
       "revId": "d275555409f5e577cb345eb118a8d060eb5fc782",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ec6aef7_8bba9805",
+        "filename": "platform/src/main/java/org/conscrypt/CertBlocklistImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-06-11T06:32:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2c65698e_7c83eeb2",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 42
+      },
+      "revId": "d275555409f5e577cb345eb118a8d060eb5fc782",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
