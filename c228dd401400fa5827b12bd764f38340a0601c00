@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8052b98b_8f133afb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-11T14:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f13be9f5_7cbcc1ea",
+      "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "97c1f576_83de1f18",
@@ -49,6 +67,24 @@
       "side": 1,
       "message": "* https://r.android.com/3105657",
       "parentUuid": "97c1f576_83de1f18",
+      "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1870c994_ea726d28",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-11T14:25:27Z",
+      "side": 1,
+      "message": "Done. This change is independent, however I will also do a follow up gating the removal of this by targetsdk",
+      "parentUuid": "e43794e0_d0eebb7f",
       "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -104,6 +140,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "982efe79_41b5f6b7",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-11T14:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5cf8b4b9_7673cda5",
+      "range": {
+        "startLine": 157,
+        "startChar": 24,
+        "endLine": 157,
+        "endChar": 25
+      },
+      "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "69942ebe_a63b40b8",
@@ -117,6 +177,30 @@
       "writtenOn": "2024-06-11T14:21:24Z",
       "side": 1,
       "message": "nit: whitespace",
+      "range": {
+        "startLine": 305,
+        "startChar": 24,
+        "endLine": 305,
+        "endChar": 25
+      },
+      "revId": "c228dd401400fa5827b12bd764f38340a0601c00",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2e466527_37116a30",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-11T14:25:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "69942ebe_a63b40b8",
       "range": {
         "startLine": 305,
         "startChar": 24,
