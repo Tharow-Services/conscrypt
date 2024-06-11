@@ -154,7 +154,7 @@ final class SSLParametersImpl implements Cloneable {
                         : new String[] {
                             NativeCrypto.DEPRECATED_PROTOCOL_TLSV1,
                             NativeCrypto.DEPRECATED_PROTOCOL_TLSV1_1,
-                        }));
+                        }, NativeCrypto.OBSOLETE_PROTOCOL_SSLV3));
             isEnabledProtocolsFiltered = protocols.length != filteredProtocols.length;
             enabledProtocols = NativeCrypto.checkEnabledProtocols(filteredProtocols).clone();
         }
@@ -299,7 +299,7 @@ final class SSLParametersImpl implements Cloneable {
                     : new String[] {
                         NativeCrypto.DEPRECATED_PROTOCOL_TLSV1,
                         NativeCrypto.DEPRECATED_PROTOCOL_TLSV1_1,
-                    }));
+                    }, NativeCrypto.OBSOLETE_PROTOCOL_SSLV3));
         isEnabledProtocolsFiltered = protocols.length != filteredProtocols.length;
         enabledProtocols = NativeCrypto.checkEnabledProtocols(filteredProtocols).clone();
     }
