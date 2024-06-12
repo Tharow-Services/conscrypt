@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bdc9994_9ca24268",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 21
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-12T10:21:14Z",
+      "side": 1,
+      "message": "Oops, you need to guard against that class not existing on some form factors:\n```\nProcess: system_server\n*** FATAL EXCEPTION IN SYSTEM PROCESS: PasspointProvisionerHandlerThread\njava.lang.NullPointerException: null receiver\n\tat java.lang.reflect.Method.invoke(Native Method)\n\tat com.android.org.conscrypt.metrics.OptionalMethod.invokeStatic(OptionalMethod.java:71)\n\tat com.android.org.conscrypt.Platform.getTargetSdkVersion(Platform.java:563)\n```\n\n(not this CL, but this is why I want to re-work OptionalMethod)",
+      "range": {
+        "startLine": 560,
+        "startChar": 0,
+        "endLine": 562,
+        "endChar": 0
+      },
+      "revId": "abe4a7c509e4d5b3b8d47b761218194717300022",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
