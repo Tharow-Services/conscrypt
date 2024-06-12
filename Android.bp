@@ -212,12 +212,29 @@ genrule {
     tools: ["conscrypt_generate_constants"],
 }
 
+genrule {
+    name: "conscrypt-unbundled_generated_blocklist",
+    out: ["org/conscrypt/StaticBlocklist.java"],
+    srcs: ["constants/src/gen/java/cert_verify_proc_blocklist.inc"],
+    tool_files: ["constants/src/gen/java/generate_blocklist.awk"],
+    cmd: "awk -f $(location constants/src/gen/java/generate_blocklist.awk) $(in) > $(out)",
+}
+
+genrule {
+    name: "conscrypt_generated_blocklist",
+    out: ["com/android/org/conscrypt/StaticBlocklist.java"],
+    srcs: ["constants/src/gen/java/cert_verify_proc_blocklist.inc"],
+    tool_files: ["constants/src/gen/java/generate_blocklist.awk"],
+    cmd: "awk -v package=com.android.org.conscrypt -f $(location constants/src/gen/java/generate_blocklist.awk) $(in) > $(out)",
+}
+
 filegroup {
     name: "conscrypt_java_files",
     srcs: [
         "repackaged/common/src/main/java/**/*.java",
         "repackaged/platform/src/main/java/**/*.java",
         ":conscrypt_generated_constants",
+        ":conscrypt_generated_blocklist",
     ],
 }
 
@@ -574,6 +591,7 @@ java_library {
         "common/src/main/java/**/*.java",
         "openjdk/src/main/java/**/*.java",
         ":conscrypt-unbundled_generated_constants",
+        ":conscrypt-unbundled_generated_blocklist",
     ],
     javacflags: ["-XDignore.symbol.file"],
     java_version: "1.8",
