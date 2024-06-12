@@ -46,6 +46,30 @@
       },
       "revId": "2884de4c6b7457d4b60333549c1a1737d761245a",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fc9e882c_7a186f65",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/Platform.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-06-12T16:51:23Z",
+      "side": 1,
+      "message": "Looks like I actually need to catch the exception because it only fails when calling \u0027invoke\u0027",
+      "parentUuid": "5d3feb20_afa5c532",
+      "range": {
+        "startLine": 569,
+        "startChar": 17,
+        "endLine": 569,
+        "endChar": 37
+      },
+      "revId": "2884de4c6b7457d4b60333549c1a1737d761245a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
