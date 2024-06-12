@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2eac07ef_cc3e40b4",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/Platform.java",
+        "patchSetId": 26
+      },
+      "lineNbr": 569,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-12T15:45:53Z",
+      "side": 1,
+      "message": "Better (and faster!) to check for Class.forName() returning null than to catch an exception.",
+      "range": {
+        "startLine": 569,
+        "startChar": 17,
+        "endLine": 569,
+        "endChar": 37
+      },
+      "revId": "2884de4c6b7457d4b60333549c1a1737d761245a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
