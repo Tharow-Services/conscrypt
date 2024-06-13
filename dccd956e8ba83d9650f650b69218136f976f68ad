@@ -1,6 +1,52 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "8bd7589a_b34b849f",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-13T18:17:00Z",
+      "side": 1,
+      "message": "Not needed here (sorry!)\n\nThe host build uses the openjdk platform files so has no blocklist impl.  And is basically just used for signing things so no rush to add it.  Might be worth doing in the long run though (as an option for developers).",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 594,
+        "endChar": 51
+      },
+      "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3847c353_84336f4d",
+        "filename": "constants/src/gen/java/generate_blocklist.awk",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-13T18:17:00Z",
+      "side": 1,
+      "message": "Can we not save the data as byte arrays to avoid having to decode and copy them at init time?\n\nOne issue you may be avoiding is Java treats bytes as signed (because who know why) so throws an error at constants with the high bit set because it also parses them as ints when compiling (again, because who knows why)... So it thinks (e.g.) 0x80 is +128 which won\u0027t fit in a signed byte.\n\nThe gensub code I sent you dealt with that by casting anything \u003e 0x7f to byte, but as this is generated code there\u0027s no harm in just prefixing everything with (byte) which does the right thing, just looks ugly.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 47
+      },
+      "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "37f6f507_4a5b470b",
@@ -14,6 +60,47 @@
       "writtenOn": "2024-06-13T05:34:13Z",
       "side": 1,
       "message": "Note that AOSP has the \"one-true-awk\" version of awk (and not gawk), gensub is not available here.",
+      "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "56b54db0_ee87552f",
+        "filename": "constants/src/gen/java/generate_blocklist.awk",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-13T18:17:00Z",
+      "side": 1,
+      "message": "Hmm, for me it just seems to pick up the OS default but yeah that\u0027s suboptimal, e.g. MacOS ships with ye olde awke from FreeBSD.",
+      "parentUuid": "37f6f507_4a5b470b",
+      "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bb0a9b59_8c15cca0",
+        "filename": "platform/src/main/java/org/conscrypt/CertBlocklistImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-13T18:17:00Z",
+      "side": 1,
+      "message": "Be nice to avoid the extra allocations and copies.  See comment in awk file.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 54
+      },
       "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
