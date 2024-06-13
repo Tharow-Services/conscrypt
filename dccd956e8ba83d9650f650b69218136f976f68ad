@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "37f6f507_4a5b470b",
+        "filename": "constants/src/gen/java/generate_blocklist.awk",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-06-13T05:34:13Z",
+      "side": 1,
+      "message": "Note that AOSP has the \"one-true-awk\" version of awk (and not gawk), gensub is not available here.",
+      "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
