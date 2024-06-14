@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4f290b0_67aa5233",
+        "filename": "Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 594,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-06-14T03:15:47Z",
+      "side": 1,
+      "message": "Ack, done.",
+      "parentUuid": "8bd7589a_b34b849f",
+      "range": {
+        "startLine": 594,
+        "startChar": 0,
+        "endLine": 594,
+        "endChar": 51
+      },
+      "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3847c353_84336f4d",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-13T18:17:00Z",
       "side": 1,
       "message": "Can we not save the data as byte arrays to avoid having to decode and copy them at init time?\n\nOne issue you may be avoiding is Java treats bytes as signed (because who know why) so throws an error at constants with the high bit set because it also parses them as ints when compiling (again, because who knows why)... So it thinks (e.g.) 0x80 is +128 which won\u0027t fit in a signed byte.\n\nThe gensub code I sent you dealt with that by casting anything \u003e 0x7f to byte, but as this is generated code there\u0027s no harm in just prefixing everything with (byte) which does the right thing, just looks ugly.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 47
+      },
+      "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d09b6d74_4d0f80bc",
+        "filename": "constants/src/gen/java/generate_blocklist.awk",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-06-14T03:15:47Z",
+      "side": 1,
+      "message": "Good point, done. You can see the intermediate output using:\n\n`m out/soong/.intermediates/external/conscrypt/conscrypt_generated_blocklist/gen/com/android/org/conscrypt/StaticBlocklist.java`\n\nIt looks like:\n\n```\n    static final byte[][] PUBLIC_KEYS \u003d {                                                                                           \n       {                                                                                                                            \n       (byte) 0x9d, (byte) 0x98, (byte) 0xa1, (byte) 0xfb, (byte) 0x60, (byte) 0x53, (byte) 0x8c, (byte) 0x4c,                      \n       (byte) 0xc4, (byte) 0x85, (byte) 0x7f, (byte) 0xf1, (byte) 0xa8, (byte) 0xc8, (byte) 0x03, (byte) 0x4f,                      \n       (byte) 0xaf, (byte) 0x6f, (byte) 0xc5, (byte) 0x92, (byte) 0x09, (byte) 0x3f, (byte) 0x61, (byte) 0x99,                      \n       (byte) 0x94, (byte) 0xb2, (byte) 0xc8, (byte) 0x13, (byte) 0xd2, (byte) 0x50, (byte) 0xb8, (byte) 0x64,                      \n       },                                                                                                                           \n       {                                                                                                                                                                                                                                                                \n       (byte) 0x71, (byte) 0x65, (byte) 0xe9, (byte) 0x91, (byte) 0xad, (byte) 0xe7, (byte) 0x91, (byte) 0x6d,\n       [...]\n```",
+      "parentUuid": "3847c353_84336f4d",
       "range": {
         "startLine": 38,
         "startChar": 0,
@@ -95,6 +143,30 @@
       "writtenOn": "2024-06-13T18:17:00Z",
       "side": 1,
       "message": "Be nice to avoid the extra allocations and copies.  See comment in awk file.",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 54
+      },
+      "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "198aa692_936e8fb3",
+        "filename": "platform/src/main/java/org/conscrypt/CertBlocklistImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-06-14T03:15:47Z",
+      "side": 1,
+      "message": "Done for the String -\u003e byte[] conversion. I don\u0027t think there is any workaround the allocaiton of ByteString (as this is type known to this class only, which simply encapsulates byte[]).",
+      "parentUuid": "bb0a9b59_8c15cca0",
       "range": {
         "startLine": 205,
         "startChar": 0,
