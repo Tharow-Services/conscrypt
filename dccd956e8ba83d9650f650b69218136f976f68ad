@@ -175,6 +175,30 @@
       },
       "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3f3b38fe_840b3271",
+        "filename": "platform/src/main/java/org/conscrypt/CertBlocklistImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-14T11:08:11Z",
+      "side": 1,
+      "message": "Oh yeah, my bad.\n\nNot this CL but we should probably get rid of that as I\u0027m not sure it adds much value. Now we dropped support for Java 7 we can _probably_ just use Arrays.equals (I\u0027m not 100% clear whether it\u0027s on the list of desugared APIs for Android).",
+      "parentUuid": "198aa692_936e8fb3",
+      "range": {
+        "startLine": 205,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 54
+      },
+      "revId": "dccd956e8ba83d9650f650b69218136f976f68ad",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
