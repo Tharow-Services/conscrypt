@@ -34,12 +34,18 @@ import com.android.org.conscrypt.Internal;
  */
 @Internal
 public class CTLogInfo {
+    /**
+     * @hide This class is not part of the Android public SDK API
+     */
+    public enum State { PENDING, QUALIFIED, USABLE, READONLY, RETIRED, REJECTED }
+
     private final byte[] logId;
     private final PublicKey publicKey;
+    private final State state;
     private final String description;
     private final String url;
 
-    public CTLogInfo(PublicKey publicKey, String description, String url) {
+    public CTLogInfo(PublicKey publicKey, State state, String description, String url) {
         try {
             this.logId = MessageDigest.getInstance("SHA-256")
                 .digest(publicKey.getEncoded());
@@ -49,6 +55,7 @@ public class CTLogInfo {
         }
 
         this.publicKey = publicKey;
+        this.state = state;
         this.description = description;
         this.url = url;
     }
@@ -72,6 +79,10 @@ public class CTLogInfo {
         return url;
     }
 
+    public State getState() {
+        return state;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -82,18 +93,17 @@ public class CTLogInfo {
         }
 
         CTLogInfo that = (CTLogInfo)other;
-        return
-            this.publicKey.equals(that.publicKey) &&
-            this.description.equals(that.description) &&
-            this.url.equals(that.url);
+        return this.state.equals(that.state) && this.description.equals(that.description)
+                && this.url.equals(that.url) && Arrays.equals(this.logId, that.logId);
     }
 
     @Override
     public int hashCode() {
         int hash = 1;
-        hash = hash * 31 + publicKey.hashCode();
+        hash = hash * 31 + Arrays.hashCode(logId);
         hash = hash * 31 + description.hashCode();
         hash = hash * 31 + url.hashCode();
+        hash = hash * 31 + state.hashCode();
 
         return hash;
     }
