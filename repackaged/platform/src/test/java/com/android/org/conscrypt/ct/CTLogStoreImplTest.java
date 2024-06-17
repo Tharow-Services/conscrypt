@@ -75,7 +75,7 @@ public class CTLogStoreImplTest extends TestCase {
                                 .getBytes(StandardCharsets.US_ASCII)));
                 String description = String.format("Test Log %d", i);
                 String url = String.format("log%d.example.com", i);
-                LOGS[i] = new CTLogInfo(key, description, url);
+                LOGS[i] = new CTLogInfo(key, CTLogInfo.State.USABLE, description, url);
                 LOGS_SERIALIZED[i] = String.format("description:%s\nurl:%s\nkey:%s",
                     description, url, LOG_KEYS[i]);
             }
