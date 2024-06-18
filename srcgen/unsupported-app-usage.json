@@ -408,5 +408,26 @@
   },
   {
     "@location": "method:com.android.org.conscrypt.X509PublicKey#X509PublicKey(String,byte[])"
+  },
+  {
+    "@location": "type:com.android.org.conscrypt.HpkeImpl"
+  },
+  {
+    "@location": "method:com.android.org.conscrypt.HpkeImpl#engineExport(int,byte[])"
+  },
+  {
+    "@location": "method:com.android.org.conscrypt.HpkeImpl#engineInitRecipient(byte[],PrivateKey,byte[],PublicKey,byte[],byte[])"
+  },
+  {
+    "@location": "method:com.android.org.conscrypt.HpkeImpl#engineInitSender(PublicKey,byte[],PrivateKey,byte[],byte[])"
+  },
+  {
+    "@location": "method:com.android.org.conscrypt.HpkeImpl#engineOpen(byte[],byte[])"
+  },
+  {
+    "@location": "method:com.android.org.conscrypt.HpkeImpl#engineSeal(byte[],byte[])"
+  },
+  {
+    "@location": "method:com.android.org.conscrypt.HpkeImpl#getEncapsulated()"
   }
 ]
