@@ -41,6 +41,17 @@ package com.android.org.conscrypt {
     method public static com.android.org.conscrypt.SSLClientSessionCache usingDirectory(java.io.File) throws java.io.IOException;
   }
 
+  public class HpkeImpl {
+    method public byte[] engineExport(int, byte[]);
+    method public void engineInitRecipient(byte[], java.security.PrivateKey, byte[], java.security.PublicKey, byte[], byte[]) throws java.security.InvalidKeyException;
+    method public void engineInitSender(java.security.PublicKey, byte[], java.security.PrivateKey, byte[], byte[]) throws java.security.InvalidKeyException;
+    method public byte[] engineOpen(byte[], byte[]) throws java.security.GeneralSecurityException;
+    method public byte[] engineSeal(byte[], byte[]);
+    method public byte[] getEncapsulated();
+    field public static final byte[] DEFAULT_PSK;
+    field public static final byte[] DEFAULT_PSK_ID;
+  }
+
   public final class OpenSSLProvider extends java.security.Provider {
     ctor public OpenSSLProvider();
   }
