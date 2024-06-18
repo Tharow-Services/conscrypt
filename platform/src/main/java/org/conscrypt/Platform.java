@@ -432,7 +432,7 @@ final class Platform {
      */
 
     static void blockGuardOnNetwork() {
-        BlockGuard.getThreadPolicy().onNetwork();
+        // BlockGuard.getThreadPolicy().onNetwork();
     }
 
     /**
