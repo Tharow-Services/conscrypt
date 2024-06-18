@@ -20,6 +20,7 @@ package com.android.org.conscrypt;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
+import java.lang.IndexOutOfBoundsException;
 import java.security.cert.CRL;
 import java.security.cert.CRLException;
 import java.security.cert.CertPath;
@@ -114,9 +115,9 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
 
             final PushbackInputStream pbis = new PushbackInputStream(inStream, PUSHBACK_SIZE);
             try {
-                final byte[] buffer = new byte[PKCS7_MARKER.length];
+                byte[] buffer = new byte[PKCS7_MARKER.length];
 
-                final int len = pbis.read(buffer);
+                int len = pbis.read(buffer);
                 if (len < 0) {
                     /* No need to reset here. The stream was empty or EOF. */
                     throw new ParsingException("inStream is empty");
@@ -133,19 +134,57 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
                         return null;
                     }
                     return certs.get(0);
-                } else {
-                    return fromX509DerInputStream(pbis);
                 }
-            } catch (Exception e) {
-                if (markable) {
-                    try {
-                        inStream.reset();
-                    } catch (IOException ignored) {
-                        // If resetting the stream fails, there's not much we can do
+                T x509DerCert = maybeGetFromX509DerInputStream(pbis);
+                if (x509DerCert != null) {
+                  return x509DerCert;
+                }
+                while (len == PKCS7_MARKER.length) {
+                  len = pbis.read(buffer, 0, PKCS7_MARKER.length);
+                  for (int i = 0; i < len; ++i) {
+                    if (buffer[i] == '-') {
+                      pbis.unread(buffer, i, len - i);
+                      T pemCert = maybeGetFromX509PemInputStream(pbis);
+                      if (pemCert != null) {
+                        return pemCert;
+                      }
                     }
+                  }
                 }
+                return null;
+            } catch (Exception e) {
+                if (e instanceof IndexOutOfBoundsException) {
+                  return null;
+                }
+                // if (markable) {
+                //     try {
+                //         inStream.reset();
+                //     } catch (IOException ignored) {
+                //         // If resetting the stream fails, there's not much we can do
+                //     }
+                // }
                 throw new ParsingException(e);
             }
+        }
+
+        private T maybeGetFromX509DerInputStream(PushbackInputStream pbis) {
+            try {
+                T x509DerCert = fromX509DerInputStream(pbis);
+                return x509DerCert;
+            } catch (Exception e) {
+              // Certificate was not pem so do nothing.
+            }
+            return null;
+        }
+
+        private T maybeGetFromX509PemInputStream(PushbackInputStream pbis) {
+            try {
+                T x509PemCert = fromX509PemInputStream(pbis);
+                return x509PemCert;
+            } catch (Exception e) {
+              // Certificate was not Der so do nothing.
+            }
+            return null;
         }
 
         Collection<? extends T> generateItems(InputStream inStream)
@@ -180,13 +219,13 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
                     return fromPkcs7DerInputStream(pbis);
                 }
             } catch (Exception e) {
-                if (markable) {
-                    try {
-                        inStream.reset();
-                    } catch (IOException ignored) {
-                        // If resetting the stream fails, there's not much we can do
-                    }
-                }
+                // if (markable) {
+                //     try {
+                //         inStream.reset();
+                //     } catch (IOException ignored) {
+                //         // If resetting the stream fails, there's not much we can do
+                //     }
+                // }
                 throw new ParsingException(e);
             }
 
@@ -195,7 +234,7 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
              * can't anymore.
              */
             final List<T> coll = new ArrayList<T>();
-            T c;
+            T c = null;
             do {
                 /*
                  * If this stream supports marking, try to mark here in case
@@ -207,24 +246,18 @@ public class OpenSSLX509CertificateFactory extends CertificateFactorySpi {
 
                 try {
                     c = generateItem(pbis);
-                    coll.add(c);
-                } catch (ParsingException e) {
-                    /*
-                     * If this stream supports marking, attempt to reset it to
-                     * the mark before the failure.
-                     */
-                    if (markable) {
-                        try {
-                            inStream.reset();
-                        } catch (IOException ignored) {
-                            // If resetting the stream fails, there's not much we can do
-                        }
+                    if (c != null) {
+                        coll.add(c);
                     }
-
+                } catch (ParsingException e) {
+                    if (e.getMessage().equalsIgnoreCase("inStream is empty"))
+                        return coll;
                     c = null;
                 }
             } while (c != null);
 
+            if (coll.size() == 0)
+              throw new ParsingException("No certificates found");
             return coll;
         }
 
