@@ -36,6 +36,7 @@ import javax.crypto.BadPaddingException;
  * of the subclasses of {@link HpkeContext}.
  * @hide This class is not part of the Android public SDK API
  */
+@libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
 public class HpkeImpl implements HpkeSpi {
   private final HpkeSuite hpkeSuite;
 
@@ -46,6 +47,7 @@ public class HpkeImpl implements HpkeSpi {
     this.hpkeSuite = hpkeSuite;
   }
 
+  @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
   @Override
   public void engineInitSender(PublicKey recipientKey, byte[] info, PrivateKey senderKey,
           byte[] psk, byte[] psk_id) throws InvalidKeyException {
@@ -84,7 +86,7 @@ public class HpkeImpl implements HpkeSpi {
     ctx = (NativeRef.EVP_HPKE_CTX) result[0];
     encapsulated = (byte[]) result[1];
   }
-
+  @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
   @Override
   public void engineInitRecipient(byte[] encapsulated, PrivateKey recipientKey,
           byte[] info, PublicKey senderKey, byte[] psk, byte[] psk_id) throws InvalidKeyException {
@@ -119,6 +121,7 @@ public class HpkeImpl implements HpkeSpi {
     }
   }
 
+  @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
   @Override
   public byte[] engineSeal(byte[] plaintext, byte[] aad) {
     checkIsSender();
@@ -126,6 +129,7 @@ public class HpkeImpl implements HpkeSpi {
     return NativeCrypto.EVP_HPKE_CTX_seal(ctx, plaintext, aad);
   }
 
+    @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
   @Override
   public byte[] engineExport(int length, byte[] exporterContext) {
     checkInitialised();
@@ -137,6 +141,7 @@ public class HpkeImpl implements HpkeSpi {
     return NativeCrypto.EVP_HPKE_CTX_export(ctx, exporterContext, length);
   }
 
+  @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
   @Override
   public byte[] engineOpen(byte[] ciphertext, byte[] aad) throws GeneralSecurityException {
     checkIsRecipient();
@@ -174,6 +179,7 @@ public class HpkeImpl implements HpkeSpi {
     }
   }
 
+  @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
   @Override
   public byte[] getEncapsulated() {
     checkIsSender();
