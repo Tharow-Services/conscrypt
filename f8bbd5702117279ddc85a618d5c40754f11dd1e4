@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "551f088e_1da8b376",
+        "filename": "Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 621,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-19T12:14:58Z",
+      "side": 1,
+      "message": "nit: maybe \"conscrypt-test-support\" or similar as there are no actual tests in this part of the tree.",
+      "range": {
+        "startLine": 621,
+        "startChar": 0,
+        "endLine": 621,
+        "endChar": 32
+      },
+      "revId": "f8bbd5702117279ddc85a618d5c40754f11dd1e4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
