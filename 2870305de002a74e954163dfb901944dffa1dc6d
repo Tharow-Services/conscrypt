@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a881b0_ef223e54",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-06-19T09:38:14Z",
+      "side": 1,
+      "message": "Can the mainline modules switch to use the public HPKE APIs?\n\nhttp://go/android-dev/reference/android/crypto/hpke/HpkeSpi\n\nIf we need to keep it stable for compat reason, we can use some other infra, e.g. `@UnsupportedAppUsage` but ideally for mainline only if it\u0027s the only known use case, and extra tests to keep it working. Marking stable CorePlatformApi is a commitment stronger it needs to be, IMO.",
+      "range": {
+        "startLine": 12,
+        "startChar": 30,
+        "endLine": 13,
+        "endChar": 27
+      },
+      "revId": "2870305de002a74e954163dfb901944dffa1dc6d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
