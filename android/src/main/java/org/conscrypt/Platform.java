@@ -687,11 +687,6 @@ final class Platform {
      * Wrap the SocketFactory with the platform wrapper if needed for compatability.
      */
     public static SSLSocketFactory wrapSocketFactoryIfNeeded(OpenSSLSocketFactoryImpl factory) {
-        if (Build.VERSION.SDK_INT < 19) {
-            return new PreKitKatPlatformOpenSSLSocketAdapterFactory(factory);
-        } else if (Build.VERSION.SDK_INT < 22) {
-            return new KitKatPlatformOpenSSLSocketAdapterFactory(factory);
-        }
         return factory;
     }
 
@@ -822,7 +817,7 @@ final class Platform {
      */
 
     public static void blockGuardOnNetwork() {
-        BlockGuard.getThreadPolicy().onNetwork();
+        // BlockGuard.getThreadPolicy().onNetwork();
     }
 
     /**
