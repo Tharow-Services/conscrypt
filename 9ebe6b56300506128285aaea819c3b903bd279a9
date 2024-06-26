@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9af280ee_d22ffb8e",
+        "filename": "common/src/main/java/org/conscrypt/ct/CTLogInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-26T14:49:17Z",
+      "side": 1,
+      "message": "Are we comfortable using an enum here? Contrived problem: What if we have a device which is no longer getting Mainline updates but still gets log lists from GMS and we add a value?\n\nSee also go/android-api-guidelines#framework-avoid-enum (mostly applicable to public APIs but we have an implicit API between the file format and the Java code).",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 15
+      },
+      "revId": "9ebe6b56300506128285aaea819c3b903bd279a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43272b6c_086982b1",
+        "filename": "common/src/main/java/org/conscrypt/ct/CTLogInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-26T14:49:17Z",
+      "side": 1,
+      "message": "I think we need to assert these are not null in the constructor, to be on the safe side.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 89
+      },
+      "revId": "9ebe6b56300506128285aaea819c3b903bd279a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
