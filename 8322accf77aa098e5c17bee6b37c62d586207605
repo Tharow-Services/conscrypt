@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9665ee95_e3d1ce06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-06-26T06:10:46Z",
+      "side": 1,
+      "message": "I\u0027ll submit this one by itself to avoid any unrelated rollback. Thanks",
+      "revId": "8322accf77aa098e5c17bee6b37c62d586207605",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
