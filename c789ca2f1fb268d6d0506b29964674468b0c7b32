@@ -16,6 +16,24 @@
       "message": "This feels like it creates a bootstrapping problem.  If we don\u0027t ship _anything_ in the base image then we can\u0027t enforce CT until after GMS downloads the log list for the first time.",
       "revId": "c789ca2f1fb268d6d0506b29964674468b0c7b32",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ccb88a05_27aa5913",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363994
+      },
+      "writtenOn": "2024-06-27T12:02:50Z",
+      "side": 1,
+      "message": "Anything we put in the system image will almost certainly be outdated by the time the device boots for the first time (meaning that it\u0027ll be ignored by the CT verification logic anyway).\n\nI\u0027d suggest solving the bootstrapping problem by triggering the log list download during setup wizard instead (with cert pinning in place). Worst case that fails, with CT failing open, which would still be equivalent to the status quo.",
+      "parentUuid": "2efcf785_62b88b16",
+      "revId": "c789ca2f1fb268d6d0506b29964674468b0c7b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
