@@ -22,6 +22,30 @@
       },
       "revId": "dfeb19bb87c4f3d028b1c53deb00080d79c3bfbd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09ad78c0_24dc7fb6",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-06-28T05:51:30Z",
+      "side": 0,
+      "message": "Done in a follow-up change. (This took a little bit more work as I had to update the visibility on OpenSSLKey\u0027s methods).",
+      "parentUuid": "854aa4c1_0cc15d5f",
+      "range": {
+        "startLine": 157,
+        "startChar": 32,
+        "endLine": 157,
+        "endChar": 86
+      },
+      "revId": "dfeb19bb87c4f3d028b1c53deb00080d79c3bfbd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
