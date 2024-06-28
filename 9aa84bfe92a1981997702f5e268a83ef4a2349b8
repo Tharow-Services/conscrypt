@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e90ca57f_5cc31817",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-06-28T11:30:55Z",
+      "side": 1,
+      "message": "Not this CL but I\u0027m pretty sure we can do this better.\n\nYou can use java.util.Base64.Decoder here to convert `key` to a DER byte array and avoid all the PEM logic.  Was added in API 26 and this code only needs to go back to API 30.\n\nDER to OpenSSLKey might be harder ... I assume we could add OpenSSL.fromDer() along the lines of the one in OpenSSLCertificate, leveraging NativeCrypto.d2i_x509()",
+      "range": {
+        "startLine": 194,
+        "startChar": 6,
+        "endLine": 194,
+        "endChar": 90
+      },
+      "revId": "9aa84bfe92a1981997702f5e268a83ef4a2349b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
