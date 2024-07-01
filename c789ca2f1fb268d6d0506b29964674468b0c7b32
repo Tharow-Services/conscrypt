@@ -34,6 +34,24 @@
       "parentUuid": "2efcf785_62b88b16",
       "revId": "c789ca2f1fb268d6d0506b29964674468b0c7b32",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d4fe5754_6287d0ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-01T02:34:36Z",
+      "side": 1,
+      "message": "+1 to early download during the setup wizard.",
+      "parentUuid": "ccb88a05_27aa5913",
+      "revId": "c789ca2f1fb268d6d0506b29964674468b0c7b32",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
