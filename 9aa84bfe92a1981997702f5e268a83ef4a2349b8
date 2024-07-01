@@ -22,6 +22,30 @@
       },
       "revId": "9aa84bfe92a1981997702f5e268a83ef4a2349b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af8727b9_92f010fe",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-01T00:14:14Z",
+      "side": 1,
+      "message": "Ack. It\u0027s likely that this method ends up being re-written (I will also move it to the CTLogInfo class). But thanks, I\u0027ll keep these pointers in mind.",
+      "parentUuid": "e90ca57f_5cc31817",
+      "range": {
+        "startLine": 194,
+        "startChar": 6,
+        "endLine": 194,
+        "endChar": 90
+      },
+      "revId": "9aa84bfe92a1981997702f5e268a83ef4a2349b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
