@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3297bda2_25cb55a6",
+        "filename": "common/src/main/java/org/conscrypt/ct/CTLogInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-01T02:33:31Z",
+      "side": 1,
+      "message": "Good point. In the example, conscrypt should be aware of the schema version it supports. And the schema version would be encoded in the log list path. Right now, it is implicitly v3 (an option could even be to rename the class CTLogInfov3.java to make it extra clear). So in this case, the log list received would be expected to be compatible. (When v4 log list schema is published, the next version of conscrypt would support both and try to use the highest version it can).\n\nBut I agree, an int is more flexible. IntDef is android-specific, I don\u0027t think we can use it as-is. Without it, the trade-off is to be more cautious when handling this value as the type is not restricted. I\u0027ve updated the change, let me know what your preference is. Thanks.",
+      "parentUuid": "9af280ee_d22ffb8e",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 15
+      },
+      "revId": "9ebe6b56300506128285aaea819c3b903bd279a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "43272b6c_086982b1",
         "filename": "common/src/main/java/org/conscrypt/ct/CTLogInfo.java",
         "patchSetId": 1
@@ -37,6 +61,30 @@
       "writtenOn": "2024-06-26T14:49:17Z",
       "side": 1,
       "message": "I think we need to assert these are not null in the constructor, to be on the safe side.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 89
+      },
+      "revId": "9ebe6b56300506128285aaea819c3b903bd279a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ac50de92_077e794e",
+        "filename": "common/src/main/java/org/conscrypt/ct/CTLogInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-01T02:33:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43272b6c_086982b1",
       "range": {
         "startLine": 91,
         "startChar": 0,
