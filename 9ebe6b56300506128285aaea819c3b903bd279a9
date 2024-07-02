@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02fe3337_e2f5f8b4",
+        "filename": "common/src/main/java/org/conscrypt/ct/CTLogInfo.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-02T02:52:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3297bda2_25cb55a6",
+      "range": {
+        "startLine": 35,
+        "startChar": 11,
+        "endLine": 35,
+        "endChar": 15
+      },
+      "revId": "9ebe6b56300506128285aaea819c3b903bd279a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43272b6c_086982b1",
