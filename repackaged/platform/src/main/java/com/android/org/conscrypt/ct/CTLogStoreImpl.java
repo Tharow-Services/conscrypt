@@ -67,6 +67,8 @@ public class CTLogStoreImpl implements CTLogStore {
 
     private static final File defaultUserLogDir;
     private static final File defaultSystemLogDir;
+    // Lazy loaded by CTLogStoreImpl()
+    private static volatile CTLogInfo[] defaultFallbackLogs = null;
     static {
         String ANDROID_DATA = System.getenv("ANDROID_DATA");
         String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
@@ -76,20 +78,22 @@ public class CTLogStoreImpl implements CTLogStore {
 
     private final File userLogDir;
     private final File systemLogDir;
-    private final CTLogInfo[] extraLogs;
+    private final CTLogInfo[] fallbackLogs;
 
     private final HashMap<ByteBuffer, CTLogInfo> logCache = new HashMap<>();
     private final Set<ByteBuffer> missingLogCache =
             Collections.synchronizedSet(new HashSet<ByteBuffer>());
 
     public CTLogStoreImpl() {
-        this(defaultUserLogDir, defaultSystemLogDir, null);
+        this(defaultUserLogDir,
+             defaultSystemLogDir,
+             getDefaultFallbackLogs());
     }
 
-    public CTLogStoreImpl(File userLogDir, File systemLogDir, CTLogInfo[] extraLogs) {
+    public CTLogStoreImpl(File userLogDir, File systemLogDir, CTLogInfo[] fallbackLogs) {
         this.userLogDir = userLogDir;
         this.systemLogDir = systemLogDir;
-        this.extraLogs = extraLogs;
+        this.fallbackLogs = fallbackLogs;
     }
 
     @Override
@@ -131,12 +135,42 @@ public class CTLogStoreImpl implements CTLogStore {
             // Ignored
         }
 
-        for (CTLogInfo log : extraLogs) {
-            if (Arrays.equals(logId, log.getID())) {
-                return log;
+        // If the updateable logs dont exist then use the fallback logs.
+        if (!userLogDir.exists()) {
+            for (CTLogInfo log: fallbackLogs) {
+                if (Arrays.equals(logId, log.getID())) {
+                    return log;
+                }
             }
         }
         return null;
+    }
+
+    public static CTLogInfo[] getDefaultFallbackLogs() {
+        CTLogInfo[] result = defaultFallbackLogs;
+        if (result == null) {
+            // single-check idiom
+            defaultFallbackLogs = result = createDefaultFallbackLogs();
+        }
+        return result;
+    }
+
+    private static CTLogInfo[] createDefaultFallbackLogs() {
+        CTLogInfo[] logs = new CTLogInfo[KnownLogs.LOG_COUNT];
+        for (int i = 0; i < KnownLogs.LOG_COUNT; i++) {
+            try {
+                PublicKey key = InternalUtil.logKeyToPublicKey(KnownLogs.LOG_KEYS[i]);
+
+                logs[i] = new CTLogInfo(key,
+                                        KnownLogs.LOG_DESCRIPTIONS[i],
+                                        KnownLogs.LOG_URLS[i]);
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        defaultFallbackLogs = logs;
+        return logs;
     }
 
     /**
