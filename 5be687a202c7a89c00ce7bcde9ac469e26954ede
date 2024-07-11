@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cc49715f_fd2f8009",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-11T10:26:47Z",
+      "side": 1,
+      "message": "@prb@google.com I\u0027m not sure about this part. This is what I used to pull libcore/json in but I don\u0027t know if there is another better target. Thanks.",
+      "revId": "5be687a202c7a89c00ce7bcde9ac469e26954ede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
