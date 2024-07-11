@@ -33,6 +33,23 @@
       "message": "It looks fine to me. Pete, Miguel, could you also please have a look?",
       "revId": "7ee8cdb266b0915ab94693aa7b73a543144028d3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdedbf76_c1223f1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-07-11T10:44:26Z",
+      "side": 1,
+      "message": "This is addressed in https://r.android.com/2748379 which hasn\u0027t landed yet because it needs framework changes, so no harm landing this in the meantime.",
+      "revId": "7ee8cdb266b0915ab94693aa7b73a543144028d3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
