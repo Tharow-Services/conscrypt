@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "694eeedc_87dffe20",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-15T03:04:13Z",
+      "side": 1,
+      "message": "That\u0027s correct, only the first handshake takes the hit.\n\nIf the log list changes during the lifetime of the app, the app continues to use the in-memory list (that is, the older version).",
+      "parentUuid": "77e5ab1c_915f025a",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 57
+      },
+      "revId": "5be687a202c7a89c00ce7bcde9ac469e26954ede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "cc49715f_fd2f8009",
         "filename": "Android.bp",
         "patchSetId": 3
@@ -55,6 +79,24 @@
       "side": 1,
       "message": "Pretty sure it\u0027s worse than that, this will probably end up duplicating code from core-libart into the Conscrypt module.\n\nWhat we probably need to do is add the JSON classes to the stable intra-core API.  On the plus side, we only care about stability back to R and I don\u0027t think those APIs have changed since then.",
       "parentUuid": "cc49715f_fd2f8009",
+      "revId": "5be687a202c7a89c00ce7bcde9ac469e26954ede",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f814543a_52962716",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-15T03:04:13Z",
+      "side": 1,
+      "message": "Ack. It turns out that the build is fine without that extra dependency. I don\u0027t know why it was failing before (probably a typo on my side). But yes, `org.json` is accessible to conscrypt by default. Apologies for the noise here.",
+      "parentUuid": "2dbf70db_6ae12970",
       "revId": "5be687a202c7a89c00ce7bcde9ac469e26954ede",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
