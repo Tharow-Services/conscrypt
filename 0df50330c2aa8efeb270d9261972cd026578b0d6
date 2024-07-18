@@ -63,6 +63,30 @@
       },
       "revId": "0df50330c2aa8efeb270d9261972cd026578b0d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0f791e85_6fb870f8",
+        "filename": "apex/tests/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1483218
+      },
+      "writtenOn": "2024-07-18T16:20:23Z",
+      "side": 1,
+      "message": "why it\u0027s not in CTS now? if there any same test or test cases in CTS now? we don\u0027t want to have duplicates in CTS and MCTS packages",
+      "parentUuid": "24128dd7_d9a31d68",
+      "range": {
+        "startLine": 45,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "0df50330c2aa8efeb270d9261972cd026578b0d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
