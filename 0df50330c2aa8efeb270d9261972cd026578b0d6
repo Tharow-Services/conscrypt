@@ -39,6 +39,30 @@
       },
       "revId": "0df50330c2aa8efeb270d9261972cd026578b0d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "24128dd7_d9a31d68",
+        "filename": "apex/tests/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-07-18T08:14:26Z",
+      "side": 1,
+      "message": "Yes, I think that it used to be run as CTS, in order to get API coverage, as well as MTS.",
+      "parentUuid": "47305258_358c1eb1",
+      "range": {
+        "startLine": 45,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "0df50330c2aa8efeb270d9261972cd026578b0d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
