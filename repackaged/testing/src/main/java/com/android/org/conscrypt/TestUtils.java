@@ -78,7 +78,7 @@ public final class TestUtils {
     private static final String PROTOCOL_TLS_V1_1 = "TLSv1.1";
     // For interop testing we need a JDK Provider that can do TLS 1.2 as 1.x may be disabled
     // in Conscrypt and 1.3 does not (yet) handle interoperability with the JDK Provider.
-    private static final String[] DESIRED_JDK_PROTOCOLS = new String[] {PROTOCOL_TLS_V1_2};
+    private static final String[] DESIRED_JDK_PROTOCOLS = new String[] {PROTOCOL_TLS_V1_3};
     private static final Provider JDK_PROVIDER = getNonConscryptTlsProvider();
     private static final byte[] CHARS =
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".getBytes(UTF_8);
