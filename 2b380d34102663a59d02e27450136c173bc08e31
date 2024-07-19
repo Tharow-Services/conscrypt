@@ -16,6 +16,98 @@
       "message": "Device",
       "revId": "2b380d34102663a59d02e27450136c173bc08e31",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4372217_084023d0",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-07-19T07:49:23Z",
+      "side": 1,
+      "message": "Not this CL but maybe ByteBuffers aren\u0027t great as keys here.  They carry extra mutable state (position, mark etc) and there is overhead on creation and hashing.\n\nMight be worth promoting the ByteString subclass in the BlockList (the one I wanted rid of 😊 ) to a standalone class to gain some speed here.",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 26
+      },
+      "revId": "2b380d34102663a59d02e27450136c173bc08e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "90bbf450_204a21bd",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-07-19T07:49:23Z",
+      "side": 1,
+      "message": "Do we want to stay in a non-LOADED state for the lifetime of the app?\n\nFor NOT_FOUND and maybe MALFORMED shouldn\u0027t we periodically (not every time) retry?\n\nBonus points for also periodically checcking the file modification time and reloading if it changes.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 41
+      },
+      "revId": "2b380d34102663a59d02e27450136c173bc08e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b4ca0c3_e56c6e10",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-07-19T07:49:23Z",
+      "side": 1,
+      "message": "NOT_FOUND might be better here for figuring out retries.",
+      "range": {
+        "startLine": 111,
+        "startChar": 25,
+        "endLine": 111,
+        "endChar": 34
+      },
+      "revId": "2b380d34102663a59d02e27450136c173bc08e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21766833_1f9f7433",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-07-19T07:49:23Z",
+      "side": 1,
+      "message": "NOT_FOUND? Dunno... Presumably the content distribution should be moving the file into place atomically, so no content means something has failed there.",
+      "range": {
+        "startLine": 114,
+        "startChar": 25,
+        "endLine": 114,
+        "endChar": 34
+      },
+      "revId": "2b380d34102663a59d02e27450136c173bc08e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
