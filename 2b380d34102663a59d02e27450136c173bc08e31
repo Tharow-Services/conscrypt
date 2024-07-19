@@ -18,6 +18,23 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b4545d7d_3b049419",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-07-19T07:56:57Z",
+      "side": 1,
+      "message": "One more wrinkle (not this CL)... At some point some of this code will need to be usable from the android build (for GMS) and maybe OpenJDK so we\u0027ll need a bit of a re-org.  The \"find me a JSON file\" part is platform-specific but the JSON parsing can move to common/\n\nHopefully the GMS build can link against the libcore JSON too.",
+      "revId": "2b380d34102663a59d02e27450136c173bc08e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c4372217_084023d0",
