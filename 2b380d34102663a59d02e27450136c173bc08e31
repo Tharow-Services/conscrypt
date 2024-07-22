@@ -58,6 +58,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "86c2a96f_5178efe6",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-22T01:15:29Z",
+      "side": 1,
+      "message": "Agreed. Created b/354579506 to track this.",
+      "parentUuid": "c4372217_084023d0",
+      "range": {
+        "startLine": 65,
+        "startChar": 16,
+        "endLine": 65,
+        "endChar": 26
+      },
+      "revId": "2b380d34102663a59d02e27450136c173bc08e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "90bbf450_204a21bd",
@@ -71,6 +95,30 @@
       "writtenOn": "2024-07-19T07:49:23Z",
       "side": 1,
       "message": "Do we want to stay in a non-LOADED state for the lifetime of the app?\n\nFor NOT_FOUND and maybe MALFORMED shouldn\u0027t we periodically (not every time) retry?\n\nBonus points for also periodically checcking the file modification time and reloading if it changes.",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 41
+      },
+      "revId": "2b380d34102663a59d02e27450136c173bc08e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3ec49752_9b57eb1d",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-22T01:15:29Z",
+      "side": 1,
+      "message": "Yes, I took the safe approach here (to make sure we don\u0027t constantly try to read the list).\n\nYou are right, we should retry. The hard part is how we define \"periodically\". Checking the file modification time is a great idea (stat() is definitely cheap).\n\nb/354583924 to keep track of that one.",
+      "parentUuid": "90bbf450_204a21bd",
       "range": {
         "startLine": 100,
         "startChar": 0,
@@ -104,6 +152,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "22e3c897_7c57854b",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-22T01:15:29Z",
+      "side": 1,
+      "message": "Done. (NoSuchFileException extends IOException).",
+      "parentUuid": "2b4ca0c3_e56c6e10",
+      "range": {
+        "startLine": 111,
+        "startChar": 25,
+        "endLine": 111,
+        "endChar": 34
+      },
+      "revId": "2b380d34102663a59d02e27450136c173bc08e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "21766833_1f9f7433",
@@ -117,6 +189,30 @@
       "writtenOn": "2024-07-19T07:49:23Z",
       "side": 1,
       "message": "NOT_FOUND? Dunno... Presumably the content distribution should be moving the file into place atomically, so no content means something has failed there.",
+      "range": {
+        "startLine": 114,
+        "startChar": 25,
+        "endLine": 114,
+        "endChar": 34
+      },
+      "revId": "2b380d34102663a59d02e27450136c173bc08e31",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64e33269_ad0e8c2f",
+        "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-22T01:15:29Z",
+      "side": 1,
+      "message": "Agreed. Done.",
+      "parentUuid": "21766833_1f9f7433",
       "range": {
         "startLine": 114,
         "startChar": 25,
