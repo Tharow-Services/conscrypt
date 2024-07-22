@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42a80bd9_ce983973",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-07-22T13:11:39Z",
+      "side": 1,
+      "message": "Nice cleanup, thanks!",
+      "revId": "6c8983ee6865533a74f63088c886fdb9d0b86e05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "810bc039_3e3f1fec",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/ByteArray.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-07-22T13:11:39Z",
+      "side": 1,
+      "message": "Please fix this INFO reported by Tip Prediction: AI Readability\n\nAnalyzer Description: Runs go/tipprediction tool on the commit.\nOwner: peeps-genai-team@google.com\n\nAI Readability\n\nReview [go/java-style#s7.1.2-javadoc-paragraphs](http://go/java-style#s7.1.2-javadoc-paragraphs) - it may improve this code:\n\nOne blank line containing only the aligned leading asterisk (`*`) appears between paragraphs, and before the group of block tags if present. Each paragraph except the first has `\u003cp\u003e` immediately before the first word, with no space after it. HTML tags for other block-level elements, such as `\u003cul\u003e` or `\u003ctable\u003e`, are _not_ preceded with `\u003cp\u003e`.\n\nWas this tip helpful? [Yes 👍](http://go/gerrit-tip-prediction-thumbs-up?title\u003d[Yes%20👍]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fexternal%2Fconscrypt%2F%2B%2F3186719%2F2) / [No 👎](http://go/gerrit-tip-prediction-thumbs-down?title\u003d[No%20👎]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fexternal%2Fconscrypt%2F%2B%2F3186719%2F2)\nWould you like to provide additional [feedback](http://go/gerrit-tip-prediction-feedback?title\u003d[Feedback]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fexternal%2Fconscrypt%2F%2B%2F3186719%2F2)?\nWant to opt out of Tip Predictions completely? [Opt out](http://go/gerrit-tip-prediction-optout)\nOther questions? Check out the [FAQs](http://go/gerrit-tip-prediction-faqs).",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 61
+      },
+      "revId": "6c8983ee6865533a74f63088c886fdb9d0b86e05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
