@@ -39,6 +39,30 @@
       },
       "revId": "6c8983ee6865533a74f63088c886fdb9d0b86e05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b7f05d89_502e6871",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/ByteArray.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-22T23:49:44Z",
+      "side": 1,
+      "message": "This is inserted by clang-format when running generate_android_src.sh. I tried adding a new line, but @hide is still in the same position. This is a bug on how clang-format configuration is not matching the Java style.",
+      "parentUuid": "810bc039_3e3f1fec",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 61
+      },
+      "revId": "6c8983ee6865533a74f63088c886fdb9d0b86e05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
