@@ -21,13 +21,18 @@ import java.util.Arrays;
 /**
  * Byte array wrapper for hashtable use. Implements equals() and hashCode().
  */
-final class ByteArray {
+@Internal
+public final class ByteArray {
     private final byte[] bytes;
     private final int hashCode;
 
-    ByteArray(byte[] bytes) {
+    public ByteArray(byte[] bytes) {
         this.bytes = bytes;
         this.hashCode = Arrays.hashCode(bytes);
+    }
+
+    public byte[] getBytes() {
+        return this.bytes;
     }
 
     @Override
@@ -37,6 +42,9 @@ final class ByteArray {
 
     @Override
     public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
         if (!(o instanceof ByteArray)) {
             return false;
         }
