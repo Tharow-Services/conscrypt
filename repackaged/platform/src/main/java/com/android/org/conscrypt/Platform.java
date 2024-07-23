@@ -464,6 +464,9 @@ final class Platform {
     }
 
     static boolean isCTVerificationRequired(String hostname) {
+        if (Flags.certificateTransparencyPlatform()) {
+            return true;
+        }
         return false;
     }
 
