@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7544f79_5005fac4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-07-23T11:39:16Z",
+      "side": 1,
+      "message": "LGTM although I don\u0027t really understand the `system_modules` attribute even after reading the docs and the comment in libcore/JavaLibrary.bp 😊",
+      "revId": "1d6efc03a7b3a84e68df31a92ca76a06c37b92ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "797a3455_3f913b63",
