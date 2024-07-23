@@ -87,6 +87,30 @@
       },
       "revId": "6c8983ee6865533a74f63088c886fdb9d0b86e05",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0cf0456_35f82bcb",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/ByteArray.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-23T23:59:29Z",
+      "side": 1,
+      "message": "No worries. I couldn\u0027t find anything obvious. `art/.clang-format` is a bit more precise (especially with the import order), but there is no clang-format settings related to how JavaDoc should look like.",
+      "parentUuid": "78d92b94_2b0c18d5",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 61
+      },
+      "revId": "6c8983ee6865533a74f63088c886fdb9d0b86e05",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
