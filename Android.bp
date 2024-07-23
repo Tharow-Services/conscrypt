@@ -628,6 +628,9 @@ java_library {
     srcs: [
         "testing/src/main/java/**/*.java",
         ":conscrypt-unbundled_generated_constants",
+        "common/src/main/java/org/conscrypt/AbstractConscryptSocket.java"
+        "common/src/main/java/org/conscrypt/OpenSSLContextImpl.java"
+        "common/src/main/java/org/conscrypt/SSLParametersImpl.java"
     ],
     libs: [
         "junit",
