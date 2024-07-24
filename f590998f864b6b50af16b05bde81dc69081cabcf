@@ -16,6 +16,24 @@
       "message": "Oops, that was a real breackage:\n```\nCaused by: java.lang.ClassNotFoundException: Invalid name: android.security.cts.CertBlocklist*\n```\n\n`file_patterns` allows regexes, but the docs for include-filter don\u0027t say, and the only examples I can find look like wildcards not regex.... https://cs.android.com/search?q\u003df:test_mapping%20include-filter.*%5C*\u0026ss\u003dandroid%2Fplatform%2Fsuperproject%2Fmain",
       "revId": "f590998f864b6b50af16b05bde81dc69081cabcf",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1a594f0_4bdbbf3e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-24T10:32:58Z",
+      "side": 1,
+      "message": "Sorry for that. Let me send a new version with the tests explicitly named.",
+      "parentUuid": "3c5f8f0f_d50e00ee",
+      "revId": "f590998f864b6b50af16b05bde81dc69081cabcf",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
