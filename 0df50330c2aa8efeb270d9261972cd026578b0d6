@@ -111,6 +111,30 @@
       },
       "revId": "0df50330c2aa8efeb270d9261972cd026578b0d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a56f5d6_74c212a2",
+        "filename": "apex/tests/Android.bp",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-07-24T14:45:42Z",
+      "side": 1,
+      "message": "Is it OK to submit this to try and fix b/352607071?",
+      "parentUuid": "8f1877c3_b31b790b",
+      "range": {
+        "startLine": 45,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 23
+      },
+      "revId": "0df50330c2aa8efeb270d9261972cd026578b0d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
