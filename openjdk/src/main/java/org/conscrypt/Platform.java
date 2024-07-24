@@ -344,20 +344,6 @@ final class Platform {
     }
 
     /**
-     * Wraps an old AndroidOpenSSL key instance. This is not needed on RI.
-     */
-    @SuppressWarnings("unused")
-    static OpenSSLKey wrapRsaKey(@SuppressWarnings("unused") PrivateKey javaKey) {
-        return null;
-    }
-
-    /**
-     * Logs to the system EventLog system.
-     */
-    @SuppressWarnings("unused")
-    static void logEvent(@SuppressWarnings("unused") String message) {}
-
-    /**
      * For unbundled versions, SNI is always enabled by default.
      */
     @SuppressWarnings("unused")
@@ -815,5 +801,13 @@ final class Platform {
 
     public static boolean isTlsV1Deprecated() {
         return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        return false;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return false;
     }
 }

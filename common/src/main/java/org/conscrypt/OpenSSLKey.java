@@ -32,7 +32,8 @@ import org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 /**
  * Represents a BoringSSL {@code EVP_PKEY}.
  */
-final class OpenSSLKey {
+@Internal
+public final class OpenSSLKey {
     private final NativeRef.EVP_PKEY ctx;
 
     private final boolean wrapped;
@@ -178,11 +179,6 @@ final class OpenSSLKey {
         if (key instanceof OpenSSLKeyHolder) {
             return ((OpenSSLKeyHolder) key).getOpenSSLKey();
         }
-
-        if ("RSA".equals(key.getAlgorithm())) {
-            return Platform.wrapRsaKey(key);
-        }
-
         return null;
     }
 
@@ -260,7 +256,7 @@ final class OpenSSLKey {
      *
      * @throws InvalidKeyException if parsing fails
      */
-    static OpenSSLKey fromPublicKeyPemInputStream(InputStream is)
+    public static OpenSSLKey fromPublicKeyPemInputStream(InputStream is)
             throws InvalidKeyException {
         OpenSSLBIOInputStream bis = new OpenSSLBIOInputStream(is, true);
         try {
@@ -277,7 +273,7 @@ final class OpenSSLKey {
         }
     }
 
-    PublicKey getPublicKey() throws NoSuchAlgorithmException {
+    public PublicKey getPublicKey() throws NoSuchAlgorithmException {
         switch (NativeCrypto.EVP_PKEY_type(ctx)) {
             case NativeConstants.EVP_PKEY_RSA:
                 return new OpenSSLRSAPublicKey(this);

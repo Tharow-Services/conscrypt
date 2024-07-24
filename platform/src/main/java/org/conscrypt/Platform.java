@@ -25,6 +25,7 @@ import android.system.Os;
 import android.system.StructTimeval;
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+import dalvik.system.VMRuntime;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.System;
@@ -61,13 +62,13 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
-import libcore.net.NetworkSecurityPolicy;
 import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTLogStoreImpl;
 import org.conscrypt.ct.CTPolicy;
 import org.conscrypt.ct.CTPolicyImpl;
 import org.conscrypt.metrics.CipherSuite;
 import org.conscrypt.metrics.ConscryptStatsLog;
+import org.conscrypt.metrics.OptionalMethod;
 import org.conscrypt.metrics.Protocol;
 import sun.security.x509.AlgorithmId;
 
@@ -261,35 +262,6 @@ final class Platform {
                 && !checkTrusted("checkServerTrusted", tm, chain, authType, String.class,
                            engine.getHandshakeSession().getPeerHost())) {
             tm.checkServerTrusted(chain, authType);
-        }
-    }
-
-    /**
-     * Wraps an old AndroidOpenSSL key instance. This is not needed on platform
-     * builds since we didn't backport, so return null.
-     */
-    static OpenSSLKey wrapRsaKey(PrivateKey key) {
-        return null;
-    }
-
-    /**
-     * Logs to the system EventLog system.
-     */
-    static void logEvent(String message) {
-        try {
-            Class processClass = Class.forName("android.os.Process");
-            Object processInstance = processClass.newInstance();
-            Method myUidMethod = processClass.getMethod("myUid", (Class[]) null);
-            int uid = (Integer) myUidMethod.invoke(processInstance);
-
-            Class eventLogClass = Class.forName("android.util.EventLog");
-            Object eventLogInstance = eventLogClass.newInstance();
-            Method writeEventMethod = eventLogClass.getMethod(
-                    "writeEvent", new Class[] {Integer.TYPE, Object[].class});
-            writeEventMethod.invoke(eventLogInstance, 0x534e4554 /* SNET */,
-                    new Object[] {"conscrypt", uid, message});
-        } catch (Exception e) {
-            // Do not log and fail silently
         }
     }
 
@@ -569,5 +541,33 @@ final class Platform {
 
     public static boolean isTlsV1Deprecated() {
         return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        Object targetSdkVersion = getTargetSdkVersion();
+        if ((targetSdkVersion != null) && ((int) targetSdkVersion > 34))
+            return false;
+        return true;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return false;
+    }
+
+    static Object getTargetSdkVersion() {
+        try {
+            Class<?> vmRuntime = Class.forName("dalvik.system.VMRuntime");
+            if (vmRuntime == null) {
+                return null;
+            }
+            OptionalMethod getSdkVersion =
+                    new OptionalMethod(vmRuntime,
+                                        "getTargetSdkVersion");
+            return getSdkVersion.invokeStatic();
+        } catch (ClassNotFoundException e) {
+            return null;
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 }

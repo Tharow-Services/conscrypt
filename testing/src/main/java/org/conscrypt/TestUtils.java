@@ -319,7 +319,7 @@ public final class TestUtils {
         }
     }
 
-    static SSLSocketFactory setUseEngineSocket(
+    public static SSLSocketFactory setUseEngineSocket(
             SSLSocketFactory conscryptFactory, boolean useEngineSocket) {
         try {
             Class<?> clazz = conscryptClass("Conscrypt");
@@ -332,7 +332,7 @@ public final class TestUtils {
         }
     }
 
-    static SSLServerSocketFactory setUseEngineSocket(
+    public static SSLServerSocketFactory setUseEngineSocket(
             SSLServerSocketFactory conscryptFactory, boolean useEngineSocket) {
         try {
             Class<?> clazz = conscryptClass("Conscrypt");
@@ -472,12 +472,12 @@ public final class TestUtils {
         return msg;
     }
 
-    static SSLContext newClientSslContext(Provider provider) {
+    public static SSLContext newClientSslContext(Provider provider) {
         SSLContext context = newContext(provider);
         return initClientSslContext(context);
     }
 
-    static SSLContext newServerSslContext(Provider provider) {
+    public static SSLContext newServerSslContext(Provider provider) {
         SSLContext context = newContext(provider);
         return initServerSslContext(context);
     }
@@ -829,6 +829,34 @@ public final class TestUtils {
                     .invoke(null);
         } catch (NoSuchMethodException e) {
             return false;
+        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
+            throw new IllegalStateException("Reflection failure", e);
+        }
+    }
+
+    // Find base method via reflection due to possible version skew on Android
+    // and visibility issues when building with Gradle.
+    public static boolean isTlsV1Supported() {
+        try {
+            return (Boolean) conscryptClass("Platform")
+                    .getDeclaredMethod("isTlsV1Supported")
+                    .invoke(null);
+        } catch (NoSuchMethodException e) {
+            return true;
+        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
+            throw new IllegalStateException("Reflection failure", e);
+        }
+    }
+
+    // Find base method via reflection due to possible version skew on Android
+    // and visibility issues when building with Gradle.
+    public static boolean isTlsV1Filtered() {
+        try {
+            return (Boolean) conscryptClass("Platform")
+                    .getDeclaredMethod("isTlsV1Filtered")
+                    .invoke(null);
+        } catch (NoSuchMethodException e) {
+            return true;
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
             throw new IllegalStateException("Reflection failure", e);
         }

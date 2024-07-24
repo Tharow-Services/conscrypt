@@ -145,6 +145,7 @@ cc_library_host_shared {
     name: "libconscrypt_openjdk_jni",
     visibility: [
         "//build/make/tools/signapk",
+        "//cts/hostsidetests/library", // from CtsUseNativeLibraryBuildPackage
         "//tools/apksig",
         "//vendor:__subpackages__",
     ],
@@ -238,8 +239,8 @@ java_library {
         "com.android.conscrypt",
         "test_com.android.conscrypt",
     ],
-    // Conscrypt should support Q
-    min_sdk_version: "29",
+    // Conscrypt should support R
+    min_sdk_version: "30",
 
     installable: true,
     // Hostdex is only for ART testing on host: ART build file has its
@@ -276,9 +277,6 @@ java_library {
         "android.net.ssl",
         "com.android.org.conscrypt",
     ],
-    lint: {
-        baseline_filename: "lint-baseline.xml",
-    },
 }
 
 // Java library for use on host, e.g. by robolectric.
@@ -295,14 +293,11 @@ java_library {
     ],
     sdk_version: "none",
     system_modules: "none",
-    lint: {
-        baseline_filename: "lint-baseline.xml",
-    },
 }
 
 // Referenced implicitly from conscrypt.module.platform.api.
 filegroup {
-    name: "conscrypt.module.platform.api.api.public.latest",
+    name: "conscrypt.module.platform.api.api.combined.public.latest",
     srcs: [
         "api/platform/last-api.txt",
     ],
@@ -310,7 +305,7 @@ filegroup {
 
 // Referenced implicitly from conscrypt.module.platform.api.
 filegroup {
-    name: "conscrypt.module.platform.api-removed.api.public.latest",
+    name: "conscrypt.module.platform.api-removed.api.combined.public.latest",
     srcs: [
         "api/platform/last-removed.txt",
     ],
@@ -374,9 +369,6 @@ java_sdk_library {
     dist_stem: "conscrypt-coreplatform",
     // TODO: remove this when Conscrypt's @CorePlatformApi has been migrated to @SystemApi
     unsafe_ignore_missing_latest_api: true,
-    lint: {
-        baseline_filename: "lint-baseline.xml",
-    },
 }
 
 // A library containing the public API stubs of the Conscrypt module.
@@ -431,14 +423,11 @@ java_sdk_library {
     sdk_version: "none",
     system_modules: "art-module-public-api-stubs-system-modules",
     dist_group: "android",
-    lint: {
-        baseline_filename: "lint-baseline.xml",
-    },
 }
 
 // Referenced implicitly from conscrypt.module.intra.core.api.
 filegroup {
-    name: "conscrypt.module.intra.core.api.api.public.latest",
+    name: "conscrypt.module.intra.core.api.api.combined.public.latest",
     srcs: [
         "api/intra/last-api.txt",
     ],
@@ -446,7 +435,7 @@ filegroup {
 
 // Referenced implicitly from conscrypt.module.intra.core.api.
 filegroup {
-    name: "conscrypt.module.intra.core.api-removed.api.public.latest",
+    name: "conscrypt.module.intra.core.api-removed.api.combined.public.latest",
     srcs: [
         "api/intra/last-removed.txt",
     ],
@@ -493,9 +482,6 @@ java_sdk_library {
 
     // Don't copy any output files to the dist.
     no_dist: true,
-    lint: {
-        baseline_filename: "lint-baseline.xml",
-    },
 }
 
 // Platform conscrypt crypto JNI library
@@ -550,7 +536,7 @@ cc_library_shared {
         "com.android.conscrypt",
         "test_com.android.conscrypt",
     ],
-    min_sdk_version: "29",
+    min_sdk_version: "30",
 }
 
 // Unbundled Conscrypt jar for use by signapk and apksigner tool
@@ -583,9 +569,6 @@ java_library {
     },
     // Make sure that this will be added to the sdk snapshot for S.
     min_sdk_version: "S",
-    lint: {
-        baseline_filename: "lint-baseline.xml",
-    },
 }
 
 // Interim library for accessing pseudo-JCA Conscrypt APIs such as HPKE until
@@ -632,6 +615,26 @@ cc_library_static {
     ],
     sdk_version: "9",
     stl: "c++_shared",
+}
+
+
+java_library {
+    name: "conscrypt-test-support",
+    visibility: [
+        "//frameworks/base/apct-tests/perftests/core",
+    ],
+    device_supported: true,
+    host_supported: true,
+    srcs: [
+        "testing/src/main/java/**/*.java",
+        ":conscrypt-unbundled_generated_constants",
+    ],
+    libs: [
+        "junit",
+        "bouncycastle-unbundled",
+        "bouncycastle-bcpkix-unbundled",
+        "bouncycastle-ocsp-unbundled",
+    ],
 }
 
 // Make the conscrypt-tests library.
@@ -686,9 +689,6 @@ java_test {
         },
     },
     java_version: "1.8",
-    lint: {
-        baseline_filename: "lint-baseline.xml",
-    },
 }
 
 // Make the conscrypt-benchmarks library.
@@ -726,9 +726,6 @@ java_test {
         },
     },
     java_version: "1.8",
-    lint: {
-        baseline_filename: "lint-baseline.xml",
-    },
 }
 
 // Device SDK exposed by the Conscrypt module.
