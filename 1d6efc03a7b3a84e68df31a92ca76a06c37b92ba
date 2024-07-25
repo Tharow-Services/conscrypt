@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "33e0821c_1ada3bc3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-25T03:17:53Z",
+      "side": 1,
+      "message": "Ack, I\u0027ll add Victor to review the other change in this topic. Thanks.",
+      "parentUuid": "d7544f79_5005fac4",
+      "revId": "1d6efc03a7b3a84e68df31a92ca76a06c37b92ba",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "797a3455_3f913b63",
