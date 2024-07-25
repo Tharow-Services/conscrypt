@@ -254,6 +254,10 @@ java_library {
 
     libs: ["unsupportedappusage"],
 
+    static_libs: [
+        "conscrypt-statslog-java",
+    ],
+
     // Conscrypt can be updated independently from the other core libraries so it must only depend
     // on public SDK and intra-core APIs.
     sdk_version: "none",
@@ -785,4 +789,61 @@ module_exports {
             ],
         },
     },
+}
+cc_library_static {
+    name: "libstatslog_conscrypt",
+    generated_sources: ["statslog_conscrypt.cpp"],
+    generated_headers: ["statslog_conscrypt.h"],
+    export_generated_headers: ["statslog_conscrypt.h"],
+    shared_libs: [
+        "liblog",
+        "libstatspull",
+        "libstatssocket",
+        "libutils",
+    ],
+    cflags: [
+        "-Wall",
+        "-Werror",
+    ],
+}
+
+genrule {
+    name: "statslog_conscrypt.h",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --header $(genDir)/statslog_conscrypt.h --module conscrypt --namespace org,conscrypt,metrics",
+    out: [
+        "statslog_conscrypt.h",
+    ],
+}
+
+genrule {
+    name: "statslog_conscrypt.cpp",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --cpp $(genDir)/statslog_conscrypt.cpp --module conscrypt --namespace org,conscrypt,metrics --importHeader statslog_conscrypt.h",
+    out: [
+        "statslog_conscrypt.cpp",
+    ],
+}
+
+
+java_library {
+    name: "conscrypt-statslog-java",
+    srcs: [
+        ":conscrypt-statslog-java-gen",
+    ],
+    libs: [
+        "framework-statsd.stubs.module_lib",
+    ],
+    sdk_version: "system_server_current",
+    min_sdk_version: "30",
+    apex_available: [
+        "com.android.conscrypt",
+    ],
+}
+
+genrule {
+    name: "conscrypt-statslog-java-gen",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --java $(out) --module conscrypt --javaPackage org.conscrypt.metrics --javaClass ConscryptStatsLogNative",
+    out: ["common/src/main/java/org/conscrypt/metrics/ConscryptStatsLogNative.java"],
 }
