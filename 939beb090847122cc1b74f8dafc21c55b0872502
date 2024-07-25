@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0aae4c4a_cb887d65",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-07-25T09:58:18Z",
+      "side": 1,
+      "message": "Since ART and conscrypt are 2 separate modules, I would prefer be slightly careful to export such libraries from ART / libcore.\n\nI hope that this bootstrap library is only needed for libcore. Have you tried using `art-module-intra-core-api-stubs-system-modules` here?\n\nHowever, you may need these 2 libraries as dependencies \n```\nlibs: [\n    \"aconfig-annotations-lib-sdk-none\",\n    \"unsupportedappusage\",\n],\n```",
+      "range": {
+        "startLine": 199,
+        "startChar": 21,
+        "endLine": 199,
+        "endChar": 71
+      },
+      "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cb0be4b0_820eb7f7",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-07-25T09:58:18Z",
+      "side": 1,
+      "message": "Not sure if it\u0027s needed now. But when you publish your new API, you may need the below here.\n\n```\n    static_libs: [\n        \"conscrypt-aconfig-flags-lib\",\n    ],\n    aconfig_declarations: [\n        \"conscrypt-aconfig-flags\",\n    ],\n```",
+      "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a68d5c98_ff806216",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-07-25T09:58:18Z",
+      "side": 1,
+      "message": "Not sure if it\u0027s needed now. But when you publish your new API, you may need the below here.\n\n```\n    static_libs: [\n        \"conscrypt-aconfig-flags-lib\",\n    ],\n    aconfig_declarations: [\n        \"conscrypt-aconfig-flags\",\n    ],\n```",
+      "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
