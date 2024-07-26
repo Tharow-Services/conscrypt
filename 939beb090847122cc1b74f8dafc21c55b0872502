@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8c21a3cd_8ba9384d",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-26T04:12:53Z",
+      "side": 1,
+      "message": "That works. Thanks for the pointer.",
+      "parentUuid": "0aae4c4a_cb887d65",
+      "range": {
+        "startLine": 199,
+        "startChar": 21,
+        "endLine": 199,
+        "endChar": 71
+      },
+      "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cb0be4b0_820eb7f7",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-07-25T09:58:18Z",
       "side": 1,
       "message": "Not sure if it\u0027s needed now. But when you publish your new API, you may need the below here.\n\n```\n    static_libs: [\n        \"conscrypt-aconfig-flags-lib\",\n    ],\n    aconfig_declarations: [\n        \"conscrypt-aconfig-flags\",\n    ],\n```",
+      "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "dff50253_8e19ac2a",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-26T04:12:53Z",
+      "side": 1,
+      "message": "Not sure. I know this builds fine (even with the flag being used in the next commit). Is there something to run to test the publishing of the API? (The flag is not visible externally, this is only an internal flag).",
+      "parentUuid": "cb0be4b0_820eb7f7",
       "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
