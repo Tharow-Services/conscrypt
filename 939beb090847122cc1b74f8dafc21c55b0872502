@@ -85,6 +85,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "19cce703_2654905c",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-07-26T09:06:46Z",
+      "side": 1,
+      "message": "Ah, I see. It\u0027s indeed not needed.\n\nI thought it\u0027s used externally, because `is_exported: true` is specified in the aconfig file. If it\u0027s not visible externally, I think that the flag should be `is_exported: false`",
+      "parentUuid": "dff50253_8e19ac2a",
+      "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a68d5c98_ff806216",
         "filename": "Android.bp",
         "patchSetId": 3
