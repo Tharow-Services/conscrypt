@@ -101,6 +101,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e93b417d_cd4c6f40",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 396,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-28T23:43:31Z",
+      "side": 1,
+      "message": "Ah, that makes sense. Done. Thanks for the review!",
+      "parentUuid": "19cce703_2654905c",
+      "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a68d5c98_ff806216",
@@ -114,6 +132,24 @@
       "writtenOn": "2024-07-25T09:58:18Z",
       "side": 1,
       "message": "Not sure if it\u0027s needed now. But when you publish your new API, you may need the below here.\n\n```\n    static_libs: [\n        \"conscrypt-aconfig-flags-lib\",\n    ],\n    aconfig_declarations: [\n        \"conscrypt-aconfig-flags\",\n    ],\n```",
+      "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2b5ae655_05223d1a",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 450,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-07-28T23:43:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "a68d5c98_ff806216",
       "revId": "939beb090847122cc1b74f8dafc21c55b0872502",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
