@@ -49,7 +49,13 @@ public class VerifierTest {
 
         PublicKey key = TestUtils.readPublicKeyPemFile("ct-server-key-public.pem");
 
-        final LogInfo log = new LogInfo(key, LogInfo.STATE_USABLE, "Test Log", "foo");
+        LogInfo.Builder builder = new LogInfo.Builder();
+        builder.setPublicKey(key);
+        builder.setDescription("Test Log");
+        builder.setUrl("http://example.com");
+        builder.setOperator("LogOperator");
+        builder.setState(LogInfo.STATE_USABLE);
+        final LogInfo log = builder.build();
         LogStore store = new LogStore() {
             @Override
             public LogInfo getKnownLog(byte[] logId) {

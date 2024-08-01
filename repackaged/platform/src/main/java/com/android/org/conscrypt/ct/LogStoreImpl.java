@@ -20,6 +20,9 @@ package com.android.org.conscrypt.ct;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import com.android.org.conscrypt.ByteArray;
+import com.android.org.conscrypt.Internal;
+import com.android.org.conscrypt.OpenSSLKey;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,15 +32,13 @@ import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import com.android.org.conscrypt.ByteArray;
-import com.android.org.conscrypt.Internal;
-import com.android.org.conscrypt.OpenSSLKey;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -131,14 +132,24 @@ public class LogStoreImpl implements LogStore {
                 String operatorName = operator.getString("name");
                 JSONArray logs = operator.getJSONArray("logs");
                 for (int j = 0; j < logs.length(); j++) {
+                    LogInfo.Builder builder = new LogInfo.Builder();
                     JSONObject log = logs.getJSONObject(j);
-                    String description = log.getString("description");
-                    byte[] logId = Base64.getDecoder().decode(log.getString("log_id"));
-                    PublicKey key = parsePubKey(log.getString("key"));
+                    builder.setDescription(log.getString("description"));
+                    builder.setPublicKey(parsePubKey(log.getString("key")));
+                    builder.setUrl(log.getString("url"));
+                    builder.setOperator(operatorName);
+
                     JSONObject stateObject = log.getJSONObject("state");
-                    int logState = parseState(stateObject.keys().next());
-                    String url = log.getString("url");
-                    LogInfo logInfo = new LogInfo(key, logState, description, url);
+                    builder.setState(parseState(stateObject.keys().next()));
+
+                    LogInfo logInfo = builder.build();
+                    byte[] logId = Base64.getDecoder().decode(log.getString("log_id"));
+
+                    // The logId computed using the public key should match the log_id field.
+                    if (!Arrays.equals(logInfo.getID(), logId)) {
+                        throw new IllegalArgumentException("logId does not match publicKey");
+                    }
+
                     logsMap.put(new ByteArray(logId), logInfo);
                 }
             }

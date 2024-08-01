@@ -17,6 +17,7 @@
 
 package com.android.org.conscrypt.ct;
 
+import com.android.org.conscrypt.Internal;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -24,7 +25,8 @@ import java.security.PublicKey;
 import java.security.Signature;
 import java.security.SignatureException;
 import java.util.Arrays;
-import com.android.org.conscrypt.Internal;
+import java.util.Objects;
+import java.util.OptionalInt;
 
 /**
  * Properties about a Certificate Transparency Log.
@@ -43,32 +45,80 @@ public class LogInfo {
 
     private final byte[] logId;
     private final PublicKey publicKey;
-    private final int state;
+    private final OptionalInt state;
     private final String description;
     private final String url;
+    private final String operator;
 
-    public LogInfo(PublicKey publicKey, int state, String description, String url) {
-        if (publicKey == null) {
-            throw new IllegalArgumentException("null publicKey");
-        }
-        if (description == null) {
-            throw new IllegalArgumentException("null description");
-        }
-        if (state < 0 || state > STATE_REJECTED) {
-            throw new IllegalArgumentException("invalid state value");
+    private LogInfo(Builder builder) {
+        /* Based on the required fields for the log list schema v3. Notably,
+         * the state may be absent. The logId must match the public key, this
+         * is validated in the builder. */
+        Objects.requireNonNull(builder.logId);
+        Objects.requireNonNull(builder.publicKey);
+        Objects.requireNonNull(builder.url);
+        Objects.requireNonNull(builder.operator);
+
+        this.logId = builder.logId;
+        this.publicKey = builder.publicKey;
+        this.state = builder.state;
+        this.description = builder.description;
+        this.url = builder.url;
+        this.operator = builder.operator;
+    }
+
+    /**
+     * @hide This class is not part of the Android public SDK API
+     */
+    public static class Builder {
+        private byte[] logId;
+        private PublicKey publicKey;
+        private OptionalInt state = OptionalInt.empty();
+        private String description;
+        private String url;
+        private String operator;
+
+        public Builder setPublicKey(PublicKey publicKey) {
+            Objects.requireNonNull(publicKey);
+            this.publicKey = publicKey;
+            try {
+                this.logId = MessageDigest.getInstance("SHA-256").digest(publicKey.getEncoded());
+            } catch (NoSuchAlgorithmException e) {
+                // SHA-256 is guaranteed to be available
+                throw new RuntimeException(e);
+            }
+            return this;
         }
 
-        try {
-            this.logId = MessageDigest.getInstance("SHA-256").digest(publicKey.getEncoded());
-        } catch (NoSuchAlgorithmException e) {
-            // SHA-256 is guaranteed to be available
-            throw new RuntimeException(e);
+        public Builder setState(int state) {
+            if (state < 0 || state > STATE_REJECTED) {
+                throw new IllegalArgumentException("invalid state value");
+            }
+            this.state = OptionalInt.of(state);
+            return this;
         }
 
-        this.publicKey = publicKey;
-        this.state = state;
-        this.description = description;
-        this.url = url;
+        public Builder setDescription(String description) {
+            Objects.requireNonNull(description);
+            this.description = description;
+            return this;
+        }
+
+        public Builder setUrl(String url) {
+            Objects.requireNonNull(url);
+            this.url = url;
+            return this;
+        }
+
+        public Builder setOperator(String operator) {
+            Objects.requireNonNull(operator);
+            this.operator = operator;
+            return this;
+        }
+
+        public LogInfo build() {
+            return new LogInfo(this);
+        }
     }
 
     /**
@@ -90,8 +140,12 @@ public class LogInfo {
         return url;
     }
 
-    public int getState() {
+    public OptionalInt getState() {
         return state;
+    }
+
+    public String getOperator() {
+        return operator;
     }
 
     @Override
@@ -104,8 +158,9 @@ public class LogInfo {
         }
 
         LogInfo that = (LogInfo) other;
-        return this.state == that.state && this.description.equals(that.description)
-                && this.url.equals(that.url) && Arrays.equals(this.logId, that.logId);
+        return this.state.equals(that.state) && this.description.equals(that.description)
+                && this.url.equals(that.url) && this.operator.equals(that.operator)
+                && Arrays.equals(this.logId, that.logId);
     }
 
     @Override
@@ -114,7 +169,8 @@ public class LogInfo {
         hash = hash * 31 + Arrays.hashCode(logId);
         hash = hash * 31 + description.hashCode();
         hash = hash * 31 + url.hashCode();
-        hash = hash * 31 + state;
+        hash = hash * 31 + state.hashCode();
+        hash = hash * 31 + operator.hashCode();
 
         return hash;
     }
