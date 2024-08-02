@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "be3fdee8_bd4f3fb8",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-02T12:24:39Z",
+      "side": 1,
+      "message": "Up to you, but you made the Builder API fluent, so you might as well chain the calls here and in the other places.",
+      "revId": "b1cc6e7cbd9d058816da4d6c4a38160092421fd8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
