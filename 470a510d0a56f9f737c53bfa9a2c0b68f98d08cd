@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d9e4dbb_473c0abf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-02T12:20:32Z",
+      "side": 1,
+      "message": "I\u0027m in two minds here, because part of me also wants to get rid of the ct. and metrics. sub-packages so that we can use package private for internal APIs rather than public+@hide.",
+      "revId": "470a510d0a56f9f737c53bfa9a2c0b68f98d08cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
