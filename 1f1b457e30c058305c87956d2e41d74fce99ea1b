@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94cefd52_7f53d88f",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-02T12:21:35Z",
+      "side": 1,
+      "message": "Maybe make it a named constant for readability?",
+      "range": {
+        "startLine": 43,
+        "startChar": 33,
+        "endLine": 43,
+        "endChar": 34
+      },
+      "revId": "1f1b457e30c058305c87956d2e41d74fce99ea1b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
