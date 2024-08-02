@@ -18,6 +18,8 @@
 package com.android.org.conscrypt.ct;
 
 import com.android.org.conscrypt.Internal;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Verification result for a single SCT.
@@ -35,12 +37,61 @@ public final class VerifiedSCT {
         INVALID_SCT
     }
 
-    public final SignedCertificateTimestamp sct;
-    public final Status status;
+    private final SignedCertificateTimestamp sct;
+    private final Status status;
+    private final Optional<LogInfo> logInfo;
 
-    public VerifiedSCT(SignedCertificateTimestamp sct, Status status) {
-        this.sct = sct;
-        this.status = status;
+    private VerifiedSCT(Builder builder) {
+        Objects.requireNonNull(builder.sct);
+        Objects.requireNonNull(builder.status);
+
+        this.sct = builder.sct;
+        this.status = builder.status;
+        this.logInfo = builder.logInfo;
+    }
+
+    public SignedCertificateTimestamp getSct() {
+        return sct;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public boolean isValid() {
+        return status == Status.VALID;
+    }
+
+    public Optional<LogInfo> getLogInfo() {
+        return logInfo;
+    }
+
+    /**
+     * @hide This class is not part of the Android public SDK API
+     */
+    public static class Builder {
+        private SignedCertificateTimestamp sct;
+        private Status status;
+        private Optional<LogInfo> logInfo = Optional.empty();
+
+        public Builder(SignedCertificateTimestamp sct) {
+            this.sct = sct;
+        }
+
+        public Builder setStatus(Status status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder setLogInfo(LogInfo logInfo) {
+            Objects.requireNonNull(logInfo);
+            this.logInfo = Optional.of(logInfo);
+            return this;
+        }
+
+        public VerifiedSCT build() {
+            return new VerifiedSCT(this);
+        }
     }
 }
 
