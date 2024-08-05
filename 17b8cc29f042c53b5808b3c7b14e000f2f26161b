@@ -22,6 +22,30 @@
       },
       "revId": "17b8cc29f042c53b5808b3c7b14e000f2f26161b",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a180163f_db381ad4",
+        "filename": "common/src/main/java/org/conscrypt/ct/VerifiedSCT.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-05T05:12:55Z",
+      "side": 1,
+      "message": "Ack, removed and also the OptionalInt in the previous change. PTAL. Thanks.",
+      "parentUuid": "db2887b5_62d4798f",
+      "range": {
+        "startLine": 20,
+        "startChar": 17,
+        "endLine": 20,
+        "endChar": 25
+      },
+      "revId": "17b8cc29f042c53b5808b3c7b14e000f2f26161b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
