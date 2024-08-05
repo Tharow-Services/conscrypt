@@ -17,13 +17,11 @@
 package org.conscrypt.ct;
 
 import java.util.Objects;
-import org.conscrypt.Internal;
 
 /**
  * Verification result for a single SCT.
  */
-@Internal
-public final class VerifiedSCT {
+class VerifiedSCT {
     public enum Status {
         VALID,
         INVALID_SIGNATURE,

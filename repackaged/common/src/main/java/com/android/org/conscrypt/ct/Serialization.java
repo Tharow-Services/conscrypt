@@ -22,13 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import com.android.org.conscrypt.Internal;
 
-/**
- * @hide This class is not part of the Android public SDK API
- */
-@Internal
-public class Serialization {
+class Serialization {
     private Serialization() {}
 
     private static final int DER_TAG_MASK = 0x3f;
@@ -240,4 +235,3 @@ public class Serialization {
         }
     }
 }
-

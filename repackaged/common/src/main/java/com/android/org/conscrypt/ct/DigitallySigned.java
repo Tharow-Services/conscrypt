@@ -19,14 +19,11 @@ package com.android.org.conscrypt.ct;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import com.android.org.conscrypt.Internal;
 
 /**
  * DigitallySigned structure, as defined by RFC5246 Section 4.7.
- * @hide This class is not part of the Android public SDK API
  */
-@Internal
-public class DigitallySigned {
+class DigitallySigned {
     /**
      * @hide This class is not part of the Android public SDK API
      */
@@ -131,5 +128,3 @@ public class DigitallySigned {
         return decode(new ByteArrayInputStream(input));
     }
 }
-
-

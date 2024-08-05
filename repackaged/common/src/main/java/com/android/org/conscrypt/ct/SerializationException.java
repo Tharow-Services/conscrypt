@@ -17,13 +17,7 @@
 
 package com.android.org.conscrypt.ct;
 
-import com.android.org.conscrypt.Internal;
-
-/**
- * @hide This class is not part of the Android public SDK API
- */
-@Internal
-public class SerializationException extends Exception {
+class SerializationException extends Exception {
     private static final long serialVersionUID = -5317873136664833411L;
 
     public SerializationException() {
@@ -41,4 +35,3 @@ public class SerializationException extends Exception {
         super(cause);
     }
 }
-

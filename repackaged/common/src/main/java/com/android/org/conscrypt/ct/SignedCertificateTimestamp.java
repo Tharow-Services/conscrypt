@@ -21,14 +21,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
-import com.android.org.conscrypt.Internal;
 
 /**
  * SignedCertificateTimestamp structure, as defined by RFC6962 Section 3.2.
- * @hide This class is not part of the Android public SDK API
  */
-@Internal
-public class SignedCertificateTimestamp {
+class SignedCertificateTimestamp {
     /**
      * @hide This class is not part of the Android public SDK API
      */
@@ -141,4 +138,3 @@ public class SignedCertificateTimestamp {
         return output.toByteArray();
     }
 }
-

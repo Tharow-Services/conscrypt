@@ -17,14 +17,13 @@
 
 package com.android.org.conscrypt.ct;
 
+import com.android.org.conscrypt.OpenSSLX509Certificate;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateEncodingException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import com.android.org.conscrypt.Internal;
-import com.android.org.conscrypt.OpenSSLX509Certificate;
 
 /**
  * CertificateEntry structure.
@@ -39,10 +38,8 @@ import com.android.org.conscrypt.OpenSSLX509Certificate;
  *         case precert_entry: PreCert;
  *     } signed_entry;
  * } CertificateEntry;
- * @hide This class is not part of the Android public SDK API
  */
-@Internal
-public class CertificateEntry {
+class CertificateEntry {
     /**
      * @hide This class is not part of the Android public SDK API
      */
@@ -136,4 +133,3 @@ public class CertificateEntry {
         Serialization.writeVariableBytes(output, certificate, Constants.CERTIFICATE_LENGTH_BYTES);
     }
 }
-
