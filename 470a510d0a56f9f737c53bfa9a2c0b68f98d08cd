@@ -16,6 +16,24 @@
       "message": "I\u0027m in two minds here, because part of me also wants to get rid of the ct. and metrics. sub-packages so that we can use package private for internal APIs rather than public+@hide.",
       "revId": "470a510d0a56f9f737c53bfa9a2c0b68f98d08cd",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c1f1a49_42584780",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-05T05:22:33Z",
+      "side": 1,
+      "message": "Ack. There is actually limited coupling between both packages. So in theory, we could already clean up some of the classes. I attempted a change to limit the visibility: aosp/3206412. The issue I came across is that the test package (while having the same package name as the code), cannot access some of the methods:\n\n```\njava.lang.IllegalAccessError: Illegal class access (\u0027com.android.org.conscrypt.ct.SerializationTest\u0027 attempting to access \u0027com.andr\noid.org.conscrypt.ct.DigitallySigned\u0027) in attempt to invoke static method com.android.org.conscrypt.ct.DigitallySigned com.android.\norg.conscrypt.ct.DigitallySigned.decode(byte[])\n```\n\nThis makes little sense to me, but there might be an issue with the repackaging that makes the access not possible.\n\nIf we can solve that, it means we only need to make a few classes public+@hide (the ones that are directly used by TrustManagerImpl: Policy, Verifier, etc). I think this is somewhat a reasonable internal API. WDYT?",
+      "parentUuid": "4d9e4dbb_473c0abf",
+      "revId": "470a510d0a56f9f737c53bfa9a2c0b68f98d08cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
