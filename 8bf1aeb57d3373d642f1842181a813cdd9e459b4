@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52fa510c_9ba1d7ca",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-08T09:31:07Z",
+      "side": 1,
+      "message": "nit: Reword to include the requirements from the source table.",
+      "range": {
+        "startLine": 64,
+        "startChar": 50,
+        "endLine": 64,
+        "endChar": 55
+      },
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0875d15f_2b4b3e1c",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-08T09:31:07Z",
+      "side": 1,
+      "message": "Just confirming my understanding, the SCT won\u0027t be in the valid list unless it\u0027s signed by a recognised log?",
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
