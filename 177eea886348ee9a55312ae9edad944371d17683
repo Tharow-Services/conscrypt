@@ -3,6 +3,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7c628121_1103be55",
+        "filename": "platform/src/test/java/org/conscrypt/ct/PolicyImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2016367
+      },
+      "writtenOn": "2024-08-08T15:23:52Z",
+      "side": 1,
+      "message": "The invalid verification result tests are missing. For example, the verification result should fail if some SCTs were issued after the log(s) is/are disqualified.",
+      "revId": "177eea886348ee9a55312ae9edad944371d17683",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "257208b3_a5b1ca1c",
         "filename": "platform/src/test/java/org/conscrypt/ct/PolicyImplTest.java",
         "patchSetId": 1
