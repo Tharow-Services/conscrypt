@@ -18,6 +18,41 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c8cf9b9_9202c32f",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2016367
+      },
+      "writtenOn": "2024-08-08T15:05:09Z",
+      "side": 1,
+      "message": "Moved this comment to conformEmbeddedSCTs().",
+      "parentUuid": "62c8823a_7ed2be56",
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1983258_e9cdffea",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2016367
+      },
+      "writtenOn": "2024-08-08T15:05:09Z",
+      "side": 1,
+      "message": "Returning the boolean does not show the underlying cause of failed results. What if we return the CT policy compliance enum here? For example, not enough SCTs, not enough diverse SCTs.",
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52fa510c_9ba1d7ca",
