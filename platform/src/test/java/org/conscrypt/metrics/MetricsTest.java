@@ -97,6 +97,56 @@ public class MetricsTest {
         }
     }
 
+
+    // Tests that ReflexiveEvent produces the same event as framework's.
+    @Test
+    public void test_reflexiveEvent() throws Exception {
+        TestUtils.assumeStatsLogAvailable();
+
+        Object sdkVersion = getSdkVersion();
+        StatsEvent frameworkStatsEvent;
+        if ((sdkVersion != null) && ((int) sdkVersion > 32)) {
+            frameworkStatsEvent = StatsEvent.newBuilder()
+                                                 .setAtomId(TLS_HANDSHAKE_REPORTED)
+                                                 .writeBoolean(false)
+                                                 .writeInt(1) // protocol
+                                                 .writeInt(2) // cipher suite
+                                                 .writeInt(100) // duration
+                                                 .writeInt(3) // source
+                                                 .writeIntArray(new int[] {0}) // uids
+                                                 .usePooledBuffer()
+                                                 .build();
+        } else {
+            frameworkStatsEvent = StatsEvent.newBuilder()
+                                                 .setAtomId(TLS_HANDSHAKE_REPORTED)
+                                                 .writeBoolean(false)
+                                                 .writeInt(1) // protocol
+                                                 .writeInt(2) // cipher suite
+                                                 .writeInt(100) // duration
+                                                 .writeInt(3) // source
+                                                 .usePooledBuffer()
+                                                 .build();
+        }
+
+        int fid = (Integer) frameworkStatsEvent.getClass()
+                          .getMethod("getAtomId")
+                          .invoke(frameworkStatsEvent);
+
+        int fnb = (Integer) frameworkStatsEvent.getClass()
+                          .getMethod("getNumBytes")
+                          .invoke(frameworkStatsEvent);
+
+        byte[] fbytes = (byte[]) frameworkStatsEvent.getClass()
+                                .getMethod("getBytes")
+                                .invoke(frameworkStatsEvent);
+        for (int i = 0; i < fnb; i++) {
+            // skip encoded timestamp (bytes 1-8)
+            if (i < 1 || i > 8) {
+                assertEquals(fbytes[i], cbytes[i]);
+            }
+        }
+    }
+
     static Object getSdkVersion() {
         try {
             OptionalMethod getSdkVersion =
