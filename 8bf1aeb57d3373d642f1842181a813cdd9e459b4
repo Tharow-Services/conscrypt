@@ -55,6 +55,23 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3639e729_22530c2d",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2016367
+      },
+      "writtenOn": "2024-08-08T15:30:55Z",
+      "side": 1,
+      "message": "The log state should be verified against the SCT issuance time, which should be defined as the earliest of all SCTs. This accounts for edge cases in which a CT Log becomes Retired during the process of submitting certificate logging requests.\n\nhttps://googlechrome.github.io/CertificateTransparency/ct_policy.html#:~:text\u003dIn%20order%20to%20contribute,submitting%20certificate%20logging%20requests.",
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "52fa510c_9ba1d7ca",
         "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
         "patchSetId": 1
