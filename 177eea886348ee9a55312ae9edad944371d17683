@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "257208b3_a5b1ca1c",
+        "filename": "platform/src/test/java/org/conscrypt/ct/PolicyImplTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-08T08:40:56Z",
+      "side": 1,
+      "message": "nit: I think assertTrue/False are probably clearer for these cases.",
+      "range": {
+        "startLine": 107,
+        "startChar": 8,
+        "endLine": 107,
+        "endChar": 20
+      },
+      "revId": "177eea886348ee9a55312ae9edad944371d17683",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
