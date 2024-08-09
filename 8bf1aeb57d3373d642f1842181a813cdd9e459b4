@@ -70,6 +70,42 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c1dd168_5e727296",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-09T02:10:41Z",
+      "side": 1,
+      "message": "Ack, thanks for pointing that out. I\u0027ll check this in a follow up change.",
+      "parentUuid": "3639e729_22530c2d",
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "04183f17_908da4f3",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-09T02:10:41Z",
+      "side": 1,
+      "message": "I was thinking that as well. Let me follow up with another change for that. Thanks.",
+      "parentUuid": "d1983258_e9cdffea",
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "52fa510c_9ba1d7ca",
@@ -95,6 +131,47 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "87503c5b_477a2513",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-09T02:10:41Z",
+      "side": 1,
+      "message": "Done, I simply added the table.",
+      "parentUuid": "52fa510c_9ba1d7ca",
+      "range": {
+        "startLine": 64,
+        "startChar": 50,
+        "endLine": 64,
+        "endChar": 55
+      },
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7aea520b_9c7cd0fc",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-09T02:10:41Z",
+      "side": 1,
+      "message": "@prb@google.com I know I promised constants in the previous change, but this seems more appropriate to use the number explicitly here.",
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0875d15f_2b4b3e1c",
         "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
         "patchSetId": 1
@@ -106,6 +183,24 @@
       "writtenOn": "2024-08-08T09:31:07Z",
       "side": 1,
       "message": "Just confirming my understanding, the SCT won\u0027t be in the valid list unless it\u0027s signed by a recognised log?",
+      "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f1a436f_fa53a0a6",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-09T02:10:41Z",
+      "side": 1,
+      "message": "That\u0027s correct.",
+      "parentUuid": "0875d15f_2b4b3e1c",
       "revId": "8bf1aeb57d3373d642f1842181a813cdd9e459b4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
