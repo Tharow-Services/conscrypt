@@ -16,6 +16,24 @@
       "message": "I\u0027m a bit confused here, commit 97c71dbbaa updates .clang-format but generate_android_src.sh explicitly uses",
       "revId": "23669b473fff8f7c81c456de58ccb1f3be76d36d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c4897314_f977675a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-11T23:43:08Z",
+      "side": 1,
+      "message": "Sorry for that. The update to .clang-format did not trigger generate_android_src.sh. I only noticed that regeneration was required when working on the next change. This is a bit noisy as all the repackaged/* files are always considered fully formatted; while the other files (common/* etc) can be gradually migrated. I hope that makes sense.",
+      "parentUuid": "044f8ad7_e921fbd5",
+      "revId": "23669b473fff8f7c81c456de58ccb1f3be76d36d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
