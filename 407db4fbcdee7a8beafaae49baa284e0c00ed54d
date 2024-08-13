@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8421d93f_b45086be",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-13T16:12:08Z",
+      "side": 1,
+      "message": "The single state+timestamp thing in the schema complicates this I think.  It\u0027s OK here because getState() with no time parameter can\u0027t ever return STATE_UNKNOWN unless the loglist is malformed, but it\u0027s not immediately obvious.\n\nMaybe factor out the switch below in conformEmbeddedSCTs into a common method for symmetry/clarity?  It\u0027s a little bit of extra overhead on this branch but not much.\n\nAlso, maybe that method can go on LogInfo? Or do we ever envision policies that would consider a different set of states to be valid?",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 69
+      },
+      "revId": "407db4fbcdee7a8beafaae49baa284e0c00ed54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "315bd711_17169f18",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-13T16:12:08Z",
+      "side": 1,
+      "message": "Might make sense to factor this out too, e.g.\n```\nif (log.isValidAt(atTime) || log.isRetiredAt(atTime)\n```\n\nDunno, maybe I\u0027m overthinking it.... WDYT?",
+      "range": {
+        "startLine": 123,
+        "startChar": 42,
+        "endLine": 123,
+        "endChar": 43
+      },
+      "revId": "407db4fbcdee7a8beafaae49baa284e0c00ed54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7681144f_e8292248",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-13T16:12:08Z",
+      "side": 1,
+      "message": "You\u0027ll need a lint exception here...",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 23
+      },
+      "revId": "407db4fbcdee7a8beafaae49baa284e0c00ed54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
