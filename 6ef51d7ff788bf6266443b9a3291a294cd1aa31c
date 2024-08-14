@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b6cbe19_f59ab90b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-14T07:02:24Z",
+      "side": 1,
+      "message": "With the annotation, the tests should be excluded when using the CTS runner. They should still be executed as part of the presubmit (via TEST_MAPPING).",
+      "revId": "6ef51d7ff788bf6266443b9a3291a294cd1aa31c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
