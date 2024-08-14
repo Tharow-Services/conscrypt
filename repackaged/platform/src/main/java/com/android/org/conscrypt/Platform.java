@@ -472,10 +472,10 @@ final class Platform {
     }
 
     static boolean isCTVerificationRequired(String hostname) {
-        if (Flags.certificateTransparencyPlatform()) {
-            return NetworkSecurityPolicy.getInstance()
-                    .isCertificateTransparencyVerificationRequired(hostname);
-        }
+        // if (Flags.certificateTransparencyPlatform()) {
+        //     return NetworkSecurityPolicy.getInstance()
+        //             .isCertificateTransparencyVerificationRequired(hostname);
+        // }
         return false;
     }
 
