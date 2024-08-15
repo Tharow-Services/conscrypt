@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3a5b855e_8589f3b0",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-15T06:55:02Z",
+      "side": 1,
+      "message": "Good catch, I did not think about that unknown state. I reworked this method a bit and added a `filterOutUnkown` to make sure there is no unknown LogInfo from there onwards. \n\nWith the policy implementation, I am trying to be over-pedantic and follow the text policy very closely. Ideally, anyone reviewing the code could match it with paragraphs within the policy (https://googlechrome.github.io/CertificateTransparency/ct_policy.html). That\u0027s why I added the comments with excerpts from the policy for each block. In there, there is actually no explicit notion of \"valid\", just the exact enumeration of the states. I\u0027d prefer to avoid factoring out the code and keep the exact states when mentioned. (There could easily be an exception to this approach if there was an impactful optimization; but I don\u0027t think that\u0027s the case here).\n\nAbout moving the code to LogInfo, again the check is in the text policy, so I would prefer to keep it here. \n\nLet me know if that makes sense. Thanks",
+      "parentUuid": "8421d93f_b45086be",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 69
+      },
+      "revId": "407db4fbcdee7a8beafaae49baa284e0c00ed54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "315bd711_17169f18",
         "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
         "patchSetId": 2
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c66c6df3_3cc8ddc3",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-15T06:55:02Z",
+      "side": 1,
+      "message": "(see above)",
+      "parentUuid": "315bd711_17169f18",
+      "range": {
+        "startLine": 123,
+        "startChar": 42,
+        "endLine": 123,
+        "endChar": 43
+      },
+      "revId": "407db4fbcdee7a8beafaae49baa284e0c00ed54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7681144f_e8292248",
         "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/ct/LogStoreImpl.java",
         "patchSetId": 2
@@ -60,6 +108,30 @@
       "writtenOn": "2024-08-13T16:12:08Z",
       "side": 1,
       "message": "You\u0027ll need a lint exception here...",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 23
+      },
+      "revId": "407db4fbcdee7a8beafaae49baa284e0c00ed54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "41a0527f_0bd6bb49",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-15T06:55:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7681144f_e8292248",
       "range": {
         "startLine": 202,
         "startChar": 0,
