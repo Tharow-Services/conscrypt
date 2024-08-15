@@ -17,6 +17,7 @@
 package com.android.org.conscrypt.metrics;
 
 import com.android.org.conscrypt.Internal;
+import com.android.org.conscrypt.metrics.GeneratedStatsLog;
 
 /**
  * Reimplement with reflection calls the logging class,
@@ -41,9 +42,11 @@ public final class ConscryptStatsLog {
 
     public static void write(int atomId, boolean success, int protocol, int cipherSuite,
             int duration, Source source, int[] uids) {
-        ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
-                atomId, success, protocol, cipherSuite, duration, source.ordinal(), uids);
-
-        ReflexiveStatsLog.write(event);
+        int[] uidsArray = new int[uids.length];
+        for (int i = 0; i < uids.length; i++) {
+            uidsArray[i] = uids[i];
+        }
+        GeneratedStatsLog.write(atomId, success, protocol, cipherSuite,
+            duration, source.ordinal());
     }
 }
