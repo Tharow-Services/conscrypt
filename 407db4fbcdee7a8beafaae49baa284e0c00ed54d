@@ -48,6 +48,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "708d367f_3f80b6cf",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-16T14:23:43Z",
+      "side": 1,
+      "message": "LGTM\n\nCould also make it more efficient by keeping some constant Sets of LogInfo.State for the various critera, combining them with Set operations and having a one pass filter, but I don\u0027t want to turn this into a bikeshed 😄",
+      "parentUuid": "3a5b855e_8589f3b0",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 69
+      },
+      "revId": "407db4fbcdee7a8beafaae49baa284e0c00ed54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "315bd711_17169f18",
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "(see above)",
       "parentUuid": "315bd711_17169f18",
+      "range": {
+        "startLine": 123,
+        "startChar": 42,
+        "endLine": 123,
+        "endChar": 43
+      },
+      "revId": "407db4fbcdee7a8beafaae49baa284e0c00ed54d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ce3509ee_5110293c",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-16T14:23:43Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "c66c6df3_3cc8ddc3",
       "range": {
         "startLine": 123,
         "startChar": 42,
