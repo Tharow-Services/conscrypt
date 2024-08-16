@@ -257,6 +257,7 @@ filegroup {
 java_library {
     name: "conscrypt",
     visibility: [
+        "//art/tools/fuzzer",
         "//device:__subpackages__",
         ":__subpackages__",
     ],
