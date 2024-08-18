@@ -18,6 +18,7 @@
 package com.android.org.conscrypt.ct;
 
 import com.android.org.conscrypt.Internal;
+
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -165,14 +166,7 @@ public class LogInfo {
 
     @Override
     public int hashCode() {
-        int hash = 1;
-        hash = hash * 31 + Arrays.hashCode(logId);
-        hash = hash * 31 + description.hashCode();
-        hash = hash * 31 + url.hashCode();
-        hash = hash * 31 + state;
-        hash = hash * 31 + operator.hashCode();
-
-        return hash;
+        return Objects.hash(Arrays.hashCode(logId), description, url, state, operator);
     }
 
     /**

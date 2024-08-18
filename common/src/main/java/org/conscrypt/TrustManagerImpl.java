@@ -34,6 +34,12 @@
 
 package org.conscrypt;
 
+import org.conscrypt.ct.LogStore;
+import org.conscrypt.ct.Policy;
+import org.conscrypt.ct.PolicyCompliance;
+import org.conscrypt.ct.VerificationResult;
+import org.conscrypt.ct.Verifier;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
@@ -63,16 +69,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.X509ExtendedTrustManager;
-import org.conscrypt.ct.LogStore;
-import org.conscrypt.ct.Policy;
-import org.conscrypt.ct.VerificationResult;
-import org.conscrypt.ct.Verifier;
 
 /**
  *
@@ -212,7 +215,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         }
 
         if (ctPolicy == null) {
-            ctPolicy = Platform.newDefaultPolicy(ctLogStore);
+            ctPolicy = Platform.newDefaultPolicy();
         }
 
         this.pinManager = manager;
@@ -678,7 +681,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
             if (!clientAuth &&
                     (ctEnabledOverride || (host != null && Platform
                             .isCTVerificationRequired(host)))) {
-                checkCT(host, wholeChain, ocspData, tlsSctData);
+                checkCT(wholeChain, ocspData, tlsSctData);
             }
 
             if (untrustedChain.isEmpty()) {
@@ -724,15 +727,17 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         }
     }
 
-    private void checkCT(String host, List<X509Certificate> chain, byte[] ocspData, byte[] tlsData)
+    private void checkCT(List<X509Certificate> chain, byte[] ocspData, byte[] tlsData)
             throws CertificateException {
         VerificationResult result =
                 ctVerifier.verifySignedCertificateTimestamps(chain, tlsData, ocspData);
 
-        if (!ctPolicy.doesResultConformToPolicy(result, host,
-                    chain.toArray(new X509Certificate[chain.size()]))) {
+        X509Certificate leaf = chain.get(0);
+        PolicyCompliance compliance = ctPolicy.doesResultConformToPolicy(result, leaf);
+        if (compliance != PolicyCompliance.COMPLY) {
             throw new CertificateException(
-                    "Certificate chain does not conform to required transparency policy.");
+                    "Certificate chain does not conform to required transparency policy: "
+                    + compliance.name());
         }
     }
 
