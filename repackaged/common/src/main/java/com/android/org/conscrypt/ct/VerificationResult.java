@@ -23,15 +23,21 @@ import java.util.List;
 import com.android.org.conscrypt.Internal;
 
 /**
+ * Container for verified SignedCertificateTimestamp.
+ *
+ * getValidSCTs returns SCTs which were found to match a known log and for
+ * which the signature has been verified. There is no guarantee on the state of
+ * the log (e.g., getLogInfo.getState() may return STATE_UNKNOWN). Further
+ * verification on the compliance with the policy is performed in PolicyImpl.
  * @hide This class is not part of the Android public SDK API
  */
 @Internal
-public class CTVerificationResult {
+public class VerificationResult {
     private final ArrayList<VerifiedSCT> validSCTs = new ArrayList<VerifiedSCT>();
     private final ArrayList<VerifiedSCT> invalidSCTs = new ArrayList<VerifiedSCT>();
 
     public void add(VerifiedSCT result) {
-        if (result.status == VerifiedSCT.Status.VALID) {
+        if (result.isValid()) {
             validSCTs.add(result);
         } else {
             invalidSCTs.add(result);
@@ -46,4 +52,3 @@ public class CTVerificationResult {
         return Collections.unmodifiableList(invalidSCTs);
     }
 }
-

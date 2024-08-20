@@ -1,4 +1,3 @@
-/* GENERATED SOURCE. DO NOT MODIFY. */
 /*
  * Copyright (C) 2015 The Android Open Source Project
  *
@@ -15,14 +14,18 @@
  * limitations under the License.
  */
 
-package com.android.org.conscrypt.ct;
+package org.conscrypt.ct;
 
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import com.android.org.conscrypt.ByteArray;
-import com.android.org.conscrypt.Internal;
-import com.android.org.conscrypt.OpenSSLKey;
+import org.conscrypt.ByteArray;
+import org.conscrypt.Internal;
+import org.conscrypt.OpenSSLKey;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,22 +35,21 @@ import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-/**
- * @hide This class is not part of the Android public SDK API
- */
 @Internal
-public class CTLogStoreImpl implements CTLogStore {
-    private static final Logger logger = Logger.getLogger(CTLogStoreImpl.class.getName());
+public class LogStoreImpl implements LogStore {
+    private static final Logger logger = Logger.getLogger(LogStoreImpl.class.getName());
     public static final String V3_PATH = "/misc/keychain/ct/v3/log_list.json";
     private static final Path defaultLogList;
 
@@ -66,19 +68,19 @@ public class CTLogStoreImpl implements CTLogStore {
     private final Path logList;
     private State state;
     private String version;
-    private Map<ByteArray, CTLogInfo> logs;
+    private Map<ByteArray, LogInfo> logs;
 
-    public CTLogStoreImpl() {
+    public LogStoreImpl() {
         this(defaultLogList);
     }
 
-    public CTLogStoreImpl(Path logList) {
+    public LogStoreImpl(Path logList) {
         this.state = State.UNINITIALIZED;
         this.logList = logList;
     }
 
     @Override
-    public CTLogInfo getKnownLog(byte[] logId) {
+    public LogInfo getKnownLog(byte[] logId) {
         if (logId == null) {
             return null;
         }
@@ -86,7 +88,7 @@ public class CTLogStoreImpl implements CTLogStore {
             return null;
         }
         ByteArray buf = new ByteArray(logId);
-        CTLogInfo log = logs.get(buf);
+        LogInfo log = logs.get(buf);
         if (log != null) {
             return log;
         }
@@ -122,7 +124,7 @@ public class CTLogStoreImpl implements CTLogStore {
             logger.log(Level.WARNING, "Unable to parse log list", e);
             return State.MALFORMED;
         }
-        HashMap<ByteArray, CTLogInfo> logsMap = new HashMap<>();
+        HashMap<ByteArray, LogInfo> logsMap = new HashMap<>();
         try {
             version = json.getString("version");
             JSONArray operators = json.getJSONArray("operators");
@@ -132,13 +134,30 @@ public class CTLogStoreImpl implements CTLogStore {
                 JSONArray logs = operator.getJSONArray("logs");
                 for (int j = 0; j < logs.length(); j++) {
                     JSONObject log = logs.getJSONObject(j);
-                    String description = log.getString("description");
+
+                    LogInfo.Builder builder =
+                            new LogInfo.Builder()
+                                    .setDescription(log.getString("description"))
+                                    .setPublicKey(parsePubKey(log.getString("key")))
+                                    .setUrl(log.getString("url"))
+                                    .setOperator(operatorName);
+
+                    JSONObject stateObject = log.optJSONObject("state");
+                    if (stateObject != null) {
+                        String state = stateObject.keys().next();
+                        String stateTimestamp =
+                                stateObject.getJSONObject(state).getString("timestamp");
+                        builder.setState(parseState(state), parseStateTimestamp(stateTimestamp));
+                    }
+
+                    LogInfo logInfo = builder.build();
                     byte[] logId = Base64.getDecoder().decode(log.getString("log_id"));
-                    PublicKey key = parsePubKey(log.getString("key"));
-                    JSONObject stateObject = log.getJSONObject("state");
-                    int logState = parseState(stateObject.keys().next());
-                    String url = log.getString("url");
-                    CTLogInfo logInfo = new CTLogInfo(key, logState, description, url);
+
+                    // The logId computed using the public key should match the log_id field.
+                    if (!Arrays.equals(logInfo.getID(), logId)) {
+                        throw new IllegalArgumentException("logId does not match publicKey");
+                    }
+
                     logsMap.put(new ByteArray(logId), logInfo);
                 }
             }
@@ -153,19 +172,32 @@ public class CTLogStoreImpl implements CTLogStore {
     private static int parseState(String state) {
         switch (state) {
             case "pending":
-                return CTLogInfo.STATE_PENDING;
+                return LogInfo.STATE_PENDING;
             case "qualified":
-                return CTLogInfo.STATE_QUALIFIED;
+                return LogInfo.STATE_QUALIFIED;
             case "usable":
-                return CTLogInfo.STATE_USABLE;
+                return LogInfo.STATE_USABLE;
             case "readonly":
-                return CTLogInfo.STATE_READONLY;
+                return LogInfo.STATE_READONLY;
             case "retired":
-                return CTLogInfo.STATE_RETIRED;
+                return LogInfo.STATE_RETIRED;
             case "rejected":
-                return CTLogInfo.STATE_REJECTED;
+                return LogInfo.STATE_REJECTED;
             default:
                 throw new IllegalArgumentException("Unknown log state: " + state);
+        }
+    }
+
+    // ISO 8601
+    private static DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
+
+    @SuppressWarnings("JavaUtilDate")
+    private static long parseStateTimestamp(String timestamp) {
+        try {
+            Date date = dateFormatter.parse(timestamp);
+            return date.getTime();
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e);
         }
     }
 

@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,14 +17,14 @@
 
 package com.android.org.conscrypt.ct;
 
-import java.security.cert.X509Certificate;
 import com.android.org.conscrypt.Internal;
 
 /**
  * @hide This class is not part of the Android public SDK API
  */
 @Internal
-public interface CTPolicy {
-    boolean doesResultConformToPolicy(CTVerificationResult result, String hostname,
-            X509Certificate[] chain);
+public enum PolicyCompliance {
+    COMPLY,
+    NOT_ENOUGH_SCTS,
+    NOT_ENOUGH_DIVERSE_SCTS
 }

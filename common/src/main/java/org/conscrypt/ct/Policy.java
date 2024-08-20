@@ -20,7 +20,6 @@ import java.security.cert.X509Certificate;
 import org.conscrypt.Internal;
 
 @Internal
-public interface CTPolicy {
-    boolean doesResultConformToPolicy(CTVerificationResult result, String hostname,
-            X509Certificate[] chain);
+public interface Policy {
+    PolicyCompliance doesResultConformToPolicy(VerificationResult result, X509Certificate leaf);
 }
