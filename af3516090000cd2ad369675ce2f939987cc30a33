@@ -22,6 +22,30 @@
       },
       "revId": "af3516090000cd2ad369675ce2f939987cc30a33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "42eea7be_aed0145b",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-20T15:27:52Z",
+      "side": 1,
+      "message": "Oh good point... We have a similar issue with root CA start dates, but it\u0027s less pronounced as they tend to live for longer.\n\nWould a well formed log list ever have status change dates in the future? I\u0027m guessing no, so we should be able to at least _detect_ the \"clock is set in the past\" issue.",
+      "parentUuid": "0e56ff2a_9d752803",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "af3516090000cd2ad369675ce2f939987cc30a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
