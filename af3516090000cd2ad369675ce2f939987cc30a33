@@ -1,5 +1,29 @@
 {
-  "comments": [],
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0e56ff2a_9d752803",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2016367
+      },
+      "writtenOn": "2024-08-20T14:51:57Z",
+      "side": 1,
+      "message": "The CT verification result could fail as PolicyCompliance.NOT_ENOUGH_SCTS and block the network traffic when the system clock sets to the past date and time.",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "af3516090000cd2ad369675ce2f939987cc30a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ],
   "submitRequirementResults": [
     {
       "submitRequirement": {
