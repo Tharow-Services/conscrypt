@@ -48,6 +48,8 @@ import javax.crypto.ShortBufferException;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
 import javax.crypto.spec.SecretKeySpec;
+import com.android.org.conscrypt.metrics.MetricsCipher;
+import com.android.org.conscrypt.metrics.ConscryptStatsLog;
 
 /**
  * @hide This class is not part of the Android public SDK API
@@ -635,6 +637,8 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         public static final class SHA256 extends OAEP {
             public SHA256() {
                 super(EvpMdRef.SHA256.EVP_MD, EvpMdRef.SHA256.SIZE_BYTES);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                    MetricsCipher.SHA256.getId(), 1);
             }
         }
 
@@ -644,6 +648,8 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         public static final class SHA384 extends OAEP {
             public SHA384() {
                 super(EvpMdRef.SHA384.EVP_MD, EvpMdRef.SHA384.SIZE_BYTES);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                    MetricsCipher.SHA384.getId(), 1);
             }
         }
 
@@ -653,6 +659,8 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         public static final class SHA512 extends OAEP {
             public SHA512() {
                 super(EvpMdRef.SHA512.EVP_MD, EvpMdRef.SHA512.SIZE_BYTES);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                    MetricsCipher.SHA512.getId(), 1);
             }
         }
     }
