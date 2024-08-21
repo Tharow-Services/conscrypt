@@ -16,13 +16,10 @@
  */
 package com.android.org.conscrypt.metrics;
 
-import com.android.org.conscrypt.Internal;
-
 /**
  * Reflection wrapper around android.util.StatsEvent.
  * @hide This class is not part of the Android public SDK API
  */
-@Internal
 public class ReflexiveStatsEvent {
     private static final OptionalMethod newBuilder;
     private static final Class<?> c_statsEvent;
