@@ -118,6 +118,30 @@
       },
       "revId": "af3516090000cd2ad369675ce2f939987cc30a33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2b01b11_deec3234",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2016367
+      },
+      "writtenOn": "2024-08-21T15:28:23Z",
+      "side": 1,
+      "message": "Apologies that I was wrong. Log state change timestamps can be in the future (e.g. \"this log is retired as of 2 weeks from now\"). The global list \"last updated\" timestamp is always now() or earlier.",
+      "parentUuid": "f5d3e150_2bf82ee7",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "af3516090000cd2ad369675ce2f939987cc30a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
