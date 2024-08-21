@@ -16,7 +16,6 @@
  */
 package com.android.org.conscrypt.metrics;
 
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
