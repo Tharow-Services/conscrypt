@@ -94,6 +94,30 @@
       },
       "revId": "af3516090000cd2ad369675ce2f939987cc30a33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5d3e150_2bf82ee7",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-08-21T11:03:41Z",
+      "side": 1,
+      "message": "Ack. Would that be covered by the fail-open if the log list is older than 70 days or if the list is considered in the future? I whipped up aosp/3235603. PTAL.",
+      "parentUuid": "a454e255_9572e2eb",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "af3516090000cd2ad369675ce2f939987cc30a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
