@@ -1,6 +1,6 @@
 /* GENERATED SOURCE. DO NOT MODIFY. */
 /*
- * Copyright (C) 2022 The Android Open Source Project
+ * Copyright (C) 2020 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,15 +16,16 @@
  */
 package com.android.org.conscrypt.metrics;
 
-/**
- * Data Sources to metric mapping for metrics instrumentation.
- *
- * Must be in sync with frameworks/base/cmds/statsd/src/atoms.proto
- * @hide This class is not part of the Android public SDK API
- */
-public enum Source {
-    SOURCE_UNKNOWN,
-    SOURCE_MAINLINE,
-    SOURCE_GMS,
-    SOURCE_UNBUNDLED;
+import com.android.org.conscrypt.metrics.GeneratedStatsLog;
+
+public final class ConscryptStatsLog {
+    public static final int TLS_HANDSHAKE_REPORTED = 317;
+
+    private ConscryptStatsLog() {}
+
+    public static void write(int atomId, boolean success, int protocol, int cipherSuite,
+            int duration, Source source, int[] uids) {
+        GeneratedStatsLog.write(atomId, success, protocol, cipherSuite,
+            duration, source.ordinal(), uids);
+    }
 }
