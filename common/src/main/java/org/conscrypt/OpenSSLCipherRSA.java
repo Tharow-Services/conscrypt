@@ -47,6 +47,8 @@ import javax.crypto.ShortBufferException;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
 import javax.crypto.spec.SecretKeySpec;
+import com.android.org.conscrypt.metrics.Cipher;
+import com.android.org.conscrypt.metrics.ConscryptStatsLog;
 
 @Internal
 public abstract class OpenSSLCipherRSA extends CipherSpi {
