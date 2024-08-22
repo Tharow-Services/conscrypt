@@ -244,7 +244,58 @@ filegroup {
         "repackaged/platform/src/main/java/**/*.java",
         ":conscrypt_generated_constants",
     ],
+    exclude_srcs: ["repackaged/common/src/main/java/com/android/org/conscrypt/metrics/*.java",
+    "repackaged/common/src/main/java/com/android/org/conscrypt/metrics33/*.java"],
 }
+
+java_library{
+    name: "conscrypt_metrics_under_33",
+    srcs: ["repackaged/common/src/main/java/com/android/org/conscrypt/metrics/*.java"],
+    apex_available: [
+        "com.android.conscrypt",
+        "test_com.android.conscrypt",
+    ],
+    min_sdk_version: "30",
+    max_sdk_version: "32",
+
+    visibility: [
+        "//external/conscrypt:__subpackages__",
+    ],
+}
+
+java_library{
+    name: "conscrypt_metrics_33_and_over",
+    srcs: ["repackaged/common/src/main/java/com/android/org/conscrypt/metrics33/*.java"],
+    apex_available: [
+        "com.android.conscrypt",
+        "test_com.android.conscrypt",
+    ],
+    min_sdk_version: "33",
+
+    libs: ["conscrypt-statslog-java"],
+
+    visibility: [
+        "//external/conscrypt:__subpackages__",
+    ],
+}
+
+// java_library{
+//     name: "conscrypt_metrics",
+//     apex_available: [
+//         "com.android.conscrypt",
+//         "test_com.android.conscrypt",
+//     ],
+//     min_sdk_version: "30",
+
+//     libs: [
+//         "conscrypt_metrics_under_33",
+//         // "conscrypt_metrics_33_and_over",
+//     ],
+
+//     visibility: [
+//         "//external/conscrypt:__subpackages__",
+//     ],
+// }
 
 filegroup {
     name: "conscrypt_public_api_files",
@@ -277,10 +328,17 @@ java_library {
         ":conscrypt_public_api_files",
     ],
 
-    libs: ["unsupportedappusage"],
+    libs: ["unsupportedappusage",
+        "conscrypt_metrics_under_33",
+        "conscrypt_metrics_33_and_over"],
+
     static_libs: [
         "conscrypt-aconfig-flags-lib",
     ],
+
+    //optional_uses_libs: [
+    //    "conscrypt_metrics_under_33",
+    //],
 
     // Conscrypt can be updated independently from the other core libraries so it must only depend
     // on public SDK and intra-core APIs.
@@ -695,6 +753,8 @@ java_test {
     system_modules: "art-module-intra-core-api-stubs-system-modules",
     libs: [
         "conscrypt",
+        "conscrypt_metrics_under_33",
+        "conscrypt_metrics_33_and_over",
         "core-test-rules",
         "junit",
         "mockito-target-minus-junit4",
@@ -818,4 +878,28 @@ module_exports {
             ],
         },
     },
+}
+
+
+java_library {
+    name: "conscrypt-statslog-java",
+    srcs: [
+        ":conscrypt-statslog-java-gen",
+    ],
+    libs: [
+        "framework-statsd.stubs.module_lib",
+        "androidx.annotation_annotation",
+    ],
+    sdk_version: "system_server_current",
+    min_sdk_version: "30",
+    apex_available: [
+        "com.android.conscrypt",
+    ],
+}
+
+genrule {
+    name: "conscrypt-statslog-java-gen",
+    tools: ["stats-log-api-gen"],
+    cmd: "$(location stats-log-api-gen) --java $(out) --module conscrypt --javaPackage com.android.org.conscrypt.metrics --javaClass GeneratedStatsLog",
+    out: ["repackaged/common/src/main/java/com/android/org/conscrypt/metrics33/GeneratedStatsLog.java"],
 }
