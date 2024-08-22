@@ -16,15 +16,12 @@
  */
 package com.android.org.conscrypt.metrics;
 
-import com.android.org.conscrypt.Internal;
-
 /**
  * Data Sources to metric mapping for metrics instrumentation.
  *
  * Must be in sync with frameworks/base/cmds/statsd/src/atoms.proto
  * @hide This class is not part of the Android public SDK API
  */
-@Internal
 public enum Source {
     SOURCE_UNKNOWN,
     SOURCE_MAINLINE,
