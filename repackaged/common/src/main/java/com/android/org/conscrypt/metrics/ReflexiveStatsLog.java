@@ -16,8 +16,6 @@
  */
 package com.android.org.conscrypt.metrics;
 
-import com.android.org.conscrypt.Internal;
-
 /**
  * Reflection wrapper around android.util.StatsLog.
  * @hide This class is not part of the Android public SDK API
