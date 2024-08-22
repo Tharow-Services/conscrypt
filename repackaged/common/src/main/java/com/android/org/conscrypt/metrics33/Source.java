@@ -22,7 +22,6 @@ package com.android.org.conscrypt.metrics;
  * Must be in sync with frameworks/base/cmds/statsd/src/atoms.proto
  * @hide This class is not part of the Android public SDK API
  */
-@Internal
 public enum Source {
     SOURCE_UNKNOWN,
     SOURCE_MAINLINE,

@@ -25,7 +25,6 @@ package com.android.org.conscrypt.metrics;
  * @see https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml#tls-parameters-4
  * @hide This class is not part of the Android public SDK API
  */
-@Internal
 public enum CipherSuite {
     UNKNOWN_CIPHER_SUITE(0x0000),
 
