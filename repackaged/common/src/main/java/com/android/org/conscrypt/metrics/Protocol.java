@@ -16,8 +16,6 @@
  */
 package com.android.org.conscrypt.metrics;
 
-import com.android.org.conscrypt.Internal;
-
 /**
  * Protocols to metric mapping for metrics instrumentation.
  *
