@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "90800ff5_17198395",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-27T16:29:33Z",
+      "side": 1,
+      "message": "Nice!",
+      "revId": "e200600f35b8e4d1fa669cba35737f1c2f9323a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2a7c5a48_0b3d6534",
@@ -14,6 +31,24 @@
       "writtenOn": "2024-08-21T11:05:08Z",
       "side": 1,
       "message": "This might be over-engineered, but I wanted to keep the \"testing for 70 days\" in the policy as it is part of https://googlechrome.github.io/CertificateTransparency/ct_policy.html\n\nWDYT?",
+      "revId": "e200600f35b8e4d1fa669cba35737f1c2f9323a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f84a3e37_d8b05b1a",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-27T16:29:33Z",
+      "side": 1,
+      "message": "SGTM",
+      "parentUuid": "2a7c5a48_0b3d6534",
       "revId": "e200600f35b8e4d1fa669cba35737f1c2f9323a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
