@@ -16,6 +16,24 @@
       "message": "This is a temporary solution. I will create a new module for internal API tests.",
       "revId": "84cdc2f9984d0b3bb81f81621ca9e7cf39430390",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dcb6f169_94053756",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 688,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-08-27T16:31:16Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "9a97378f_113f70c0",
+      "revId": "84cdc2f9984d0b3bb81f81621ca9e7cf39430390",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
