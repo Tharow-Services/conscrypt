@@ -20,6 +20,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import javax.crypto.NoSuchPaddingException;
+import org.conscrypt.metrics.MetricsCipher;
+import org.conscrypt.metrics.ConscryptStatsLog;
 
 @Internal
 public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
@@ -81,12 +83,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES.CBC {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_CBC_NOPADDING.getId(), 1);
                 }
             }
 
             public static class PKCS5Padding extends AES.CBC {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_CBC_PKCS5PADDING.getId(), 1);
                 }
             }
         }
@@ -94,6 +100,8 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
         public static class CTR extends AES {
             public CTR() {
                 super(Mode.CTR, Padding.NOPADDING);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                    MetricsCipher.AES_CTR_NOPADDING.getId(), 1);
             }
         }
 
@@ -105,12 +113,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES.ECB {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_ECB_NOPADDING.getId(), 1);
                 }
             }
 
             public static class PKCS5Padding extends AES.ECB {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_ECB_PKCS5PADDING.getId(), 1);
                 }
             }
         }
@@ -142,12 +154,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES_128.CBC {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_128_CBC_NOPADDING.getId(), 1);
                 }
             }
 
             public static class PKCS5Padding extends AES_128.CBC {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_128_CBC_PKCS5PADDING.getId(), 1);
                 }
             }
         }
@@ -155,6 +171,8 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
         public static class CTR extends AES_128 {
             public CTR() {
                 super(Mode.CTR, Padding.NOPADDING);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                    MetricsCipher.AES_128_CTR_NOPADDING.getId(), 1);
             }
         }
 
@@ -166,12 +184,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES_128.ECB {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_128_ECB_NOPADDING.getId(), 1);
                 }
             }
 
             public static class PKCS5Padding extends AES_128.ECB {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_128_ECB_PKCS5PADDING.getId(), 1);
                 }
             }
         }
@@ -197,12 +219,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES_256.CBC {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_256_CBC_NOPADDING.getId(), 1);
                 }
             }
 
             public static class PKCS5Padding extends AES_256.CBC {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_256_CBC_PKCS5PADDING.getId(), 1);
                 }
             }
         }
@@ -210,6 +236,8 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
         public static class CTR extends AES_256 {
             public CTR() {
                 super(Mode.CTR, Padding.NOPADDING);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                    MetricsCipher.AES_256_CTR_NOPADDING.getId(), 1);
             }
         }
 
@@ -221,12 +249,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES_256.ECB {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_256_ECB_NOPADDING.getId(), 1);
                 }
             }
 
             public static class PKCS5Padding extends AES_256.ECB {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.AES_256_ECB_PKCS5PADDING.getId(), 1);
                 }
             }
         }
