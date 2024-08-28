@@ -142,6 +142,30 @@
       },
       "revId": "af3516090000cd2ad369675ce2f939987cc30a33",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79526efd_4c446255",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2016367
+      },
+      "writtenOn": "2024-08-28T15:27:43Z",
+      "side": 1,
+      "message": "LGTM, thanks!",
+      "parentUuid": "b2b01b11_deec3234",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 36,
+        "endChar": 62
+      },
+      "revId": "af3516090000cd2ad369675ce2f939987cc30a33",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
