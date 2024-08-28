@@ -20,6 +20,8 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import javax.crypto.NoSuchPaddingException;
+import org.conscrypt.metrics.MetricsCipher;
+import org.conscrypt.metrics.ConscryptStatsLog;
 
 @Internal
 public abstract class OpenSSLEvpCipherDESEDE extends OpenSSLEvpCipher {
@@ -37,12 +39,16 @@ public abstract class OpenSSLEvpCipherDESEDE extends OpenSSLEvpCipher {
         public static class NoPadding extends CBC {
             public NoPadding() {
                 super(Padding.NOPADDING);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                    MetricsCipher.DESEDE_CBC_NOPADDING.getId(), 1);
             }
         }
 
         public static class PKCS5Padding extends CBC {
             public PKCS5Padding() {
                 super(Padding.PKCS5PADDING);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                    MetricsCipher.DESEDE_CBC_PKCS5PADDING.getId(), 1);
             }
         }
     }
