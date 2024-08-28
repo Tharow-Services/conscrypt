@@ -17,9 +17,13 @@
 
 package com.android.org.conscrypt;
 
+import com.android.org.conscrypt.metrics.ConscryptStatsLog;
+import com.android.org.conscrypt.metrics.MetricsCipher;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
+
 import javax.crypto.NoSuchPaddingException;
 
 /**
@@ -47,6 +51,8 @@ public abstract class OpenSSLEvpCipherDESEDE extends OpenSSLEvpCipher {
         public static class NoPadding extends CBC {
             public NoPadding() {
                 super(Padding.NOPADDING);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.DESEDE_CBC_NOPADDING.getId(), 1);
             }
         }
 
@@ -56,6 +62,8 @@ public abstract class OpenSSLEvpCipherDESEDE extends OpenSSLEvpCipher {
         public static class PKCS5Padding extends CBC {
             public PKCS5Padding() {
                 super(Padding.PKCS5PADDING);
+                ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+                        MetricsCipher.DESEDE_CBC_PKCS5PADDING.getId(), 1);
             }
         }
     }

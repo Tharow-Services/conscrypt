@@ -44,4 +44,11 @@ public final class ConscryptStatsLog {
 
         ReflexiveStatsLog.write(event);
     }
+
+    public static void write(int atomId, int cipherId, int uses) {
+        ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
+            atomId, cipherId, uses);
+
+        ReflexiveStatsLog.write(event);
+    }
 }
