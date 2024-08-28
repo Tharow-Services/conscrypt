@@ -17,8 +17,12 @@
 
 package com.android.org.conscrypt;
 
+import com.android.org.conscrypt.metrics.ConscryptStatsLog;
+import com.android.org.conscrypt.metrics.MetricsCipher;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+
 import javax.crypto.NoSuchPaddingException;
 
 /**
@@ -29,6 +33,8 @@ public class OpenSSLEvpCipherARC4 extends OpenSSLEvpCipher {
     public OpenSSLEvpCipherARC4() {
         // Modes and padding don't make sense for ARC4.
         super(Mode.ECB, Padding.NOPADDING);
+        ConscryptStatsLog.write(
+                ConscryptStatsLog.CONSCRYPT_CIPHER_USED, MetricsCipher.ARC4.getId(), 1);
     }
 
     @Override
