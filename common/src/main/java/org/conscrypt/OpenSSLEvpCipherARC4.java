@@ -19,12 +19,16 @@ package org.conscrypt;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.NoSuchPaddingException;
+import org.conscrypt.metrics.MetricsCipher;
+import org.conscrypt.metrics.ConscryptStatsLog;
 
 @Internal
 public class OpenSSLEvpCipherARC4 extends OpenSSLEvpCipher {
     public OpenSSLEvpCipherARC4() {
         // Modes and padding don't make sense for ARC4.
         super(Mode.ECB, Padding.NOPADDING);
+        ConscryptStatsLog.write(ConscryptStatsLog.CONSCRYPT_CIPHER_USED,
+            MetricsCipher.ARC4.getId(), 1);
     }
 
     @Override
