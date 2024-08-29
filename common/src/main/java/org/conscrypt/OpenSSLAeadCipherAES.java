@@ -22,6 +22,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidParameterSpecException;
+import org.conscrypt.metrics.MetricsCipher;
 
 @Internal
 public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
@@ -132,7 +133,10 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
         }
 
         public static class AES_128 extends GCM {
-            public AES_128() {}
+            public AES_128() {
+                Platform.countCipherUsage(
+                    MetricsCipher.GCM_AES_128.getId(), 1);
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -144,7 +148,10 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
         }
 
         public static class AES_256 extends GCM {
-            public AES_256() {}
+            public AES_256() {
+                Platform.countCipherUsage(
+                    MetricsCipher.GCM_AES_256.getId(), 1);
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -196,7 +203,10 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
         }
 
         public static class AES_128 extends GCM_SIV {
-            public AES_128() {}
+            public AES_128() {
+                Platform.countCipherUsage(
+                    MetricsCipher.GCM_SIV_AES_128.getId(), 1);
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -208,7 +218,10 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
         }
 
         public static class AES_256 extends GCM_SIV {
-            public AES_256() {}
+            public AES_256() {
+                Platform.countCipherUsage(
+                    MetricsCipher.GCM_SIV_AES_256.getId(), 1);
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
