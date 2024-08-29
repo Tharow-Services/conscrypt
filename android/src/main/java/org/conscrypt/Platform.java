@@ -65,6 +65,7 @@ import javax.net.ssl.X509TrustManager;
 import org.conscrypt.ct.LogStore;
 import org.conscrypt.ct.Policy;
 import org.conscrypt.metrics.CipherSuite;
+import org.conscrypt.metrics.CipherMetricsStatsLog;
 import org.conscrypt.metrics.ConscryptStatsLog;
 import org.conscrypt.metrics.Protocol;
 
@@ -73,6 +74,7 @@ import org.conscrypt.metrics.Protocol;
  */
 final class Platform {
     private static final String TAG = "Conscrypt";
+    private final CipherMetricsStatsLog cipherMetricsStatsLog = new CipherMetricsStatsLog();
 
     private static Method m_getCurveName;
     static {
@@ -959,6 +961,10 @@ final class Platform {
 
             writeStats(success, proto.getId(), suite.getId(), duration);
         }
+    }
+
+    static void countCipherUsage(int cipherId, int uses) {
+        cipherMetricsStatsLog.write(cipherId, uses);
     }
 
     @TargetApi(30)
