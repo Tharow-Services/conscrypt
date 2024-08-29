@@ -25,7 +25,6 @@ import java.lang.reflect.Method;
  * @hide This class is not part of the Android public SDK API
  * @hide This class is not part of the Android public SDK API
  */
-@Internal
 public final class OptionalMethod {
     private final Method cachedMethod;
 
