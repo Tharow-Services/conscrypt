@@ -17,6 +17,7 @@
 package com.android.org.conscrypt.metrics;
 
 import com.android.org.conscrypt.Internal;
+import java.util.HashMap;
 
 /**
  * Reimplement with reflection calls the logging class,
@@ -36,6 +37,10 @@ import com.android.org.conscrypt.Internal;
 @Internal
 public final class ConscryptStatsLog {
     public static final int TLS_HANDSHAKE_REPORTED = 317;
+    public static final int CONSCRYPT_CIPHER_USED = 500;
+
+    private Hashmap <MetricsCipher, Integer> cipherMap = new HashMap<>();
+    private int counter = 0;
 
     private ConscryptStatsLog() {}
 
@@ -45,5 +50,24 @@ public final class ConscryptStatsLog {
                 atomId, success, protocol, cipherSuite, duration, source.ordinal(), uids);
 
         ReflexiveStatsLog.write(event);
+    }
+
+    public void write(int atomId, int cipherId, int uses) {
+        counter++;
+        if (cipherMap.containsKey(cipherId)) {
+            cipherMap.put(cipherId, cipherMap.get(cipherId) + 1);
+        } else {
+            cipherMap.put(cipherId, 1);
+        }
+        if (counter % 20 == 0) {
+            writeCipherMap();
+            counter = 0;
+        }
+    }
+
+    private static void writeCipherMap() {
+        for (MetricsCipher cipher : cipherMap.keySet()) {
+            write(CONSCRYPT_CIPHER_USED, cipher.getId(), cipherMap.get(cipher));
+        }
     }
 }
