@@ -16,8 +16,6 @@
  */
 package com.android.org.conscrypt.metrics;
 
-import com.android.org.conscrypt.Internal;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
