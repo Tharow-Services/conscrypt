@@ -17,6 +17,8 @@
 
 package com.android.org.conscrypt;
 
+import com.android.org.conscrypt.metrics.MetricsCipher;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -27,6 +29,8 @@ import java.security.NoSuchAlgorithmException;
 public class OpenSSLAeadCipherChaCha20 extends OpenSSLAeadCipher {
     public OpenSSLAeadCipherChaCha20() {
         super(Mode.POLY1305);
+        Platform.countCipherUsage(
+                MetricsCipher.CHACHA20_POLY1305.getId(), 1);
     }
 
     @Override
