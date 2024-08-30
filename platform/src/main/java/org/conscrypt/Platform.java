@@ -68,6 +68,7 @@ import org.conscrypt.ct.LogStoreImpl;
 import org.conscrypt.ct.Policy;
 import org.conscrypt.ct.PolicyImpl;
 import org.conscrypt.metrics.CipherSuite;
+import org.conscrypt.metrics.CipherMetricsStatsLog;
 import org.conscrypt.metrics.ConscryptStatsLog;
 import org.conscrypt.metrics.OptionalMethod;
 import org.conscrypt.metrics.Protocol;
@@ -76,6 +77,7 @@ import sun.security.x509.AlgorithmId;
 final class Platform {
     private static class NoPreloadHolder { public static final Platform MAPPER = new Platform(); }
 
+    private static final CipherMetricsStatsLog cipherMetricsStatsLog = new CipherMetricsStatsLog();
     /**
      * Runs all the setup for the platform that only needs to run once.
      */
@@ -527,6 +529,10 @@ final class Platform {
      */
     static long getMillisSinceBoot() {
         return System.currentTimeMillis();
+    }
+
+    public static void countCipherUsage(int cipherId, int uses) {
+        cipherMetricsStatsLog.write(cipherId, uses);
     }
 
     static void countTlsHandshake(
