@@ -31,6 +31,7 @@ import com.android.org.conscrypt.ct.LogStoreImpl;
 import com.android.org.conscrypt.ct.Policy;
 import com.android.org.conscrypt.ct.PolicyImpl;
 import com.android.org.conscrypt.metrics.CipherSuite;
+import com.android.org.conscrypt.metrics.CipherMetricsStatsLog;
 import com.android.org.conscrypt.metrics.ConscryptStatsLog;
 import com.android.org.conscrypt.metrics.OptionalMethod;
 import com.android.org.conscrypt.metrics.Protocol;
@@ -83,6 +84,8 @@ import sun.security.x509.AlgorithmId;
 
 final class Platform {
     private static class NoPreloadHolder { public static final Platform MAPPER = new Platform(); }
+
+    private static final CipherMetricsStatsLog cipherMetricsStatsLog = new CipherMetricsStatsLog();
 
     /**
      * Runs all the setup for the platform that only needs to run once.
@@ -546,6 +549,10 @@ final class Platform {
         ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, proto.getId(),
                 suite.getId(), duration, SOURCE_MAINLINE,
                 new int[] {Os.getuid()});
+    }
+
+    public static void countCipherUsage(int cipherId, int uses) {
+        cipherMetricsStatsLog.write(cipherId, uses);
     }
 
     public static boolean isJavaxCertificateSupported() {
