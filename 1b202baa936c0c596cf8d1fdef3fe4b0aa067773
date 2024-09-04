@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "31648d85_89b9ea6b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-04T15:25:48Z",
+      "side": 1,
+      "message": "I think we\u0027re going in the wrong direction here, my apologies if my lack of attention has wasted time for you.\n\nI _thought_ that package-private APIs in mainline modules were inaccessible from CTS tests, although that\u0027s based on my experience trying to run the tests in openjdk/ from CtsLibcoreTestCases.  But unless I\u0027m missing something, I can\u0027t see any difference in the way these new private tests are configured.\n\nSo if there\u0027s a piece of config I have missed, let\u0027s add it to CtsLibcoreTestCases (and also add the openjdk/ tests!)",
+      "revId": "1b202baa936c0c596cf8d1fdef3fe4b0aa067773",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
