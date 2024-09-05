@@ -20,6 +20,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import javax.crypto.NoSuchPaddingException;
+import org.conscrypt.metrics.MetricsCipher;
 
 @Internal
 public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
@@ -81,12 +82,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES.CBC {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_CBC.getId());
                 }
             }
 
             public static class PKCS5Padding extends AES.CBC {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_CBC.getId());
                 }
             }
         }
@@ -94,6 +99,8 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
         public static class CTR extends AES {
             public CTR() {
                 super(Mode.CTR, Padding.NOPADDING);
+                Platform.countCipherUsage(
+                    MetricsCipher.AES_CTR.getId());
             }
         }
 
@@ -105,12 +112,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES.ECB {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_ECB.getId());
                 }
             }
 
             public static class PKCS5Padding extends AES.ECB {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_ECB_PKCS5PADDING.getId());
                 }
             }
         }
@@ -142,12 +153,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES_128.CBC {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_128_CBC.getId());
                 }
             }
 
             public static class PKCS5Padding extends AES_128.CBC {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_128_CBC.getId());
                 }
             }
         }
@@ -155,6 +170,8 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
         public static class CTR extends AES_128 {
             public CTR() {
                 super(Mode.CTR, Padding.NOPADDING);
+                Platform.countCipherUsage(
+                    MetricsCipher.AES_128_CTR.getId());
             }
         }
 
@@ -166,12 +183,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES_128.ECB {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_128_ECB.getId());
                 }
             }
 
             public static class PKCS5Padding extends AES_128.ECB {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_128_ECB.getId());
                 }
             }
         }
@@ -197,12 +218,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES_256.CBC {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_256_CBC.getId());
                 }
             }
 
             public static class PKCS5Padding extends AES_256.CBC {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_256_CBC.getId());
                 }
             }
         }
@@ -210,6 +235,8 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
         public static class CTR extends AES_256 {
             public CTR() {
                 super(Mode.CTR, Padding.NOPADDING);
+                Platform.countCipherUsage(
+                    MetricsCipher.AES_256_CTR.getId());
             }
         }
 
@@ -221,12 +248,16 @@ public abstract class OpenSSLEvpCipherAES extends OpenSSLEvpCipher {
             public static class NoPadding extends AES_256.ECB {
                 public NoPadding() {
                     super(Padding.NOPADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_256_ECB.getId());
                 }
             }
 
             public static class PKCS5Padding extends AES_256.ECB {
                 public PKCS5Padding() {
                     super(Padding.PKCS5PADDING);
+                    Platform.countCipherUsage(
+                        MetricsCipher.AES_256_ECB.getId());
                 }
             }
         }

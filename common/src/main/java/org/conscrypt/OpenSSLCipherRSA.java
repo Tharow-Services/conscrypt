@@ -47,6 +47,7 @@ import javax.crypto.ShortBufferException;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
 import javax.crypto.spec.SecretKeySpec;
+import org.conscrypt.metrics.MetricsCipher;
 
 @Internal
 public abstract class OpenSSLCipherRSA extends CipherSpi {
@@ -413,12 +414,16 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
     public static final class PKCS1 extends DirectRSA {
         public PKCS1() {
             super(NativeConstants.RSA_PKCS1_PADDING);
+            Platform.countCipherUsage(
+                MetricsCipher.RSA_PKCS1.getId());
         }
     }
 
     public static final class Raw extends DirectRSA {
         public Raw() {
             super(NativeConstants.RSA_NO_PADDING);
+            Platform.countCipherUsage(
+                MetricsCipher.RSA_NO_PADDING.getId());
         }
     }
 
@@ -598,30 +603,40 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         public static final class SHA1 extends OAEP {
             public SHA1() {
                 super(EvpMdRef.SHA1.EVP_MD, EvpMdRef.SHA1.SIZE_BYTES);
+                Platform.countCipherUsage(
+                    MetricsCipher.RSA_OAEP_SHA1.getId());
             }
         }
 
         public static final class SHA224 extends OAEP {
             public SHA224() {
                 super(EvpMdRef.SHA224.EVP_MD, EvpMdRef.SHA224.SIZE_BYTES);
+                Platform.countCipherUsage(
+                    MetricsCipher.RSA_OAEP_SHA224.getId());
             }
         }
 
         public static final class SHA256 extends OAEP {
             public SHA256() {
                 super(EvpMdRef.SHA256.EVP_MD, EvpMdRef.SHA256.SIZE_BYTES);
+                Platform.countCipherUsage(
+                    MetricsCipher.RSA_OAEP_SHA256.getId());
             }
         }
 
         public static final class SHA384 extends OAEP {
             public SHA384() {
                 super(EvpMdRef.SHA384.EVP_MD, EvpMdRef.SHA384.SIZE_BYTES);
+                Platform.countCipherUsage(
+                    MetricsCipher.RSA_OAEP_SHA384.getId());
             }
         }
 
         public static final class SHA512 extends OAEP {
             public SHA512() {
                 super(EvpMdRef.SHA512.EVP_MD, EvpMdRef.SHA512.SIZE_BYTES);
+                Platform.countCipherUsage(
+                    MetricsCipher.RSA_OAEP_SHA512.getId());
             }
         }
     }
