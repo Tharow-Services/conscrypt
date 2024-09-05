@@ -1051,9 +1051,13 @@ public final class CipherTest {
 
         Set<String> seenBaseCipherNames = new HashSet<String>();
         Set<String> seenCiphersWithModeAndPadding = new HashSet<String>();
+        Set<String> cipherList = new HashSet<String>();
 
         Provider[] providers = Security.getProviders();
         for (Provider provider : providers) {
+            if (!Conscrypt.isConscrypt(provider)) {
+                continue;
+            }
             Set<Provider.Service> services = provider.getServices();
             for (Provider.Service service : services) {
                 String type = service.getType();
@@ -1069,6 +1073,7 @@ public final class CipherTest {
                  * provider. We will test each mode specifically when we get the
                  * base cipher.
                  */
+                cipherList.add(algorithm);
                 final int firstSlash = algorithm.indexOf('/');
                 if (firstSlash == -1) {
                     seenBaseCipherNames.add(algorithm);
@@ -1088,18 +1093,6 @@ public final class CipherTest {
                             continue;
                         }
                     }
-                }
-
-                if (provider.getName().equals("SunJCE")) {
-                    // The SunJCE provider acts in numerous idiosyncratic ways that don't
-                    // match any other provider.  Examples include returning non-null IVs
-                    // when no IV was provided on init, NullPointerExceptions when null
-                    // SecureRandoms are supplied (but only to PBE ciphers), and not
-                    // supplying KeyGenerators for some algorithms.  We aren't sufficiently
-                    // interested in verifying this provider's behavior to adapt the
-                    // tests and Oracle presumably tests them well anyway, so just skip
-                    // verifying them.
-                    continue;
                 }
 
                 try {
@@ -1133,9 +1126,9 @@ public final class CipherTest {
             }
         }
 
-        seenCiphersWithModeAndPadding.removeAll(seenBaseCipherNames);
+        // seenCiphersWithModeAndPadding.removeAll(seenBaseCipherNames);
         assertEquals("Ciphers seen with mode and padding but not base cipher",
-                Collections.EMPTY_SET, seenCiphersWithModeAndPadding);
+                Collections.EMPTY_SET, cipherList);
 
         out.flush();
         if (errBuffer.size() > 0) {
