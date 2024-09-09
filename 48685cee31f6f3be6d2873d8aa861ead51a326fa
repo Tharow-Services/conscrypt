@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b015acfd_8d4a4c1b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 77
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-09T10:32:58Z",
+      "side": 1,
+      "message": "I;m a bit confused that this only seems to have changes to repackaged/* - don\u0027t some of the changes (e.g. the Internal annotation) need changes to the non-repackaged ones?",
+      "revId": "48685cee31f6f3be6d2873d8aa861ead51a326fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0118f6e8_1364f848",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/metrics/Internal.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-09T10:32:58Z",
+      "side": 1,
+      "message": "I think it\u0027s better to keep using the org.conscrypt.Internal annotation for consistency.  (Also the doclet filter looks at the whole packagename 😊)",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "48685cee31f6f3be6d2873d8aa861ead51a326fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
