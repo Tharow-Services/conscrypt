@@ -87,6 +87,15 @@ public class ReflexiveStatsEvent {
         return builder.build();
     }
 
+    public static ReflexiveStatsEvent buildEvent(int atomId, int cipherId, int uses) {
+        ReflexiveStatsEvent.Builder builder = ReflexiveStatsEvent.newBuilder();
+        builder.setAtomId(atomId);
+        builder.writeInt(cipherId);
+        builder.writeInt(uses);
+        builder.usePooledBuffer();
+        return builder.build();
+    }
+
     static Object getSdkVersion() {
         try {
             OptionalMethod getSdkVersion =
