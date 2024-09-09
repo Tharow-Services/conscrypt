@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7832ab7f_3d8b42b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 77
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-09-09T15:23:08Z",
+      "side": 1,
+      "message": "Since I\u0027ve gone back to using the other internal I guess that part doesn\u0027t apply anymore. I\u0027ve also added a metrics33/ directory in the unrepackaged so that this is consistent with the codegen, but nothing would actually use that code.",
+      "parentUuid": "b015acfd_8d4a4c1b",
+      "revId": "48685cee31f6f3be6d2873d8aa861ead51a326fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0118f6e8_1364f848",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-09-09T10:32:58Z",
       "side": 1,
       "message": "I think it\u0027s better to keep using the org.conscrypt.Internal annotation for consistency.  (Also the doclet filter looks at the whole packagename 😊)",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 42
+      },
+      "revId": "48685cee31f6f3be6d2873d8aa861ead51a326fa",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69796fcc_f4185439",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/metrics/Internal.java",
+        "patchSetId": 77
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-09-09T15:23:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0118f6e8_1364f848",
       "range": {
         "startLine": 17,
         "startChar": 0,
