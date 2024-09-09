@@ -25,6 +25,5 @@ import com.android.org.conscrypt.Internal;
  */
 @Internal
 public interface Policy {
-    boolean isLogStoreCompliant(LogStore store);
     PolicyCompliance doesResultConformToPolicy(VerificationResult result, X509Certificate leaf);
 }
