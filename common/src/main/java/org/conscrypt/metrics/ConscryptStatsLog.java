@@ -16,6 +16,7 @@
 package org.conscrypt.metrics;
 
 import org.conscrypt.Internal;
+import java.util.HashMap;
 
 /**
  * Reimplement with reflection calls the logging class,
@@ -34,6 +35,7 @@ import org.conscrypt.Internal;
 @Internal
 public final class ConscryptStatsLog {
     public static final int TLS_HANDSHAKE_REPORTED = 317;
+    public static final int CONSCRYPT_CIPHER_USED = 500;
 
     private ConscryptStatsLog() {}
 
@@ -41,6 +43,13 @@ public final class ConscryptStatsLog {
             int duration, Source source, int[] uids) {
         ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
                 atomId, success, protocol, cipherSuite, duration, source.ordinal(), uids);
+
+        ReflexiveStatsLog.write(event);
+    }
+
+    public static void write(int atomId, int cipherId, int uses) {
+        ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
+            atomId, cipherId, uses);
 
         ReflexiveStatsLog.write(event);
     }
