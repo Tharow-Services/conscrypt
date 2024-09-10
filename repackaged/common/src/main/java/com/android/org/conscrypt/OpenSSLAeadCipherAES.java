@@ -17,6 +17,8 @@
 
 package com.android.org.conscrypt;
 
+import com.android.org.conscrypt.metrics.MetricsCipher;
+
 import java.security.AlgorithmParameters;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -142,7 +144,10 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
          * @hide This class is not part of the Android public SDK API
          */
         public static class AES_128 extends GCM {
-            public AES_128() {}
+            public AES_128() {
+                Platform.countCipherUsage(
+                        MetricsCipher.AES_128_GCM.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -157,7 +162,10 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
          * @hide This class is not part of the Android public SDK API
          */
         public static class AES_256 extends GCM {
-            public AES_256() {}
+            public AES_256() {
+                Platform.countCipherUsage(
+                        MetricsCipher.AES_256_GCM.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -214,7 +222,10 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
          * @hide This class is not part of the Android public SDK API
          */
         public static class AES_128 extends GCM_SIV {
-            public AES_128() {}
+            public AES_128() {
+                Platform.countCipherUsage(
+                        MetricsCipher.AES_128_GCM_SIV.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -229,7 +240,10 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
          * @hide This class is not part of the Android public SDK API
          */
         public static class AES_256 extends GCM_SIV {
-            public AES_256() {}
+            public AES_256() {
+                Platform.countCipherUsage(
+                        MetricsCipher.AES_256_GCM_SIV.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
