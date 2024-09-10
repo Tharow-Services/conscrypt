@@ -548,6 +548,10 @@ final class Platform {
                 new int[] {Os.getuid()});
     }
 
+    public static void countCipherUsage(int cipherId) {
+        cipherMetricsStatsLog.write(cipherId);
+    }
+
     public static boolean isJavaxCertificateSupported() {
         return true;
     }
