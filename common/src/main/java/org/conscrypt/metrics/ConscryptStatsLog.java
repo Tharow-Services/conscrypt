@@ -16,6 +16,10 @@
 package org.conscrypt.metrics;
 
 import org.conscrypt.Internal;
+<<<<<<< PATCH SET (428110 [WIP] Add cipher usage metrics to Conscrypt)
+import java.util.HashMap;
+||||||| BASE
+=======
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
@@ -23,6 +27,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
 import java.lang.Thread.UncaughtExceptionHandler;
+>>>>>>> BASE      (570d42 Fix NativeCrypto.X509_verify() exceptions. am: 8b63789f4a am)
 
 /**
  * Reimplement with reflection calls the logging class,
@@ -41,6 +46,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 @Internal
 public final class ConscryptStatsLog {
     public static final int TLS_HANDSHAKE_REPORTED = 317;
+    public static final int CONSCRYPT_CIPHER_USED = 500;
 
     private static final ExecutorService e =
         Executors.newSingleThreadExecutor(
@@ -73,5 +79,12 @@ public final class ConscryptStatsLog {
                 ReflexiveStatsLog.write(event);
             }
         });
+    }
+
+    public static void write(int atomId, int cipherId, int uses) {
+        ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
+            atomId, cipherId, uses);
+
+        ReflexiveStatsLog.write(event);
     }
 }
