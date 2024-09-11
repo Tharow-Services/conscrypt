@@ -72,6 +72,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7e1136e_30a150f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-09-11T07:43:45Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "3369c173_21ba037d",
+      "revId": "1b202baa936c0c596cf8d1fdef3fe4b0aa067773",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb94ce64_16074b4c",
@@ -85,6 +103,30 @@
       "writtenOn": "2024-09-10T11:53:17Z",
       "side": 1,
       "message": "I suspect this is a no-op... But if you move it to static_libs then it may save you including the non-test sources above.",
+      "range": {
+        "startLine": 756,
+        "startChar": 0,
+        "endLine": 756,
+        "endChar": 20
+      },
+      "revId": "1b202baa936c0c596cf8d1fdef3fe4b0aa067773",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bdf00588_fcfa7cb1",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-09-11T07:43:45Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "fb94ce64_16074b4c",
       "range": {
         "startLine": 756,
         "startChar": 0,
