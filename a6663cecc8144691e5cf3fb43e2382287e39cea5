@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "300b9f43_9e8591c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-11T12:31:53Z",
+      "side": 1,
+      "message": "Weird, it builds successfully for me on AOSP.",
+      "revId": "a6663cecc8144691e5cf3fb43e2382287e39cea5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
