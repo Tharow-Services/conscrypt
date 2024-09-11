@@ -135,6 +135,30 @@
       },
       "revId": "1b202baa936c0c596cf8d1fdef3fe4b0aa067773",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c09352a1_0c793014",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 756,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-11T08:14:04Z",
+      "side": 1,
+      "message": "Discussed offline, my mistake 😊",
+      "parentUuid": "bdf00588_fcfa7cb1",
+      "range": {
+        "startLine": 756,
+        "startChar": 0,
+        "endLine": 756,
+        "endChar": 20
+      },
+      "revId": "1b202baa936c0c596cf8d1fdef3fe4b0aa067773",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
