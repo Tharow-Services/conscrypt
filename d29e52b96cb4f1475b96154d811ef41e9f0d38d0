@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1cce07c0_867659c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-09-12T07:56:59Z",
+      "side": 1,
+      "message": "Should this change be automerged to newer `androidX-tests-dev` branches? If it should only be in `android12-tests-dev`, then you need to add `RESTRICT AUTOMERGE` at the beginning of the commit message.",
+      "revId": "d29e52b96cb4f1475b96154d811ef41e9f0d38d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
