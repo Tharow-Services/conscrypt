@@ -16,14 +16,14 @@
 
 package org.conscrypt.ct;
 
+import static java.nio.charset.StandardCharsets.US_ASCII;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
@@ -34,12 +34,10 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 import org.conscrypt.Internal;
-import org.conscrypt.InternalUtil;
+import org.conscrypt.OpenSSLKey;
 
 @Internal
 public class CTLogStoreImpl implements CTLogStore {
-    private static final Charset US_ASCII = StandardCharsets.US_ASCII;
-
     /**
      * Thrown when parsing of a log file fails.
      */
@@ -60,35 +58,26 @@ public class CTLogStoreImpl implements CTLogStore {
         }
     }
 
-    private static final File defaultUserLogDir;
-    private static final File defaultSystemLogDir;
-    // Lazy loaded by CTLogStoreImpl()
-    private static volatile CTLogInfo[] defaultFallbackLogs = null;
+    private static final File defaultLogDir;
     static {
         String ANDROID_DATA = System.getenv("ANDROID_DATA");
-        String ANDROID_ROOT = System.getenv("ANDROID_ROOT");
-        defaultUserLogDir = new File(ANDROID_DATA + "/misc/keychain/trusted_ct_logs/current/");
-        defaultSystemLogDir = new File(ANDROID_ROOT + "/etc/security/ct_known_logs/");
+        defaultLogDir = new File(ANDROID_DATA + "/misc/keychain/trusted_ct_logs/current/");
     }
 
-    private final File userLogDir;
-    private final File systemLogDir;
-    private final CTLogInfo[] fallbackLogs;
+    private final File logDir;
+    private final CTLogInfo[] extraLogs;
 
     private final HashMap<ByteBuffer, CTLogInfo> logCache = new HashMap<>();
     private final Set<ByteBuffer> missingLogCache
             = Collections.synchronizedSet(new HashSet<ByteBuffer>());
 
     public CTLogStoreImpl() {
-        this(defaultUserLogDir,
-             defaultSystemLogDir,
-             getDefaultFallbackLogs());
+        this(defaultLogDir, null);
     }
 
-    public CTLogStoreImpl(File userLogDir, File systemLogDir, CTLogInfo[] fallbackLogs) {
-        this.userLogDir = userLogDir;
-        this.systemLogDir = systemLogDir;
-        this.fallbackLogs = fallbackLogs;
+    public CTLogStoreImpl(File logDir, CTLogInfo[] extraLogs) {
+        this.logDir = logDir;
+        this.extraLogs = extraLogs;
     }
 
     @Override
@@ -115,57 +104,19 @@ public class CTLogStoreImpl implements CTLogStore {
     private CTLogInfo findKnownLog(byte[] logId) {
         String filename = hexEncode(logId);
         try {
-            return loadLog(new File(userLogDir, filename));
+            return loadLog(new File(logDir, filename));
         } catch (InvalidLogFileException e) {
             return null;
         } catch (FileNotFoundException e) {
             // Ignored
         }
 
-        try {
-            return loadLog(new File(systemLogDir, filename));
-        } catch (InvalidLogFileException e) {
-            return null;
-        } catch (FileNotFoundException e) {
-            // Ignored
-        }
-
-        // If the updateable logs dont exist then use the fallback logs.
-        if (!userLogDir.exists()) {
-            for (CTLogInfo log: fallbackLogs) {
-                if (Arrays.equals(logId, log.getID())) {
-                    return log;
-                }
+        for (CTLogInfo log : extraLogs) {
+            if (Arrays.equals(logId, log.getID())) {
+                return log;
             }
         }
         return null;
-    }
-
-    public static CTLogInfo[] getDefaultFallbackLogs() {
-        CTLogInfo[] result = defaultFallbackLogs;
-        if (result == null) {
-            // single-check idiom
-            defaultFallbackLogs = result = createDefaultFallbackLogs();
-        }
-        return result;
-    }
-
-    private static CTLogInfo[] createDefaultFallbackLogs() {
-        CTLogInfo[] logs = new CTLogInfo[KnownLogs.LOG_COUNT];
-        for (int i = 0; i < KnownLogs.LOG_COUNT; i++) {
-            try {
-                PublicKey key = InternalUtil.logKeyToPublicKey(KnownLogs.LOG_KEYS[i]);
-
-                logs[i] = new CTLogInfo(key,
-                                        KnownLogs.LOG_DESCRIPTIONS[i],
-                                        KnownLogs.LOG_URLS[i]);
-            } catch (NoSuchAlgorithmException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        defaultFallbackLogs = logs;
-        return logs;
     }
 
     /**
@@ -227,19 +178,19 @@ public class CTLogStoreImpl implements CTLogStore {
             throw new InvalidLogFileException("Missing one of 'description', 'url' or 'key'");
         }
 
+        byte[] pem = ("-----BEGIN PUBLIC KEY-----\n" + key + "\n-----END PUBLIC KEY-----")
+                             .getBytes(US_ASCII);
         PublicKey pubkey;
         try {
-            pubkey = InternalUtil.readPublicKeyPem(new ByteArrayInputStream(
-                    ("-----BEGIN PUBLIC KEY-----\n" +
-                        key + "\n" +
-                        "-----END PUBLIC KEY-----").getBytes(US_ASCII)));
+            pubkey = OpenSSLKey.fromPublicKeyPemInputStream(new ByteArrayInputStream(pem))
+                             .getPublicKey();
         } catch (InvalidKeyException e) {
             throw new InvalidLogFileException(e);
         } catch (NoSuchAlgorithmException e) {
             throw new InvalidLogFileException(e);
         }
 
-        return new CTLogInfo(pubkey, description, url);
+        return new CTLogInfo(pubkey, CTLogInfo.STATE_USABLE, description, url);
     }
 
     private final static char[] HEX_DIGITS = new char[] {

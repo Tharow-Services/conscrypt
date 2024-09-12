@@ -617,6 +617,26 @@ cc_library_static {
     stl: "c++_shared",
 }
 
+
+java_library {
+    name: "conscrypt-test-support",
+    visibility: [
+        "//frameworks/base/apct-tests/perftests/core",
+    ],
+    device_supported: true,
+    host_supported: true,
+    srcs: [
+        "testing/src/main/java/**/*.java",
+        ":conscrypt-unbundled_generated_constants",
+    ],
+    libs: [
+        "junit",
+        "bouncycastle-unbundled",
+        "bouncycastle-bcpkix-unbundled",
+        "bouncycastle-ocsp-unbundled",
+    ],
+}
+
 // Make the conscrypt-tests library.
 java_test {
     name: "conscrypt-tests",
@@ -631,6 +651,11 @@ java_test {
         "repackaged/common/src/test/java/**/*.java",
         "repackaged/testing/src/main/java/**/*.java",
         "publicapi/src/test/java/**/*.java",
+    ],
+    exclude_srcs: [
+        // b/360775273.
+        "repackaged/platform/src/test/java/com/android/org/conscrypt/ct/*.java",
+        "repackaged/common/src/test/java/com/android/org/conscrypt/ct/*.java",
     ],
     java_resource_dirs: [
         // Resource directories do not need repackaging.
