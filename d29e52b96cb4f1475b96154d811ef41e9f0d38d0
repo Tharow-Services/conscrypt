@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7c0752c5_8c28d2f2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-09-12T10:29:05Z",
+      "side": 1,
+      "message": "Nothing was touched (neither the tests nor the tested code). That\u0027s why it wasn\u0027t an issue until recently.",
+      "parentUuid": "e873d892_1a51d844",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 16
+      },
+      "revId": "d29e52b96cb4f1475b96154d811ef41e9f0d38d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1cce07c0_867659c4",
@@ -54,6 +78,24 @@
       "writtenOn": "2024-09-12T07:58:05Z",
       "side": 1,
       "message": "Adding Samip for DrNo and Almaz for Owner review as Pete might be out.",
+      "revId": "d29e52b96cb4f1475b96154d811ef41e9f0d38d0",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eb5a81ba_7ec523d8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-09-12T10:29:05Z",
+      "side": 1,
+      "message": "Yes it should be merged into newer branches. These tests haven\u0027t been touched for a while and that\u0027s why they were passing fine. But the recent changes showed that this was not the right approach.",
+      "parentUuid": "1cce07c0_867659c4",
       "revId": "d29e52b96cb4f1475b96154d811ef41e9f0d38d0",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
