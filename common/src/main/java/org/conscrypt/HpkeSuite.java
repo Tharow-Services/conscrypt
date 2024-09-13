@@ -247,7 +247,11 @@ public final class HpkeSuite {
          *
          * @return extract output size in bytes
          */
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
         public int getMacLength() {
+=======
+        int getMacLength() {
+>>>>>>> BRANCH (8c83e3     Remove some un-needed verbosity when processing DocTrees)
             return hLength;
         }
         @Deprecated // Use getMacLength
