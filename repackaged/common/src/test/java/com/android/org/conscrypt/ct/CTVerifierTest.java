@@ -1,3 +1,4 @@
+<<<<<<< HEAD   (e3c17c Exclude CT tests from conscrypt-tests)
 /* GENERATED SOURCE. DO NOT MODIFY. */
 /*
  * Copyright (C) 2015 The Android Open Source Project
@@ -189,3 +190,5 @@ public class CTVerifierTest {
     }
 }
 
+=======
+>>>>>>> BRANCH (c108ce Remove CT tests am: d29e52b96c am: 94593d4de2 am: 6001987e2c)
