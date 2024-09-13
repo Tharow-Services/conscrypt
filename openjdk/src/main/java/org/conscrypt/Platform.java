@@ -55,7 +55,6 @@ import java.security.AlgorithmParameters;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
 import java.security.PrivilegedAction;
 import java.security.Provider;
 import java.security.Security;
@@ -802,6 +801,7 @@ final class Platform {
     public static boolean isTlsV1Deprecated() {
         return true;
     }
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
 
     public static boolean isTlsV1Filtered() {
         return false;
@@ -810,4 +810,6 @@ final class Platform {
     public static boolean isTlsV1Supported() {
         return false;
     }
+=======
+>>>>>>> BRANCH (a53585 Ensure TLSv1 is still enabled by default unless it's depreca)
 }

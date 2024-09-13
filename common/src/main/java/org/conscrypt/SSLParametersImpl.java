@@ -145,6 +145,7 @@ final class SSLParametersImpl implements Cloneable {
         }
 
         // initialize the list of cipher suites and protocols enabled by default
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
         if (protocols == null) {
           enabledProtocols = NativeCrypto.getDefaultProtocols().clone();
         } else {
@@ -158,6 +159,10 @@ final class SSLParametersImpl implements Cloneable {
             isEnabledProtocolsFiltered = protocols.length != filteredProtocols.length;
             enabledProtocols = NativeCrypto.checkEnabledProtocols(filteredProtocols).clone();
         }
+=======
+        enabledProtocols = NativeCrypto.checkEnabledProtocols(
+                protocols == null ? NativeCrypto.getDefaultProtocols() : protocols).clone();
+>>>>>>> BRANCH (a53585 Ensure TLSv1 is still enabled by default unless it's depreca)
         boolean x509CipherSuitesNeeded = (x509KeyManager != null) || (x509TrustManager != null);
         boolean pskCipherSuitesNeeded = pskKeyManager != null;
         enabledCipherSuites = getDefaultCipherSuites(

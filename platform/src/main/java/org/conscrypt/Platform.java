@@ -545,6 +545,7 @@ final class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
         return true;
     }
 
@@ -574,5 +575,8 @@ final class Platform {
         } catch (NullPointerException e) {
             return null;
         }
+=======
+        return false;
+>>>>>>> BRANCH (a53585 Ensure TLSv1 is still enabled by default unless it's depreca)
     }
 }

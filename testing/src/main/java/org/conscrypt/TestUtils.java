@@ -421,6 +421,11 @@ public final class TestUtils {
             .toArray(String[]::new);
     }
 
+    public static String[] getSupportedProtocols() {
+        return getSupportedProtocols(newClientSslContext(getConscryptProvider()))
+                .toArray(new String[0]);
+    }
+
     public static List<String> getSupportedProtocols(SSLContext ctx) {
         return Arrays.asList(ctx.getDefaultSSLParameters().getProtocols());
     }
@@ -816,6 +821,7 @@ public final class TestUtils {
         return name.startsWith("macosx") || name.startsWith("osx");
     }
 
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
     public static void assumeXecClassesAvailable() {
         Assume.assumeTrue(findClass("java.security.spec.XECPrivateKeySpec") != null);
     }
@@ -859,6 +865,16 @@ public final class TestUtils {
             return true;
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
             throw new IllegalStateException("Reflection failure", e);
+=======
+    // Find base method via reflection due to visibility issues when building with Gradle.
+    public static boolean isTlsV1Deprecated() {
+        try {
+            return (Boolean) conscryptClass("Platform")
+                    .getDeclaredMethod("isTlsV1Deprecated")
+                    .invoke(null);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+>>>>>>> BRANCH (a53585 Ensure TLSv1 is still enabled by default unless it's depreca)
         }
     }
 }

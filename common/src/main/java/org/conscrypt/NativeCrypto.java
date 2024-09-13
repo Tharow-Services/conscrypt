@@ -33,7 +33,6 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateParsingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -524,9 +523,11 @@ public final class NativeCrypto {
 
     static native int get_X509_ex_pathlen(long x509ctx, OpenSSLX509Certificate holder);
 
-    static native long X509_get_notBefore(long x509ctx, OpenSSLX509Certificate holder);
+    static native long X509_get_notBefore(long x509ctx, OpenSSLX509Certificate holder)
+            throws ParsingException;
 
-    static native long X509_get_notAfter(long x509ctx, OpenSSLX509Certificate holder);
+    static native long X509_get_notAfter(long x509ctx, OpenSSLX509Certificate holder)
+            throws ParsingException;
 
     static native long X509_get_version(long x509ctx, OpenSSLX509Certificate holder);
 
@@ -607,9 +608,11 @@ public final class NativeCrypto {
 
     static native byte[] get_X509_CRL_crl_enc(long x509CrlCtx, OpenSSLX509CRL holder);
 
-    static native long X509_CRL_get_lastUpdate(long x509CrlCtx, OpenSSLX509CRL holder);
+    static native long X509_CRL_get_lastUpdate(long x509CrlCtx, OpenSSLX509CRL holder)
+            throws ParsingException;
 
-    static native long X509_CRL_get_nextUpdate(long x509CrlCtx, OpenSSLX509CRL holder);
+    static native long X509_CRL_get_nextUpdate(long x509CrlCtx, OpenSSLX509CRL holder)
+            throws ParsingException;
 
     // --- X509_REVOKED --------------------------------------------------------
 
@@ -785,8 +788,13 @@ public final class NativeCrypto {
     // --- SSL handling --------------------------------------------------------
 
     static final String OBSOLETE_PROTOCOL_SSLV3 = "SSLv3";
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
     static final String DEPRECATED_PROTOCOL_TLSV1 = "TLSv1";
     static final String DEPRECATED_PROTOCOL_TLSV1_1 = "TLSv1.1";
+=======
+    private static final String DEPRECATED_PROTOCOL_TLSV1 = "TLSv1";
+    private static final String DEPRECATED_PROTOCOL_TLSV1_1 = "TLSv1.1";
+>>>>>>> BRANCH (a53585 Ensure TLSv1 is still enabled by default unless it's depreca)
     private static final String SUPPORTED_PROTOCOL_TLSV1_2 = "TLSv1.2";
     static final String SUPPORTED_PROTOCOL_TLSV1_3 = "TLSv1.3";
 
@@ -1026,11 +1034,14 @@ public final class NativeCrypto {
                 DEPRECATED_PROTOCOL_TLSV1_1,
             };
 
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
     private static final String[] SUPPORTED_PROTOCOLS_TLSV1 = Platform.isTlsV1Supported()
             ? new String[] {
                 DEPRECATED_PROTOCOL_TLSV1,
                 DEPRECATED_PROTOCOL_TLSV1_1,
             } : new String[0];
+=======
+>>>>>>> BRANCH (a53585 Ensure TLSv1 is still enabled by default unless it's depreca)
 
     /** Protocols to enable by default when "TLSv1.3" is requested. */
     static final String[] TLSV13_PROTOCOLS = ArrayUtils.concatValues(
@@ -1054,13 +1065,26 @@ public final class NativeCrypto {
     static final String[] TLSV1_PROTOCOLS = TLSV11_PROTOCOLS;
 
     static final String[] DEFAULT_PROTOCOLS = TLSV13_PROTOCOLS;
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
 
     // If we ever get a new protocol go look for tests which are skipped using
     // assumeTlsV11Enabled()
     private static final String[] SUPPORTED_PROTOCOLS = ArrayUtils.concatValues(
             SUPPORTED_PROTOCOLS_TLSV1,
+=======
+    private static final String[] SUPPORTED_PROTOCOLS = new String[] {
+            DEPRECATED_PROTOCOL_TLSV1,
+            DEPRECATED_PROTOCOL_TLSV1_1,
+>>>>>>> BRANCH (a53585 Ensure TLSv1 is still enabled by default unless it's depreca)
             SUPPORTED_PROTOCOL_TLSV1_2,
             SUPPORTED_PROTOCOL_TLSV1_3);
+
+    public static String[] getDefaultProtocols() {
+        if (Platform.isTlsV1Deprecated()) {
+          return DEFAULT_PROTOCOLS.clone();
+        }
+        return SUPPORTED_PROTOCOLS.clone();
+    }
 
     public static String[] getDefaultProtocols() {
         if (Platform.isTlsV1Deprecated()) {
@@ -1137,7 +1161,15 @@ public final class NativeCrypto {
             if (protocol == null) {
                 throw new IllegalArgumentException("protocols contains null");
             }
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
             if (!Arrays.asList(SUPPORTED_PROTOCOLS).contains(protocol)) {
+=======
+            if (!protocol.equals(DEPRECATED_PROTOCOL_TLSV1)
+                    && !protocol.equals(DEPRECATED_PROTOCOL_TLSV1_1)
+                    && !protocol.equals(SUPPORTED_PROTOCOL_TLSV1_2)
+                    && !protocol.equals(SUPPORTED_PROTOCOL_TLSV1_3)
+                    && !protocol.equals(OBSOLETE_PROTOCOL_SSLV3)) {
+>>>>>>> BRANCH (a53585 Ensure TLSv1 is still enabled by default unless it's depreca)
                 throw new IllegalArgumentException("protocol " + protocol + " is not supported");
             }
         }

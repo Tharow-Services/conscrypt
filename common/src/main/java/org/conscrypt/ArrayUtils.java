@@ -35,6 +35,7 @@ public final class ArrayUtils {
         }
     }
 
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
     @SafeVarargs
     public static <T> T[] concatValues(T[] a1, T... values) {
         return concat (a1, values);
@@ -79,5 +80,21 @@ public final class ArrayUtils {
      */
     public static <T> boolean isEmpty(T[] array) {
         return array == null || array.length == 0;
+=======
+    static String[] concatValues(String[] a1, String... values) {
+        return concat (a1, values);
+    }
+
+    static String[] concat(String[] a1, String[] a2) {
+        String[] result = new String[a1.length + a2.length];
+        int offset = 0;
+        for (int i = 0; i < a1.length; i++, offset++) {
+            result[offset] = a1[i];
+        }
+        for (int i = 0; i < a2.length; i++, offset++) {
+            result[offset] = a2[i];
+        }
+        return result;
+>>>>>>> BRANCH (a53585 Ensure TLSv1 is still enabled by default unless it's depreca)
     }
 }
