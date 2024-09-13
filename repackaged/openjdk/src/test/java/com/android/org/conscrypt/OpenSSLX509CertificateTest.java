@@ -23,6 +23,10 @@ import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -38,7 +42,9 @@ import java.util.Arrays;
 /**
  * @hide This class is not part of the Android public SDK API
  */
-public class OpenSSLX509CertificateTest extends TestCase {
+@RunWith(JUnit4.class)
+public class OpenSSLX509CertificateTest {
+    @Test
     public void testSerialization_NoContextDeserialization() throws Exception {
         // Set correct serialVersionUID
         {
@@ -120,6 +126,7 @@ public class OpenSSLX509CertificateTest extends TestCase {
         return OpenSSLX509Certificate.fromX509PemInputStream(openTestFile(name));
     }
 
+    @Test
     public void test_deletingCTPoisonExtension() throws Exception {
         /* certPoisoned has an extra poison extension.
          * With the extension, the certificates have different TBS.
@@ -137,6 +144,7 @@ public class OpenSSLX509CertificateTest extends TestCase {
                         cert.getTBSCertificate()));
     }
 
+    @Test
     public void test_deletingExtensionMakesCopy() throws Exception {
         /* Calling getTBSCertificateWithoutExtension should not modify the original certificate.
          * Make sure the extension is still present in the original object.
@@ -148,6 +156,7 @@ public class OpenSSLX509CertificateTest extends TestCase {
         assertTrue(certPoisoned.getCriticalExtensionOIDs().contains(CT_POISON_EXTENSION));
     }
 
+    @Test
     public void test_deletingMissingExtension() throws Exception {
         /* getTBSCertificateWithoutExtension should throw on a certificate without the extension.
          */
