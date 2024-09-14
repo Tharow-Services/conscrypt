@@ -16,38 +16,20 @@
 
 package org.conscrypt.ct;
 
-import org.conscrypt.Internal;
-
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import org.conscrypt.Internal;
 
 @Internal
 public class PolicyImpl implements Policy {
     @Override
     public PolicyCompliance doesResultConformToPolicy(
             VerificationResult result, X509Certificate leaf) {
-        long now = System.currentTimeMillis();
-        return doesResultConformToPolicyAt(result, leaf, now);
-    }
-
-    public PolicyCompliance doesResultConformToPolicyAt(
-            VerificationResult result, X509Certificate leaf, long atTime) {
-        List<VerifiedSCT> validSCTs = new ArrayList<VerifiedSCT>(result.getValidSCTs());
-        /* While the log list supports logs without a state, these entries are
-         * not supported by the log policy. Filter them out. */
-        filterOutUnknown(validSCTs);
-        /* Filter out any SCT issued after a log was retired */
-        filterOutAfterRetired(validSCTs);
-
         Set<VerifiedSCT> embeddedValidSCTs = new HashSet<>();
         Set<VerifiedSCT> ocspOrTLSValidSCTs = new HashSet<>();
-        for (VerifiedSCT vsct : validSCTs) {
+        for (VerifiedSCT vsct : result.getValidSCTs()) {
             if (vsct.getSct().getOrigin() == SignedCertificateTimestamp.Origin.EMBEDDED) {
                 embeddedValidSCTs.add(vsct);
             } else {
@@ -55,61 +37,20 @@ public class PolicyImpl implements Policy {
             }
         }
         if (embeddedValidSCTs.size() > 0) {
-            return conformEmbeddedSCTs(embeddedValidSCTs, leaf, atTime);
+            return conformEmbeddedSCTs(embeddedValidSCTs, leaf);
         }
         return PolicyCompliance.NOT_ENOUGH_SCTS;
     }
 
-    private void filterOutUnknown(List<VerifiedSCT> scts) {
-        Iterator<VerifiedSCT> it = scts.iterator();
-        while (it.hasNext()) {
-            VerifiedSCT vsct = it.next();
-            if (vsct.getLogInfo().getState() == LogInfo.STATE_UNKNOWN) {
-                it.remove();
-            }
-        }
-    }
-
-    private void filterOutAfterRetired(List<VerifiedSCT> scts) {
-        /* From the policy:
-         *
-         * In order to contribute to a certificate’s CT Compliance, an SCT must
-         * have been issued before the Log’s Retired timestamp, if one exists.
-         * Chrome uses the earliest SCT among all SCTs presented to evaluate CT
-         * compliance against CT Log Retired timestamps. This accounts for edge
-         * cases in which a CT Log becomes Retired during the process of
-         * submitting certificate logging requests.
-         */
-
-        if (scts.size() < 1) {
-            return;
-        }
-        long minTimestamp = scts.get(0).getSct().getTimestamp();
-        for (VerifiedSCT vsct : scts) {
-            long ts = vsct.getSct().getTimestamp();
-            if (ts < minTimestamp) {
-                minTimestamp = ts;
-            }
-        }
-        Iterator<VerifiedSCT> it = scts.iterator();
-        while (it.hasNext()) {
-            VerifiedSCT vsct = it.next();
-            if (vsct.getLogInfo().getState() == LogInfo.STATE_RETIRED
-                    && minTimestamp > vsct.getLogInfo().getStateTimestamp()) {
-                it.remove();
-            }
-        }
-    }
-
     private PolicyCompliance conformEmbeddedSCTs(
-            Set<VerifiedSCT> embeddedValidSCTs, X509Certificate leaf, long atTime) {
+            Set<VerifiedSCT> embeddedValidSCTs, X509Certificate leaf) {
         /* 1. At least one Embedded SCT from a CT Log that was Qualified,
          *    Usable, or ReadOnly at the time of check;
          */
         boolean found = false;
         for (VerifiedSCT vsct : embeddedValidSCTs) {
             LogInfo log = vsct.getLogInfo();
-            switch (log.getStateAt(atTime)) {
+            switch (log.getState()) {
                 case LogInfo.STATE_QUALIFIED:
                 case LogInfo.STATE_USABLE:
                 case LogInfo.STATE_READONLY:
@@ -139,7 +80,7 @@ public class PolicyImpl implements Policy {
         }
         for (VerifiedSCT vsct : embeddedValidSCTs) {
             LogInfo log = vsct.getLogInfo();
-            switch (log.getStateAt(atTime)) {
+            switch (log.getState()) {
                 case LogInfo.STATE_QUALIFIED:
                 case LogInfo.STATE_USABLE:
                 case LogInfo.STATE_READONLY:

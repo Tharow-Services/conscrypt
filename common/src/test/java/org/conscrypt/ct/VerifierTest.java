@@ -50,7 +50,7 @@ public class VerifierTest {
                                     .setDescription("Test Log")
                                     .setUrl("http://example.com")
                                     .setOperator("LogOperator")
-                                    .setState(LogInfo.STATE_USABLE, 1643709600000L)
+                                    .setState(LogInfo.STATE_USABLE)
                                     .build();
         LogStore store = new LogStore() {
             @Override

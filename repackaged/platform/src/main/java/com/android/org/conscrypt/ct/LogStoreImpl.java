@@ -37,13 +37,9 @@ import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -149,10 +145,7 @@ public class LogStoreImpl implements LogStore {
 
                     JSONObject stateObject = log.optJSONObject("state");
                     if (stateObject != null) {
-                        String state = stateObject.keys().next();
-                        String stateTimestamp =
-                                stateObject.getJSONObject(state).getString("timestamp");
-                        builder.setState(parseState(state), parseStateTimestamp(stateTimestamp));
+                        builder.setState(parseState(stateObject.keys().next()));
                     }
 
                     LogInfo logInfo = builder.build();
@@ -190,19 +183,6 @@ public class LogStoreImpl implements LogStore {
                 return LogInfo.STATE_REJECTED;
             default:
                 throw new IllegalArgumentException("Unknown log state: " + state);
-        }
-    }
-
-    // ISO 8601
-    private static DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
-
-    @SuppressWarnings("JavaUtilDate")
-    private static long parseStateTimestamp(String timestamp) {
-        try {
-            Date date = dateFormatter.parse(timestamp);
-            return date.getTime();
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e);
         }
     }
 
