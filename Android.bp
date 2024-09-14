@@ -683,7 +683,7 @@ java_test {
     ],
     hostdex: true,
     srcs: [
-        "repackaged/platform/src/test/java/com/android/org/conscrypt/TrustedCertificateStoreTest.java",
+        "repackaged/platform/src/test/java/com/android/org/conscrypt/*.java",
         "repackaged/platform/src/test/java/com/android/org/conscrypt/metrics/*.java",
         "repackaged/common/src/test/java/com/android/org/conscrypt/*.java",
         "repackaged/common/src/test/java/com/android/org/conscrypt/metrics/*.java",
