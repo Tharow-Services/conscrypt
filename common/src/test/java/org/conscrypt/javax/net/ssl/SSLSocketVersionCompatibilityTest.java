@@ -16,8 +16,11 @@
 
 package org.conscrypt.javax.net.ssl;
 
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
 import libcore.junit.util.SwitchTargetSdkVersionRule;
 import libcore.junit.util.SwitchTargetSdkVersionRule.TargetSdkVersion;
+=======
+>>>>>>> BRANCH (8c83e3     Remove some un-needed verbosity when processing DocTrees)
 
 import static org.conscrypt.TestUtils.osName;
 import static org.conscrypt.TestUtils.isOsx;
@@ -131,8 +134,13 @@ import tests.util.Pair;
 @RunWith(Parameterized.class)
 public class SSLSocketVersionCompatibilityTest {
 
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
     @Rule
     public TestRule switchTargetSdkVersionRule = SwitchTargetSdkVersionRule.getInstance();
+=======
+//    @Rule
+//    public TestRule switchTargetSdkVersionRule = SwitchTargetSdkVersionRule.getInstance();
+>>>>>>> BRANCH (8c83e3     Remove some un-needed verbosity when processing DocTrees)
 
     @Parameterized.Parameters(name = "{index}: {0} client, {1} server")
     public static Iterable<Object[]> data() {
@@ -1951,6 +1959,7 @@ public class SSLSocketVersionCompatibilityTest {
         assertEquals(2, client.getEnabledProtocols().length);
     }
 
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
     @TargetSdkVersion(35)
     @Test
     public void test_SSLSocket_SSLv3Unsupported_35() throws Exception {
@@ -1967,6 +1976,25 @@ public class SSLSocketVersionCompatibilityTest {
 
     @TargetSdkVersion(34)
     @Test
+=======
+//  @TargetSdkVersion(35)
+    @Test
+    public void test_SSLSocket_SSLv3Unsupported_35() throws Exception {
+        assumeFalse(isTlsV1Filtered());
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        assertThrows(IllegalArgumentException.class, () -> client.setEnabledProtocols(new String[] {"SSLv3"}));
+        assertThrows(IllegalArgumentException.class, () -> client.setEnabledProtocols(new String[] {"SSL"}));
+    }
+
+//  @TargetSdkVersion(34)
+    @Test
+    @Ignore("For platform CTS only")
+>>>>>>> BRANCH (8c83e3     Remove some un-needed verbosity when processing DocTrees)
     public void test_SSLSocket_SSLv3Unsupported_34() throws Exception {
         TestSSLContext context = new TestSSLContext.Builder()
                 .clientProtocol(clientVersion)
@@ -1985,6 +2013,7 @@ public class SSLSocketVersionCompatibilityTest {
         }
     }
 
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
     @TargetSdkVersion(34)
     @Test
     public void test_TLSv1Filtered_34() throws Exception {
@@ -2003,6 +2032,27 @@ public class SSLSocketVersionCompatibilityTest {
     @Test
     public void test_TLSv1Filtered_35() throws Exception {
         assumeFalse(isTlsV1Filtered());
+=======
+//  @TargetSdkVersion(34)
+    @Test
+    @Ignore("For platform CTS only")
+    public void test_TLSv1Filtered_34() throws Exception {
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"});
+        assertEquals(1, client.getEnabledProtocols().length);
+        assertEquals("TLSv1.2", client.getEnabledProtocols()[0]);
+    }
+
+//  @TargetSdkVersion(35)
+    @Test
+    public void test_TLSv1Filtered_35() throws Exception {
+        assumeTrue(isTlsV1Filtered());
+>>>>>>> BRANCH (8c83e3     Remove some un-needed verbosity when processing DocTrees)
         TestSSLContext context = new TestSSLContext.Builder()
                 .clientProtocol(clientVersion)
                 .serverProtocol(serverVersion)

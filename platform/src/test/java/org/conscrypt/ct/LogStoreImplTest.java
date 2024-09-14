@@ -19,6 +19,7 @@ package org.conscrypt.ct;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
 import libcore.test.annotation.NonCts;
 import libcore.test.reasons.NonCtsReasons;
 
@@ -39,6 +40,22 @@ import java.util.Base64;
 
 public class LogStoreImplTest extends TestCase {
     @NonCts(reason = NonCtsReasons.INTERNAL_APIS)
+=======
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.security.PublicKey;
+import java.util.Base64;
+import junit.framework.TestCase;
+import org.conscrypt.OpenSSLKey;
+
+public class LogStoreImplTest extends TestCase {
+>>>>>>> BRANCH (8c83e3     Remove some un-needed verbosity when processing DocTrees)
     public void test_loadLogList() throws Exception {
         // clang-format off
         String content = "" +

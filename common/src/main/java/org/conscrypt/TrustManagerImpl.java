@@ -232,7 +232,13 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         this.ctLogStore = ctLogStore;
         this.ctVerifier = new Verifier(ctLogStore);
         this.ctPolicy = ctPolicy;
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
         ctLogStore.setPolicy(ctPolicy);
+=======
+        if (ctLogStore != null) {
+            ctLogStore.setPolicy(ctPolicy);
+        }
+>>>>>>> BRANCH (8c83e3     Remove some un-needed verbosity when processing DocTrees)
     }
 
     @SuppressWarnings("JdkObsolete")  // KeyStore#aliases is the only API available
