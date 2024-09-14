@@ -628,6 +628,7 @@ java_library {
         "common/src/main/java/**/HpkeSpi.java",
         "common/src/main/java/**/HpkeSuite.java",
         "common/src/main/java/**/Internal.java",
+        "common/src/main/java/**/Preconditions.java",
         "common/src/main/java/**/XdhKeySpec.java",
     ],
     jarjar_rules: "conscrypt-lite-jarjar-rules.txt",
@@ -683,7 +684,7 @@ java_test {
     ],
     hostdex: true,
     srcs: [
-        "repackaged/platform/src/test/java/com/android/org/conscrypt/TrustedCertificateStoreTest.java",
+        "repackaged/platform/src/test/java/com/android/org/conscrypt/*.java",
         "repackaged/platform/src/test/java/com/android/org/conscrypt/metrics/*.java",
         "repackaged/common/src/test/java/com/android/org/conscrypt/*.java",
         "repackaged/common/src/test/java/com/android/org/conscrypt/metrics/*.java",
