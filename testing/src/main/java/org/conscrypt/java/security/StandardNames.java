@@ -181,6 +181,13 @@ public final class StandardNames {
             SSL_CONTEXT_PROTOCOLS_DEPRECATED.add("TLSv1");
             SSL_CONTEXT_PROTOCOLS_DEPRECATED.add("TLSv1.1");
         }
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
+=======
+        if (!TestUtils.isTlsV1Supported()) {
+            assertTrue("Can't have this without that", TestUtils.isTlsV1Deprecated());
+            SSL_CONTEXT_PROTOCOLS.removeAll(SSL_CONTEXT_PROTOCOLS_DEPRECATED);
+        }
+>>>>>>> BRANCH (8c83e3     Remove some un-needed verbosity when processing DocTrees)
     }
 
     public static final Set<String> KEY_TYPES = new HashSet<String>(
