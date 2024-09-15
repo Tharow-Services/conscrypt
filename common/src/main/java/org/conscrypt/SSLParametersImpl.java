@@ -149,12 +149,22 @@ final class SSLParametersImpl implements Cloneable {
           enabledProtocols = NativeCrypto.getDefaultProtocols().clone();
         } else {
             String[] filteredProtocols =
+<<<<<<< HEAD   (6129cb [automerger skipped] Remove CT tests am: d29e52b96c am: 9459)
                     filterFromProtocols(protocols, Arrays.asList(Platform.isTlsV1Filtered()
                         ? new String[] {
                             NativeCrypto.OBSOLETE_PROTOCOL_SSLV3,
                             NativeCrypto.DEPRECATED_PROTOCOL_TLSV1,
                             NativeCrypto.DEPRECATED_PROTOCOL_TLSV1_1,}
                         : new String[0]));
+=======
+                    filterFromProtocols(protocols, Arrays.asList(!Platform.isTlsV1Filtered()
+                        ? new String[0]
+                        : new String[] {
+                            NativeCrypto.OBSOLETE_PROTOCOL_SSLV3,
+                            NativeCrypto.DEPRECATED_PROTOCOL_TLSV1,
+                            NativeCrypto.DEPRECATED_PROTOCOL_TLSV1_1,
+                        }));
+>>>>>>> BRANCH (8c83e3     Remove some un-needed verbosity when processing DocTrees)
             isEnabledProtocolsFiltered = protocols.length != filteredProtocols.length;
             enabledProtocols = NativeCrypto.checkEnabledProtocols(filteredProtocols).clone();
         }
