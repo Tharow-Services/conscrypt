@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6dac14b1_69d47a82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-09-16T02:44:24Z",
+      "side": 1,
+      "message": "LGTM for CT changes",
+      "revId": "85a2c57c5c9bde81cbda791afbdd503e6f76f2f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "845aee88_3a12037a",
+        "filename": "Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-09-16T02:44:24Z",
+      "side": 1,
+      "message": "CertBlocklistTest.java is in that same directory (see ConscryptPrivateTestCases.java). Keep the explicit test name?",
+      "revId": "85a2c57c5c9bde81cbda791afbdd503e6f76f2f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
