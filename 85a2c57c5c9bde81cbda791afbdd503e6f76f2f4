@@ -33,6 +33,24 @@
       "message": "CertBlocklistTest.java is in that same directory (see ConscryptPrivateTestCases.java). Keep the explicit test name?",
       "revId": "85a2c57c5c9bde81cbda791afbdd503e6f76f2f4",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94654c91_e48022af",
+        "filename": "Android.bp",
+        "patchSetId": 5
+      },
+      "lineNbr": 687,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-16T07:31:56Z",
+      "side": 1,
+      "message": "Ah yes, I forgot about those however:\n1) If we need to do that, let\u0027s do it in terms of wildcards rather than listing tests explicity otherwise new/renamed tests can get \"lost\" (it\u0027s happened) plus there\u0027s a bootstrapping issue which I ran into - if the repackaged files aren\u0027t there (e.g. because currysrc fails) then it breaks the build.  I assume we currently have the same issue with ConscryptPrivateTestCases, so I\u0027ll have a think.\n\n2) CertBlocklistTest runs fine in CtsLibcoreTestCases and MtsConscryptTestCases so why was it moved to the private set?\n\nI\u0027ll out this back the way it was for now and we can fix later (but ideally soon)",
+      "parentUuid": "845aee88_3a12037a",
+      "revId": "85a2c57c5c9bde81cbda791afbdd503e6f76f2f4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
