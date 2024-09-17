@@ -1,5 +1,6 @@
-/*
- * Copyright 2016 The Android Open Source Project
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,17 +13,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ -->
 
-package javax.net.ssl;
-
-/**
- * Stub class for compiling unbundled.
- */
-public final class StandardConstants {
-    private StandardConstants() {
-        throw new UnsupportedOperationException("Stub!");
-    }
-
-    public static final int SNI_HOST_NAME = 0;
-}
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="android.conscrypt.tests">
+    <application>
+        <uses-library android:name="android.test.runner" />
+    </application>
+    <instrumentation android:name="androidx.test.runner.AndroidJUnitRunner"
+                     android:targetPackage="android.conscrypt.tests"
+                     android:label="Conscrypt private test cases">
+    </instrumentation>
+</manifest>
