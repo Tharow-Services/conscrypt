@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ab1b19f_40d0c132",
+        "filename": "Android.bp",
+        "patchSetId": 80
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-17T11:19:34Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Bpfmt: This file is not formatted.\n\nAnalyzer Description: Formats Android.bp files.\nOwner: soong-team@google.com\n\nThis file is not formatted.\n\nRun `prebuilts/build-tools/linux-x86/bin/bpfmt -w {filename}` to format the file, or apply the suggested fix. You may also want to add `bpfmt \u003d true` to `PREUPLOAD.cfg`",
+      "range": {
+        "startLine": 0,
+        "startChar": 0,
+        "endLine": 0,
+        "endChar": 0
+      },
+      "revId": "3e956d9650d896e7d27c8d60f62b9768320d2afc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "67c6fc19_46cbab75",
+        "filename": "Android.bp",
+        "patchSetId": 80
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-17T11:19:34Z",
+      "side": 1,
+      "message": "Remove, please.",
+      "range": {
+        "startLine": 284,
+        "startChar": 3,
+        "endLine": 284,
+        "endChar": 15
+      },
+      "revId": "3e956d9650d896e7d27c8d60f62b9768320d2afc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "932cb0de_62044305",
+        "filename": "Android.bp",
+        "patchSetId": 80
+      },
+      "lineNbr": 338,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-17T11:19:34Z",
+      "side": 1,
+      "message": "Why is one static and the other not?  Suspect they both need to be static.",
+      "range": {
+        "startLine": 338,
+        "startChar": 9,
+        "endLine": 338,
+        "endChar": 35
+      },
+      "revId": "3e956d9650d896e7d27c8d60f62b9768320d2afc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "703edc88_7632d58a",
+        "filename": "Android.bp",
+        "patchSetId": 80
+      },
+      "lineNbr": 341,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-17T11:19:34Z",
+      "side": 1,
+      "message": "Use or remove, please.",
+      "revId": "3e956d9650d896e7d27c8d60f62b9768320d2afc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
