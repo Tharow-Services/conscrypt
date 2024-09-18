@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6fb35b5b_166c181e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-18T16:53:12Z",
+      "side": 1,
+      "message": "I think this needs to be internal first and then cherry-picked.\n\nDo we need an equivalent for GMS?  Will that need a launchcal?",
+      "revId": "5038b28e8b2d0430bb15ba20264a2c030a0002d8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
