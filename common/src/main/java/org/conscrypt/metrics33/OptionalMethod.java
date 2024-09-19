@@ -1,4 +1,3 @@
-/* GENERATED SOURCE. DO NOT MODIFY. */
 /*
  * Copyright (C) 2020 The Android Open Source Project
  *
@@ -14,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.org.conscrypt.metrics;
+package org.conscrypt.metrics;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import com.android.org.conscrypt.Internal;
+import org.conscrypt.Internal;
 
 /**
  * Helper class to handle reflexive loading and invocation of methods which may be absent.
  *
- * @hide This class is not part of the Android public SDK API
  * @hide This class is not part of the Android public SDK API
  */
 @Internal
