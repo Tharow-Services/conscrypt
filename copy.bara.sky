@@ -1,0 +1,67 @@
+core.workflow(
+    name = "github_to_aosp",
+    origin = git.origin(
+        url = "https://github.com/google/conscrypt",
+        ref = "main",
+    ),
+    origin_files = glob(
+        [
+            "**"
+        ],
+        exclude = [
+        ],
+    ),
+    destination = git.gerrit_destination(
+        url = "https://android/platform/external/conscrypt",
+        fetch = "main",
+    ),
+    destination_files = glob(
+        [
+            "**"
+        ],
+        exclude = [
+            "**/Android.bp",
+            "repackaged/**"
+        ],
+    ),
+    dry_run = True,
+    authoring = authoring.pass_thru(
+        "Conscrypt Team <no-reply@google.com>"
+    ),
+    mode = 'ITERATIVE',
+)
+
+core.workflow(
+    name = "aosp_to_github",
+    origin = git.gerrit_origin(
+        url = "https://android.git.corp.google.com/platform/external/conscrypt",
+        ref = "main",
+    ),
+    origin_files = glob(
+        [
+            "**"
+        ],
+        exclude = [
+            "**/Android.bp",
+            "repackaged/**"
+        ],
+    ),
+    destination = git.destination(
+        url = "https://github.com/google/conscrypt",
+        fetch = "main",
+    ),
+    destination_files = glob(
+        [
+            "**"
+        ],
+        exclude = [
+            "**/Android.bp",
+            "repackaged/**"
+        ],
+    ),
+    dry_run = True,
+    authoring = authoring.pass_thru(
+        "Conscrypt Team <no-reply@google.com>"
+    ),
+    mode = 'ITERATIVE',
+)
