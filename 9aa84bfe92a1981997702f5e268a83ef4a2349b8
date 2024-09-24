@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3d5bd408_4c8c8bbb",
+        "filename": "platform/src/main/java/org/conscrypt/Hex.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2024-09-24T13:48:50Z",
+      "side": 1,
+      "message": "Nit: Perhaps also remove this occurrence of `InternalUtil` (or update this comment)?",
+      "range": {
+        "startLine": 24,
+        "startChar": 32,
+        "endLine": 24,
+        "endChar": 44
+      },
+      "revId": "9aa84bfe92a1981997702f5e268a83ef4a2349b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e90ca57f_5cc31817",
         "filename": "platform/src/main/java/org/conscrypt/ct/CTLogStoreImpl.java",
         "patchSetId": 1
@@ -43,6 +66,29 @@
         "startChar": 6,
         "endLine": 194,
         "endChar": 90
+      },
+      "revId": "9aa84bfe92a1981997702f5e268a83ef4a2349b8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8aa7d554_1779dbba",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/Hex.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1052644
+      },
+      "writtenOn": "2024-09-24T13:48:50Z",
+      "side": 1,
+      "message": "Nit: Perhaps also remove this occurrence of `InternalUtil` (or update this comment)?",
+      "range": {
+        "startLine": 26,
+        "startChar": 32,
+        "endLine": 26,
+        "endChar": 44
       },
       "revId": "9aa84bfe92a1981997702f5e268a83ef4a2349b8",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
