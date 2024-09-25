@@ -33,6 +33,9 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
 
+/**
+ * @hide This class is not part of the Android public SDK API
+ */
 @RunWith(JUnit4.class)
 public class TlsDeprecationTest {
     @TargetSdkVersion(35)

@@ -40,6 +40,14 @@ public interface LogStore {
 
     State getState();
 
+    int getMajorVersion();
+
+    int getMinorVersion();
+
+    int getCompatVersion();
+
+    int getMinCompatVersionAvailable();
+
     long getTimestamp();
 
     LogInfo getKnownLog(byte[] logId);
