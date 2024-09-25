@@ -33,7 +33,20 @@ import org.conscrypt.Internal;
  **/
 @Internal
 public final class ConscryptStatsLog {
+    /**
+     * TlsHandshakeReported tls_handshake_reported
+     * Usage: StatsLog.write(StatsLog.TLS_HANDSHAKE_REPORTED, boolean success, int protocol, int
+     * cipher_suite, int handshake_duration_millis, int source, int[] uid);<br>
+     */
     public static final int TLS_HANDSHAKE_REPORTED = 317;
+
+    /**
+     * CertificateTransparencyLogListStateChanged certificate_transparency_log_list_state_changed
+     * Usage: StatsLog.write(StatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_STATE_CHANGED, int status,
+     * int loaded_compat_version, int min_compat_version_available, int major_version, int
+     * minor_version);<br>
+     */
+    public static final int CERTIFICATE_TRANSPARENCY_LOG_LIST_STATE_CHANGED = 934;
 
     private ConscryptStatsLog() {}
 
@@ -41,6 +54,14 @@ public final class ConscryptStatsLog {
             int duration, Source source, int[] uids) {
         ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
                 atomId, success, protocol, cipherSuite, duration, source.ordinal(), uids);
+
+        ReflexiveStatsLog.write(event);
+    }
+
+    public static void write(int atomId, int status, int loadedCompatVersion,
+            int minCompatVersionAvailable, int majorVersion, int minorVersion) {
+        ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(atomId, status,
+                loadedCompatVersion, minCompatVersionAvailable, majorVersion, minorVersion);
 
         ReflexiveStatsLog.write(event);
     }

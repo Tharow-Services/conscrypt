@@ -71,7 +71,8 @@ import org.conscrypt.metrics.Protocol;
 /**
  * Platform-specific methods for unbundled Android.
  */
-final class Platform {
+@Internal
+final public class Platform {
     private static final String TAG = "Conscrypt";
 
     private static Method m_getCurveName;
@@ -949,6 +950,8 @@ final class Platform {
         ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, protocol,
                 cipherSuite, duration, SOURCE_GMS, new int[] {Os.getuid(), Binder.getCallingUid()});
     }
+
+    public static void updateCTLogListStatusChanged(LogStore logStore) {}
 
     public static boolean isJavaxCertificateSupported() {
         return true;

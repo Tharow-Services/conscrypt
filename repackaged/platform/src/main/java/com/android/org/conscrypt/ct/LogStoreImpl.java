@@ -23,6 +23,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import com.android.org.conscrypt.ByteArray;
 import com.android.org.conscrypt.Internal;
 import com.android.org.conscrypt.OpenSSLKey;
+import com.android.org.conscrypt.Platform;
+import com.android.org.conscrypt.metrics.ConscryptStatsLog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,18 +57,22 @@ import java.util.logging.Logger;
 @Internal
 public class LogStoreImpl implements LogStore {
     private static final Logger logger = Logger.getLogger(LogStoreImpl.class.getName());
-    public static final String V3_PATH = "/misc/keychain/ct/v3/log_list.json";
+    private static final String BASE_PATH = "misc/keychain/ct";
+    private static final int COMPAT_VERSION = 1;
+    private static final String LOG_LIST_FILENAME = "log_list.json";
     private static final Path defaultLogList;
 
     static {
-        String ANDROID_DATA = System.getenv("ANDROID_DATA");
-        defaultLogList = Paths.get(ANDROID_DATA, V3_PATH);
+        String androidData = System.getenv("ANDROID_DATA");
+        String compatVersion = String.format("v%d", COMPAT_VERSION);
+        defaultLogList = Paths.get(androidData, BASE_PATH, compatVersion, LOG_LIST_FILENAME);
     }
 
     private final Path logList;
     private State state;
     private Policy policy;
-    private String version;
+    private int majorVersion;
+    private int minorVersion;
     private long timestamp;
     private Map<ByteArray, LogInfo> logs;
 
@@ -88,6 +94,32 @@ public class LogStoreImpl implements LogStore {
     @Override
     public long getTimestamp() {
         return timestamp;
+    }
+
+    @Override
+    public int getMajorVersion() {
+        return majorVersion;
+    }
+
+    @Override
+    public int getMinorVersion() {
+        return minorVersion;
+    }
+
+    @Override
+    public int getCompatVersion() {
+        // Currently, there is only one compatibility version supported. If we
+        // are loaded or initialized, it means the expected compatibility
+        // version was found.
+        if (state == State.LOADED || state == State.COMPLIANT || state == State.NON_COMPLIANT) {
+            return COMPAT_VERSION;
+        }
+        return 0;
+    }
+
+    @Override
+    public int getMinCompatVersionAvailable() {
+        return getCompatVersion();
     }
 
     @Override
@@ -116,11 +148,15 @@ public class LogStoreImpl implements LogStore {
      */
     private boolean ensureLogListIsLoaded() {
         synchronized (this) {
+            State previousState = state;
             if (state == State.UNINITIALIZED) {
                 state = loadLogList();
             }
             if (state == State.LOADED && policy != null) {
                 state = policy.isLogStoreCompliant(this) ? State.COMPLIANT : State.NON_COMPLIANT;
+            }
+            if (state != previousState) {
+                Platform.updateCTLogListStatusChanged(this);
             }
             return state == State.COMPLIANT;
         }
@@ -145,7 +181,8 @@ public class LogStoreImpl implements LogStore {
         }
         HashMap<ByteArray, LogInfo> logsMap = new HashMap<>();
         try {
-            version = json.getString("version");
+            majorVersion = parseMajorVersion(json.getString("version"));
+            minorVersion = parseMinorVersion(json.getString("version"));
             timestamp = parseTimestamp(json.getString("log_list_timestamp"));
             JSONArray operators = json.getJSONArray("operators");
             for (int i = 0; i < operators.length(); i++) {
@@ -187,6 +224,30 @@ public class LogStoreImpl implements LogStore {
         }
         this.logs = Collections.unmodifiableMap(logsMap);
         return State.LOADED;
+    }
+
+    private static int parseMajorVersion(String version) {
+        int pos = version.indexOf(".");
+        if (pos == -1) {
+            pos = version.length();
+        }
+        try {
+            return Integer.parseInt(version.substring(0, pos));
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    private static int parseMinorVersion(String version) {
+        int pos = version.indexOf(".");
+        if (pos != -1 && pos < version.length()) {
+            try {
+                return Integer.parseInt(version.substring(pos + 1, version.length()));
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                return 0;
+            }
+        }
+        return 0;
     }
 
     private static int parseState(String state) {

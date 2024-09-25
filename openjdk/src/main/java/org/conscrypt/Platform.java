@@ -86,7 +86,8 @@ import org.conscrypt.ct.Policy;
  *
  * Uses reflection to implement Java 8 SSL features for backwards compatibility.
  */
-final class Platform {
+@Internal
+final public class Platform {
     private static final int JAVA_VERSION = javaVersion0();
     private static final Method GET_CURVE_NAME_METHOD;
 
@@ -805,6 +806,9 @@ final class Platform {
     @SuppressWarnings("unused")
     static void countTlsHandshake(
             boolean success, String protocol, String cipherSuite, long duration) {}
+
+    @SuppressWarnings("unused")
+    public static void updateCTLogListStatusChanged(LogStore logStore) {}
 
     public static boolean isJavaxCertificateSupported() {
         return JAVA_VERSION < 15;

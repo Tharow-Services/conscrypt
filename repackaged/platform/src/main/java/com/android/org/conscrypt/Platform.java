@@ -81,7 +81,11 @@ import javax.net.ssl.X509TrustManager;
 
 import sun.security.x509.AlgorithmId;
 
-final class Platform {
+/**
+ * @hide This class is not part of the Android public SDK API
+ */
+@Internal
+final public class Platform {
     private static class NoPreloadHolder { public static final Platform MAPPER = new Platform(); }
 
     /**
@@ -546,6 +550,39 @@ final class Platform {
         ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, proto.getId(),
                 suite.getId(), duration, SOURCE_MAINLINE,
                 new int[] {Os.getuid()});
+    }
+
+    static int logStoreStateToMetricsState(LogStore.State state) {
+        /* These constants must match the atom LogListStatus
+         * from frameworks/proto_logging/stats/atoms/conscrypt/conscrypt_extension_atoms.proto
+         */
+        final int METRIC_UNKNOWN = 0;
+        final int METRIC_SUCCESS = 1;
+        final int METRIC_NOT_FOUND = 2;
+        final int METRIC_PARSING_FAILED = 3;
+        final int METRIC_EXPIRED = 4;
+
+        switch (state) {
+            case UNINITIALIZED:
+            case LOADED:
+                return METRIC_UNKNOWN;
+            case NOT_FOUND:
+                return METRIC_NOT_FOUND;
+            case MALFORMED:
+                return METRIC_PARSING_FAILED;
+            case COMPLIANT:
+                return METRIC_SUCCESS;
+            case NON_COMPLIANT:
+                return METRIC_EXPIRED;
+        }
+        return METRIC_UNKNOWN;
+    }
+
+    public static void updateCTLogListStatusChanged(LogStore logStore) {
+        int state = logStoreStateToMetricsState(logStore.getState());
+        ConscryptStatsLog.write(ConscryptStatsLog.CERTIFICATE_TRANSPARENCY_LOG_LIST_STATE_CHANGED,
+                state, logStore.getCompatVersion(), logStore.getMinCompatVersionAvailable(),
+                logStore.getMajorVersion(), logStore.getMinorVersion());
     }
 
     public static boolean isJavaxCertificateSupported() {
