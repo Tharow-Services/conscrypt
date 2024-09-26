@@ -16,6 +16,7 @@
  */
 package com.android.org.conscrypt.metrics;
 
+import com.android.org.conscrypt.metrics.GeneratedStatsLog;
 import com.android.org.conscrypt.Internal;
 
 /**
@@ -39,11 +40,37 @@ public final class ConscryptStatsLog {
 
     private ConscryptStatsLog() {}
 
+    private static final Object sdkVersion;
+    private static final boolean sdkVersionBiggerThan32;
+
+    static {
+        sdkVersion = getSdkVersion();
+        sdkVersionBiggerThan32 = (sdkVersion != null) && ((int) sdkVersion > 32);
+    }
+
+    @SupressWarnings("NewApi")
     public static void write(int atomId, boolean success, int protocol, int cipherSuite,
             int duration, Source source, int[] uids) {
-        ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
-                atomId, success, protocol, cipherSuite, duration, source.ordinal(), uids);
+        if (sdkVersionBiggerThan32) {
+            GeneratedStatsLog.write(atomId, success, protocol, cipherSuite,
+                duration, source.ordinal(), uids);
+        } else {
+            ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
+                    atomId, success, protocol, cipherSuite, duration, source.ordinal(), uids);
 
-        ReflexiveStatsLog.write(event);
+            ReflexiveStatsLog.write(event);
+        }
+    }
+
+
+    static Object getSdkVersion() {
+        try {
+            OptionalMethod getSdkVersion =
+                    new OptionalMethod(Class.forName("dalvik.system.VMRuntime"),
+                                        "getSdkVersion");
+            return getSdkVersion.invokeStatic();
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
     }
 }
