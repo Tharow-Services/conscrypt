@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d6dc515_87fdaecf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-09-27T11:26:57Z",
+      "side": 1,
+      "message": "Thanks for this!\n\nLooks like SSLSocketVersionCompatibilityTest isn\u0027t getting repackaged which is odd... I don\u0027t see it in this CL and it looks like it didn\u0027t get done as part of my last one either.  Odd.",
+      "revId": "12d48d16ceb62664e1df105992b7ab2b52a88fd6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
