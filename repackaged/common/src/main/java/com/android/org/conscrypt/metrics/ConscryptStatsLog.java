@@ -16,7 +16,13 @@
  */
 package com.android.org.conscrypt.metrics;
 
+import java.util.concurrent.ExecutorService;
 import com.android.org.conscrypt.Internal;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Executors;
 
 /**
  * Reimplement with reflection calls the logging class,
@@ -37,13 +43,23 @@ import com.android.org.conscrypt.Internal;
 public final class ConscryptStatsLog {
     public static final int TLS_HANDSHAKE_REPORTED = 317;
 
+    private static final ExecutorService e = new ThreadPoolExecutor(20, 50,
+                                   0, TimeUnit.SECONDS,
+                                   new ArrayBlockingQueue<Runnable>(10));;
+
     private ConscryptStatsLog() {}
 
     public static void write(int atomId, boolean success, int protocol, int cipherSuite,
             int duration, Source source, int[] uids) {
-        ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
-                atomId, success, protocol, cipherSuite, duration, source.ordinal(), uids);
+      e.execute(new Runnable() {
+            @Override
+            public void run() {
+                ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
+                        atomId, success, protocol, cipherSuite, duration,
+                        source.ordinal(), uids);
 
-        ReflexiveStatsLog.write(event);
+                ReflexiveStatsLog.write(event);
+            }
+        });
     }
 }

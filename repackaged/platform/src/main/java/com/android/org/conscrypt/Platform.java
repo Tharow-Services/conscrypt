@@ -83,6 +83,7 @@ import sun.security.x509.AlgorithmId;
 
 final class Platform {
     private static class NoPreloadHolder { public static final Platform MAPPER = new Platform(); }
+    private static final ConscryptStatsLog sStatsLog = ConscryptStatsLog.get();
 
     /**
      * Runs all the setup for the platform that only needs to run once.

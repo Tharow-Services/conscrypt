@@ -73,6 +73,7 @@ import org.conscrypt.metrics.Protocol;
  */
 final class Platform {
     private static final String TAG = "Conscrypt";
+    private static final ConscryptStatsLog sStatsLog = ConscryptStatsLog.get();
 
     private static Method m_getCurveName;
     static {
