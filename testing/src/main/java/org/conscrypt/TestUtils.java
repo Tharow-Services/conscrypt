@@ -867,6 +867,8 @@ public final class TestUtils {
             return (Boolean) conscryptClass("Platform")
                     .getDeclaredMethod("isTlsV1Deprecated")
                     .invoke(null);
+        } catch (NoSuchMethodException e) {
+            return false;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
