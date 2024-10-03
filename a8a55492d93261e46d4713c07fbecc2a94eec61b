@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "38432ddf_4ac95cd5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-03T10:00:24Z",
+      "side": 1,
+      "message": "Tests?  Definitely needs something in MetricsTest.",
+      "revId": "a8a55492d93261e46d4713c07fbecc2a94eec61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f5bbcd35_161d49a7",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-03T10:00:24Z",
+      "side": 1,
+      "message": "Maybe make these two method names more distinctive rather than relying on overloading.",
+      "range": {
+        "startLine": 88,
+        "startChar": 38,
+        "endLine": 88,
+        "endChar": 48
+      },
+      "revId": "a8a55492d93261e46d4713c07fbecc2a94eec61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
