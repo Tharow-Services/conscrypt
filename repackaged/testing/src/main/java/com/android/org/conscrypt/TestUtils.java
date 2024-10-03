@@ -251,9 +251,9 @@ public final class TestUtils {
                             .getDeclaredConstructor(String.class, Boolean.TYPE, String.class);
 
             if (!isClassAvailable("javax.net.ssl.X509ExtendedTrustManager")) {
-                return (Provider) c.newInstance(defaultName, false, "TLSv1.3");
+                return (Provider) c.newInstance(defaultName, false, "TLSv1.3", true, false);
             } else {
-                return (Provider) c.newInstance(defaultName, true, "TLSv1.3");
+                return (Provider) c.newInstance(defaultName, true, "TLSv1.3", true, false);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
