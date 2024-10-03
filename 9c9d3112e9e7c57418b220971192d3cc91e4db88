@@ -39,6 +39,30 @@
       },
       "revId": "9c9d3112e9e7c57418b220971192d3cc91e4db88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "da0c7db0_53684429",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-03T15:02:50Z",
+      "side": 1,
+      "message": "Like so?",
+      "parentUuid": "56ac7ccc_431f484f",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 74
+      },
+      "revId": "9c9d3112e9e7c57418b220971192d3cc91e4db88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
