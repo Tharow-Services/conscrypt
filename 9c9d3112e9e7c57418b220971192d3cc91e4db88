@@ -63,6 +63,30 @@
       },
       "revId": "9c9d3112e9e7c57418b220971192d3cc91e4db88",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "18ebb10c_b02cd880",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-03T15:19:11Z",
+      "side": 1,
+      "message": "Pretty much!\n\nExcept (1) should probably log it rather than use stdout, but we don\u0027t log consistently across platforms so maybe just do nothing for now and (2) this code is in common/ so needs to compile on versions of Android before lambdas exist",
+      "parentUuid": "da0c7db0_53684429",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 74
+      },
+      "revId": "9c9d3112e9e7c57418b220971192d3cc91e4db88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
