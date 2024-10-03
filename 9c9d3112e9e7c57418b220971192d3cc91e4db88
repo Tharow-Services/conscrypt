@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c3657bbd_87c6561d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-03T10:36:47Z",
+      "side": 1,
+      "message": "+tweek as you\u0027re also working in this area",
+      "revId": "9c9d3112e9e7c57418b220971192d3cc91e4db88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56ac7ccc_431f484f",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-03T10:36:47Z",
+      "side": 1,
+      "message": "Executors.newSingleThreadExecutor(factory), maybe, where factory is a ThreadFactory which implements an UncaughtExceptionHandler so we can swallow any background exceptions.\n\nOr maybe use your constructor plus a thread factory so we can tweak queue sizes etc.  In which case we probably want a RejectedExecutionHandler which probably just drops any new stats requests so we don\u0027t overload the app.\n\nAs far as queue params go I would say we want a single low priority thread but we can have a big queue as our Runnables are small... Bear in mind that things like okhttp can have large connection pools so may kick of a lot of TLS connections in parallel.",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 74
+      },
+      "revId": "9c9d3112e9e7c57418b220971192d3cc91e4db88",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
