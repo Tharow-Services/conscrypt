@@ -63,6 +63,7 @@ import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
 import libcore.net.NetworkSecurityPolicy;
+import org.conscrypt.NativeCrypto;
 import org.conscrypt.ct.LogStore;
 import org.conscrypt.ct.LogStoreImpl;
 import org.conscrypt.ct.Policy;
@@ -75,12 +76,25 @@ import sun.security.x509.AlgorithmId;
 
 final class Platform {
     private static class NoPreloadHolder { public static final Platform MAPPER = new Platform(); }
+    private static boolean DEPRECATED_TLS_V1 = false;
+    private static boolean ENABLED_TLS_V1 = true;
+    private static boolean FILTERED_TLS_V1 = false;
+
+    static {
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+    }
 
     /**
      * Runs all the setup for the platform that only needs to run once.
      */
-    public static void setup() {
+    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
+        DEPRECATED_TLS_V1 = deprecatedTlsV1;
+        ENABLED_TLS_V1 = enabledTlsV1;
+        if (enabledTlsV1) {
+            FILTERED_TLS_V1 = true;
+        }
         NoPreloadHolder.MAPPER.ping();
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
     }
 
     /**
@@ -545,18 +559,18 @@ final class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return true;
+        return DEPRECATED_TLS_V1;
     }
 
     public static boolean isTlsV1Filtered() {
         Object targetSdkVersion = getTargetSdkVersion();
         if ((targetSdkVersion != null) && ((int) targetSdkVersion > 34))
             return false;
-        return true;
+        return FILTERED_TLS_V1;
     }
 
     public static boolean isTlsV1Supported() {
-        return false;
+        return ENABLED_TLS_V1;
     }
 
     static Object getTargetSdkVersion() {

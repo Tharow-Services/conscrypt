@@ -78,6 +78,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
+import org.conscrypt.NativeCrypto;
 import org.conscrypt.ct.LogStore;
 import org.conscrypt.ct.Policy;
 
@@ -89,9 +90,12 @@ import org.conscrypt.ct.Policy;
 final class Platform {
     private static final int JAVA_VERSION = javaVersion0();
     private static final Method GET_CURVE_NAME_METHOD;
+    private static boolean DEPRECATED_TLS_V1 = false;
+    private static boolean ENABLED_TLS_V1 = true;
+    private static boolean FILTERED_TLS_V1 = false;
 
     static {
-
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
         Method getCurveNameMethod = null;
         try {
             getCurveNameMethod = ECParameterSpec.class.getDeclaredMethod("getCurveName");
@@ -104,7 +108,14 @@ final class Platform {
 
     private Platform() {}
 
-    static void setup() {}
+    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
+        DEPRECATED_TLS_V1 = deprecatedTlsV1;
+        ENABLED_TLS_V1 = enabledTlsV1;
+        if (enabledTlsV1) {
+            FILTERED_TLS_V1 = true;
+        }
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+    }
 
 
     /**
@@ -811,14 +822,14 @@ final class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return true;
+        return DEPRECATED_TLS_V1;
     }
 
     public static boolean isTlsV1Filtered() {
-        return false;
+        return FILTERED_TLS_V1;
     }
 
     public static boolean isTlsV1Supported() {
-        return false;
+        return ENABLED_TLS_V1;
     }
 }
