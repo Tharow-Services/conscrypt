@@ -61,14 +61,16 @@ public final class OpenSSLProvider extends Provider {
         this(providerName, Platform.provideTrustManagerByDefault(), "TLSv1.3");
     }
 
-    OpenSSLProvider(String providerName, boolean includeTrustManager, String defaultTlsProtocol) {
+    OpenSSLProvider(String providerName, boolean includeTrustManager,
+            String defaultTlsProtocol, boolean deprecatedTlsV1,
+            boolean enabledTlsV1) {
         super(providerName, 1.0, "Android's OpenSSL-backed security provider");
 
         // Ensure that the native library has been loaded.
         NativeCrypto.checkAvailability();
 
         // Make sure the platform is initialized.
-        Platform.setup();
+        Platform.setup(deprecatedTlsV1, enabledTlsV1);
 
         /* === SSL Contexts === */
         String classOpenSSLContextImpl = PREFIX + "OpenSSLContextImpl";
