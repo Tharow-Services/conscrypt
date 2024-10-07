@@ -239,12 +239,13 @@ public final class TestUtils {
                 .getDeclaredMethod("getDefaultProviderName")
                 .invoke(null);
             Constructor<?> c = conscryptClass("OpenSSLProvider")
-                .getDeclaredConstructor(String.class, Boolean.TYPE, String.class);
+                .getDeclaredConstructor(String.class, Boolean.TYPE,
+                    String.class, Boolean.TYPE, Boolean.TYPE);
 
             if (!isClassAvailable("javax.net.ssl.X509ExtendedTrustManager")) {
-                return (Provider) c.newInstance(defaultName, false, "TLSv1.3");
+                return (Provider) c.newInstance(defaultName, false, "TLSv1.3", true, true);
             } else {
-                return (Provider) c.newInstance(defaultName, true, "TLSv1.3");
+                return (Provider) c.newInstance(defaultName, true, "TLSv1.3", true, true);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
