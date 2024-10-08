@@ -24,6 +24,7 @@ import java.security.spec.AlgorithmParameterSpec;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
+import org.conscrypt.metrics.MetricsCipher;
 
 /**
  * Implementation of the ChaCha20 stream cipher.
@@ -40,7 +41,11 @@ public class OpenSSLCipherChaCha20 extends OpenSSLCipher {
     private int currentBlockConsumedBytes = 0;
     private int blockCounter = 0;
 
-    public OpenSSLCipherChaCha20() {}
+    public OpenSSLCipherChaCha20() {
+        Platform.countCipherUsage(
+            MetricsCipher.CHACHA20.getId());
+
+    }
 
     @Override
     void engineInitInternal(byte[] encodedKey, AlgorithmParameterSpec params, SecureRandom random)

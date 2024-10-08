@@ -23,7 +23,6 @@ import java.util.Arrays;
  * Compatibility utility for Arrays.
  * @hide This class is not part of the Android public SDK API
  */
-@Internal
 public final class ArrayUtils {
     private ArrayUtils() {}
 

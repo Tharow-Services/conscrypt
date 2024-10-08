@@ -21,7 +21,6 @@ import java.util.Arrays;
 /**
  * Compatibility utility for Arrays.
  */
-@Internal
 public final class ArrayUtils {
     private ArrayUtils() {}
 
