@@ -943,6 +943,10 @@ final class Platform {
         }
     }
 
+    public static void countCipherUsage(int cipherId) {
+        ConscryptStatsLog.write(cipherId);
+    }
+
     @TargetApi(30)
     private static void writeStats(
             boolean success, int protocol, int cipherSuite, int duration) {
