@@ -43,6 +43,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 @Internal
 public final class ConscryptStatsLog {
     public static final int TLS_HANDSHAKE_REPORTED = 317;
+    public static final int CONSCRYPT_CIPHER_USED = 500;
 
     private static final ExecutorService e =
         Executors.newSingleThreadExecutor(
@@ -71,6 +72,18 @@ public final class ConscryptStatsLog {
                 ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
                         atomId, success, protocol, cipherSuite, duration,
                         source.ordinal(), uids);
+
+                ReflexiveStatsLog.write(event);
+            }
+        });
+    }
+
+    public static void write(int cipherId) {
+      e.execute(new Runnable() {
+            @Override
+            public void run() {
+                ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
+                    CONSCRYPT_CIPHER_USED, cipherId);
 
                 ReflexiveStatsLog.write(event);
             }
