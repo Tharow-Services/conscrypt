@@ -85,6 +85,16 @@ public class ReflexiveStatsEvent {
         return builder.build();
     }
 
+    public static ReflexiveStatsEvent buildEvent(
+        int atomId, int cipherId, int modeId, int paddingId) {
+        ReflexiveStatsEvent.Builder builder = ReflexiveStatsEvent.newBuilder();
+        builder.setAtomId(atomId);
+        builder.writeInt(cipherId);
+        builder.writeInt(modeId);
+        builder.writeInt(paddingId);
+        builder.usePooledBuffer();
+        return builder.build();
+    }
 
     static Object getSdkVersion() {
         try {

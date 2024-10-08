@@ -17,6 +17,10 @@
 
 package com.android.org.conscrypt;
 
+import com.android.org.conscrypt.metrics.MetricsCipher;
+import com.android.org.conscrypt.metrics.Mode;
+import com.android.org.conscrypt.metrics.Padding;
+
 import java.security.AlgorithmParameters;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -142,7 +146,12 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
          * @hide This class is not part of the Android public SDK API
          */
         public static class AES_128 extends GCM {
-            public AES_128() {}
+            public AES_128() {
+                Platform.countCipherUsage(
+                        MetricsCipher.AES_128.getId(),
+                        Mode.GCM.getId(),
+                        Padding.NO_PADDING.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -157,7 +166,12 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
          * @hide This class is not part of the Android public SDK API
          */
         public static class AES_256 extends GCM {
-            public AES_256() {}
+            public AES_256() {
+                Platform.countCipherUsage(
+                        MetricsCipher.AES_256.getId(),
+                        Mode.GCM.getId(),
+                        Padding.NO_PADDING.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -214,7 +228,12 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
          * @hide This class is not part of the Android public SDK API
          */
         public static class AES_128 extends GCM_SIV {
-            public AES_128() {}
+            public AES_128() {
+                Platform.countCipherUsage(
+                        MetricsCipher.AES_128.getId(),
+                        Mode.GCM_SIV.getId(),
+                        Padding.NO_PADDING.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -229,7 +248,12 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
          * @hide This class is not part of the Android public SDK API
          */
         public static class AES_256 extends GCM_SIV {
-            public AES_256() {}
+            public AES_256() {
+                Platform.countCipherUsage(
+                        MetricsCipher.AES_256.getId(),
+                        Mode.GCM_SIV.getId(),
+                        Padding.NO_PADDING.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {

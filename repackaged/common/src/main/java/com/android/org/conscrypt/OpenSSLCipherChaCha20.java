@@ -17,11 +17,16 @@
 
 package com.android.org.conscrypt;
 
+import com.android.org.conscrypt.metrics.MetricsCipher;
+import com.android.org.conscrypt.metrics.Mode;
+import com.android.org.conscrypt.metrics.Padding;
+
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.AlgorithmParameterSpec;
+
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
@@ -42,7 +47,11 @@ public class OpenSSLCipherChaCha20 extends OpenSSLCipher {
     private int currentBlockConsumedBytes = 0;
     private int blockCounter = 0;
 
-    public OpenSSLCipherChaCha20() {}
+    public OpenSSLCipherChaCha20() {
+        Platform.countCipherUsage(MetricsCipher.CHACHA20.getId(),
+            Mode.NO_MODE.getId(),
+            Padding.NO_PADDING.getId());
+    }
 
     @Override
     void engineInitInternal(byte[] encodedKey, AlgorithmParameterSpec params, SecureRandom random)

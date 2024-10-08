@@ -806,6 +806,9 @@ final class Platform {
     static void countTlsHandshake(
             boolean success, String protocol, String cipherSuite, long duration) {}
 
+    @SuppressWarnings("unused")
+    public static void countCipherUsage(int cipherId) {}
+
     public static boolean isJavaxCertificateSupported() {
         return JAVA_VERSION < 15;
     }

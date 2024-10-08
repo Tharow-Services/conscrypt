@@ -22,6 +22,9 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.AlgorithmParameterSpec;
 import java.security.spec.InvalidParameterSpecException;
+import org.conscrypt.metrics.MetricsCipher;
+import org.conscrypt.metrics.Mode;
+import org.conscrypt.metrics.Padding;
 
 @Internal
 public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
@@ -132,7 +135,12 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
         }
 
         public static class AES_128 extends GCM {
-            public AES_128() {}
+            public AES_128() {
+                Platform.countCipherUsage(
+                    MetricsCipher.AES_128.getId(),
+                    Mode.GCM.getId(),
+                    Padding.NO_PADDING.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -144,7 +152,12 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
         }
 
         public static class AES_256 extends GCM {
-            public AES_256() {}
+            public AES_256() {
+                Platform.countCipherUsage(
+                    MetricsCipher.AES_256.getId(),
+                    Mode.GCM.getId(),
+                    Padding.NO_PADDING.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -196,7 +209,12 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
         }
 
         public static class AES_128 extends GCM_SIV {
-            public AES_128() {}
+            public AES_128() {
+                Platform.countCipherUsage(
+                    MetricsCipher.AES_128.getId(),
+                    Mode.GCM_SIV.getId(),
+                    Padding.NO_PADDING.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
@@ -208,7 +226,12 @@ public abstract class OpenSSLAeadCipherAES extends OpenSSLAeadCipher {
         }
 
         public static class AES_256 extends GCM_SIV {
-            public AES_256() {}
+            public AES_256() {
+                Platform.countCipherUsage(
+                    MetricsCipher.AES_256.getId(),
+                    Mode.GCM_SIV.getId(),
+                    Padding.NO_PADDING.getId());
+            }
 
             @Override
             void checkSupportedKeySize(int keyLength) throws InvalidKeyException {
