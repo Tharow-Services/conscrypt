@@ -548,6 +548,10 @@ final class Platform {
                 new int[] {Os.getuid()});
     }
 
+    public static void countCipherUsage(int cipherId, int modeId, int paddingId) {
+        ConscryptStatsLog.write(cipherId, modeId, paddingId);
+    }
+
     public static boolean isJavaxCertificateSupported() {
         return true;
     }

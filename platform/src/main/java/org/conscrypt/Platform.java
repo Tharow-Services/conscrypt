@@ -529,6 +529,10 @@ final class Platform {
         return System.currentTimeMillis();
     }
 
+    public static void countCipherUsage(int cipherId, int modeId, int paddingId) {
+        ConscryptStatsLog.write(cipherId, modeId, paddingId);
+    }
+
     static void countTlsHandshake(
             boolean success, String protocol, String cipherSuite, long durationLong) {
         Protocol proto = Protocol.forName(protocol);
