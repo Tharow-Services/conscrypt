@@ -18,11 +18,18 @@ package org.conscrypt;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import org.conscrypt.metrics.MetricsCipher;
+import org.conscrypt.metrics.MetricsMode;
+import org.conscrypt.metrics.MetricsPadding;
 
 @Internal
 public class OpenSSLAeadCipherChaCha20 extends OpenSSLAeadCipher {
     public OpenSSLAeadCipherChaCha20() {
         super(Mode.POLY1305);
+        Platform.countCipherUsage(
+                MetricsCipher.CHACHA20_POLY1305.getId(),
+                MetricsMode.NO_MODE.getId(),
+                MetricsPadding.NO_PADDING.getId());
     }
 
     @Override
