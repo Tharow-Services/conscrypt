@@ -17,6 +17,10 @@
 
 package com.android.org.conscrypt;
 
+import com.android.org.conscrypt.metrics.MetricsCipher;
+import com.android.org.conscrypt.metrics.MetricsMode;
+import com.android.org.conscrypt.metrics.MetricsPadding;
+
 import java.security.AlgorithmParameters;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -39,6 +43,7 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Arrays;
 import java.util.Locale;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.CipherSpi;
@@ -423,6 +428,9 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
     public static final class PKCS1 extends DirectRSA {
         public PKCS1() {
             super(NativeConstants.RSA_PKCS1_PADDING);
+            Platform.countCipherUsage(MetricsCipher.RSA.getId(),
+                MetricsMode.NO_MODE.getId(),
+                MetricsPadding.PKCS1.getId());
         }
     }
 
@@ -432,6 +440,9 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
     public static final class Raw extends DirectRSA {
         public Raw() {
             super(NativeConstants.RSA_NO_PADDING);
+            Platform.countCipherUsage(MetricsCipher.RSA.getId(),
+                MetricsMode.NO_MODE.getId(),
+                MetricsPadding.NO_PADDING.getId());
         }
     }
 
@@ -452,6 +463,15 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
             super(NativeConstants.RSA_PKCS1_OAEP_PADDING);
             oaepMd = mgf1Md = defaultMd;
             oaepMdSizeBytes = defaultMdSizeBytes;
+            if (defaultMd != EvpMdRef.SHA1.EVP_MD &&
+                    defaultMd != EvpMdRef.SHA256.EVP_MD &&
+                    defaultMd != EvpMdRef.SHA384.EVP_MD &&
+                    defaultMd != EvpMdRef.SHA512.EVP_MD) {
+                Platform.countCipherUsage(
+                    MetricsCipher.RSA.getId(),
+                    MetricsMode.NO_MODE.getId(),
+                    MetricsPadding.OAEP_SHA1.getId());
+            }
         }
 
         @Override
@@ -617,6 +637,9 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         public static final class SHA1 extends OAEP {
             public SHA1() {
                 super(EvpMdRef.SHA1.EVP_MD, EvpMdRef.SHA1.SIZE_BYTES);
+                Platform.countCipherUsage(MetricsCipher.RSA.getId(),
+                    MetricsMode.NO_MODE.getId(),
+                    MetricsPadding.OAEP_SHA1.getId());
             }
         }
 
@@ -626,6 +649,9 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         public static final class SHA224 extends OAEP {
             public SHA224() {
                 super(EvpMdRef.SHA224.EVP_MD, EvpMdRef.SHA224.SIZE_BYTES);
+                Platform.countCipherUsage(MetricsCipher.RSA.getId(),
+                    MetricsMode.NO_MODE.getId(),
+                    MetricsPadding.OAEP_SHA224.getId());
             }
         }
 
@@ -635,6 +661,9 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         public static final class SHA256 extends OAEP {
             public SHA256() {
                 super(EvpMdRef.SHA256.EVP_MD, EvpMdRef.SHA256.SIZE_BYTES);
+                Platform.countCipherUsage(MetricsCipher.RSA.getId(),
+                    MetricsMode.NO_MODE.getId(),
+                    MetricsPadding.OAEP_SHA256.getId());
             }
         }
 
@@ -644,6 +673,9 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         public static final class SHA384 extends OAEP {
             public SHA384() {
                 super(EvpMdRef.SHA384.EVP_MD, EvpMdRef.SHA384.SIZE_BYTES);
+                Platform.countCipherUsage(MetricsCipher.RSA.getId(),
+                    MetricsMode.NO_MODE.getId(),
+                    MetricsPadding.OAEP_SHA384.getId());
             }
         }
 
@@ -653,6 +685,9 @@ public abstract class OpenSSLCipherRSA extends CipherSpi {
         public static final class SHA512 extends OAEP {
             public SHA512() {
                 super(EvpMdRef.SHA512.EVP_MD, EvpMdRef.SHA512.SIZE_BYTES);
+                Platform.countCipherUsage(MetricsCipher.RSA.getId(),
+                    MetricsMode.NO_MODE.getId(),
+                    MetricsPadding.OAEP_SHA512.getId());
             }
         }
     }
