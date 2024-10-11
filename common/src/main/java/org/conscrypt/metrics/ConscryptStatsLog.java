@@ -15,6 +15,7 @@
  */
 package org.conscrypt.metrics;
 
+import org.conscrypt.metrics.GeneratedStatsLog;
 import org.conscrypt.Internal;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
@@ -61,17 +62,42 @@ public final class ConscryptStatsLog {
 
     private ConscryptStatsLog() {}
 
+    private static final Object sdkVersion;
+    private static final boolean sdkVersionBiggerThan32;
+
+    static {
+        sdkVersion = getSdkVersion();
+        sdkVersionBiggerThan32 = (sdkVersion != null) && ((int) sdkVersion > 32);
+    }
+
+    @SuppressWarnings("NewApi")
     public static void write(int atomId, boolean success, int protocol, int cipherSuite,
             int duration, Source source, int[] uids) {
-        e.execute(new Runnable() {
+      e.execute(new Runnable() {
             @Override
             public void run() {
-                ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
-                        atomId, success, protocol, cipherSuite, duration,
-                        source.ordinal(), uids);
-
-                ReflexiveStatsLog.write(event);
+                if (sdkVersionBiggerThan32) {
+                    GeneratedStatsLog.write(atomId, success, protocol, cipherSuite,
+                        duration, source.ordinal(), uids);
+                } else {
+                    ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
+                            atomId, success, protocol, cipherSuite, duration,
+                            source.ordinal(), uids);
+                    ReflexiveStatsLog.write(event);
+                }
             }
         });
+    }
+
+
+    static Object getSdkVersion() {
+        try {
+            OptionalMethod getSdkVersion =
+                    new OptionalMethod(Class.forName("dalvik.system.VMRuntime"),
+                                        "getSdkVersion");
+            return getSdkVersion.invokeStatic();
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
     }
 }
