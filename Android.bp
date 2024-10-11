@@ -280,6 +280,7 @@ java_library {
     libs: ["unsupportedappusage"],
     static_libs: [
         "conscrypt-aconfig-flags-lib",
+        "conscrypt-statslog-java-repackaged",
     ],
 
     // Conscrypt can be updated independently from the other core libraries so it must only depend
