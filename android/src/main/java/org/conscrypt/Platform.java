@@ -69,6 +69,21 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509TrustManager;
+<<<<<<< PATCH SET (6ff9a4 Add support for enabling/disabling TLS v1.0 and 1.1 in Consc)
+import org.conscrypt.NativeCrypto;
+import org.conscrypt.ct.LogStore;
+import org.conscrypt.ct.Policy;
+import org.conscrypt.metrics.CipherSuite;
+import org.conscrypt.metrics.ConscryptStatsLog;
+import org.conscrypt.metrics.Protocol;
+||||||| BASE
+import org.conscrypt.ct.LogStore;
+import org.conscrypt.ct.Policy;
+import org.conscrypt.metrics.CipherSuite;
+import org.conscrypt.metrics.ConscryptStatsLog;
+import org.conscrypt.metrics.Protocol;
+=======
+>>>>>>> BASE      (90dff1 Merge "Add metric reporting for log list status" into main)
 
 /**
  * Platform-specific methods for unbundled Android.
@@ -76,9 +91,13 @@ import javax.net.ssl.X509TrustManager;
 @Internal
 final public class Platform {
     private static final String TAG = "Conscrypt";
+    private static boolean DEPRECATED_TLS_V1 = true;
+    private static boolean ENABLED_TLS_V1 = true;
+    private static boolean FILTERED_TLS_V1 = true;
 
     private static Method m_getCurveName;
     static {
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
         try {
             m_getCurveName = ECParameterSpec.class.getDeclaredMethod("getCurveName");
             m_getCurveName.setAccessible(true);
@@ -89,7 +108,12 @@ final public class Platform {
 
     private Platform() {}
 
-    public static void setup() {}
+    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
+        DEPRECATED_TLS_V1 = deprecatedTlsV1;
+        ENABLED_TLS_V1 = enabledTlsV1;
+        FILTERED_TLS_V1 = !enabledTlsV1;
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+    }
 
     /**
      * Default name used in the {@link java.security.Security JCE system} by {@code OpenSSLProvider}
@@ -953,14 +977,14 @@ final public class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return true;
+        return DEPRECATED_TLS_V1;
     }
 
     public static boolean isTlsV1Filtered() {
-        return false;
+        return FILTERED_TLS_V1;
     }
 
     public static boolean isTlsV1Supported() {
-        return false;
+        return ENABLED_TLS_V1;
     }
 }

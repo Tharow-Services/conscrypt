@@ -27,7 +27,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.conscrypt.javax.net.ssl.TestSSLContext;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
@@ -82,5 +84,71 @@ public class TlsDeprecationTest {
                 (SSLSocket) context.clientContext.getSocketFactory().createSocket();
         assertThrows(IllegalArgumentException.class, () ->
             client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"}));
+    }
+
+    @TargetSdkVersion(34)
+    @Test
+    public void testInitializeDeprecatedEnabled_34() {
+        Provider conscryptProvider = TestUtils.getConscryptProvider(true, true);
+        assertTrue(TestUtils.isTlsV1Deprecated());
+        assertFalse(TestUtils.isTlsV1Filtered());
+        assertTrue(TestUtils.isTlsV1Enabled());
+    }
+
+    @TargetSdkVersion(35)
+    @Test
+    public void testInitializeDeprecatedEnabled_35() {
+        Provider conscryptProvider = TestUtils.getConscryptProvider(true, true);
+        assertTrue(TestUtils.isTlsV1Deprecated());
+        assertFalse(TestUtils.isTlsV1Filtered());
+        assertTrue(TestUtils.isTlsV1Enabled());
+    }
+
+    @TargetSdkVersion(34)
+    @Test
+    public void testInitializeDeprecatedDisabled_34() {
+        Provider conscryptProvider = TestUtils.getConscryptProvider(true, false);
+        assertTrue(TestUtils.isTlsV1Deprecated());
+        assertTrue(TestUtils.isTlsV1Filtered());
+        assertFalse(TestUtils.isTlsV1Enabled());
+    }
+
+    @TargetSdkVersion(35)
+    @Test
+    public void testInitializeDeprecatedDisabled_35() {
+        Provider conscryptProvider = TestUtils.getConscryptProvider(true, false);
+        assertTrue(TestUtils.isTlsV1Deprecated());
+        assertFalse(TestUtils.isTlsV1Filtered());
+        assertFalse(TestUtils.isTlsV1Enabled());
+    }
+
+    @TargetSdkVersion(34)
+    @Test
+    public void testInitializeUndeprecatedEnabled_34() {
+        Provider conscryptProvider = TestUtils.getConscryptProvider(false, true);
+        assertFalse(TestUtils.isTlsV1Deprecated());
+        assertFalse(TestUtils.isTlsV1Filtered());
+        assertTrue(TestUtils.isTlsV1Enabled());
+    }
+
+    @TargetSdkVersion(35)
+    @Test
+    public void testInitializeUndeprecatedEnabled_35() {
+        Provider conscryptProvider = TestUtils.getConscryptProvider(false, true);
+        assertFalse(TestUtils.isTlsV1Deprecated());
+        assertFalse(TestUtils.isTlsV1Filtered());
+        assertTrue(TestUtils.isTlsV1Enabled());
+    }
+
+    @TargetSdkVersion(34)
+    @Test
+    public void testInitializeUndeprecatedDisabled_34() {
+        assertThrows(IllegalArgumentException.class, () -> TestUtils.getConscryptProvider(false, false));
+    }
+
+    @TargetSdkVersion(35)
+    @Test
+    public void testInitializeUndeprecatedDisabled_35() {
+        assertThrows(IllegalArgumentException.class, () -> TestUtils.getConscryptProvider(false, false));
     }
 }
