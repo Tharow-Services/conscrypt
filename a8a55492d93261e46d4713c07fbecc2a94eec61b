@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21f0d7c1_108074b1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-10-15T04:54:22Z",
+      "side": 1,
+      "message": "Definitely. Thanks. I added some tests to LogStoreImplTest (which should make sure that the status update is emitted as expected).\n\nI\u0027m careful with MetricTest as this is a CTS test which relies on @hide classes (ReflexiveStatsEvent, under our control), but also @hide functions (eg getNumBytes from StatsD). It is mainly to confirm that the reflection outcome is the same as the original class. I was thinking adding it in a separate change (which would be easier to revert should it break test executions down the road).",
+      "parentUuid": "38432ddf_4ac95cd5",
+      "revId": "a8a55492d93261e46d4713c07fbecc2a94eec61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5bbcd35_161d49a7",
         "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
         "patchSetId": 1
@@ -31,6 +49,30 @@
       "writtenOn": "2024-10-03T10:00:24Z",
       "side": 1,
       "message": "Maybe make these two method names more distinctive rather than relying on overloading.",
+      "range": {
+        "startLine": 88,
+        "startChar": 38,
+        "endLine": 88,
+        "endChar": 48
+      },
+      "revId": "a8a55492d93261e46d4713c07fbecc2a94eec61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df2c60db_7f8f6a3c",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-10-15T04:54:22Z",
+      "side": 1,
+      "message": "Done. Removed.\n\nI stick to being close to the output of stats-log-api-gen, which uses the Builder class directly within the `write` method.",
+      "parentUuid": "f5bbcd35_161d49a7",
       "range": {
         "startLine": 88,
         "startChar": 38,
