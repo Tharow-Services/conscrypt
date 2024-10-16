@@ -1,0 +1,170 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a4ee808_97d9ed06",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "I think this is a better structure - thanks!\n\nLooks like the Android platform codegen is taken care of by Miguel, but it also need to work on GMS Conscrypt.",
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e61be3e_fb0071bc",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "nit: Wrong ordering, these were correct after the java.* imports",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "16a71fae_6ece7ba5",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "nit: extra blank line",
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "40d59c5e_c9790721",
+        "filename": "openjdk/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "nit: import order again",
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e7f6d90_338dccbd",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "import order",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f0a25a5a_56e22874",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "Please fix this INFO reported by Tip Prediction: AI Readability\n\nAnalyzer Description: Runs go/tip-prediction tool on the commit.\nOwner: peeps-genai-team@google.com\n\nAI Readability\n\nReview [go/java-style#s5.2.4-constant-names](http://go/java-style#s5.2.4-constant-names) - it may improve this code:\n\nConstant names use `UPPER_SNAKE_CASE`.\nConstants are static final fields whose contents are deeply immutable and whose methods have no detectable side effects. If any of the instance\u0027s observable state can change, it is not a constant.\n\nWas this tip helpful? [Yes 👍](http://go/gerrit-tip-prediction-thumbs-up?title\u003d[Yes%20👍]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fexternal%2Fconscrypt%2F%2B%2F3286967%2F4) / [No 👎](http://go/gerrit-tip-prediction-thumbs-down?title\u003d[No%20👎]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fexternal%2Fconscrypt%2F%2B%2F3286967%2F4)\nWould you like to provide additional [feedback](http://go/gerrit-tip-prediction-feedback?title\u003d[Feedback]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fexternal%2Fconscrypt%2F%2B%2F3286967%2F4)?\nWant to opt out of Tip Predictions completely? [Opt out](http://go/gerrit-tip-prediction-optout)\nOther questions? Check out the [FAQs](http://go/gerrit-tip-prediction-faqs).",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 45
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "94d07bad_d414ba71",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "off-the-wall idea for later (maybe).  Right now the first time the trust manager needs a stats log we take the hit of loading it.  What if we triggered the load on a background thread in parallel with the TLS handshake so it basically happens during the network latency?\n\nNote that apps like browsers create many connections in parallel so we\u0027d need to be careful not to create many threads where all but 1 are blocked.",
+      "range": {
+        "startLine": 150,
+        "startChar": 20,
+        "endLine": 150,
+        "endChar": 41
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "836357f8_9dc34d8b",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "What\u0027s the behaviour here if we have a corrupt log file, will we end up triggering a stats event for every TLS connection because it never parses successfully?",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 60
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

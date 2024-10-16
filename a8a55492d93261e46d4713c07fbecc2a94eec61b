@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e75319ce_740b7651",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "sgtm\n\nI think MCTS is the solution here but it\u0027s not ready yet, so effectively the test will only run in MTS not CTS.",
+      "parentUuid": "21f0d7c1_108074b1",
+      "revId": "a8a55492d93261e46d4713c07fbecc2a94eec61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f5bbcd35_161d49a7",
         "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
         "patchSetId": 1
@@ -73,6 +91,30 @@
       "side": 1,
       "message": "Done. Removed.\n\nI stick to being close to the output of stats-log-api-gen, which uses the Builder class directly within the `write` method.",
       "parentUuid": "f5bbcd35_161d49a7",
+      "range": {
+        "startLine": 88,
+        "startChar": 38,
+        "endLine": 88,
+        "endChar": 48
+      },
+      "revId": "a8a55492d93261e46d4713c07fbecc2a94eec61b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9cdf409f_5efdd946",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-16T08:25:31Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "df2c60db_7f8f6a3c",
       "range": {
         "startLine": 88,
         "startChar": 38,
