@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93c5430c_37fbc6f2",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-10-17T00:40:31Z",
+      "side": 1,
+      "message": "Were they? The .clang-format config has the \"org\" above \"java\".\n\nI actually did not change them by hand, these were automatically suggested when running `repo upload`. \n\nAre you using another tool for the import order?\n\nI don\u0027t mind either way, but if you have a different preference, we should update .clang-format to match it.",
+      "parentUuid": "1e61be3e_fb0071bc",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "16a71fae_6ece7ba5",
         "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
         "patchSetId": 4
@@ -54,6 +78,24 @@
       "writtenOn": "2024-10-16T08:25:31Z",
       "side": 1,
       "message": "nit: extra blank line",
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70de47e4_2c500321",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-10-17T00:40:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "16a71fae_6ece7ba5",
       "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -121,6 +163,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0790512f_542c8024",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-10-17T00:40:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f0a25a5a_56e22874",
+      "range": {
+        "startLine": 58,
+        "startChar": 5,
+        "endLine": 58,
+        "endChar": 45
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "94d07bad_d414ba71",
@@ -146,6 +212,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d5ba5328_994b4271",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-10-17T00:40:31Z",
+      "side": 1,
+      "message": "This is a great idea. And yes, as you mentioned, we\u0027d have to be careful not triggering this loading multiple times. Let me think about it.",
+      "parentUuid": "94d07bad_d414ba71",
+      "range": {
+        "startLine": 150,
+        "startChar": 20,
+        "endLine": 150,
+        "endChar": 41
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "836357f8_9dc34d8b",
         "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
         "patchSetId": 4
@@ -157,6 +247,30 @@
       "writtenOn": "2024-10-16T08:25:31Z",
       "side": 1,
       "message": "What\u0027s the behaviour here if we have a corrupt log file, will we end up triggering a stats event for every TLS connection because it never parses successfully?",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 60
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "63891126_ce5dc003",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-10-17T00:40:31Z",
+      "side": 1,
+      "message": "No, right now, the list loading is attempted only once. If it fails (for any reason), we won\u0027t have `state \u003d\u003d State.UNINITIALIZED`, so no more attempts are made. I have b/354583924 for tracking this.",
+      "parentUuid": "836357f8_9dc34d8b",
       "range": {
         "startLine": 159,
         "startChar": 0,
