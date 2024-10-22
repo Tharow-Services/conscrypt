@@ -30,9 +30,7 @@
           "include-filter": "android.security.cts.CertBlocklistFileTest"
         }
       ]
-    }
-  ],
-  "postsubmit": [
+    },
     {
       "name": "ConscryptPrivateTestCases"
     }
