@@ -65,6 +65,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "062a4cfe_e3147c3d",
+        "filename": "common/src/main/java/org/conscrypt/ConscryptFileDescriptorSocket.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-22T07:20:25Z",
+      "side": 1,
+      "message": "Ugh... Let\u0027s not worry for now. I must be mis-remembering the official Android style.  It\u0027s a mess anyway because upstream (Conscrypt on Github) mostly does not conform but I don\u0027t want to break the git blame with a mass reformat.",
+      "parentUuid": "93c5430c_37fbc6f2",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 46
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "16a71fae_6ece7ba5",
@@ -117,6 +141,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b28e0fb_c087bba8",
+        "filename": "openjdk/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-22T07:20:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "40d59c5e_c9790721",
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6e7f6d90_338dccbd",
@@ -130,6 +172,30 @@
       "writtenOn": "2024-10-16T08:25:31Z",
       "side": 1,
       "message": "import order",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 41
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "731be157_61a68f65",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-22T07:20:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "6e7f6d90_338dccbd",
       "range": {
         "startLine": 30,
         "startChar": 0,
@@ -234,6 +300,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "56e9319b_73725c03",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-22T07:20:25Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "d5ba5328_994b4271",
+      "range": {
+        "startLine": 150,
+        "startChar": 20,
+        "endLine": 150,
+        "endChar": 41
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "836357f8_9dc34d8b",
@@ -271,6 +361,30 @@
       "side": 1,
       "message": "No, right now, the list loading is attempted only once. If it fails (for any reason), we won\u0027t have `state \u003d\u003d State.UNINITIALIZED`, so no more attempts are made. I have b/354583924 for tracking this.",
       "parentUuid": "836357f8_9dc34d8b",
+      "range": {
+        "startLine": 159,
+        "startChar": 0,
+        "endLine": 159,
+        "endChar": 60
+      },
+      "revId": "c9005ad77684f45b19ce9e03872f4410c0913d82",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f37668f2_5c0f38e9",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-22T07:20:25Z",
+      "side": 1,
+      "message": "Great.",
+      "parentUuid": "63891126_ce5dc003",
       "range": {
         "startLine": 159,
         "startChar": 0,
