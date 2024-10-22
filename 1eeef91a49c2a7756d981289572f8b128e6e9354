@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d185abd7_564e39bb",
+        "filename": "platform/src/main/java/org/conscrypt/ct/PolicyImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-22T07:29:12Z",
+      "side": 1,
+      "message": "This seems to comply with the Chrome policy, but it seems weird to me that they treat the two criteria completely separately...",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 30
+      },
+      "revId": "1eeef91a49c2a7756d981289572f8b128e6e9354",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
