@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7b7159ac_6ba3a305",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-23T18:16:17Z",
+      "side": 1,
+      "message": "LGTM assuming you got the Merged-In right 😊",
+      "revId": "8abf0b721c0b9564aee1056272b51a61363197b5",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
