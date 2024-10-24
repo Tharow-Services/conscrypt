@@ -26,6 +26,7 @@ import static com.android.org.conscrypt.SSLUtils.EngineStates.STATE_READY_HANDSH
 
 import com.android.org.conscrypt.ExternalSession.Provider;
 import com.android.org.conscrypt.NativeRef.SSL_SESSION;
+import com.android.org.conscrypt.metrics.StatsLog;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -1201,9 +1202,12 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
 
             case STATE_READY:
                 if (handshakeStartedMillis != 0) {
-                    Platform.countTlsHandshake(true, activeSession.getProtocol(),
-                            activeSession.getCipherSuite(),
-                            Platform.getMillisSinceBoot() - handshakeStartedMillis);
+                    StatsLog statsLog = Platform.getStatsLog();
+                    if (statsLog != null) {
+                        statsLog.countTlsHandshake(true, activeSession.getProtocol(),
+                                activeSession.getCipherSuite(),
+                                Platform.getMillisSinceBoot() - handshakeStartedMillis);
+                    }
                     handshakeStartedMillis = 0;
                 }
                 break;
@@ -1211,8 +1215,11 @@ class ConscryptFileDescriptorSocket extends OpenSSLSocketImpl
             case STATE_CLOSED: {
                 if (handshakeStartedMillis != 0) {
                     // Handshake was in progress so must have failed.
-                    Platform.countTlsHandshake(false, "TLS_PROTO_FAILED", "TLS_CIPHER_FAILED",
-                            Platform.getMillisSinceBoot() - handshakeStartedMillis);
+                    StatsLog statsLog = Platform.getStatsLog();
+                    if (statsLog != null) {
+                        statsLog.countTlsHandshake(false, "TLS_PROTO_FAILED", "TLS_CIPHER_FAILED",
+                                Platform.getMillisSinceBoot() - handshakeStartedMillis);
+                    }
                     handshakeStartedMillis = 0;
                 }
                 if (!ssl.isClosed() && state >= STATE_HANDSHAKE_STARTED && state < STATE_CLOSED) {

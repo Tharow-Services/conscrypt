@@ -20,8 +20,6 @@ package com.android.org.conscrypt;
 import static android.system.OsConstants.SOL_SOCKET;
 import static android.system.OsConstants.SO_SNDTIMEO;
 
-import static com.android.org.conscrypt.metrics.Source.SOURCE_MAINLINE;
-
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.StructTimeval;
@@ -30,10 +28,10 @@ import com.android.org.conscrypt.ct.LogStore;
 import com.android.org.conscrypt.ct.LogStoreImpl;
 import com.android.org.conscrypt.ct.Policy;
 import com.android.org.conscrypt.ct.PolicyImpl;
-import com.android.org.conscrypt.metrics.CipherSuite;
-import com.android.org.conscrypt.metrics.ConscryptStatsLog;
 import com.android.org.conscrypt.metrics.OptionalMethod;
-import com.android.org.conscrypt.metrics.Protocol;
+import com.android.org.conscrypt.metrics.Source;
+import com.android.org.conscrypt.metrics.StatsLog;
+import com.android.org.conscrypt.metrics.StatsLogImpl;
 
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
@@ -81,7 +79,11 @@ import javax.net.ssl.X509TrustManager;
 
 import sun.security.x509.AlgorithmId;
 
-final class Platform {
+/**
+ * @hide This class is not part of the Android public SDK API
+ */
+@Internal
+final public class Platform {
     private static class NoPreloadHolder { public static final Platform MAPPER = new Platform(); }
 
     /**
@@ -537,15 +539,16 @@ final class Platform {
         return System.currentTimeMillis();
     }
 
-    static void countTlsHandshake(
-            boolean success, String protocol, String cipherSuite, long durationLong) {
-        Protocol proto = Protocol.forName(protocol);
-        CipherSuite suite = CipherSuite.forName(cipherSuite);
-        int duration = (int) durationLong;
+    public static StatsLog getStatsLog() {
+        return StatsLogImpl.getInstance();
+    }
 
-        ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, proto.getId(),
-                suite.getId(), duration, SOURCE_MAINLINE,
-                new int[] {Os.getuid()});
+    public static Source getStatsSource() {
+        return Source.SOURCE_MAINLINE;
+    }
+
+    public static int[] getUids() {
+        return new int[] {Os.getuid()};
     }
 
     public static boolean isJavaxCertificateSupported() {
