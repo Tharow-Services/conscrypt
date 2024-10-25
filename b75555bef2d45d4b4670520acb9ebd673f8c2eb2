@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1073aee9_cd0c6edc",
+        "filename": "platform/src/test/java/org/conscrypt/TlsDeprecationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-25T16:23:44Z",
+      "side": 1,
+      "message": "Shouldn\u0027t this use assertThrows like the others?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 11
+      },
+      "revId": "b75555bef2d45d4b4670520acb9ebd673f8c2eb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1a27e433_ae8711ae",
         "filename": "platform/src/test/java/org/conscrypt/TlsDeprecationTest.java",
         "patchSetId": 16
