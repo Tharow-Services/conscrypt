@@ -40,6 +40,7 @@ method:com.android.org.conscrypt.TrustManagerImpl#checkClientTrusted(X509Certifi
 method:com.android.org.conscrypt.TrustManagerImpl#checkClientTrusted(X509Certificate[],String,Socket)
 method:com.android.org.conscrypt.TrustManagerImpl#checkClientTrusted(X509Certificate[],String,SSLEngine)
 method:com.android.org.conscrypt.TrustManagerImpl#checkServerTrusted(X509Certificate[],String,String)
+method:com.android.org.conscrypt.TrustManagerImpl#checkServerTrusted(X509Certificate[],byte[],byte[],String,String)
 method:com.android.org.conscrypt.TrustManagerImpl#getTrustedChainForServer(X509Certificate[],String,Socket)
 method:com.android.org.conscrypt.TrustManagerImpl#getTrustedChainForServer(X509Certificate[],String,SSLEngine)
 method:com.android.org.conscrypt.TrustManagerImpl#handleTrustStorageUpdate()
