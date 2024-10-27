@@ -39,6 +39,8 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 
 import com.android.org.conscrypt.ct.LogStore;
 import com.android.org.conscrypt.ct.Policy;
+import com.android.org.conscrypt.metrics.Source;
+import com.android.org.conscrypt.metrics.StatsLog;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -88,8 +90,10 @@ import javax.net.ssl.X509TrustManager;
  * Platform-specific methods for OpenJDK.
  *
  * Uses reflection to implement Java 8 SSL features for backwards compatibility.
+ * @hide This class is not part of the Android public SDK API
  */
-final class Platform {
+@Internal
+final public class Platform {
     private static final int JAVA_VERSION = javaVersion0();
     private static final Method GET_CURVE_NAME_METHOD;
 
@@ -805,9 +809,19 @@ final class Platform {
         return 0;
     }
 
+    public static StatsLog getStatsLog() {
+        return null;
+    }
+
     @SuppressWarnings("unused")
-    static void countTlsHandshake(
-            boolean success, String protocol, String cipherSuite, long duration) {}
+    public static Source getStatsSource() {
+        return null;
+    }
+
+    @SuppressWarnings("unused")
+    public static int[] getUids() {
+        return null;
+    }
 
     public static boolean isJavaxCertificateSupported() {
         return JAVA_VERSION < 15;
