@@ -17,7 +17,6 @@
 package org.conscrypt.doclet
 
 import com.sun.source.doctree.UnknownBlockTagTree
-import java.util.Locale
 import javax.lang.model.element.Element
 import javax.lang.model.element.ElementKind
 import javax.lang.model.element.ExecutableElement
@@ -39,9 +38,8 @@ fun Element.isVisibleConstructor() = isExecutable() && isVisible() && kind == El
 fun Element.isVisibleField() = isField() && isVisible()
 fun Element.isPublic() = modifiers.contains(Modifier.PUBLIC)
 fun Element.isPrivate() = !isPublic() // Ignore protected for now :)
-fun Element.isHidden() = isPrivate() || hasHideMarker() || parentIsHidden()
 fun Element.isVisible() = !isHidden()
-fun Element.hasHideMarker() = hasAnnotation("org.conscrypt.Internal") || hasHideTag()
+fun Element.isHidden() = isPrivate() || isFiltered() || parentIsHidden()
 fun Element.children(filterFunction: (Element) -> Boolean) = enclosedElements
     .filter(filterFunction)
     .toList()
@@ -53,10 +51,9 @@ fun Element.hasAnnotation(annotationName: String): Boolean = annotationMirrors
     .map { it.annotationType.toString() }
     .any { it == annotationName }
 
-
-fun Element.hasHideTag(): Boolean {
+fun Element.hasJavadocTag(tagName: String): Boolean {
     return docTree()?.blockTags?.any {
-        tag -> tag is UnknownBlockTagTree && tag.tagName == "hide"
+        tag -> tag is UnknownBlockTagTree && tag.tagName == tagName
     } ?: false
 }
 
@@ -79,7 +76,7 @@ fun ExecutableElement.methodSignature(): String {
     val exceptions = thrownTypes
         .joinToString(", ")
         .prefixIfNotEmpty(" throws ")
-    return "$modifiers $typeParams$returnType${simpleName}($parameters)$exceptions"
+    return "$modifiers $typeParams$returnType${name()}($parameters)$exceptions"
 }
 
 fun formatType(typeMirror: TypeMirror): String {
@@ -92,28 +89,11 @@ fun formatType(typeMirror: TypeMirror): String {
     }
 }
 
-fun TypeElement.signature(): String {
-    val modifiers = modifiers.joinToString(" ")
-    val kind = this.kind.toString().lowercase(Locale.getDefault())
-
-    val superName = superDisplayName(superclass)
-
-    val interfaces = interfaces
-        .joinToString(", ")
-        .prefixIfNotEmpty(" implements ")
-
-    return "$modifiers $kind $simpleName$superName$interfaces"
-}
-
-fun superDisplayName(mirror: TypeMirror): String {
-    return when (mirror.toString()) {
-        "none", "java.lang.Object" -> ""
-        else -> " extends $mirror "
-    }
-}
+fun TypeElement.baseFileName(): String =
+    if (enclosingElement.isType())
+        (enclosingElement as TypeElement).baseFileName() + "." + simpleName
+    else
+        qualifiedName.toString().replace('.', '/')
 
 private fun String.prefixIfNotEmpty(prefix: String): String
         = if (isNotEmpty()) prefix + this else this
-
-private fun String.suffixIfNotEmpty(prefix: String): String
-        = if (isNotEmpty()) this + prefix else this

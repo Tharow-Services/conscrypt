@@ -836,7 +836,7 @@ final public class Platform {
         // TODO: Use the platform version on platforms that support it
 
         String property = Security.getProperty("conscrypt.ct.enable");
-        if (property == null || !Boolean.valueOf(property)) {
+        if (property == null || !Boolean.parseBoolean(property)) {
             return false;
         }
 
@@ -850,7 +850,7 @@ final public class Platform {
         for (String part : parts) {
             property = Security.getProperty(propertyName + ".*");
             if (property != null) {
-                enable = Boolean.valueOf(property);
+                enable = Boolean.parseBoolean(property);
             }
 
             propertyName = propertyName + "." + part;
@@ -858,7 +858,7 @@ final public class Platform {
 
         property = Security.getProperty(propertyName);
         if (property != null) {
-            enable = Boolean.valueOf(property);
+            enable = Boolean.parseBoolean(property);
         }
         return enable;
     }
@@ -944,6 +944,12 @@ final public class Platform {
         return Source.SOURCE_GMS;
     }
 
+<<<<<<< HEAD   (ec0832 Merge "Add /current/ to log list path" into main)
+||||||| BASE
+=======
+    // Only called from StatsLogImpl, so protected by build version check above.
+    @TargetApi(30)
+>>>>>>> BRANCH (5bb7c5 Add some scripts for building and testing uber jars. (#1246))
     public static int[] getUids() {
         return new int[] {Os.getuid(), Binder.getCallingUid()};
     }
