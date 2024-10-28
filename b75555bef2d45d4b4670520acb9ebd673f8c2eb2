@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bf013191_0d634e24",
+        "filename": "platform/src/test/java/org/conscrypt/TlsDeprecationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-28T16:33:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ea913e60_47ff0d5a",
+      "range": {
+        "startLine": 39,
+        "startChar": 5,
+        "endLine": 39,
+        "endChar": 21
+      },
+      "revId": "b75555bef2d45d4b4670520acb9ebd673f8c2eb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1073aee9_cd0c6edc",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-25T16:23:44Z",
       "side": 1,
       "message": "Shouldn\u0027t this use assertThrows like the others?",
+      "range": {
+        "startLine": 59,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 11
+      },
+      "revId": "b75555bef2d45d4b4670520acb9ebd673f8c2eb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db1b7857_72e5a627",
+        "filename": "platform/src/test/java/org/conscrypt/TlsDeprecationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-28T16:33:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1073aee9_cd0c6edc",
       "range": {
         "startLine": 59,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a56ae1b_6254151b",
+        "filename": "platform/src/test/java/org/conscrypt/TlsDeprecationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-28T16:33:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a27e433_ae8711ae",
+      "range": {
+        "startLine": 81,
+        "startChar": 8,
+        "endLine": 81,
+        "endChar": 19
+      },
+      "revId": "b75555bef2d45d4b4670520acb9ebd673f8c2eb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f4d91a48_59040307",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-10-25T16:21:33Z",
       "side": 1,
       "message": "Should we allow these to be changed in the platform builds?  I guess so for vendors.\n\nHowever for the default case, we should still be checking the targetApiLevel for filtering, which means maybe add assertions to the test_TLSv1Filtered cases above?",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 80
+      },
+      "revId": "b75555bef2d45d4b4670520acb9ebd673f8c2eb2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0bbf7e7_84f59935",
+        "filename": "platform/src/test/java/org/conscrypt/TlsDeprecationTest.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-28T16:33:09Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f4d91a48_59040307",
       "range": {
         "startLine": 92,
         "startChar": 0,
