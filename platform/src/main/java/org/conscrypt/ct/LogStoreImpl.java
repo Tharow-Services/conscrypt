@@ -54,15 +54,24 @@ public class LogStoreImpl implements LogStore {
     private static final Logger logger = Logger.getLogger(LogStoreImpl.class.getName());
     private static final String BASE_PATH = "misc/keychain/ct";
     private static final int COMPAT_VERSION = 1;
+<<<<<<< HEAD   (ec0832 Merge "Add /current/ to log list path" into main)
     private static final String CURRENT = "current";
+||||||| BASE
+=======
+>>>>>>> BRANCH (5bb7c5 Add some scripts for building and testing uber jars. (#1246))
     private static final String LOG_LIST_FILENAME = "log_list.json";
     private static final Path DEFAULT_LOG_LIST;
 
     static {
         String androidData = System.getenv("ANDROID_DATA");
         String compatVersion = String.format("v%d", COMPAT_VERSION);
+<<<<<<< HEAD   (ec0832 Merge "Add /current/ to log list path" into main)
         DEFAULT_LOG_LIST =
                 Paths.get(androidData, BASE_PATH, compatVersion, CURRENT, LOG_LIST_FILENAME);
+||||||| BASE
+=======
+        DEFAULT_LOG_LIST = Paths.get(androidData, BASE_PATH, compatVersion, LOG_LIST_FILENAME);
+>>>>>>> BRANCH (5bb7c5 Add some scripts for building and testing uber jars. (#1246))
     }
 
     private final Path logList;
