@@ -16,11 +16,18 @@
 
 package org.conscrypt;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.math.BigInteger;
-import junit.framework.TestCase;
+import java.nio.charset.StandardCharsets;
 
-public class OpenSSLKeyTest extends TestCase {
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
+@RunWith(JUnit4.class)
+public class OpenSSLKeyTest {
     static final String RSA_PUBLIC_KEY =
         "-----BEGIN PUBLIC KEY-----\n" +
         "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3G7PGpfZx68wTY9eLb4b\n" +
@@ -82,16 +89,18 @@ public class OpenSSLKeyTest extends TestCase {
         "13e6825df950a3bd4509f9d3b12da304fe5b00c443ff33326b8bfb3fe111fd4b" +
         "8872822c7f2832dafa0fe10d9aba22310849e978e51c8aa9da7bc1c07511d883", 16);
 
+    @Test
     public void test_fromPublicKeyPemInputStream() throws Exception {
-        ByteArrayInputStream is = new ByteArrayInputStream(RSA_PUBLIC_KEY.getBytes("UTF-8"));
+        ByteArrayInputStream is = new ByteArrayInputStream(RSA_PUBLIC_KEY.getBytes(StandardCharsets.UTF_8));
         OpenSSLKey key = OpenSSLKey.fromPublicKeyPemInputStream(is);
         OpenSSLRSAPublicKey publicKey = (OpenSSLRSAPublicKey)key.getPublicKey();
         assertEquals(RSA_MODULUS, publicKey.getModulus());
         assertEquals(RSA_PUBLIC_EXPONENT, publicKey.getPublicExponent());
     }
 
+    @Test
     public void test_fromPrivateKeyPemInputStream() throws Exception {
-        ByteArrayInputStream is = new ByteArrayInputStream(RSA_PRIVATE_KEY.getBytes("UTF-8"));
+        ByteArrayInputStream is = new ByteArrayInputStream(RSA_PRIVATE_KEY.getBytes(StandardCharsets.UTF_8));
         OpenSSLKey key = OpenSSLKey.fromPrivateKeyPemInputStream(is);
         OpenSSLRSAPrivateKey privateKey = (OpenSSLRSAPrivateKey)key.getPrivateKey();
         assertEquals(RSA_MODULUS, privateKey.getModulus());

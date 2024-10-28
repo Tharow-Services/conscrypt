@@ -33,7 +33,13 @@ import java.security.cert.X509CRL;
 import java.security.cert.X509CRLEntry;
 import java.security.cert.X509Certificate;
 import java.util.Collections;
+<<<<<<< HEAD   (ec0832 Merge "Add /current/ to log list path" into main)
 import libcore.junit.util.EnableDeprecatedBouncyCastleAlgorithmsRule;
+||||||| BASE
+=======
+import java.util.Locale;
+
+>>>>>>> BRANCH (5bb7c5 Add some scripts for building and testing uber jars. (#1246))
 import org.conscrypt.TestUtils;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -138,7 +144,7 @@ public class X509CRLTest {
                     X509Certificate ca = (X509Certificate) cf.generateCertificate(
                             new ByteArrayInputStream(CA_CERT.getBytes(StandardCharsets.US_ASCII)));
 
-                    assertEquals("SHA256WITHRSA", crl.getSigAlgName().toUpperCase());
+                    assertEquals("SHA256WITHRSA", crl.getSigAlgName().toUpperCase(Locale.ROOT));
                     crl.verify(ca.getPublicKey());
                     try {
                         crl.verify(revoked.getPublicKey());
