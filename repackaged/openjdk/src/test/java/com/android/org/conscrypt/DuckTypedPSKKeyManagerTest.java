@@ -17,12 +17,16 @@
 
 package com.android.org.conscrypt;
 
+import junit.framework.TestCase;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Arrays;
+
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import javax.net.ssl.KeyManager;
@@ -30,7 +34,6 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
-import junit.framework.TestCase;
 
 /**
  * @hide This class is not part of the Android public SDK API
@@ -143,7 +146,7 @@ public class DuckTypedPSKKeyManagerTest extends TestCase {
         assertSame(identityHint, mockInvocationHandler.lastInvokedMethodArgs[0]);
         assertSame(mSSLEngine, mockInvocationHandler.lastInvokedMethodArgs[1]);
 
-        SecretKey key = new SecretKeySpec("arbitrary".getBytes("UTF-8"), "RAW");
+        SecretKey key = new SecretKeySpec("arbitrary".getBytes(StandardCharsets.UTF_8), "RAW");
         mockInvocationHandler.returnValue = key;
         assertSame(key, pskKeyManager.getKey(identityHint, identity, mSSLSocket));
         assertEquals("getKey", mockInvocationHandler.lastInvokedMethod.getName());

@@ -281,11 +281,13 @@ final class OpenSSLX509CRL extends X509CRL {
     }
 
     @Override
+    @SuppressWarnings({"JavaUtilDate"}) // Needed for API compatibility
     public Date getThisUpdate() {
         return (Date) thisUpdate.clone();
     }
 
     @Override
+    @SuppressWarnings({"JavaUtilDate"}) // Needed for API compatibility
     public Date getNextUpdate() {
         return (Date) nextUpdate.clone();
     }
@@ -415,7 +417,7 @@ final class OpenSSLX509CRL extends X509CRL {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("Finalize")
     protected void finalize() throws Throwable {
         try {
             long toFree = mContext;

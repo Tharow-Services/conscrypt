@@ -20,12 +20,10 @@ package com.android.org.conscrypt;
 import static com.android.org.conscrypt.TestUtils.openTestFile;
 import static com.android.org.conscrypt.TestUtils.readTestFile;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
@@ -232,15 +230,17 @@ public class ConscryptSocketTest {
 
     @Parameters(name = "{0} wrapping {1} connecting to {2}")
     public static Object[][] data() {
-        return new Object[][] {
+        Object[][] fd_cases = new Object[][] {
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.NONE, ServerSocketType.PLAIN},
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.NONE, ServerSocketType.CHANNEL},
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.PLAIN, ServerSocketType.PLAIN},
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.PLAIN, ServerSocketType.CHANNEL},
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.CHANNEL, ServerSocketType.PLAIN},
-                {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.CHANNEL,
-                        ServerSocketType.CHANNEL},
+                {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.CHANNEL, ServerSocketType.CHANNEL}
                 // Not supported: {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.SSL},
+        };
+
+        Object[][] engine_cases = new Object[][] {
                 {SocketType.ENGINE, UnderlyingSocketType.NONE, ServerSocketType.PLAIN},
                 {SocketType.ENGINE, UnderlyingSocketType.NONE, ServerSocketType.CHANNEL},
                 {SocketType.ENGINE, UnderlyingSocketType.PLAIN, ServerSocketType.PLAIN},
@@ -249,6 +249,12 @@ public class ConscryptSocketTest {
                 {SocketType.ENGINE, UnderlyingSocketType.CHANNEL, ServerSocketType.CHANNEL},
                 {SocketType.ENGINE, UnderlyingSocketType.SSL, ServerSocketType.PLAIN},
                 {SocketType.ENGINE, UnderlyingSocketType.SSL, ServerSocketType.CHANNEL}};
+
+        if (TestUtils.isJavaVersion(17)) {
+            // FD Socket not feasible on Java 17+
+            return engine_cases;
+        }
+        return ArrayUtils.concat(fd_cases, engine_cases);
     }
 
     @Parameter
@@ -457,16 +463,13 @@ public class ConscryptSocketTest {
         }
 
         Future<AbstractConscryptSocket> handshake(final ServerSocket listener, final Hooks hooks) {
-            return executor.submit(new Callable<AbstractConscryptSocket>() {
-                @Override
-                public AbstractConscryptSocket call() throws Exception {
-                    AbstractConscryptSocket socket = hooks.createSocket(listener);
-                    socket.addHandshakeCompletedListener(hooks);
+            return executor.submit((Callable<AbstractConscryptSocket>) () -> {
+                AbstractConscryptSocket socket = hooks.createSocket(listener);
+                socket.addHandshakeCompletedListener(hooks);
 
-                    socket.startHandshake();
+                socket.startHandshake();
 
-                    return socket;
-                }
+                return socket;
             });
         }
     }
@@ -597,8 +600,8 @@ public class ConscryptSocketTest {
         TestConnection connection = new TestConnection(new X509Certificate[] {cert, ca}, certKey);
 
         connection.doHandshake();
-        assertThat(connection.clientException, instanceOf(SSLHandshakeException.class));
-        assertThat(connection.clientException.getCause(), instanceOf(CertificateException.class));
+        assertTrue(connection.clientException instanceof SSLHandshakeException);
+        assertTrue(connection.clientException.getCause() instanceof CertificateException);
     }
 
     @Ignore("TODO(nathanmittler): Fix or remove")
@@ -609,16 +612,15 @@ public class ConscryptSocketTest {
         connection.serverHooks.sctTLSExtension = readTestFile("ct-signed-timestamp-list-invalid");
 
         connection.doHandshake();
-        assertThat(connection.clientException, instanceOf(SSLHandshakeException.class));
-        assertThat(connection.clientException.getCause(), instanceOf(CertificateException.class));
+        assertTrue(connection.clientException instanceof SSLHandshakeException);
+        assertTrue(connection.clientException.getCause() instanceof CertificateException);
     }
 
     @Test
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation") // setAlpnProtocols is deprecated but still needs testing.
     public void setAlpnProtocolWithNullShouldSucceed() throws Exception {
-        ServerSocket listening = serverSocketType.newServerSocket();
         OpenSSLSocketImpl clientSocket = null;
-        try {
+        try (ServerSocket listening = serverSocketType.newServerSocket()) {
             Socket underlying = new Socket(listening.getInetAddress(), listening.getLocalPort());
             clientSocket = (OpenSSLSocketImpl) socketType.newClientSocket(
                     new ClientHooks().createContext(), listening, underlying);
@@ -630,15 +632,15 @@ public class ConscryptSocketTest {
             if (clientSocket != null) {
                 clientSocket.close();
             }
-            listening.close();
         }
     }
 
     // http://b/27250522
     @Test
     public void test_setSoTimeout_doesNotCreateSocketImpl() throws Exception {
-        ServerSocket listening = serverSocketType.newServerSocket();
-        try {
+        // TODO(prb): Figure out how to test this on Java 17+
+        assumeFalse(TestUtils.isJavaVersion(17));
+        try (ServerSocket listening = serverSocketType.newServerSocket()) {
             Socket underlying = new Socket(listening.getInetAddress(), listening.getLocalPort());
             Socket socket = socketType.newClientSocket(
                     new ClientHooks().createContext(), listening, underlying);
@@ -649,8 +651,6 @@ public class ConscryptSocketTest {
             Field f = Socket.class.getDeclaredField("created");
             f.setAccessible(true);
             assertFalse(f.getBoolean(socket));
-        } finally {
-            listening.close();
         }
     }
 
@@ -761,12 +761,8 @@ public class ConscryptSocketTest {
             throws Exception {
         final byte[] received = new byte[data.length];
 
-        Future<Integer> readFuture = executor.submit(new Callable<Integer>() {
-            @Override
-            public Integer call() throws Exception {
-                return destination.getInputStream().read(received);
-            }
-        });
+        Future<Integer> readFuture =
+                executor.submit(() -> destination.getInputStream().read(received));
 
         source.getOutputStream().write(data);
         assertEquals(data.length, (int) readFuture.get());

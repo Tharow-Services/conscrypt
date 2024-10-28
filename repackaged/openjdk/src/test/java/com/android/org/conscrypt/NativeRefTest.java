@@ -17,12 +17,18 @@
 
 package com.android.org.conscrypt;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
  * @hide This class is not part of the Android public SDK API
  */
-public class NativeRefTest extends TestCase {
+@RunWith(JUnit4.class)
+public class NativeRefTest {
+    @Test
     public void test_zeroContextThrowsNullPointException() {
         try {
             new NativeRef(0) {
