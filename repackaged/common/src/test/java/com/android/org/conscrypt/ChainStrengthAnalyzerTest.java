@@ -19,15 +19,17 @@ package com.android.org.conscrypt;
 
 import static org.junit.Assert.fail;
 
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.JUnit4;
 
 /**
  * @hide This class is not part of the Android public SDK API
@@ -365,7 +367,7 @@ public class ChainStrengthAnalyzerTest {
 
     private static X509Certificate createCert(String pem) throws Exception {
         CertificateFactory cf = CertificateFactory.getInstance("X509");
-        InputStream pemInput = new ByteArrayInputStream(pem.getBytes("UTF-8"));
+        InputStream pemInput = new ByteArrayInputStream(pem.getBytes(StandardCharsets.UTF_8));
         return (X509Certificate) cf.generateCertificate(pemInput);
     }
 }

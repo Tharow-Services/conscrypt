@@ -315,7 +315,7 @@ public final class TestUtils {
                 if (index < 0) {
                     throw new IllegalStateException("No = found: line " + lineNumber);
                 }
-                String label = line.substring(0, index).trim().toLowerCase();
+                String label = line.substring(0, index).trim().toLowerCase(Locale.ROOT);
                 String value = line.substring(index + 1).trim();
                 if ("name".equals(label)) {
                     current = new TestVector();
@@ -661,7 +661,7 @@ public final class TestUtils {
     /**
      * Decodes the provided hexadecimal string into a byte array.  Odd-length inputs
      * are not allowed.
-     *
+     * <p>
      * Throws an {@code IllegalArgumentException} if the input is malformed.
      */
     public static byte[] decodeHex(String encoded) throws IllegalArgumentException {
@@ -672,7 +672,7 @@ public final class TestUtils {
      * Decodes the provided hexadecimal string into a byte array. If {@code allowSingleChar}
      * is {@code true} odd-length inputs are allowed and the first character is interpreted
      * as the lower bits of the first result byte.
-     *
+     * <p>
      * Throws an {@code IllegalArgumentException} if the input is malformed.
      */
     public static byte[] decodeHex(String encoded, boolean allowSingleChar) throws IllegalArgumentException {
@@ -682,7 +682,7 @@ public final class TestUtils {
     /**
      * Decodes the provided hexadecimal string into a byte array.  Odd-length inputs
      * are not allowed.
-     *
+     * <p>
      * Throws an {@code IllegalArgumentException} if the input is malformed.
      */
     public static byte[] decodeHex(char[] encoded) throws IllegalArgumentException {
@@ -693,7 +693,7 @@ public final class TestUtils {
      * Decodes the provided hexadecimal string into a byte array. If {@code allowSingleChar}
      * is {@code true} odd-length inputs are allowed and the first character is interpreted
      * as the lower bits of the first result byte.
-     *
+     * <p>
      * Throws an {@code IllegalArgumentException} if the input is malformed.
      */
     public static byte[] decodeHex(char[] encoded, boolean allowSingleChar) throws IllegalArgumentException {
@@ -861,42 +861,31 @@ public final class TestUtils {
         Assume.assumeTrue(findClass("java.security.spec.XECPrivateKeySpec") != null);
     }
 
-    // Find base method via reflection due to visibility issues when building with Gradle.
     public static boolean isTlsV1Deprecated() {
-        try {
-            return (Boolean) conscryptClass("Platform")
-                    .getDeclaredMethod("isTlsV1Deprecated")
-                    .invoke(null);
-        } catch (NoSuchMethodException e) {
-            return false;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        return callPlatformMethod("isTlsV1Deprecated", false);
     }
 
-    // Find base method via reflection due to possible version skew on Android
-    // and visibility issues when building with Gradle.
     public static boolean isTlsV1Filtered() {
-        try {
-            return (Boolean) conscryptClass("Platform")
-                    .getDeclaredMethod("isTlsV1Filtered")
-                    .invoke(null);
-        } catch (NoSuchMethodException e) {
-            return true;
-        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
-            throw new IllegalStateException("Reflection failure", e);
-        }
+        return callPlatformMethod("isTlsV1Filtered", true);
     }
 
-    // Find base method via reflection due to possible version skew on Android
-    // and visibility issues when building with Gradle.
     public static boolean isTlsV1Supported() {
+        return callPlatformMethod("isTlsV1Supported", true);
+    }
+
+    public static boolean isJavaxCertificateSupported() {
+        return callPlatformMethod("isJavaxCertificateSupported", true);
+    }
+
+    // Calls a boolean platform method by reflection.  If the method is not present, e.g.
+    // due to version skew etc then return the default value.
+    public static boolean callPlatformMethod(String methodName, boolean defaultValue) {
         try {
             return (Boolean) conscryptClass("Platform")
-                    .getDeclaredMethod("isTlsV1Supported")
+                    .getDeclaredMethod(methodName)
                     .invoke(null);
         } catch (NoSuchMethodException e) {
-            return false;
+            return defaultValue;
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
             throw new IllegalStateException("Reflection failure", e);
         }

@@ -162,7 +162,7 @@ public interface Test {
       if (algorithms.isEmpty()) {
         for (Provider.Service s : p.getServices()) {
             if (s.getType().equals(service) && !skipAlgorithms.contains(s.getAlgorithm())
-                    && !shouldSkipCombination(p.getName(), s.getAlgorithm())) {
+                    && shouldUseCombination(p.getName(), s.getAlgorithm())) {
                 doTest(test, p, s.getAlgorithm(), errors);
             }
         }
@@ -170,7 +170,7 @@ public interface Test {
         algorithms.removeAll(skipAlgorithms);
         for (String algorithm : algorithms) {
             if (p.getService(service, algorithm) != null
-                    && !shouldSkipCombination(p.getName(), algorithm)) {
+                    && shouldUseCombination(p.getName(), algorithm)) {
                 doTest(test, p, algorithm, errors);
             }
         }
@@ -178,7 +178,7 @@ public interface Test {
     }
     errors.flush();
     if (errBuffer.size() > 0) {
-      fail("Tests failed:\n\n" + errBuffer.toString());
+        fail("Tests failed:\n\n" + errBuffer);
     }
   }
 
@@ -186,8 +186,8 @@ public interface Test {
     return provider + SEPARATOR + algorithm;
   }
 
-  private boolean shouldSkipCombination(String provider, String algorithm) {
-    return skipCombinations.contains(makeCombination(provider, algorithm));
+  private boolean shouldUseCombination(String provider, String algorithm) {
+      return !skipCombinations.contains(makeCombination(provider, algorithm));
   }
 
   private void doTest(Test test, Provider p, String algorithm, PrintStream errors) {
