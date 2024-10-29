@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b31e1d1_922b6e16",
+        "filename": "platform/src/main/java/org/conscrypt/ct/LogStoreImpl.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-10-29T10:43:21Z",
+      "side": 1,
+      "message": "Date-related imports Unused now?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 34
+      },
+      "revId": "0c2687cf115c5e2352af8c58e0a7034b7c68c16a",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
