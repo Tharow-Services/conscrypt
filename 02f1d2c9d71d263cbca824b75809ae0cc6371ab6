@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4f20776_456a4228",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-29T15:36:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "644bdc4d_1e36862a",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 37
+      },
+      "revId": "02f1d2c9d71d263cbca824b75809ae0cc6371ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "de7dfa29_253c6ba2",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-10-28T19:11:35Z",
       "side": 1,
       "message": "Last 2 look unused again.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 31
+      },
+      "revId": "02f1d2c9d71d263cbca824b75809ae0cc6371ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "774844c5_11cd7dff",
+        "filename": "openjdk/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-29T15:36:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "de7dfa29_253c6ba2",
       "range": {
         "startLine": 88,
         "startChar": 0,
@@ -70,6 +118,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8a69b185_2c3bbe0e",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-29T15:36:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8f7923e0_69891c4b",
+      "range": {
+        "startLine": 79,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 0
+      },
+      "revId": "02f1d2c9d71d263cbca824b75809ae0cc6371ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "afb6d9c0_5076cb96",
@@ -83,6 +155,30 @@
       "writtenOn": "2024-10-28T19:11:35Z",
       "side": 1,
       "message": "Looks like you\u0027re missing an import of java.security.Provider.  \n\n\nOriginal lint message:\nPlease fix this ERROR reported by Build Warnings: cannot find symbol\n\nAnalyzer Description: Reports warnings that originate from build.log in the build artifacts.\nOwner: farivar@google.com\n\n    cannot find symbol\n            Provider conscryptProvider \u003d TestUtils.getConscryptProvider(true, true);\n            ^\n      symbol:   class Provider\n      location: class TlsDeprecationTest\n\nThis finding was found on https://android-build.googleplex.com/builds/build-details/P83552832/targets/errorprone-trunk_staging, but may also be present on other builds.\n\nThis is a different branch than your cl originated on (it was automerged), and thus might better reflect the state of the code in the git_main branch.",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 80
+      },
+      "revId": "02f1d2c9d71d263cbca824b75809ae0cc6371ab6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b8a6cbb0_1e972dc6",
+        "filename": "repackaged/platform/src/test/java/com/android/org/conscrypt/TlsDeprecationTest.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-29T15:36:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "afb6d9c0_5076cb96",
       "range": {
         "startLine": 96,
         "startChar": 0,

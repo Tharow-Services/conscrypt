@@ -16,6 +16,24 @@
       "message": "\u003e   symbol:   method isTlsV1Enabled()\n\u003e   location: class TestUtils\n\nThat\u0027s really weird.  It should all get built together into conscrypt-tests.jar, is TestUtils somehow missing from there?",
       "revId": "e025f96706a06d22f54d13fb24d54cd9816bd777",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "581ef187_5ef2bed0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-10-29T15:36:55Z",
+      "side": 1,
+      "message": "Naming mistake, should be Supported.",
+      "parentUuid": "7e428afa_2ff5eab2",
+      "revId": "e025f96706a06d22f54d13fb24d54cd9816bd777",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
