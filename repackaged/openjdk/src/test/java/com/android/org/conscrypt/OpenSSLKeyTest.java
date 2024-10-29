@@ -17,14 +17,21 @@
 
 package com.android.org.conscrypt;
 
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 import java.io.ByteArrayInputStream;
 import java.math.BigInteger;
-import junit.framework.TestCase;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @hide This class is not part of the Android public SDK API
  */
-public class OpenSSLKeyTest extends TestCase {
+@RunWith(JUnit4.class)
+public class OpenSSLKeyTest {
     static final String RSA_PUBLIC_KEY = "-----BEGIN PUBLIC KEY-----\n"
             + "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3G7PGpfZx68wTY9eLb4b\n"
             + "th3Y7MXgh1A2oqB202KTiClKy9Y+Z+HCx5KIXXcycVjAfhK7qG+F/XVeE0TpzR8c\n"
@@ -86,20 +93,23 @@ public class OpenSSLKeyTest extends TestCase {
                             + "8872822c7f2832dafa0fe10d9aba22310849e978e51c8aa9da7bc1c07511d883",
                     16);
 
+    @Test
     public void test_fromPublicKeyPemInputStream() throws Exception {
-        ByteArrayInputStream is = new ByteArrayInputStream(RSA_PUBLIC_KEY.getBytes("UTF-8"));
+        ByteArrayInputStream is =
+                new ByteArrayInputStream(RSA_PUBLIC_KEY.getBytes(StandardCharsets.UTF_8));
         OpenSSLKey key = OpenSSLKey.fromPublicKeyPemInputStream(is);
         OpenSSLRSAPublicKey publicKey = (OpenSSLRSAPublicKey)key.getPublicKey();
         assertEquals(RSA_MODULUS, publicKey.getModulus());
         assertEquals(RSA_PUBLIC_EXPONENT, publicKey.getPublicExponent());
     }
 
+    @Test
     public void test_fromPrivateKeyPemInputStream() throws Exception {
-        ByteArrayInputStream is = new ByteArrayInputStream(RSA_PRIVATE_KEY.getBytes("UTF-8"));
+        ByteArrayInputStream is =
+                new ByteArrayInputStream(RSA_PRIVATE_KEY.getBytes(StandardCharsets.UTF_8));
         OpenSSLKey key = OpenSSLKey.fromPrivateKeyPemInputStream(is);
         OpenSSLRSAPrivateKey privateKey = (OpenSSLRSAPrivateKey)key.getPrivateKey();
         assertEquals(RSA_MODULUS, privateKey.getModulus());
         assertEquals(RSA_PRIVATE_EXPONENT, privateKey.getPrivateExponent());
     }
 }
-

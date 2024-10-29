@@ -16,8 +16,10 @@
 
 package org.conscrypt.javax.crypto;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
@@ -37,6 +39,7 @@ import java.security.KeyFactory;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.Provider;
+import java.security.ProviderException;
 import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Security;
@@ -158,7 +161,7 @@ public final class CipherTest {
         return true;
     }
 
-    /**
+    /*
      * Checks for algorithms removed from BC in Android 12 and so not usable for these
      * tests.
      *
@@ -190,20 +193,17 @@ public final class CipherTest {
             return false;
         }
         // AESWRAP should be used instead, fails with BC and SunJCE otherwise.
-        if (algorithm.startsWith("AES") || algorithm.startsWith("DESEDE")) {
-            return false;
-        }
-        return true;
+        return !algorithm.startsWith("AES") && !algorithm.startsWith("DESEDE");
     }
 
-    private synchronized static int getEncryptMode(String algorithm) throws Exception {
+    private synchronized static int getEncryptMode(String algorithm) {
         if (isOnlyWrappingAlgorithm(algorithm)) {
             return Cipher.WRAP_MODE;
         }
         return Cipher.ENCRYPT_MODE;
     }
 
-    private synchronized static int getDecryptMode(String algorithm) throws Exception {
+    private synchronized static int getDecryptMode(String algorithm) {
         if (isOnlyWrappingAlgorithm(algorithm)) {
             return Cipher.UNWRAP_MODE;
         }
@@ -320,7 +320,7 @@ public final class CipherTest {
                 || algorithm.contains("/OAEPWITH");
     }
 
-    private static Map<String, Key> ENCRYPT_KEYS = new HashMap<String, Key>();
+    private static final Map<String, Key> ENCRYPT_KEYS = new HashMap<>();
 
     /**
      * Returns the key meant for enciphering for {@code algorithm}.
@@ -355,7 +355,7 @@ public final class CipherTest {
         return key;
     }
 
-    private static Map<String, Key> DECRYPT_KEYS = new HashMap<String, Key>();
+    private static final Map<String, Key> DECRYPT_KEYS = new HashMap<>();
 
     /**
      * Returns the key meant for deciphering for {@code algorithm}.
@@ -384,7 +384,7 @@ public final class CipherTest {
         return key;
     }
 
-    private static Map<String, Integer> EXPECTED_BLOCK_SIZE = new HashMap<String, Integer>();
+    private static final Map<String, Integer> EXPECTED_BLOCK_SIZE = new HashMap<>();
     static {
         setExpectedBlockSize("AES", 16);
         setExpectedBlockSize("AES/CBC/PKCS5PADDING", 16);
@@ -572,7 +572,7 @@ public final class CipherTest {
         return getExpectedSize(EXPECTED_BLOCK_SIZE, algorithm, mode, provider);
     }
 
-    private static Map<String, Integer> EXPECTED_OUTPUT_SIZE = new HashMap<String, Integer>();
+    private static final Map<String, Integer> EXPECTED_OUTPUT_SIZE = new HashMap<>();
     static {
         setExpectedOutputSize("AES/CBC/NOPADDING", 0);
         setExpectedOutputSize("AES/CFB/NOPADDING", 0);
@@ -793,14 +793,14 @@ public final class CipherTest {
         return getExpectedSize(EXPECTED_OUTPUT_SIZE, algorithm, mode, provider);
     }
 
-    private static byte[] ORIGINAL_PLAIN_TEXT = new byte[] { 0x0a, 0x0b, 0x0c };
-    private static byte[] SIXTEEN_BYTE_BLOCK_PLAIN_TEXT = new byte[] { 0x0a, 0x0b, 0x0c, 0x00,
-                                                                       0x00, 0x00, 0x00, 0x00,
-                                                                       0x00, 0x00, 0x00, 0x00,
-                                                                       0x00, 0x00, 0x00, 0x00 };
-    private static byte[] EIGHT_BYTE_BLOCK_PLAIN_TEXT = new byte[] { 0x0a, 0x0b, 0x0c, 0x00,
-                                                                     0x00, 0x00, 0x00, 0x00 };
-    private static byte[] PKCS1_BLOCK_TYPE_00_PADDED_PLAIN_TEXT = new byte[] {
+    private static final byte[] ORIGINAL_PLAIN_TEXT = new byte[] { 0x0a, 0x0b, 0x0c };
+    private static final byte[] SIXTEEN_BYTE_BLOCK_PLAIN_TEXT = new byte[] { 0x0a, 0x0b, 0x0c, 0x00,
+                                                                             0x00, 0x00, 0x00, 0x00,
+                                                                             0x00, 0x00, 0x00, 0x00,
+                                                                             0x00, 0x00, 0x00, 0x00 };
+    private static final byte[] EIGHT_BYTE_BLOCK_PLAIN_TEXT = new byte[] { 0x0a, 0x0b, 0x0c, 0x00,
+            0x00, 0x00, 0x00, 0x00 };
+    private static final byte[] PKCS1_BLOCK_TYPE_00_PADDED_PLAIN_TEXT = new byte[] {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -818,7 +818,7 @@ public final class CipherTest {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0x0a, 0x0b, 0x0c
     };
-    private static byte[] PKCS1_BLOCK_TYPE_01_PADDED_PLAIN_TEXT = new byte[] {
+    private static final byte[] PKCS1_BLOCK_TYPE_01_PADDED_PLAIN_TEXT = new byte[] {
         (byte) 0x00, (byte) 0x01, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
         (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
         (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
@@ -852,7 +852,7 @@ public final class CipherTest {
         (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
         (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0x00, (byte) 0x0a, (byte) 0x0b, (byte) 0x0c
     };
-    private static byte[] PKCS1_BLOCK_TYPE_02_PADDED_PLAIN_TEXT = new byte[] {
+    private static final byte[] PKCS1_BLOCK_TYPE_02_PADDED_PLAIN_TEXT = new byte[] {
         (byte) 0x00, (byte) 0x02, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
         (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
         (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff, (byte) 0xff,
@@ -1045,8 +1045,8 @@ public final class CipherTest {
         final ByteArrayOutputStream errBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(errBuffer);
 
-        Set<String> seenBaseCipherNames = new HashSet<String>();
-        Set<String> seenCiphersWithModeAndPadding = new HashSet<String>();
+        Set<String> seenBaseCipherNames = new HashSet<>();
+        Set<String> seenCiphersWithModeAndPadding = new HashSet<>();
 
         Provider[] providers = Security.getProviders();
         for (Provider provider : providers) {
@@ -1135,7 +1135,7 @@ public final class CipherTest {
 
         out.flush();
         if (errBuffer.size() > 0) {
-            throw new Exception("Errors encountered:\n\n" + errBuffer.toString() + "\n\n");
+            throw new Exception("Errors encountered:\n\n" + errBuffer + "\n\n");
         }
     }
 
@@ -1368,7 +1368,7 @@ public final class CipherTest {
 
     private void assertCorrectAlgorithmParameters(String providerName, String cipherID,
             final AlgorithmParameterSpec spec, AlgorithmParameters params)
-            throws InvalidParameterSpecException, Exception {
+            throws Exception {
         if (spec == null) {
             return;
         }
@@ -1405,7 +1405,7 @@ public final class CipherTest {
     }
 
     private static void assertOAEPParametersEqual(OAEPParameterSpec expectedOaepSpec,
-            OAEPParameterSpec actualOaepSpec) throws Exception {
+            OAEPParameterSpec actualOaepSpec) {
         assertEquals(expectedOaepSpec.getDigestAlgorithm(), actualOaepSpec.getDigestAlgorithm());
 
         assertEquals(expectedOaepSpec.getMGFAlgorithm(), actualOaepSpec.getMGFAlgorithm());
@@ -1447,7 +1447,7 @@ public final class CipherTest {
         }
 
         try {
-            c.init(encryptMode, encryptKey, (AlgorithmParameterSpec) null, (SecureRandom) null);
+            c.init(encryptMode, encryptKey, (AlgorithmParameterSpec) null, null);
         } catch (InvalidAlgorithmParameterException e) {
             if (!isPBE(c.getAlgorithm())) {
                 throw e;
@@ -1463,7 +1463,7 @@ public final class CipherTest {
         }
 
         try {
-            c.init(encryptMode, encryptKey, (AlgorithmParameters) null, (SecureRandom) null);
+            c.init(encryptMode, encryptKey, (AlgorithmParameters) null, null);
         } catch (InvalidAlgorithmParameterException e) {
             if (!isPBE(c.getAlgorithm())) {
                 throw e;
@@ -1485,7 +1485,7 @@ public final class CipherTest {
         }
 
         try {
-            c.init(decryptMode, encryptKey, (AlgorithmParameterSpec) null, (SecureRandom) null);
+            c.init(decryptMode, encryptKey, (AlgorithmParameterSpec) null, null);
             if (needsParameters) {
                 fail("Should throw InvalidAlgorithmParameterException with null parameters");
             }
@@ -1507,7 +1507,7 @@ public final class CipherTest {
         }
 
         try {
-            c.init(decryptMode, encryptKey, (AlgorithmParameters) null, (SecureRandom) null);
+            c.init(decryptMode, encryptKey, (AlgorithmParameters) null, null);
             if (needsParameters) {
                 fail("Should throw InvalidAlgorithmParameterException with null parameters");
             }
@@ -1569,9 +1569,9 @@ public final class CipherTest {
         }
         byte[] plainText = c.doFinal(cipherText);
         byte[] expectedPlainText = getExpectedPlainText(algorithm, provider);
-        assertTrue("Expected " + Arrays.toString(expectedPlainText)
-                + " but was " + Arrays.toString(plainText),
-                Arrays.equals(expectedPlainText, plainText));
+        assertArrayEquals("Expected " + Arrays.toString(expectedPlainText) + " but was "
+                + Arrays.toString(plainText)
+                , expectedPlainText, plainText);
     }
 
     @Test
@@ -1748,7 +1748,7 @@ public final class CipherTest {
         }
     }
 
-    private Certificate certificateWithKeyUsage(int keyUsage) throws Exception {
+    private Certificate certificateWithKeyUsage(int keyUsage) {
         // note the rare usage of non-zero keyUsage
         return new TestKeyStore.Builder()
                 .aliasPrefix("rsa-dsa-ec")
@@ -2594,13 +2594,13 @@ public final class CipherTest {
          */
         c.init(Cipher.ENCRYPT_MODE, privKey);
         byte[] encrypted = c.doFinal(RSA_2048_Vector1);
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_Encrypt_Private, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_Encrypt_Private, encrypted);
 
         c.init(Cipher.DECRYPT_MODE, privKey);
         encrypted = c.doFinal(RSA_2048_Vector1);
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_Encrypt_Private, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_Encrypt_Private, encrypted);
     }
 
     @Test
@@ -2623,14 +2623,14 @@ public final class CipherTest {
         c.init(Cipher.ENCRYPT_MODE, privKey);
         c.update(RSA_2048_Vector1);
         byte[] encrypted = c.doFinal();
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_Encrypt_Private, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_Encrypt_Private, encrypted);
 
         c.init(Cipher.DECRYPT_MODE, privKey);
         c.update(RSA_2048_Vector1);
         encrypted = c.doFinal();
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_Encrypt_Private, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_Encrypt_Private, encrypted);
     }
 
     @Test
@@ -2658,16 +2658,16 @@ public final class CipherTest {
             c.update(RSA_2048_Vector1, i, 1);
         }
         byte[] encrypted = c.doFinal(RSA_2048_Vector1, i, RSA_2048_Vector1.length - i);
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_Encrypt_Private, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_Encrypt_Private, encrypted);
 
         c.init(Cipher.DECRYPT_MODE, privKey);
         for (i = 0; i < RSA_2048_Vector1.length / 2; i++) {
             c.update(RSA_2048_Vector1, i, 1);
         }
         encrypted = c.doFinal(RSA_2048_Vector1, i, RSA_2048_Vector1.length - i);
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_Encrypt_Private, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_Encrypt_Private, encrypted);
     }
 
     @Test
@@ -2693,16 +2693,16 @@ public final class CipherTest {
                 .doFinal(RSA_2048_Vector1, 0, RSA_2048_Vector1.length, encrypted, 0);
         assertEquals("Encrypted size should match expected", RSA_Vector1_Encrypt_Private.length,
                 encryptLen);
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_Encrypt_Private, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_Encrypt_Private, encrypted);
 
         c.init(Cipher.DECRYPT_MODE, privKey);
         final int decryptLen = c
                 .doFinal(RSA_2048_Vector1, 0, RSA_2048_Vector1.length, encrypted, 0);
         assertEquals("Encrypted size should match expected", RSA_Vector1_Encrypt_Private.length,
                 decryptLen);
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_Encrypt_Private, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_Encrypt_Private, encrypted);
     }
 
     @Test
@@ -2849,13 +2849,13 @@ public final class CipherTest {
          */
         c.init(Cipher.ENCRYPT_MODE, pubKey);
         byte[] encrypted = c.doFinal(TooShort_Vector);
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_ZeroPadded_Encrypted, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_ZeroPadded_Encrypted, encrypted);
 
         c.init(Cipher.DECRYPT_MODE, pubKey);
         encrypted = c.doFinal(TooShort_Vector);
-        assertTrue("Encrypted should match expected",
-                Arrays.equals(RSA_Vector1_ZeroPadded_Encrypted, encrypted));
+        assertArrayEquals("Encrypted should match expected",
+                RSA_Vector1_ZeroPadded_Encrypted, encrypted);
     }
 
     @Test
@@ -2929,7 +2929,7 @@ public final class CipherTest {
             c.doFinal(RSA_Vector1_ZeroPadded_Encrypted);
             fail("Should have error when block size is too big.");
         } catch (IllegalBlockSizeException success) {
-            assertFalse(provider, "BC".equals(provider));
+            assertNotEquals("BC", provider);
         } catch (ArrayIndexOutOfBoundsException success) {
             assertEquals("BC", provider);
         }
@@ -2964,7 +2964,7 @@ public final class CipherTest {
             c.doFinal(RSA_Vector1_ZeroPadded_Encrypted);
             fail("Should have error when block size is too big.");
         } catch (IllegalBlockSizeException success) {
-            assertFalse(provider, "BC".equals(provider));
+            assertNotEquals("BC", provider);
         } catch (ArrayIndexOutOfBoundsException success) {
             assertEquals("BC", provider);
         }
@@ -2999,7 +2999,7 @@ public final class CipherTest {
             c.doFinal(tooBig_Vector);
             fail("Should have error when block size is too big.");
         } catch (IllegalBlockSizeException success) {
-            assertFalse(provider, "BC".equals(provider));
+            assertNotEquals("BC", provider);
         } catch (ArrayIndexOutOfBoundsException success) {
             assertEquals("BC", provider);
         }
@@ -3042,6 +3042,7 @@ public final class CipherTest {
             c.getOutputSize(RSA_2048_Vector1.length);
             fail("Should throw IllegalStateException if getOutputSize is called before init");
         } catch (IllegalStateException success) {
+            // Expected.
         }
     }
 
@@ -3541,7 +3542,7 @@ public final class CipherTest {
         }
     }
 
-    private static List<CipherTestParam> DES_CIPHER_TEST_PARAMS = new ArrayList<CipherTestParam>();
+    private static final List<CipherTestParam> DES_CIPHER_TEST_PARAMS = new ArrayList<>();
     static {
         DES_CIPHER_TEST_PARAMS.add(new CipherTestParam(
                 "DESede/CBC/PKCS5Padding",
@@ -3569,7 +3570,7 @@ public final class CipherTest {
                 ));
     }
 
-    private static List<CipherTestParam> ARC4_CIPHER_TEST_PARAMS = new ArrayList<CipherTestParam>();
+    private static final List<CipherTestParam> ARC4_CIPHER_TEST_PARAMS = new ArrayList<>();
     static {
         ARC4_CIPHER_TEST_PARAMS.add(new CipherTestParam(
                 "ARC4",
@@ -3593,7 +3594,7 @@ public final class CipherTest {
         ));
     }
 
-    private static List<CipherTestParam> CIPHER_TEST_PARAMS = new ArrayList<CipherTestParam>();
+    private static final List<CipherTestParam> CIPHER_TEST_PARAMS = new ArrayList<>();
     static {
         CIPHER_TEST_PARAMS.add(new CipherTestParam(
                 "AES/ECB/PKCS5Padding",
@@ -3651,7 +3652,7 @@ public final class CipherTest {
         }
     }
 
-    private static final List<CipherTestParam> RSA_OAEP_CIPHER_TEST_PARAMS = new ArrayList<CipherTestParam>();
+    private static final List<CipherTestParam> RSA_OAEP_CIPHER_TEST_PARAMS = new ArrayList<>();
     static {
         addRsaOaepTest("SHA-1", MGF1ParameterSpec.SHA1, RSA_Vector2_OAEP_SHA1_MGF1_SHA1);
         addRsaOaepTest("SHA-256", MGF1ParameterSpec.SHA1, RSA_Vector2_OAEP_SHA256_MGF1_SHA1);
@@ -3728,7 +3729,7 @@ public final class CipherTest {
         ByteArrayOutputStream errBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(errBuffer);
         for (CipherTestParam testVector : testVectors) {
-            ArrayList<Provider> providers = new ArrayList<Provider>();
+            ArrayList<Provider> providers = new ArrayList<>();
 
             Provider[] providerArray = Security.getProviders("Cipher." + testVector.transformation);
             if (providerArray != null) {
@@ -3772,7 +3773,7 @@ public final class CipherTest {
         }
         out.flush();
         if (errBuffer.size() > 0) {
-            throw new Exception("Errors encountered:\n\n" + errBuffer.toString() + "\n\n");
+            throw new Exception("Errors encountered:\n\n" + errBuffer + "\n\n");
         }
     }
 
@@ -3788,7 +3789,7 @@ public final class CipherTest {
         }
         out.flush();
         if (errBuffer.size() > 0) {
-            throw new Exception("Errors encountered:\n\n" + errBuffer.toString() + "\n\n");
+            throw new Exception("Errors encountered:\n\n" + errBuffer + "\n\n");
         }
     }
 
@@ -3878,8 +3879,7 @@ public final class CipherTest {
             try {
                 c.updateAAD(new byte[8]);
                 fail("Cipher should not support AAD");
-            } catch (UnsupportedOperationException expected) {
-            } catch (IllegalStateException expected) {
+            } catch (UnsupportedOperationException | IllegalStateException expected) {
             }
         }
 
@@ -3921,6 +3921,14 @@ public final class CipherTest {
                     if (!isAEAD(p.transformation)) {
                         throw maybe;
                     }
+                } catch (ProviderException maybe) {
+                    boolean isShortBufferException
+                            = maybe.getCause() instanceof ShortBufferException;
+                    if (!isAEAD(p.transformation)
+                            || !isBuggyProvider(provider)
+                            || !isShortBufferException) {
+                        throw maybe;
+                    }
                 }
                 try {
                     c.update(new byte[0]);
@@ -3932,6 +3940,14 @@ public final class CipherTest {
                     }
                 } catch (AEADBadTagException maybe) {
                     if (!isAEAD(p.transformation)) {
+                        throw maybe;
+                    }
+                } catch (ProviderException maybe) {
+                    boolean isShortBufferException
+                            = maybe.getCause() instanceof ShortBufferException;
+                    if (!isAEAD(p.transformation)
+                            || !isBuggyProvider(provider)
+                            || !isShortBufferException) {
                         throw maybe;
                     }
                 }
@@ -4028,6 +4044,13 @@ public final class CipherTest {
         }
     }
 
+    // SunJCE has known issues between 17 and 21
+    private boolean isBuggyProvider(String providerName) {
+        return providerName.equals("SunJCE")
+                && TestUtils.isJavaVersion(17)
+                && !TestUtils.isJavaVersion(21);
+    }
+
     /**
      * Gets the Cipher transformation with the same algorithm and mode as the provided one but
      * which uses no padding.
@@ -4039,7 +4062,7 @@ public final class CipherTest {
             fail("No padding mode delimiter: " + transformation);
         }
         String paddingMode = transformation.substring(paddingModeDelimiterIndex + 1);
-        if (!paddingMode.toLowerCase().endsWith("padding")) {
+        if (!paddingMode.toLowerCase(Locale.ROOT).endsWith("padding")) {
             fail("No padding mode specified:" + transformation);
         }
         return transformation.substring(0, paddingModeDelimiterIndex) + "/NoPadding";
@@ -4125,8 +4148,7 @@ public final class CipherTest {
         try {
             c.updateAAD(new byte[8]);
             fail("should not be able to call updateAAD on non-AEAD cipher");
-        } catch (UnsupportedOperationException expected) {
-        } catch (IllegalStateException expected) {
+        } catch (UnsupportedOperationException | IllegalStateException expected) {
         }
     }
 
@@ -4152,7 +4174,7 @@ public final class CipherTest {
         }
         out.flush();
         if (errBuffer.size() > 0) {
-            throw new Exception("Errors encountered:\n\n" + errBuffer.toString() + "\n\n");
+            throw new Exception("Errors encountered:\n\n" + errBuffer + "\n\n");
         }
     }
 
@@ -4218,25 +4240,10 @@ public final class CipherTest {
         String msg = "update() should throw IllegalStateException [mode=" + opmode + "]";
         final int bs = createAesCipher(opmode).getBlockSize();
         assertEquals(16, bs); // check test is set up correctly
-        assertIllegalStateException(msg, new Runnable() {
-            @Override
-            public void run() {
-                createAesCipher(opmode).update(new byte[0]);
-            }
-        });
-        assertIllegalStateException(msg, new Runnable() {
-            @Override
-            public void run() {
-                createAesCipher(opmode).update(new byte[2 * bs]);
-            }
-        });
-        assertIllegalStateException(msg, new Runnable() {
-            @Override
-            public void run() {
-                createAesCipher(opmode).update(
-                        new byte[2 * bs] /* input */, bs /* inputOffset */, 0 /* inputLen */);
-            }
-        });
+        assertIllegalStateException(msg, () -> createAesCipher(opmode).update(new byte[0]));
+        assertIllegalStateException(msg, () -> createAesCipher(opmode).update(new byte[2 * bs]));
+        assertIllegalStateException(msg, () -> createAesCipher(opmode).update(
+                new byte[2 * bs] /* input */, bs /* inputOffset */, 0 /* inputLen */));
         try {
             createAesCipher(opmode).update(new byte[2*bs] /* input */, 0 /* inputOffset */,
                     2 * bs /* inputLen */, new byte[2 * bs] /* output */, 0 /* outputOffset */);
@@ -4364,8 +4371,7 @@ public final class CipherTest {
             try {
                 c.doFinal(null, 0);
                 fail("Should throw NullPointerException on null output buffer");
-            } catch (NullPointerException expected) {
-            } catch (IllegalArgumentException expected) {
+            } catch (NullPointerException | IllegalArgumentException expected) {
             }
         }
 
@@ -4393,7 +4399,7 @@ public final class CipherTest {
         {
             final byte[] output = new byte[c.getBlockSize()];
             assertEquals(AES_128_ECB_PKCS5Padding_TestVector_1_Encrypted.length, c.doFinal(output, 0));
-            assertTrue(Arrays.equals(AES_128_ECB_PKCS5Padding_TestVector_1_Encrypted, output));
+            assertArrayEquals(AES_128_ECB_PKCS5Padding_TestVector_1_Encrypted, output);
         }
     }
 
@@ -4426,7 +4432,7 @@ public final class CipherTest {
         assertEquals(provider, AES_128_ECB_PKCS5Padding_TestVector_1_Plaintext_Padded.length,
                 output.length);
 
-        assertTrue(provider, Arrays.equals(AES_128_ECB_PKCS5Padding_TestVector_1_Encrypted, output));
+        assertArrayEquals(provider, AES_128_ECB_PKCS5Padding_TestVector_1_Encrypted, output);
     }
 
     private static final byte[] AES_IV_ZEROES = new byte[] {
@@ -4480,7 +4486,7 @@ public final class CipherTest {
         String[] expected = new String[LARGEST_KEY_SIZE - SMALLEST_KEY_SIZE];
 
         /* Find all providers that provide ARC4. We must have at least one! */
-        Map<String, String> filter = new HashMap<String, String>();
+        Map<String, String> filter = new HashMap<>();
         filter.put("Cipher.ARC4", "");
         Provider[] providers = Security.getProviders(filter);
         assertTrue("There must be security providers of Cipher.ARC4", providers.length > 0);
@@ -4528,6 +4534,9 @@ public final class CipherTest {
     public void testAES_keyConstrained() throws Exception {
         Provider[] providers = Security.getProviders();
         for (Provider p : providers) {
+            if (isBuggyProvider(p.getName())) {
+                continue;
+            }
             for (Provider.Service s : p.getServices()) {
                 if (s.getType().equals("Cipher")) {
                     if (s.getAlgorithm().startsWith("AES_128/")) {
@@ -4586,7 +4595,7 @@ public final class CipherTest {
                 new String(encryptedBuffer, 0, unencryptedBytes, StandardCharsets.US_ASCII));
     }
 
-    /**
+    /*
      * When using padding in decrypt mode, ensure that empty buffers decode to empty strings
      * (no padding needed for the empty buffer).
      * http://b/19186852
@@ -4618,7 +4627,7 @@ public final class CipherTest {
         }
     }
 
-    /**
+    /*
      * Check that RSA with OAEPPadding is supported.
      * http://b/22208820
      */
@@ -4631,7 +4640,7 @@ public final class CipherTest {
         cipher.doFinal(new byte[] {1,2,3,4});
     }
 
-    /**
+    /*
      * Check that initializing with a GCM AlgorithmParameters produces the same result
      * as initializing with a GCMParameterSpec.
      */

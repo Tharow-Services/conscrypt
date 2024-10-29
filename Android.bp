@@ -674,6 +674,50 @@ java_library {
     ],
 }
 
+filegroup {
+    name: "conscrypt-all-test-files",
+    srcs: [
+        "repackaged/platform/src/test/java/**/*.java",
+        "repackaged/common/src/test/java//**/*.java",
+        "publicapi/src/test/java/**/*.java",
+    ],
+}
+
+filegroup {
+    name: "conscrypt-private-api-test-files",
+    srcs: [
+        "repackaged/platform/src/test/java/com/android/org/conscrypt/ct/*.java",
+        "repackaged/platform/src/test/java/com/android/org/conscrypt/CertBlocklistTest.java",
+        "repackaged/common/src/test/java/com/android/org/conscrypt/ct/*.java",
+    ],
+}
+
+filegroup {
+    name: "conscrypt-test-support-files",
+    srcs: [
+        "repackaged/testing/src/main/java/**/*.java",
+    ],
+}
+
+filegroup {
+    name: "conscrypt-xts-test-files",
+    srcs: [
+        ":conscrypt-all-test-files",
+        ":conscrypt-test-support-files",
+    ],
+    exclude_srcs: [
+        ":conscrypt-private-api-test-files",
+    ],
+}
+
+filegroup {
+    name: "conscrypt-private-test-files",
+    srcs: [
+        ":conscrypt-private-api-test-files",
+        ":conscrypt-test-support-files",
+    ],
+}
+
 // Make the conscrypt-tests library.
 java_test {
     name: "conscrypt-tests",
@@ -684,15 +728,9 @@ java_test {
     ],
     hostdex: true,
     srcs: [
-        "repackaged/platform/src/test/java/com/android/org/conscrypt/TrustedCertificateStoreTest.java",
-        "repackaged/platform/src/test/java/com/android/org/conscrypt/metrics/*.java",
-        "repackaged/common/src/test/java/com/android/org/conscrypt/*.java",
-        "repackaged/common/src/test/java/com/android/org/conscrypt/metrics/*.java",
-        "repackaged/common/src/test/java/com/android/org/conscrypt/java/**/*.java",
-        "repackaged/common/src/test/java/com/android/org/conscrypt/javax/**/*.java",
-        "repackaged/testing/src/main/java/**/*.java",
-        "publicapi/src/test/java/**/*.java",
+        ":conscrypt-xts-test-files",
     ],
+
     java_resource_dirs: [
         // Resource directories do not need repackaging.
         "openjdk/src/test/resources",
@@ -738,10 +776,7 @@ java_test {
 android_test {
     name: "ConscryptPrivateTestCases",
     srcs: [
-        "repackaged/platform/src/test/java/com/android/org/conscrypt/ct/*.java",
-        "repackaged/platform/src/test/java/com/android/org/conscrypt/CertBlocklistTest.java",
-        "repackaged/common/src/test/java/com/android/org/conscrypt/ct/*.java",
-        "repackaged/testing/src/main/java/**/*.java",
+        ":conscrypt-private-test-files",
     ],
 
     java_resource_dirs: [

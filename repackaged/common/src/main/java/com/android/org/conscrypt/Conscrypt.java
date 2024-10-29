@@ -188,6 +188,7 @@ public final class Conscrypt {
          * @deprecated Use provideTrustManager(true)
          */
         @Deprecated
+        @SuppressWarnings("InlineMeSuggester")
         public ProviderBuilder provideTrustManager() {
             return provideTrustManager(true);
         }

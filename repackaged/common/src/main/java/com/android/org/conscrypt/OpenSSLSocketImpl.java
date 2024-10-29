@@ -137,10 +137,10 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
      */
     @android.compat.annotation.UnsupportedAppUsage
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
-    @Override
     @Deprecated
+    @SuppressWarnings("InlineMeSuggester")
     public final byte[] getNpnSelectedProtocol() {
-        return super.getNpnSelectedProtocol();
+        return null;
     }
 
     /**
@@ -148,11 +148,9 @@ public abstract class OpenSSLSocketImpl extends AbstractConscryptSocket {
      */
     @android.compat.annotation.UnsupportedAppUsage
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
-    @Override
     @Deprecated
-    public final void setNpnProtocols(byte[] npnProtocols) {
-        super.setNpnProtocols(npnProtocols);
-    }
+    @SuppressWarnings("InlineMeSuggester")
+    public final void setNpnProtocols(byte[] npnProtocols) {}
 
     /**
      * @deprecated use {@link #setApplicationProtocols(String[])} instead.

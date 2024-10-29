@@ -16,12 +16,14 @@
  */
 package com.android.org.conscrypt.tlswire.handshake;
 
+import com.android.org.conscrypt.tlswire.util.IoUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import com.android.org.conscrypt.tlswire.util.IoUtils;
 
 /**
  * {@code server_name} (SNI) {@link HelloExtension} from TLS 1.2 RFC 5246.
@@ -36,14 +38,14 @@ public class ServerNameHelloExtension extends HelloExtension {
                 new DataInputStream(new ByteArrayInputStream(data)), 0xffff);
         ByteArrayInputStream serverNameListIn = new ByteArrayInputStream(serverNameListBytes);
         DataInputStream in = new DataInputStream(serverNameListIn);
-        hostnames = new ArrayList<String>();
+        hostnames = new ArrayList<>();
         while (serverNameListIn.available() > 0) {
             int type = in.readUnsignedByte();
             if (type != TYPE_HOST_NAME) {
                 throw new IOException("Unsupported ServerName type: " + type);
             }
             byte[] hostnameBytes = IoUtils.readTlsVariableLengthByteVector(in, 0xffff);
-            String hostname = new String(hostnameBytes, "US-ASCII");
+            String hostname = new String(hostnameBytes, StandardCharsets.US_ASCII);
             hostnames.add(hostname);
         }
     }

@@ -41,6 +41,7 @@ import javax.net.ssl.SSLSession;
  * It delegates all public methods in Socket, SSLSocket, and OpenSSLSocket from
  * KK.
  */
+@Internal
 public class KitKatPlatformOpenSSLSocketImplAdapter
         extends com.android.org.conscrypt.OpenSSLSocketImpl {
 
@@ -432,20 +433,7 @@ public class KitKatPlatformOpenSSLSocketImplAdapter
         delegate.setHandshakeTimeout(handshakeTimeoutMilliseconds);
     }
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public byte[] getNpnSelectedProtocol() {
-        return delegate.getNpnSelectedProtocol();
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public void setNpnProtocols(byte[] npnProtocols) {
-        delegate.setNpnProtocols(npnProtocols);
-    }
-
     // These aren't in the Platform's OpenSSLSocketImpl but we have them to support duck typing.
-
     @SuppressWarnings("deprecation")
     public byte[] getAlpnSelectedProtocol() {
         return delegate.getAlpnSelectedProtocol();

@@ -39,6 +39,7 @@ public final class ArrayUtils {
     }
 
     @SafeVarargs
+    @SuppressWarnings("varargs")
     public static <T> T[] concatValues(T[] a1, T... values) {
         return concat(a1, values);
     }
