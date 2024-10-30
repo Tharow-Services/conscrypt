@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17376f10_bb6a1a56",
+        "filename": "Android.bp",
+        "patchSetId": 3
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-10-30T09:37:50Z",
+      "side": 1,
+      "message": "go/android-flag-containers\n\n`exportable: true`.",
+      "revId": "47d2a1313d254bd7e2aff8f669635d6bdcd27d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "986ea243_bd5fb96e",
+        "filename": "conscrypt.aconfig",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-10-30T09:37:50Z",
+      "side": 1,
+      "message": "go/android-flag-containers\n\n`is_exported: true`\n\nNormally, the callsite, e.g. frameworks, should check the flag value of this exported flag before calling the new flaggedApi, because there may be version skew of the Conscrypt module and some builds, e.g. nextfood, use the prebuilt Conscrypt module.",
+      "revId": "47d2a1313d254bd7e2aff8f669635d6bdcd27d98",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
