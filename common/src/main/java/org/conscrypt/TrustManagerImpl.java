@@ -331,6 +331,15 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
     }
 
     /**
+     * For compatibility with network stacks that cannot provide an SSLSession nor a
+     * Socket (e.g., Cronet).
+     */
+    public List<X509Certificate> checkServerTrusted(X509Certificate[] chain, byte[] ocspData,
+            byte[] tlsSctData, String authType, String hostname) throws CertificateException {
+        return checkTrusted(chain, ocspData, tlsSctData, authType, hostname, false);
+    }
+
+    /**
      * Returns the full trusted certificate chain found from {@code certs}.
      * <p>
      * Throws {@link CertificateException} when no trusted chain can be found from {@code certs}.

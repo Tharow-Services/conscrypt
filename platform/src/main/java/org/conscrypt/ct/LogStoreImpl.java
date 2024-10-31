@@ -37,9 +37,6 @@ import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
@@ -186,7 +183,7 @@ public class LogStoreImpl implements LogStore {
         try {
             majorVersion = parseMajorVersion(json.getString("version"));
             minorVersion = parseMinorVersion(json.getString("version"));
-            timestamp = parseTimestamp(json.getString("log_list_timestamp"));
+            timestamp = json.getLong("log_list_timestamp");
             JSONArray operators = json.getJSONArray("operators");
             for (int i = 0; i < operators.length(); i++) {
                 JSONObject operator = operators.getJSONObject(i);
@@ -205,9 +202,8 @@ public class LogStoreImpl implements LogStore {
                     JSONObject stateObject = log.optJSONObject("state");
                     if (stateObject != null) {
                         String state = stateObject.keys().next();
-                        String stateTimestamp =
-                                stateObject.getJSONObject(state).getString("timestamp");
-                        builder.setState(parseState(state), parseTimestamp(stateTimestamp));
+                        long stateTimestamp = stateObject.getJSONObject(state).getLong("timestamp");
+                        builder.setState(parseState(state), stateTimestamp);
                     }
 
                     LogInfo logInfo = builder.build();
@@ -269,19 +265,6 @@ public class LogStoreImpl implements LogStore {
                 return LogInfo.STATE_REJECTED;
             default:
                 throw new IllegalArgumentException("Unknown log state: " + state);
-        }
-    }
-
-    // ISO 8601
-    private static DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
-
-    @SuppressWarnings("JavaUtilDate")
-    private static long parseTimestamp(String timestamp) {
-        try {
-            Date date = dateFormatter.parse(timestamp);
-            return date.getTime();
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e);
         }
     }
 
