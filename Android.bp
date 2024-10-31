@@ -151,6 +151,9 @@ cc_library_host_shared {
     ],
     defaults: ["conscrypt_global"],
 
+    // TODO: work out what's going on with the SIGSEGVs here.
+    c_std: "gnu17",
+
     cflags: [
         "-DCONSCRYPT_OPENJDK",
     ],
