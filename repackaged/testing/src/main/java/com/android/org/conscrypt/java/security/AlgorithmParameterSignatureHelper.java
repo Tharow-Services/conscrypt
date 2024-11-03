@@ -19,6 +19,7 @@ package com.android.org.conscrypt.java.security;
 
 import static org.junit.Assert.assertTrue;
 
+import java.nio.charset.StandardCharsets;
 import java.security.AlgorithmParameters;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -59,11 +60,11 @@ public class AlgorithmParameterSignatureHelper<T extends AlgorithmParameterSpec>
         KeyPair keyPair = generator.genKeyPair();
 
         signature.initSign(keyPair.getPrivate());
-        signature.update(plainData.getBytes("UTF-8"));
+        signature.update(plainData.getBytes(StandardCharsets.UTF_8));
         byte[] signed = signature.sign();
 
         signature.initVerify(keyPair.getPublic());
-        signature.update(plainData.getBytes("UTF-8"));
+        signature.update(plainData.getBytes(StandardCharsets.UTF_8));
         assertTrue("signature should verify", signature.verify(signed));
     }
 }

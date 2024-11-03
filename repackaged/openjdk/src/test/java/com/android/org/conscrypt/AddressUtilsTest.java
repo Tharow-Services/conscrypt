@@ -17,41 +17,55 @@
 
 package com.android.org.conscrypt;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 /**
  * Test for AddressUtils
  * @hide This class is not part of the Android public SDK API
  */
-public class AddressUtilsTest extends TestCase {
+@RunWith(JUnit4.class)
+public class AddressUtilsTest {
+    @Test
     public void test_isValidSniHostname_Success() throws Exception {
         assertTrue(AddressUtils.isValidSniHostname("www.google.com"));
     }
 
+    @Test
     public void test_isValidSniHostname_NotFQDN_Failure() throws Exception {
         assertFalse(AddressUtils.isValidSniHostname("www"));
     }
 
+    @Test
     public void test_isValidSniHostname_Localhost_Success() throws Exception {
         assertTrue(AddressUtils.isValidSniHostname("LOCALhost"));
     }
 
+    @Test
     public void test_isValidSniHostname_IPv4_Failure() throws Exception {
         assertFalse(AddressUtils.isValidSniHostname("192.168.0.1"));
     }
 
+    @Test
     public void test_isValidSniHostname_IPv6_Failure() throws Exception {
         assertFalse(AddressUtils.isValidSniHostname("2001:db8::1"));
     }
 
+    @Test
     public void test_isValidSniHostname_TrailingDot() throws Exception {
         assertFalse(AddressUtils.isValidSniHostname("www.google.com."));
     }
 
+    @Test
     public void test_isValidSniHostname_NullByte() throws Exception {
         assertFalse(AddressUtils.isValidSniHostname("www\0.google.com"));
     }
 
+    @Test
     public void test_isLiteralIpAddress_IPv4_Success() throws Exception {
         assertTrue(AddressUtils.isLiteralIpAddress("127.0.0.1"));
         assertTrue(AddressUtils.isLiteralIpAddress("255.255.255.255"));
@@ -60,6 +74,7 @@ public class AddressUtilsTest extends TestCase {
         assertTrue(AddressUtils.isLiteralIpAddress("254.249.190.094"));
     }
 
+    @Test
     public void test_isLiteralIpAddress_IPv4_ExtraCharacters_Failure() throws Exception {
         assertFalse(AddressUtils.isLiteralIpAddress("127.0.0.1a"));
         assertFalse(AddressUtils.isLiteralIpAddress(" 255.255.255.255"));
@@ -70,12 +85,14 @@ public class AddressUtilsTest extends TestCase {
         assertFalse(AddressUtils.isLiteralIpAddress("192.168.2.1%eth0"));
     }
 
+    @Test
     public void test_isLiteralIpAddress_IPv4_NumbersTooLarge_Failure() throws Exception {
         assertFalse(AddressUtils.isLiteralIpAddress("256.255.255.255"));
         assertFalse(AddressUtils.isLiteralIpAddress("255.255.255.256"));
         assertFalse(AddressUtils.isLiteralIpAddress("192.168.1.260"));
     }
 
+    @Test
     public void test_isLiteralIpAddress_IPv6_Success() throws Exception {
         assertTrue(AddressUtils.isLiteralIpAddress("::1"));
         assertTrue(AddressUtils.isLiteralIpAddress("2001:Db8::1"));
@@ -87,6 +104,7 @@ public class AddressUtilsTest extends TestCase {
         assertTrue(AddressUtils.isLiteralIpAddress("2001:cdba::3257:9652%int2.3!"));
     }
 
+    @Test
     public void test_isLiteralIpAddress_IPv6_Failure() throws Exception {
         assertFalse(AddressUtils.isLiteralIpAddress(":::1"));
         assertFalse(AddressUtils.isLiteralIpAddress("::11111"));

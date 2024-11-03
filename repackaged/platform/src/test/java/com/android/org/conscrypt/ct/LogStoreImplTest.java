@@ -83,7 +83,7 @@ public class LogStoreImplTest extends TestCase {
         String content = "" +
 "{" +
 "  \"version\": \"1.1\"," +
-"  \"log_list_timestamp\": \"2024-01-01T11:55:12Z\"," +
+"  \"log_list_timestamp\": 1704070861000," +
 "  \"operators\": [" +
 "    {" +
 "      \"name\": \"Operator 1\"," +
@@ -97,12 +97,12 @@ public class LogStoreImplTest extends TestCase {
 "          \"mmd\": 86400," +
 "          \"state\": {" +
 "            \"usable\": {" +
-"              \"timestamp\": \"2022-11-01T18:54:00Z\"" +
+"              \"timestamp\": 1667328840000" +
 "            }" +
 "          }," +
 "          \"temporal_interval\": {" +
-"            \"start_inclusive\": \"2024-01-01T00:00:00Z\"," +
-"            \"end_exclusive\": \"2025-01-01T00:00:00Z\"" +
+"            \"start_inclusive\": 1704070861000," +
+"            \"end_exclusive\": 1735693261000" +
 "          }" +
 "        }," +
 "        {" +
@@ -113,12 +113,12 @@ public class LogStoreImplTest extends TestCase {
 "          \"mmd\": 86400," +
 "          \"state\": {" +
 "            \"usable\": {" +
-"              \"timestamp\": \"2023-11-26T12:00:00Z\"" +
+"              \"timestamp\": 1700960461000" +
 "            }" +
 "          }," +
 "          \"temporal_interval\": {" +
-"            \"start_inclusive\": \"2025-01-01T00:00:00Z\"," +
-"            \"end_exclusive\": \"2025-07-01T00:00:00Z\"" +
+"            \"start_inclusive\": 1735693261000," +
+"            \"end_exclusive\": 1751331661000" +
 "          }" +
 "        }" +
 "      ]" +
@@ -135,12 +135,12 @@ public class LogStoreImplTest extends TestCase {
 "          \"mmd\": 86400," +
 "          \"state\": {" +
 "            \"usable\": {" +
-"              \"timestamp\": \"2022-11-30T17:00:00Z\"" +
+"              \"timestamp\": 1669770061000" +
 "            }" +
 "          }," +
 "          \"temporal_interval\": {" +
-"            \"start_inclusive\": \"2024-01-01T00:00:00Z\"," +
-"            \"end_exclusive\": \"2025-01-01T00:00:00Z\"" +
+"            \"start_inclusive\": 1704070861000," +
+"            \"end_exclusive\": 1735693261000" +
 "          }" +
 "        }" +
 "      ]" +

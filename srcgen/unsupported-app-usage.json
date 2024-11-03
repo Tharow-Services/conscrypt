@@ -27,11 +27,6 @@
     "trackingBug": 170729553
   },
   {
-    "@location": "method:com.android.org.conscrypt.AbstractConscryptSocket#getNpnSelectedProtocol()",
-    "maxTargetSdk": 30,
-    "trackingBug": 170729553
-  },
-  {
     "@location": "method:com.android.org.conscrypt.AbstractConscryptSocket#getSoWriteTimeout()",
     "maxTargetSdk": 30,
     "trackingBug": 170729553
@@ -70,11 +65,6 @@
     "@location": "method:com.android.org.conscrypt.AbstractConscryptSocket#setHostname(String)",
     "maxTargetSdk": "dalvik.annotation.compat.VersionCodes.Q",
     "publicAlternatives": "Use {@code javax.net.ssl.SSLParameters#setServerNames}."
-  },
-  {
-    "@location": "method:com.android.org.conscrypt.AbstractConscryptSocket#setNpnProtocols(byte[])",
-    "maxTargetSdk": 30,
-    "trackingBug": 170729553
   },
   {
     "@location": "method:com.android.org.conscrypt.AbstractConscryptSocket#setSoWriteTimeout(int)",
