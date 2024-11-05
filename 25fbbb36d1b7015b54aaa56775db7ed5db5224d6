@@ -22,6 +22,30 @@
       },
       "revId": "25fbbb36d1b7015b54aaa56775db7ed5db5224d6",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b339b473_d96812fb",
+        "filename": "api/platform/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-11-05T11:02:53Z",
+      "side": 1,
+      "message": "It is. I tried to merge the lines but it then tries to split them again.",
+      "parentUuid": "1f8f464b_a4d3bb51",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 43
+      },
+      "revId": "25fbbb36d1b7015b54aaa56775db7ed5db5224d6",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
