@@ -534,6 +534,10 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
             byte[] tlsSctData, String host, boolean clientAuth,
             List<X509Certificate> untrustedChain, List<TrustAnchor> trustAnchorChain,
             Set<X509Certificate> used) throws CertificateException {
+
+        Platform.logi("Conscrypt", "INFO checkTrustedRecursive");
+        Platform.logw("Conscrypt", "WARNING checkTrustedRecursive");
+
         CertificateException lastException = null;
         X509Certificate current;
         if (trustAnchorChain.isEmpty()) {

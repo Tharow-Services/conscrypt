@@ -583,4 +583,24 @@ final public class Platform {
             return null;
         }
     }
+
+
+    private static Class<?> logClass = null;
+    static {
+        try {
+            logClass = Class.forName("android.util.Log");
+        } catch (ClassNotFoundException e) {
+            // Ignored.
+        }
+    }
+    private static final OptionalMethod LOGI =
+        new OptionalMethod(logClass, "i", String.class, String.class);
+    private static final OptionalMethod LOGW =
+        new OptionalMethod(logClass, "w", String.class, String.class);
+    public static void logi(String tag, String text) {
+        LOGI.invokeStatic(tag, text);
+    }
+    public static void logw(String tag, String text) {
+        LOGW.invokeStatic(tag, text);
+    }
 }

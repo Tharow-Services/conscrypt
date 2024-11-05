@@ -965,4 +965,11 @@ final public class Platform {
     public static boolean isTlsV1Supported() {
         return false;
     }
+
+    public static void logi(String tag, String text) {
+        Log.i(tag, text);
+    }
+    public static void logw(String tag, String text) {
+        Log.w(tag, text);
+    }
 }

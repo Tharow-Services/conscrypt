@@ -75,6 +75,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.crypto.spec.GCMParameterSpec;
 import javax.net.ssl.SSLEngine;
@@ -94,6 +95,7 @@ import javax.net.ssl.X509TrustManager;
  */
 @Internal
 final public class Platform {
+    private static final Logger logger = Logger.getLogger(TrustManagerImpl.class.getName());
     private static final int JAVA_VERSION = javaVersion0();
     private static final Method GET_CURVE_NAME_METHOD;
 
@@ -850,5 +852,12 @@ final public class Platform {
 
     public static boolean isTlsV1Supported() {
         return false;
+    }
+
+    public static void logi(String tag, String text) {
+        logger.info(tag + ": " + text);
+    }
+    public static void logw(String tag, String text) {
+        logger.warning(tag + ": " + text);
     }
 }
