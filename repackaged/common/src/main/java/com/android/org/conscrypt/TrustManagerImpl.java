@@ -343,10 +343,12 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
      * For compatibility with network stacks that cannot provide an SSLSession nor a
      * Socket (e.g., Cronet).
      */
-    @android.annotation.FlaggedApi(Flags.FLAG_CERTIFICATE_TRANSPARENCY_CHECKSERVERTRUSTED_API)
+    @android.annotation.FlaggedApi(com.android.org.conscrypt.flags.Flags
+                                           .FLAG_CERTIFICATE_TRANSPARENCY_CHECKSERVERTRUSTED_API)
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
-    public List<X509Certificate> checkServerTrusted(X509Certificate[] chain, byte[] ocspData,
-            byte[] tlsSctData, String authType, String hostname) throws CertificateException {
+    public List<X509Certificate>
+    checkServerTrusted(X509Certificate[] chain, byte[] ocspData, byte[] tlsSctData, String authType,
+            String hostname) throws CertificateException {
         return checkTrusted(chain, ocspData, tlsSctData, authType, hostname, false);
     }
 
