@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bb924dfc_46087f75",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-11-06T13:03:58Z",
+      "side": 1,
+      "message": "This was already submitted upstream as #1252 (thanks!), so best not to submit it here as a copy or it will cause merge conflicts later (we \"downstream\" stuff using git merge so that it tracks what CLs are merged).",
+      "revId": "c1aa0eef5d8b9d2201a5753d5fe06f2dd60fd035",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
