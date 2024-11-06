@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a9e98237_97273458",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 23
+      },
+      "lineNbr": 1086,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-11-06T12:52:42Z",
+      "side": 1,
+      "message": "Not this CL, but I think your refactoring exposes a bug here... This method should probably reflect whether TLS1.3 is enabled by default.",
+      "range": {
+        "startLine": 1086,
+        "startChar": 15,
+        "endLine": 1086,
+        "endChar": 31
+      },
+      "revId": "7f0a897a655daad5335d0d05cbf2a9c033023dc2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
