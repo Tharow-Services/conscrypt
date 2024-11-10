@@ -33,6 +33,7 @@ import org.conscrypt.ct.LogStore;
 import org.conscrypt.ct.LogStoreImpl;
 import org.conscrypt.ct.Policy;
 import org.conscrypt.ct.PolicyImpl;
+import org.conscrypt.flags.Flags;
 import org.conscrypt.metrics.OptionalMethod;
 import org.conscrypt.metrics.Source;
 import org.conscrypt.metrics.StatsLog;

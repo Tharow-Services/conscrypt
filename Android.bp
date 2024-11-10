@@ -187,10 +187,13 @@ cc_library_host_shared {
 
 aconfig_declarations {
     name: "conscrypt-aconfig-flags",
-    package: "com.android.org.conscrypt",
+    package: "com.android.org.conscrypt.flags",
     container: "com.android.conscrypt",
     srcs: ["conscrypt.aconfig"],
     exportable: true,
+    visibility: [
+        "//frameworks/base",
+    ],
 }
 
 java_aconfig_library {
