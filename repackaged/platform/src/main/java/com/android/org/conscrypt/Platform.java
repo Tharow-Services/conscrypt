@@ -571,7 +571,7 @@ final public class Platform {
         return false;
     }
 
-    static Object getTargetSdkVersion() {
+    public static Object getTargetSdkVersion() {
         try {
             Class<?> vmRuntime = Class.forName("dalvik.system.VMRuntime");
             if (vmRuntime == null) {
