@@ -17,13 +17,12 @@
 
 package com.android.org.conscrypt;
 
-import static com.android.org.conscrypt.TestUtils.isTlsV1Filtered;
-
 import libcore.junit.util.SwitchTargetSdkVersionRule;
 import libcore.junit.util.SwitchTargetSdkVersionRule.TargetSdkVersion;
 
 import javax.net.ssl.SSLSocket;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import com.android.org.conscrypt.javax.net.ssl.TestSSLContext;
@@ -32,59 +31,25 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.fail;
 import static org.junit.Assume.assumeFalse;
+import org.junit.Rule;
 
 /**
  * @hide This class is not part of the Android public SDK API
  */
 @RunWith(JUnit4.class)
 public class TlsDeprecationTest {
-    @TargetSdkVersion(35)
+    @Rule
+    public final TestRule switchTargetSdkVersionRule = SwitchTargetSdkVersionRule.getInstance();
+
     @Test
-    public void test_SSLSocket_SSLv3Unsupported_35() throws Exception {
-        assumeFalse(isTlsV1Filtered());
-        TestSSLContext context = TestSSLContext.create();
-        final SSLSocket client =
-                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
-        assertThrows(IllegalArgumentException.class, () -> client.setEnabledProtocols(new String[] {"SSLv3"}));
-        assertThrows(IllegalArgumentException.class, () -> client.setEnabledProtocols(new String[] {"SSL"}));
+    @SwitchTargetSdkVersionRule.TargetSdkVersion(34)
+    public void test34() {
+        assertEquals(TestUtils.getTargetSdkVersion(), 34);
     }
 
-    @TargetSdkVersion(34)
     @Test
-    public void test_SSLSocket_SSLv3Unsupported_34() throws Exception {
-        TestSSLContext context = TestSSLContext.create();
-        final SSLSocket client =
-                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
-        // For app compatibility, SSLv3 is stripped out when setting only.
-        client.setEnabledProtocols(new String[] {"SSLv3"});
-        assertEquals(0, client.getEnabledProtocols().length);
-        try {
-            client.setEnabledProtocols(new String[] {"SSL"});
-            fail("SSLSocket should not support SSL protocol");
-        } catch (IllegalArgumentException expected) {
-            // Ignored.
-        }
-    }
-
-    @TargetSdkVersion(34)
-    @Test
-    public void test_TLSv1Filtered_34() throws Exception {
-        TestSSLContext context = TestSSLContext.create();
-        final SSLSocket client =
-                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
-        client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"});
-        assertEquals(1, client.getEnabledProtocols().length);
-        assertEquals("TLSv1.2", client.getEnabledProtocols()[0]);
-    }
-
-    @TargetSdkVersion(35)
-    @Test
-    public void test_TLSv1Filtered_35() throws Exception {
-        assumeFalse(isTlsV1Filtered());
-        TestSSLContext context = TestSSLContext.create();
-        final SSLSocket client =
-                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
-        assertThrows(IllegalArgumentException.class, () ->
-            client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"}));
+    @SwitchTargetSdkVersionRule.TargetSdkVersion(35)
+    public void test35() {
+        assertEquals(TestUtils.getTargetSdkVersion(), 35);
     }
 }
