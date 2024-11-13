@@ -886,6 +886,14 @@ public final class TestUtils {
         return callPlatformMethod("isJavaxCertificateSupported", true);
     }
 
+    public static Object getTargetSdkVersion() {
+        try {
+            return (Object) conscryptClass("Platform").getDeclaredMethod("getTargetSdkVersion").invoke(null);
+        } catch (NoSuchMethodException | ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
+            throw new IllegalStateException("Reflection failure", e);
+        }
+    }
+
     // Calls a boolean platform method by reflection.  If the method is not present, e.g.
     // due to version skew etc then return the default value.
     public static boolean callPlatformMethod(String methodName, boolean defaultValue) {
