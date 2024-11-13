@@ -571,20 +571,19 @@ final public class Platform {
         return false;
     }
 
-    static Object getTargetSdkVersion() {
+    public static Object getTargetSdkVersion() {
         try {
-            Class<?> vmRuntime = Class.forName("dalvik.system.VMRuntime");
-            if (vmRuntime == null) {
-                return null;
-            }
-            OptionalMethod getSdkVersion =
-                    new OptionalMethod(vmRuntime,
-                                        "getTargetSdkVersion");
-            return getSdkVersion.invokeStatic();
-        } catch (ClassNotFoundException e) {
+            Class<?> vmRuntimeClass = Class.forName("dalvik.system.VMRuntime");
+            Method getRuntimeMethod = vmRuntimeClass.getDeclaredMethod("getRuntime");
+            Method getTargetSdkVersionMethod =
+                        vmRuntimeClass.getDeclaredMethod("getTargetSdkVersion");
+            Object vmRuntime = getRuntimeMethod.invoke(null);
+            return getTargetSdkVersionMethod.invoke(vmRuntime);
+        } catch (IllegalAccessException |
+          NullPointerException | InvocationTargetException e) {
             return null;
-        } catch (NullPointerException e) {
-            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
