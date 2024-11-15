@@ -211,7 +211,10 @@ java_aconfig_library {
     ],
     min_sdk_version: "30",
     installable: false,
-    visibility: ["//visibility:private"],
+    visibility: [
+        "//cts/tests/tests/networksecurityconfig/networksecurityconfig-certificate-transparency",
+        "//cts/tests/tests/networksecurityconfig/networksecurityconfig-certificate-transparency-sct",
+    ],
 }
 
 cc_binary_host {
