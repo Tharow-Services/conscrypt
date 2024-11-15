@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7eb1af0d_8b916718",
+        "filename": "Android.bp",
+        "patchSetId": 2
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1929300
+      },
+      "writtenOn": "2024-11-15T14:12:06Z",
+      "side": 1,
+      "message": "I think the name of the directory should be ok, it might be easier to add visibility to the whole \"//cts/tests/tests/networksecurityconfig\", directory, so that we don\u0027t have to worry about moving things around in the future.",
+      "range": {
+        "startLine": 215,
+        "startChar": 8,
+        "endLine": 216,
+        "endChar": 100
+      },
+      "revId": "13da3b52b42aa963266a4469c6da12618b2ffc34",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
