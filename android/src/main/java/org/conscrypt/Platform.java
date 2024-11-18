@@ -58,20 +58,29 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509TrustManager;
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
 import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTPolicy;
 import org.conscrypt.metrics.CipherSuite;
 import org.conscrypt.metrics.ConscryptStatsLog;
 import org.conscrypt.metrics.Protocol;
+||||||| BASE
+=======
+import org.conscrypt.NativeCrypto;
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 
 /**
  * Platform-specific methods for unbundled Android.
  */
 final class Platform {
     private static final String TAG = "Conscrypt";
+    static boolean DEPRECATED_TLS_V1 = true;
+    static boolean ENABLED_TLS_V1 = false;
+    private static boolean FILTERED_TLS_V1 = true;
 
     private static Method m_getCurveName;
     static {
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
         try {
             m_getCurveName = ECParameterSpec.class.getDeclaredMethod("getCurveName");
             m_getCurveName.setAccessible(true);
@@ -82,7 +91,12 @@ final class Platform {
 
     private Platform() {}
 
-    public static void setup() {}
+    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
+        DEPRECATED_TLS_V1 = deprecatedTlsV1;
+        ENABLED_TLS_V1 = enabledTlsV1;
+        FILTERED_TLS_V1 = !enabledTlsV1;
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+    }
 
     /**
      * Default name used in the {@link java.security.Security JCE system} by {@code OpenSSLProvider}
@@ -1076,4 +1090,32 @@ final class Platform {
     public static boolean isJavaxCertificateSupported() {
         return true;
     }
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
+||||||| BASE
+
+    public static boolean isTlsV1Deprecated() {
+        return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        return false;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return false;
+    }
+=======
+
+    public static boolean isTlsV1Deprecated() {
+        return DEPRECATED_TLS_V1;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        return FILTERED_TLS_V1;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return ENABLED_TLS_V1;
+    }
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 }

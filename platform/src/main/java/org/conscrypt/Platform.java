@@ -61,6 +61,7 @@ import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
 import libcore.net.NetworkSecurityPolicy;
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
 import org.conscrypt.ct.CTLogStore;
 import org.conscrypt.ct.CTLogStoreImpl;
 import org.conscrypt.ct.CTPolicy;
@@ -68,16 +69,31 @@ import org.conscrypt.ct.CTPolicyImpl;
 import org.conscrypt.metrics.CipherSuite;
 import org.conscrypt.metrics.ConscryptStatsLog;
 import org.conscrypt.metrics.Protocol;
+||||||| BASE
+=======
+import org.conscrypt.NativeCrypto;
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 import sun.security.x509.AlgorithmId;
 
 final class Platform {
     private static class NoPreloadHolder { public static final Platform MAPPER = new Platform(); }
+    static boolean DEPRECATED_TLS_V1 = true;
+    static boolean ENABLED_TLS_V1 = false;
+    private static boolean FILTERED_TLS_V1 = true;
+
+    static {
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+    }
 
     /**
      * Runs all the setup for the platform that only needs to run once.
      */
-    public static void setup() {
+    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
+        DEPRECATED_TLS_V1 = deprecatedTlsV1;
+        ENABLED_TLS_V1 = enabledTlsV1;
+        FILTERED_TLS_V1 = !enabledTlsV1;
         NoPreloadHolder.MAPPER.ping();
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
     }
 
     /**
@@ -561,4 +577,71 @@ final class Platform {
     public static boolean isJavaxCertificateSupported() {
         return true;
     }
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
+||||||| BASE
+
+    public static boolean isTlsV1Deprecated() {
+        return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        Object targetSdkVersion = getTargetSdkVersion();
+        if ((targetSdkVersion != null) && ((int) targetSdkVersion > 34))
+            return false;
+        return true;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return false;
+    }
+
+    static Object getTargetSdkVersion() {
+        try {
+            Class<?> vmRuntime = Class.forName("dalvik.system.VMRuntime");
+            if (vmRuntime == null) {
+                return null;
+            }
+            OptionalMethod getSdkVersion =
+                    new OptionalMethod(vmRuntime,
+                                        "getTargetSdkVersion");
+            return getSdkVersion.invokeStatic();
+        } catch (ClassNotFoundException e) {
+            return null;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+=======
+
+    public static boolean isTlsV1Deprecated() {
+        return DEPRECATED_TLS_V1;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        Object targetSdkVersion = getTargetSdkVersion();
+        if ((targetSdkVersion != null) && ((int) targetSdkVersion > 34))
+            return false;
+        return FILTERED_TLS_V1;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return ENABLED_TLS_V1;
+    }
+
+    static Object getTargetSdkVersion() {
+        try {
+            Class<?> vmRuntimeClass = Class.forName("dalvik.system.VMRuntime");
+            Method getRuntimeMethod = vmRuntimeClass.getDeclaredMethod("getRuntime");
+            Method getTargetSdkVersionMethod =
+                        vmRuntimeClass.getDeclaredMethod("getTargetSdkVersion");
+            Object vmRuntime = getRuntimeMethod.invoke(null);
+            return getTargetSdkVersionMethod.invoke(vmRuntime);
+        } catch (IllegalAccessException |
+          NullPointerException | InvocationTargetException e) {
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 }

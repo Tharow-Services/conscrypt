@@ -37,6 +37,21 @@ import static java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
+||||||| BASE
+import com.android.org.conscrypt.ct.LogStore;
+import com.android.org.conscrypt.ct.Policy;
+import com.android.org.conscrypt.metrics.Source;
+import com.android.org.conscrypt.metrics.StatsLog;
+
+=======
+import com.android.org.conscrypt.NativeCrypto;
+import com.android.org.conscrypt.ct.LogStore;
+import com.android.org.conscrypt.ct.Policy;
+import com.android.org.conscrypt.metrics.Source;
+import com.android.org.conscrypt.metrics.StatsLog;
+
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
@@ -92,9 +107,12 @@ import sun.security.x509.AlgorithmId;
 final class Platform {
     private static final int JAVA_VERSION = javaVersion0();
     private static final Method GET_CURVE_NAME_METHOD;
+    static boolean DEPRECATED_TLS_V1 = true;
+    static boolean ENABLED_TLS_V1 = false;
+    private static boolean FILTERED_TLS_V1 = true;
 
     static {
-
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
         Method getCurveNameMethod = null;
         try {
             getCurveNameMethod = ECParameterSpec.class.getDeclaredMethod("getCurveName");
@@ -107,7 +125,12 @@ final class Platform {
 
     private Platform() {}
 
-    static void setup() {}
+    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
+        DEPRECATED_TLS_V1 = deprecatedTlsV1;
+        ENABLED_TLS_V1 = enabledTlsV1;
+        FILTERED_TLS_V1 = !enabledTlsV1;
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+    }
 
 
     /**
@@ -813,4 +836,32 @@ final class Platform {
     public static boolean isJavaxCertificateSupported() {
         return JAVA_VERSION < 15;
     }
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
+||||||| BASE
+
+    public static boolean isTlsV1Deprecated() {
+        return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        return false;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return false;
+    }
+=======
+
+    public static boolean isTlsV1Deprecated() {
+        return DEPRECATED_TLS_V1;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        return FILTERED_TLS_V1;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return ENABLED_TLS_V1;
+    }
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 }

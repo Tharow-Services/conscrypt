@@ -1001,18 +1001,96 @@ public final class NativeCrypto {
 
     static native void set_SSL_psk_server_callback_enabled(long ssl, NativeSsl ssl_holder, boolean enabled);
 
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
+||||||| BASE
+    private static final String[] ENABLED_PROTOCOLS_TLSV1 = Platform.isTlsV1Deprecated()
+            ? new String[0]
+            : new String[] {
+                      DEPRECATED_PROTOCOL_TLSV1,
+                      DEPRECATED_PROTOCOL_TLSV1_1,
+              };
+
+    private static final String[] SUPPORTED_PROTOCOLS_TLSV1 = Platform.isTlsV1Supported()
+            ? new String[] {
+                DEPRECATED_PROTOCOL_TLSV1,
+                DEPRECATED_PROTOCOL_TLSV1_1,
+            } : new String[0];
+
+=======
+    public static void setTlsV1DeprecationStatus(boolean deprecated, boolean supported) {
+        if (deprecated) {
+            TLSV12_PROTOCOLS = new String[] {
+                SUPPORTED_PROTOCOL_TLSV1_2,
+            };
+            TLSV13_PROTOCOLS = new String[] {
+                SUPPORTED_PROTOCOL_TLSV1_2,
+                SUPPORTED_PROTOCOL_TLSV1_3,
+            };
+        } else {
+            TLSV12_PROTOCOLS = new String[] {
+                DEPRECATED_PROTOCOL_TLSV1,
+                DEPRECATED_PROTOCOL_TLSV1_1,
+                SUPPORTED_PROTOCOL_TLSV1_2,
+            };
+            TLSV13_PROTOCOLS = new String[] {
+                DEPRECATED_PROTOCOL_TLSV1,
+                DEPRECATED_PROTOCOL_TLSV1_1,
+                SUPPORTED_PROTOCOL_TLSV1_2,
+                SUPPORTED_PROTOCOL_TLSV1_3,
+            };
+        }
+        if (supported) {
+            SUPPORTED_PROTOCOLS = new String[] {
+                DEPRECATED_PROTOCOL_TLSV1,
+                DEPRECATED_PROTOCOL_TLSV1_1,
+                SUPPORTED_PROTOCOL_TLSV1_2,
+                SUPPORTED_PROTOCOL_TLSV1_3,
+            };
+        } else {
+            SUPPORTED_PROTOCOLS = new String[] {
+                SUPPORTED_PROTOCOL_TLSV1_2,
+                SUPPORTED_PROTOCOL_TLSV1_3,
+            };
+        }
+    }
+
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
     /** Protocols to enable by default when "TLSv1.3" is requested. */
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
     static final String[] TLSV13_PROTOCOLS = new String[] {
             SUPPORTED_PROTOCOL_TLSV1,
             SUPPORTED_PROTOCOL_TLSV1_1,
             SUPPORTED_PROTOCOL_TLSV1_2,
             SUPPORTED_PROTOCOL_TLSV1_3,
     };
+||||||| BASE
+    static final String[] TLSV13_PROTOCOLS = ArrayUtils.concatValues(
+            ENABLED_PROTOCOLS_TLSV1, SUPPORTED_PROTOCOL_TLSV1_2, SUPPORTED_PROTOCOL_TLSV1_3);
+=======
+    static String[] TLSV13_PROTOCOLS;
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 
     /** Protocols to enable by default when "TLSv1.2" is requested. */
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
     static final String[] TLSV12_PROTOCOLS = new String[] {
             SUPPORTED_PROTOCOL_TLSV1,
             SUPPORTED_PROTOCOL_TLSV1_1,
+||||||| BASE
+    static final String[] TLSV12_PROTOCOLS =
+            ArrayUtils.concatValues(ENABLED_PROTOCOLS_TLSV1, SUPPORTED_PROTOCOL_TLSV1_2);
+
+    /** Protocols to enable by default when "TLSv1.1" is requested. */
+    static final String[] TLSV11_PROTOCOLS = new String[] {
+            DEPRECATED_PROTOCOL_TLSV1,
+            DEPRECATED_PROTOCOL_TLSV1_1,
+=======
+    static String[] TLSV12_PROTOCOLS;
+
+    /** Protocols to enable by default when "TLSv1.1" is requested. */
+    static final String[] TLSV11_PROTOCOLS = new String[] {
+            DEPRECATED_PROTOCOL_TLSV1,
+            DEPRECATED_PROTOCOL_TLSV1_1,
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
             SUPPORTED_PROTOCOL_TLSV1_2,
     };
 
@@ -1022,6 +1100,7 @@ public final class NativeCrypto {
     /** Protocols to enable by default when "TLSv1" is requested. */
     static final String[] TLSV1_PROTOCOLS = TLSV11_PROTOCOLS;
 
+<<<<<<< HEAD   (8b6378 Fix NativeCrypto.X509_verify() exceptions.)
     static final String[] DEFAULT_PROTOCOLS = TLSV13_PROTOCOLS;
     private static final String[] SUPPORTED_PROTOCOLS = new String[] {
             SUPPORTED_PROTOCOL_TLSV1,
@@ -1029,6 +1108,31 @@ public final class NativeCrypto {
             SUPPORTED_PROTOCOL_TLSV1_2,
             SUPPORTED_PROTOCOL_TLSV1_3,
     };
+||||||| BASE
+    static final String[] DEFAULT_PROTOCOLS = TLSV13_PROTOCOLS;
+
+    // If we ever get a new protocol go look for tests which are skipped using
+    // assumeTlsV11Enabled()
+    private static final String[] SUPPORTED_PROTOCOLS = ArrayUtils.concatValues(
+            SUPPORTED_PROTOCOLS_TLSV1,
+            SUPPORTED_PROTOCOL_TLSV1_2,
+            SUPPORTED_PROTOCOL_TLSV1_3);
+
+    public static String[] getDefaultProtocols() {
+        if (Platform.isTlsV1Deprecated()) {
+          return DEFAULT_PROTOCOLS.clone();
+        }
+        return SUPPORTED_PROTOCOLS.clone();
+    }
+=======
+    // If we ever get a new protocol go look for tests which are skipped using
+    // assumeTlsV11Enabled()
+    private static String[] SUPPORTED_PROTOCOLS;
+
+    public static String[] getDefaultProtocols() {
+        return TLSV13_PROTOCOLS.clone();
+    }
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 
     static String[] getSupportedProtocols() {
         return SUPPORTED_PROTOCOLS.clone();
