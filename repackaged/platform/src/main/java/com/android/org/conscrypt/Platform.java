@@ -23,10 +23,37 @@ import static android.system.OsConstants.SO_SNDTIMEO;
 import android.system.ErrnoException;
 import android.system.Os;
 import android.system.StructTimeval;
+<<<<<<< HEAD   (de68ba Remove CT tests)
 import com.android.org.conscrypt.ct.CTLogStore;
 import com.android.org.conscrypt.ct.CTLogStoreImpl;
 import com.android.org.conscrypt.ct.CTPolicy;
 import com.android.org.conscrypt.ct.CTPolicyImpl;
+||||||| BASE
+
+import com.android.org.conscrypt.ct.LogStore;
+import com.android.org.conscrypt.ct.LogStoreImpl;
+import com.android.org.conscrypt.ct.Policy;
+import com.android.org.conscrypt.ct.PolicyImpl;
+import com.android.org.conscrypt.flags.Flags;
+import com.android.org.conscrypt.metrics.OptionalMethod;
+import com.android.org.conscrypt.metrics.Source;
+import com.android.org.conscrypt.metrics.StatsLog;
+import com.android.org.conscrypt.metrics.StatsLogImpl;
+
+=======
+
+import com.android.org.conscrypt.NativeCrypto;
+import com.android.org.conscrypt.ct.LogStore;
+import com.android.org.conscrypt.ct.LogStoreImpl;
+import com.android.org.conscrypt.ct.Policy;
+import com.android.org.conscrypt.ct.PolicyImpl;
+import com.android.org.conscrypt.flags.Flags;
+import com.android.org.conscrypt.metrics.OptionalMethod;
+import com.android.org.conscrypt.metrics.Source;
+import com.android.org.conscrypt.metrics.StatsLog;
+import com.android.org.conscrypt.metrics.StatsLogImpl;
+
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
 import java.io.FileDescriptor;
@@ -68,12 +95,23 @@ import sun.security.x509.AlgorithmId;
 
 final class Platform {
     private static class NoPreloadHolder { public static final Platform MAPPER = new Platform(); }
+    static boolean DEPRECATED_TLS_V1 = true;
+    static boolean ENABLED_TLS_V1 = false;
+    private static boolean FILTERED_TLS_V1 = true;
+
+    static {
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+    }
 
     /**
      * Runs all the setup for the platform that only needs to run once.
      */
-    public static void setup() {
+    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
         NoPreloadHolder.MAPPER.ping();
+        DEPRECATED_TLS_V1 = deprecatedTlsV1;
+        ENABLED_TLS_V1 = enabledTlsV1;
+        FILTERED_TLS_V1 = !enabledTlsV1;
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
     }
 
     /**
@@ -531,4 +569,127 @@ final class Platform {
         }
         return false;
     }
+<<<<<<< HEAD   (de68ba Remove CT tests)
+||||||| BASE
+
+    public static ConscryptHostnameVerifier getDefaultHostnameVerifier() {
+        return Conscrypt.wrapHostnameVerifier(HttpsURLConnection.getDefaultHostnameVerifier());
+    }
+
+    /**
+     * Returns milliseconds elapsed since boot, including time spent in sleep.
+     * @return long number of milliseconds elapsed since boot
+     */
+    static long getMillisSinceBoot() {
+        return System.currentTimeMillis();
+    }
+
+    public static StatsLog getStatsLog() {
+        return StatsLogImpl.getInstance();
+    }
+
+    public static Source getStatsSource() {
+        return Source.SOURCE_MAINLINE;
+    }
+
+    public static int[] getUids() {
+        return new int[] {Os.getuid()};
+    }
+
+    public static boolean isJavaxCertificateSupported() {
+        return true;
+    }
+
+    public static boolean isTlsV1Deprecated() {
+        return true;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        Object targetSdkVersion = getTargetSdkVersion();
+        if ((targetSdkVersion != null) && ((int) targetSdkVersion > 34))
+            return false;
+        return true;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return false;
+    }
+
+    static Object getTargetSdkVersion() {
+        try {
+            Class<?> vmRuntime = Class.forName("dalvik.system.VMRuntime");
+            if (vmRuntime == null) {
+                return null;
+            }
+            OptionalMethod getSdkVersion =
+                    new OptionalMethod(vmRuntime,
+                                        "getTargetSdkVersion");
+            return getSdkVersion.invokeStatic();
+        } catch (ClassNotFoundException e) {
+            return null;
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+=======
+
+    public static ConscryptHostnameVerifier getDefaultHostnameVerifier() {
+        return Conscrypt.wrapHostnameVerifier(HttpsURLConnection.getDefaultHostnameVerifier());
+    }
+
+    /**
+     * Returns milliseconds elapsed since boot, including time spent in sleep.
+     * @return long number of milliseconds elapsed since boot
+     */
+    static long getMillisSinceBoot() {
+        return System.currentTimeMillis();
+    }
+
+    public static StatsLog getStatsLog() {
+        return StatsLogImpl.getInstance();
+    }
+
+    public static Source getStatsSource() {
+        return Source.SOURCE_MAINLINE;
+    }
+
+    public static int[] getUids() {
+        return new int[] {Os.getuid()};
+    }
+
+    public static boolean isJavaxCertificateSupported() {
+        return true;
+    }
+
+    public static boolean isTlsV1Deprecated() {
+        return DEPRECATED_TLS_V1;
+    }
+
+    public static boolean isTlsV1Filtered() {
+        Object targetSdkVersion = getTargetSdkVersion();
+        if ((targetSdkVersion != null) && ((int) targetSdkVersion > 34))
+            return false;
+        return FILTERED_TLS_V1;
+    }
+
+    public static boolean isTlsV1Supported() {
+        return ENABLED_TLS_V1;
+    }
+
+    static Object getTargetSdkVersion() {
+        try {
+            Class<?> vmRuntimeClass = Class.forName("dalvik.system.VMRuntime");
+            Method getRuntimeMethod = vmRuntimeClass.getDeclaredMethod("getRuntime");
+            Method getTargetSdkVersionMethod =
+                        vmRuntimeClass.getDeclaredMethod("getTargetSdkVersion");
+            Object vmRuntime = getRuntimeMethod.invoke(null);
+            return getTargetSdkVersionMethod.invoke(vmRuntime);
+        } catch (IllegalAccessException |
+          NullPointerException | InvocationTargetException e) {
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+>>>>>>> CHANGE (ae84ce Revert^2 "Add support for enabling/disabling TLS v1.0 and 1.)
 }
