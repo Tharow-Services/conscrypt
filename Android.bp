@@ -211,9 +211,7 @@ java_aconfig_library {
     ],
     min_sdk_version: "30",
     installable: false,
-    visibility: [
-        "//cts/tests/tests/networksecurityconfig:__subpackages__",
-    ],
+    visibility: ["//visibility:private"],
 }
 
 cc_binary_host {
