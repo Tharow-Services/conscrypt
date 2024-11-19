@@ -22,7 +22,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import junit.framework.TestCase;
 
 import org.conscrypt.OpenSSLKey;
-import org.conscrypt.metrics.StatsLog;
+import org.conscrypt.metrics.NoopStatsLog;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -38,12 +38,9 @@ import java.util.ArrayList;
 import java.util.Base64;
 
 public class LogStoreImplTest extends TestCase {
-    static class FakeStatsLog implements StatsLog {
+    static class FakeStatsLog extends NoopStatsLog {
         public ArrayList<LogStore.State> states = new ArrayList<LogStore.State>();
 
-        @Override
-        public void countTlsHandshake(
-                boolean success, String protocol, String cipherSuite, long duration) {}
         @Override
         public void updateCTLogListStatusChanged(LogStore logStore) {
             states.add(logStore.getState());
