@@ -873,6 +873,10 @@ final public class Platform {
         return enable;
     }
 
+    public static int reasonCTVerificationRequired(String hostname) {
+        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
+    }
+
     static boolean supportsConscryptCertStore() {
         return false;
     }
@@ -943,7 +947,7 @@ final public class Platform {
         if (Build.VERSION.SDK_INT >= 30) {
             return StatsLogImpl.getInstance();
         }
-        return null;
+        return NoopStatsLog.getInstance();
     }
 
     public static Source getStatsSource() {
