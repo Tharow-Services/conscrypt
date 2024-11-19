@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f58fa5d2_f3a849f4",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-11-19T16:21:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "466a8ec7_825104d9",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 23
+      },
+      "revId": "ab097ded5491c297b9adf985a178ace4191f1b3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "272bbc97_3347e7de",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-11-18T12:12:24Z",
       "side": 1,
       "message": "This feels like it might be a behaviour change if it\u0027s used in TLS tests, because it might override defaults set for the test.  I don\u0027t see any usages in tests, although there are some in benchmarks.",
+      "range": {
+        "startLine": 260,
+        "startChar": 36,
+        "endLine": 260,
+        "endChar": 47
+      },
+      "revId": "ab097ded5491c297b9adf985a178ace4191f1b3c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab4d96cf_9ef3938f",
+        "filename": "testing/src/main/java/org/conscrypt/TestUtils.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-11-19T16:21:54Z",
+      "side": 1,
+      "message": "Ack. It is used in benchmarks but I think they were still working after the first submission.",
+      "parentUuid": "272bbc97_3347e7de",
       "range": {
         "startLine": 260,
         "startChar": 36,
