@@ -54,12 +54,19 @@ public class SubSystem {
         return Platform.isCTVerificationRequired(host);
     }
 
-    public void checkCT(List<X509Certificate> chain, byte[] ocspData, byte[] tlsData)
+    public int reasonCTVerificationRequired(String host) {
+        return Platform.reasonCTVerificationRequired(host);
+    }
+
+    public void checkCT(List<X509Certificate> chain, byte[] ocspData, byte[] tlsData, String host)
             throws CertificateException {
         if (logStore.getState() != LogStore.State.COMPLIANT) {
             /* Fail open. For some reason, the LogStore is not usable. It could
              * be because there is no log list available or that the log list
              * is too old (according to the policy). */
+            statsLog.reportCTVerificationResult(logStore,
+                    /* VerificationResult */ null,
+                    /* PolicyCompliance */ null, reasonCTVerificationRequired(host));
             return;
         }
         VerificationResult result =
@@ -67,6 +74,8 @@ public class SubSystem {
 
         X509Certificate leaf = chain.get(0);
         PolicyCompliance compliance = policy.doesResultConformToPolicy(result, leaf);
+        statsLog.reportCTVerificationResult(
+                logStore, result, compliance, reasonCTVerificationRequired(host));
         if (compliance != PolicyCompliance.COMPLY) {
             throw new CertificateException(
                     "Certificate chain does not conform to required transparency policy: "

@@ -682,7 +682,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
             // Check Certificate Transparency (if required).
             if (!clientAuth && host != null && ctSubSystem != null
                     && ctSubSystem.isCTVerificationRequired(host)) {
-                ctSubSystem.checkCT(wholeChain, ocspData, tlsSctData);
+                ctSubSystem.checkCT(wholeChain, ocspData, tlsSctData, host);
             }
 
             if (untrustedChain.isEmpty()) {
