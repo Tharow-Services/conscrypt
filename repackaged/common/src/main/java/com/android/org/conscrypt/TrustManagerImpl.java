@@ -40,6 +40,7 @@ import com.android.org.conscrypt.ct.Policy;
 import com.android.org.conscrypt.ct.PolicyCompliance;
 import com.android.org.conscrypt.ct.VerificationResult;
 import com.android.org.conscrypt.ct.Verifier;
+import com.android.org.conscrypt.metrics.StatsLog;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -707,7 +708,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
             if (!clientAuth &&
                     (ctEnabledOverride || (host != null && Platform
                             .isCTVerificationRequired(host)))) {
-                checkCT(wholeChain, ocspData, tlsSctData);
+                checkCT(wholeChain, ocspData, tlsSctData, host);
             }
 
             if (untrustedChain.isEmpty()) {
@@ -753,12 +754,18 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         }
     }
 
-    private void checkCT(List<X509Certificate> chain, byte[] ocspData, byte[] tlsData)
+    private void checkCT(List<X509Certificate> chain, byte[] ocspData, byte[] tlsData, String host)
             throws CertificateException {
         if (ctLogStore.getState() != LogStore.State.COMPLIANT) {
             /* Fail open. For some reason, the LogStore is not usable. It could
              * be because there is no log list available or that the log list
              * is too old (according to the policy). */
+            StatsLog metrics = Platform.getStatsLog();
+            if (metrics != null) {
+                metrics.reportCTVerificationResult(ctLogStore,
+                        /* VerificationResult */ null,
+                        /* PolicyCompliance */ null, Platform.reasonCTVerificationRequired(host));
+            }
             return;
         }
         VerificationResult result =
@@ -766,6 +773,11 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
 
         X509Certificate leaf = chain.get(0);
         PolicyCompliance compliance = ctPolicy.doesResultConformToPolicy(result, leaf);
+        StatsLog metrics = Platform.getStatsLog();
+        if (metrics != null) {
+            metrics.reportCTVerificationResult(
+                    ctLogStore, result, compliance, Platform.reasonCTVerificationRequired(host));
+        }
         if (compliance != PolicyCompliance.COMPLY) {
             throw new CertificateException(
                     "Certificate chain does not conform to required transparency policy: "

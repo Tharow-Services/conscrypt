@@ -48,6 +48,10 @@ public class LogStoreImplTest extends TestCase {
         public void updateCTLogListStatusChanged(LogStore logStore) {
             states.add(logStore.getState());
         }
+
+        @Override
+        public void reportCTVerificationResult(LogStore logStore, VerificationResult result,
+                PolicyCompliance compliance, int verificationReason) {}
     }
 
     Policy alwaysCompliantStorePolicy = new Policy() {

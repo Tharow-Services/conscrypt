@@ -41,6 +41,7 @@ import com.android.org.conscrypt.ct.LogStore;
 import com.android.org.conscrypt.ct.Policy;
 import com.android.org.conscrypt.metrics.Source;
 import com.android.org.conscrypt.metrics.StatsLog;
+import com.android.org.conscrypt.metrics.StatsLogImpl;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -672,6 +673,10 @@ final public class Platform {
             enable = Boolean.parseBoolean(property.toLowerCase(Locale.ROOT));
         }
         return enable;
+    }
+
+    static int reasonCTVerificationRequired(String hostname) {
+        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {

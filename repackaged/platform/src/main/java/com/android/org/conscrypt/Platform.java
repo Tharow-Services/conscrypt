@@ -482,6 +482,18 @@ final public class Platform {
         return false;
     }
 
+    static int reasonCTVerificationRequired(String hostname) {
+        if (NetworkSecurityPolicy.getInstance().isCertificateTransparencyVerificationRequired("")) {
+            return StatsLogImpl
+                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_APP_OPT_IN;
+        } else if (NetworkSecurityPolicy.getInstance()
+                           .isCertificateTransparencyVerificationRequired(hostname)) {
+            return StatsLogImpl
+                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_DOMAIN_OPT_IN;
+        }
+        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
+    }
+
     static boolean supportsConscryptCertStore() {
         return true;
     }

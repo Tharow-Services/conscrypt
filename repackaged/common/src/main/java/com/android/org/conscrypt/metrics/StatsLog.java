@@ -18,6 +18,8 @@ package com.android.org.conscrypt.metrics;
 
 import com.android.org.conscrypt.Internal;
 import com.android.org.conscrypt.ct.LogStore;
+import com.android.org.conscrypt.ct.PolicyCompliance;
+import com.android.org.conscrypt.ct.VerificationResult;
 
 /**
  * @hide This class is not part of the Android public SDK API
@@ -28,4 +30,7 @@ public interface StatsLog {
             boolean success, String protocol, String cipherSuite, long duration);
 
     public void updateCTLogListStatusChanged(LogStore logStore);
+
+    public void reportCTVerificationResult(LogStore logStore, VerificationResult result,
+            PolicyCompliance compliance, int VerificationReason);
 }
