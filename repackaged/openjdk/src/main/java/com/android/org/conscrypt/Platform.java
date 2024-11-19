@@ -674,6 +674,10 @@ final public class Platform {
         return enable;
     }
 
+    static int reasonCTVerificationRequired(String hostname) {
+        return 0;
+    }
+
     static boolean supportsConscryptCertStore() {
         return false;
     }
