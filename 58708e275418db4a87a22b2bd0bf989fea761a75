@@ -16,6 +16,24 @@
       "message": "Is this necessary? Why can\u0027t we keep the current value?",
       "revId": "58708e275418db4a87a22b2bd0bf989fea761a75",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72438d58_19550b95",
+        "filename": "api/platform/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1962375
+      },
+      "writtenOn": "2024-11-21T08:09:25Z",
+      "side": 1,
+      "message": "The reason why metalava wrote the name of the flag instead of the actual string value of the flag in the api signature file is because the state of the flag was not provided. This becomes an issue in generating the hiddenapi flags and the SDK build artifacts because metalava cannot properly exclude the api in the stubs because the state of the flag that is guarding the api is unknown.",
+      "parentUuid": "4ef106ca_511e82d2",
+      "revId": "58708e275418db4a87a22b2bd0bf989fea761a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
