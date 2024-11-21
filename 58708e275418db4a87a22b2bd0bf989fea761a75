@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ef106ca_511e82d2",
+        "filename": "api/platform/current.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-11-21T00:54:13Z",
+      "side": 1,
+      "message": "Is this necessary? Why can\u0027t we keep the current value?",
+      "revId": "58708e275418db4a87a22b2bd0bf989fea761a75",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
