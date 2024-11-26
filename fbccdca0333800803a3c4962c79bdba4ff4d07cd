@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bab341fd_d08fb78d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-11-26T17:33:35Z",
+      "side": 1,
+      "message": "Slightly confused by all the reverts of reverts.  Is this the same as Revert^2, or is something fixed since then?",
+      "revId": "fbccdca0333800803a3c4962c79bdba4ff4d07cd",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
