@@ -58,29 +58,17 @@ public final class OpenSSLProvider extends Provider {
 
     @SuppressWarnings("deprecation")
     public OpenSSLProvider(String providerName) {
-        this(providerName, Platform.provideTrustManagerByDefault(), "TLSv1.3",
-            Platform.DEPRECATED_TLS_V1, Platform.ENABLED_TLS_V1);
+        this(providerName, Platform.provideTrustManagerByDefault(), "TLSv1.3");
     }
 
-    OpenSSLProvider(String providerName, boolean includeTrustManager,
-            String defaultTlsProtocol) {
-        this(providerName, includeTrustManager, defaultTlsProtocol,
-            Platform.DEPRECATED_TLS_V1, Platform.ENABLED_TLS_V1);
-    }
-
-    OpenSSLProvider(String providerName, boolean includeTrustManager,
-            String defaultTlsProtocol, boolean deprecatedTlsV1,
-            boolean enabledTlsV1) {
+    OpenSSLProvider(String providerName, boolean includeTrustManager, String defaultTlsProtocol) {
         super(providerName, 1.0, "Android's OpenSSL-backed security provider");
 
         // Ensure that the native library has been loaded.
         NativeCrypto.checkAvailability();
 
-        if (!deprecatedTlsV1 && !enabledTlsV1) {
-            throw new IllegalArgumentException("TLSv1 is not deprecated and cannot be disabled.");
-        }
         // Make sure the platform is initialized.
-        Platform.setup(deprecatedTlsV1, enabledTlsV1);
+        Platform.setup();
 
         /* === SSL Contexts === */
         String classOpenSSLContextImpl = PREFIX + "OpenSSLContextImpl";
