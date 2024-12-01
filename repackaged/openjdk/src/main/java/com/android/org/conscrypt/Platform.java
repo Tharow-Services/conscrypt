@@ -37,7 +37,6 @@ import static java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 
-import com.android.org.conscrypt.NativeCrypto;
 import com.android.org.conscrypt.ct.LogStore;
 import com.android.org.conscrypt.ct.Policy;
 import com.android.org.conscrypt.metrics.Source;
@@ -97,12 +96,9 @@ import javax.net.ssl.X509TrustManager;
 final public class Platform {
     private static final int JAVA_VERSION = javaVersion0();
     private static final Method GET_CURVE_NAME_METHOD;
-    static boolean DEPRECATED_TLS_V1 = true;
-    static boolean ENABLED_TLS_V1 = false;
-    private static boolean FILTERED_TLS_V1 = true;
 
     static {
-        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+
         Method getCurveNameMethod = null;
         try {
             getCurveNameMethod = ECParameterSpec.class.getDeclaredMethod("getCurveName");
@@ -115,12 +111,7 @@ final public class Platform {
 
     private Platform() {}
 
-    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
-        DEPRECATED_TLS_V1 = deprecatedTlsV1;
-        ENABLED_TLS_V1 = enabledTlsV1;
-        FILTERED_TLS_V1 = !enabledTlsV1;
-        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
-    }
+    static void setup() {}
 
 
     /**
@@ -850,14 +841,14 @@ final public class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return DEPRECATED_TLS_V1;
+        return true;
     }
 
     public static boolean isTlsV1Filtered() {
-        return FILTERED_TLS_V1;
+        return false;
     }
 
     public static boolean isTlsV1Supported() {
-        return ENABLED_TLS_V1;
+        return false;
     }
 }
