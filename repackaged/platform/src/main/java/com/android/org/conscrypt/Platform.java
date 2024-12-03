@@ -562,7 +562,8 @@ final public class Platform {
 
     public static boolean isTlsV1Filtered() {
         Object targetSdkVersion = getTargetSdkVersion();
-        if ((targetSdkVersion != null) && ((int) targetSdkVersion > 34))
+        if ((targetSdkVersion != null) && ((int) targetSdkVersion > 34)
+               && ((int) targetSdkVersion < 40))
             return false;
         return true;
     }
@@ -573,18 +574,17 @@ final public class Platform {
 
     static Object getTargetSdkVersion() {
         try {
-            Class<?> vmRuntime = Class.forName("dalvik.system.VMRuntime");
-            if (vmRuntime == null) {
-                return null;
-            }
-            OptionalMethod getSdkVersion =
-                    new OptionalMethod(vmRuntime,
-                                        "getTargetSdkVersion");
-            return getSdkVersion.invokeStatic();
-        } catch (ClassNotFoundException e) {
+            Class<?> vmRuntimeClass = Class.forName("dalvik.system.VMRuntime");
+            Method getRuntimeMethod = vmRuntimeClass.getDeclaredMethod("getRuntime");
+            Method getTargetSdkVersionMethod =
+                        vmRuntimeClass.getDeclaredMethod("getTargetSdkVersion");
+            Object vmRuntime = getRuntimeMethod.invoke(null);
+            return getTargetSdkVersionMethod.invoke(vmRuntime);
+        } catch (IllegalAccessException |
+          NullPointerException | InvocationTargetException e) {
             return null;
-        } catch (NullPointerException e) {
-            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
