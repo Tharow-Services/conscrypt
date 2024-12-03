@@ -13,5 +13,40 @@ package android.net.ssl {
     method public static void setUseSessionTickets(@NonNull javax.net.ssl.SSLSocket, boolean);
   }
 
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public final class SpakeClientKeyManagerParameters implements javax.net.ssl.ManagerFactoryParameters {
+    method @NonNull public byte[] getClientPassword();
+    method @NonNull public byte[] getPakeContext();
+    method @NonNull public android.net.ssl.SpakeIdentity getSpakeIdentity();
+  }
+
+  public static final class SpakeClientKeyManagerParameters.Builder {
+    ctor public SpakeClientKeyManagerParameters.Builder();
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters build();
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters.Builder setClientPassword(@NonNull byte[]);
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters.Builder setIdentity(@NonNull byte[], @NonNull byte[]);
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters.Builder setIdentity(@NonNull android.net.ssl.SpakeIdentity);
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters.Builder setPakeContext(@NonNull byte[]);
+  }
+
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public final class SpakeIdentity {
+    ctor public SpakeIdentity(@NonNull byte[], @NonNull byte[]);
+    method @NonNull public byte[] getClientIdentity();
+    method @NonNull public byte[] getServerIdentity();
+  }
+
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public final class SpakeServerKeyManagerParameters implements javax.net.ssl.ManagerFactoryParameters {
+    method @NonNull public byte[] getPakeContext();
+    method @Nullable public byte[] getPassword(@NonNull byte[], @NonNull byte[]);
+    method @Nullable public byte[] getPassword(@NonNull android.net.ssl.SpakeIdentity);
+  }
+
+  public static final class SpakeServerKeyManagerParameters.Builder {
+    ctor public SpakeServerKeyManagerParameters.Builder();
+    method @NonNull public android.net.ssl.SpakeServerKeyManagerParameters.Builder addPasswordMapping(@NonNull byte[], @NonNull byte[], @NonNull byte[]);
+    method @NonNull public android.net.ssl.SpakeServerKeyManagerParameters.Builder addPasswordMapping(@NonNull android.net.ssl.SpakeIdentity, @NonNull byte[]);
+    method @NonNull public android.net.ssl.SpakeServerKeyManagerParameters build();
+    method @NonNull public android.net.ssl.SpakeServerKeyManagerParameters.Builder setPakeContext(@NonNull byte[]);
+  }
+
 }
 
