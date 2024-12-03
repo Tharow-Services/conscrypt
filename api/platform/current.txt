@@ -13,6 +13,34 @@ package android.net.ssl {
     method public static void setUseSessionTickets(@NonNull javax.net.ssl.SSLSocket, boolean);
   }
 
+  public class SpakeClientKeyManagerParameters implements javax.net.ssl.ManagerFactoryParameters {
+    method @NonNull public byte[] getClientIdentity();
+    method @NonNull public byte[] getClientPassword();
+    method @NonNull public byte[] getPakeContext();
+    method @NonNull public byte[] getServerIdentity();
+  }
+
+  public static class SpakeClientKeyManagerParameters.Builder {
+    ctor public SpakeClientKeyManagerParameters.Builder();
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters build();
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters.Builder setClientIdentity(@NonNull byte[]);
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters.Builder setClientPassword(@NonNull byte[]);
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters.Builder setPakeContext(@NonNull byte[]);
+    method @NonNull public android.net.ssl.SpakeClientKeyManagerParameters.Builder setServerIdentity(@NonNull byte[]);
+  }
+
+  public class SpakeServerKeyManagerParameters implements javax.net.ssl.ManagerFactoryParameters {
+    method @Nullable public byte[] getPakeContext();
+    method @Nullable public byte[] getPassword(byte[], byte[]);
+  }
+
+  public static class SpakeServerKeyManagerParameters.Builder {
+    ctor public SpakeServerKeyManagerParameters.Builder();
+    method @NonNull public android.net.ssl.SpakeServerKeyManagerParameters.Builder addPasswordMapping(@NonNull byte[], @NonNull byte[], @NonNull byte[]);
+    method @NonNull public android.net.ssl.SpakeServerKeyManagerParameters build();
+    method @NonNull public android.net.ssl.SpakeServerKeyManagerParameters.Builder setPakeContext(@NonNull byte[]);
+  }
+
 }
 
 package com.android.org.conscrypt {
@@ -69,6 +97,13 @@ package com.android.org.conscrypt {
   }
 
   public interface SSLClientSessionCache {
+  }
+
+  public class SpakeTrustManagerFactory extends javax.net.ssl.TrustManagerFactorySpi {
+    ctor public SpakeTrustManagerFactory();
+    method public javax.net.ssl.TrustManager[] engineGetTrustManagers();
+    method public void engineInit(java.security.KeyStore) throws java.security.KeyStoreException;
+    method public void engineInit(javax.net.ssl.ManagerFactoryParameters) throws java.security.InvalidAlgorithmParameterException;
   }
 
   public final class TrustManagerImpl extends javax.net.ssl.X509ExtendedTrustManager {
