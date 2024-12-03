@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0aae083_8343c4a5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-03T10:15:15Z",
+      "side": 1,
+      "message": "Tests?",
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ba9a7d0_8c79fe06",
+        "filename": "common/src/main/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-03T10:15:15Z",
+      "side": 1,
+      "message": "Should we maybe cache this in a static field?",
+      "range": {
+        "startLine": 747,
+        "startChar": 21,
+        "endLine": 747,
+        "endChar": 28
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6eb9da8e_745a0c8e",
+        "filename": "common/src/main/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-03T10:15:15Z",
+      "side": 1,
+      "message": "Rather than have null checks dotted around, maybe have a NoopStatsLog for that case?",
+      "range": {
+        "startLine": 748,
+        "startChar": 27,
+        "endLine": 748,
+        "endChar": 31
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ec10c35_3d2bf963",
+        "filename": "common/src/main/java/org/conscrypt/ct/VerificationResult.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-03T10:15:15Z",
+      "side": 1,
+      "message": "Do we need any synchronisation in this class?  How about if stats are being written by a background thread? (My gut feeling is \"no\", but wanted to check)",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 31
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a34a8c10_1d9b8dbb",
+        "filename": "common/src/main/java/org/conscrypt/ct/VerificationResult.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-03T10:15:15Z",
+      "side": 1,
+      "message": "nit: `List`",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "061a718b_d228d135",
+        "filename": "common/src/main/java/org/conscrypt/metrics/StatsLogImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-03T10:15:15Z",
+      "side": 1,
+      "message": "nit: `\u003cbr\u003e` is a noop here 😊",
+      "range": {
+        "startLine": 68,
+        "startChar": 25,
+        "endLine": 68,
+        "endChar": 29
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
