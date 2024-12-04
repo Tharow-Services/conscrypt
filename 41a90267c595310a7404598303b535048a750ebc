@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "659c7a8d_9ce3dbf9",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-04T18:38:32Z",
+      "side": 1,
+      "message": "I don\u0027t know for sure, I see that the client and server IDs are exchanged in the protocol, but I might misread that. Once we develop this further we can make sure the comment is more accurate.",
+      "parentUuid": "b69e7206_7e0f537a",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 91
+      },
+      "revId": "41a90267c595310a7404598303b535048a750ebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2ac98665_92e38841",
         "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
         "patchSetId": 6
@@ -155,6 +179,30 @@
       "writtenOn": "2024-12-04T17:33:25Z",
       "side": 1,
       "message": "If you\u0027re planning to use these things as opaque keys then there\u0027s an existing Conscrypt `ByteArray` class.",
+      "range": {
+        "startLine": 90,
+        "startChar": 19,
+        "endLine": 90,
+        "endChar": 25
+      },
+      "revId": "41a90267c595310a7404598303b535048a750ebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e42b0b7_acb6c2b3",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-04T18:38:32Z",
+      "side": 1,
+      "message": "That will be useful, instead of just using `byte[]`, but which version of `ByteArray` should I use?",
+      "parentUuid": "6ce29db1_983302bb",
       "range": {
         "startLine": 90,
         "startChar": 19,
