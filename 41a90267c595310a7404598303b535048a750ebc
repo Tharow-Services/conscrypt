@@ -120,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "45c6e0b4_8a285faf",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-04T18:38:31Z",
+      "side": 1,
+      "message": "Yup.  The latter doesn\u0027t actually get built on the platform.",
+      "parentUuid": "f5bac57d_e4842796",
+      "range": {
+        "startLine": 61,
+        "startChar": 26,
+        "endLine": 61,
+        "endChar": 43
+      },
+      "revId": "41a90267c595310a7404598303b535048a750ebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6ce29db1_983302bb",
         "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
         "patchSetId": 6
