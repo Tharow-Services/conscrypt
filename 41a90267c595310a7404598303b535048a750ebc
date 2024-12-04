@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "579ac5a2_91b45d9d",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-04T18:32:54Z",
+      "side": 1,
+      "message": "I wasn\u0027t sure. I was doing the same as I\u0027ve seen in other places, like https://cs.android.com/android/platform/superproject/main/+/main:art/libartservice/service/java/com/android/server/art/ArtManagedInstallFileHelper.java",
+      "parentUuid": "2ac98665_92e38841",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 74
+      },
+      "revId": "41a90267c595310a7404598303b535048a750ebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0d8d7996_f1406f99",
         "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
         "patchSetId": 6
