@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e766c73_4e284258",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-12-04T14:14:30Z",
+      "side": 1,
+      "message": "nit: is it possible to add more detailed exception message which parameter is empty / null to the exception?",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 0
+      },
+      "revId": "a8b61935cdfa8db696db43a870d087733401d9f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "87863a7a_e5bd5b60",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeServerKeyManagerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-12-04T14:14:30Z",
+      "side": 1,
+      "message": "nit: is it possible to add more detailed exception message which parameter is empty / null to the exception?",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 40
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d3b8a1ab_f23fe066",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 86,
+                "startChar": 0,
+                "endLine": 87,
+                "endChar": 0
+              },
+              "replacement": "                throw new InvalidParameterException(\"No password mappings have been added.\");\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 88,
+                "startChar": 0,
+                "endLine": 89,
+                "endChar": 0
+              },
+              "replacement": "            requireNonNull(pakeContext, \"PAKE context must not be null.\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "a8b61935cdfa8db696db43a870d087733401d9f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
