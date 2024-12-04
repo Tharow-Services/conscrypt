@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "698b4844_b8fbfd55",
+        "filename": "api/public/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-12-04T15:50:25Z",
+      "side": 1,
+      "message": "Need nullability annotation.",
+      "revId": "f4f458039526785039be58de2b901adf65ec2e51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

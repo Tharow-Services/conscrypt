@@ -38,6 +38,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a8027cf2_d14a7fd8",
+        "filename": "api/public/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-12-04T15:50:25Z",
+      "side": 1,
+      "message": "The toolchain should generate @FlaggedApi into the current.txt, but it doesn\u0027t. I suspect that the presubmit will fail.",
+      "parentUuid": "75f56baa_ccefccaa",
+      "revId": "c75abd340f551e55a831c79667d4069a363fad66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f28dbb96_61a3dfd5",
         "filename": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
         "patchSetId": 2
