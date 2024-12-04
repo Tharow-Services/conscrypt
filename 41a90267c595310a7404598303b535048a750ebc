@@ -166,6 +166,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e70d372f_787f79f9",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-04T21:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "45c6e0b4_8a285faf",
+      "range": {
+        "startLine": 61,
+        "startChar": 26,
+        "endLine": 61,
+        "endChar": 43
+      },
+      "revId": "41a90267c595310a7404598303b535048a750ebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6ce29db1_983302bb",
@@ -227,6 +251,30 @@
       "side": 1,
       "message": "com.android.org.conscrypt.",
       "parentUuid": "1e42b0b7_acb6c2b3",
+      "range": {
+        "startLine": 90,
+        "startChar": 19,
+        "endLine": 90,
+        "endChar": 25
+      },
+      "revId": "41a90267c595310a7404598303b535048a750ebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e5e7ef01_12024f1f",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-04T21:04:26Z",
+      "side": 1,
+      "message": "I did, but having trouble accessing from test.",
+      "parentUuid": "e192e01a_9223248a",
       "range": {
         "startLine": 90,
         "startChar": 19,

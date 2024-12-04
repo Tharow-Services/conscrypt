@@ -16,6 +16,24 @@
       "message": "Need nullability annotation.",
       "revId": "f4f458039526785039be58de2b901adf65ec2e51",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e398f4d8_16938682",
+        "filename": "api/public/current.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-04T21:04:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "698b4844_b8fbfd55",
+      "revId": "f4f458039526785039be58de2b901adf65ec2e51",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
