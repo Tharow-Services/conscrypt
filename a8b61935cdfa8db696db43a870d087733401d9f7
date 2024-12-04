@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e704310_dd48da57",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-04T15:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e766c73_4e284258",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 0
+      },
+      "revId": "a8b61935cdfa8db696db43a870d087733401d9f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "87863a7a_e5bd5b60",
@@ -71,6 +95,30 @@
           ]
         }
       ],
+      "revId": "a8b61935cdfa8db696db43a870d087733401d9f7",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ef6410c2_9d420aba",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeServerKeyManagerParameters.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-04T15:29:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87863a7a_e5bd5b60",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 40
+      },
       "revId": "a8b61935cdfa8db696db43a870d087733401d9f7",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
