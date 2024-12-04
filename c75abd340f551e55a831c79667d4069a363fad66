@@ -1,0 +1,213 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d6e4748_613f6176",
+        "filename": "api/public/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-12-04T11:46:40Z",
+      "side": 1,
+      "message": "Need @FlaggedApi.",
+      "revId": "c75abd340f551e55a831c79667d4069a363fad66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f28dbb96_61a3dfd5",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-12-04T11:46:40Z",
+      "side": 1,
+      "message": "As discussed in the chat, I feel like that the combination of client + server identity is a key for retrieving the password, and both of them need to be known to use the API. It\u0027s better to have a separate class for the combination.\n\nIn addition, apparently, all 4 parameters are required, right? I think that it would be less confusing by putting all parameters into the constructor and perform the null check in the constructor, instead of in the build() method. go/android-api-guidelines#builders-nonnull-constructors\n\nIf you combine the identity into its own class, there are only 3 required and no optional parameters, you can probably avoid the Builder as well, but it\u0027s optional. go/android-api-guidelines#builders",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 9
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "f370756c_11505da2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 31,
+                "startChar": 0,
+                "endLine": 33,
+                "endChar": 0
+              },
+              "replacement": "    private byte[] identity;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 42,
+                "startChar": 0,
+                "endLine": 44,
+                "endChar": 0
+              },
+              "replacement": "        private byte[] identity;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 50,
+                "startChar": 0,
+                "endLine": 51,
+                "endChar": 0
+              },
+              "replacement": "         * Sets the identity.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 52,
+                "startChar": 0,
+                "endLine": 53,
+                "endChar": 0
+              },
+              "replacement": "         * @param identity The identity.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 56,
+                "startChar": 0,
+                "endLine": 58,
+                "endChar": 0
+              },
+              "replacement": "        public Builder setIdentity(@NonNull byte[] identity) {\n            this.identity \u003d identity;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 60,
+                "startChar": 0,
+                "endLine": 72,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 104,
+                "startChar": 0,
+                "endLine": 106,
+                "endChar": 0
+              },
+              "replacement": "            requireNonNull(identity);\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 111,
+                "startChar": 0,
+                "endLine": 113,
+                "endChar": 0
+              },
+              "replacement": "            params.identity \u003d identity;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 121,
+                "startChar": 0,
+                "endLine": 131,
+                "endChar": 0
+              },
+              "replacement": "     * Gets the identity.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 132,
+                "startChar": 0,
+                "endLine": 133,
+                "endChar": 0
+              },
+              "replacement": "     * @return The identity.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 134,
+                "startChar": 0,
+                "endLine": 136,
+                "endChar": 0
+              },
+              "replacement": "    public @NonNull byte[] getIdentity() {\n        return identity;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c75abd340f551e55a831c79667d4069a363fad66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "70a4d828_5bf64835",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeServerKeyManagerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-12-04T11:46:40Z",
+      "side": 1,
+      "message": "Is `pakeContext` a required parameter? It\u0027s better to put it in the constructor and have the `requireNonNull` check in the constructor.",
+      "range": {
+        "startLine": 72,
+        "startChar": 23,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "ac54c9d3_3a96bda2",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 48,
+                "startChar": 0,
+                "endLine": 49,
+                "endChar": 0
+              },
+              "replacement": "        /**\n         * Constructs a new builder.\n         *\n         * @param pakeContext The PAKE context to use.\n         */\n        public Builder(@NonNull byte[] pakeContext) {\n            this.pakeContext \u003d pakeContext;\n        }\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/SpakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 64,
+                "startChar": 0,
+                "endLine": 76,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "c75abd340f551e55a831c79667d4069a363fad66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
