@@ -25,10 +25,6 @@ import android.system.Os;
 import android.system.StructTimeval;
 
 import com.android.org.conscrypt.NativeCrypto;
-import com.android.org.conscrypt.ct.LogStore;
-import com.android.org.conscrypt.ct.LogStoreImpl;
-import com.android.org.conscrypt.ct.Policy;
-import com.android.org.conscrypt.ct.PolicyImpl;
 import com.android.org.conscrypt.flags.Flags;
 import com.android.org.conscrypt.metrics.OptionalMethod;
 import com.android.org.conscrypt.metrics.Source;
@@ -99,10 +95,10 @@ final public class Platform {
      * Runs all the setup for the platform that only needs to run once.
      */
     public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
-        NoPreloadHolder.MAPPER.ping();
         DEPRECATED_TLS_V1 = deprecatedTlsV1;
         ENABLED_TLS_V1 = enabledTlsV1;
         FILTERED_TLS_V1 = !enabledTlsV1;
+        NoPreloadHolder.MAPPER.ping();
         NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
     }
 
@@ -486,7 +482,7 @@ final public class Platform {
         return true;
     }
 
-    static boolean isCTVerificationRequired(String hostname) {
+    public static boolean isCTVerificationRequired(String hostname) {
         if (Flags.certificateTransparencyPlatform()) {
             return NetworkSecurityPolicy.getInstance()
                     .isCertificateTransparencyVerificationRequired(hostname);
@@ -516,12 +512,13 @@ final public class Platform {
         return CertBlocklistImpl.getDefault();
     }
 
-    static LogStore newDefaultLogStore() {
-        return new LogStoreImpl();
-    }
-
-    static Policy newDefaultPolicy() {
-        return new PolicyImpl();
+    static com.android.org.conscrypt.ct.CertificateTransparency
+    newDefaultCertificateTransparency() {
+        com.android.org.conscrypt.ct.LogStore logStore =
+                new com.android.org.conscrypt.ct.LogStoreImpl();
+        return new com.android.org.conscrypt.ct.CertificateTransparency(logStore,
+                new com.android.org.conscrypt.ct.PolicyImpl(),
+                new com.android.org.conscrypt.ct.Verifier(logStore), getStatsLog());
     }
 
     static boolean serverNamePermitted(SSLParametersImpl parameters, String serverName) {

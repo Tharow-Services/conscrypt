@@ -35,12 +35,6 @@
 
 package com.android.org.conscrypt;
 
-import com.android.org.conscrypt.ct.LogStore;
-import com.android.org.conscrypt.ct.Policy;
-import com.android.org.conscrypt.ct.PolicyCompliance;
-import com.android.org.conscrypt.ct.VerificationResult;
-import com.android.org.conscrypt.ct.Verifier;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
@@ -142,14 +136,9 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
     private final Exception err;
     private final CertificateFactory factory;
     private final CertBlocklist blocklist;
-    private final LogStore ctLogStore;
-    private Verifier ctVerifier;
-    private Policy ctPolicy;
+    private final com.android.org.conscrypt.ct.CertificateTransparency ct;
 
     private ConscryptHostnameVerifier hostnameVerifier;
-
-    // Forces CT verification to always to done. For tests.
-    private boolean ctEnabledOverride;
 
     /**
      * Creates X509TrustManager based on a keystore
@@ -160,6 +149,9 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         this(keyStore, null);
     }
 
+    /* Implicitly used by CertPinManagerTest in CTS.
+     * TODO: remove in favor of the constructor below.
+     */
     public TrustManagerImpl(KeyStore keyStore, CertPinManager manager) {
         this(keyStore, manager, null);
     }
@@ -167,19 +159,12 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
     @libcore.api.CorePlatformApi(status = libcore.api.CorePlatformApi.Status.STABLE)
     public TrustManagerImpl(
             KeyStore keyStore, CertPinManager manager, ConscryptCertStore certStore) {
-        this(keyStore, manager, certStore, null);
+        this(keyStore, manager, certStore, null, null);
     }
 
-    public TrustManagerImpl(KeyStore keyStore, CertPinManager manager, ConscryptCertStore certStore,
-            CertBlocklist blocklist) {
-        this(keyStore, manager, certStore, blocklist, null, null, null);
-    }
-
-    /**
-     * For testing only.
-     */
-    public TrustManagerImpl(KeyStore keyStore, CertPinManager manager, ConscryptCertStore certStore,
-            CertBlocklist blocklist, LogStore ctLogStore, Verifier ctVerifier, Policy ctPolicy) {
+    private TrustManagerImpl(KeyStore keyStore, CertPinManager manager,
+            ConscryptCertStore certStore, CertBlocklist blocklist,
+            com.android.org.conscrypt.ct.CertificateTransparency ct) {
         CertPathValidator validatorLocal = null;
         CertificateFactory factoryLocal = null;
         KeyStore rootKeyStoreLocal = null;
@@ -209,15 +194,11 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
             errLocal = e;
         }
 
+        if (ct == null) {
+            ct = Platform.newDefaultCertificateTransparency();
+        }
         if (blocklist == null) {
             blocklist = Platform.newDefaultBlocklist();
-        }
-        if (ctLogStore == null) {
-            ctLogStore = Platform.newDefaultLogStore();
-        }
-
-        if (ctPolicy == null) {
-            ctPolicy = Platform.newDefaultPolicy();
         }
 
         this.pinManager = manager;
@@ -230,12 +211,7 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
         this.acceptedIssuers = acceptedIssuersLocal;
         this.err = errLocal;
         this.blocklist = blocklist;
-        this.ctLogStore = ctLogStore;
-        this.ctVerifier = new Verifier(ctLogStore);
-        this.ctPolicy = ctPolicy;
-        if (ctLogStore != null) {
-            ctLogStore.setPolicy(ctPolicy);
-        }
+        this.ct = ct;
     }
 
     @SuppressWarnings("JdkObsolete") // KeyStore#aliases is the only API available
@@ -703,11 +679,9 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
                 checkBlocklist(cert);
             }
 
-            // Check CT (if required).
-            if (!clientAuth &&
-                    (ctEnabledOverride || (host != null && Platform
-                            .isCTVerificationRequired(host)))) {
-                checkCT(wholeChain, ocspData, tlsSctData);
+            // Check Certificate Transparency (if required).
+            if (!clientAuth && host != null && ct != null && ct.isCTVerificationRequired(host)) {
+                ct.checkCT(wholeChain, ocspData, tlsSctData);
             }
 
             if (untrustedChain.isEmpty()) {
@@ -750,26 +724,6 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
     private void checkBlocklist(X509Certificate cert) throws CertificateException {
         if (blocklist != null && blocklist.isPublicKeyBlockListed(cert.getPublicKey())) {
             throw new CertificateException("Certificate blocklisted by public key: " + cert);
-        }
-    }
-
-    private void checkCT(List<X509Certificate> chain, byte[] ocspData, byte[] tlsData)
-            throws CertificateException {
-        if (ctLogStore.getState() != LogStore.State.COMPLIANT) {
-            /* Fail open. For some reason, the LogStore is not usable. It could
-             * be because there is no log list available or that the log list
-             * is too old (according to the policy). */
-            return;
-        }
-        VerificationResult result =
-                ctVerifier.verifySignedCertificateTimestamps(chain, tlsData, ocspData);
-
-        X509Certificate leaf = chain.get(0);
-        PolicyCompliance compliance = ctPolicy.doesResultConformToPolicy(result, leaf);
-        if (compliance != PolicyCompliance.COMPLY) {
-            throw new CertificateException(
-                    "Certificate chain does not conform to required transparency policy: "
-                    + compliance.name());
         }
     }
 
@@ -1051,19 +1005,5 @@ public final class TrustManagerImpl extends X509ExtendedTrustManager {
             return defaultHostnameVerifier;
         }
         return Platform.getDefaultHostnameVerifier();
-    }
-
-    public void setCTEnabledOverride(boolean enabled) {
-        this.ctEnabledOverride = enabled;
-    }
-
-    // Replace the CTVerifier. For testing only.
-    public void setCTVerifier(Verifier verifier) {
-        this.ctVerifier = verifier;
-    }
-
-    // Replace the CTPolicy. For testing only.
-    public void setCTPolicy(Policy policy) {
-        this.ctPolicy = policy;
     }
 }
