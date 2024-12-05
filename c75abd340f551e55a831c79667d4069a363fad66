@@ -54,6 +54,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "28a2a08e_70dbccf4",
+        "filename": "api/public/current.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-05T10:28:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8027cf2_d14a7fd8",
+      "revId": "c75abd340f551e55a831c79667d4069a363fad66",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f28dbb96_61a3dfd5",

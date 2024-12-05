@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2d61956_a6230cb9",
+        "filename": "api/public/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-05T10:28:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "628bdb3f_83fe672c",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 9
+      },
+      "revId": "b00bcd1103a165fde1d575fb08b08e44cf4ddc0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9ea8de4b_7f5e539a",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-05T10:02:35Z",
       "side": 1,
       "message": "nit: Android prefers final Builder class.  go/android-api-guidelines#builders-static-inner",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 9
+      },
+      "revId": "b00bcd1103a165fde1d575fb08b08e44cf4ddc0c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f47a75c_688a61db",
+        "filename": "api/public/current.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-05T10:28:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9ea8de4b_7f5e539a",
       "range": {
         "startLine": 43,
         "startChar": 8,
