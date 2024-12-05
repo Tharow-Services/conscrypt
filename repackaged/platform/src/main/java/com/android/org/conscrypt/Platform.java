@@ -25,10 +25,6 @@ import android.system.Os;
 import android.system.StructTimeval;
 
 import com.android.org.conscrypt.NativeCrypto;
-import com.android.org.conscrypt.ct.LogStore;
-import com.android.org.conscrypt.ct.LogStoreImpl;
-import com.android.org.conscrypt.ct.Policy;
-import com.android.org.conscrypt.ct.PolicyImpl;
 import com.android.org.conscrypt.flags.Flags;
 import com.android.org.conscrypt.metrics.OptionalMethod;
 import com.android.org.conscrypt.metrics.Source;
@@ -486,7 +482,7 @@ final public class Platform {
         return true;
     }
 
-    static boolean isCTVerificationRequired(String hostname) {
+    public static boolean isCTVerificationRequired(String hostname) {
         if (Flags.certificateTransparencyPlatform()) {
             return NetworkSecurityPolicy.getInstance()
                     .isCertificateTransparencyVerificationRequired(hostname);
@@ -516,12 +512,12 @@ final public class Platform {
         return CertBlocklistImpl.getDefault();
     }
 
-    static LogStore newDefaultLogStore() {
-        return new LogStoreImpl();
-    }
-
-    static Policy newDefaultPolicy() {
-        return new PolicyImpl();
+    static com.android.org.conscrypt.ct.SubSystem newDefaultCTSubSystem() {
+        com.android.org.conscrypt.ct.LogStore logStore =
+                new com.android.org.conscrypt.ct.LogStoreImpl();
+        return new com.android.org.conscrypt.ct.SubSystem(logStore,
+                new com.android.org.conscrypt.ct.PolicyImpl(),
+                new com.android.org.conscrypt.ct.Verifier(logStore), getStatsLog());
     }
 
     static boolean serverNamePermitted(SSLParametersImpl parameters, String serverName) {

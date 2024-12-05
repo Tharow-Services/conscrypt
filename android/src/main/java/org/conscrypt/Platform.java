@@ -899,11 +899,7 @@ final public class Platform {
         return null;
     }
 
-    static LogStore newDefaultLogStore() {
-        return null;
-    }
-
-    static Policy newDefaultPolicy() {
+    static org.conscrypt.ct.SubSystem newDefaultCTSubSystem() {
         return null;
     }
 

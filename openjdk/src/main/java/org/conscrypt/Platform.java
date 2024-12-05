@@ -36,6 +36,7 @@ import static java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 
+import org.conscrypt.NativeCrypto;
 import org.conscrypt.ct.LogStore;
 import org.conscrypt.ct.Policy;
 import org.conscrypt.metrics.Source;
@@ -84,7 +85,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
-import org.conscrypt.NativeCrypto;
 
 /**
  * Platform-specific methods for OpenJDK.
@@ -649,7 +649,7 @@ final public class Platform {
      * - conscrypt.ct.enforce.com.*
      * - conscrypt.ct.enforce.*
      */
-    static boolean isCTVerificationRequired(String hostname) {
+    public static boolean isCTVerificationRequired(String hostname) {
         if (hostname == null) {
             return false;
         }
@@ -745,11 +745,7 @@ final public class Platform {
         return null;
     }
 
-    static LogStore newDefaultLogStore() {
-        return null;
-    }
-
-    static Policy newDefaultPolicy() {
+    static org.conscrypt.ct.SubSystem newDefaultCTSubSystem() {
         return null;
     }
 
