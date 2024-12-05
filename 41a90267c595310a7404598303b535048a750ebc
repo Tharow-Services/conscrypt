@@ -331,6 +331,30 @@
       },
       "revId": "41a90267c595310a7404598303b535048a750ebc",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3a382958_eb447623",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeIdentity.java",
+        "patchSetId": 6
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-05T15:14:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e5e7ef01_12024f1f",
+      "range": {
+        "startLine": 90,
+        "startChar": 19,
+        "endLine": 90,
+        "endChar": 25
+      },
+      "revId": "41a90267c595310a7404598303b535048a750ebc",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
