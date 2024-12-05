@@ -29,10 +29,6 @@ import dalvik.system.VMRuntime;
 
 import libcore.net.NetworkSecurityPolicy;
 
-import org.conscrypt.ct.LogStore;
-import org.conscrypt.ct.LogStoreImpl;
-import org.conscrypt.ct.Policy;
-import org.conscrypt.ct.PolicyImpl;
 import org.conscrypt.flags.Flags;
 import org.conscrypt.metrics.OptionalMethod;
 import org.conscrypt.metrics.Source;
@@ -470,7 +466,7 @@ final public class Platform {
         return true;
     }
 
-    static boolean isCTVerificationRequired(String hostname) {
+    public static boolean isCTVerificationRequired(String hostname) {
         if (Flags.certificateTransparencyPlatform()) {
             return NetworkSecurityPolicy.getInstance()
                     .isCertificateTransparencyVerificationRequired(hostname);
@@ -500,12 +496,10 @@ final public class Platform {
         return CertBlocklistImpl.getDefault();
     }
 
-    static LogStore newDefaultLogStore() {
-        return new LogStoreImpl();
-    }
-
-    static Policy newDefaultPolicy() {
-        return new PolicyImpl();
+    static org.conscrypt.ct.SubSystem newDefaultCTSubSystem() {
+        org.conscrypt.ct.LogStore logStore = new org.conscrypt.ct.LogStoreImpl();
+        return new org.conscrypt.ct.SubSystem(logStore, new org.conscrypt.ct.PolicyImpl(),
+                new org.conscrypt.ct.Verifier(logStore), getStatsLog());
     }
 
     static boolean serverNamePermitted(SSLParametersImpl parameters, String serverName) {
