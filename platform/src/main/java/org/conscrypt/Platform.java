@@ -497,9 +497,10 @@ final public class Platform {
     }
 
     static org.conscrypt.ct.SubSystem newDefaultCTSubSystem() {
-        org.conscrypt.ct.LogStore logStore = new org.conscrypt.ct.LogStoreImpl();
-        return new org.conscrypt.ct.SubSystem(logStore, new org.conscrypt.ct.PolicyImpl(),
-                new org.conscrypt.ct.Verifier(logStore), getStatsLog());
+        org.conscrypt.ct.Policy policy = new org.conscrypt.ct.PolicyImpl();
+        org.conscrypt.ct.LogStore logStore = new org.conscrypt.ct.LogStoreImpl(policy);
+        org.conscrypt.ct.Verifier verifier = new org.conscrypt.ct.Verifier(logStore);
+        return new org.conscrypt.ct.SubSystem(logStore, policy, verifier, getStatsLog());
     }
 
     static boolean serverNamePermitted(SSLParametersImpl parameters, String serverName) {

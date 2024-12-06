@@ -380,7 +380,7 @@ public class PolicyImplTest {
     public void validRecentLogStore() throws Exception {
         PolicyImpl p = new PolicyImpl();
 
-        LogStore store = new LogStoreImpl() {
+        LogStore store = new LogStoreImpl(p) {
             @Override
             public long getTimestamp() {
                 return DEC2023;
@@ -393,7 +393,7 @@ public class PolicyImplTest {
     public void invalidFutureLogStore() throws Exception {
         PolicyImpl p = new PolicyImpl();
 
-        LogStore store = new LogStoreImpl() {
+        LogStore store = new LogStoreImpl(p) {
             @Override
             public long getTimestamp() {
                 return JAN2025;
@@ -406,7 +406,7 @@ public class PolicyImplTest {
     public void invalidOldLogStore() throws Exception {
         PolicyImpl p = new PolicyImpl();
 
-        LogStore store = new LogStoreImpl() {
+        LogStore store = new LogStoreImpl(p) {
             @Override
             public long getTimestamp() {
                 return JAN2023;
