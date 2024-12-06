@@ -36,8 +36,6 @@ public interface LogStore {
         NON_COMPLIANT,
     }
 
-    void setPolicy(Policy policy);
-
     State getState();
 
     int getMajorVersion();
