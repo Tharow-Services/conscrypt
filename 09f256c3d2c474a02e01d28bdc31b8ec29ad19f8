@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86ca0abf_170a59c4",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-06T10:40:13Z",
+      "side": 1,
+      "message": "Bypassing lint as tests have been added.",
+      "revId": "09f256c3d2c474a02e01d28bdc31b8ec29ad19f8",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
