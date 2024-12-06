@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "942099ff_77ef2c4d",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-06T18:09:00Z",
+      "side": 1,
+      "message": "This might be sufficient...I think on dev builds then standalone app processes (i.e. not coming from the zygote) might get targetSdkVersion \u003d\u003d CUR_DEVELOPMENT which is ~ 10000 which might be why we saw issues with the wifi manager.  For everything else it should stave off throwing until the next API bump which is fine.",
+      "range": {
+        "startLine": 573,
+        "startChar": 68,
+        "endLine": 573,
+        "endChar": 70
+      },
+      "revId": "fc618c0415c205148f0a70df069aae76766f322e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
