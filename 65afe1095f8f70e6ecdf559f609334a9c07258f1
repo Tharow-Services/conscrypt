@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d49e772_e9e1dfe7",
+        "filename": "common/src/main/java/org/conscrypt/ct/SubSystem.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-06T04:15:43Z",
+      "side": 1,
+      "message": "I am not attached to this class name, but I couldn\u0027t think of anything better. Let me know if you do. Thanks.",
+      "revId": "65afe1095f8f70e6ecdf559f609334a9c07258f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
