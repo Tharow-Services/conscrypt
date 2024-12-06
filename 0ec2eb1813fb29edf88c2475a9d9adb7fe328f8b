@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "04297f12_b6d32e00",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-06T04:13:15Z",
+      "side": 1,
+      "message": "I had to do some refactoring to reach a point where I could test checkCT. See next change in the chain.",
+      "parentUuid": "b0aae083_8343c4a5",
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0ba9a7d0_8c79fe06",
@@ -31,6 +49,30 @@
       "writtenOn": "2024-12-03T10:15:15Z",
       "side": 1,
       "message": "Should we maybe cache this in a static field?",
+      "range": {
+        "startLine": 747,
+        "startChar": 21,
+        "endLine": 747,
+        "endChar": 28
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6fca9dfd_11123d55",
+        "filename": "common/src/main/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-06T04:13:15Z",
+      "side": 1,
+      "message": "StatsLogImpl is already a singleton and getStatsLog should return that singleton instance (We need a singleton because LogStoreImpl also retrieves the instance via  Platform). Let me know if that makes sense.",
+      "parentUuid": "0ba9a7d0_8c79fe06",
       "range": {
         "startLine": 747,
         "startChar": 21,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2780911_d931d621",
+        "filename": "common/src/main/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-06T04:13:15Z",
+      "side": 1,
+      "message": "Great idea. Done!",
+      "parentUuid": "6eb9da8e_745a0c8e",
+      "range": {
+        "startLine": 748,
+        "startChar": 27,
+        "endLine": 748,
+        "endChar": 31
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8ec10c35_3d2bf963",
@@ -77,6 +143,30 @@
       "writtenOn": "2024-12-03T10:15:15Z",
       "side": 1,
       "message": "Do we need any synchronisation in this class?  How about if stats are being written by a background thread? (My gut feeling is \"no\", but wanted to check)",
+      "range": {
+        "startLine": 35,
+        "startChar": 13,
+        "endLine": 35,
+        "endChar": 31
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "42ee6e54_db8fe8d9",
+        "filename": "common/src/main/java/org/conscrypt/ct/VerificationResult.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-06T04:13:15Z",
+      "side": 1,
+      "message": "Good question. I took care of resolving all the values before calling `write` for the stats (see StatsLogImpl.java).",
+      "parentUuid": "8ec10c35_3d2bf963",
       "range": {
         "startLine": 35,
         "startChar": 13,
@@ -110,6 +200,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae6ce562_bcb18388",
+        "filename": "common/src/main/java/org/conscrypt/ct/VerificationResult.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-06T04:13:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a34a8c10_1d9b8dbb",
+      "range": {
+        "startLine": 36,
+        "startChar": 18,
+        "endLine": 36,
+        "endChar": 27
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "061a718b_d228d135",
@@ -123,6 +237,30 @@
       "writtenOn": "2024-12-03T10:15:15Z",
       "side": 1,
       "message": "nit: `\u003cbr\u003e` is a noop here 😊",
+      "range": {
+        "startLine": 68,
+        "startChar": 25,
+        "endLine": 68,
+        "endChar": 29
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1a3ce008_83f9014c",
+        "filename": "common/src/main/java/org/conscrypt/metrics/StatsLogImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-06T04:13:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "061a718b_d228d135",
       "range": {
         "startLine": 68,
         "startChar": 25,
