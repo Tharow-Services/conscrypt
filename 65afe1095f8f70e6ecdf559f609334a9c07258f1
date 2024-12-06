@@ -16,6 +16,23 @@
       "message": "I am not attached to this class name, but I couldn\u0027t think of anything better. Let me know if you do. Thanks.",
       "revId": "65afe1095f8f70e6ecdf559f609334a9c07258f1",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b524321_d8c9af53",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 499,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-06T04:19:31Z",
+      "side": 1,
+      "message": "I intentionally avoided the import here: ideally we could move it to a default constructor in SubSystem once all the backends share the same logic.",
+      "revId": "65afe1095f8f70e6ecdf559f609334a9c07258f1",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
