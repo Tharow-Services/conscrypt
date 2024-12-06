@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d93a4a8_3c08ca4f",
+        "filename": "common/src/test/java/org/conscrypt/ct/SubSystemTest.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-06T04:14:48Z",
+      "side": 1,
+      "message": "This is rudimentary. The issue is that StatsLogImpl is a singleton and I cannot override write() to capture what was effectively sent to statsd. I will need further refactoring to catch that.",
+      "revId": "0cdebea5981d25db9edebd3c8cf3d523aba13bbb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
