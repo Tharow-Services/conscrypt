@@ -514,11 +514,13 @@ final public class Platform {
 
     static com.android.org.conscrypt.ct.CertificateTransparency
     newDefaultCertificateTransparency() {
+        com.android.org.conscrypt.ct.Policy policy = new com.android.org.conscrypt.ct.PolicyImpl();
         com.android.org.conscrypt.ct.LogStore logStore =
-                new com.android.org.conscrypt.ct.LogStoreImpl();
-        return new com.android.org.conscrypt.ct.CertificateTransparency(logStore,
-                new com.android.org.conscrypt.ct.PolicyImpl(),
-                new com.android.org.conscrypt.ct.Verifier(logStore), getStatsLog());
+                new com.android.org.conscrypt.ct.LogStoreImpl(policy);
+        com.android.org.conscrypt.ct.Verifier verifier =
+                new com.android.org.conscrypt.ct.Verifier(logStore);
+        return new com.android.org.conscrypt.ct.CertificateTransparency(
+                logStore, policy, verifier, getStatsLog());
     }
 
     static boolean serverNamePermitted(SSLParametersImpl parameters, String serverName) {

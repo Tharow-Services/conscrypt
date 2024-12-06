@@ -49,8 +49,6 @@ public class CertificateTransparency {
         this.policy = policy;
         this.verifier = verifier;
         this.statsLog = statsLog;
-
-        this.logStore.setPolicy(policy);
     }
 
     public boolean isCTVerificationRequired(String host) {
