@@ -22,6 +22,30 @@
       },
       "revId": "fc618c0415c205148f0a70df069aae76766f322e",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "08605cdf_d8735d78",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 573,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-06T18:21:00Z",
+      "side": 1,
+      "message": "Yeah, the wifi manager test passes with this change. I think in general it\u0027s best to wait before throwing this exception since in any case, we are already effectively disabling usage.",
+      "parentUuid": "942099ff_77ef2c4d",
+      "range": {
+        "startLine": 573,
+        "startChar": 68,
+        "endLine": 573,
+        "endChar": 70
+      },
+      "revId": "fc618c0415c205148f0a70df069aae76766f322e",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
