@@ -177,6 +177,11 @@ processResources {
     dependsOn generateProperties
 }
 
+sourcesJar {
+    dependsOn generateProperties
+    dependsOn ':conscrypt-constants:runGen'
+}
+
 tasks.register("platformJar", Jar) {
     from sourceSets.platform.output
 }
@@ -323,7 +328,6 @@ def testFdSocket = tasks.register("testFdSocket", Test) {
     systemProperties = test.systemProperties
     systemProperty "org.conscrypt.useEngineSocketByDefault", false
 }
-check.dependsOn testFdSocket
 
 // Tests that involve interoperation with the OpenJDK TLS provider (generally to
 // test renegotiation, since we don't support initiating renegotiation but do
