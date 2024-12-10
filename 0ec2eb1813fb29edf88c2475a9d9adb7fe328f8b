@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "706ca2ce_897ca038",
+        "filename": "common/src/main/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-10T13:21:57Z",
+      "side": 1,
+      "message": "It does, but that does mean it needs to be thread safe (singleton stats log with potentially many threads recording stats concurrently)... Miguel\u0027s CL pushing the real work onto a background single-threaded Executor with a queue should help there.",
+      "parentUuid": "6fca9dfd_11123d55",
+      "range": {
+        "startLine": 747,
+        "startChar": 21,
+        "endLine": 747,
+        "endChar": 28
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "6eb9da8e_745a0c8e",
         "filename": "common/src/main/java/org/conscrypt/TrustManagerImpl.java",
         "patchSetId": 2
