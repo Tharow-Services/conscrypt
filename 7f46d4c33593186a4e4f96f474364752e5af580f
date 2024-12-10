@@ -74,6 +74,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c4030165_9dd46621",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-10T18:10:10Z",
+      "side": 1,
+      "message": "\u003e And we sort of need it there due to the package restrictions on older releases\n\nTrue.  But having it here is going to cause us compile problems on other platforms, unless maybe we put SpakeKeyManagerFactory in platform/",
+      "parentUuid": "1c072d80_ce0d488e",
+      "revId": "7f46d4c33593186a4e4f96f474364752e5af580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adac4b4e_3c818db1",
         "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
         "patchSetId": 14
