@@ -17,6 +17,13 @@
 
 package com.android.org.conscrypt;
 
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.cert.Certificate;
@@ -24,14 +31,14 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Collection;
+
 import javax.net.ssl.X509TrustManager;
-import junit.framework.TestCase;
 
 /**
  * @hide This class is not part of the Android public SDK API
  */
-public class CertBlocklistTest extends TestCase {
-
+@RunWith(JUnit4.class)
+public class CertBlocklistTest {
     private static final String BLOCKLIST_CA = "test_blocklist_ca.pem";
     private static final String BLOCKLIST_CA2 = "test_blocklist_ca2.pem";
     private static final String BLOCKLISTED_CHAIN = "blocklist_test_chain.pem";
@@ -41,6 +48,7 @@ public class CertBlocklistTest extends TestCase {
     /**
      * Ensure that the test blocklisted CA is actually blocklisted by default.
      */
+    @Test
     public void testBlocklistedPublicKey() throws Exception {
         X509Certificate blocklistedCa = loadCertificate(BLOCKLIST_CA);
         CertBlocklist blocklist = CertBlocklistImpl.getDefault();
@@ -50,6 +58,7 @@ public class CertBlocklistTest extends TestCase {
     /**
      * Ensure that the test blocklisted CA 2 is actually blocklisted by default.
      */
+    @Test
     public void testBlocklistedPublicKeySHA256() throws Exception {
         X509Certificate blocklistedCa = loadCertificate(BLOCKLIST_CA2);
         CertBlocklist blocklist = CertBlocklistImpl.getDefault();
@@ -59,6 +68,7 @@ public class CertBlocklistTest extends TestCase {
     /**
      * Check that the blocklisted CA is rejected even if it used as a root of trust
      */
+    @Test
     public void testBlocklistedCaUntrusted() throws Exception {
         X509Certificate blocklistedCa = loadCertificate(BLOCKLIST_CA);
         assertUntrusted(new X509Certificate[] {blocklistedCa}, getTrustManager(blocklistedCa));
@@ -67,6 +77,7 @@ public class CertBlocklistTest extends TestCase {
     /**
      * Check that a chain that is rooted in a blocklisted trusted CA is rejected.
      */
+    @Test
     public void testBlocklistedRootOfTrust() throws Exception {
         // Chain is leaf -> blocklisted
         X509Certificate[] chain = loadCertificates(BLOCKLISTED_CHAIN);
@@ -83,6 +94,7 @@ public class CertBlocklistTest extends TestCase {
      *               \
      *                -------> trusted_ca
      */
+    @Test
     public void testBlocklistedIntermediateFallback() throws Exception {
         X509Certificate[] chain = loadCertificates(BLOCKLISTED_VALID_CHAIN);
         X509Certificate blocklistedCa = loadCertificate(BLOCKLIST_CA);

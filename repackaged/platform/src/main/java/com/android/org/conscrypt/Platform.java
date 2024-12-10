@@ -99,10 +99,10 @@ final public class Platform {
      * Runs all the setup for the platform that only needs to run once.
      */
     public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
-        NoPreloadHolder.MAPPER.ping();
         DEPRECATED_TLS_V1 = deprecatedTlsV1;
         ENABLED_TLS_V1 = enabledTlsV1;
         FILTERED_TLS_V1 = !enabledTlsV1;
+        NoPreloadHolder.MAPPER.ping();
         NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
     }
 

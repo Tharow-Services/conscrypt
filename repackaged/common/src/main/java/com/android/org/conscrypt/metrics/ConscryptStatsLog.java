@@ -1,3 +1,4 @@
+/* GENERATED SOURCE. DO NOT MODIFY. */
 /*
  * Copyright (C) 2020 The Android Open Source Project
  *
@@ -13,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.conscrypt.metrics;
+package com.android.org.conscrypt.metrics;
 
-import org.conscrypt.Internal;
+import com.android.org.conscrypt.Internal;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
@@ -37,6 +38,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
  *   --module conscrypt \
  *   --javaPackage org.conscrypt.metrics \
  *   --javaClass ConscryptStatsLog
+ * @hide This class is not part of the Android public SDK API
  **/
 @Internal
 public final class ConscryptStatsLog {
