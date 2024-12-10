@@ -17,6 +17,9 @@
 
 package com.android.org.conscrypt;
 
+import android.net.ssl.SpakeClientKeyManagerParameters;
+import android.net.ssl.SpakeServerKeyManagerParameters;
+
 import static com.android.org.conscrypt.TestUtils.openTestFile;
 import static com.android.org.conscrypt.TestUtils.readTestFile;
 
@@ -401,6 +404,16 @@ public class ConscryptSocketTest {
             setCertificates(chain, key);
         }
 
+        TestConnection(KeyManager serverKeyManager, KeyManager clientKeyManager,
+                TrustManager trustManager) throws Exception {
+            clientHooks = new ClientHooks();
+            serverHooks = new ServerHooks();
+            clientHooks.keyManagers = clientKeyManager;
+            clientHooks.trustManagers = trustManager;
+            serverHooks.keyManagers = serverKeyManager;
+            serverHooks.trustManagers = trustManager;
+        }
+
         private void setCertificates(X509Certificate[] chain, PrivateKey key) throws Exception {
             KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
             ks.load(null, null);
@@ -472,6 +485,81 @@ public class ConscryptSocketTest {
                 return socket;
             });
         }
+    }
+
+    // @Test
+    // public void test_Spakev1() throws Exception {
+    //   byte[] password;
+    // byte[] context = "osmosis".getBytes();
+    // Socket plainSocket;
+
+    // TrustManagerFactory tmf = TrustManagerFactory.getInstance("SPAKE2+");
+    // tmf.init(null);
+
+    // SpakeClientKeyManagerParameters kmfParamsClient = new SpakeClientKeyManagerParameters.Builder
+    //     .setClientPassword(password)
+    //     .setContext(context)
+    //     .build();
+
+    // KeyManagerFactory kmfClient = KeyManagerFactory.getInstance("SPAKE2+");
+    // kmfClient.init(kmfParamsClient);
+
+    // SSLContext contextClient = SSLContext.getInstance("TlsV1.3");
+    // contextClient.init(kmfClient.getKeyManagers(), tmf.getTrustMananagers(), null);
+
+    // SocketFactory sfClient = contextClient.getSocketFactory();
+
+    // SSLSocket sslSocketClient = sfClient.createSocket(plainSocket, host, port, true);
+    // sslSocketClient.startHandshake();
+
+    // SpakeServerKeyManagerParameters kmfParamsServer = new SpakeServerKeyManagerParameters.Builder
+    //     .setContext(context)
+    //     .build();
+
+    // KeyManagerFactory kmfServer = KeyManagerFactory.getInstance("SPAKE2+");
+    // kmfServer.init(kmfParamsServer);
+
+    // SSLContext contextServer = SSLContext.getInstance("TlsV1.3");
+    // contextServer.init(kmfServer.getKeyManagers(), tmf.getTrustMananagers, null);
+
+    // SocketFactory sfServer = contextServer.getSocketFactory();
+
+    // SSLSocket sslSocketServer = sfServer.createSocket(plainSocket, host, port, true);
+    // sslSocketServer.setUseClientMode(false);
+    // sslSocketServer.startHandshake();
+    //   assertTrue(sslSocketServer.isConnected());
+    //   assertTrue(sslSocketClient.isConnected());
+    // }
+
+    @Test
+    public void test_SpakeV2() throws Exception {
+      byte[] password;
+    byte[] context = "osmosis".getBytes();
+    Socket plainSocket;
+
+    TrustManagerFactory tmf = TrustManagerFactory.getInstance("SPAKE2+");
+    tmf.init(null);
+
+    SpakeClientKeyManagerParameters kmfParamsClient = new SpakeClientKeyManagerParameters.Builder
+        .setClientPassword(password)
+        .setContext(context)
+        .build();
+
+    KeyManagerFactory kmfClient = KeyManagerFactory.getInstance("SPAKE2+");
+    kmfClient.init(kmfParamsClient);
+
+    SpakeServerKeyManagerParameters kmfParamsServer = new SpakeServerKeyManagerParameters.Builder
+        .setContext(context)
+        .build();
+
+    KeyManagerFactory kmfServer = KeyManagerFactory.getInstance("SPAKE2+");
+    kmfServer.init(kmfParamsServer);
+        TestConnection connection = new TestConnection(kmfServer.getKeyManagers(), kmfClient.getKeyManagers(), tmf.getTrustManagers());
+        connection.doHandshakeSuccess();
+
+        assertTrue(connection.clientHooks.isHandshakeCompleted);
+        assertTrue(connection.serverHooks.isHandshakeCompleted);
+
     }
 
     @Test

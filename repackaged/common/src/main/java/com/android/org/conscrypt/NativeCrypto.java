@@ -672,6 +672,41 @@ public final class NativeCrypto {
     static native void ASN1_TIME_to_Calendar(long asn1TimeCtx, Calendar cal)
             throws ParsingException;
 
+    // --- SPAKE ---------------------------------------------------------------
+
+    static native Object[] SPAKE2PLUS_register(
+        byte[] pwArray, int pwLen, byte[] idProverArray,
+        long idProverLen, byte[] idVerifierArray, long idVerifierLen);
+
+    static native NativeRef.SpakeContext SPAKE2PLUS_CTX_new_prover(
+    byte[] context, long contextLen, byte[] idProver,
+    long idProverLen, byte[] idVerifier, long idVerifierLen,
+    byte[] pwVerifierW0, long pwVerifierW0Len,
+    byte[] pwVerifierW1, long pwVerifierW1Len);
+
+    static native NativeRef.SpakeContext SPAKE2PLUS_CTX_new_verifier(
+    byte[] context, long contextLen, byte[] idProver,
+    long idProverLen, byte[] idVerifier, long idVerifierLen,
+    byte[] pwVerifierW0, long pwVerifierW0Len,
+    byte[] registrationRecord, long registrationRecordLen);
+
+    static native void SPAKE2PLUS_CTX_free(NativeRef.SpakeContext ctx);
+
+    static native int SPAKE2PLUS_generate_prover_share(NativeRef.SpakeContext ctx);
+
+    static native  int SPAKE2PLUS_process_prover_share(
+        NativeRef.SpakeContext ctx, byte[] share, long shareLen);
+
+
+    static native  int SPAKE2PLUS_compute_prover_confirmation(
+        NativeRef.SpakeContext ctx, byte[] share, long shareLen,
+    byte[] verifierConfirm, long verifierConfirmLen);
+
+
+    static native int SPAKE2PLUS_verify_prover_confirmation(
+        NativeRef.SpakeContext ctx, byte[] proverConfirm,
+    long proverConfirmLen);
+
     // --- ASN1 Encoding -------------------------------------------------------
 
     /**

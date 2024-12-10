@@ -163,6 +163,17 @@ abstract class NativeRef {
         }
     }
 
+    static final class SPAKE2PLUS_CTX extends NativeRef {
+        SPAKE2PLUS_CTX(long nativePointer) {
+            super(nativePointer);
+        }
+
+        @Override
+        void doFree(long context) {
+            NativeCrypto.SPAKE2PLUS_CTX_free(context);
+        }
+    }
+
     static final class SSL_SESSION extends NativeRef {
         SSL_SESSION(long nativePointer) {
             super(nativePointer);

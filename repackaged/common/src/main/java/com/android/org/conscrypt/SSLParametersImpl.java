@@ -72,6 +72,9 @@ final class SSLParametersImpl implements Cloneable {
     // source of X.509 certificate based authentication trust decisions or null if not provided
     @android.compat.annotation.UnsupportedAppUsage private final X509TrustManager x509TrustManager;
 
+    private final SpakeTrustManager spakeTrustManager;
+    private final SpakeKeyManager spakeKeyManager;
+
     // protocols enabled for SSL connection
     String[] enabledProtocols;
     // set to indicate when obsolete protocols are filtered
@@ -136,6 +139,7 @@ final class SSLParametersImpl implements Cloneable {
         } else {
             x509KeyManager = findFirstX509KeyManager(kms);
             pskKeyManager = findFirstPSKKeyManager(kms);
+            spakeKeyManager = findFirstSpakeKeyManager(kms);
         }
 
         // initialize x509TrustManager
@@ -143,6 +147,7 @@ final class SSLParametersImpl implements Cloneable {
             x509TrustManager = getDefaultX509TrustManager();
         } else {
             x509TrustManager = findFirstX509TrustManager(tms);
+            spakeTrustManager = findFirstSpakeTrustManager(tms);
         }
 
         // initialize the list of cipher suites and protocols enabled by default
@@ -161,8 +166,9 @@ final class SSLParametersImpl implements Cloneable {
         }
         boolean x509CipherSuitesNeeded = (x509KeyManager != null) || (x509TrustManager != null);
         boolean pskCipherSuitesNeeded = pskKeyManager != null;
+        boolean spakeCipherSuitesNeeded = spakeKeyManager != null;
         enabledCipherSuites = getDefaultCipherSuites(
-                x509CipherSuitesNeeded, pskCipherSuitesNeeded);
+                x509CipherSuitesNeeded, pskCipherSuitesNeeded, spakeCipherSuitesNeeded);
 
         // We ignore the SecureRandom passed in by the caller. The native code below
         // directly accesses /dev/urandom, which makes it irrelevant.
@@ -173,12 +179,15 @@ final class SSLParametersImpl implements Cloneable {
     private SSLParametersImpl(ClientSessionContext clientSessionContext,
             ServerSessionContext serverSessionContext, X509KeyManager x509KeyManager,
             PSKKeyManager pskKeyManager, X509TrustManager x509TrustManager,
+            SpakeTrustManager spakeTrustManager, SpakeKeyManager spakeKeyManager,
             SSLParametersImpl sslParams) {
         this.clientSessionContext = clientSessionContext;
         this.serverSessionContext = serverSessionContext;
         this.x509KeyManager = x509KeyManager;
         this.pskKeyManager = pskKeyManager;
         this.x509TrustManager = x509TrustManager;
+        this.spakeTrustManager = spakeTrustManager;
+        this.spakeKeyManager = spakeKeyManager;
 
         this.enabledProtocols =
                 (sslParams.enabledProtocols == null) ? null : sslParams.enabledProtocols.clone();
@@ -248,6 +257,13 @@ final class SSLParametersImpl implements Cloneable {
     @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     PSKKeyManager getPSKKeyManager() {
         return pskKeyManager;
+    }
+
+    /*
+     * Returns Spake key manager or null for none.
+     */
+    SpakeKeyManager getSpakeKeyManager() {
+        return spakeKeyManager;
     }
 
     /*
@@ -523,6 +539,12 @@ final class SSLParametersImpl implements Cloneable {
         SecretKey getPSKKey(PSKKeyManager keyManager, String identityHint, String identity);
     }
 
+    // interface SpakeCallbacks {
+    //     String chooseServerPSKIdentityHint(PSKKeyManager keyManager);
+    //     String chooseClientPSKIdentity(PSKKeyManager keyManager, String identityHint);
+    //     SecretKey getPSKKey(PSKKeyManager keyManager, String identityHint, String identity);
+    // }
+
     /*
      * Returns the clone of this object.
      * TODO(prb): Shouldn't need to override this anymore.
@@ -602,6 +624,18 @@ final class SSLParametersImpl implements Cloneable {
     }
 
     /*
+     * Returns the first SpakeKeyManager element in the provided array.
+     */
+    private static SpakeKeyManager findFirstSpakeKeyManager(KeyManager[] kms) {
+        for (KeyManager km : kms) {
+            if (km instanceof SpakeKeyManager) {
+                return (SpakeKeyManager)km;
+            }
+        }
+        return null;
+    }
+
+    /*
      * Returns the default X.509 trust manager.
      */
     @android.compat.annotation.UnsupportedAppUsage
@@ -647,6 +681,18 @@ final class SSLParametersImpl implements Cloneable {
         return null;
     }
 
+    /*
+     * Returns the first SpakeTrustManager element in the provided array.
+     */
+    private static SpakeTrustManager findFirstSpakeTrustManager(TrustManager[] tms) {
+        for (TrustManager tm : tms) {
+            if (tm instanceof SpakeTrustManager) {
+                return (SpakeTrustManager) tm;
+            }
+        }
+        return null;
+    }
+
     String getEndpointIdentificationAlgorithm() {
         return endpointIdentificationAlgorithm;
     }
@@ -684,7 +730,8 @@ final class SSLParametersImpl implements Cloneable {
 
     private static String[] getDefaultCipherSuites(
             boolean x509CipherSuitesNeeded,
-            boolean pskCipherSuitesNeeded) {
+            boolean pskCipherSuitesNeeded
+            boolean spakeCipherSuitesNeeded) {
         if (x509CipherSuitesNeeded) {
             // X.509 based cipher suites need to be listed.
             if (pskCipherSuitesNeeded) {
@@ -712,6 +759,9 @@ final class SSLParametersImpl implements Cloneable {
         } else {
             // Neither X.509 nor PSK cipher suites need to be listed.
             return new String[] {NativeCrypto.TLS_EMPTY_RENEGOTIATION_INFO_SCSV};
+        }
+        if (x509CipherSuitesNeeded) {
+            return new String[] {NativeCrypto.DEFAULT_SPAKE_CIPHER_SUITES};
         }
     }
 

@@ -50,6 +50,7 @@
 #include <openssl/ssl.h>
 #include <openssl/x509v3.h>
 
+#include <cstddef>
 #include <limits>
 #include <optional>
 #include <type_traits>
@@ -11028,6 +11029,484 @@ static jlong NativeCrypto_SSL_get1_session(JNIEnv* env, jclass, jlong ssl_addres
     }
     return reinterpret_cast<uintptr_t>(SSL_get1_session(ssl));
 }
+
+
+#define SPAKE2PLUS_PW_VERIFIER_SIZE 32
+#define SPAKE2PLUS_REGISTRATION_RECORD_SIZE 65
+#define SPAKE2PLUS_MAX_SHARE_SIZE 65
+#define SPAKE2PLUS_MAX_CONFIRM_SIZE 32
+#define SPAKE2PLUS_MAX_KEY_SIZE 32
+
+static jobjectArray NativeCrypto_SPAKE2PLUS_register(
+    JNIEnv* env, jclass,
+        jbyteArray pwArray, jint pwLen, jbyteArray idProverArray,
+        jlong idProverLen, jbyteArray idVerifierArray, jlong idVerifierLen) {
+        CHECK_ERROR_QUEUE_ON_RETURN;
+        JNI_TRACE("SPAKE2PLUS_register(%p, %d, %p, %ld, %p, %ld)",
+                  pwArray,
+                  pwLen,
+                  idProverArray,
+                  idProverLen,
+                  idVerifierArray,
+                  idVerifierLen);
+
+    if (pwArray == nullptr) {
+        conscrypt::jniutil::throwNullPointerException(env, "pw == null");
+        return {};
+    }
+
+    if (idProverArray == nullptr) {
+        conscrypt::jniutil::throwNullPointerException(env, "idProver == null");
+        return {};
+    }
+
+    if (idVerifierArray == nullptr) {
+        conscrypt::jniutil::throwNullPointerException(env, "idVerifier == null");
+        return {};
+    }
+
+    ScopedByteArrayRO pw_bytes(env, pwArray);
+    if (pw_bytes.get() == nullptr) {
+        return {};
+    }
+
+    ScopedByteArrayRO id_prover_bytes(env, idProverArray);
+    if (id_prover_bytes.get() == nullptr) {
+        return {};
+    }
+
+    ScopedByteArrayRO id_verifier_bytes(env, idVerifierArray);
+    if (id_verifier_bytes.get() == nullptr) {
+        return {};
+    }
+
+    ScopedByteArrayRO peer_public_key(env, pwArray);
+
+    uint8_t pwVerifierW0[SPAKE2PLUS_PW_VERIFIER_SIZE];
+    uint8_t pwVerifierW1[SPAKE2PLUS_PW_VERIFIER_SIZE];
+    uint8_t registrationRecord[SPAKE2PLUS_REGISTRATION_RECORD_SIZE];
+
+            if (!SPAKE2PLUS_register(
+                    /* out_pw_verifier_w0= */ pwVerifierW0,
+                    /* out_pw_verifier_w1= */ pwVerifierW1,
+                    /* out_registration_record= */ registrationRecord,
+                    /* pw= */ pw_bytes,
+                    /* pw_len= */ pwLen,
+                    /* id_prover= */ id_prover_bytes,
+                    /* id_prover_len= */ idProverLen,
+                    /* id_verifier= */ id_verifier_bytes,
+                    /* id_verifier_len= */ idVerifierLen)) {
+                    conscrypt::jniutil::throwExceptionFromBoringSSLError(env, "SPAKE2PLUS_register");
+                    return {};
+            }
+
+    ScopedLocalRef<jbyteArray> pwArray0(env, env->NewByteArray(static_cast<jsize>(SPAKE2PLUS_PW_VERIFIER_SIZE)));
+    if (pwArray0.get() == nullptr) {
+        return {};
+    }
+    ScopedByteArrayRW encBytes0(env, pwArray0.get());
+    if (encBytes0.get() == nullptr) {
+        return {};
+    }
+    memcpy(encBytes0.get(), reinterpret_cast<const jbyte*>(pwVerifierW0), SPAKE2PLUS_PW_VERIFIER_SIZE);
+
+    ScopedLocalRef<jbyteArray> pwArray1(env, env->NewByteArray(static_cast<jsize>(SPAKE2PLUS_PW_VERIFIER_SIZE)));
+    if (pwArray1.get() == nullptr) {
+        return {};
+    }
+    ScopedByteArrayRW encBytes1(env, pwArray1.get());
+    if (encBytes1.get() == nullptr) {
+        return {};
+    }
+    memcpy(encBytes1.get(), reinterpret_cast<const jbyte*>(pwVerifierW1), SPAKE2PLUS_PW_VERIFIER_SIZE);
+
+    ScopedLocalRef<jbyteArray> registrationRecordArray(env, env->NewByteArray(static_cast<jsize>(SPAKE2PLUS_REGISTRATION_RECORD_SIZE)));
+    if (registrationRecordArray.get() == nullptr) {
+        return {};
+    }
+    ScopedByteArrayRW registrationRecordBytes(env, registrationRecordArray.get());
+    if (registrationRecordBytes.get() == nullptr) {
+        return {};
+    }
+    memcpy(registrationRecordBytes.get(), reinterpret_cast<const jbyte*>(registrationRecord), SPAKE2PLUS_REGISTRATION_RECORD_SIZE);
+
+    ScopedLocalRef<jobjectArray> result(
+            env, env->NewObjectArray(3, conscrypt::jniutil::objectClass, nullptr));
+
+    env->SetObjectArrayElement(result.get(), 0, pwArray0.release());
+    env->SetObjectArrayElement(result.get(), 1, pwArray1.release());
+    env->SetObjectArrayElement(result.get(), 2, registrationRecordArray.release());
+
+    return result.release();
+        }
+
+static jobject NativeCrypto_SPAKE2PLUS_CTX_new_prover(
+    JNIEnv* env, jclass,
+    jbyteArray context, jlong contextLen, jbyteArray idProver,
+    jlong idProverLen, jbyteArray idVerifier, jlong idVerifierLen,
+    jbyteArray pwVerifierW0, jlong pwVerifierW0Len,
+    jbyteArray pwVerifierW1, jlong pwVerifierW1Len) {
+        CHECK_ERROR_QUEUE_ON_RETURN;
+        // SPAKE2PLUS_CTX* pkey = fromContextObject<SPAKE2PLUS_CTX>(env, context);
+        JNI_TRACE("NativeCrypto_SPAKE2PLUS_CTX_new_prover(%hhd, %ld, %hhd, %ld, %hhd, %ld, %hhd, %ld, %hhd, %ld, %p, %ld)",
+                  context,
+                  contextLen,
+                  idProver,
+                  idProverLen,
+                  idVerifier,
+                  idVerifierLen,
+                  pwVerifierW0,
+                  pwVerifierW0Len,
+                  pwVerifierW1,
+                  pwVerifierW1Len);
+
+  if (context == nullptr || idProver == nullptr || idVerifier == nullptr ||
+      pwVerifierW0 == nullptr || pwVerifierW1 == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(env, "Input parameters cannot be null");
+    return nullptr;
+  }
+
+  ScopedByteArrayRO context_bytes(env, context);
+  if (context_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  ScopedByteArrayRO id_prover_bytes(env, idProver);
+  if (id_prover_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  ScopedByteArrayRO id_verifier_bytes(env, idVerifier);
+  if (id_verifier_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  ScopedByteArrayRO pw_verifier_w0_bytes(env, pwVerifierW0);
+  if (pw_verifier_w0_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  ScopedByteArrayRO pw_verifier_w1_bytes(env, pwVerifierW1);
+  if (pw_verifier_w1_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+        SPAKE2PLUS_CTX* ctx = SPAKE2PLUS_CTX_new_prover(
+            /* context= */ reinterpret_cast<const uint8_t*>(context_bytes.get()),
+            /* context_len= */ contextLen,
+            /* id_prover= */ reinterpret_cast<const uint8_t*>(id_prover_bytes.get()),
+            /* id_prover_len= */ idProverLen,
+            /* id_verifier= */ reinterpret_cast<const uint8_t*>(id_verifier_bytes.get()),
+            /* id_verifier_len= */ idVerifierLen,
+            /* pw_verifier_w0= */ reinterpret_cast<const uint8_t*>(pw_verifier_w0_bytes.get()),
+            /* pw_verifier_w0_len= */ pwVerifierW0Len,
+            /* pw_verifier_w1= */ reinterpret_cast<const uint8_t*>(pw_verifier_w1_bytes.get()),
+            /* pw_verifier_w1_len= */ pwVerifierW1Len);
+
+  if (ctx == nullptr) {
+            conscrypt::jniutil::throwExceptionFromBoringSSLError(env, "SPAKE2PLUS_CTX_new_prover");
+            return nullptr;
+            }
+
+        return reinterpret_cast<jobject>(ctx);
+    }
+
+static jobject NativeCrypto_SPAKE2PLUS_CTX_new_verifier(
+    JNIEnv* env, jclass,
+    jbyteArray context, jlong contextLen, jbyteArray idProver,
+    jlong idProverLen, jbyteArray idVerifier, jlong idVerifierLen,
+    jbyteArray pwVerifierW0, jlong pwVerifierW0Len,
+    jbyteArray registrationRecord, jlong registrationRecordLen) {
+  CHECK_ERROR_QUEUE_ON_RETURN;
+  // SPAKE2PLUS_CTX* pkey = fromContextObject<SPAKE2PLUS_CTX>(env, context);
+  JNI_TRACE("NativeCrypto_SPAKE2PLUS_CTX_new_verifier(%hhd, %ld, %hhd, %ld, "
+            "%hhd, %ld, %hhd, %ld, %hhd, %ld)",
+            context, contextLen, idProver, idProverLen, idVerifier,
+            idVerifierLen, pwVerifierW0, pwVerifierW0Len, registrationRecord,
+            registrationRecordLen);
+
+  if (context == nullptr || idProver == nullptr || idVerifier == nullptr ||
+      pwVerifierW0 == nullptr || registrationRecord == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(
+        env, "Input parameters cannot be null");
+    return nullptr;
+  }
+
+  ScopedByteArrayRO context_bytes(env, context);
+  if (context_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  ScopedByteArrayRO id_prover_bytes(env, idProver);
+  if (id_prover_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  ScopedByteArrayRO id_verifier_bytes(env, idVerifier);
+  if (id_verifier_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  ScopedByteArrayRO pw_verifier_w0_bytes(env, pwVerifierW0);
+  if (pw_verifier_w0_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  ScopedByteArrayRO registration_record_bytes(env, registrationRecord);
+  if (registration_record_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  SPAKE2PLUS_CTX* ctx = SPAKE2PLUS_CTX_new_verifier(
+      /* context= */ reinterpret_cast<const uint8_t*>(context_bytes.get()),
+      /* context_len= */ contextLen,
+      /* id_prover= */ reinterpret_cast<const uint8_t*>(id_prover_bytes.get()),
+      /* id_prover_len= */ idProverLen,
+      /* id_verifier= */ reinterpret_cast<const uint8_t*>(id_verifier_bytes.get()),
+      /* id_verifier_len= */ idVerifierLen,
+      /* pw_verifier_w0= */ reinterpret_cast<const uint8_t*>(pw_verifier_w0_bytes.get()),
+      /* pw_verifier_w0_len= */ pwVerifierW0Len,
+      /* registration_record= */ reinterpret_cast<const uint8_t*>(registration_record_bytes.get()),
+      /* registration_record_len= */ registrationRecordLen);
+
+  if (ctx == nullptr) {
+    conscrypt::jniutil::throwExceptionFromBoringSSLError(
+        env, "SPAKE2PLUS_CTX_new_verifier");
+    return nullptr;
+  }
+
+  return reinterpret_cast<jobject>(ctx);
+    }
+
+static void NativeCrypto_SPAKE2PLUS_CTX_free(JNIEnv* env, jclass,
+                                             jobject ctx) {
+        CHECK_ERROR_QUEUE_ON_RETURN;
+        SPAKE2PLUS_CTX* ctx = reinterpret_cast<SPAKE2PLUS_CTX*>(ctx);
+        JNI_TRACE(" SPAKE2PLUS_CTX_free(%p)", ctx);
+        if (ctx == nullptr) {
+            conscrypt::jniutil::throwNullPointerException(env, "ctx == null");
+            return;
+        }
+        SPAKE2PLUS_CTX_free(ctx);
+    }
+
+static jbyteArray NativeCrypto_SPAKE2PLUS_generate_prover_share(
+    JNIEnv* env, jclass, jobject ctx) {
+        CHECK_ERROR_QUEUE_ON_RETURN;
+  SPAKE2PLUS_CTX* c = reinterpret_cast<SPAKE2PLUS_CTX*>(ctx);
+        JNI_TRACE("SPAKE2PLUS_generate_prover_share(%p)", ctx);
+  if (c == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(env, "ctx cannot be null");
+    return nullptr;
+  }
+
+  uint8_t out[SPAKE2PLUS_MAX_SHARE_SIZE];
+  size_t out_len;
+  int ret = SPAKE2PLUS_generate_prover_share(
+      /* ctx= */ c,
+      /* out= */ out,
+      /* out_len= */ &out_len,
+      /* max_out_len= */ SPAKE2PLUS_MAX_SHARE_SIZE);
+  if (ret != 1) {
+    conscrypt::jniutil::throwExceptionFromBoringSSLError(env, "SPAKE2PLUS_generate_prover_share");
+    return nullptr;
+  }
+
+  // Dunno about this below maybe copy from EVP_HPKE_CTX_open
+  jbyteArray result = env->NewByteArray(out_len);
+  if (result == nullptr) {
+    return nullptr;
+  }
+
+  env->SetByteArrayRegion(result, 0, out_len, reinterpret_cast<jbyte*>(out));
+  return result;
+    }
+
+static jobjectArray NativeCrypto_SPAKE2PLUS_process_prover_share(
+    JNIEnv* env, jclass,
+    jobject ctx, jbyteArray share, jlong shareLen) {
+        CHECK_ERROR_QUEUE_ON_RETURN;
+        SPAKE2PLUS_CTX* c = reinterpret_cast<SPAKE2PLUS_CTX*>(ctx);
+        JNI_TRACE("SPAKE2PLUS_process_prover_share(%p, %p, %ld)",
+                  ctx,
+                  share,
+                  shareLen);
+
+  if (c == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(env, "ctx cannot be null");
+    return nullptr;
+  }
+  if (share == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(env, "share cannot be null");
+    return nullptr;
+  }
+
+  ScopedByteArrayRO share_bytes(env, share);
+  if (share_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  uint8_t out_share[SPAKE2PLUS_MAX_SHARE_SIZE];
+  size_t out_share_len;
+  uint8_t out_confirm[SPAKE2PLUS_MAX_CONFIRM_SIZE];
+  size_t out_confirm_len;
+  uint8_t out_secret[SPAKE2PLUS_MAX_KEY_SIZE];
+  size_t out_secret_len;
+        if (!SPAKE2PLUS_process_prover_share(
+            /* ctx= */ ctx,
+            /* out_share= */ out_share,
+            /* out_share_len= */ out_share_len,
+            /* max_out_share_len= */ SPAKE2PLUS_MAX_SHARE_SIZE,
+            /* out_confirm= */ out_confirm,
+            /* out_confirm_len= */ out_confirm_len,
+            /* max_out_confirm_len= */ SPAKE2PLUS_MAX_CONFIRM_SIZE,
+            /* out_secret= */ out_secret,
+            /* out_secret_len= */ out_secret_len,
+            /* max_out_secret_len= */ SPAKE2PLUS_MAX_KEY_SIZE,
+            /* share= */ share,
+            /* share_len= */ shareLen)) {
+            conscrypt::jniutil::throwExceptionFromBoringSSLError(env, "SPAKE2PLUS_process_prover_share");
+        }
+
+  jobjectArray ret = env->NewObjectArray(3, conscrypt::jniutil::objectArrayClass, nullptr);
+  if (ret == nullptr) {
+    return nullptr;
+  }
+
+  jbyteArray out_share_array = env->NewByteArray(out_share_len);
+  if (out_share_array == nullptr) {
+    return nullptr;
+  }
+  env->SetByteArrayRegion(out_share_array, 0, out_share_len,
+                          reinterpret_cast<jbyte*>(out_share));
+  env->SetObjectArrayElement(ret, 0, out_share_array);
+
+  jbyteArray out_confirm_array = env->NewByteArray(out_confirm_len);
+  if (out_confirm_array == nullptr) {
+    return nullptr;
+  }
+  env->SetByteArrayRegion(out_confirm_array, 0, out_confirm_len,
+                          reinterpret_cast<jbyte*>(out_confirm));
+  env->SetObjectArrayElement(ret, 1, out_confirm_array);
+
+  jbyteArray out_secret_array = env->NewByteArray(out_secret_len);
+  if (out_secret_array == nullptr) {
+    return nullptr;
+  }
+  env->SetByteArrayRegion(out_secret_array, 0, out_secret_len,
+                          reinterpret_cast<jbyte*>(out_secret));
+  env->SetObjectArrayElement(ret, 2, out_secret_array);
+
+  return ret;
+    }
+
+
+static jobjectArray NativeCrypto_SPAKE2PLUS_compute_prover_confirmation(
+    JNIEnv* env, jclass,
+    jobject ctx, jbyteArray share, jlong shareLen,
+    jbyteArray verifierConfirm, jlong verifierConfirmLen) {
+        CHECK_ERROR_QUEUE_ON_RETURN;
+  SPAKE2PLUS_CTX* c = reinterpret_cast<SPAKE2PLUS_CTX*>(ctx);
+        JNI_TRACE("SPAKE2PLUS_compute_prover_confirmation(%p, %p, %ld, %p, %ld)",
+                  ctx,
+                  share,
+                  shareLen,
+                  verifierConfirm,
+                  verifierConfirmLen);
+  if (c == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(env, "ctx cannot be null");
+    return nullptr;
+  }
+  if (share == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(env, "share cannot be null");
+    return nullptr;
+  }
+  if (verifierConfirm == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(env, "verifierConfirm cannot be null");
+    return nullptr;
+  }
+
+  ScopedByteArrayRO share_bytes(env, share);
+  if (share_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  ScopedByteArrayRO verifier_confirm_bytes(env, verifierConfirm);
+  if (verifier_confirm_bytes.get() == nullptr) {
+    return nullptr;
+  }
+
+  uint8_t out_confirm[SPAKE2PLUS_MAX_CONFIRM_SIZE];
+  size_t out_confirm_len;
+  uint8_t out_secret[SPAKE2PLUS_MAX_KEY_SIZE];
+  size_t out_secret_len;
+  int ret = SPAKE2PLUS_compute_prover_confirmation(
+      /* ctx= */ c,
+      /* out_confirm= */ out_confirm,
+      /* out_confirm_len= */ &out_confirm_len,
+      /* max_out_confirm_len= */ SPAKE2PLUS_MAX_CONFIRM_SIZE,
+      /* out_secret= */ out_secret,
+      /* out_secret_len= */ &out_secret_len,
+      /* max_out_secret_len= */ SPAKE2PLUS_MAX_KEY_SIZE,
+      /* share= */ share_bytes.get(),
+      /* share_len= */ shareLen,
+      /* verifier_confirm= */ verifier_confirm_bytes.get(),
+      /* verifier_confirm_len= */ verifierConfirmLen);
+  if (ret != 1) {
+    conscrypt::jniutil::throwExceptionFromBoringSSLError(env, "SPAKE2PLUS_compute_prover_confirmation");
+    }
+
+  jobjectArray ret = env->NewObjectArray(2, "[B", nullptr);
+  if (ret == nullptr) {
+    return nullptr;
+  }
+
+  jbyteArray out_confirm_array = env->NewByteArray(out_confirm_len);
+  if (out_confirm_array == nullptr) {
+    return nullptr;
+  }
+  env->SetByteArrayRegion(out_confirm_array, 0, out_confirm_len,
+                          reinterpret_cast<jbyte*>(out_confirm));
+  env->SetObjectArrayElement(ret, 0, out_confirm_array);
+
+  jbyteArray out_secret_array = env->NewByteArray(out_secret_len);
+  if (out_secret_array == nullptr) {
+    return nullptr;
+  }
+  env->SetByteArrayRegion(out_secret_array, 0, out_secret_len,
+                          reinterpret_cast<jbyte*>(out_secret));
+  env->SetObjectArrayElement(ret, 1, out_secret_array);
+
+  return ret;
+    }
+
+
+static int NativeCrypto_SPAKE2PLUS_verify_prover_confirmation(
+    JNIEnv* env, jclass,
+    jobject ctx, jbyteArray proverConfirm,
+    jlong proverConfirmLen) {
+        CHECK_ERROR_QUEUE_ON_RETURN;
+  SPAKE2PLUS_CTX* c = reinterpret_cast<SPAKE2PLUS_CTX*>(ctx);
+        JNI_TRACE("SPAKE2PLUS_verify_prover_confirmation(%p, %hhd, %ld)",
+                  ctx,
+                  prover_confirm,
+                  prover_confirm_len);
+
+  if (c == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(env, "ctx cannot be null");
+    return -1;
+  }
+  if (proverConfirm == nullptr) {
+    conscrypt::jniutil::throwNullPointerException(env, "proverConfirm cannot be null");
+    return -1;
+  }
+        if (!SPAKE2PLUS_verify_prover_confirmation(
+            /* ctx */ ctx,
+            /* prover_confirm */ prover_confirm,
+            /* prover_confirm_len */ prover_confirm_len)) {
+            conscrypt::jniutil::throwExceptionFromBoringSSLError(env, "SPAKE2PLUS_verify_prover_confirmation");
+        }
+    }
 
 // TESTING METHODS END
 
