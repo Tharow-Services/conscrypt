@@ -92,6 +92,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c7ddc77d_a45bb583",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-10T18:12:45Z",
+      "side": 1,
+      "message": "\u003e unless maybe we put SpakeKeyManagerFactory in platform\n\nI think we\u0027ll have to do that anyway, since this is only available for some specific purpose and shouldn\u0027t be needed for the other platforms. In any case, we do need `SystemApi(PRIVILEGED_APPS)` for the API.",
+      "parentUuid": "c4030165_9dd46621",
+      "revId": "7f46d4c33593186a4e4f96f474364752e5af580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adac4b4e_3c818db1",
         "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
         "patchSetId": 14
