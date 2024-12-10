@@ -73,4 +73,9 @@ public final class ConscryptStatsLog {
         builder.usePooledBuffer();
         ReflexiveStatsLog.write(builder.build());
     }
+<<<<<<< HEAD   (466704 Merge "Re-add stats-log class for conscrypt metrics" into ma)
 }
+||||||| BASE
+=======
+}
+>>>>>>> BRANCH (f5dcc9 Add git-clang-format GitHub workflow (#1270))
