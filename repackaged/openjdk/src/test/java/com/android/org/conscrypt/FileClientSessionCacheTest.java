@@ -17,16 +17,24 @@
 
 package com.android.org.conscrypt;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import com.android.org.conscrypt.javax.net.ssl.FakeSSLSession;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+
 import java.io.File;
 import java.io.IOException;
-import junit.framework.TestCase;
-import com.android.org.conscrypt.javax.net.ssl.FakeSSLSession;
 
 /**
  * @hide This class is not part of the Android public SDK API
  */
-public class FileClientSessionCacheTest extends TestCase {
-
+@RunWith(JUnit4.class)
+public class FileClientSessionCacheTest {
+    @Test
     public void testMaxSize() throws IOException, InterruptedException {
         String tmpDir = System.getProperty("java.io.tmpdir");
         if (tmpDir == null) {
