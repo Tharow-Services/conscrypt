@@ -56,6 +56,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1c072d80_ce0d488e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-10T17:52:26Z",
+      "side": 1,
+      "message": "\u003e it\u0027s normally guarded by an Android permission. Otherwise, it should just made public.\n\nOh, so I\u0027d need to add an Android permission to this module? I think we\u0027d want `SystemApi(PRIVILEGED_APPS)`, rather than just `SystemApi(MODULE_LIBRARIES)`. But I could be wrong, I\u0027ll check.",
+      "parentUuid": "c50a08e2_75f53ee6",
+      "revId": "7f46d4c33593186a4e4f96f474364752e5af580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adac4b4e_3c818db1",
         "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
         "patchSetId": 14
