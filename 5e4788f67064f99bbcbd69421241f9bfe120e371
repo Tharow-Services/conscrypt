@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fbcbbcb7_123762e9",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-10T14:05:45Z",
+      "side": 1,
+      "message": "nit: import this?",
+      "range": {
+        "startLine": 902,
+        "startChar": 28,
+        "endLine": 902,
+        "endChar": 51
+      },
+      "revId": "5e4788f67064f99bbcbd69421241f9bfe120e371",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e81f3cc_1631fad2",
+        "filename": "common/src/main/java/org/conscrypt/ct/CertificateTransparency.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-10T14:05:45Z",
+      "side": 1,
+      "message": "Please fix this WARNING reported by Error Prone: [UnusedVariable] The field \u0027statsLog\u0027 is never read.\n\nWhich seems like a concern 😊",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "5e4788f67064f99bbcbd69421241f9bfe120e371",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8a54e23a_ec3cb0ae",
+        "filename": "openjdk/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-10T14:05:45Z",
+      "side": 1,
+      "message": "import?",
+      "range": {
+        "startLine": 748,
+        "startChar": 28,
+        "endLine": 748,
+        "endChar": 51
+      },
+      "revId": "5e4788f67064f99bbcbd69421241f9bfe120e371",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
