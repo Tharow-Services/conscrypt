@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "4ce9d4fd_8cdde6d0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2024-12-10T17:48:35Z",
+      "side": 1,
+      "message": "There are 2 kinds of SystemApi, i.e.  SystemApi(PRIVILEGED_APPS)  and @CorePlatformApi, which is equivalent to SystemApi(MODULE_LIBRARIES).  For `SystemApi(PRIVILEGED_APPS)`, it\u0027s normally guarded by an Android permission. Otherwise, it should just made public.\n\nI guess that it should be @CorePlatformApi(STABLE) here.",
+      "parentUuid": "cf984e71_61240aff",
+      "revId": "7f46d4c33593186a4e4f96f474364752e5af580f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "adac4b4e_3c818db1",
         "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
         "patchSetId": 14
