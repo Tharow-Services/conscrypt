@@ -226,6 +226,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d59b50aa_6b51859b",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:29:00Z",
+      "side": 1,
+      "message": "nit: indentation",
+      "range": {
+        "startLine": 1120,
+        "startChar": 6,
+        "endLine": 1120,
+        "endChar": 12
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c65bccda_62fc1fa8",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:29:00Z",
+      "side": 1,
+      "message": "You should only need to run one side of the handshake in a background thread.",
+      "range": {
+        "startLine": 1124,
+        "startChar": 0,
+        "endLine": 1124,
+        "endChar": 19
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7d14809_f1e0c90b",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:29:00Z",
+      "side": 1,
+      "message": "Send some data and close gracefully to be sure it\u0027s working",
+      "range": {
+        "startLine": 1130,
+        "startChar": 24,
+        "endLine": 1130,
+        "endChar": 29
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1096105b_e998ed58",
         "filename": "platform/src/main/java/org/conscrypt/SpakeKeyManagerFactory.java",
         "patchSetId": 11
