@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9a03f3c9_12685d06",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80eaa639_478d93a4",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e872090_0a5d6710",
@@ -58,6 +76,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ac00224_8acb7d1c",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b2273ee0_4bdce8d1",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5dc15f40_cf67affe",
@@ -75,6 +111,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "15ea0911_0e58eaa4",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Rather ugly logic to try to put down. I\u0027ve put the spake stuff into it\u0027s own initial section in order to add extra checking and thus keep this section as-is, but lmk if you have an idea for beautifying it.",
+      "parentUuid": "5dc15f40_cf67affe",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f059cce3_d6d17eb5",
@@ -88,6 +142,30 @@
       "writtenOn": "2024-12-11T15:18:04Z",
       "side": 1,
       "message": "`isSpake()`",
+      "range": {
+        "startLine": 170,
+        "startChar": 63,
+        "endLine": 170,
+        "endChar": 78
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ee28c8b_18fb2175",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f059cce3_d6d17eb5",
       "range": {
         "startLine": 170,
         "startChar": 63,
@@ -117,6 +195,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "231c7d4f_f644427f",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "It is only called in order to add a new x509 trust manager, so I don\u0027t think that\u0027s a valid use case for spake, is it?",
+      "parentUuid": "028a1ac8_20d07d82",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3bb93229_ebd94c58",
         "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 11
@@ -128,6 +224,30 @@
       "writtenOn": "2024-12-11T15:18:04Z",
       "side": 1,
       "message": "Not sure about this, will need to review later",
+      "range": {
+        "startLine": 725,
+        "startChar": 12,
+        "endLine": 725,
+        "endChar": 35
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "410669be_c4403908",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "I\u0027m taking the name directly from the boringssl cl, but lmk if I should not.",
+      "parentUuid": "3bb93229_ebd94c58",
       "range": {
         "startLine": 725,
         "startChar": 12,
@@ -161,6 +281,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d1c4b3c_f24a8c55",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "With the added check above it is the same now",
+      "parentUuid": "d8bf6f8d_80545dba",
+      "range": {
+        "startLine": 774,
+        "startChar": 15,
+        "endLine": 774,
+        "endChar": 30
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8138764d_1cab0ffe",
@@ -174,6 +318,30 @@
       "writtenOn": "2024-12-11T15:18:04Z",
       "side": 1,
       "message": "Missing copyright",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 70
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eca589bb_408d41a7",
+        "filename": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8138764d_1cab0ffe",
       "range": {
         "startLine": 2,
         "startChar": 0,
@@ -207,6 +375,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e01cabe5_b3d5238c",
+        "filename": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1591107_1cf0123a",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 18
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "f587a4cc_f926bdb6",
@@ -224,6 +416,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "131b7036_7d66cc1a",
+        "filename": "common/src/main/java/org/conscrypt/SpakeTrustManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f587a4cc_f926bdb6",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d59b50aa_6b51859b",
@@ -237,6 +447,30 @@
       "writtenOn": "2024-12-11T15:29:00Z",
       "side": 1,
       "message": "nit: indentation",
+      "range": {
+        "startLine": 1120,
+        "startChar": 6,
+        "endLine": 1120,
+        "endChar": 12
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e836c35b_e9f3117f",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1120,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d59b50aa_6b51859b",
       "range": {
         "startLine": 1120,
         "startChar": 6,
@@ -270,6 +504,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a8b96841_0cdcf336",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1124,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c65bccda_62fc1fa8",
+      "range": {
+        "startLine": 1124,
+        "startChar": 0,
+        "endLine": 1124,
+        "endChar": 19
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b7d14809_f1e0c90b",
@@ -283,6 +541,30 @@
       "writtenOn": "2024-12-11T15:29:00Z",
       "side": 1,
       "message": "Send some data and close gracefully to be sure it\u0027s working",
+      "range": {
+        "startLine": 1130,
+        "startChar": 24,
+        "endLine": 1130,
+        "endChar": 29
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c971e998_70d1a909",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1130,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b7d14809_f1e0c90b",
       "range": {
         "startLine": 1130,
         "startChar": 24,
@@ -310,6 +592,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5846b20a_4b917b64",
+        "filename": "platform/src/main/java/org/conscrypt/SpakeKeyManagerFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1096105b_e998ed58",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "47dfa568_38b349bc",
@@ -323,6 +623,30 @@
       "writtenOn": "2024-12-11T15:18:04Z",
       "side": 1,
       "message": "nit: check not already initialised",
+      "range": {
+        "startLine": 65,
+        "startChar": 17,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1ab1e6ea_5aa9ef2a",
+        "filename": "platform/src/main/java/org/conscrypt/SpakeKeyManagerFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "47dfa568_38b349bc",
       "range": {
         "startLine": 65,
         "startChar": 17,
@@ -381,6 +705,30 @@
       "writtenOn": "2024-12-11T15:18:04Z",
       "side": 1,
       "message": "The original is correct for all of these 😊",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 35
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "93025357_9f51fdf4",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T16:01:14Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "557546a0_545c4a04",
       "range": {
         "startLine": 58,
         "startChar": 0,
