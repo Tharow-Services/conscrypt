@@ -666,6 +666,13 @@ public final class NativeCrypto {
     @android.compat.annotation.UnsupportedAppUsage
     static native int X509_supported_extension(long x509ExtensionRef);
 
+    // --- SPAKE ---------------------------------------------------------------
+
+    static native void SSL_CTX_set_spake_credential(
+        Object sslCtx, byte[] context, int contextLen,
+        byte[] pwArray, int pwLen, byte[] idProverArray, int idProverLen,
+        byte[] idVerifierArray, int idVerifierLen, boolean isClient);
+
     // --- ASN1_TIME -----------------------------------------------------------
 
     @android.compat.annotation.UnsupportedAppUsage
@@ -990,6 +997,11 @@ public final class NativeCrypto {
             "TLS_ECDHE_PSK_WITH_AES_256_CBC_SHA",
             "TLS_PSK_WITH_AES_128_CBC_SHA",
             "TLS_PSK_WITH_AES_256_CBC_SHA",
+    };
+
+    /** TLS-SPAKE */
+    static final String[] DEFAULT_SPAKE_CIPHER_SUITES = new String[] {
+            "TLS1_3_NAMED_PAKE_SPAKE2PLUSV1",
     };
 
     static String[] getSupportedCipherSuites() {
