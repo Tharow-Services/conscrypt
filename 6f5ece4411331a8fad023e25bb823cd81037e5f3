@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6c79518d_b767d493",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-11T11:05:33Z",
+      "side": 1,
+      "message": "Bypassing Lint as test coverage for the API has been added.",
+      "revId": "6f5ece4411331a8fad023e25bb823cd81037e5f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
