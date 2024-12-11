@@ -107,6 +107,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e4b1cc99_6477a212",
+        "filename": "common/src/main/java/org/conscrypt/TrustManagerImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 747,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-11T04:56:43Z",
+      "side": 1,
+      "message": "Ack, that\u0027s my understanding as well.",
+      "parentUuid": "706ca2ce_897ca038",
+      "range": {
+        "startLine": 747,
+        "startChar": 21,
+        "endLine": 747,
+        "endChar": 28
+      },
+      "revId": "0ec2eb1813fb29edf88c2475a9d9adb7fe328f8b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6eb9da8e_745a0c8e",
