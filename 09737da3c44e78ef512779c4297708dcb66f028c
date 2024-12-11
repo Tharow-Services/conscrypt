@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1834e188_bd979af4",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10919,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T23:28:00Z",
+      "side": 1,
+      "message": "JNI_TRACE compiles to nothing unless specific build flags are set.\n\nThese checks all need to throw `NullPointerException` because they\u0027re detecting null inputs.  The API contract here (which we should probably state explicitly) is that we\u0027re either setting up the SPAKE credentials or throwing.  We can\u0027t just return on error with no failure indication or the calling code will make incorrect assumptions.",
+      "parentUuid": "a4ffb818_0199789d",
+      "range": {
+        "startLine": 10919,
+        "startChar": 8,
+        "endLine": 10919,
+        "endChar": 14
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3a75a198_bd5fd849",
         "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
         "patchSetId": 16
@@ -232,6 +256,24 @@
       "side": 1,
       "message": "Which ones? I\u0027m only throwing NullPointers and BoringSSL ones but I can\u0027t see any function that does something like that?",
       "parentUuid": "370a0aa3_779f04ea",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d9fd58d8_dc246889",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T23:28:00Z",
+      "side": 1,
+      "message": "I don\u0027t know.  It\u0027s a matter of what error codes can come back from BoringSSL and what Exceptions it makes the most sense to translate them to.  For example there might be something analogous to InvalidKeyExcepption for a zero length password.\n\nThe process is, figure out all the possible error returns from BoringSSL.  Make sure they\u0027re mapped to sensible Java exceptions in jniutil.cc and if any of those exceptions are checked then declare them here,",
+      "parentUuid": "917903e3_2f5aef58",
       "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },

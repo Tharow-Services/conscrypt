@@ -297,6 +297,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "08c27178_200fa351",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T23:28:00Z",
+      "side": 1,
+      "message": "Need to review the code in getDelegatingTrustMananger() to be sure, but if it calls this constructor then you need to copy the spake fields otherwise you\u0027ll end up with a delegating trust manager which delegates to null.....",
+      "parentUuid": "f6657f9c_72a22231",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3bb93229_ebd94c58",
         "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 11
