@@ -115,10 +115,9 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
         }
 
         /**
-         * Sets the client's identity using individual components.
+         * Sets the prover's identity using individual components.
          *
-         * @param clientIdentity The client's identity.
-         * @param serverIdentity The server's identity.
+         * @param idProvider The identity of the prover (client).
          * @return this builder.
          */
         @NonNull
@@ -128,6 +127,12 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
             return this;
         }
 
+        /**
+         * Sets the verifier's identity using individual components.
+         *
+         * @param idVerifier The identity of the verifier (server).
+         * @return this builder.
+         */
         @NonNull
         public Builder setIdVerifier(@NonNull byte[] idVerifier) {
             requireNonNull(idVerifier, "The idVerifier needs to be set");
