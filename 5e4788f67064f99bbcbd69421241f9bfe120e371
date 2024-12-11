@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1c258027_8acf2e3e",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 902,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-11T02:50:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fbcbbcb7_123762e9",
+      "range": {
+        "startLine": 902,
+        "startChar": 28,
+        "endLine": 902,
+        "endChar": 51
+      },
+      "revId": "5e4788f67064f99bbcbd69421241f9bfe120e371",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5e81f3cc_1631fad2",
@@ -47,6 +71,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "75400cc7_ef6fa054",
+        "filename": "common/src/main/java/org/conscrypt/ct/CertificateTransparency.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-11T02:50:40Z",
+      "side": 1,
+      "message": "Done. This was meant to be added 2 changes down in the chain (\"Report CT verification result\"). Moved there. Thanks.",
+      "parentUuid": "5e81f3cc_1631fad2",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 30
+      },
+      "revId": "5e4788f67064f99bbcbd69421241f9bfe120e371",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8a54e23a_ec3cb0ae",
@@ -60,6 +108,30 @@
       "writtenOn": "2024-12-10T14:05:45Z",
       "side": 1,
       "message": "import?",
+      "range": {
+        "startLine": 748,
+        "startChar": 28,
+        "endLine": 748,
+        "endChar": 51
+      },
+      "revId": "5e4788f67064f99bbcbd69421241f9bfe120e371",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c15b3b5b_32d221ad",
+        "filename": "openjdk/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 3
+      },
+      "lineNbr": 748,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-11T02:50:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8a54e23a_ec3cb0ae",
       "range": {
         "startLine": 748,
         "startChar": 28,
