@@ -24,6 +24,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fce85c55_f614d80b",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10895,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "c4cdb0bc_1bb1dfe3",
+      "range": {
+        "startLine": 10895,
+        "startChar": 70,
+        "endLine": 10895,
+        "endChar": 80
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a0f2ae8_702e1b99",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10895,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4cdb0bc_1bb1dfe3",
+      "range": {
+        "startLine": 10895,
+        "startChar": 70,
+        "endLine": 10895,
+        "endChar": 80
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8f35a567_90f68206",
@@ -37,6 +85,30 @@
       "writtenOn": "2024-12-11T18:26:14Z",
       "side": 1,
       "message": "And throw... For all of these.",
+      "range": {
+        "startLine": 10919,
+        "startChar": 8,
+        "endLine": 10919,
+        "endChar": 14
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a4ffb818_0199789d",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10919,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "I\u0027ve added a trace but I see no exceptions thrown for such cases, is there a specific type I should throw?",
+      "parentUuid": "8f35a567_90f68206",
       "range": {
         "startLine": 10919,
         "startChar": 8,
@@ -70,6 +142,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a695e95f_33b25e7c",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10951,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "3a75a198_bd5fd849",
+      "range": {
+        "startLine": 10951,
+        "startChar": 28,
+        "endLine": 10951,
+        "endChar": 60
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "a7e3bc3d_b2d79198",
@@ -83,6 +179,24 @@
       "writtenOn": "2024-12-11T18:26:14Z",
       "side": 1,
       "message": "I assume ownership of creds gets transferred here?",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e27721f0_80f55b3c",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10994,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "That is my understanding",
+      "parentUuid": "a7e3bc3d_b2d79198",
       "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -106,6 +220,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "917903e3_2f5aef58",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "Which ones? I\u0027m only throwing NullPointers and BoringSSL ones but I can\u0027t see any function that does something like that?",
+      "parentUuid": "370a0aa3_779f04ea",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "ee9e6b82_b27a3f2a",
         "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
         "patchSetId": 16
@@ -117,6 +249,24 @@
       "writtenOn": "2024-12-11T18:26:14Z",
       "side": 1,
       "message": "By convention we also pass in `this` as the last argument so that neither this or any of its field can get GCed while we\u0027re in native code.",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "288524b7_f48b10ff",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee9e6b82_b27a3f2a",
       "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -134,6 +284,30 @@
       "writtenOn": "2024-12-11T18:26:14Z",
       "side": 1,
       "message": "What if it throws?  I _think_ this will be mid-handshake from that app\u0027s point of view so probably needs translating to a HandshakeException, but check.",
+      "range": {
+        "startLine": 292,
+        "startChar": 12,
+        "endLine": 292,
+        "endChar": 21
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8aa765af_e8ac7fcc",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1832b95a_d5cd166f",
       "range": {
         "startLine": 292,
         "startChar": 12,
@@ -167,6 +341,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b3eeb71_c32595a2",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "It would be an else anyways so isn\u0027t it the same?",
+      "parentUuid": "c24914db_3a77ba0e",
+      "range": {
+        "startLine": 371,
+        "startChar": 13,
+        "endLine": 371,
+        "endChar": 20
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6df6ff31_ada3c7d2",
@@ -180,6 +378,24 @@
       "writtenOn": "2024-12-11T18:26:14Z",
       "side": 1,
       "message": "Both class names need `PREFIX + `in front of them.",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "43649d8e_8e29675b",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6df6ff31_ada3c7d2",
       "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }

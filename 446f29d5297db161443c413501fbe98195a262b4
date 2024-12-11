@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "e301e41b_05e9f2c2",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 20
+      },
+      "lineNbr": 10904,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "Done. Plus I made sslcontext creation happen here too.",
+      "parentUuid": "ed5055c9_104ae309",
+      "range": {
+        "startLine": 10904,
+        "startChar": 4,
+        "endLine": 10904,
+        "endChar": 7
+      },
+      "revId": "446f29d5297db161443c413501fbe98195a262b4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "59b19351_e3b7074c",

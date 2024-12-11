@@ -279,6 +279,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f6657f9c_72a22231",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T20:55:29Z",
+      "side": 1,
+      "message": "Ok, not completely sure I\u0027m doing the right thing here, but I\u0027ve modified that function to copy spake managers if present. We don\u0027t need delegation for spake though, right?",
+      "parentUuid": "244450df_27df3b29",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3bb93229_ebd94c58",
         "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 11
