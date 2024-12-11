@@ -1,0 +1,260 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d0b13a6a_72a93807",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 10998,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-11T12:06:00Z",
+      "side": 1,
+      "message": "nit: Alignment",
+      "range": {
+        "startLine": 10996,
+        "startChar": 0,
+        "endLine": 10998,
+        "endChar": 64
+      },
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481e2e8c_795ab7d5",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 11011,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-11T12:06:00Z",
+      "side": 1,
+      "message": "nit: Alignment",
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "843ae2f9_93c8edf5",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-11T12:06:00Z",
+      "side": 1,
+      "message": "It\u0027s better to init the flag before calling into another function.",
+      "fixSuggestions": [
+        {
+          "fixId": "37cb342c_61b9ef6e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "common/src/main/java/org/conscrypt/NativeSsl.java",
+              "range": {
+                "startLine": 74,
+                "startChar": 0,
+                "endLine": 75,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "common/src/main/java/org/conscrypt/NativeSsl.java",
+              "range": {
+                "startLine": 76,
+                "startChar": 0,
+                "endLine": 76,
+                "endChar": 0
+              },
+              "replacement": "            initSpake();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "210bfe05_a80c9cc4",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-11T12:06:00Z",
+      "side": 1,
+      "message": "No need for the flag, you can have a method that checks if SpakeKeyManager is set.",
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7c28a28e_d1a26928",
+        "filename": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-11T12:06:00Z",
+      "side": 1,
+      "message": "Why to just hold the SpakeKeyManagerParameters instance?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "30103897_30d67d88",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+              "range": {
+                "startLine": 28,
+                "startChar": 0,
+                "endLine": 32,
+                "endChar": 0
+              },
+              "replacement": "  SpakeKeyManagerParameters parameters;\n"
+            },
+            {
+              "path": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+              "range": {
+                "startLine": 33,
+                "startChar": 0,
+                "endLine": 39,
+                "endChar": 0
+              },
+              "replacement": "  SpakeKeyManager(SpakeKeyManagerParameters parameters) {\n    this.parameters \u003d parameters;\n"
+            },
+            {
+              "path": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+              "range": {
+                "startLine": 52,
+                "startChar": 0,
+                "endLine": 53,
+                "endChar": 0
+              },
+              "replacement": "    return parameters.getContext();\n"
+            },
+            {
+              "path": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+              "range": {
+                "startLine": 56,
+                "startChar": 0,
+                "endLine": 57,
+                "endChar": 0
+              },
+              "replacement": "    return parameters.getPassword();\n"
+            },
+            {
+              "path": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+              "range": {
+                "startLine": 60,
+                "startChar": 0,
+                "endLine": 61,
+                "endChar": 0
+              },
+              "replacement": "    return parameters.getIdProver();\n"
+            },
+            {
+              "path": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+              "range": {
+                "startLine": 64,
+                "startChar": 0,
+                "endLine": 65,
+                "endChar": 0
+              },
+              "replacement": "    return parameters.getIdVerifier();\n"
+            }
+          ]
+        }
+      ],
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81ed652d_7bb51518",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-11T12:06:00Z",
+      "side": 1,
+      "message": "You need to initialize.",
+      "range": {
+        "startLine": 1081,
+        "startChar": 21,
+        "endLine": 1081,
+        "endChar": 29
+      },
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "205da1dd_7e52b780",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-11T12:06:00Z",
+      "side": 1,
+      "message": "nit: Alignment",
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4a00be77_039baa29",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-11T12:06:00Z",
+      "side": 1,
+      "message": "Use a test context name.",
+      "range": {
+        "startLine": 1082,
+        "startChar": 21,
+        "endLine": 1082,
+        "endChar": 30
+      },
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
