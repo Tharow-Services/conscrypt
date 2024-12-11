@@ -1,0 +1,307 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "80eaa639_478d93a4",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "Can\u0027t really do this here as this object gets created simultaneously with the SSLSocket or Engine and it\u0027s valid to change parameters after that (although admittedly not spake/non-spake).  For consistency I\u0027d do it from initialize() which gets called right before the handshake starts.",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e872090_0a5d6710",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "I would push most of this method into native code for simplicity, otherwise converting args back and forth is just extra work.\n\ne.g. `SSL_CTX_set_spake_credential(context, pwArray, idProverArray, idVerifierArray);`",
+      "range": {
+        "startLine": 115,
+        "startChar": 21,
+        "endLine": 115,
+        "endChar": 44
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b2273ee0_4bdce8d1",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "nit: lose the blank line, and add an explanatory comment.",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5dc15f40_cf67affe",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "The logic here is more complicated. I don\u0027t think you can mix SPAKE with either X.509 or PSK.  \n\nSo if there is a SPAKE trust mananger then aso having an X.509 one is an error, and vice versa.  \n\nAnd if you have a SPAKE Trust Manager then you need a SPAKE Key manager or it\u0027s an error.  Having additional Key Managers is bad but probably harmless.",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f059cce3_d6d17eb5",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "`isSpake()`",
+      "range": {
+        "startLine": 170,
+        "startChar": 63,
+        "endLine": 170,
+        "endChar": 78
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "028a1ac8_20d07d82",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "As it says above, this is a copy constructor so you need to copy the values here.",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3bb93229_ebd94c58",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 725,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "Not sure about this, will need to review later",
+      "range": {
+        "startLine": 725,
+        "startChar": 12,
+        "endLine": 725,
+        "endChar": 35
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d8bf6f8d_80545dba",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "nit: I think SpakeTrustManager is the more logical one to check, but meh (they should both be present or both absent)",
+      "range": {
+        "startLine": 774,
+        "startChar": 15,
+        "endLine": 774,
+        "endChar": 30
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8138764d_1cab0ffe",
+        "filename": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "Missing copyright",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 70
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1591107_1cf0123a",
+        "filename": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "should also throw.\n\nAlso you shouldn\u0027t need to implement these methods.  If they\u0027re getting called by reflection that\u0027s an error.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 18
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f587a4cc_f926bdb6",
+        "filename": "common/src/main/java/org/conscrypt/SpakeTrustManager.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "Missing copyright",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1096105b_e998ed58",
+        "filename": "platform/src/main/java/org/conscrypt/SpakeKeyManagerFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "missing copyright",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47dfa568_38b349bc",
+        "filename": "platform/src/main/java/org/conscrypt/SpakeKeyManagerFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "nit: check not already initialised",
+      "range": {
+        "startLine": 65,
+        "startChar": 17,
+        "endLine": 65,
+        "endChar": 27
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "394d647a_ad1f5552",
+        "filename": "platform/src/main/java/org/conscrypt/SpakeTrustManagerFactory.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "Hmm.... The JCA pattern is everything gets initialised, so maybe have one of these accept null. Dunno.",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "557546a0_545c4a04",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T15:18:04Z",
+      "side": 1,
+      "message": "The original is correct for all of these 😊",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 35
+      },
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
