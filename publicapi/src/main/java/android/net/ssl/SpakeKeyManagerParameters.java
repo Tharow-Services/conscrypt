@@ -55,7 +55,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
     /**
      * Gets the shared password.
      *
-     * @return the shared password.
+     * @return The shared password.
      */
     public @NonNull byte[] getPassword() {
         return password;
@@ -64,7 +64,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
     /**
      * Gets the prover's ID.
      *
-     * @return the ID. May be empty.
+     * @return The ID. May be empty.
      */
     public @NonNull byte[] getIdProver() {
         return idProver;
@@ -73,7 +73,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
     /**
      * Gets the verifier's ID.
      *
-     * @return the ID. May be empty.
+     * @return The ID. May be empty.
      */
     public @NonNull byte[] getIdVerifier() {
         return idVerifier;
@@ -82,7 +82,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
     /**
      * Gets the SPAKE2+ context.
      *
-     * @return the SPAKE2+ context. May be empty
+     * @return The SPAKE2+ context. May be empty
      */
     public @NonNull byte[] getContext() {
         return context;
@@ -119,7 +119,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
          *
          * @param clientIdentity The client's identity.
          * @param serverIdentity The server's identity.
-         * @return this builder.
+         * @return This builder.
          */
         @NonNull
         public Builder setIdProver(@NonNull byte[] idProver) {
@@ -139,7 +139,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
          * Sets the PAKE context.
          *
          * @param context The PAKE context.
-         * @return this builder.
+         * @return This builder.
          */
         @NonNull
         public Builder setContext(@NonNull byte[] context) {
@@ -151,7 +151,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
         /**
          * Builds the {@link SpakeKeyManagerParameters}.
          *
-         * @return the built parameters.
+         * @return The built parameters.
          */
         @NonNull public abstract SpakeKeyManagerParameters build();
 
@@ -196,7 +196,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
             /**
              * Builds the {@link SpakeKeyManagerParameters}.
              *
-             * @return the built parameters.
+             * @return The built parameters.
              */
             @Override
             @NonNull
@@ -238,7 +238,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
             /**
              * Builds the {@link SpakeKeyManagerParameters}.
              *
-             * @return the built parameters.
+             * @return The built parameters.
              */
             @Override
             @NonNull
