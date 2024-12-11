@@ -1,0 +1,187 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4cdb0bc_1bb1dfe3",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10895,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "Do we need to pass in the lengths as well?  We\u0027re always going to use the whole array so we can get the length from the scoped byte arrays.",
+      "range": {
+        "startLine": 10895,
+        "startChar": 70,
+        "endLine": 10895,
+        "endChar": 80
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8f35a567_90f68206",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10919,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "And throw... For all of these.",
+      "range": {
+        "startLine": 10919,
+        "startChar": 8,
+        "endLine": 10919,
+        "endChar": 14
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3a75a198_bd5fd849",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10951,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "Not this CL, but the new BoringSSL code will probably have error numbers that we don\u0027t have mappings for so they\u0027ll need to be added to jniutil.",
+      "range": {
+        "startLine": 10951,
+        "startChar": 28,
+        "endLine": 10951,
+        "endChar": 60
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7e3bc3d_b2d79198",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10994,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "I assume ownership of creds gets transferred here?",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "370a0aa3_779f04ea",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "Need to add any checked exceptions to the method signature here.",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ee9e6b82_b27a3f2a",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "By convention we also pass in `this` as the last argument so that neither this or any of its field can get GCed while we\u0027re in native code.",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1832b95a_d5cd166f",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "What if it throws?  I _think_ this will be mid-handshake from that app\u0027s point of view so probably needs translating to a HandshakeException, but check.",
+      "range": {
+        "startLine": 292,
+        "startChar": 12,
+        "endLine": 292,
+        "endChar": 21
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c24914db_3a77ba0e",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "Any reason this can\u0027t be merged with the other isSpake conditional above?",
+      "range": {
+        "startLine": 371,
+        "startChar": 13,
+        "endLine": 371,
+        "endChar": 20
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6df6ff31_ada3c7d2",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 543,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "Both class names need `PREFIX + `in front of them.",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}

@@ -237,6 +237,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "244450df_27df3b29",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:26:14Z",
+      "side": 1,
+      "message": "It\u0027s used to create a _delegating_ Trust Manager so that a ConscryptEngineSocket can create a ConscryptEngine whose Trust Manager delegates back to the socket.\n\nHave a look at newEngine() and getDelegatingTrustMananger() in ConscryptEngineSocket... I think they\u0027ll need adjusting a bit.",
+      "parentUuid": "231c7d4f_f644427f",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3bb93229_ebd94c58",
         "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 11
