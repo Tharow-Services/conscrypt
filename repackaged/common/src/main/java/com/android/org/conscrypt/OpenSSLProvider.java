@@ -538,6 +538,12 @@ public final class OpenSSLProvider extends Provider {
                 PREFIX + "HpkeImpl$X25519_AES_256");
         put("ConscryptHpke.DHKEM_X25519_HKDF_SHA256/HKDF_SHA256/CHACHA20POLY1305",
                 PREFIX + "HpkeImpl$X25519_CHACHA20");
+
+        /* === SPAKE2+ - Conscrypt internal only === */
+        if (Platform.isSpake2Supported()) {
+            put("TrustManagerFactory.SPAKE2+", "SpakeTrustManagerFactory");
+            put("KeyManagerFactory.SPAKE2+", "SpakeKeyManagerFactory");
+        }
     }
 
     private void putMacImplClass(String algorithm, String className) {
