@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ae7c534_aa6ed740",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:39:47Z",
+      "side": 1,
+      "message": "If you\u0027re using XOR, might as well use \u003d\u003d for clarity.",
+      "range": {
+        "startLine": 137,
+        "startChar": 28,
+        "endLine": 137,
+        "endChar": 31
+      },
+      "revId": "07028f5421d72944c0b8ecfc5f234030746187af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8cab2df4_8e692a12",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-11T18:39:47Z",
+      "side": 1,
+      "message": "Don\u0027t forget to add tests for all this logic.",
+      "revId": "07028f5421d72944c0b8ecfc5f234030746187af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
