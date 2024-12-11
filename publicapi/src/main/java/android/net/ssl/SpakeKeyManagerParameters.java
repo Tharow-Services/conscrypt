@@ -55,6 +55,193 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
     /**
      * Gets the shared password.
      *
+<<<<<<< PATCH SET (0e82b4 Spake)
+     * @return The shared password.
+     */
+    public @NonNull byte[] getPassword() {
+        return password;
+    }
+
+    /**
+     * Gets the prover's ID.
+     *
+     * @return The ID. May be empty.
+     */
+    public @NonNull byte[] getIdProver() {
+        return idProver;
+    }
+
+    /**
+     * Gets the verifier's ID.
+     *
+     * @return The ID. May be empty.
+     */
+    public @NonNull byte[] getIdVerifier() {
+        return idVerifier;
+    }
+
+    /**
+     * Gets the SPAKE2+ context.
+     *
+     * @return The SPAKE2+ context. May be empty
+     */
+    public @NonNull byte[] getContext() {
+        return context;
+    }
+
+    /**
+     * Builder for {@link SpakeKeyManagerParameters}.
+     *
+     * @hide
+     */
+    @SystemApi
+    @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public static abstract class Builder {
+        private byte[] password;
+        private byte[] idProver = UNSET;
+        private byte[] idVerifier = UNSET;
+        private byte[] context = UNSET;
+
+        /**
+         * Constructor.
+         *
+         * @param password The shared password. Must not be empty.
+         */
+        protected Builder(@NonNull byte[] password) {
+            requireNonNull(password, "The password needs to be set");
+            if (password.length == 0) {
+                throw new InvalidParameterException("The password must not be empty");
+            }
+            this.password = password;
+        }
+
+        /**
+         * Sets the client's identity using individual components.
+         *
+         * @param clientIdentity The client's identity.
+         * @param serverIdentity The server's identity.
+         * @return This builder.
+         */
+        @NonNull
+        public Builder setIdProver(@NonNull byte[] idProver) {
+            requireNonNull(idProver, "The idProver needs to be set");
+            this.idProver = idProver;
+            return this;
+        }
+
+        @NonNull
+        public Builder setIdVerifier(@NonNull byte[] idVerifier) {
+            requireNonNull(idVerifier, "The idVerifier needs to be set");
+            this.idVerifier = idVerifier;
+            return this;
+        }
+
+        /**
+         * Sets the PAKE context.
+         *
+         * @param context The PAKE context.
+         * @return This builder.
+         */
+        @NonNull
+        public Builder setContext(@NonNull byte[] context) {
+            requireNonNull(context, "The context needs to be set");
+            this.context = context;
+            return this;
+        }
+
+        /**
+         * Builds the {@link SpakeKeyManagerParameters}.
+         *
+         * @return The built parameters.
+         */
+        @NonNull public abstract SpakeKeyManagerParameters build();
+
+        @NonNull
+        protected SpakeKeyManagerParameters doBuild(SpakeKeyManagerParameters params) {
+            params.password = password;
+            params.idProver = idProver;
+            params.idVerifier = idVerifier;
+            params.context = context;
+
+            return params;
+        }
+    }
+
+    /**
+     * SPAKE2+ KeyManager parameters class for a Prover.
+     *
+     * @hide
+     */
+    @SystemApi
+    @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public static final class Prover extends SpakeKeyManagerParameters {
+        private Prover() {}
+
+        /**
+         * Builder for the Prover.
+         *
+         * @hide
+         */
+        @SystemApi
+        @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+        public static final class Builder extends SpakeKeyManagerParameters.Builder {
+            /**
+             * Constructor.
+             *
+             * @param password The shared password. Must not be empty.
+             */
+            public Builder(@NonNull byte[] password) {
+                super(password);
+            }
+
+            /**
+             * Builds the {@link SpakeKeyManagerParameters}.
+             *
+             * @return The built parameters.
+             */
+            @Override
+            @NonNull
+            public SpakeKeyManagerParameters.Prover build() {
+                Prover params = new Prover();
+                return (Prover) doBuild(params);
+            }
+        }
+    }
+
+    /**
+     * SPAKE2+ KeyManager parameters class for a Verifier.
+     *
+     * @hide
+     */
+    @SystemApi
+    @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public static final class Verifier extends SpakeKeyManagerParameters {
+        private Verifier() {}
+
+        /**
+         *
+         * Builder for the Verifier.
+         *
+         * @hide
+         */
+        @SystemApi
+        @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+        public static final class Builder extends SpakeKeyManagerParameters.Builder {
+            /**
+             * Constructor.
+             *
+             * @param password The shared password. Must not be empty.
+             */
+            public Builder(@NonNull byte[] password) {
+                super(password);
+            }
+
+            /**
+             * Builds the {@link SpakeKeyManagerParameters}.
+             *
+             * @return The built parameters.
+||||||| BASE
+=======
      * @return the shared password.
      */
     public @NonNull byte[] getPassword() {
@@ -239,6 +426,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
              * Builds the {@link SpakeKeyManagerParameters}.
              *
              * @return the built parameters.
+>>>>>>> BASE      (1afbfa Merge "Add SPAKE2+ API" into main)
              */
             @Override
             @NonNull
