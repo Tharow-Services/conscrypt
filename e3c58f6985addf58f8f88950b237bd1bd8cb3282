@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a6951705_8b960659",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 10998,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T12:15:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d0b13a6a_72a93807",
+      "range": {
+        "startLine": 10996,
+        "startChar": 0,
+        "endLine": 10998,
+        "endChar": 64
+      },
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "481e2e8c_795ab7d5",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-12-11T12:06:00Z",
       "side": 1,
       "message": "nit: Alignment",
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c058818_dd3cad2c",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 2
+      },
+      "lineNbr": 11011,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T12:15:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "481e2e8c_795ab7d5",
       "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -86,6 +128,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d990a72_85ea787f",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T12:15:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "843ae2f9_93c8edf5",
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "210bfe05_a80c9cc4",
@@ -99,6 +159,24 @@
       "writtenOn": "2024-12-11T12:06:00Z",
       "side": 1,
       "message": "No need for the flag, you can have a method that checks if SpakeKeyManager is set.",
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2555a38d_c1ccc811",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T12:15:13Z",
+      "side": 1,
+      "message": "Fair point. done.",
+      "parentUuid": "210bfe05_a80c9cc4",
       "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -194,6 +272,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "452fc7b6_24b94206",
+        "filename": "common/src/main/java/org/conscrypt/SpakeKeyManager.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T12:15:13Z",
+      "side": 1,
+      "message": "We can\u0027t because the params are in publicapi and this is going in common.",
+      "parentUuid": "7c28a28e_d1a26928",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 0
+      },
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "81ed652d_7bb51518",
@@ -234,6 +336,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "eecb5276_fd323b12",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T12:15:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "81ed652d_7bb51518",
+      "range": {
+        "startLine": 1081,
+        "startChar": 21,
+        "endLine": 1081,
+        "endChar": 29
+      },
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "555da0ba_1162e322",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1081,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T12:15:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "205da1dd_7e52b780",
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4a00be77_039baa29",
@@ -247,6 +391,30 @@
       "writtenOn": "2024-12-11T12:06:00Z",
       "side": 1,
       "message": "Use a test context name.",
+      "range": {
+        "startLine": 1082,
+        "startChar": 21,
+        "endLine": 1082,
+        "endChar": 30
+      },
+      "revId": "e3c58f6985addf58f8f88950b237bd1bd8cb3282",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5488f622_edea1231",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 1082,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-11T12:15:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4a00be77_039baa29",
       "range": {
         "startLine": 1082,
         "startChar": 21,
