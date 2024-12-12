@@ -38,10 +38,11 @@ import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 
 import com.android.org.conscrypt.NativeCrypto;
-import com.android.org.conscrypt.ct.LogStore;
-import com.android.org.conscrypt.ct.Policy;
+import com.android.org.conscrypt.ct.CertificateTransparency;
+import com.android.org.conscrypt.metrics.NoopStatsLog;
 import com.android.org.conscrypt.metrics.Source;
 import com.android.org.conscrypt.metrics.StatsLog;
+import com.android.org.conscrypt.metrics.StatsLogImpl;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -651,7 +652,7 @@ final public class Platform {
      * - conscrypt.ct.enforce.com.*
      * - conscrypt.ct.enforce.*
      */
-    static boolean isCTVerificationRequired(String hostname) {
+    public static boolean isCTVerificationRequired(String hostname) {
         if (hostname == null) {
             return false;
         }
@@ -681,6 +682,10 @@ final public class Platform {
             enable = Boolean.parseBoolean(property.toLowerCase(Locale.ROOT));
         }
         return enable;
+    }
+
+    public static int reasonCTVerificationRequired(String hostname) {
+        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -747,11 +752,7 @@ final public class Platform {
         return null;
     }
 
-    static LogStore newDefaultLogStore() {
-        return null;
-    }
-
-    static Policy newDefaultPolicy() {
+    static CertificateTransparency newDefaultCertificateTransparency() {
         return null;
     }
 
@@ -832,7 +833,7 @@ final public class Platform {
     }
 
     public static StatsLog getStatsLog() {
-        return null;
+        return NoopStatsLog.getInstance();
     }
 
     @SuppressWarnings("unused")

@@ -25,10 +25,7 @@ import android.system.Os;
 import android.system.StructTimeval;
 
 import com.android.org.conscrypt.NativeCrypto;
-import com.android.org.conscrypt.ct.LogStore;
-import com.android.org.conscrypt.ct.LogStoreImpl;
-import com.android.org.conscrypt.ct.Policy;
-import com.android.org.conscrypt.ct.PolicyImpl;
+import com.android.org.conscrypt.ct.CertificateTransparency;
 import com.android.org.conscrypt.flags.Flags;
 import com.android.org.conscrypt.metrics.OptionalMethod;
 import com.android.org.conscrypt.metrics.Source;
@@ -99,10 +96,10 @@ final public class Platform {
      * Runs all the setup for the platform that only needs to run once.
      */
     public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
-        NoPreloadHolder.MAPPER.ping();
         DEPRECATED_TLS_V1 = deprecatedTlsV1;
         ENABLED_TLS_V1 = enabledTlsV1;
         FILTERED_TLS_V1 = !enabledTlsV1;
+        NoPreloadHolder.MAPPER.ping();
         NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
     }
 
@@ -486,12 +483,24 @@ final public class Platform {
         return true;
     }
 
-    static boolean isCTVerificationRequired(String hostname) {
+    public static boolean isCTVerificationRequired(String hostname) {
         if (Flags.certificateTransparencyPlatform()) {
             return NetworkSecurityPolicy.getInstance()
                     .isCertificateTransparencyVerificationRequired(hostname);
         }
         return false;
+    }
+
+    public static int reasonCTVerificationRequired(String hostname) {
+        if (NetworkSecurityPolicy.getInstance().isCertificateTransparencyVerificationRequired("")) {
+            return StatsLogImpl
+                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_APP_OPT_IN;
+        } else if (NetworkSecurityPolicy.getInstance()
+                           .isCertificateTransparencyVerificationRequired(hostname)) {
+            return StatsLogImpl
+                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_DOMAIN_OPT_IN;
+        }
+        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -516,12 +525,13 @@ final public class Platform {
         return CertBlocklistImpl.getDefault();
     }
 
-    static LogStore newDefaultLogStore() {
-        return new LogStoreImpl();
-    }
-
-    static Policy newDefaultPolicy() {
-        return new PolicyImpl();
+    static CertificateTransparency newDefaultCertificateTransparency() {
+        com.android.org.conscrypt.ct.Policy policy = new com.android.org.conscrypt.ct.PolicyImpl();
+        com.android.org.conscrypt.ct.LogStore logStore =
+                new com.android.org.conscrypt.ct.LogStoreImpl(policy);
+        com.android.org.conscrypt.ct.Verifier verifier =
+                new com.android.org.conscrypt.ct.Verifier(logStore);
+        return new CertificateTransparency(logStore, policy, verifier, getStatsLog());
     }
 
     static boolean serverNamePermitted(SSLParametersImpl parameters, String serverName) {

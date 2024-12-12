@@ -29,10 +29,8 @@ import dalvik.system.VMRuntime;
 
 import libcore.net.NetworkSecurityPolicy;
 
-import org.conscrypt.ct.LogStore;
-import org.conscrypt.ct.LogStoreImpl;
-import org.conscrypt.ct.Policy;
-import org.conscrypt.ct.PolicyImpl;
+import org.conscrypt.NativeCrypto;
+import org.conscrypt.ct.CertificateTransparency;
 import org.conscrypt.flags.Flags;
 import org.conscrypt.metrics.OptionalMethod;
 import org.conscrypt.metrics.Source;
@@ -76,8 +74,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
-import libcore.net.NetworkSecurityPolicy;
-import org.conscrypt.NativeCrypto;
+
 import sun.security.x509.AlgorithmId;
 
 @Internal
@@ -482,12 +479,24 @@ final public class Platform {
         return true;
     }
 
-    static boolean isCTVerificationRequired(String hostname) {
+    public static boolean isCTVerificationRequired(String hostname) {
         if (Flags.certificateTransparencyPlatform()) {
             return NetworkSecurityPolicy.getInstance()
                     .isCertificateTransparencyVerificationRequired(hostname);
         }
         return false;
+    }
+
+    public static int reasonCTVerificationRequired(String hostname) {
+        if (NetworkSecurityPolicy.getInstance().isCertificateTransparencyVerificationRequired("")) {
+            return StatsLogImpl
+                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_APP_OPT_IN;
+        } else if (NetworkSecurityPolicy.getInstance()
+                           .isCertificateTransparencyVerificationRequired(hostname)) {
+            return StatsLogImpl
+                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_DOMAIN_OPT_IN;
+        }
+        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -512,12 +521,11 @@ final public class Platform {
         return CertBlocklistImpl.getDefault();
     }
 
-    static LogStore newDefaultLogStore() {
-        return new LogStoreImpl();
-    }
-
-    static Policy newDefaultPolicy() {
-        return new PolicyImpl();
+    static CertificateTransparency newDefaultCertificateTransparency() {
+        org.conscrypt.ct.Policy policy = new org.conscrypt.ct.PolicyImpl();
+        org.conscrypt.ct.LogStore logStore = new org.conscrypt.ct.LogStoreImpl(policy);
+        org.conscrypt.ct.Verifier verifier = new org.conscrypt.ct.Verifier(logStore);
+        return new CertificateTransparency(logStore, policy, verifier, getStatsLog());
     }
 
     static boolean serverNamePermitted(SSLParametersImpl parameters, String serverName) {

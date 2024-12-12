@@ -36,10 +36,12 @@ import static java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 
-import org.conscrypt.ct.LogStore;
-import org.conscrypt.ct.Policy;
+import org.conscrypt.NativeCrypto;
+import org.conscrypt.ct.CertificateTransparency;
+import org.conscrypt.metrics.NoopStatsLog;
 import org.conscrypt.metrics.Source;
 import org.conscrypt.metrics.StatsLog;
+import org.conscrypt.metrics.StatsLogImpl;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -84,7 +86,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
-import org.conscrypt.NativeCrypto;
 
 /**
  * Platform-specific methods for OpenJDK.
@@ -649,7 +650,7 @@ final public class Platform {
      * - conscrypt.ct.enforce.com.*
      * - conscrypt.ct.enforce.*
      */
-    static boolean isCTVerificationRequired(String hostname) {
+    public static boolean isCTVerificationRequired(String hostname) {
         if (hostname == null) {
             return false;
         }
@@ -679,6 +680,10 @@ final public class Platform {
             enable = Boolean.parseBoolean(property.toLowerCase(Locale.ROOT));
         }
         return enable;
+    }
+
+    public static int reasonCTVerificationRequired(String hostname) {
+        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -745,11 +750,7 @@ final public class Platform {
         return null;
     }
 
-    static LogStore newDefaultLogStore() {
-        return null;
-    }
-
-    static Policy newDefaultPolicy() {
+    static CertificateTransparency newDefaultCertificateTransparency() {
         return null;
     }
 
@@ -830,7 +831,7 @@ final public class Platform {
     }
 
     public static StatsLog getStatsLog() {
-        return null;
+        return NoopStatsLog.getInstance();
     }
 
     @SuppressWarnings("unused")

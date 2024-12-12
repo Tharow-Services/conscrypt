@@ -1,3 +1,4 @@
+/* GENERATED SOURCE. DO NOT MODIFY. */
 /*
  * Copyright (C) 2024 The Android Open Source Project
  *
@@ -13,20 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.conscrypt.metrics;
+package com.android.org.conscrypt.metrics;
 
-import org.conscrypt.Internal;
-import org.conscrypt.ct.LogStore;
-import org.conscrypt.ct.PolicyCompliance;
-import org.conscrypt.ct.VerificationResult;
+import com.android.org.conscrypt.Internal;
+import com.android.org.conscrypt.ct.LogStore;
+import com.android.org.conscrypt.ct.PolicyCompliance;
+import com.android.org.conscrypt.ct.VerificationResult;
 
+/**
+ * @hide This class is not part of the Android public SDK API
+ */
 @Internal
-public interface StatsLog {
-    public void countTlsHandshake(
-            boolean success, String protocol, String cipherSuite, long duration);
+public class NoopStatsLog implements StatsLog {
+    private static final StatsLog INSTANCE = new NoopStatsLog();
+    public static StatsLog getInstance() {
+        return INSTANCE;
+    }
 
-    public void updateCTLogListStatusChanged(LogStore logStore);
+    public void countTlsHandshake(
+            boolean success, String protocol, String cipherSuite, long duration) {}
+
+    public void updateCTLogListStatusChanged(LogStore logStore) {}
 
     public void reportCTVerificationResult(LogStore logStore, VerificationResult result,
-            PolicyCompliance compliance, int VerificationReason);
+            PolicyCompliance compliance, int VerificationReason) {}
 }
