@@ -1020,9 +1020,13 @@ public class SSLSocketTest {
             };
             ClientHello clientHello = TlsTester.captureTlsHandshakeClientHello(executor, factory);
             if (protocol.equals("TLSv1.2") || protocol.equals("TLSv1.3")) {
-                assertFalse(clientHello.cipherSuites.contains(CipherSuite.valueOf("TLS_FALLBACK_SCSV")));
+                assertFalse(
+                        clientHello.cipherSuites.contains(
+                                CipherSuite.valueOf("TLS_FALLBACK_SCSV")));
             } else {
-                assertTrue(clientHello.cipherSuites.contains(CipherSuite.valueOf("TLS_FALLBACK_SCSV")));
+                assertTrue(
+                        clientHello.cipherSuites.contains(
+                                CipherSuite.valueOf("TLS_FALLBACK_SCSV")));
             }
         }
     }
@@ -1077,6 +1081,184 @@ public class SSLSocketTest {
         InputStream serverStream = pair.server.getInputStream();
         assertEquals(4, serverStream.read(buffer));
         assertArrayEquals(ping, buffer);
+    }
+
+    @Test
+    public void testSpake() {
+        byte[] password = "password".getBytes();
+        byte[] context = "osmosis_test".getBytes();
+        Socket plainSocketC;
+        Socket plainSocketS;
+        InetAddress hostC = TestUtils.getLoopbackAddress();
+        InetAddress hostS = TestUtils.getLoopbackAddress();
+
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance("SPAKE2+");
+        tmf.init(null);
+
+        SpakeClientKeyManagerParameters kmfParamsClient = new SpakeClientKeyManagerParameters.Builder
+            .setClientPassword(password)
+            .setContext(context)
+            .build();
+
+        KeyManagerFactory kmfClient = KeyManagerFactory.getInstance("SPAKE2+");
+        kmfClient.init(kmfParamsClient);
+
+        SSLContext contextClient = SSLContext.getInstance("TlsV1.3");
+        contextClient.init(kmfClient.getKeyManagers(), tmf.getTrustMananagers(), null);
+
+        SocketFactory sfClient = contextClient.getSocketFactory();
+
+        SSLSocket sslSocketClient = sfClient.createSocket(plainSocketC, hostC, 0, true);
+
+        SpakeServerKeyManagerParameters kmfParamsServer = new SpakeServerKeyManagerParameters.Builder
+            .setServerPassword(password)
+            .setContext(context)
+            .build();
+
+        KeyManagerFactory kmfServer = KeyManagerFactory.getInstance("SPAKE2+");
+        kmfServer.init(kmfParamsServer);
+
+        SSLContext contextServer = SSLContext.getInstance("TlsV1.3");
+        contextServer.init(kmfServer.getKeyManagers(), tmf.getTrustMananagers, null);
+
+        SocketFactory sfServer = contextServer.getSocketFactory();
+        SSLSocket sslSocketServer = sfServer.createSocket(plainSocketS, hostS, 1, true);
+        sslSocketServer.setUseClientMode(false);
+        Future<Void> s = runAsync(() -> {
+            sslSocketServer.startHandshake();
+            return null;
+        });
+        sslSocketClient.startHandshake();
+        s.get();
+        byte[] buffer = new byte[5];
+        socketWrite(sslSocketClient, "hello".getBytes());
+        socketWrite(sslSocketServer, "world".getBytes());
+        assertEquals(5, sslSocketClient.getInputStream().read(buffer));
+        assertEquals(5, sslSocketServer.getInputStream().read(buffer));
+        try {
+            sslSocketServer.close();
+            sslSocketClient.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void testSpakeKeyManagerParameters() throws Exception {
+        byte[] password = "password".getBytes();
+        byte[] idProver = "id_prover".getBytes();
+        byte[] idVerifier = "id_verifier".getBytes();
+        byte[] context = "context".getBytes();
+
+        SpakeKeyManagerParameters spakeParams =
+                new SpakeKeyManagerParameters.Builder()
+                        .setClientPassword(password)
+                        .setIdProver(idProver)
+                        .setIdVerifier(idVerifier)
+                        .setContext(context)
+                        .build();
+
+        KeyManagerFactory kmf = KeyManagerFactory.getInstance("SPAKE2+");
+        kmf.init(spakeParams);
+        KeyManager[] keyManagers = kmf.getKeyManagers();
+
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance("SPAKE2+");
+        tmf.init(null);
+        TrustManager[] trustManagers = tmf.getTrustManagers();
+
+        SSLParametersImpl params =
+                new SSLParametersImpl(keyManagers, trustManagers, null, null, null);
+
+        // check that SPAKE parameters are set correctly
+        assertTrue(params.isSpake());
+        assertEquals(
+                Arrays.asList(NativeCrypto.DEFAULT_SPAKE_CIPHER_SUITES),
+                Arrays.asList(params.getEnabledCipherSuites()));
+        assertNotNull(params.getSpakeKeyManager());
+
+        // check that X509 and PSK key managers are not set
+        assertNull(params.getX509KeyManager());
+        assertNull(params.getPSKKeyManager());
+    }
+
+    @Test
+    public void testX509KeyManagerParameters() throws Exception {
+        X509KeyManager x509KeyManager = new TestX509KeyManager();
+        X509TrustManager x509TrustManager = new TestX509TrustManager();
+
+        SSLParametersImpl params =
+                new SSLParametersImpl(
+                        new KeyManager[] {x509KeyManager},
+                        new TrustManager[] {x509TrustManager},
+                        null,
+                        null,
+                        null);
+
+        // check that X509 parameters are set correctly
+        assertFalse(params.isSpake());
+        assertNotNull(params.getX509KeyManager());
+        assertNotNull(params.getX509TrustManager());
+
+        // check that SPAKE and PSK key managers are not set
+        assertNull(params.getSpakeKeyManager());
+        assertNull(params.getPSKKeyManager());
+    }
+
+    @Test
+    public void testPSKKeyManagerParameters() {
+        PSKKeyManager pskKeyManager = new TestPSKKeyManager();
+
+        SSLParametersImpl params =
+                new SSLParametersImpl(
+                        new KeyManager[] {pskKeyManager},
+                        new TrustManager[] {new TestX509TrustManager()},
+                        null,
+                        null,
+                        null);
+
+        // check that PSK parameters are set correctly
+        assertFalse(params.isSpake());
+        assertNotNull(params.getPSKKeyManager());
+
+        // check that SPAKE and X509 key managers are not set
+        assertNull(params.getSpakeKeyManager());
+        assertNull(params.getX509KeyManager());
+    }
+
+    @Test
+    public void testInvalidParameters() {
+        byte[] password = "password".getBytes();
+        byte[] context = "context".getBytes();
+
+        SpakeKeyManagerParameters spakeParams =
+                new SpakeKeyManagerParameters.Builder()
+                        .setClientPassword(password)
+                        .setContext(context)
+                        .build();
+
+        KeyManagerFactory kmf = null;
+        try {
+            kmf = KeyManagerFactory.getInstance("SPAKE2+");
+            kmf.init(spakeParams);
+        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        }
+        KeyManager[] keyManagers = kmf.getKeyManagers();
+
+        // Add an X509KeyManager
+        KeyManager[] keyManagersWithX509 = Arrays.copyOf(keyManagers, keyManagers.length + 1);
+        keyManagersWithX509[keyManagers.length] = new TestX509KeyManager();
+
+        // Should throw due to both SPAKE and X509KeyManager
+        assertThrows(
+                IllegalArgumentException.class,
+                () ->
+                        new SSLParametersImpl(
+                                keyManagersWithX509,
+                                new TrustManager[] {new TestX509TrustManager()},
+                                null,
+                                null,
+                                null));
     }
 
     private void socketClose(Socket socket) {
