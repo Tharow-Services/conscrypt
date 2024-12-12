@@ -143,6 +143,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11ee647b_518491de",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 16
+      },
+      "lineNbr": 10919,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-12T11:41:40Z",
+      "side": 1,
+      "message": "I\u0027ve gone through some more of this file and ended up adding throwOutOfMemory exceptions here, which feels slightly more appropriate.",
+      "parentUuid": "1834e188_bd979af4",
+      "range": {
+        "startLine": 10919,
+        "startChar": 8,
+        "endLine": 10919,
+        "endChar": 14
+      },
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3a75a198_bd5fd849",
@@ -274,6 +298,24 @@
       "side": 1,
       "message": "I don\u0027t know.  It\u0027s a matter of what error codes can come back from BoringSSL and what Exceptions it makes the most sense to translate them to.  For example there might be something analogous to InvalidKeyExcepption for a zero length password.\n\nThe process is, figure out all the possible error returns from BoringSSL.  Make sure they\u0027re mapped to sensible Java exceptions in jniutil.cc and if any of those exceptions are checked then declare them here,",
       "parentUuid": "917903e3_2f5aef58",
+      "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f613ce33_50ace05c",
+        "filename": "common/src/main/java/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 16
+      },
+      "lineNbr": 644,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-12T11:41:40Z",
+      "side": 1,
+      "message": "So, changed to using ssl exceptions to which most of these will be mapped, but added a special case for invalid parameters, and added the mapping within jniutil",
+      "parentUuid": "d9fd58d8_dc246889",
       "revId": "09737da3c44e78ef512779c4297708dcb66f028c",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },

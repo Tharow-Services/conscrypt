@@ -315,6 +315,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "97c0848b_20dd29a5",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-12T11:41:40Z",
+      "side": 1,
+      "message": "Yeah, I\u0027m skipping over the call to getDelegatingTrustMananger() and just returning a new paramsImpl with spake stuff. Also, just reviewed the callbacks from platform and they only get called for certificate chain validation, so I think we\u0027re safe with this.",
+      "parentUuid": "08c27178_200fa351",
+      "revId": "23410ec4a18c3ee22d479ac402b54251b24e7928",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "3bb93229_ebd94c58",
         "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
         "patchSetId": 11
