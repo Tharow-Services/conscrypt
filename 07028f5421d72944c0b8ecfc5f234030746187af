@@ -81,6 +81,24 @@
       "parentUuid": "8cab2df4_8e692a12",
       "revId": "07028f5421d72944c0b8ecfc5f234030746187af",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae7b79c9_a582ff32",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 17
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-12T18:28:37Z",
+      "side": 1,
+      "message": "Done. Added tests for ManagerFactories too.",
+      "parentUuid": "68a3a261_a8304696",
+      "revId": "07028f5421d72944c0b8ecfc5f234030746187af",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
