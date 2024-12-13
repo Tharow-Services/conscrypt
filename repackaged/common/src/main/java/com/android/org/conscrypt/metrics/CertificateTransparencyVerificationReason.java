@@ -14,23 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.android.org.conscrypt.metrics;
 
+import static com.android.org.conscrypt.metrics.ConscryptStatsLog.*;
+
 import com.android.org.conscrypt.Internal;
-import com.android.org.conscrypt.ct.LogStore;
-import com.android.org.conscrypt.ct.PolicyCompliance;
-import com.android.org.conscrypt.ct.VerificationResult;
 
 /**
+ * Certificate Transparency Verification Reason.
  * @hide This class is not part of the Android public SDK API
  */
 @Internal
-public interface StatsLog {
-    public void countTlsHandshake(
-            boolean success, String protocol, String cipherSuite, long duration);
+public enum CertificateTransparencyVerificationReason {
+    UNKNOWN(CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN),
+    APP_OPT_IN(CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_APP_OPT_IN),
+    DOMAIN_OPT_IN(
+            CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_DOMAIN_OPT_IN);
 
-    public void updateCTLogListStatusChanged(LogStore logStore);
+    final int id;
 
-    public void reportCTVerificationResult(LogStore logStore, VerificationResult result,
-            PolicyCompliance compliance, CertificateTransparencyVerificationReason reason);
+    public int getId() {
+        return this.id;
+    }
+
+    private CertificateTransparencyVerificationReason(int id) {
+        this.id = id;
+    }
 }

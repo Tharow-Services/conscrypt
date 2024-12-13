@@ -1,3 +1,4 @@
+/* GENERATED SOURCE. DO NOT MODIFY. */
 /*
  * Copyright (C) 2020 The Android Open Source Project
  *
@@ -13,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.conscrypt.metrics;
+package com.android.org.conscrypt.metrics;
 
-import org.conscrypt.Internal;
+import com.android.org.conscrypt.Internal;
 
 /**
  * Reimplement with reflection calls the logging class,
@@ -35,6 +36,7 @@ import org.conscrypt.Internal;
  * reason, the methods defined here should be identical to the generated
  * methods from the wrapper. Do not add new method here, do not change the type
  * of the parameters.
+ * @hide This class is not part of the Android public SDK API
  **/
 @Internal
 public final class ConscryptStatsLog {
