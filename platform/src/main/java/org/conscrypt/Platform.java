@@ -32,8 +32,8 @@ import libcore.net.NetworkSecurityPolicy;
 import org.conscrypt.NativeCrypto;
 import org.conscrypt.ct.CertificateTransparency;
 import org.conscrypt.flags.Flags;
+import org.conscrypt.metrics.Constants;
 import org.conscrypt.metrics.OptionalMethod;
-import org.conscrypt.metrics.Source;
 import org.conscrypt.metrics.StatsLog;
 import org.conscrypt.metrics.StatsLogImpl;
 
@@ -489,14 +489,12 @@ final public class Platform {
 
     public static int reasonCTVerificationRequired(String hostname) {
         if (NetworkSecurityPolicy.getInstance().isCertificateTransparencyVerificationRequired("")) {
-            return StatsLogImpl
-                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_APP_OPT_IN;
+            return Constants.CERTIFICATE_TRANSPARENCY_REASON_APP_OPT_IN;
         } else if (NetworkSecurityPolicy.getInstance()
                            .isCertificateTransparencyVerificationRequired(hostname)) {
-            return StatsLogImpl
-                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_DOMAIN_OPT_IN;
+            return Constants.CERTIFICATE_TRANSPARENCY_REASON_DOMAIN_OPT_IN;
         }
-        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
+        return Constants.CERTIFICATE_TRANSPARENCY_REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -560,8 +558,8 @@ final public class Platform {
         return StatsLogImpl.getInstance();
     }
 
-    public static Source getStatsSource() {
-        return Source.SOURCE_MAINLINE;
+    public static int getStatsSource() {
+        return Constants.SOURCE_MAINLINE;
     }
 
     public static int[] getUids() {

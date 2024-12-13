@@ -29,7 +29,7 @@ import dalvik.system.CloseGuard;
 
 import org.conscrypt.NativeCrypto;
 import org.conscrypt.ct.CertificateTransparency;
-import org.conscrypt.metrics.Source;
+import org.conscrypt.metrics.Constants;
 import org.conscrypt.metrics.StatsLog;
 import org.conscrypt.metrics.StatsLogImpl;
 
@@ -873,7 +873,7 @@ final public class Platform {
     }
 
     public static int reasonCTVerificationRequired(String hostname) {
-        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
+        return Constants.CERTIFICATE_TRANSPARENCY_REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -949,8 +949,8 @@ final public class Platform {
         return NoopStatsLog.getInstance();
     }
 
-    public static Source getStatsSource() {
-        return Source.SOURCE_GMS;
+    public static int getStatsSource() {
+        return Constants.SOURCE_GMS;
     }
 
     // Only called from StatsLogImpl, so protected by build version check above.

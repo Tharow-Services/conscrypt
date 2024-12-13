@@ -39,8 +39,8 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 
 import com.android.org.conscrypt.NativeCrypto;
 import com.android.org.conscrypt.ct.CertificateTransparency;
+import com.android.org.conscrypt.metrics.Constants;
 import com.android.org.conscrypt.metrics.NoopStatsLog;
-import com.android.org.conscrypt.metrics.Source;
 import com.android.org.conscrypt.metrics.StatsLog;
 import com.android.org.conscrypt.metrics.StatsLogImpl;
 
@@ -685,7 +685,7 @@ final public class Platform {
     }
 
     public static int reasonCTVerificationRequired(String hostname) {
-        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
+        return Constants.CERTIFICATE_TRANSPARENCY_REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -837,8 +837,8 @@ final public class Platform {
     }
 
     @SuppressWarnings("unused")
-    public static Source getStatsSource() {
-        return null;
+    public static int getStatsSource() {
+        return Constants.SOURCE_UNKNOWN;
     }
 
     @SuppressWarnings("unused")
