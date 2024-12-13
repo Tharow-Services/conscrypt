@@ -16,6 +16,75 @@
       "message": "Bypassing Lint as test coverage for the API has been added.",
       "revId": "6f5ece4411331a8fad023e25bb823cd81037e5f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7b56317_1ba90316",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-13T09:48:55Z",
+      "side": 1,
+      "message": "AIUI SPAKE2+ is one of a family of PAKE schemes. Could we make this class more generic, such that it can support different PAKEs in the future?\n\nLooking at RFC 8125 it does seem like there are common elements - there\u0027s always a password, and presumably there\u0027s always a local identity and at least one remote identity. An augmented PAKE will have a role and a balanced one won\u0027t, but that seems pretty simple from an API perspective - for a balanced PAKE, a role would not be necessary.\n\nMaybe we could rename this to PakeKeyManagerParameters, an a type field which describes the type of PAKE (e.g., SPAKE2 , CPace, ...) and then keep the other fields as is?\n\nIf we think that we might need more in the future, and that they will be broadly similar to each other, it\u0027s OK if for now we just support one (SPAKE2+).",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "6f5ece4411331a8fad023e25bb823cd81037e5f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b9dd4039_feeb4860",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-13T09:48:55Z",
+      "side": 1,
+      "message": "Cam we use null to indicate unset instead of an empty array? All the setter methods in the builder (setIdProver, setIdVerifier, setContext) take a @NonNull parameter. That suggests that null is not currently a meaningful value. We should just make these @Nullable and say that setting them to null means unset.",
+      "range": {
+        "startLine": 46,
+        "startChar": 39,
+        "endLine": 46,
+        "endChar": 51
+      },
+      "revId": "6f5ece4411331a8fad023e25bb823cd81037e5f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a779e847_65fb37d9",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1000835
+      },
+      "writtenOn": "2024-12-13T09:48:55Z",
+      "side": 1,
+      "message": "Does this need to be its own class? It doesn\u0027t have any methods or fields that I can see, so from an API perspective this could just be an instance of SpakeKeyManagerParameters. If the Prover and the Verifier just differ in their role, then you could just have something like:\n\n    public static final int ROLE_PROVER \u003d 1;\n    public static final int ROLE_VERIFIER \u003d 2;\n\nand then have the Builder constructor take an \"int role\" parameter - or, if we want to support balanced PAKEs, in which presumably the role is optional, we could add a setRole method instead of adding it to the constructor.",
+      "range": {
+        "startLine": 176,
+        "startChar": 24,
+        "endLine": 176,
+        "endChar": 36
+      },
+      "revId": "6f5ece4411331a8fad023e25bb823cd81037e5f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
