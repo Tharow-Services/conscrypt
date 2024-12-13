@@ -711,6 +711,7 @@ filegroup {
     srcs: [
         "repackaged/platform/src/test/java/com/android/org/conscrypt/ct/*.java",
         "repackaged/platform/src/test/java/com/android/org/conscrypt/CertBlocklistTest.java",
+        "repackaged/platform/src/test/java/com/android/org/conscrypt/metrics/MetricsTest.java",
         "repackaged/common/src/test/java/com/android/org/conscrypt/ct/*.java",
     ],
 }
