@@ -13,20 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.conscrypt.metrics;
 
+import static org.conscrypt.metrics.ConscryptStatsLog.*;
+
 import org.conscrypt.Internal;
-import org.conscrypt.ct.LogStore;
-import org.conscrypt.ct.PolicyCompliance;
-import org.conscrypt.ct.VerificationResult;
 
+/**
+ * Certificate Transparency Verification Reason.
+ */
 @Internal
-public interface StatsLog {
-    public void countTlsHandshake(
-            boolean success, String protocol, String cipherSuite, long duration);
+public enum CertificateTransparencyVerificationReason {
+    UNKNOWN(CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN),
+    APP_OPT_IN(CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_APP_OPT_IN),
+    DOMAIN_OPT_IN(
+            CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_DOMAIN_OPT_IN);
 
-    public void updateCTLogListStatusChanged(LogStore logStore);
+    final int id;
 
-    public void reportCTVerificationResult(LogStore logStore, VerificationResult result,
-            PolicyCompliance compliance, CertificateTransparencyVerificationReason reason);
+    public int getId() {
+        return this.id;
+    }
+
+    private CertificateTransparencyVerificationReason(int id) {
+        this.id = id;
+    }
 }
