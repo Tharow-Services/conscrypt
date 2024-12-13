@@ -1,0 +1,85 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9f2b881a_fbc32507",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-13T11:01:49Z",
+      "side": 1,
+      "message": "You\u0027re planning to use these in code instead of the things within common/src/main/java/org/conscrypt/metrics/Protocol.java, right? (maybe best left to a follow-up)",
+      "revId": "c1de16de374f2aad3eea271333bbdf2bdeb52948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "193c415f_19c2370d",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-13T11:01:49Z",
+      "side": 1,
+      "message": "I think it would be good to retain parameter values for code clarity.",
+      "range": {
+        "startLine": 188,
+        "startChar": 29,
+        "endLine": 188,
+        "endChar": 103
+      },
+      "revId": "c1de16de374f2aad3eea271333bbdf2bdeb52948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "555215b9_3512d8a6",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-13T11:01:49Z",
+      "side": 1,
+      "message": "Should we remove this check if we\u0027re adding the one below?",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 37
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "1a7cd315_827c22e4",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+              "range": {
+                "startLine": 70,
+                "startChar": 0,
+                "endLine": 73,
+                "endChar": 0
+              },
+              "replacement": "        builder.writeIntArray(uids);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "c1de16de374f2aad3eea271333bbdf2bdeb52948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
