@@ -199,10 +199,10 @@ aconfig_declarations {
 java_aconfig_library {
     name: "conscrypt-aconfig-flags-lib",
     aconfig_declarations: "conscrypt-aconfig-flags",
-    system_modules: "art-module-intra-core-api-stubs-system-modules",
+    system_modules: "core-all-system-modules",
     libs: [
         "aconfig-annotations-lib-sdk-none",
-        "unsupportedappusage",
+        "aconfig_storage_stub_none",
     ],
     sdk_version: "none",
     patch_module: "java.base",
@@ -385,6 +385,10 @@ java_sdk_library {
     srcs: [
         ":conscrypt_java_files",
         ":conscrypt_public_api_files",
+        ":framework-metalava-annotations",
+    ],
+    aconfig_declarations: [
+        "conscrypt-aconfig-flags",
     ],
     api_dir: "api/platform",
     api_only: true,
@@ -433,6 +437,13 @@ java_sdk_library {
     ],
     srcs: [
         ":conscrypt_public_api_files",
+        ":framework-metalava-annotations",
+    ],
+    libs: [
+        "conscrypt-aconfig-flags-lib",
+    ],
+    aconfig_declarations: [
+        "conscrypt-aconfig-flags",
     ],
 
     // The base name for the artifacts that are automatically published to the

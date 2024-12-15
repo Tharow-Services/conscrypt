@@ -29,10 +29,8 @@ import dalvik.system.VMRuntime;
 
 import libcore.net.NetworkSecurityPolicy;
 
-import org.conscrypt.ct.LogStore;
-import org.conscrypt.ct.LogStoreImpl;
-import org.conscrypt.ct.Policy;
-import org.conscrypt.ct.PolicyImpl;
+import org.conscrypt.NativeCrypto;
+import org.conscrypt.ct.CertificateTransparency;
 import org.conscrypt.flags.Flags;
 import org.conscrypt.metrics.OptionalMethod;
 import org.conscrypt.metrics.Source;
@@ -82,12 +80,23 @@ import sun.security.x509.AlgorithmId;
 @Internal
 final public class Platform {
     private static class NoPreloadHolder { public static final Platform MAPPER = new Platform(); }
+    static boolean DEPRECATED_TLS_V1 = true;
+    static boolean ENABLED_TLS_V1 = false;
+    private static boolean FILTERED_TLS_V1 = true;
+
+    static {
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+    }
 
     /**
      * Runs all the setup for the platform that only needs to run once.
      */
-    public static void setup() {
+    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
+        DEPRECATED_TLS_V1 = deprecatedTlsV1;
+        ENABLED_TLS_V1 = enabledTlsV1;
+        FILTERED_TLS_V1 = !enabledTlsV1;
         NoPreloadHolder.MAPPER.ping();
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
     }
 
     /**
@@ -470,12 +479,24 @@ final public class Platform {
         return true;
     }
 
-    static boolean isCTVerificationRequired(String hostname) {
+    public static boolean isCTVerificationRequired(String hostname) {
         if (Flags.certificateTransparencyPlatform()) {
             return NetworkSecurityPolicy.getInstance()
                     .isCertificateTransparencyVerificationRequired(hostname);
         }
         return false;
+    }
+
+    public static int reasonCTVerificationRequired(String hostname) {
+        if (NetworkSecurityPolicy.getInstance().isCertificateTransparencyVerificationRequired("")) {
+            return StatsLogImpl
+                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_APP_OPT_IN;
+        } else if (NetworkSecurityPolicy.getInstance()
+                           .isCertificateTransparencyVerificationRequired(hostname)) {
+            return StatsLogImpl
+                    .CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_NSCONFIG_DOMAIN_OPT_IN;
+        }
+        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -500,12 +521,11 @@ final public class Platform {
         return CertBlocklistImpl.getDefault();
     }
 
-    static LogStore newDefaultLogStore() {
-        return new LogStoreImpl();
-    }
-
-    static Policy newDefaultPolicy() {
-        return new PolicyImpl();
+    static CertificateTransparency newDefaultCertificateTransparency() {
+        org.conscrypt.ct.Policy policy = new org.conscrypt.ct.PolicyImpl();
+        org.conscrypt.ct.LogStore logStore = new org.conscrypt.ct.LogStoreImpl(policy);
+        org.conscrypt.ct.Verifier verifier = new org.conscrypt.ct.Verifier(logStore);
+        return new CertificateTransparency(logStore, policy, verifier, getStatsLog());
     }
 
     static boolean serverNamePermitted(SSLParametersImpl parameters, String serverName) {
@@ -553,34 +573,34 @@ final public class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return true;
+        return DEPRECATED_TLS_V1;
     }
 
     public static boolean isTlsV1Filtered() {
         Object targetSdkVersion = getTargetSdkVersion();
-        if ((targetSdkVersion != null) && ((int) targetSdkVersion > 34))
+        if ((targetSdkVersion != null) && ((int) targetSdkVersion > 35)
+               && ((int) targetSdkVersion < 100))
             return false;
-        return true;
+        return FILTERED_TLS_V1;
     }
 
     public static boolean isTlsV1Supported() {
-        return false;
+        return ENABLED_TLS_V1;
     }
 
     static Object getTargetSdkVersion() {
         try {
-            Class<?> vmRuntime = Class.forName("dalvik.system.VMRuntime");
-            if (vmRuntime == null) {
-                return null;
-            }
-            OptionalMethod getSdkVersion =
-                    new OptionalMethod(vmRuntime,
-                                        "getTargetSdkVersion");
-            return getSdkVersion.invokeStatic();
-        } catch (ClassNotFoundException e) {
+            Class<?> vmRuntimeClass = Class.forName("dalvik.system.VMRuntime");
+            Method getRuntimeMethod = vmRuntimeClass.getDeclaredMethod("getRuntime");
+            Method getTargetSdkVersionMethod =
+                        vmRuntimeClass.getDeclaredMethod("getTargetSdkVersion");
+            Object vmRuntime = getRuntimeMethod.invoke(null);
+            return getTargetSdkVersionMethod.invoke(vmRuntime);
+        } catch (IllegalAccessException |
+          NullPointerException | InvocationTargetException e) {
             return null;
-        } catch (NullPointerException e) {
-            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
