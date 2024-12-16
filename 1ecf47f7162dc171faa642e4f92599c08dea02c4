@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96a6aa32_916e9285",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-16T17:41:35Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem to have been repackaged... This is the pevious code.",
+      "range": {
+        "startLine": 34,
+        "startChar": 21,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "1ecf47f7162dc171faa642e4f92599c08dea02c4",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
