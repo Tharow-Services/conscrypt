@@ -609,4 +609,20 @@ final public class Platform {
             throw new RuntimeException(e);
         }
     }
+
+    public static Object getSdkVersion() {
+        try {
+            Class<?> vmRuntimeClass = Class.forName("dalvik.system.VMRuntime");
+            Method getRuntimeMethod = vmRuntimeClass.getDeclaredMethod("getRuntime");
+            Method getSdkVersionMethod =
+                        vmRuntimeClass.getDeclaredMethod("getSdkVersion");
+            Object vmRuntime = getRuntimeMethod.invoke(null);
+            return getSdkVersionMethod.invoke(vmRuntime);
+        } catch (IllegalAccessException |
+          NullPointerException | InvocationTargetException e) {
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
