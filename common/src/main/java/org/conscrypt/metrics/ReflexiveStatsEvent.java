@@ -16,6 +16,7 @@
 package org.conscrypt.metrics;
 
 import org.conscrypt.Internal;
+import org.conscrypt.Platform;
 
 /**
  * Reflection wrapper around android.util.StatsEvent.
@@ -28,10 +29,9 @@ public class ReflexiveStatsEvent {
     private static final boolean sdkVersionBiggerThan32;
 
     static {
-        sdkVersion = getSdkVersion();
         c_statsEvent = initStatsEventClass();
         newBuilder = new OptionalMethod(c_statsEvent, "newBuilder");
-        sdkVersionBiggerThan32 = (sdkVersion != null) && ((int) sdkVersion > 32);
+        sdkVersionBiggerThan32 = Platform.isSdkGreater(32);
     }
 
     private static Class<?> initStatsEventClass() {
@@ -83,18 +83,6 @@ public class ReflexiveStatsEvent {
         builder.writeInt(source);
         builder.usePooledBuffer();
         return builder.build();
-    }
-
-
-    static Object getSdkVersion() {
-        try {
-            OptionalMethod getSdkVersion =
-                    new OptionalMethod(Class.forName("dalvik.system.VMRuntime"),
-                                        "getSdkVersion");
-            return getSdkVersion.invokeStatic();
-        } catch (ClassNotFoundException e) {
-            return null;
-        }
     }
 
     public static final class Builder {
