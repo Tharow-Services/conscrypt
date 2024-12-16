@@ -594,6 +594,10 @@ final public class Platform {
         return ENABLED_TLS_V1;
     }
 
+    public static boolean isSpake2Supported() {
+        return true;
+    }
+
     static Object getTargetSdkVersion() {
         try {
             Class<?> vmRuntimeClass = Class.forName("dalvik.system.VMRuntime");
