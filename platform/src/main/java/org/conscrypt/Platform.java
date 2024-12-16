@@ -603,4 +603,8 @@ final public class Platform {
             throw new RuntimeException(e);
         }
     }
+
+    public static boolean isSdkGreater(int sdk) {
+        return VMRuntime.getSdkVersion() > sdk;
+    }
 }
