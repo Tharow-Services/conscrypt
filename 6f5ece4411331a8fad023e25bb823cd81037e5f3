@@ -85,6 +85,30 @@
       },
       "revId": "6f5ece4411331a8fad023e25bb823cd81037e5f3",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "05d92d15_edd554e3",
+        "filename": "publicapi/src/main/java/android/net/ssl/SpakeKeyManagerParameters.java",
+        "patchSetId": 15
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-16T10:44:16Z",
+      "side": 1,
+      "message": "I prefer to separate them as it will allow adding prover, or verifier, specific things if needed. Also just allows separating the code paths for the two inside Conscrypt - I think it\u0027s a bit cleaner than having an extra field for the role. However, I\u0027ll have to rethink this if we go with a more generic API.",
+      "parentUuid": "a779e847_65fb37d9",
+      "range": {
+        "startLine": 176,
+        "startChar": 24,
+        "endLine": 176,
+        "endChar": 36
+      },
+      "revId": "6f5ece4411331a8fad023e25bb823cd81037e5f3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ],
   "submitRequirementResults": [
