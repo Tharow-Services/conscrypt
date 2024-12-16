@@ -588,7 +588,7 @@ final public class Platform {
         return ENABLED_TLS_V1;
     }
 
-    static Object getTargetSdkVersion() {
+    public static Object getTargetSdkVersion() {
         try {
             Class<?> vmRuntimeClass = Class.forName("dalvik.system.VMRuntime");
             Method getRuntimeMethod = vmRuntimeClass.getDeclaredMethod("getRuntime");
