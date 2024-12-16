@@ -594,14 +594,14 @@ final public class Platform {
         return ENABLED_TLS_V1;
     }
 
-    static Object getTargetSdkVersion() {
+    public static Object getSdkVersion() {
         try {
             Class<?> vmRuntimeClass = Class.forName("dalvik.system.VMRuntime");
             Method getRuntimeMethod = vmRuntimeClass.getDeclaredMethod("getRuntime");
-            Method getTargetSdkVersionMethod =
-                        vmRuntimeClass.getDeclaredMethod("getTargetSdkVersion");
+            Method getSdkVersionMethod =
+                        vmRuntimeClass.getDeclaredMethod("getSdkVersion");
             Object vmRuntime = getRuntimeMethod.invoke(null);
-            return getTargetSdkVersionMethod.invoke(vmRuntime);
+            return getSdkVersionMethod.invoke(vmRuntime);
         } catch (IllegalAccessException |
           NullPointerException | InvocationTargetException e) {
             return null;
