@@ -20,6 +20,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1ec30f7d_89119ffd",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-16T05:48:21Z",
+      "side": 1,
+      "message": "Yes, I was thinking of keeping Protocol.java and simply replacing the existing values with a reference to the constants here:\n\n`SSLv3(1),` -\u003e `SSLv3(TLS_HANDSHAKE_REPORTED__PROTOCOL__SSL_V3)`\n\n(from the previous patchset) I also realized that Constants.java was too vague. So keep Source.java but make sure that the values are redirecting to ConscryptStatsLog.java (and similarly for CertificateTransparencyVerificationReason).",
+      "parentUuid": "9f2b881a_fbc32507",
+      "revId": "c1de16de374f2aad3eea271333bbdf2bdeb52948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "193c415f_19c2370d",
         "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
         "patchSetId": 2
@@ -31,6 +49,30 @@
       "writtenOn": "2024-12-13T11:01:49Z",
       "side": 1,
       "message": "I think it would be good to retain parameter values for code clarity.",
+      "range": {
+        "startLine": 188,
+        "startChar": 29,
+        "endLine": 188,
+        "endChar": 103
+      },
+      "revId": "c1de16de374f2aad3eea271333bbdf2bdeb52948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b59679d_57ffd376",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-16T05:48:21Z",
+      "side": 1,
+      "message": "The intent of the change here is to keep ConscryptStatsLog.java as close as possible to the generated wrapper (as this is required for GMSCore). I literally copied the wrapper, removed unlikely-to-be-used constants and run `:%s/StatsEvents/ReflexiveStatsEvents/g` (and similar for StatsLog). The less changes we are making here, the easier it will be to update this file.\n\nYou can also see this class as the low-level interactions with statsd (i.e., statsd really don\u0027t care about the variable name, only that its type is matching the atom\u0027s definition). The higher-level counterpart (StatsLogImpl.java) does have reasonable parameter names for the corresponding `write()` methods.",
+      "parentUuid": "193c415f_19c2370d",
       "range": {
         "startLine": 188,
         "startChar": 29,
@@ -78,6 +120,30 @@
           ]
         }
       ],
+      "revId": "c1de16de374f2aad3eea271333bbdf2bdeb52948",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "50a92977_32510be0",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-16T05:48:21Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "555215b9_3512d8a6",
+      "range": {
+        "startLine": 70,
+        "startChar": 8,
+        "endLine": 70,
+        "endChar": 37
+      },
       "revId": "c1de16de374f2aad3eea271333bbdf2bdeb52948",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
