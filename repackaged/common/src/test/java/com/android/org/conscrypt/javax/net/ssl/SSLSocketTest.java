@@ -28,6 +28,7 @@ import static org.junit.Assert.assertTrue;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+import com.android.org.conscrypt.SpakeKeyManager;
 import com.android.org.conscrypt.TestUtils;
 import com.android.org.conscrypt.java.security.StandardNames;
 import com.android.org.conscrypt.java.security.TestKeyStore;
@@ -45,9 +46,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import android.net.ssl.SpakeKeyManagerParameters;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
@@ -70,15 +74,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.net.SocketFactory;
 import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.ManagerFactoryParameters;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLEngine;
 import javax.net.ssl.SSLHandshakeException;
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLProtocolException;
 import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLServerSocket;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509ExtendedTrustManager;
 
 import tests.net.DelegatingSSLSocketFactory;
@@ -1020,9 +1030,13 @@ public class SSLSocketTest {
             };
             ClientHello clientHello = TlsTester.captureTlsHandshakeClientHello(executor, factory);
             if (protocol.equals("TLSv1.2") || protocol.equals("TLSv1.3")) {
-                assertFalse(clientHello.cipherSuites.contains(CipherSuite.valueOf("TLS_FALLBACK_SCSV")));
+                assertFalse(
+                        clientHello.cipherSuites.contains(
+                                CipherSuite.valueOf("TLS_FALLBACK_SCSV")));
             } else {
-                assertTrue(clientHello.cipherSuites.contains(CipherSuite.valueOf("TLS_FALLBACK_SCSV")));
+                assertTrue(
+                        clientHello.cipherSuites.contains(
+                                CipherSuite.valueOf("TLS_FALLBACK_SCSV")));
             }
         }
     }
@@ -1077,6 +1091,170 @@ public class SSLSocketTest {
         InputStream serverStream = pair.server.getInputStream();
         assertEquals(4, serverStream.read(buffer));
         assertArrayEquals(ping, buffer);
+    }
+
+    @Test
+    public void testSpake() throws Exception {
+        byte[] password = "password".getBytes();
+        byte[] context = "spake_test".getBytes();
+        InetAddress hostC = TestUtils.getLoopbackAddress();
+        InetAddress hostS = TestUtils.getLoopbackAddress();
+
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance("SPAKE2+");
+        tmf.init((ManagerFactoryParameters) null);
+
+        SpakeKeyManagerParameters kmfParamsClient = new SpakeKeyManagerParameters.Prover
+            .Builder(password)
+            .setContext(context)
+            .build();
+
+        KeyManagerFactory kmfClient = KeyManagerFactory.getInstance("SPAKE2+");
+        kmfClient.init(kmfParamsClient);
+        KeyManager[] keyManagersClient = kmfClient.getKeyManagers();
+        assertTrue(keyManagersClient.length == 1);
+        assertTrue(keyManagersClient[0] instanceof SpakeKeyManager);
+        SpakeKeyManager spakeKeyManagerClient = (SpakeKeyManager) keyManagersClient[0];
+        assertTrue(spakeKeyManagerClient.isClient());
+
+        SSLContext contextClient = SSLContext.getInstance("TlsV1.3");
+        contextClient.init(keyManagersClient, tmf.getTrustManagers(), null);
+
+        SpakeKeyManagerParameters kmfParamsServer = new SpakeKeyManagerParameters.Verifier
+            .Builder(password)
+            .setContext(context)
+            .build();
+
+        KeyManagerFactory kmfServer = KeyManagerFactory.getInstance("SPAKE2+");
+        kmfServer.init(kmfParamsServer);
+        KeyManager[] keyManagersServer = kmfServer.getKeyManagers();
+        assertTrue(keyManagersServer.length == 1);
+        assertTrue(keyManagersServer[0] instanceof SpakeKeyManager);
+        SpakeKeyManager spakeKeyManagerServer = (SpakeKeyManager) keyManagersServer[0];
+        assertFalse(spakeKeyManagerServer.isClient());
+
+        SSLContext contextServer = SSLContext.getInstance("TlsV1.3");
+        contextServer.init(keyManagersServer, tmf.getTrustManagers(), null);
+
+        SSLServerSocket serverSocket =
+                (SSLServerSocket) contextServer.getServerSocketFactory()
+                        .createServerSocket();
+        serverSocket.bind(new InetSocketAddress(hostS, 0));
+        SSLSocket server = (SSLSocket) serverSocket.accept();
+        SSLSocket client = (SSLSocket) contextClient.getSocketFactory().createSocket(hostC, server.getLocalPort());
+
+        server.setUseClientMode(false);
+        Future<Void> s = runAsync(() -> {
+            server.startHandshake();
+            return null;
+        });
+        client.startHandshake();
+        s.get();
+        byte[] buffer = new byte[5];
+        socketWrite(client, "hello".getBytes());
+        socketWrite(server, "world".getBytes());
+        assertEquals(5, client.getInputStream().read(buffer));
+        assertEquals(5, server.getInputStream().read(buffer));
+        try {
+            client.close();
+            server.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Test
+    public void testSpakeAndOthersInvalid() throws Exception {
+        byte[] password = "password".getBytes();
+        byte[] context = "context".getBytes();
+
+        SpakeKeyManagerParameters spakeParams =
+                new SpakeKeyManagerParameters.Verifier
+                        .Builder(password)
+                        .setContext(context)
+                        .build();
+
+        KeyManagerFactory kmf = null;
+        kmf = KeyManagerFactory.getInstance("SPAKE2+");
+        kmf.init(spakeParams);
+
+        KeyManager[] keyManagers = kmf.getKeyManagers();
+
+        // Add a PSK key manager to the array.
+        KeyManager[] keyManagersWithPSK = Arrays.copyOf(keyManagers, keyManagers.length + 1);
+
+        KeyManager pskKeyManager =
+                PSKKeyManagerProxy.getConscryptPSKKeyManager(new PSKKeyManagerProxy() {
+                    @Override
+                    protected SecretKey getKey(
+                            String identityHint, String identity, Socket socket) {
+                        return newKey();
+                    }
+
+                    @Override
+                    protected SecretKey getKey(
+                            String identityHint, String identity, SSLEngine engine) {
+                        return newKey();
+                    }
+
+                    private SecretKey newKey() {
+                        return new SecretKeySpec("Just an arbitrary key".getBytes(UTF_8), "RAW");
+                    }
+                });
+        keyManagersWithPSK[keyManagers.length] = pskKeyManager;
+
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance("SPAKE2+");
+        tmf.init((ManagerFactoryParameters) null);
+        TrustManager[] trustManagers = tmf.getTrustManagers();
+
+        SSLContext sslContext = SSLContext.getInstance("TlsV1.3");
+        // Should throw due to both SPAKE and PSKKeyManager
+        assertThrows(
+                IllegalArgumentException.class,
+                () ->
+                        sslContext.init(
+                                keyManagersWithPSK,
+                                trustManagers,
+                                null));
+    }
+
+
+    @Test
+    public void testSpakeNoTrustOrKeyInvalid() throws Exception {
+        byte[] password = "password".getBytes();
+        byte[] context = "context".getBytes();
+
+        SpakeKeyManagerParameters spakeParams =
+                new SpakeKeyManagerParameters.Verifier
+                        .Builder(password)
+                        .setContext(context)
+                        .build();
+
+        KeyManagerFactory kmf = null;
+        kmf = KeyManagerFactory.getInstance("SPAKE2+");
+        kmf.init(spakeParams);
+
+        KeyManager[] keyManagers = kmf.getKeyManagers();
+
+        TrustManagerFactory tmf = TrustManagerFactory.getInstance("SPAKE2+");
+        tmf.init((ManagerFactoryParameters) null);
+        TrustManager[] trustManagers = tmf.getTrustManagers();
+
+        SSLContext sslContext = SSLContext.getInstance("TlsV1.3");
+        assertThrows(
+                IllegalArgumentException.class,
+                () ->
+                        sslContext.init(
+                                keyManagers,
+                                null,
+                                null));
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () ->
+                        sslContext.init(
+                                null,
+                                trustManagers,
+                                null));
     }
 
     private void socketClose(Socket socket) {
