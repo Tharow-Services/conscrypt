@@ -24,6 +24,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "72f9949e_43a62a76",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 878,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-17T06:00:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "391427a1_da5879a4",
+      "range": {
+        "startLine": 878,
+        "startChar": 57,
+        "endLine": 878,
+        "endChar": 63
+      },
+      "revId": "095ab9a15fd15bbcb5fb60a9ed27a14c9818398c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "cbd1c9d8_6247bdbe",
@@ -37,6 +61,30 @@
       "writtenOn": "2024-12-16T18:00:33Z",
       "side": 1,
       "message": "Can we comment what each of these are, otherwise it\u0027s rather opaque.",
+      "range": {
+        "startLine": 187,
+        "startChar": 12,
+        "endLine": 187,
+        "endChar": 13
+      },
+      "revId": "095ab9a15fd15bbcb5fb60a9ed27a14c9818398c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c855ff4_32bfe098",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-17T06:00:30Z",
+      "side": 1,
+      "message": "(See also my other comment about the argument names).\n\nI did not write this class, this is a copy/paste from the generated wrapper (include the comment here, or the constant comments above). I only updated the top level class comment to capture the story behind this file.\n\nI don\u0027t think we should add anything here, unless stricly required (ie, using the Reflexive classes instead of the SDK classes). When we change the proto definition, it will be trivial to identify and merge the changes in here. If we start deviating from the wrapper code, we will spend more time churning through the code to understand what has changed.",
+      "parentUuid": "cbd1c9d8_6247bdbe",
       "range": {
         "startLine": 187,
         "startChar": 12,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7d099f57_ab9cd37f",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-17T06:00:30Z",
+      "side": 1,
+      "message": "From what I can tell, the changes should not conflict: here we are moving the call to check the value of `sdkVersionBiggerThan32`, whereas 3415697 is changing how that attribute is set. \n\nThe other commit is also not building right now. If it gets merged first, I\u0027ll rebase, but Gerrit will let us know either way if there is any conflict.",
+      "parentUuid": "eace8bec_e6a641e9",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 38
+      },
+      "revId": "095ab9a15fd15bbcb5fb60a9ed27a14c9818398c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f6cdb26_5b7ca58b",
         "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/metrics/CertificateTransparencyVerificationReason.java",
         "patchSetId": 4
@@ -83,6 +155,30 @@
       "writtenOn": "2024-12-16T18:00:33Z",
       "side": 1,
       "message": "Please fix this INFO reported by Tip Prediction: AI Readability\n\nAnalyzer Description: Runs go/tip-prediction tool on the commit.\nOwner: peeps-genai-team@google.com\n\nAI Readability\n\nReview [go/java-style#s3.3.1-wildcard-imports](http://go/java-style#s3.3.1-wildcard-imports) - it may improve this code:\n\n**Wildcard imports**, static or otherwise, **are not used**.\n\nWas this tip helpful? [Yes 👍](http://go/gerrit-tip-prediction-thumbs-up?title\u003d[Yes%20👍]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fexternal%2Fconscrypt%2F%2B%2F3411638%2F4) / [No 👎](http://go/gerrit-tip-prediction-thumbs-down?title\u003d[No%20👎]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fexternal%2Fconscrypt%2F%2B%2F3411638%2F4)\nWould you like to provide additional [feedback](http://go/gerrit-tip-prediction-feedback?title\u003d[Feedback]%20https%3A%2F%2Fandroid%2Fc%2Fplatform%2Fexternal%2Fconscrypt%2F%2B%2F3411638%2F4)?\nWant to opt out of Tip Predictions completely? [Opt out](http://go/gerrit-tip-prediction-optout)\nOther questions? Check out the [FAQs](http://go/gerrit-tip-prediction-faqs).",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 68
+      },
+      "revId": "095ab9a15fd15bbcb5fb60a9ed27a14c9818398c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7007a573_9d0558a8",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/metrics/CertificateTransparencyVerificationReason.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1561651
+      },
+      "writtenOn": "2024-12-17T06:00:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7f6cdb26_5b7ca58b",
       "range": {
         "startLine": 20,
         "startChar": 1,
