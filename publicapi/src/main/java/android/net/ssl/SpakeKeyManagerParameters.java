@@ -49,6 +49,7 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
     private byte[] idProver;
     private byte[] idVerifier;
     private byte[] context;
+    private boolean isClient;
 
     private SpakeKeyManagerParameters() {}
 
@@ -86,6 +87,15 @@ public class SpakeKeyManagerParameters implements ManagerFactoryParameters {
      */
     public @NonNull byte[] getContext() {
         return context;
+    }
+
+    /**
+     * Indicates whether this is a client or server.
+     *
+     * @return the SPAKE2+ context. May be empty
+     */
+    public @NonNull boolean isClient() {
+        return isClient;
     }
 
     /**
