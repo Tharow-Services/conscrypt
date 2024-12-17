@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "99d5cfda_69435935",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 57
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-17T12:41:53Z",
+      "side": 1,
+      "message": "I think here and below you want to throw KeyManagementException: https://developer.android.com/reference/javax/net/ssl/SSLContext?hl\u003den#init(javax.net.ssl.KeyManager[],%20javax.net.ssl.TrustManager[],%20java.security.SecureRandom)",
+      "range": {
+        "startLine": 136,
+        "startChar": 22,
+        "endLine": 136,
+        "endChar": 46
+      },
+      "revId": "d110851c563c9d627b37fe336498d49a4519c01b",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
