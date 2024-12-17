@@ -17,6 +17,7 @@
 package android.net.ssl;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
 import android.net.ssl.SpakeKeyManagerParameters.Prover;
@@ -50,6 +51,7 @@ public class SpakeKeyManagerParametersTest {
         assertArrayEquals(ID_PROVER, prover.getIdProver());
         assertArrayEquals(ID_VERIFIER, prover.getIdVerifier());
         assertArrayEquals(CONTEXT, prover.getContext());
+        assertEquals(true, prover instanceof SpakeKeyManagerParameters.Prover);
     }
 
     @Test
@@ -65,6 +67,7 @@ public class SpakeKeyManagerParametersTest {
         assertArrayEquals(ID_PROVER, verifier.getIdProver());
         assertArrayEquals(ID_VERIFIER, verifier.getIdVerifier());
         assertArrayEquals(CONTEXT, verifier.getContext());
+        assertEquals(true, verifier instanceof SpakeKeyManagerParameters.Verifier);
     }
 
     @Test
