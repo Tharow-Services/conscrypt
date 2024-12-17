@@ -639,6 +639,17 @@ public final class NativeCrypto {
 
     static native int X509_supported_extension(long x509ExtensionRef);
 
+    // --- SPAKE ---------------------------------------------------------------
+
+    static native void SSL_CTX_set_spake_credential(
+            byte[] context,
+            byte[] pw_array,
+            byte[] id_prover_array,
+            byte[] id_verifier_array,
+            boolean is_client,
+            NativeSsl ssl_holder)
+        throws SSLException, InvalidAlgorithmParameterException;
+
     // --- ASN1_TIME -----------------------------------------------------------
 
     static native void ASN1_TIME_to_Calendar(long asn1TimeCtx, Calendar cal) throws ParsingException;
@@ -961,6 +972,11 @@ public final class NativeCrypto {
             "TLS_PSK_WITH_AES_256_CBC_SHA",
     };
 
+    /** TLS-SPAKE */
+    static final String[] DEFAULT_SPAKE_CIPHER_SUITES = new String[] {
+            "TLS1_3_NAMED_PAKE_SPAKE2PLUSV1",
+    };
+
     static String[] getSupportedCipherSuites() {
         return SSLUtils.concat(SUPPORTED_TLS_1_3_CIPHER_SUITES, SUPPORTED_TLS_1_2_CIPHER_SUITES.clone());
     }
@@ -1208,6 +1224,11 @@ public final class NativeCrypto {
             if (SUPPORTED_TLS_1_2_CIPHER_SUITES_SET.contains(cipherSuites[i])) {
                 continue;
             }
+            // Not sure if we need to do this for SPAKE, but the SPAKE cipher suite
+            // not registered at the moment.
+            if (DEFAULT_SPAKE_CIPHER_SUITES[0] == cipherSuites[i]) {
+                continue;
+            }
 
             // For backwards compatibility, it's allowed for |cipherSuite| to
             // be an OpenSSL-style cipher-suite name.
@@ -1324,18 +1345,16 @@ public final class NativeCrypto {
                 throws CertificateException;
 
         /**
-         * Called on an SSL client when the server requests (or
-         * requires a certificate). The client can respond by using
-         * SSL_use_certificate and SSL_use_PrivateKey to set a
-         * certificate if has an appropriate one available, similar to
-         * how the server provides its certificate.
+         * Called on an SSL client when the server requests (or requires a certificate). The client
+         * can respond by using SSL_use_certificate and SSL_use_PrivateKey to set a certificate if
+         * has an appropriate one available, similar to how the server provides its certificate.
          *
-         * @param keyTypes key types supported by the server,
-         * convertible to strings with #keyType
+         * @param keyTypes key types supported by the server, convertible to strings with #keyType
          * @param asn1DerEncodedX500Principals CAs known to the server
          */
-        @SuppressWarnings("unused") void clientCertificateRequested(byte[] keyTypes, int[] signatureAlgs,
-                byte[][] asn1DerEncodedX500Principals)
+        @SuppressWarnings("unused")
+        void clientCertificateRequested(
+                byte[] keyTypes, int[] signatureAlgs, byte[][] asn1DerEncodedX500Principals)
                 throws CertificateEncodingException, SSLException;
 
         /**
