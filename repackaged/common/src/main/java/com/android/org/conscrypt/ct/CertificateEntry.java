@@ -47,8 +47,17 @@ public class CertificateEntry {
      * @hide This class is not part of the Android public SDK API
      */
     public enum LogEntryType {
-        X509_ENTRY,
-        PRECERT_ENTRY
+        X509_ENTRY(0),
+        PRECERT_ENTRY(1);
+        private final int value;
+
+        LogEntryType(int value) {
+            this.value = value;
+        }
+
+        int value() {
+            return value;
+        }
     }
 
     private final LogEntryType entryType;
@@ -129,7 +138,7 @@ public class CertificateEntry {
      * TLS encode the CertificateEntry structure.
      */
     public void encode(OutputStream output) throws SerializationException {
-        Serialization.writeNumber(output, entryType.ordinal(), Constants.LOG_ENTRY_TYPE_LENGTH);
+        Serialization.writeNumber(output, entryType.value(), Constants.LOG_ENTRY_TYPE_LENGTH);
         if (entryType == LogEntryType.PRECERT_ENTRY) {
             Serialization.writeFixedBytes(output, issuerKeyHash);
         }

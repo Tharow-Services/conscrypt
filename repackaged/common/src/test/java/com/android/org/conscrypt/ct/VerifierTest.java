@@ -64,6 +64,36 @@ public class VerifierTest {
                                     .build();
         LogStore store = new LogStore() {
             @Override
+            public State getState() {
+                return LogStore.State.COMPLIANT;
+            }
+
+            @Override
+            public long getTimestamp() {
+                return 0;
+            }
+
+            @Override
+            public int getMajorVersion() {
+                return 1;
+            }
+
+            @Override
+            public int getMinorVersion() {
+                return 2;
+            }
+
+            @Override
+            public int getCompatVersion() {
+                return 1;
+            }
+
+            @Override
+            public int getMinCompatVersionAvailable() {
+                return 1;
+            }
+
+            @Override
             public LogInfo getKnownLog(byte[] logId) {
                 if (Arrays.equals(logId, log.getID())) {
                     return log;

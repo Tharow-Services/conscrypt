@@ -17,10 +17,12 @@
 
 package com.android.org.conscrypt.ct;
 
+import com.android.org.conscrypt.Internal;
+
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.List;
-import com.android.org.conscrypt.Internal;
 
 /**
  * Container for verified SignedCertificateTimestamp.
@@ -33,14 +35,23 @@ import com.android.org.conscrypt.Internal;
  */
 @Internal
 public class VerificationResult {
-    private final ArrayList<VerifiedSCT> validSCTs = new ArrayList<VerifiedSCT>();
-    private final ArrayList<VerifiedSCT> invalidSCTs = new ArrayList<VerifiedSCT>();
+    private final List<VerifiedSCT> validSCTs = new ArrayList<>();
+    private final List<VerifiedSCT> invalidSCTs = new ArrayList<>();
+    private final EnumMap<SignedCertificateTimestamp.Origin, Integer> count =
+            new EnumMap<>(SignedCertificateTimestamp.Origin.class);
 
     public void add(VerifiedSCT result) {
         if (result.isValid()) {
             validSCTs.add(result);
         } else {
             invalidSCTs.add(result);
+        }
+        SignedCertificateTimestamp.Origin origin = result.getSct().getOrigin();
+        Integer value = count.get(origin);
+        if (value == null) {
+            count.put(origin, 1);
+        } else {
+            count.put(origin, value + 1);
         }
     }
 
@@ -50,5 +61,19 @@ public class VerificationResult {
 
     public List<VerifiedSCT> getInvalidSCTs() {
         return Collections.unmodifiableList(invalidSCTs);
+    }
+
+    public int numCertSCTs() {
+        Integer num = count.get(SignedCertificateTimestamp.Origin.EMBEDDED);
+        return (num == null ? 0 : num.intValue());
+    }
+
+    public int numOCSPSCTs() {
+        Integer num = count.get(SignedCertificateTimestamp.Origin.OCSP_RESPONSE);
+        return (num == null ? 0 : num.intValue());
+    }
+    public int numTlsSCTs() {
+        Integer num = count.get(SignedCertificateTimestamp.Origin.TLS_EXTENSION);
+        return (num == null ? 0 : num.intValue());
     }
 }

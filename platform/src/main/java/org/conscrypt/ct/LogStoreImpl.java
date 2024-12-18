@@ -22,6 +22,8 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import org.conscrypt.ByteArray;
 import org.conscrypt.Internal;
 import org.conscrypt.OpenSSLKey;
+import org.conscrypt.Platform;
+import org.conscrypt.metrics.StatsLog;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,9 +37,6 @@ import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Collections;
@@ -50,33 +49,78 @@ import java.util.logging.Logger;
 @Internal
 public class LogStoreImpl implements LogStore {
     private static final Logger logger = Logger.getLogger(LogStoreImpl.class.getName());
-    public static final String V3_PATH = "/misc/keychain/ct/v3/log_list.json";
-    private static final Path defaultLogList;
+    private static final String BASE_PATH = "misc/keychain/ct";
+    private static final int COMPAT_VERSION = 1;
+    private static final String CURRENT = "current";
+    private static final String LOG_LIST_FILENAME = "log_list.json";
+    private static final Path DEFAULT_LOG_LIST;
 
     static {
-        String ANDROID_DATA = System.getenv("ANDROID_DATA");
-        defaultLogList = Paths.get(ANDROID_DATA, V3_PATH);
-    }
-
-    private enum State {
-        UNINITIALIZED,
-        LOADED,
-        NOT_FOUND,
-        MALFORMED,
+        String androidData = System.getenv("ANDROID_DATA");
+        String compatVersion = String.format("v%d", COMPAT_VERSION);
+        DEFAULT_LOG_LIST =
+                Paths.get(androidData, BASE_PATH, compatVersion, CURRENT, LOG_LIST_FILENAME);
     }
 
     private final Path logList;
+    private StatsLog metrics;
     private State state;
-    private String version;
+    private Policy policy;
+    private int majorVersion;
+    private int minorVersion;
+    private long timestamp;
     private Map<ByteArray, LogInfo> logs;
 
-    public LogStoreImpl() {
-        this(defaultLogList);
+    public LogStoreImpl(Policy policy) {
+        this(policy, DEFAULT_LOG_LIST);
     }
 
-    public LogStoreImpl(Path logList) {
+    public LogStoreImpl(Policy policy, Path logList) {
+        this(policy, logList, Platform.getStatsLog());
+    }
+
+    public LogStoreImpl(Policy policy, Path logList, StatsLog metrics) {
         this.state = State.UNINITIALIZED;
+        this.policy = policy;
         this.logList = logList;
+        this.metrics = metrics;
+    }
+
+    @Override
+    public State getState() {
+        ensureLogListIsLoaded();
+        return state;
+    }
+
+    @Override
+    public long getTimestamp() {
+        return timestamp;
+    }
+
+    @Override
+    public int getMajorVersion() {
+        return majorVersion;
+    }
+
+    @Override
+    public int getMinorVersion() {
+        return minorVersion;
+    }
+
+    @Override
+    public int getCompatVersion() {
+        // Currently, there is only one compatibility version supported. If we
+        // are loaded or initialized, it means the expected compatibility
+        // version was found.
+        if (state == State.LOADED || state == State.COMPLIANT || state == State.NON_COMPLIANT) {
+            return COMPAT_VERSION;
+        }
+        return 0;
+    }
+
+    @Override
+    public int getMinCompatVersionAvailable() {
+        return getCompatVersion();
     }
 
     @Override
@@ -100,10 +144,17 @@ public class LogStoreImpl implements LogStore {
      */
     private boolean ensureLogListIsLoaded() {
         synchronized (this) {
+            State previousState = state;
             if (state == State.UNINITIALIZED) {
                 state = loadLogList();
             }
-            return state == State.LOADED;
+            if (state == State.LOADED && policy != null) {
+                state = policy.isLogStoreCompliant(this) ? State.COMPLIANT : State.NON_COMPLIANT;
+            }
+            if (state != previousState) {
+                metrics.updateCTLogListStatusChanged(this);
+            }
+            return state == State.COMPLIANT;
         }
     }
 
@@ -126,7 +177,9 @@ public class LogStoreImpl implements LogStore {
         }
         HashMap<ByteArray, LogInfo> logsMap = new HashMap<>();
         try {
-            version = json.getString("version");
+            majorVersion = parseMajorVersion(json.getString("version"));
+            minorVersion = parseMinorVersion(json.getString("version"));
+            timestamp = json.getLong("log_list_timestamp");
             JSONArray operators = json.getJSONArray("operators");
             for (int i = 0; i < operators.length(); i++) {
                 JSONObject operator = operators.getJSONObject(i);
@@ -145,9 +198,8 @@ public class LogStoreImpl implements LogStore {
                     JSONObject stateObject = log.optJSONObject("state");
                     if (stateObject != null) {
                         String state = stateObject.keys().next();
-                        String stateTimestamp =
-                                stateObject.getJSONObject(state).getString("timestamp");
-                        builder.setState(parseState(state), parseStateTimestamp(stateTimestamp));
+                        long stateTimestamp = stateObject.getJSONObject(state).getLong("timestamp");
+                        builder.setState(parseState(state), stateTimestamp);
                     }
 
                     LogInfo logInfo = builder.build();
@@ -169,6 +221,30 @@ public class LogStoreImpl implements LogStore {
         return State.LOADED;
     }
 
+    private static int parseMajorVersion(String version) {
+        int pos = version.indexOf(".");
+        if (pos == -1) {
+            pos = version.length();
+        }
+        try {
+            return Integer.parseInt(version.substring(0, pos));
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    private static int parseMinorVersion(String version) {
+        int pos = version.indexOf(".");
+        if (pos != -1 && pos < version.length()) {
+            try {
+                return Integer.parseInt(version.substring(pos + 1, version.length()));
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                return 0;
+            }
+        }
+        return 0;
+    }
+
     private static int parseState(String state) {
         switch (state) {
             case "pending":
@@ -185,19 +261,6 @@ public class LogStoreImpl implements LogStore {
                 return LogInfo.STATE_REJECTED;
             default:
                 throw new IllegalArgumentException("Unknown log state: " + state);
-        }
-    }
-
-    // ISO 8601
-    private static DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssX");
-
-    @SuppressWarnings("JavaUtilDate")
-    private static long parseStateTimestamp(String timestamp) {
-        try {
-            Date date = dateFormatter.parse(timestamp);
-            return date.getTime();
-        } catch (ParseException e) {
-            throw new IllegalArgumentException(e);
         }
     }
 

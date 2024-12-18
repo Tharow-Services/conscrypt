@@ -21,9 +21,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.android.org.conscrypt.OpenSSLKey;
-
-import libcore.test.annotation.NonCts;
-import libcore.test.reasons.NonCtsReasons;
+import com.android.org.conscrypt.metrics.NoopStatsLog;
 
 import junit.framework.TestCase;
 
@@ -36,19 +34,53 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.security.PublicKey;
+import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Base64;
 
 /**
  * @hide This class is not part of the Android public SDK API
  */
 public class LogStoreImplTest extends TestCase {
-    @NonCts(reason = NonCtsReasons.INTERNAL_APIS)
-    public void test_loadLogList() throws Exception {
+    static class FakeStatsLog extends NoopStatsLog {
+        public ArrayList<LogStore.State> states = new ArrayList<LogStore.State>();
+
+        @Override
+        public void updateCTLogListStatusChanged(LogStore logStore) {
+            states.add(logStore.getState());
+        }
+    }
+
+    Policy alwaysCompliantStorePolicy = new Policy() {
+        @Override
+        public boolean isLogStoreCompliant(LogStore store) {
+            return true;
+        }
+        @Override
+        public PolicyCompliance doesResultConformToPolicy(
+                VerificationResult result, X509Certificate leaf) {
+            return PolicyCompliance.COMPLY;
+        }
+    };
+
+    Policy neverCompliantStorePolicy = new Policy() {
+        @Override
+        public boolean isLogStoreCompliant(LogStore store) {
+            return false;
+        }
+        @Override
+        public PolicyCompliance doesResultConformToPolicy(
+                VerificationResult result, X509Certificate leaf) {
+            return PolicyCompliance.COMPLY;
+        }
+    };
+
+    public void test_loadValidLogList() throws Exception {
         // clang-format off
         String content = "" +
 "{" +
 "  \"version\": \"1.1\"," +
-"  \"log_list_timestamp\": \"2024-01-01T11:55:12Z\"," +
+"  \"log_list_timestamp\": 1704070861000," +
 "  \"operators\": [" +
 "    {" +
 "      \"name\": \"Operator 1\"," +
@@ -62,12 +94,12 @@ public class LogStoreImplTest extends TestCase {
 "          \"mmd\": 86400," +
 "          \"state\": {" +
 "            \"usable\": {" +
-"              \"timestamp\": \"2022-11-01T18:54:00Z\"" +
+"              \"timestamp\": 1667328840000" +
 "            }" +
 "          }," +
 "          \"temporal_interval\": {" +
-"            \"start_inclusive\": \"2024-01-01T00:00:00Z\"," +
-"            \"end_exclusive\": \"2025-01-01T00:00:00Z\"" +
+"            \"start_inclusive\": 1704070861000," +
+"            \"end_exclusive\": 1735693261000" +
 "          }" +
 "        }," +
 "        {" +
@@ -78,12 +110,12 @@ public class LogStoreImplTest extends TestCase {
 "          \"mmd\": 86400," +
 "          \"state\": {" +
 "            \"usable\": {" +
-"              \"timestamp\": \"2023-11-26T12:00:00Z\"" +
+"              \"timestamp\": 1700960461000" +
 "            }" +
 "          }," +
 "          \"temporal_interval\": {" +
-"            \"start_inclusive\": \"2025-01-01T00:00:00Z\"," +
-"            \"end_exclusive\": \"2025-07-01T00:00:00Z\"" +
+"            \"start_inclusive\": 1735693261000," +
+"            \"end_exclusive\": 1751331661000" +
 "          }" +
 "        }" +
 "      ]" +
@@ -100,12 +132,12 @@ public class LogStoreImplTest extends TestCase {
 "          \"mmd\": 86400," +
 "          \"state\": {" +
 "            \"usable\": {" +
-"              \"timestamp\": \"2022-11-30T17:00:00Z\"" +
+"              \"timestamp\": 1669770061000" +
 "            }" +
 "          }," +
 "          \"temporal_interval\": {" +
-"            \"start_inclusive\": \"2024-01-01T00:00:00Z\"," +
-"            \"end_exclusive\": \"2025-01-01T00:00:00Z\"" +
+"            \"start_inclusive\": 1704070861000," +
+"            \"end_exclusive\": 1735693261000" +
 "          }" +
 "        }" +
 "      ]" +
@@ -114,8 +146,9 @@ public class LogStoreImplTest extends TestCase {
 "}";
         // clang-format on
 
+        FakeStatsLog metrics = new FakeStatsLog();
         File logList = writeFile(content);
-        LogStore store = new LogStoreImpl(logList.toPath());
+        LogStore store = new LogStoreImpl(alwaysCompliantStorePolicy, logList.toPath(), metrics);
 
         assertNull("A null logId should return null", store.getKnownLog(null));
 
@@ -136,6 +169,34 @@ public class LogStoreImplTest extends TestCase {
                         .build();
         byte[] log1Id = Base64.getDecoder().decode("7s3QZNXbGs7FXLedtM0TojKHRny87N7DUUhZRnEftZs=");
         assertEquals("An existing logId should be returned", log1, store.getKnownLog(log1Id));
+        assertEquals("One metric update should be emitted", metrics.states.size(), 1);
+        assertEquals("The metric update for log list state should be compliant",
+                metrics.states.get(0), LogStore.State.COMPLIANT);
+    }
+
+    public void test_loadMalformedLogList() throws Exception {
+        FakeStatsLog metrics = new FakeStatsLog();
+        String content = "}}";
+        File logList = writeFile(content);
+        LogStore store = new LogStoreImpl(alwaysCompliantStorePolicy, logList.toPath(), metrics);
+
+        assertEquals(
+                "The log state should be malformed", store.getState(), LogStore.State.MALFORMED);
+        assertEquals("One metric update should be emitted", metrics.states.size(), 1);
+        assertEquals("The metric update for log list state should be malformed",
+                metrics.states.get(0), LogStore.State.MALFORMED);
+    }
+
+    public void test_loadMissingLogList() throws Exception {
+        FakeStatsLog metrics = new FakeStatsLog();
+        File logList = new File("does_not_exist");
+        LogStore store = new LogStoreImpl(alwaysCompliantStorePolicy, logList.toPath(), metrics);
+
+        assertEquals(
+                "The log state should be not found", store.getState(), LogStore.State.NOT_FOUND);
+        assertEquals("One metric update should be emitted", metrics.states.size(), 1);
+        assertEquals("The metric update for log list state should be not found",
+                metrics.states.get(0), LogStore.State.NOT_FOUND);
     }
 
     private File writeFile(String content) throws IOException {

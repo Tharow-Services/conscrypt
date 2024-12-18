@@ -19,15 +19,28 @@ package com.android.org.conscrypt;
 
 import static com.android.org.conscrypt.TestUtils.openTestFile;
 import static com.android.org.conscrypt.TestUtils.readTestFile;
-import static org.hamcrest.CoreMatchers.instanceOf;
+
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
+import static org.junit.Assume.assumeTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -49,6 +62,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+
 import javax.net.ssl.HandshakeCompletedEvent;
 import javax.net.ssl.HandshakeCompletedListener;
 import javax.net.ssl.KeyManager;
@@ -59,16 +73,6 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
-import org.mockito.ArgumentMatchers;
-import org.mockito.Mockito;
 
 /**
  * @hide This class is not part of the Android public SDK API
@@ -226,15 +230,17 @@ public class ConscryptSocketTest {
 
     @Parameters(name = "{0} wrapping {1} connecting to {2}")
     public static Object[][] data() {
-        return new Object[][] {
+        Object[][] fd_cases = new Object[][] {
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.NONE, ServerSocketType.PLAIN},
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.NONE, ServerSocketType.CHANNEL},
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.PLAIN, ServerSocketType.PLAIN},
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.PLAIN, ServerSocketType.CHANNEL},
                 {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.CHANNEL, ServerSocketType.PLAIN},
-                {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.CHANNEL,
-                        ServerSocketType.CHANNEL},
+                {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.CHANNEL, ServerSocketType.CHANNEL}
                 // Not supported: {SocketType.FILE_DESCRIPTOR, UnderlyingSocketType.SSL},
+        };
+
+        Object[][] engine_cases = new Object[][] {
                 {SocketType.ENGINE, UnderlyingSocketType.NONE, ServerSocketType.PLAIN},
                 {SocketType.ENGINE, UnderlyingSocketType.NONE, ServerSocketType.CHANNEL},
                 {SocketType.ENGINE, UnderlyingSocketType.PLAIN, ServerSocketType.PLAIN},
@@ -243,6 +249,12 @@ public class ConscryptSocketTest {
                 {SocketType.ENGINE, UnderlyingSocketType.CHANNEL, ServerSocketType.CHANNEL},
                 {SocketType.ENGINE, UnderlyingSocketType.SSL, ServerSocketType.PLAIN},
                 {SocketType.ENGINE, UnderlyingSocketType.SSL, ServerSocketType.CHANNEL}};
+
+        if (TestUtils.isJavaVersion(17)) {
+            // FD Socket not feasible on Java 17+
+            return engine_cases;
+        }
+        return ArrayUtils.concat(fd_cases, engine_cases);
     }
 
     @Parameter
@@ -451,16 +463,13 @@ public class ConscryptSocketTest {
         }
 
         Future<AbstractConscryptSocket> handshake(final ServerSocket listener, final Hooks hooks) {
-            return executor.submit(new Callable<AbstractConscryptSocket>() {
-                @Override
-                public AbstractConscryptSocket call() throws Exception {
-                    AbstractConscryptSocket socket = hooks.createSocket(listener);
-                    socket.addHandshakeCompletedListener(hooks);
+            return executor.submit((Callable<AbstractConscryptSocket>) () -> {
+                AbstractConscryptSocket socket = hooks.createSocket(listener);
+                socket.addHandshakeCompletedListener(hooks);
 
-                    socket.startHandshake();
+                socket.startHandshake();
 
-                    return socket;
-                }
+                return socket;
             });
         }
     }
@@ -591,8 +600,8 @@ public class ConscryptSocketTest {
         TestConnection connection = new TestConnection(new X509Certificate[] {cert, ca}, certKey);
 
         connection.doHandshake();
-        assertThat(connection.clientException, instanceOf(SSLHandshakeException.class));
-        assertThat(connection.clientException.getCause(), instanceOf(CertificateException.class));
+        assertTrue(connection.clientException instanceof SSLHandshakeException);
+        assertTrue(connection.clientException.getCause() instanceof CertificateException);
     }
 
     @Ignore("TODO(nathanmittler): Fix or remove")
@@ -603,16 +612,15 @@ public class ConscryptSocketTest {
         connection.serverHooks.sctTLSExtension = readTestFile("ct-signed-timestamp-list-invalid");
 
         connection.doHandshake();
-        assertThat(connection.clientException, instanceOf(SSLHandshakeException.class));
-        assertThat(connection.clientException.getCause(), instanceOf(CertificateException.class));
+        assertTrue(connection.clientException instanceof SSLHandshakeException);
+        assertTrue(connection.clientException.getCause() instanceof CertificateException);
     }
 
     @Test
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation") // setAlpnProtocols is deprecated but still needs testing.
     public void setAlpnProtocolWithNullShouldSucceed() throws Exception {
-        ServerSocket listening = serverSocketType.newServerSocket();
         OpenSSLSocketImpl clientSocket = null;
-        try {
+        try (ServerSocket listening = serverSocketType.newServerSocket()) {
             Socket underlying = new Socket(listening.getInetAddress(), listening.getLocalPort());
             clientSocket = (OpenSSLSocketImpl) socketType.newClientSocket(
                     new ClientHooks().createContext(), listening, underlying);
@@ -624,15 +632,15 @@ public class ConscryptSocketTest {
             if (clientSocket != null) {
                 clientSocket.close();
             }
-            listening.close();
         }
     }
 
     // http://b/27250522
     @Test
     public void test_setSoTimeout_doesNotCreateSocketImpl() throws Exception {
-        ServerSocket listening = serverSocketType.newServerSocket();
-        try {
+        // TODO(prb): Figure out how to test this on Java 17+
+        assumeFalse(TestUtils.isJavaVersion(17));
+        try (ServerSocket listening = serverSocketType.newServerSocket()) {
             Socket underlying = new Socket(listening.getInetAddress(), listening.getLocalPort());
             Socket socket = socketType.newClientSocket(
                     new ClientHooks().createContext(), listening, underlying);
@@ -643,13 +651,12 @@ public class ConscryptSocketTest {
             Field f = Socket.class.getDeclaredField("created");
             f.setAccessible(true);
             assertFalse(f.getBoolean(socket));
-        } finally {
-            listening.close();
         }
     }
 
     @Test
     public void test_setEnabledProtocols_FiltersSSLv3_HandshakeException() throws Exception {
+        assumeTrue(TestUtils.isTlsV1Filtered());
         TestConnection connection = new TestConnection(new X509Certificate[] {cert, ca}, certKey);
 
         connection.clientHooks = new ClientHooks() {
@@ -664,10 +671,47 @@ public class ConscryptSocketTest {
         };
 
         connection.doHandshake();
-        assertThat(connection.clientException, instanceOf(SSLHandshakeException.class));
+        assertTrue("Expected SSLHandshakeException, but got "
+                        + connection.clientException.getClass().getSimpleName() + ": "
+                        + connection.clientException.getMessage(),
+                connection.clientException instanceof SSLHandshakeException);
         assertTrue(
                 connection.clientException.getMessage().contains("SSLv3 is no longer supported"));
-        assertThat(connection.serverException, instanceOf(SSLHandshakeException.class));
+        assertTrue("Expected SSLHandshakeException, but got "
+                        + connection.serverException.getClass().getSimpleName() + ": "
+                        + connection.serverException.getMessage(),
+                connection.serverException instanceof SSLHandshakeException);
+
+        assertFalse(connection.clientHooks.isHandshakeCompleted);
+        assertFalse(connection.serverHooks.isHandshakeCompleted);
+    }
+
+    @Test
+    public void test_setEnabledProtocols_RejectsSSLv3_IfNotFiltered() throws Exception {
+        assumeFalse(TestUtils.isTlsV1Filtered());
+        TestConnection connection = new TestConnection(new X509Certificate[] {cert, ca}, certKey);
+
+        connection.clientHooks = new ClientHooks() {
+            @Override
+            public AbstractConscryptSocket createSocket(ServerSocket listener) throws IOException {
+                try (AbstractConscryptSocket socket = super.createSocket(listener)) {
+                    socket.setEnabledProtocols(new String[] {"SSLv3"});
+                    fail("SSLv3 should be rejected");
+                    return socket;
+                }
+            }
+        };
+
+        connection.doHandshake();
+        assertTrue("Expected SSLHandshakeException, but got "
+                        + connection.clientException.getClass().getSimpleName() + ": "
+                        + connection.clientException.getMessage(),
+                connection.clientException instanceof IllegalArgumentException);
+        assertTrue(connection.clientException.getMessage().contains("SSLv3 is not supported"));
+        assertTrue("Expected SSLHandshakeException, but got "
+                        + connection.serverException.getClass().getSimpleName() + ": "
+                        + connection.serverException.getMessage(),
+                connection.serverException instanceof SSLHandshakeException);
 
         assertFalse(connection.clientHooks.isHandshakeCompleted);
         assertFalse(connection.serverHooks.isHandshakeCompleted);
@@ -717,12 +761,8 @@ public class ConscryptSocketTest {
             throws Exception {
         final byte[] received = new byte[data.length];
 
-        Future<Integer> readFuture = executor.submit(new Callable<Integer>() {
-            @Override
-            public Integer call() throws Exception {
-                return destination.getInputStream().read(received);
-            }
-        });
+        Future<Integer> readFuture =
+                executor.submit(() -> destination.getInputStream().read(received));
 
         source.getOutputStream().write(data);
         assertEquals(data.length, (int) readFuture.get());

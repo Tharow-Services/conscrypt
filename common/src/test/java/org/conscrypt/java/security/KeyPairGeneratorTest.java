@@ -128,19 +128,15 @@ public class KeyPairGeneratorTest {
             });
     }
 
-    private static final Map<String, List<Integer>> KEY_SIZES
-            = new HashMap<String, List<Integer>>();
+    private static final Map<String, List<Integer>> KEY_SIZES = new HashMap<>();
     private static void putKeySize(String algorithm, int keySize) {
-        algorithm = algorithm.toUpperCase();
-        List<Integer> keySizes = KEY_SIZES.get(algorithm);
-        if (keySizes == null) {
-            keySizes = new ArrayList<Integer>();
-            KEY_SIZES.put(algorithm, keySizes);
-        }
+        algorithm = algorithm.toUpperCase(Locale.ROOT);
+        List<Integer> keySizes = KEY_SIZES.
+                computeIfAbsent(algorithm, k -> new ArrayList<>());
         keySizes.add(keySize);
     }
     private static List<Integer> getKeySizes(String algorithm) throws Exception {
-        algorithm = algorithm.toUpperCase();
+        algorithm = algorithm.toUpperCase(Locale.ROOT);
         List<Integer> keySizes = KEY_SIZES.get(algorithm);
         if (keySizes == null) {
             throw new Exception("Unknown key sizes for KeyPairGenerator." + algorithm);
@@ -203,7 +199,7 @@ public class KeyPairGeneratorTest {
             test_KeyPair(kpg, kpg.genKeyPair());
             test_KeyPair(kpg, kpg.generateKeyPair());
 
-            kpg.initialize(keySize, (SecureRandom) null);
+            kpg.initialize(keySize, null);
             test_KeyPair(kpg, kpg.genKeyPair());
             test_KeyPair(kpg, kpg.generateKeyPair());
 
@@ -224,7 +220,7 @@ public class KeyPairGeneratorTest {
                 test_KeyPair(kpg, kpg.genKeyPair());
                 test_KeyPair(kpg, kpg.generateKeyPair());
 
-                kpg.initialize(new ECGenParameterSpec(curveName), (SecureRandom) null);
+                kpg.initialize(new ECGenParameterSpec(curveName), null);
                 test_KeyPair(kpg, kpg.genKeyPair());
                 test_KeyPair(kpg, kpg.generateKeyPair());
 
@@ -246,7 +242,7 @@ public class KeyPairGeneratorTest {
         if (StandardNames.IS_RI && expectedAlgorithm.equals("DIFFIEHELLMAN")) {
             expectedAlgorithm = "DH";
         }
-        assertEquals(expectedAlgorithm, k.getAlgorithm().toUpperCase());
+        assertEquals(expectedAlgorithm, k.getAlgorithm().toUpperCase(Locale.ROOT));
         if (expectedAlgorithm.equals("DH")) {
             if (k instanceof DHPublicKey) {
                 DHPublicKey dhPub = (DHPublicKey) k;
@@ -375,7 +371,7 @@ public class KeyPairGeneratorTest {
     /**
      * DH parameters pre-generated so that the test doesn't take too long.
      * These parameters were generated with:
-     *
+     * <p>
      * openssl gendh 512 | openssl dhparams -C
      */
     private static DHParameterSpec getDHParams() {

@@ -19,9 +19,20 @@ package com.android.org.conscrypt;
 
 import static com.android.org.conscrypt.TestUtils.openTestFile;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.junit.Assume.assumeFalse;
+
 import com.android.org.conscrypt.OpenSSLX509CertificateFactory.ParsingException;
 
-import junit.framework.TestCase;
+import org.junit.Assume;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -38,8 +49,12 @@ import java.util.Arrays;
 /**
  * @hide This class is not part of the Android public SDK API
  */
-public class OpenSSLX509CertificateTest extends TestCase {
+@RunWith(JUnit4.class)
+public class OpenSSLX509CertificateTest {
+    @Test
     public void testSerialization_NoContextDeserialization() throws Exception {
+        // TODO(prb): Re-work avoiding reflection for Java 17+
+        assumeFalse(TestUtils.isJavaVersion(17));
         // Set correct serialVersionUID
         {
             ObjectStreamClass clDesc = ObjectStreamClass.lookup(OpenSSLX509Certificate.class);
@@ -120,6 +135,7 @@ public class OpenSSLX509CertificateTest extends TestCase {
         return OpenSSLX509Certificate.fromX509PemInputStream(openTestFile(name));
     }
 
+    @Test
     public void test_deletingCTPoisonExtension() throws Exception {
         /* certPoisoned has an extra poison extension.
          * With the extension, the certificates have different TBS.
@@ -137,6 +153,7 @@ public class OpenSSLX509CertificateTest extends TestCase {
                         cert.getTBSCertificate()));
     }
 
+    @Test
     public void test_deletingExtensionMakesCopy() throws Exception {
         /* Calling getTBSCertificateWithoutExtension should not modify the original certificate.
          * Make sure the extension is still present in the original object.
@@ -148,6 +165,7 @@ public class OpenSSLX509CertificateTest extends TestCase {
         assertTrue(certPoisoned.getCriticalExtensionOIDs().contains(CT_POISON_EXTENSION));
     }
 
+    @Test
     public void test_deletingMissingExtension() throws Exception {
         /* getTBSCertificateWithoutExtension should throw on a certificate without the extension.
          */

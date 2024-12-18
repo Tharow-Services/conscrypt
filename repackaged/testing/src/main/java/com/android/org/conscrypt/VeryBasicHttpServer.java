@@ -17,6 +17,8 @@
 
 package com.android.org.conscrypt;
 
+import com.android.org.conscrypt.javax.net.ssl.TestSSLContext;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -27,12 +29,13 @@ import java.net.Socket;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Callable;
+
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocket;
-import com.android.org.conscrypt.javax.net.ssl.TestSSLContext;
 
 /**
  * Very basic http server. Literally just enough to do some HTTP 1.1 in order
@@ -110,6 +113,7 @@ public class VeryBasicHttpServer {
         }
     }
 
+    @SuppressWarnings("StringSplitter") // It's close enough for government work.
     private Request readRequest(Socket socket) throws Exception {
         Request request = new Request();
         request.outputStream = socket.getOutputStream();

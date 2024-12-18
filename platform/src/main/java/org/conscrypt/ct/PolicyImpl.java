@@ -30,6 +30,26 @@ import java.util.concurrent.TimeUnit;
 @Internal
 public class PolicyImpl implements Policy {
     @Override
+    public boolean isLogStoreCompliant(LogStore store) {
+        long now = System.currentTimeMillis();
+        return isLogStoreCompliantAt(store, now);
+    }
+
+    public boolean isLogStoreCompliantAt(LogStore store, long atTime) {
+        long storeTimestamp = store.getTimestamp();
+        long seventyDaysInMs = 70L * 24 * 60 * 60 * 1000;
+        if (storeTimestamp + seventyDaysInMs < atTime) {
+            // Expired log list.
+            return false;
+        } else if (storeTimestamp > atTime) {
+            // Log list from the future. It is likely that the device has an
+            // incorrect time.
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public PolicyCompliance doesResultConformToPolicy(
             VerificationResult result, X509Certificate leaf) {
         long now = System.currentTimeMillis();
@@ -54,10 +74,17 @@ public class PolicyImpl implements Policy {
                 ocspOrTLSValidSCTs.add(vsct);
             }
         }
+        PolicyCompliance compliance = PolicyCompliance.NOT_ENOUGH_SCTS;
         if (embeddedValidSCTs.size() > 0) {
-            return conformEmbeddedSCTs(embeddedValidSCTs, leaf, atTime);
+            compliance = conformEmbeddedSCTs(embeddedValidSCTs, leaf, atTime);
+            if (compliance == PolicyCompliance.COMPLY) {
+                return compliance;
+            }
         }
-        return PolicyCompliance.NOT_ENOUGH_SCTS;
+        if (ocspOrTLSValidSCTs.size() > 0) {
+            compliance = conformOCSPorTLSSCTs(ocspOrTLSValidSCTs, atTime);
+        }
+        return compliance;
     }
 
     private void filterOutUnknown(List<VerifiedSCT> scts) {
@@ -154,6 +181,39 @@ public class PolicyImpl implements Policy {
         /* 3. Among the SCTs satisfying requirements 1 and 2, at least two SCTs
          *    must be issued from distinct CT Log Operators as recognized by
          *    Chrome.
+         */
+        Set<String> operators = new HashSet<>();
+        for (LogInfo logInfo : validLogs) {
+            operators.add(logInfo.getOperator());
+        }
+        if (operators.size() < 2) {
+            return PolicyCompliance.NOT_ENOUGH_DIVERSE_SCTS;
+        }
+
+        return PolicyCompliance.COMPLY;
+    }
+
+    private PolicyCompliance conformOCSPorTLSSCTs(
+            Set<VerifiedSCT> ocspOrTLSValidSCTs, long atTime) {
+        /* 1. At least two SCTs from a CT Log that was Qualified, Usable, or
+         *    ReadOnly at the time of check;
+         */
+        Set<LogInfo> validLogs = new HashSet<>();
+        for (VerifiedSCT vsct : ocspOrTLSValidSCTs) {
+            LogInfo log = vsct.getLogInfo();
+            switch (log.getStateAt(atTime)) {
+                case LogInfo.STATE_QUALIFIED:
+                case LogInfo.STATE_USABLE:
+                case LogInfo.STATE_READONLY:
+                    validLogs.add(log);
+            }
+        }
+        if (validLogs.size() < 2) {
+            return PolicyCompliance.NOT_ENOUGH_SCTS;
+        }
+
+        /* 2. Among the SCTs satisfying requirement 1, at least two SCTs must
+         * be issued from distinct CT Log Operators as recognized by Chrome.
          */
         Set<String> operators = new HashSet<>();
         for (LogInfo logInfo : validLogs) {

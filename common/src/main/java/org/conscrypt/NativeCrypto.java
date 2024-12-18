@@ -133,19 +133,19 @@ public final class NativeCrypto {
     static native int RSA_private_decrypt(int flen, byte[] from, byte[] to, NativeRef.EVP_PKEY pkey,
             int padding) throws BadPaddingException, SignatureException;
 
-    /**
-     * @return array of {n, e}
+    /*
+     * Returns array of {n, e}
      */
     static native byte[][] get_RSA_public_params(NativeRef.EVP_PKEY rsa);
 
-    /**
-     * @return array of {n, e, d, p, q, dmp1, dmq1, iqmp}
+    /*
+     * Returns array of {n, e, d, p, q, dmp1, dmq1, iqmp}
      */
     static native byte[][] get_RSA_private_params(NativeRef.EVP_PKEY rsa);
 
     // --- ChaCha20 -----------------------
 
-    /**
+    /*
      * Returns the encrypted or decrypted version of the data.
      */
     static native void chacha20_encrypt_decrypt(byte[] in, int inOffset, byte[] out, int outOffset,
@@ -524,9 +524,11 @@ public final class NativeCrypto {
 
     static native int get_X509_ex_pathlen(long x509ctx, OpenSSLX509Certificate holder);
 
-    static native long X509_get_notBefore(long x509ctx, OpenSSLX509Certificate holder);
+    static native long X509_get_notBefore(long x509ctx, OpenSSLX509Certificate holder)
+            throws ParsingException;
 
-    static native long X509_get_notAfter(long x509ctx, OpenSSLX509Certificate holder);
+    static native long X509_get_notAfter(long x509ctx, OpenSSLX509Certificate holder)
+            throws ParsingException;
 
     static native long X509_get_version(long x509ctx, OpenSSLX509Certificate holder);
 
@@ -536,6 +538,7 @@ public final class NativeCrypto {
             throws BadPaddingException, IllegalBlockSizeException;
 
     static native byte[] get_X509_tbs_cert(long x509ctx, OpenSSLX509Certificate holder);
+
 
     static native byte[] get_X509_tbs_cert_without_ext(long x509ctx, OpenSSLX509Certificate holder, String oid);
 
@@ -607,9 +610,11 @@ public final class NativeCrypto {
 
     static native byte[] get_X509_CRL_crl_enc(long x509CrlCtx, OpenSSLX509CRL holder);
 
-    static native long X509_CRL_get_lastUpdate(long x509CrlCtx, OpenSSLX509CRL holder);
+    static native long X509_CRL_get_lastUpdate(long x509CrlCtx, OpenSSLX509CRL holder)
+            throws ParsingException;
 
-    static native long X509_CRL_get_nextUpdate(long x509CrlCtx, OpenSSLX509CRL holder);
+    static native long X509_CRL_get_nextUpdate(long x509CrlCtx, OpenSSLX509CRL holder)
+            throws ParsingException;
 
     // --- X509_REVOKED --------------------------------------------------------
 
@@ -787,6 +792,7 @@ public final class NativeCrypto {
     static final String OBSOLETE_PROTOCOL_SSLV3 = "SSLv3";
     static final String DEPRECATED_PROTOCOL_TLSV1 = "TLSv1";
     static final String DEPRECATED_PROTOCOL_TLSV1_1 = "TLSv1.1";
+
     private static final String SUPPORTED_PROTOCOL_TLSV1_2 = "TLSv1.2";
     static final String SUPPORTED_PROTOCOL_TLSV1_3 = "TLSv1.3";
 
@@ -857,10 +863,8 @@ public final class NativeCrypto {
         if (loadError == null) {
             // If loadError is not null, it means the native code was not loaded, so
             // get_cipher_names will throw UnsatisfiedLinkError. Populate the list of supported
-            // ciphers with BoringSSL's default, and also explicitly include 3DES.
-            // https://boringssl-review.googlesource.com/c/boringssl/+/59425 will remove 3DES
-            // from BoringSSL's default, but Conscrypt isn't quite ready to remove it yet.
-            String[] allCipherSuites = get_cipher_names("ALL:3DES");
+            // ciphers with BoringSSL's default.
+            String[] allCipherSuites = get_cipher_names("ALL");
 
             // get_cipher_names returns an array where even indices are the standard name and odd
             // indices are the OpenSSL name.
@@ -1019,29 +1023,48 @@ public final class NativeCrypto {
 
     static native void set_SSL_psk_server_callback_enabled(long ssl, NativeSsl ssl_holder, boolean enabled);
 
-    private static final String[] ENABLED_PROTOCOLS_TLSV1 = Platform.isTlsV1Deprecated()
-            ? new String[0]
-            : new String[] {
-                DEPRECATED_PROTOCOL_TLSV1,
-                DEPRECATED_PROTOCOL_TLSV1_1,
+    public static void setTlsV1DeprecationStatus(boolean deprecated, boolean supported) {
+        if (deprecated) {
+            TLSV12_PROTOCOLS = new String[] {
+                SUPPORTED_PROTOCOL_TLSV1_2,
             };
-
-    private static final String[] SUPPORTED_PROTOCOLS_TLSV1 = Platform.isTlsV1Supported()
-            ? new String[] {
+            TLSV13_PROTOCOLS = new String[] {
+                SUPPORTED_PROTOCOL_TLSV1_2,
+                SUPPORTED_PROTOCOL_TLSV1_3,
+            };
+        } else {
+            TLSV12_PROTOCOLS = new String[] {
                 DEPRECATED_PROTOCOL_TLSV1,
                 DEPRECATED_PROTOCOL_TLSV1_1,
-            } : new String[0];
+                SUPPORTED_PROTOCOL_TLSV1_2,
+            };
+            TLSV13_PROTOCOLS = new String[] {
+                DEPRECATED_PROTOCOL_TLSV1,
+                DEPRECATED_PROTOCOL_TLSV1_1,
+                SUPPORTED_PROTOCOL_TLSV1_2,
+                SUPPORTED_PROTOCOL_TLSV1_3,
+            };
+        }
+        if (supported) {
+            SUPPORTED_PROTOCOLS = new String[] {
+                DEPRECATED_PROTOCOL_TLSV1,
+                DEPRECATED_PROTOCOL_TLSV1_1,
+                SUPPORTED_PROTOCOL_TLSV1_2,
+                SUPPORTED_PROTOCOL_TLSV1_3,
+            };
+        } else {
+            SUPPORTED_PROTOCOLS = new String[] {
+                SUPPORTED_PROTOCOL_TLSV1_2,
+                SUPPORTED_PROTOCOL_TLSV1_3,
+            };
+        }
+    }
 
     /** Protocols to enable by default when "TLSv1.3" is requested. */
-    static final String[] TLSV13_PROTOCOLS = ArrayUtils.concatValues(
-            ENABLED_PROTOCOLS_TLSV1,
-            SUPPORTED_PROTOCOL_TLSV1_2,
-            SUPPORTED_PROTOCOL_TLSV1_3);
+    static String[] TLSV13_PROTOCOLS;
 
     /** Protocols to enable by default when "TLSv1.2" is requested. */
-    static final String[] TLSV12_PROTOCOLS = ArrayUtils.concatValues(
-            ENABLED_PROTOCOLS_TLSV1,
-            SUPPORTED_PROTOCOL_TLSV1_2);
+    static String[] TLSV12_PROTOCOLS;
 
     /** Protocols to enable by default when "TLSv1.1" is requested. */
     static final String[] TLSV11_PROTOCOLS = new String[] {
@@ -1053,20 +1076,12 @@ public final class NativeCrypto {
     /** Protocols to enable by default when "TLSv1" is requested. */
     static final String[] TLSV1_PROTOCOLS = TLSV11_PROTOCOLS;
 
-    static final String[] DEFAULT_PROTOCOLS = TLSV13_PROTOCOLS;
-
     // If we ever get a new protocol go look for tests which are skipped using
     // assumeTlsV11Enabled()
-    private static final String[] SUPPORTED_PROTOCOLS = ArrayUtils.concatValues(
-            SUPPORTED_PROTOCOLS_TLSV1,
-            SUPPORTED_PROTOCOL_TLSV1_2,
-            SUPPORTED_PROTOCOL_TLSV1_3);
+    private static String[] SUPPORTED_PROTOCOLS;
 
     public static String[] getDefaultProtocols() {
-        if (Platform.isTlsV1Deprecated()) {
-          return DEFAULT_PROTOCOLS.clone();
-        }
-        return SUPPORTED_PROTOCOLS.clone();
+        return TLSV13_PROTOCOLS.clone();
     }
 
     static String[] getSupportedProtocols() {

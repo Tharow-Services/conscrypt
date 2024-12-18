@@ -131,18 +131,22 @@ public final class TestUtils {
 
     private static Provider getNonConscryptTlsProvider() {
         for (String protocol : DESIRED_JDK_PROTOCOLS) {
-            for (Provider p : Security.getProviders()) {
-                if (!p.getClass().getPackage().getName().contains("conscrypt")
-                        && hasSslContext(p, protocol)) {
-                    return p;
-                }
+            Provider p = getNonConscryptProviderFor("SSLContext", protocol);
+            if (p != null) {
+                return p;
             }
         }
         return new BouncyCastleProvider();
     }
 
-    private static boolean hasSslContext(Provider p, String protocol) {
-        return p.get("SSLContext." + protocol) != null;
+    static Provider getNonConscryptProviderFor(String type, String algorithm) {
+        for (Provider p : Security.getProviders()) {
+            if (!p.getClass().getPackage().getName().contains("conscrypt")
+                    && (p.getService(type, algorithm) != null)) {
+                return p;
+            }
+        }
+        return null;
     }
 
     static Provider getJdkProvider() {
@@ -237,23 +241,31 @@ public final class TestUtils {
         }
     }
 
-    public static Provider getConscryptProvider() {
+    public static Provider getConscryptProvider(boolean isTlsV1Deprecated,
+            boolean isTlsV1Enabled) {
         try {
             String defaultName = (String) conscryptClass("Platform")
                 .getDeclaredMethod("getDefaultProviderName")
                 .invoke(null);
             Constructor<?> c =
                     conscryptClass("OpenSSLProvider")
-                            .getDeclaredConstructor(String.class, Boolean.TYPE, String.class);
+                            .getDeclaredConstructor(String.class, Boolean.TYPE,
+                                String.class, Boolean.TYPE, Boolean.TYPE);
 
             if (!isClassAvailable("javax.net.ssl.X509ExtendedTrustManager")) {
-                return (Provider) c.newInstance(defaultName, false, "TLSv1.3");
+                return (Provider) c.newInstance(defaultName, false, "TLSv1.3",
+                    isTlsV1Deprecated, isTlsV1Enabled);
             } else {
-                return (Provider) c.newInstance(defaultName, true, "TLSv1.3");
+                return (Provider) c.newInstance(defaultName, true, "TLSv1.3",
+                    isTlsV1Deprecated, isTlsV1Enabled);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Provider getConscryptProvider() {
+        return getConscryptProvider(true, false);
     }
 
     public static synchronized void installConscryptAsDefaultProvider() {
@@ -301,6 +313,38 @@ public final class TestUtils {
             }
         }
         return lines;
+    }
+
+    public static List<TestVector> readTestVectors(String resourceName) throws IOException {
+        InputStream stream = openTestFile(resourceName);
+        List<TestVector> result = new ArrayList<>();
+        TestVector current = null;
+        try (BufferedReader reader =
+                        new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))) {
+            String line;
+            int lineNumber = 0;
+            while ((line = reader.readLine()) != null) {
+                lineNumber++;
+                if (line.isEmpty() || line.startsWith("#")) {
+                    continue;
+                }
+                int index = line.indexOf('=');
+                if (index < 0) {
+                    throw new IllegalStateException("No = found: line " + lineNumber);
+                }
+                String label = line.substring(0, index).trim().toLowerCase(Locale.ROOT);
+                String value = line.substring(index + 1).trim();
+                if ("name".equals(label)) {
+                    current = new TestVector();
+                    result.add(current);
+                } else if (current == null) {
+                    throw new IllegalStateException(
+                            "Vectors must start with a name: line " + lineNumber);
+                }
+                current.put(label, value);
+            }
+        }
+        return result;
     }
 
     /**
@@ -429,6 +473,11 @@ public final class TestUtils {
         return Arrays.stream(ctx.getDefaultSSLParameters().getCipherSuites())
                 .filter(predicate)
                 .toArray(String[] ::new);
+    }
+
+    public static String[] getSupportedProtocols() {
+        return getSupportedProtocols(newClientSslContext(getConscryptProvider()))
+                .toArray(new String[0]);
     }
 
     public static List<String> getSupportedProtocols(SSLContext ctx) {
@@ -629,7 +678,7 @@ public final class TestUtils {
     /**
      * Decodes the provided hexadecimal string into a byte array.  Odd-length inputs
      * are not allowed.
-     *
+     * <p>
      * Throws an {@code IllegalArgumentException} if the input is malformed.
      */
     public static byte[] decodeHex(String encoded) throws IllegalArgumentException {
@@ -640,7 +689,7 @@ public final class TestUtils {
      * Decodes the provided hexadecimal string into a byte array. If {@code allowSingleChar}
      * is {@code true} odd-length inputs are allowed and the first character is interpreted
      * as the lower bits of the first result byte.
-     *
+     * <p>
      * Throws an {@code IllegalArgumentException} if the input is malformed.
      */
     public static byte[] decodeHex(String encoded, boolean allowSingleChar) throws IllegalArgumentException {
@@ -650,7 +699,7 @@ public final class TestUtils {
     /**
      * Decodes the provided hexadecimal string into a byte array.  Odd-length inputs
      * are not allowed.
-     *
+     * <p>
      * Throws an {@code IllegalArgumentException} if the input is malformed.
      */
     public static byte[] decodeHex(char[] encoded) throws IllegalArgumentException {
@@ -661,7 +710,7 @@ public final class TestUtils {
      * Decodes the provided hexadecimal string into a byte array. If {@code allowSingleChar}
      * is {@code true} odd-length inputs are allowed and the first character is interpreted
      * as the lower bits of the first result byte.
-     *
+     * <p>
      * Throws an {@code IllegalArgumentException} if the input is malformed.
      */
     public static byte[] decodeHex(char[] encoded, boolean allowSingleChar) throws IllegalArgumentException {
@@ -829,43 +878,29 @@ public final class TestUtils {
         Assume.assumeTrue(findClass("java.security.spec.XECPrivateKeySpec") != null);
     }
 
-    // Find base method via reflection due to possible version skew on Android
-    // and visibility issues when building with Gradle.
     public static boolean isTlsV1Deprecated() {
-        try {
-            return (Boolean) conscryptClass("Platform")
-                    .getDeclaredMethod("isTlsV1Deprecated")
-                    .invoke(null);
-        } catch (NoSuchMethodException e) {
-            return false;
-        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
-            throw new IllegalStateException("Reflection failure", e);
-        }
+        return callPlatformMethod("isTlsV1Deprecated", false);
     }
 
-    // Find base method via reflection due to possible version skew on Android
-    // and visibility issues when building with Gradle.
-    public static boolean isTlsV1Supported() {
-        try {
-            return (Boolean) conscryptClass("Platform")
-                    .getDeclaredMethod("isTlsV1Supported")
-                    .invoke(null);
-        } catch (NoSuchMethodException e) {
-            return true;
-        } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
-            throw new IllegalStateException("Reflection failure", e);
-        }
-    }
-
-    // Find base method via reflection due to possible version skew on Android
-    // and visibility issues when building with Gradle.
     public static boolean isTlsV1Filtered() {
+        return callPlatformMethod("isTlsV1Filtered", true);
+    }
+
+    public static boolean isTlsV1Supported() {
+        return callPlatformMethod("isTlsV1Supported", true);
+    }
+
+    public static boolean isJavaxCertificateSupported() {
+        return callPlatformMethod("isJavaxCertificateSupported", true);
+    }
+
+    // Calls a boolean platform method by reflection.  If the method is not present, e.g.
+    // due to version skew etc then return the default value.
+    public static boolean callPlatformMethod(String methodName, boolean defaultValue) {
         try {
-            return (Boolean) conscryptClass("Platform")
-                    .getDeclaredMethod("isTlsV1Filtered")
-                    .invoke(null);
+            return (Boolean) conscryptClass("Platform").getDeclaredMethod(methodName).invoke(null);
         } catch (NoSuchMethodException e) {
-            return true;
+            return defaultValue;
         } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException e) {
             throw new IllegalStateException("Reflection failure", e);
         }

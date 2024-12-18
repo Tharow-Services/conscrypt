@@ -16,6 +16,13 @@
 package org.conscrypt.metrics;
 
 import org.conscrypt.Internal;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.TimeUnit;
+import java.lang.Thread.UncaughtExceptionHandler;
 
 /**
  * Reimplement with reflection calls the logging class,
@@ -38,10 +45,32 @@ public final class ConscryptStatsLog {
     private ConscryptStatsLog() {}
 
     public static void write(int atomId, boolean success, int protocol, int cipherSuite,
-            int duration, Source source, int[] uids) {
+            int duration, Source source) {
+        ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
+                atomId, success, protocol, cipherSuite, duration, source.ordinal());
+
+        ReflexiveStatsLog.write(event);
+    }
+
+    public static void write(
+            int atomId, boolean success, int protocol, int cipherSuite, int duration, Source source,
+            int uids[]) {
         ReflexiveStatsEvent event = ReflexiveStatsEvent.buildEvent(
                 atomId, success, protocol, cipherSuite, duration, source.ordinal(), uids);
 
         ReflexiveStatsLog.write(event);
+    }
+
+    public static void write(int atomId, int status, int loadedCompatVersion,
+            int minCompatVersionAvailable, int majorVersion, int minorVersion) {
+        ReflexiveStatsEvent.Builder builder = ReflexiveStatsEvent.newBuilder();
+        builder.setAtomId(atomId);
+        builder.writeInt(status);
+        builder.writeInt(loadedCompatVersion);
+        builder.writeInt(minCompatVersionAvailable);
+        builder.writeInt(majorVersion);
+        builder.writeInt(minorVersion);
+        builder.usePooledBuffer();
+        ReflexiveStatsLog.write(builder.build());
     }
 }

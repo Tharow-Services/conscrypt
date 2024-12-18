@@ -128,6 +128,8 @@ public final class StandardNames {
         }
         paddings.addAll(Arrays.asList(newPaddings));
     }
+
+    @SuppressWarnings("EnumOrdinal")
     private static void provideSslContextEnabledProtocols(
             String algorithm, TLSVersion minimum, TLSVersion maximum) {
         if (minimum.ordinal() > maximum.ordinal()) {
@@ -140,6 +142,7 @@ public final class StandardNames {
         }
         SSL_CONTEXT_PROTOCOLS_ENABLED.put(algorithm, versionNames);
     }
+
     static {
         // TODO: provideCipherModes and provideCipherPaddings for other Ciphers
         provideCipherModes("AES", new String[] {"CBC", "CFB", "CTR", "CTS", "ECB", "OFB"});
@@ -170,8 +173,6 @@ public final class StandardNames {
     }
 
     public static final String SSL_CONTEXT_PROTOCOLS_DEFAULT = "Default";
-    public static final Set<String> SSL_CONTEXT_PROTOCOLS_ALL =
-            new HashSet<String>(Arrays.asList("TLS", "TLSv1", "TLSv1.1", "TLSv1.2", "TLSv1.3"));
     public static final Set<String> SSL_CONTEXT_PROTOCOLS = new HashSet<String>(
             Arrays.asList(SSL_CONTEXT_PROTOCOLS_DEFAULT, "TLS", "TLSv1.2", "TLSv1.3"));
     public static final Set<String> SSL_CONTEXT_PROTOCOLS_WITH_DEFAULT_CONFIG = new HashSet<String>(
@@ -182,6 +183,10 @@ public final class StandardNames {
         if (TestUtils.isTlsV1Deprecated()) {
             SSL_CONTEXT_PROTOCOLS_DEPRECATED.add("TLSv1");
             SSL_CONTEXT_PROTOCOLS_DEPRECATED.add("TLSv1.1");
+        }
+        if (!TestUtils.isTlsV1Supported()) {
+            assertTrue("Can't have this without that", TestUtils.isTlsV1Deprecated());
+            SSL_CONTEXT_PROTOCOLS.removeAll(SSL_CONTEXT_PROTOCOLS_DEPRECATED);
         }
     }
 
@@ -254,7 +259,6 @@ public final class StandardNames {
         addOpenSsl("TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA");
         addOpenSsl("TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA");
         addOpenSsl("TLS_RSA_WITH_AES_128_CBC_SHA");
-        addOpenSsl("SSL_RSA_WITH_3DES_EDE_CBC_SHA");
 
         // TLSv1.2 cipher suites
         addOpenSsl("TLS_RSA_WITH_AES_128_GCM_SHA256");

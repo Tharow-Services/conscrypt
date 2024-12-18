@@ -187,18 +187,22 @@ cc_library_host_shared {
 
 aconfig_declarations {
     name: "conscrypt-aconfig-flags",
-    package: "com.android.org.conscrypt",
+    package: "com.android.org.conscrypt.flags",
     container: "com.android.conscrypt",
     srcs: ["conscrypt.aconfig"],
+    exportable: true,
+    visibility: [
+        "//frameworks/base",
+    ],
 }
 
 java_aconfig_library {
     name: "conscrypt-aconfig-flags-lib",
     aconfig_declarations: "conscrypt-aconfig-flags",
-    system_modules: "art-module-intra-core-api-stubs-system-modules",
+    system_modules: "core-all-system-modules",
     libs: [
         "aconfig-annotations-lib-sdk-none",
-        "unsupportedappusage",
+        "aconfig_storage_stub_none",
     ],
     sdk_version: "none",
     patch_module: "java.base",
@@ -207,7 +211,9 @@ java_aconfig_library {
     ],
     min_sdk_version: "30",
     installable: false,
-    visibility: ["//visibility:private"],
+    visibility: [
+        "//cts/tests/tests/networksecurityconfig:__subpackages__",
+    ],
 }
 
 cc_binary_host {
@@ -277,7 +283,10 @@ java_library {
         ":conscrypt_public_api_files",
     ],
 
-    libs: ["unsupportedappusage"],
+    libs: [
+        "framework-annotations-lib",
+        "unsupportedappusage",
+    ],
     static_libs: [
         "conscrypt-aconfig-flags-lib",
     ],
@@ -376,6 +385,10 @@ java_sdk_library {
     srcs: [
         ":conscrypt_java_files",
         ":conscrypt_public_api_files",
+        ":framework-metalava-annotations",
+    ],
+    aconfig_declarations: [
+        "conscrypt-aconfig-flags",
     ],
     api_dir: "api/platform",
     api_only: true,
@@ -397,6 +410,9 @@ java_sdk_library {
     dist_stem: "conscrypt-coreplatform",
     // TODO: remove this when Conscrypt's @CorePlatformApi has been migrated to @SystemApi
     unsafe_ignore_missing_latest_api: true,
+    libs: [
+        "conscrypt-aconfig-flags-lib",
+    ],
 }
 
 // A library containing the public API stubs of the Conscrypt module.
@@ -421,6 +437,13 @@ java_sdk_library {
     ],
     srcs: [
         ":conscrypt_public_api_files",
+        ":framework-metalava-annotations",
+    ],
+    libs: [
+        "conscrypt-aconfig-flags-lib",
+    ],
+    aconfig_declarations: [
+        "conscrypt-aconfig-flags",
     ],
 
     // The base name for the artifacts that are automatically published to the
@@ -540,7 +563,10 @@ cc_library_shared {
     name: "libjavacrypto",
     host_supported: true,
     defaults: ["libjavacrypto-defaults"],
-
+    visibility: [
+        ":__subpackages__",
+        "//art/tools/ahat",
+    ],
     cflags: ["-DJNI_JARJAR_PREFIX=com/android/"],
     header_libs: ["libnativehelper_header_only"],
     shared_libs: ["liblog"],
@@ -625,6 +651,7 @@ java_library {
         "common/src/main/java/**/HpkeSpi.java",
         "common/src/main/java/**/HpkeSuite.java",
         "common/src/main/java/**/Internal.java",
+        "common/src/main/java/**/Preconditions.java",
         "common/src/main/java/**/XdhKeySpec.java",
     ],
     jarjar_rules: "conscrypt-lite-jarjar-rules.txt",
@@ -670,6 +697,50 @@ java_library {
     ],
 }
 
+filegroup {
+    name: "conscrypt-all-test-files",
+    srcs: [
+        "repackaged/platform/src/test/java/**/*.java",
+        "repackaged/common/src/test/java//**/*.java",
+        "publicapi/src/test/java/**/*.java",
+    ],
+}
+
+filegroup {
+    name: "conscrypt-private-api-test-files",
+    srcs: [
+        "repackaged/platform/src/test/java/com/android/org/conscrypt/ct/*.java",
+        "repackaged/platform/src/test/java/com/android/org/conscrypt/CertBlocklistTest.java",
+        "repackaged/common/src/test/java/com/android/org/conscrypt/ct/*.java",
+    ],
+}
+
+filegroup {
+    name: "conscrypt-test-support-files",
+    srcs: [
+        "repackaged/testing/src/main/java/**/*.java",
+    ],
+}
+
+filegroup {
+    name: "conscrypt-xts-test-files",
+    srcs: [
+        ":conscrypt-all-test-files",
+        ":conscrypt-test-support-files",
+    ],
+    exclude_srcs: [
+        ":conscrypt-private-api-test-files",
+    ],
+}
+
+filegroup {
+    name: "conscrypt-private-test-files",
+    srcs: [
+        ":conscrypt-private-api-test-files",
+        ":conscrypt-test-support-files",
+    ],
+}
+
 // Make the conscrypt-tests library.
 java_test {
     name: "conscrypt-tests",
@@ -680,11 +751,9 @@ java_test {
     ],
     hostdex: true,
     srcs: [
-        "repackaged/platform/src/test/java/**/*.java",
-        "repackaged/common/src/test/java/**/*.java",
-        "repackaged/testing/src/main/java/**/*.java",
-        "publicapi/src/test/java/**/*.java",
+        ":conscrypt-xts-test-files",
     ],
+
     java_resource_dirs: [
         // Resource directories do not need repackaging.
         "openjdk/src/test/resources",
@@ -722,6 +791,43 @@ java_test {
         },
     },
     java_version: "1.8",
+}
+
+// Conscrypt private tests. These tests relies on private APIs. Prefer adding
+// your test to conscrypt-tests if possible, as these will be executed as part
+// of CTS (see CtsLibcoreTestCases).
+android_test {
+    name: "ConscryptPrivateTestCases",
+    srcs: [
+        ":conscrypt-private-test-files",
+    ],
+
+    java_resource_dirs: [
+        // Resource directories do not need repackaging.
+        "openjdk/src/test/resources",
+        "common/src/test/resources",
+    ],
+
+    platform_apis: true,
+    manifest: "AndroidManifest-private.xml",
+    test_config: "AndroidTest-private.xml",
+    libs: [
+        "conscrypt",
+        "core-test-rules",
+        "junit",
+        "mockito-target-minus-junit4",
+        "framework-statsd.stubs.module_lib",
+    ],
+
+    static_libs: [
+        "androidx.test.runner",
+        "androidx.test.rules",
+        "bouncycastle-unbundled",
+        "bouncycastle-bcpkix-unbundled",
+        "bouncycastle-ocsp-unbundled",
+    ],
+    java_version: "1.8",
+    test_suites: ["general-tests"],
 }
 
 // Make the conscrypt-benchmarks library.

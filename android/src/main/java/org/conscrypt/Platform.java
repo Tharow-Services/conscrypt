@@ -16,8 +16,6 @@
 
 package org.conscrypt;
 
-import static org.conscrypt.metrics.Source.SOURCE_GMS;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.Binder;
@@ -25,8 +23,16 @@ import android.os.Build;
 import android.os.SystemClock;
 import android.system.Os;
 import android.util.Log;
+
 import dalvik.system.BlockGuard;
 import dalvik.system.CloseGuard;
+
+import org.conscrypt.NativeCrypto;
+import org.conscrypt.ct.CertificateTransparency;
+import org.conscrypt.metrics.Source;
+import org.conscrypt.metrics.StatsLog;
+import org.conscrypt.metrics.StatsLogImpl;
+
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -53,6 +59,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import javax.net.ssl.SNIHostName;
 import javax.net.ssl.SNIMatcher;
 import javax.net.ssl.SNIServerName;
@@ -62,20 +69,20 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509TrustManager;
-import org.conscrypt.ct.LogStore;
-import org.conscrypt.ct.Policy;
-import org.conscrypt.metrics.CipherSuite;
-import org.conscrypt.metrics.ConscryptStatsLog;
-import org.conscrypt.metrics.Protocol;
 
 /**
  * Platform-specific methods for unbundled Android.
  */
-final class Platform {
+@Internal
+final public class Platform {
     private static final String TAG = "Conscrypt";
+    static boolean DEPRECATED_TLS_V1 = true;
+    static boolean ENABLED_TLS_V1 = false;
+    private static boolean FILTERED_TLS_V1 = true;
 
     private static Method m_getCurveName;
     static {
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
         try {
             m_getCurveName = ECParameterSpec.class.getDeclaredMethod("getCurveName");
             m_getCurveName.setAccessible(true);
@@ -86,7 +93,12 @@ final class Platform {
 
     private Platform() {}
 
-    public static void setup() {}
+    public static void setup(boolean deprecatedTlsV1, boolean enabledTlsV1) {
+        DEPRECATED_TLS_V1 = deprecatedTlsV1;
+        ENABLED_TLS_V1 = enabledTlsV1;
+        FILTERED_TLS_V1 = !enabledTlsV1;
+        NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
+    }
 
     /**
      * Default name used in the {@link java.security.Security JCE system} by {@code OpenSSLProvider}
@@ -577,9 +589,7 @@ final class Platform {
      * Wrap the SocketFactory with the platform wrapper if needed for compatability.
      */
     public static SSLSocketFactory wrapSocketFactoryIfNeeded(OpenSSLSocketFactoryImpl factory) {
-        if (Build.VERSION.SDK_INT < 19) {
-            return new PreKitKatPlatformOpenSSLSocketAdapterFactory(factory);
-        } else if (Build.VERSION.SDK_INT < 22) {
+        if (Build.VERSION.SDK_INT < 22) {
             return new KitKatPlatformOpenSSLSocketAdapterFactory(factory);
         }
         return factory;
@@ -673,36 +683,20 @@ final class Platform {
      */
 
     public static CloseGuard closeGuardGet() {
-        if (Build.VERSION.SDK_INT < 14) {
-            return null;
-        }
-
         return CloseGuard.get();
     }
 
     public static void closeGuardOpen(Object guardObj, String message) {
-        if (Build.VERSION.SDK_INT < 14) {
-            return;
-        }
-
         CloseGuard guard = (CloseGuard) guardObj;
         guard.open(message);
     }
 
     public static void closeGuardClose(Object guardObj) {
-        if (Build.VERSION.SDK_INT < 14) {
-            return;
-        }
-
         CloseGuard guard = (CloseGuard) guardObj;
         guard.close();
     }
 
     public static void closeGuardWarnIfOpen(Object guardObj) {
-        if (Build.VERSION.SDK_INT < 14) {
-            return;
-        }
-
         CloseGuard guard = (CloseGuard) guardObj;
         guard.warnIfOpen();
     }
@@ -851,7 +845,7 @@ final class Platform {
         // TODO: Use the platform version on platforms that support it
 
         String property = Security.getProperty("conscrypt.ct.enable");
-        if (property == null || !Boolean.valueOf(property)) {
+        if (property == null || !Boolean.parseBoolean(property)) {
             return false;
         }
 
@@ -865,7 +859,7 @@ final class Platform {
         for (String part : parts) {
             property = Security.getProperty(propertyName + ".*");
             if (property != null) {
-                enable = Boolean.valueOf(property);
+                enable = Boolean.parseBoolean(property);
             }
 
             propertyName = propertyName + "." + part;
@@ -873,9 +867,13 @@ final class Platform {
 
         property = Security.getProperty(propertyName);
         if (property != null) {
-            enable = Boolean.valueOf(property);
+            enable = Boolean.parseBoolean(property);
         }
         return enable;
+    }
+
+    public static int reasonCTVerificationRequired(String hostname) {
+        return StatsLogImpl.CERTIFICATE_TRANSPARENCY_VERIFICATION_REPORTED__REASON__REASON_UNKNOWN;
     }
 
     static boolean supportsConscryptCertStore() {
@@ -904,11 +902,7 @@ final class Platform {
         return null;
     }
 
-    static LogStore newDefaultLogStore() {
-        return null;
-    }
-
-    static Policy newDefaultPolicy() {
+    static CertificateTransparency newDefaultCertificateTransparency() {
         return null;
     }
 
@@ -948,24 +942,21 @@ final class Platform {
         return SystemClock.elapsedRealtime();
     }
 
-    static void countTlsHandshake(
-            boolean success, String protocol, String cipherSuite, long durationLong) {
-        // Statsd classes appeared in SDK 30 and aren't available in earlier versions
-
+    public static StatsLog getStatsLog() {
         if (Build.VERSION.SDK_INT >= 30) {
-            Protocol proto = Protocol.forName(protocol);
-            CipherSuite suite = CipherSuite.forName(cipherSuite);
-            int duration = (int) durationLong;
-
-            writeStats(success, proto.getId(), suite.getId(), duration);
+            return StatsLogImpl.getInstance();
         }
+        return NoopStatsLog.getInstance();
     }
 
+    public static Source getStatsSource() {
+        return Source.SOURCE_GMS;
+    }
+
+    // Only called from StatsLogImpl, so protected by build version check above.
     @TargetApi(30)
-    private static void writeStats(
-            boolean success, int protocol, int cipherSuite, int duration) {
-        ConscryptStatsLog.write(ConscryptStatsLog.TLS_HANDSHAKE_REPORTED, success, protocol,
-                cipherSuite, duration, SOURCE_GMS, new int[] {Os.getuid(), Binder.getCallingUid()});
+    public static int[] getUids() {
+        return new int[] {Os.getuid(), Binder.getCallingUid()};
     }
 
     public static boolean isJavaxCertificateSupported() {
@@ -973,14 +964,14 @@ final class Platform {
     }
 
     public static boolean isTlsV1Deprecated() {
-        return true;
+        return DEPRECATED_TLS_V1;
     }
 
     public static boolean isTlsV1Filtered() {
-        return false;
+        return FILTERED_TLS_V1;
     }
 
     public static boolean isTlsV1Supported() {
-        return false;
+        return ENABLED_TLS_V1;
     }
 }
