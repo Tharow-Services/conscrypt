@@ -17,6 +17,7 @@
 package com.android.org.conscrypt;
 
 import com.android.org.conscrypt.io.IoUtils;
+import com.android.org.conscrypt.Platform;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -171,8 +172,8 @@ public final class Conscrypt {
         private String name = Platform.getDefaultProviderName();
         private boolean provideTrustManager = Platform.provideTrustManagerByDefault();
         private String defaultTlsProtocol = NativeCrypto.SUPPORTED_PROTOCOL_TLSV1_3;
-        private boolean deprecatedTlsV1 = true;
-        private boolean enabledTlsV1 = false;
+        private boolean deprecatedTlsV1 = Platform.isTlsV1Deprecated();
+        private boolean enabledTlsV1 = Platform.isTlsV1Enabled();
 
         private ProviderBuilder() {}
 

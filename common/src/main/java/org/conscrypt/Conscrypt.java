@@ -38,6 +38,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import org.conscrypt.io.IoUtils;
+import org.conscrypt.Platform;
 
 /**
  * Core API for creating and configuring all Conscrypt types.
@@ -160,8 +161,8 @@ public final class Conscrypt {
         private String name = Platform.getDefaultProviderName();
         private boolean provideTrustManager = Platform.provideTrustManagerByDefault();
         private String defaultTlsProtocol = NativeCrypto.SUPPORTED_PROTOCOL_TLSV1_3;
-        private boolean deprecatedTlsV1 = true;
-        private boolean enabledTlsV1 = false;
+        private boolean deprecatedTlsV1 = Platform.isTlsV1Deprecated();
+        private boolean enabledTlsV1 = Platform.isTlsV1Enabled();
 
         private ProviderBuilder() {}
 
