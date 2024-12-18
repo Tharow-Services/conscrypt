@@ -95,6 +95,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "87296daf_a53f188a",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ConscryptStatsLog.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-18T12:27:58Z",
+      "side": 1,
+      "message": "Gotcha, apologies for missing the previous conversation.",
+      "parentUuid": "8c855ff4_32bfe098",
+      "range": {
+        "startLine": 187,
+        "startChar": 12,
+        "endLine": 187,
+        "endChar": 13
+      },
+      "revId": "095ab9a15fd15bbcb5fb60a9ed27a14c9818398c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "eace8bec_e6a641e9",
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "From what I can tell, the changes should not conflict: here we are moving the call to check the value of `sdkVersionBiggerThan32`, whereas 3415697 is changing how that attribute is set. \n\nThe other commit is also not building right now. If it gets merged first, I\u0027ll rebase, but Gerrit will let us know either way if there is any conflict.",
       "parentUuid": "eace8bec_e6a641e9",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 38
+      },
+      "revId": "095ab9a15fd15bbcb5fb60a9ed27a14c9818398c",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d1a8f0d_26dcd4b9",
+        "filename": "common/src/main/java/org/conscrypt/metrics/ReflexiveStatsEvent.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-18T12:27:58Z",
+      "side": 1,
+      "message": "Fair point.",
+      "parentUuid": "7d099f57_ab9cd37f",
       "range": {
         "startLine": 154,
         "startChar": 0,
