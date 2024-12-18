@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "046070a1_5ac7b314",
+        "filename": "common/src/main/java/org/conscrypt/Conscrypt.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2024-12-18T15:30:14Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be needed as this class is also in org.conscrypt.",
+      "revId": "b160ee8fafc07ba68b039103921d0436ea4a4800",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
