@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5cf54b6a_18e51ad9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:44:04Z",
+      "side": 1,
+      "message": "Bypassing lint as tests have been added for the new API.",
+      "revId": "47cb95d9746d2a9737ff3cf532a87940286f499d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
