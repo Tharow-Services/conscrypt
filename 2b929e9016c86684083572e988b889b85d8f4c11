@@ -1,0 +1,261 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c5ac03_26cca188",
+        "filename": "android/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 979,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "This is strange. Why would it not be supported for Android?",
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7a7c0dc1_51800e55",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 71
+      },
+      "lineNbr": 10913,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "We\u0027ve redefined parameteres to allow null. If you find null, just use an empty byte[].",
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3e6a0f12_65b2db66",
+        "filename": "openjdk/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 863,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "Rename to isPakeSupported",
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c13c01fa_432f66c3",
+        "filename": "platform/src/main/java/org/conscrypt/Platform.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 592,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "You will need to add a minimum target SDK (it should not work on V, or earlier versions).",
+      "fixSuggestions": [
+        {
+          "fixId": "93a6ab9f_fbf4bf06",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "platform/src/main/java/org/conscrypt/Platform.java",
+              "range": {
+                "startLine": 592,
+                "startChar": 0,
+                "endLine": 593,
+                "endChar": 0
+              },
+              "replacement": "        Object targetSdkVersion \u003d getTargetSdkVersion();\n        if ((targetSdkVersion !\u003d null) \u0026\u0026 ((int) targetSdkVersion \u003e 35)\n               \u0026\u0026 ((int) targetSdkVersion \u003c 100))\n            return true;\n        return false;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "925187c3_a0435da4",
+        "filename": "platform/src/main/java/org/conscrypt/SpakeKeyManagerFactory.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "This should just be PakeKeyManagerFactory.",
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ea2b859d_2ca38312",
+        "filename": "platform/src/main/java/org/conscrypt/SpakeKeyManagerFactory.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "What you\u0027ll need to do here for the Client is to go through the PakeOption and create a KeyManager for each option based on its name. For the Server you will have to go through all the client-server IDs (PakeServerKeyManagerParameters.endpoints) and for each look through the options and create KeyManagers based on those options. I assume you\u0027d have a KeyManager for each option name and that manager will record multiple server-client IDs. It\u0027s a bit backwards from how the API is.",
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a7936d1f_1be3820a",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "This will need to be more generic, probably just PAKE.",
+      "fixSuggestions": [
+        {
+          "fixId": "75f551f9_47cac938",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "repackaged/common/src/main/java/com/android/org/conscrypt/OpenSSLProvider.java",
+              "range": {
+                "startLine": 542,
+                "startChar": 0,
+                "endLine": 546,
+                "endChar": 0
+              },
+              "replacement": "        /* \u003d\u003d\u003d PAKE - Conscrypt internal only \u003d\u003d\u003d */\n        if (Platform.isPakeSupported()) {\n            put(\"TrustManagerFactory.PAKE\", PREFIX + \"PakeTrustManagerFactory\");\n            put(\"KeyManagerFactory.PAKE\", PREFIX + \"PakeKeyManagerFactory\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "241cb3d8_5b55dc09",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/SpakeKeyManager.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "We will keep this as Spake2PlusKeyManager. I think that we;ll have a PakeKeyManagerFactory and then, based on the parameters (PakeOption), it will generate a specific KeyManager. At first only Spake2PlusKeyManager is available, but once we add support for other PAKEs, we can create new KeyManagers.",
+      "fixSuggestions": [
+        {
+          "fixId": "5c32cf9e_02c3417b",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "repackaged/common/src/main/java/com/android/org/conscrypt/SpakeKeyManager.java",
+              "range": {
+                "startLine": 27,
+                "startChar": 0,
+                "endLine": 28,
+                "endChar": 0
+              },
+              "replacement": "public class Spake2PlusKeyManager implements KeyManager {\n"
+            },
+            {
+              "path": "repackaged/common/src/main/java/com/android/org/conscrypt/SpakeKeyManager.java",
+              "range": {
+                "startLine": 34,
+                "startChar": 0,
+                "endLine": 35,
+                "endChar": 0
+              },
+              "replacement": "  Spake2PlusKeyManager(byte[] password, byte[] idProver,\n"
+            }
+          ]
+        }
+      ],
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d19f1146_fdddd8ae",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/SpakeKeyManager.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "This can be one of 3:\n- password\n- w0 and w1 (for Client)\n- w0 and registration record (for Server)\nYou may split this class into Spake2PlusClientKeyManager and Spake2PlusServerKeyManager.\n\nIf password is set, then you need to generate the other items (using `SPAKE2PLUS_register`), otherwise the register comment can be skipped.",
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0ff0869b_89e7d4d2",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/SpakeKeyManager.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "For server these will be kept as pairs in a container as the server should manage different ID pairs. Of course, at first, since we\u0027re just handling direct connections, we don\u0027t need to do that, but it\u0027s worth bearing it in mind.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 20
+      },
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4b534418_d77f3b33",
+        "filename": "repackaged/platform/src/main/java/com/android/org/conscrypt/Platform.java",
+        "patchSetId": 71
+      },
+      "lineNbr": 598,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2024-12-24T15:43:18Z",
+      "side": 1,
+      "message": "Use Android version to determine. Needs to be newer than V.",
+      "revId": "2b929e9016c86684083572e988b889b85d8f4c11",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
