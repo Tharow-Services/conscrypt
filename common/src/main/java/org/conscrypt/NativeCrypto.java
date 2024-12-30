@@ -1025,20 +1025,20 @@ public final class NativeCrypto {
 
     public static void setTlsV1DeprecationStatus(boolean deprecated, boolean supported) {
         if (deprecated) {
-            TLSV12_PROTOCOLS = new String[] {
+            tlsv12protocols = new String[] {
                 SUPPORTED_PROTOCOL_TLSV1_2,
             };
-            TLSV13_PROTOCOLS = new String[] {
+            tlsv13protocols = new String[] {
                 SUPPORTED_PROTOCOL_TLSV1_2,
                 SUPPORTED_PROTOCOL_TLSV1_3,
             };
         } else {
-            TLSV12_PROTOCOLS = new String[] {
+            tlsv12protocols = new String[] {
                 DEPRECATED_PROTOCOL_TLSV1,
                 DEPRECATED_PROTOCOL_TLSV1_1,
                 SUPPORTED_PROTOCOL_TLSV1_2,
             };
-            TLSV13_PROTOCOLS = new String[] {
+            tlsv13protocols = new String[] {
                 DEPRECATED_PROTOCOL_TLSV1,
                 DEPRECATED_PROTOCOL_TLSV1_1,
                 SUPPORTED_PROTOCOL_TLSV1_2,
@@ -1046,14 +1046,14 @@ public final class NativeCrypto {
             };
         }
         if (supported) {
-            SUPPORTED_PROTOCOLS = new String[] {
+            supportedProtocols = new String[] {
                 DEPRECATED_PROTOCOL_TLSV1,
                 DEPRECATED_PROTOCOL_TLSV1_1,
                 SUPPORTED_PROTOCOL_TLSV1_2,
                 SUPPORTED_PROTOCOL_TLSV1_3,
             };
         } else {
-            SUPPORTED_PROTOCOLS = new String[] {
+            supportedProtocols = new String[] {
                 SUPPORTED_PROTOCOL_TLSV1_2,
                 SUPPORTED_PROTOCOL_TLSV1_3,
             };
@@ -1061,10 +1061,10 @@ public final class NativeCrypto {
     }
 
     /** Protocols to enable by default when "TLSv1.3" is requested. */
-    static String[] TLSV13_PROTOCOLS;
+    static String[] tlsv13protocols;
 
     /** Protocols to enable by default when "TLSv1.2" is requested. */
-    static String[] TLSV12_PROTOCOLS;
+    static String[] tlsv12protocols;
 
     /** Protocols to enable by default when "TLSv1.1" is requested. */
     static final String[] TLSV11_PROTOCOLS = new String[] {
@@ -1078,14 +1078,20 @@ public final class NativeCrypto {
 
     // If we ever get a new protocol go look for tests which are skipped using
     // assumeTlsV11Enabled()
-    private static String[] SUPPORTED_PROTOCOLS;
+    private static String[] supportedProtocols;
 
     public static String[] getDefaultProtocols() {
-        return TLSV13_PROTOCOLS.clone();
+        if (tlsv13protocols == null) {
+            setTlsV1DeprecationStatus(Platform.isTlsV1Deprecated(), Platform.isTlsV1Supported());
+        }
+        return tlsv13protocols.clone();
     }
 
     static String[] getSupportedProtocols() {
-        return SUPPORTED_PROTOCOLS.clone();
+        if (supportedProtocols == null) {
+            setTlsV1DeprecationStatus(Platform.isTlsV1Deprecated(), Platform.isTlsV1Supported());
+        }
+        return supportedProtocols.clone();
     }
 
     private static class Range {
@@ -1106,8 +1112,8 @@ public final class NativeCrypto {
         List<String> protocolsList = Arrays.asList(protocols);
         String min = null;
         String max = null;
-        for (int i = 0; i < SUPPORTED_PROTOCOLS.length; i++) {
-            String protocol = SUPPORTED_PROTOCOLS[i];
+        for (int i = 0; i < supportedProtocols.length; i++) {
+            String protocol = supportedProtocols[i];
             if (protocolsList.contains(protocol)) {
                 if (min == null) {
                     min = protocol;
@@ -1152,7 +1158,7 @@ public final class NativeCrypto {
             if (protocol == null) {
                 throw new IllegalArgumentException("protocols contains null");
             }
-            if (!Arrays.asList(SUPPORTED_PROTOCOLS).contains(protocol)) {
+            if (!Arrays.asList(supportedProtocols).contains(protocol)) {
                 throw new IllegalArgumentException("protocol " + protocol + " is not supported");
             }
         }

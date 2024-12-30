@@ -176,7 +176,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
      */
     public static final class TLSv13 extends OpenSSLContextImpl {
         public TLSv13() {
-            super(NativeCrypto.TLSV13_PROTOCOLS);
+            super(NativeCrypto.tlsv13protocols);
         }
     }
 
@@ -187,7 +187,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
     public static final class TLSv12 extends OpenSSLContextImpl {
         @android.compat.annotation.UnsupportedAppUsage
         public TLSv12() {
-            super(NativeCrypto.TLSV12_PROTOCOLS);
+            super(NativeCrypto.tlsv12protocols);
         }
     }
 

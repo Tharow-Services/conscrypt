@@ -121,7 +121,7 @@ public class DefaultSSLContextImpl extends OpenSSLContextImpl {
      */
     public final static class TLSv13 extends DefaultSSLContextImpl {
         public TLSv13() throws GeneralSecurityException, IOException {
-            super(NativeCrypto.TLSV13_PROTOCOLS);
+            super(NativeCrypto.tlsv13protocols);
         }
     }
 
@@ -130,7 +130,7 @@ public class DefaultSSLContextImpl extends OpenSSLContextImpl {
      */
     public final static class TLSv12 extends DefaultSSLContextImpl {
         public TLSv12() throws GeneralSecurityException, IOException {
-            super(NativeCrypto.TLSV12_PROTOCOLS);
+            super(NativeCrypto.tlsv12protocols);
         }
     }
 }
