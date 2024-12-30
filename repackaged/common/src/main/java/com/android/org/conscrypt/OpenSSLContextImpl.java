@@ -72,7 +72,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
     // BEGIN Android-added: Restore missing constructor that is used by apps
     @android.compat.annotation.UnsupportedAppUsage
     private OpenSSLContextImpl() throws GeneralSecurityException, IOException {
-        this(NativeCrypto.TLSV13_PROTOCOLS, true);
+        this(NativeCrypto.tlsv13protocols, true);
     }
     // END Android-added: Restore missing constructor that is used by apps
 
@@ -176,7 +176,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
      */
     public static final class TLSv13 extends OpenSSLContextImpl {
         public TLSv13() {
-            super(NativeCrypto.TLSV13_PROTOCOLS);
+            super(NativeCrypto.tlsv13protocols);
         }
     }
 
@@ -187,7 +187,7 @@ public abstract class OpenSSLContextImpl extends SSLContextSpi {
     public static final class TLSv12 extends OpenSSLContextImpl {
         @android.compat.annotation.UnsupportedAppUsage
         public TLSv12() {
-            super(NativeCrypto.TLSV12_PROTOCOLS);
+            super(NativeCrypto.tlsv12protocols);
         }
     }
 
