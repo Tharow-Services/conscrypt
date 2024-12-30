@@ -17,6 +17,8 @@
 
 package com.android.org.conscrypt;
 
+import android.net.ssl.PakeOption;
+
 import static com.android.org.conscrypt.NativeConstants.SSL_MODE_CBC_RECORD_SPLITTING;
 import static com.android.org.conscrypt.NativeConstants.SSL_OP_CIPHER_SERVER_PREFERENCE;
 import static com.android.org.conscrypt.NativeConstants.SSL_OP_NO_TICKET;
@@ -34,6 +36,7 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -87,6 +90,36 @@ final class NativeSsl {
         } catch (SSLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    void initSpake() throws SSLException, InvalidAlgorithmParameterException {
+        Spake2PlusKeyManager spakeKeyManager = parameters.getSpake2PlusKeyManager();
+        byte[] context = "spake_test".getBytes();
+        byte[] idProverArray = spakeKeyManager.getIdProver();
+        byte[] idVerifierArray = spakeKeyManager.getIdVerifier();
+        byte[] pwArray = spakeKeyManager.getPassword();
+        byte[] w0Array = spakeKeyManager.getw0();
+        byte[] w1Array = spakeKeyManager.getw1();
+        byte[] registrationRecordArray = spakeKeyManager.getRegistrationRecord();
+        boolean isClient = spakeKeyManager.isClient();
+
+        // if (pwArray != null) {
+        //     NativeCrypto.SSL_CTX_set_spake_credential(
+        //         context, pwArray, idProverArray,
+        //         idVerifierArray, isClient, this);
+        // } else if (isClient && w0Array != null && w1Array != null) {
+        //     NativeCrypto.SSL_CTX_set_spake_credential_client(
+        //         context, w0Array, w1Array,
+        //         idProverArray, idVerifierArray, true, this);
+        // } else if (!isClient && w0Array != null && registrationRecordArray != null) {
+        //     NativeCrypto.SSL_CTX_set_spake_credential_server(
+        //         context, w0Array, registrationRecordArray,
+        //         idProverArray, idVerifierArray, false, this);
+        // }
+
+        // NativeCrypto.SSL_CTX_set_spake_credential(
+        //     context, pwArray, idProverArray,
+        //     idVerifierArray, isClient(), this);
     }
 
     void offerToResumeSession(long sslSessionNativePointer) throws SSLException {
@@ -276,6 +309,14 @@ final class NativeSsl {
     }
 
     void initialize(String hostname, OpenSSLKey channelIdPrivateKey) throws IOException {
+        if (parameters.isSpake()) {
+            try {
+                initSpake();
+            } catch (Exception e) {
+                throw new SSLHandshakeException("Spake initialization failed " + e.getMessage());
+            }
+        }
+
         boolean enableSessionCreation = parameters.getEnableSessionCreation();
         if (!enableSessionCreation) {
             NativeCrypto.SSL_set_session_creation_enabled(ssl, this, false);
@@ -311,8 +352,12 @@ final class NativeSsl {
                     + " are no longer supported and were filtered from the list");
         }
         NativeCrypto.setEnabledProtocols(ssl, this, parameters.enabledProtocols);
-        NativeCrypto.setEnabledCipherSuites(
+        // Not sure if we need to do this for SPAKE, but the SPAKE cipher suite
+        // not registered at the moment.
+        if (!parameters.isSpake()) {
+            NativeCrypto.setEnabledCipherSuites(
                 ssl, this, parameters.enabledCipherSuites, parameters.enabledProtocols);
+        }
 
         if (parameters.applicationProtocols.length > 0) {
             NativeCrypto.setApplicationProtocols(ssl, this, isClient(), parameters.applicationProtocols);
@@ -352,7 +397,9 @@ final class NativeSsl {
         // with TLSv1 and SSLv3).
         NativeCrypto.SSL_set_mode(ssl, this, SSL_MODE_CBC_RECORD_SPLITTING);
 
-        setCertificateValidation();
+        if (!parameters.isSpake()) {
+          setCertificateValidation();
+        }
         setTlsChannelId(channelIdPrivateKey);
     }
 
