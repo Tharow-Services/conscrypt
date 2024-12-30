@@ -91,6 +91,47 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d1ca6255_a2b5dbb1",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-30T15:22:14Z",
+      "side": 1,
+      "message": "This should be w0",
+      "range": {
+        "startLine": 157,
+        "startChar": 51,
+        "endLine": 157,
+        "endChar": 53
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "d5f295e8_0c823381",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 157,
+                "startChar": 0,
+                "endLine": 158,
+                "endChar": 0
+              },
+              "replacement": "                if (messageComponents.containsKey(\"w0\")\n"
+            }
+          ]
+        }
+      ],
+      "revId": "47cb95d9746d2a9737ff3cf532a87940286f499d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88bc6641_da00fdea",
         "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
         "patchSetId": 1
@@ -150,6 +191,30 @@
       "side": 1,
       "message": "It\u0027s w0 and w1 put together into a single byte array. It is the parameter for the SSL_CREDENTIAL_set1_PAKE_client_password_record function exposed by boring ssl.",
       "parentUuid": "dcd8f996_8c57f994",
+      "range": {
+        "startLine": 164,
+        "startChar": 24,
+        "endLine": 166,
+        "endChar": 0
+      },
+      "revId": "47cb95d9746d2a9737ff3cf532a87940286f499d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "33c5ebfa_9466d805",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-30T15:22:14Z",
+      "side": 1,
+      "message": "Actually, upon further reflection. It might be good to split this into validateSpake2PlusClientComponents and validateSpake2PlusServerComponents, and in that way ensure that the client gets the w0 and w1 (or password verifier), and that the server gets the w0 and registration record.",
+      "parentUuid": "4bd9cdcf_2dec4913",
       "range": {
         "startLine": 164,
         "startChar": 24,
