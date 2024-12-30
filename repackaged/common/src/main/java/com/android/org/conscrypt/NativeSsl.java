@@ -34,6 +34,7 @@ import java.io.FileDescriptor;
 import java.io.IOException;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
@@ -87,6 +88,24 @@ final class NativeSsl {
         } catch (SSLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    void initSpake() throws SSLException, InvalidAlgorithmParameterException {
+        Spake2PlusKeyManager spakeKeyManager = parameters.get2PlusSpakeKeyManager();
+        byte[] idProverArray = spakeKeyManager.getIdProver();
+        byte[] idVerifierArray = spakeKeyManager.getIdVerifier();
+        List<PakeOption> options = spakeKeyManager.getOptions();
+        byte[] pwArray = null;
+        for (PakeOption option : options) {
+            if (option.getMessageComponent("password") != null) {
+                pwArray = option.getValue();
+                break;
+            }
+        }
+
+        // NativeCrypto.SSL_CTX_set_spake_credential(
+        //     context, pwArray, idProverArray,
+        //     idVerifierArray, isClient(), this);
     }
 
     void offerToResumeSession(long sslSessionNativePointer) throws SSLException {
@@ -276,6 +295,14 @@ final class NativeSsl {
     }
 
     void initialize(String hostname, OpenSSLKey channelIdPrivateKey) throws IOException {
+        if (parameters.isSpake()) {
+            try {
+                initSpake();
+            } catch (Exception e) {
+                throw new SSLHandshakeException("Spake initialization failed " + e.getMessage());
+            }
+        }
+
         boolean enableSessionCreation = parameters.getEnableSessionCreation();
         if (!enableSessionCreation) {
             NativeCrypto.SSL_set_session_creation_enabled(ssl, this, false);
@@ -311,8 +338,12 @@ final class NativeSsl {
                     + " are no longer supported and were filtered from the list");
         }
         NativeCrypto.setEnabledProtocols(ssl, this, parameters.enabledProtocols);
-        NativeCrypto.setEnabledCipherSuites(
+        // Not sure if we need to do this for SPAKE, but the SPAKE cipher suite
+        // not registered at the moment.
+        if (!parameters.isSpake()) {
+            NativeCrypto.setEnabledCipherSuites(
                 ssl, this, parameters.enabledCipherSuites, parameters.enabledProtocols);
+        }
 
         if (parameters.applicationProtocols.length > 0) {
             NativeCrypto.setApplicationProtocols(ssl, this, isClient(), parameters.applicationProtocols);
@@ -352,7 +383,9 @@ final class NativeSsl {
         // with TLSv1 and SSLv3).
         NativeCrypto.SSL_set_mode(ssl, this, SSL_MODE_CBC_RECORD_SPLITTING);
 
-        setCertificateValidation();
+        if (!parameters.isSpake()) {
+          setCertificateValidation();
+        }
         setTlsChannelId(channelIdPrivateKey);
     }
 
