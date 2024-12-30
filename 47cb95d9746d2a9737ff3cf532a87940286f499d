@@ -158,6 +158,67 @@
       },
       "revId": "47cb95d9746d2a9737ff3cf532a87940286f499d",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bc6f05de_b2d85641",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-30T15:13:46Z",
+      "side": 1,
+      "message": "I think I need a getEndpoints method too. I need to be able to know the complete set of endpoints passed so that I can create the set of KeyManagers with the corresponding set of options.",
+      "range": {
+        "startLine": 51,
+        "startChar": 19,
+        "endLine": 51,
+        "endChar": 49
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "52322095_0dde63ca",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 31,
+                "startChar": 0,
+                "endLine": 31,
+                "endChar": 0
+              },
+              "replacement": "import java.util.HashSet;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 33,
+                "startChar": 0,
+                "endLine": 33,
+                "endChar": 0
+              },
+              "replacement": "import java.util.Set;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 91,
+                "startChar": 0,
+                "endLine": 91,
+                "endChar": 0
+              },
+              "replacement": "\n    /**\n     * Returns an unmodifiable set of endpoints.\n     *\n     * @return An unmodifiable set of endpoints.\n     */\n    public @NonNull Set\u003cPakeEndpoints\u003e getEndpoints() {\n        return Collections.unmodifiableSet(new HashSet\u003c\u003e(endpoints.keySet()));\n    }\n"
+            }
+          ]
+        }
+      ],
+      "revId": "47cb95d9746d2a9737ff3cf532a87940286f499d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
