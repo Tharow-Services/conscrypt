@@ -37,6 +37,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e43318b2_a5f797f1",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2024-12-30T16:06:16Z",
+      "side": 1,
+      "message": "I think we should be consistent with the namings of these methods across classes, so both of them should be getClientId or getIdClient. Same for servers",
+      "range": {
+        "startLine": 78,
+        "startChar": 28,
+        "endLine": 78,
+        "endChar": 39
+      },
+      "revId": "47cb95d9746d2a9737ff3cf532a87940286f499d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "000a4fc3_67467183",
         "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
         "patchSetId": 1
