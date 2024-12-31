@@ -36,6 +36,47 @@ public class PakeOptionTest {
         PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
                                     .addMessageComponent("password", new byte[] {1, 2, 3})
                                     .build();
+<<<<<<< PATCH SET (e52bf8 Add Spake to Conscrypt)
+        assertEquals("SPAKE2PLUS_PRERELEASE", option.getName());
+        assertNotNull(option.getMessageComponent("password"));
+    }
+
+    @Test
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_validWithW0W1() {
+        PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                                    .addMessageComponent("w0", new byte[] {1, 2, 3})
+                                    .addMessageComponent("w1", new byte[] {4, 5, 6})
+                                    .build();
+        assertEquals("SPAKE2PLUS_PRERELEASE", option.getName());
+        assertNotNull(option.getMessageComponent("w0"));
+        assertNotNull(option.getMessageComponent("w1"));
+    }
+
+    @Test
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_validWithW0RegistrationRecord() {
+        PakeOption option =
+                new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                        .addMessageComponent("w0", new byte[] {1, 2, 3})
+                        .addMessageComponent("registration_record", new byte[] {4, 5, 6})
+                        .build();
+        assertEquals("SPAKE2PLUS_PRERELEASE", option.getName());
+        assertNotNull(option.getMessageComponent("w0"));
+        assertNotNull(option.getMessageComponent("registration_record"));
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_invalidName() {
+        new PakeOption.Builder(null);
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_emptyName() {
+||||||| BASE
+=======
         assertEquals("SPAKE2PLUS_PRERELEASE", option.getAlgorithm());
         assertNotNull(option.getMessageComponent("password"));
     }
@@ -74,6 +115,7 @@ public class PakeOptionTest {
     @Test(expected = InvalidParameterException.class)
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testBuilder_emptyAlgorithm() {
+>>>>>>> BASE      (fb73a8 Rework the SPAKE2+ API)
         new PakeOption.Builder("");
     }
 

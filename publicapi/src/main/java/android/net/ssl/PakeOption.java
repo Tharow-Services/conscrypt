@@ -40,6 +40,104 @@ import java.util.Map;
 @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
 public final class PakeOption {
     /**
+<<<<<<< PATCH SET (e52bf8 Add Spake to Conscrypt)
+     * The name of the PAKE algorithm.
+     */
+    private final String name; // For now "SPAKE2PLUS_PRERELEASE" is suported
+
+    /**
+     * A map containing the message components for the PAKE exchange.
+     *
+     * <p>The keys are strings representing the component names (e.g., "password",
+     * "w0", "w1"). The values are byte arrays containing the component data.</p>
+     */
+    private final Map<String, byte[]> messageComponents;
+
+    private PakeOption(String name, Map<String, byte[]> messageComponents) {
+        this.name = name;
+        this.messageComponents = Collections.unmodifiableMap(new HashMap<>(messageComponents));
+    }
+
+    /**
+     * Returns the name of the PAKE algorithm.
+     *
+     * @return The name of the PAKE algorithm.
+     */
+    public @NonNull String getName() {
+        return name;
+    }
+
+    /**
+     * Returns the message component with the given key.
+     *
+     * @param key The name of the component.
+     * @return The component data, or {@code null} if no component with the given
+     *         key exists.
+     */
+    public @Nullable byte[] getMessageComponent(@NonNull String key) {
+        return messageComponents.get(key);
+    }
+
+    /**
+     * A builder for creating {@link PakeOption} instances.
+     *
+     * @hide
+     */
+    @SystemApi
+    @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public static final class Builder {
+        private String name;
+        private Map<String, byte[]> messageComponents = new HashMap<>();
+
+        /**
+         * Constructor for the builder.
+         *
+         * @param name The name of the PAKE algorithm.
+         * @throws InvalidParameterException If the name is invalid.
+         */
+        public Builder(@NonNull String name) {
+            if (name == null || name.isEmpty()) {
+                throw new InvalidParameterException("Name cannot be null or empty.");
+            }
+            this.name = name;
+        }
+
+        /**
+         * Adds a message component.
+         *
+         * @param key The name of the component.
+         * @param value The component data.
+         * @return This builder.
+         * @throws InvalidParameterException If the key is invalid.
+         */
+        public @NonNull Builder addMessageComponent(@NonNull String key, @Nullable byte[] value) {
+            if (key == null || key.isEmpty()) {
+                throw new InvalidParameterException("Key cannot be null or empty.");
+            }
+            messageComponents.put(key, value);
+            return this;
+        }
+
+        /**
+         * Builds a new {@link PakeOption} instance.
+         *
+         * <p>This method performs validation to ensure that the message components
+         * are consistent with the PAKE algorithm.</p>
+         *
+         * @return A new {@link PakeOption} instance.
+         * @throws InvalidParameterException If the message components are invalid.
+         */
+        public @NonNull PakeOption build() {
+            if (messageComponents.isEmpty()) {
+                throw new InvalidParameterException("Message components cannot be empty.");
+            }
+            if (name.equals("SPAKE2PLUS_PRERELEASE")) {
+                validateSpake2PlusComponents();
+            }
+
+            return new PakeOption(name, messageComponents);
+||||||| BASE
+=======
      * The algorithm of the PAKE algorithm.
      */
     private final String algorithm; // For now "SPAKE2PLUS_PRERELEASE" is suported
@@ -135,6 +233,7 @@ public final class PakeOption {
             }
 
             return new PakeOption(algorithm, messageComponents);
+>>>>>>> BASE      (fb73a8 Rework the SPAKE2+ API)
         }
 
         private void validateSpake2PlusComponents() {
