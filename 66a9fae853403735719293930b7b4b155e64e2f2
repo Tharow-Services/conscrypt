@@ -16,6 +16,645 @@
       "message": "Hi Victor, could you please have a look at this? It needs an API review, but Lorenzo is out and we don\u0027t have too much time to get this in.",
       "revId": "66a9fae853403735719293930b7b4b155e64e2f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ecbff956_0b9a5ad4",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2025-01-02T17:13:02Z",
+      "side": 1,
+      "message": "setter should match the getters. go/android-api-guidelines#builders-symmetric-setters",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 5
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "9e351209_c01fff5c",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 74,
+                "startChar": 0,
+                "endLine": 75,
+                "endChar": 0
+              },
+              "replacement": "     * Returns the client identifier. This is the identifier that the client\n     * uses to identify itself to the server.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 76,
+                "startChar": 0,
+                "endLine": 77,
+                "endChar": 0
+              },
+              "replacement": "     * @return The client identifier, or null if the client does not have one.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 83,
+                "startChar": 0,
+                "endLine": 84,
+                "endChar": 0
+              },
+              "replacement": "     * Returns the server identifier. This is the identifier that the server\n     * uses to identify itself to the client.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 85,
+                "startChar": 0,
+                "endLine": 86,
+                "endChar": 0
+              },
+              "replacement": "     * @return The server identifier, or null if the server does not have one.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 112,
+                "startChar": 0,
+                "endLine": 113,
+                "endChar": 0
+              },
+              "replacement": "         * Sets the endpoints involved in the PAKE exchange. This includes the\n         * client identifier and the server identifier.\n"
+            }
+          ]
+        }
+      ],
+      "revId": "66a9fae853403735719293930b7b4b155e64e2f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "049d77f9_b43e5f27",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2025-01-02T17:13:02Z",
+      "side": 1,
+      "message": "getClientId() ? Or does it follow a spec or an existing convention?",
+      "range": {
+        "startLine": 82,
+        "startChar": 28,
+        "endLine": 82,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "05d80fac_43ce9870",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 22,
+                "startChar": 0,
+                "endLine": 23,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 25,
+                "startChar": 0,
+                "endLine": 26,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 28,
+                "startChar": 0,
+                "endLine": 30,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 82,
+                "startChar": 0,
+                "endLine": 83,
+                "endChar": 0
+              },
+              "replacement": "    public @Nullable byte[] getClientId() {\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 91,
+                "startChar": 0,
+                "endLine": 92,
+                "endChar": 0
+              },
+              "replacement": "    public @Nullable byte[] getServerId() {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "66a9fae853403735719293930b7b4b155e64e2f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e4cecd63_422874e9",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2025-01-02T17:13:02Z",
+      "side": 1,
+      "message": "getServerId() ?",
+      "range": {
+        "startLine": 91,
+        "startChar": 28,
+        "endLine": 91,
+        "endChar": 39
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "7a89fb1f_81e28eaa",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 22,
+                "startChar": 0,
+                "endLine": 23,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 25,
+                "startChar": 0,
+                "endLine": 26,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 28,
+                "startChar": 0,
+                "endLine": 30,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 53,
+                "startChar": 0,
+                "endLine": 54,
+                "endChar": 0
+              },
+              "replacement": "    private final byte[] clientId;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 58,
+                "startChar": 0,
+                "endLine": 59,
+                "endChar": 0
+              },
+              "replacement": "    private final byte[] serverId;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 68,
+                "startChar": 0,
+                "endLine": 70,
+                "endChar": 0
+              },
+              "replacement": "     * @param clientId The identifier for the client. May be null.\n     * @param serverId The identifier for the server. May be null.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 71,
+                "startChar": 0,
+                "endLine": 74,
+                "endChar": 0
+              },
+              "replacement": "    public PakeEndpoints(@Nullable byte[] clientId, @Nullable byte[] serverId) {\n        this.clientId \u003d clientId;\n        this.serverId \u003d serverId;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 82,
+                "startChar": 0,
+                "endLine": 84,
+                "endChar": 0
+              },
+              "replacement": "    public @Nullable byte[] getClientId() {\n        return clientId;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 91,
+                "startChar": 0,
+                "endLine": 93,
+                "endChar": 0
+              },
+              "replacement": "    public @Nullable byte[] getServerId() {\n        return serverId;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 102,
+                "startChar": 0,
+                "endLine": 103,
+                "endChar": 0
+              },
+              "replacement": "        return Arrays.equals(clientId, that.clientId) \u0026\u0026 Arrays.equals(serverId, that.serverId);\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeEndpoints.java",
+              "range": {
+                "startLine": 111,
+                "startChar": 0,
+                "endLine": 113,
+                "endChar": 0
+              },
+              "replacement": "        int result \u003d Arrays.hashCode(clientId);\n        result \u003d 31 * result + Arrays.hashCode(serverId);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "66a9fae853403735719293930b7b4b155e64e2f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddc63a08_142a09dc",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2025-01-02T17:13:02Z",
+      "side": 1,
+      "message": "As it\u0027s not a option name, should it be `getAlgorithmName()` or ,following libcore convention, `getAlgorithm()`?",
+      "fixSuggestions": [
+        {
+          "fixId": "eadd3117_38a0cac3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 43,
+                "startChar": 0,
+                "endLine": 44,
+                "endChar": 0
+              },
+              "replacement": "     * The algorithm of the PAKE exchange.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 45,
+                "startChar": 0,
+                "endLine": 46,
+                "endChar": 0
+              },
+              "replacement": "    private final String algorithm; // For now \"SPAKE2PLUS_PRERELEASE\" is suported\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 55,
+                "startChar": 0,
+                "endLine": 57,
+                "endChar": 0
+              },
+              "replacement": "    private PakeOption(String algorithm, Map\u003cString, byte[]\u003e messageComponents) {\n        this.algorithm \u003d algorithm;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 61,
+                "startChar": 0,
+                "endLine": 62,
+                "endChar": 0
+              },
+              "replacement": "     * Returns the algorithm of the PAKE exchange.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 63,
+                "startChar": 0,
+                "endLine": 64,
+                "endChar": 0
+              },
+              "replacement": "     * @return The algorithm of the PAKE exchange.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 65,
+                "startChar": 0,
+                "endLine": 67,
+                "endChar": 0
+              },
+              "replacement": "    public @NonNull String getAlgorithm() {\n        return algorithm;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 88,
+                "startChar": 0,
+                "endLine": 89,
+                "endChar": 0
+              },
+              "replacement": "        private String algorithm;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 94,
+                "startChar": 0,
+                "endLine": 96,
+                "endChar": 0
+              },
+              "replacement": "         * @param algorithm The algorithm of the PAKE exchange.\n         * @throws InvalidParameterException If the algorithm is invalid.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 97,
+                "startChar": 0,
+                "endLine": 100,
+                "endChar": 0
+              },
+              "replacement": "        public Builder(@NonNull String algorithm) {\n            if (algorithm \u003d\u003d null || algorithm.isEmpty()) {\n                throw new InvalidParameterException(\"Algorithm cannot be null or empty.\");\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 101,
+                "startChar": 0,
+                "endLine": 102,
+                "endChar": 0
+              },
+              "replacement": "            this.algorithm \u003d algorithm;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 133,
+                "startChar": 0,
+                "endLine": 134,
+                "endChar": 0
+              },
+              "replacement": "            if (algorithm.equals(\"SPAKE2PLUS_PRERELEASE\")) {\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+              "range": {
+                "startLine": 137,
+                "startChar": 0,
+                "endLine": 138,
+                "endChar": 0
+              },
+              "replacement": "            return new PakeOption(algorithm, messageComponents);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "66a9fae853403735719293930b7b4b155e64e2f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "794401b7_c15e5537",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2025-01-02T17:13:02Z",
+      "side": 1,
+      "message": "I think that `addEndpoint` add a new key, while `addOption` adds a new option for each key, right? I feel like that it\u0027s a bit strange for a builder, because the add and set methods should be 2 separate properties.\n\n1. Can we put the PakeEndpoints and pake options in the same class, e.g. `EndPointOptions`? `PakeServerKeyManagerParameters` is simply a list of `EndPointOptions`, but can validate the options when a `PakeServerKeyManagerParameters` is created. A new exception type may be needed to return a clear error about the input pake options.\n2. PakeClientKeyManagerParameters  can re-use this new class as it contains a pair of `PakeEndpoints ` and pake options. \n3. If `PakeEndpoints` is always used with pake options, it may be merged into the class instead, as it contains 2 ids only.",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 13
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "c782de33_8060a925",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 28,
+                "startChar": 0,
+                "endLine": 29,
+                "endChar": 0
+              },
+              "replacement": ""
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 56,
+                "startChar": 0,
+                "endLine": 57,
+                "endChar": 0
+              },
+              "replacement": "    private final Map\u003cPakeEndpoints, PakeOptions\u003e endpoints;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 63,
+                "startChar": 0,
+                "endLine": 64,
+                "endChar": 0
+              },
+              "replacement": "    private PakeServerKeyManagerParameters(Map\u003cPakeEndpoints, PakeOptions\u003e endpoints) {\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 88,
+                "startChar": 0,
+                "endLine": 89,
+                "endChar": 0
+              },
+              "replacement": "     * Returns the PAKE options for the given endpoint.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 91,
+                "startChar": 0,
+                "endLine": 92,
+                "endChar": 0
+              },
+              "replacement": "     * @return The PAKE options for the given endpoint.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 93,
+                "startChar": 0,
+                "endLine": 94,
+                "endChar": 0
+              },
+              "replacement": "    public @NonNull PakeOptions getOptions(@NonNull PakeEndpoints endpoint) {\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 95,
+                "startChar": 0,
+                "endLine": 96,
+                "endChar": 0
+              },
+              "replacement": "        PakeOptions options \u003d endpoints.get(endpoint);\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 99,
+                "startChar": 0,
+                "endLine": 100,
+                "endChar": 0
+              },
+              "replacement": "        return options;\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 110,
+                "startChar": 0,
+                "endLine": 111,
+                "endChar": 0
+              },
+              "replacement": "        private final Map\u003cPakeEndpoints, PakeOptions\u003e endpoints \u003d new HashMap\u003c\u003e();\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 113,
+                "startChar": 0,
+                "endLine": 114,
+                "endChar": 0
+              },
+              "replacement": "         * Sets the PAKE options for the given endpoint.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 115,
+                "startChar": 0,
+                "endLine": 116,
+                "endChar": 0
+              },
+              "replacement": "         * @param endpoint The endpoint for which to set the options.\n         * @param options The PAKE options to set.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 117,
+                "startChar": 0,
+                "endLine": 118,
+                "endChar": 0
+              },
+              "replacement": "         * @throws InvalidParameterException If the provided endpoint or options is invalid.\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 119,
+                "startChar": 0,
+                "endLine": 120,
+                "endChar": 0
+              },
+              "replacement": "        public @NonNull Builder setOptions(@NonNull PakeEndpoints endpoint,\n                @NonNull PakeOptions options) {\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 121,
+                "startChar": 0,
+                "endLine": 127,
+                "endChar": 0
+              },
+              "replacement": "            requireNonNull(options, \"Options cannot be null.\");\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 128,
+                "startChar": 0,
+                "endLine": 165,
+                "endChar": 0
+              },
+              "replacement": "            endpoints.put(endpoint, options);\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 178,
+                "startChar": 0,
+                "endLine": 184,
+                "endChar": 0
+              },
+              "replacement": ""
+            }
+          ]
+        }
+      ],
+      "revId": "66a9fae853403735719293930b7b4b155e64e2f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
