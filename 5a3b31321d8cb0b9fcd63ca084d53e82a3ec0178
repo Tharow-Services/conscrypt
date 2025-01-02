@@ -33,6 +33,24 @@
       "message": "I think something is wrong with having `get*Protocols` being called before `setTlsV1DeprecationStatus` is executed and we should look at what can be done to make this flow better.\n\nIs there any danger of concurrent calls to `setTlsV1DeprecationStatus`? Also, once it that is called, does it make sense to disallow further calls to it?\n\nI don\u0027t know how it is used, so maybe we can\u0027t do something to improve on it. But if we can, I think it\u0027s good to rework it. And maybe even rename the function, because `setTlsV1DeprecationStatus` seems to be more of an init function. Maybe better to call it something like `initTlsProtocols(boolean isTlsv1Deprecated, boolean isTlsv1Supported)`. Or even split into `initDefaultProtocols(boolean isTlsv1Deprecated)` and `initSupportedProtocols(boolean isTlsv1Supported)`.",
       "revId": "5a3b31321d8cb0b9fcd63ca084d53e82a3ec0178",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6445444_83c6d136",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-02T14:17:42Z",
+      "side": 1,
+      "message": "Actually, could the initialization be done in `\u003cclinit\u003e`?",
+      "parentUuid": "08e55dc1_5fc63854",
+      "revId": "5a3b31321d8cb0b9fcd63ca084d53e82a3ec0178",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
