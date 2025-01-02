@@ -194,6 +194,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "79d39ca0_74728a65",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-02T10:43:30Z",
+      "side": 1,
+      "message": "Oh yeah, sorry I misread that bit of code.",
+      "parentUuid": "c5719e1b_3bb3165e",
+      "range": {
+        "startLine": 157,
+        "startChar": 51,
+        "endLine": 157,
+        "endChar": 53
+      },
+      "revId": "47cb95d9746d2a9737ff3cf532a87940286f499d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "88bc6641_da00fdea",
