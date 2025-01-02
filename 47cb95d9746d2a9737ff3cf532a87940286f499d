@@ -172,6 +172,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c5719e1b_3bb3165e",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-02T10:34:59Z",
+      "side": 1,
+      "message": "`w1` is correct. We already have `w0` and need to validate that only one of `w1` and `registration_record` is defined. Having said that, I should add some extra validation in the client and server side to check that `w0` and `w1` is used for client and `w0` and `registration_record` for server.",
+      "parentUuid": "d1ca6255_a2b5dbb1",
+      "range": {
+        "startLine": 157,
+        "startChar": 51,
+        "endLine": 157,
+        "endChar": 53
+      },
+      "revId": "47cb95d9746d2a9737ff3cf532a87940286f499d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "88bc6641_da00fdea",
         "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
         "patchSetId": 1
@@ -255,6 +279,30 @@
       "side": 1,
       "message": "Actually, upon further reflection. It might be good to split this into validateSpake2PlusClientComponents and validateSpake2PlusServerComponents, and in that way ensure that the client gets the w0 and w1 (or password verifier), and that the server gets the w0 and registration record.",
       "parentUuid": "4bd9cdcf_2dec4913",
+      "range": {
+        "startLine": 164,
+        "startChar": 24,
+        "endLine": 166,
+        "endChar": 0
+      },
+      "revId": "47cb95d9746d2a9737ff3cf532a87940286f499d",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2692629c_743f7578",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-02T10:34:59Z",
+      "side": 1,
+      "message": "I\u0027ll do that in the client and server classes.",
+      "parentUuid": "33c5ebfa_9466d805",
       "range": {
         "startLine": 164,
         "startChar": 24,
