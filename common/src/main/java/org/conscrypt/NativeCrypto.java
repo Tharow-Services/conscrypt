@@ -1081,10 +1081,16 @@ public final class NativeCrypto {
     private static String[] SUPPORTED_PROTOCOLS;
 
     public static String[] getDefaultProtocols() {
+        if (TLSV13_PROTOCOLS == null) {
+            setTlsV1DeprecationStatus(Platform.isTlsV1Deprecated(), Platform.isTlsV1Supported());
+        }
         return TLSV13_PROTOCOLS.clone();
     }
 
-    static String[] getSupportedProtocols() {
+    static String[] getSUPPORTED_PROTOCOLS() {
+        if (SUPPORTED_PROTOCOLS == null) {
+            setTlsV1DeprecationStatus(Platform.isTlsV1Deprecated(), Platform.isTlsV1Supported());
+        }
         return SUPPORTED_PROTOCOLS.clone();
     }
 
