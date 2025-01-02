@@ -745,6 +745,30 @@
       ],
       "revId": "66a9fae853403735719293930b7b4b155e64e2f2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1db14264_21b2461f",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-02T20:10:05Z",
+      "side": 1,
+      "message": "I will try to rework the `PakeServerKeyManagerParameters` class. I\u0027ve redone the client side to not need PakeEndpoints.\n\nI\u0027ll remove PakeEndpoints altoghether and work with the client and server IDs in PakeServerKeyManagerParameters.",
+      "parentUuid": "794401b7_c15e5537",
+      "range": {
+        "startLine": 119,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 13
+      },
+      "revId": "66a9fae853403735719293930b7b4b155e64e2f2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
