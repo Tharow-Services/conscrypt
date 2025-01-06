@@ -1,0 +1,104 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5e639bf4_665fed24",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 10893,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-06T12:32:27Z",
+      "side": 1,
+      "message": "Can you guard this with `#ifndef` ?",
+      "fixSuggestions": [
+        {
+          "fixId": "7ce402fb_35f2f473",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+              "range": {
+                "startLine": 10893,
+                "startChar": 0,
+                "endLine": 10893,
+                "endChar": 0
+              },
+              "replacement": "#ifndef SPAKE2PLUS_PW_VERIFIER_SIZE\n"
+            },
+            {
+              "path": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+              "range": {
+                "startLine": 10894,
+                "startChar": 0,
+                "endLine": 10894,
+                "endChar": 0
+              },
+              "replacement": "#endif\n#ifndef SPAKE2PLUS_REGISTRATION_RECORD_SIZE\n"
+            },
+            {
+              "path": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+              "range": {
+                "startLine": 10895,
+                "startChar": 0,
+                "endLine": 10895,
+                "endChar": 0
+              },
+              "replacement": "#endif\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b13a24fe8b60cb6daf37a2f83ffbdc65f42553a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f8c7435e_614a2de3",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 27
+      },
+      "lineNbr": 10950,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-06T12:32:27Z",
+      "side": 1,
+      "message": "While waiting for the BoringSSL update I would guard this call with `#ifdef BORINGSSL_SPAKE2PLUS` and for the else clause just set ret to -1.",
+      "fixSuggestions": [
+        {
+          "fixId": "e26501d9_ff8e6dbc",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+              "range": {
+                "startLine": 10950,
+                "startChar": 0,
+                "endLine": 10950,
+                "endChar": 0
+              },
+              "replacement": "#ifdef BORINGSSL_SPAKE2PLUS\n"
+            },
+            {
+              "path": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+              "range": {
+                "startLine": 10965,
+                "startChar": 0,
+                "endLine": 10966,
+                "endChar": 0
+              },
+              "replacement": "#else\n    int ret \u003d -1;\n#endif\n"
+            }
+          ]
+        }
+      ],
+      "revId": "b13a24fe8b60cb6daf37a2f83ffbdc65f42553a3",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
