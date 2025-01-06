@@ -1,0 +1,219 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d865f385_edbd56f3",
+        "filename": "common/src/jni/main/cpp/conscrypt/native_crypto.cc",
+        "patchSetId": 28
+      },
+      "lineNbr": 10914,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-06T14:42:43Z",
+      "side": 1,
+      "message": "Can we treat nullptr as zero-sized array?",
+      "range": {
+        "startLine": 10913,
+        "startChar": 53,
+        "endLine": 10914,
+        "endChar": 36
+      },
+      "revId": "fd35706a8be6dd6661ca5718de40eed511b7430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b786bfbd_1d1b13b2",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 542,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-06T14:42:43Z",
+      "side": 1,
+      "message": "This should be renamed to `isPakeSupported()`.",
+      "range": {
+        "startLine": 542,
+        "startChar": 21,
+        "endLine": 542,
+        "endChar": 38
+      },
+      "fixSuggestions": [
+        {
+          "fixId": "94afb5c9_4ed44662",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+              "range": {
+                "startLine": 542,
+                "startChar": 0,
+                "endLine": 543,
+                "endChar": 0
+              },
+              "replacement": "        if (Platform.isPakeSupported()) {\n"
+            }
+          ]
+        }
+      ],
+      "revId": "fd35706a8be6dd6661ca5718de40eed511b7430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "439fbd85_6ae6a7e3",
+        "filename": "common/src/main/java/org/conscrypt/Spake2PlusKeyManager.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-06T14:42:43Z",
+      "side": 1,
+      "message": "It\u0027s better to separate between client and server. It\u0027ll help to keep clear which fields are needed for each.",
+      "revId": "fd35706a8be6dd6661ca5718de40eed511b7430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "75dc9a17_58bb4543",
+        "filename": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-06T14:42:43Z",
+      "side": 1,
+      "message": "You also need to getMessageComponent(\"context\")",
+      "fixSuggestions": [
+        {
+          "fixId": "1916a6da_5c2eedd9",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+              "range": {
+                "startLine": 115,
+                "startChar": 0,
+                "endLine": 116,
+                "endChar": 0
+              },
+              "replacement": "            byte[] context \u003d option.getMessageComponent(\"context\");\n            if (w0 !\u003d null \u0026\u0026 w1 !\u003d null \u0026\u0026 context !\u003d null) {\n"
+            },
+            {
+              "path": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+              "range": {
+                "startLine": 120,
+                "startChar": 0,
+                "endLine": 121,
+                "endChar": 0
+              },
+              "replacement": "                        null, w0, w1, context, idProver, idVerifier, true) };\n"
+            },
+            {
+              "path": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+              "range": {
+                "startLine": 147,
+                "startChar": 0,
+                "endLine": 148,
+                "endChar": 0
+              },
+              "replacement": "                byte[] context \u003d option.getMessageComponent(\"context\");\n                if (w0 !\u003d null \u0026\u0026 registrationRecord !\u003d null \u0026\u0026 context !\u003d null) {\n"
+            },
+            {
+              "path": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+              "range": {
+                "startLine": 155,
+                "startChar": 0,
+                "endLine": 156,
+                "endChar": 0
+              },
+              "replacement": "                            null, w0, null, registrationRecord, context, idProver, idVerifier, false);\n"
+            }
+          ]
+        }
+      ],
+      "revId": "fd35706a8be6dd6661ca5718de40eed511b7430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96825846_3f19add7",
+        "filename": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-06T14:42:43Z",
+      "side": 1,
+      "message": "You can add a break here",
+      "fixSuggestions": [
+        {
+          "fixId": "6899650b_2c37523e",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+              "range": {
+                "startLine": 122,
+                "startChar": 0,
+                "endLine": 122,
+                "endChar": 0
+              },
+              "replacement": "            break;\n"
+            }
+          ]
+        }
+      ],
+      "revId": "fd35706a8be6dd6661ca5718de40eed511b7430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5d4ee21_55998ee8",
+        "filename": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-06T14:42:43Z",
+      "side": 1,
+      "message": "You also need to getMessageComponent(\"context\")",
+      "revId": "fd35706a8be6dd6661ca5718de40eed511b7430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "218af9d0_fda0b9cd",
+        "filename": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+        "patchSetId": 28
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-06T14:42:43Z",
+      "side": 1,
+      "message": "You can add a break here",
+      "revId": "fd35706a8be6dd6661ca5718de40eed511b7430f",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
