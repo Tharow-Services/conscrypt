@@ -71,6 +71,10 @@ final class SSLParametersImpl implements Cloneable {
     private final PSKKeyManager pskKeyManager;
     // source of X.509 certificate based authentication trust decisions or null if not provided
     @android.compat.annotation.UnsupportedAppUsage private final X509TrustManager x509TrustManager;
+    // source of Spake trust or null if not provided
+    private final Spake2PlusTrustManager spake2PlusTrustManager;
+    // source of Spake authentication or null if not provided
+    private final Spake2PlusKeyManager spake2PlusKeyManager;
 
     // protocols enabled for SSL connection
     String[] enabledProtocols;
@@ -128,6 +132,23 @@ final class SSLParametersImpl implements Cloneable {
         this.serverSessionContext = serverSessionContext;
         this.clientSessionContext = clientSessionContext;
 
+        spake2PlusKeyManager = findFirstSpake2PlusKeyManager(kms);
+        spake2PlusTrustManager = findFirstSpake2PlusTrustManager(tms);
+        if ((spake2PlusKeyManager != null) != (spake2PlusTrustManager != null)) {
+            throw new KeyManagementException(
+                    "Spake2PlusKeyManager and Spake2PlusTrustManager must be set together");
+        }
+        if (spake2PlusKeyManager != null) {
+            if (findFirstX509KeyManager(kms) != null
+                    || findFirstPSKKeyManager(kms) != null
+                    || findFirstX509TrustManager(tms) != null) {
+                throw new KeyManagementException(
+                        "Spake2PlusManagers should not be set with X509KeyManager, x509TrustManager or"
+                            + " PSKKeyManager");
+            }
+            setUseClientMode(spake2PlusKeyManager.isClient());
+        }
+
         // initialize key managers
         if (kms == null) {
             x509KeyManager = getDefaultX509KeyManager();
@@ -162,7 +183,7 @@ final class SSLParametersImpl implements Cloneable {
         boolean x509CipherSuitesNeeded = (x509KeyManager != null) || (x509TrustManager != null);
         boolean pskCipherSuitesNeeded = pskKeyManager != null;
         enabledCipherSuites = getDefaultCipherSuites(
-                x509CipherSuitesNeeded, pskCipherSuitesNeeded);
+                x509CipherSuitesNeeded, pskCipherSuitesNeeded, isSpake());
 
         // We ignore the SecureRandom passed in by the caller. The native code below
         // directly accesses /dev/urandom, which makes it irrelevant.
@@ -170,15 +191,22 @@ final class SSLParametersImpl implements Cloneable {
 
     // Copy constructor for the purposes of changing the final fields
     @SuppressWarnings("deprecation") // for PSKKeyManager
-    private SSLParametersImpl(ClientSessionContext clientSessionContext,
-            ServerSessionContext serverSessionContext, X509KeyManager x509KeyManager,
-            PSKKeyManager pskKeyManager, X509TrustManager x509TrustManager,
+    private SSLParametersImpl(
+            ClientSessionContext clientSessionContext,
+            ServerSessionContext serverSessionContext,
+            X509KeyManager x509KeyManager,
+            PSKKeyManager pskKeyManager,
+            X509TrustManager x509TrustManager,
+            Spake2PlusTrustManager spake2PlusTrustManager,
+            Spake2PlusKeyManager spake2PlusKeyManager,
             SSLParametersImpl sslParams) {
         this.clientSessionContext = clientSessionContext;
         this.serverSessionContext = serverSessionContext;
         this.x509KeyManager = x509KeyManager;
         this.pskKeyManager = pskKeyManager;
         this.x509TrustManager = x509TrustManager;
+        this.spake2PlusKeyManager = spake2PlusKeyManager;
+        this.spake2PlusTrustManager = spake2PlusTrustManager;
 
         this.enabledProtocols =
                 (sslParams.enabledProtocols == null) ? null : sslParams.enabledProtocols.clone();
@@ -248,6 +276,13 @@ final class SSLParametersImpl implements Cloneable {
     @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     PSKKeyManager getPSKKeyManager() {
         return pskKeyManager;
+    }
+
+    /*
+     * Returns Spake key manager or null for none.
+     */
+    Spake2PlusKeyManager getSpake2PlusKeyManager() {
+        return spake2PlusKeyManager;
     }
 
     /*
@@ -537,8 +572,13 @@ final class SSLParametersImpl implements Cloneable {
     }
 
     SSLParametersImpl cloneWithTrustManager(X509TrustManager newTrustManager) {
-        return new SSLParametersImpl(clientSessionContext, serverSessionContext, x509KeyManager,
-                pskKeyManager, newTrustManager, this);
+        return new SSLParametersImpl(clientSessionContext, serverSessionContext,
+            x509KeyManager, pskKeyManager, newTrustManager, null, null, this);
+    }
+
+    SSLParametersImpl cloneWithSpake() {
+        return new SSLParametersImpl(clientSessionContext, serverSessionContext,
+            null, null, null, spake2PlusTrustManager, spake2PlusKeyManager, this);
     }
 
     private static X509KeyManager getDefaultX509KeyManager() throws KeyManagementException {
@@ -574,6 +614,9 @@ final class SSLParametersImpl implements Cloneable {
      * Returns the first X509KeyManager element in the provided array.
      */
     private static X509KeyManager findFirstX509KeyManager(KeyManager[] kms) {
+        if (kms == null) {
+            return null;
+        }
         for (KeyManager km : kms) {
             if (km instanceof X509KeyManager) {
                 return (X509KeyManager)km;
@@ -587,6 +630,9 @@ final class SSLParametersImpl implements Cloneable {
      */
     @SuppressWarnings("deprecation") // PSKKeyManager is deprecated, but in our own package
     private static PSKKeyManager findFirstPSKKeyManager(KeyManager[] kms) {
+        if (kms == null) {
+            return null;
+        }
         for (KeyManager km : kms) {
             if (km instanceof PSKKeyManager) {
                 return (PSKKeyManager)km;
@@ -596,6 +642,21 @@ final class SSLParametersImpl implements Cloneable {
                 } catch (NoSuchMethodException ignored) {
                     // This PSKKeyManager doesn't support the required methods, go to the next
                 }
+            }
+        }
+        return null;
+    }
+
+    /*
+     * Returns the first Spake2PlusKeyManager element in the provided array.
+     */
+    private static Spake2PlusKeyManager findFirstSpake2PlusKeyManager(KeyManager[] kms) {
+        if (kms == null) {
+            return null;
+        }
+        for (KeyManager km : kms) {
+            if (km instanceof Spake2PlusKeyManager) {
+                return (Spake2PlusKeyManager)km;
             }
         }
         return null;
@@ -639,9 +700,27 @@ final class SSLParametersImpl implements Cloneable {
      * Returns the first X509TrustManager element in the provided array.
      */
     private static X509TrustManager findFirstX509TrustManager(TrustManager[] tms) {
+        if (tms == null) {
+            return null;
+        }
         for (TrustManager tm : tms) {
             if (tm instanceof X509TrustManager) {
                 return (X509TrustManager) tm;
+            }
+        }
+        return null;
+    }
+
+    /*
+     * Returns the first Spake2PlusTrustManager element in the provided array.
+     */
+    private static Spake2PlusTrustManager findFirstSpake2PlusTrustManager(TrustManager[] tms) {
+        if (tms == null) {
+            return null;
+        }
+        for (TrustManager tm : tms) {
+            if (tm instanceof Spake2PlusTrustManager) {
+                return (Spake2PlusTrustManager) tm;
             }
         }
         return null;
@@ -684,7 +763,11 @@ final class SSLParametersImpl implements Cloneable {
 
     private static String[] getDefaultCipherSuites(
             boolean x509CipherSuitesNeeded,
-            boolean pskCipherSuitesNeeded) {
+            boolean pskCipherSuitesNeeded,
+            boolean spake2PlusCipherSuitesNeeded) {
+        if (spake2PlusCipherSuitesNeeded) {
+            return NativeCrypto.DEFAULT_SPAKE_CIPHER_SUITES;
+        }
         if (x509CipherSuitesNeeded) {
             // X.509 based cipher suites need to be listed.
             if (pskCipherSuitesNeeded) {
@@ -728,5 +811,9 @@ final class SSLParametersImpl implements Cloneable {
             return true;
         }
         return Platform.isCTVerificationRequired(hostname);
+    }
+
+    boolean isSpake() {
+        return spake2PlusKeyManager != null;
     }
 }
