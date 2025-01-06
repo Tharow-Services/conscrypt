@@ -35,9 +35,9 @@ import javax.net.ssl.ManagerFactoryParameters;
  * Parameters for configuring a {@code KeyManager} that supports PAKE (Password
  * Authenticated Key Exchange).
  *
- * <p>This class holds the necessary information for the {@code KeyManager} to perform PAKE
- * authentication, including the IDs of the client and server involved and the available PAKE
- * options.</p>
+ * <p>This class holds the necessary information for the {@code KeyManager} to
+ * perform PAKE authentication, including the endpoints involved and the
+ * available PAKE options.</p>
  *
  * <p>Instances of this class are immutable. Use the {@link Builder} to create
  * instances.</p>
@@ -48,14 +48,10 @@ import javax.net.ssl.ManagerFactoryParameters;
 @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
 public final class PakeClientKeyManagerParameters implements ManagerFactoryParameters {
     /**
-     * The ID of the client involved in the PAKE exchange.
+     * The endpoints involved in the PAKE exchange. By default used
+     * PakeEndpoints.DIRECT.
      */
-    private final byte[] clientId;
-
-    /**
-     * The ID of the server involved in the PAKE exchange.
-     */
-    private final byte[] serverId;
+    private final PakeEndpoints endpoints;
 
     /**
      * A list of available PAKE options. At least one option needs to be
@@ -66,14 +62,11 @@ public final class PakeClientKeyManagerParameters implements ManagerFactoryParam
     /**
      * Private constructor to enforce immutability.
      *
-     * @param clientId The ID of the client involved in the PAKE exchange.
-     * @param serverId The ID of the server involved in the PAKE exchange.
-     * @param options  A list of available PAKE options.
+     * @param endpoints The endpoints involved in the PAKE exchange.
+     * @param options   A list of available PAKE options.
      */
-    private PakeClientKeyManagerParameters(
-            byte[] clientId, byte[] serverId, List<PakeOption> options) {
-        this.clientId = clientId;
-        this.serverId = serverId;
+    private PakeClientKeyManagerParameters(PakeEndpoints endpoints, List<PakeOption> options) {
+        this.endpoints = endpoints;
         this.options = Collections.unmodifiableList(new ArrayList<>(options));
     }
 
@@ -83,7 +76,7 @@ public final class PakeClientKeyManagerParameters implements ManagerFactoryParam
      * @return The client identifier.
      */
     public @Nullable byte[] getClientId() {
-        return clientId;
+        return endpoints.getIdClient();
     }
 
     /**
@@ -92,7 +85,7 @@ public final class PakeClientKeyManagerParameters implements ManagerFactoryParam
      * @return The server identifier.
      */
     public @Nullable byte[] getServerId() {
-        return serverId;
+        return endpoints.getIdServer();
     }
 
     /**
@@ -112,29 +105,17 @@ public final class PakeClientKeyManagerParameters implements ManagerFactoryParam
     @SystemApi
     @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public static final class Builder {
-        private byte[] clientId;
-        private byte[] serverId;
+        private PakeEndpoints endpoints = PakeEndpoints.DIRECT;
         private List<PakeOption> options = new ArrayList<>();
 
         /**
-         * Sets the ID of the client involved in the PAKE exchange.
+         * Sets the endpoints involved in the PAKE exchange.
          *
-         * @param clientId The ID of the client involved in the PAKE exchange.
+         * @param endpoints The endpoints involved in the PAKE exchange.
          * @return This builder.
          */
-        public @NonNull Builder setClientId(@Nullable byte[] clientId) {
-            this.clientId = clientId;
-            return this;
-        }
-
-        /**
-         * Sets the ID of the server involved in the PAKE exchange.
-         *
-         * @param serverId The ID of the server involved in the PAKE exchange.
-         * @return This builder.
-         */
-        public @NonNull Builder setServerId(@Nullable byte[] serverId) {
-            this.serverId = serverId;
+        public @NonNull Builder setEndpoints(@NonNull PakeEndpoints endpoints) {
+            this.endpoints = requireNonNull(endpoints, "Endpoints cannot be null.");
             return this;
         }
 
@@ -143,25 +124,14 @@ public final class PakeClientKeyManagerParameters implements ManagerFactoryParam
          *
          * @param option The PAKE option to add.
          * @return This builder.
-         * @throws InvalidParameterException If an option with the same algorithm already exists.
+         * @throws InvalidParameterException If an option with the same name already exists.
          */
         public @NonNull Builder addOption(@NonNull PakeOption option) {
             requireNonNull(option, "Option cannot be null.");
-
-            // For SPAKE2PLUS_PRERELEASE, clients, if using "w0" and "w1" for proving, must have
-            // both of them together. PakeOption already validates other parts, like the usage of
-            // "password", or that not all of "w0", "w1" and "registration_record" are present.
-            if (option.getAlgorithm().equals("SPAKE2PLUS_PRERELEASE")
-                    && option.getMessageComponent("w0") != null
-                    && option.getMessageComponent("w1") == null) {
-                throw new InvalidParameterException(
-                        "SPAKE2PLUS_PRERELEASE client needs w1 when w0 is present");
-            }
-
             for (PakeOption existingOption : options) {
-                if (existingOption.getAlgorithm().equals(option.getAlgorithm())) {
+                if (existingOption.getName().equals(option.getName())) {
                     throw new InvalidParameterException(
-                            "An option with the same algorithm already exists.");
+                            "An option with the same name already exists.");
                 }
             }
             this.options.add(option);
@@ -178,7 +148,7 @@ public final class PakeClientKeyManagerParameters implements ManagerFactoryParam
             if (options.isEmpty()) {
                 throw new InvalidParameterException("At least one PAKE option must be provided.");
             }
-            return new PakeClientKeyManagerParameters(clientId, serverId, options);
+            return new PakeClientKeyManagerParameters(endpoints, options);
         }
     }
 }

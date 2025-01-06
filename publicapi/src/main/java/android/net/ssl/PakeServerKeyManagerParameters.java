@@ -27,136 +27,73 @@ import libcore.util.Nullable;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Set;
 
 import javax.net.ssl.ManagerFactoryParameters;
 
 /**
- * Parameters for configuring a {@code KeyManager} that supports PAKE
- * (Password Authenticated Key Exchange) on the server side.
+ * Parameters for configuring a {@code KeyManager} that supports PAKE (Password Authenticated Key
+ * Exchange) on the server side.
  *
  * <p>This class holds the necessary information for the {@code KeyManager} to perform PAKE
- * authentication, including a mapping of client and server IDs (links) to their corresponding PAKE
- * options.</p>
+ * authentication, including a mapping of endpoints to their corresponding PAKE options.
  *
- * <p>Instances of this class are immutable. Use the {@link Builder} to create
- * instances.</p>
+ * <p>Instances of this class are immutable. Use the {@link Builder} to create instances.
  *
  * @hide
  */
 @SystemApi
 @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
 public final class PakeServerKeyManagerParameters implements ManagerFactoryParameters {
-    /**
-     * A map of links to their corresponding PAKE options.
-     */
-    private final Map<Link, List<PakeOption>> links;
+    /** A map of endpoints to their corresponding PAKE options. */
+    private final Map<PakeEndpoints, List<PakeOption>> endpoints;
 
     /**
      * Private constructor to enforce immutability.
      *
-     * @param links A map of links to their corresponding PAKE options.
+     * @param endpoints A map of endpoints to their corresponding PAKE options.
      */
-    private PakeServerKeyManagerParameters(Map<Link, List<PakeOption>> links) {
-        this.links = Collections.unmodifiableMap(new HashMap<>(links));
+    private PakeServerKeyManagerParameters(Map<PakeEndpoints, List<PakeOption>> endpoints) {
+        this.endpoints = Collections.unmodifiableMap(new HashMap<>(endpoints));
     }
 
     /**
-     * Returns a set of the links.
+     * Returns an unmodifiable set of endpoints.
      *
-     * @return The known links.
+     * @return An unmodifiable set of endpoints.
      */
-    public @NonNull Set<Link> getLinks() {
-        return Collections.unmodifiableSet(links.keySet());
+    public @NonNull Set<PakeEndpoints> getEndpoints() {
+        return Collections.unmodifiableSet(new HashSet<>(endpoints.keySet()));
     }
 
     /**
-     * Returns an unmodifiable list of PAKE options for the given link.
+     * Returns an unmodifiable list of PAKE options for the given endpoint.
      *
-     * @param link The link for which to retrieve the options.
-     * @return An unmodifiable list of PAKE options for the given link.
+     * @param endpoint The endpoint for which to retrieve the options.
+     * @return An unmodifiable list of PAKE options for the given endpoint.
      */
-    public @NonNull List<PakeOption> getOptions(@NonNull Link link) {
-        requireNonNull(link, "Link cannot be null.");
-        List<PakeOption> options = links.get(link);
+    public @NonNull List<PakeOption> getOptions(@NonNull PakeEndpoints endpoint) {
+        requireNonNull(endpoint, "Endpoint cannot be null.");
+        List<PakeOption> options = endpoints.get(endpoint);
         if (options == null) {
-            throw new InvalidParameterException("Link not found.");
+            throw new InvalidParameterException("Endpoint not found.");
         }
         return Collections.unmodifiableList(options);
     }
 
     /**
-     * Returns an unmodifiable list of PAKE options for the given client-server pair.
+     * Checks if the given endpoint exists in the parameters.
      *
-     * @param clientId The client identifier for the link.
-     * @param serverId The server identifier for the link.
-     * @return An unmodifiable list of PAKE options for the given link.
+     * @param endpoint The endpoint to check.
+     * @return {@code true} if the endpoint exists, {@code false} otherwise.
      */
-    public @NonNull List<PakeOption> getOptions(
-            @Nullable byte[] clientId, @Nullable byte[] serverId) {
-        return getOptions(new Link(clientId, serverId));
-    }
-
-    /**
-     * A PAKE link class combining the client and server IDs.
-     *
-     * @hide
-     */
-    @SystemApi
-    @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
-    public static final class Link {
-        private final byte[] clientId;
-        private final byte[] serverId;
-
-        /**
-         * Constructs a {@code Link} object.
-         *
-         * @param clientId The client identifier for the link.
-         * @param serverId The server identifier for the link.
-         */
-        public Link(@Nullable byte[] clientId, @Nullable byte[] serverId) {
-            this.clientId = clientId;
-            this.serverId = serverId;
-        }
-
-        /**
-         * Returns the client identifier for the link.
-         *
-         * @return The client identifier for the link.
-         */
-        public @Nullable byte[] getClientId() {
-            return clientId;
-        }
-
-        /**
-         * Returns the server identifier for the link.
-         *
-         * @return The server identifier for the link.
-         */
-        public @Nullable byte[] getServerId() {
-            return serverId;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o)
-                return true;
-            if (o == null || getClass() != o.getClass())
-                return false;
-            Link that = (Link) o;
-            return java.util.Arrays.equals(clientId, that.clientId)
-                    && java.util.Arrays.equals(serverId, that.serverId);
-        }
-
-        @Override
-        public int hashCode() {
-            int result = java.util.Arrays.hashCode(clientId);
-            result = 31 * result + java.util.Arrays.hashCode(serverId);
-            return result;
-        }
+    public boolean hasEndpoint(@NonNull PakeEndpoints endpoint) {
+        requireNonNull(endpoint, "Endpoint cannot be null.");
+        return endpoints.containsKey(endpoint);
     }
 
     /**
@@ -167,50 +104,50 @@ public final class PakeServerKeyManagerParameters implements ManagerFactoryParam
     @SystemApi
     @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public static final class Builder {
-        private final Map<Link, List<PakeOption>> links = new HashMap<>();
+        private final Map<PakeEndpoints, List<PakeOption>> endpoints = new HashMap<>();
 
         /**
-         * Adds PAKE options for the given client and server IDs.
+         * Adds an endpoint for PAKE authentication.
          *
-         * @param clientId The client ID.
-         * @param serverId The server ID.
-         * @param options The list of PAKE options to add.
+         * @param endpoint The endpoint to add.
          * @return This builder.
-         * @throws InvalidParameterException If the provided options are invalid.
+         * @throws InvalidParameterException If the provided endpoint is null or already exists.
          */
-        public @NonNull Builder setOptions(@Nullable byte[] clientId, @Nullable byte[] serverId,
-                @NonNull List<PakeOption> options) {
-            requireNonNull(options, "options cannot be null.");
-            if (options.isEmpty()) {
-                throw new InvalidParameterException("options cannot be empty.");
+        public @NonNull Builder addEndpoint(@NonNull PakeEndpoints endpoint) {
+            requireNonNull(endpoint, "Endpoint cannot be null.");
+            if (endpoints.containsKey(endpoint)) {
+                throw new InvalidParameterException("Endpoint already exists in the map.");
+            }
+            endpoints.put(endpoint, new ArrayList<>());
+            return this;
+        }
+
+        /**
+         * Adds a PAKE option for the given endpoint.
+         *
+         * @param endpoint The endpoint for which to add the option.
+         * @param option The PAKE option to add.
+         * @return This builder.
+         * @throws InvalidParameterException If the provided endpoint or option is invalid.
+         */
+        public @NonNull Builder addOption(
+                @NonNull PakeEndpoints endpoint, @NonNull PakeOption option) {
+            requireNonNull(endpoint, "Endpoint cannot be null.");
+            requireNonNull(option, "Option cannot be null.");
+
+            if (!endpoints.containsKey(endpoint)) {
+                throw new InvalidParameterException("Endpoint does not exist in the map.");
             }
 
-            Link link = new Link(clientId, serverId);
-            List<PakeOption> storedOptions = new ArrayList<PakeOption>(options.size());
-
-            for (PakeOption option : options) {
-                // Servers must have both "w0" and "registration_record" for
-                // SPAKE2PLUS_PRERELEASE.
-                if (option.getAlgorithm().equals("SPAKE2PLUS_PRERELEASE")
-                        && option.getMessageComponent("w0") != null
-                        && option.getMessageComponent("registration_record") == null) {
+            List<PakeOption> options = endpoints.get(endpoint);
+            for (PakeOption existingOption : options) {
+                if (existingOption.getName().equals(option.getName())) {
                     throw new InvalidParameterException(
-                            "SPAKE2PLUS_PRERELEASE needs registration_record when w0 is "
-                            + "present");
+                            "An option with the same name already exists.");
                 }
-
-                // Check that options are not duplicated.
-                for (PakeOption previousOption : storedOptions) {
-                    if (previousOption.getAlgorithm().equals(option.getAlgorithm())) {
-                        throw new InvalidParameterException(
-                                "There are multiple options with the same algorithm.");
-                    }
-                }
-
-                storedOptions.add(option);
             }
 
-            links.put(link, storedOptions);
+            options.add(option);
             return this;
         }
 
@@ -218,13 +155,19 @@ public final class PakeServerKeyManagerParameters implements ManagerFactoryParam
          * Builds a new {@link PakeServerKeyManagerParameters} instance.
          *
          * @return A new {@link PakeServerKeyManagerParameters} instance.
-         * @throws InvalidParameterException If no links are provided.
+         * @throws InvalidParameterException If no endpoints are provided.
          */
         public @NonNull PakeServerKeyManagerParameters build() {
-            if (links.isEmpty()) {
-                throw new InvalidParameterException("At least one link must be provided.");
+            if (endpoints.isEmpty()) {
+                throw new InvalidParameterException("At least one endpoint must be provided.");
             }
-            return new PakeServerKeyManagerParameters(links);
+            for (List<PakeOption> options : endpoints.values()) {
+                if (options.isEmpty()) {
+                    throw new InvalidParameterException(
+                            "Each endpoint must have at least one option.");
+                }
+            }
+            return new PakeServerKeyManagerParameters(endpoints);
         }
     }
 }
