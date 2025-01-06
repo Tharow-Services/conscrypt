@@ -19,7 +19,6 @@ package android.net.ssl;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThrows;
 
 import android.platform.test.annotations.RequiresFlagsEnabled;
 
@@ -33,8 +32,6 @@ import java.util.List;
 @RunWith(JUnit4.class)
 public class PakeClientKeyManagerParametersTest {
     private static final byte[] PASSWORD = new byte[] {1, 2, 3};
-    private static final byte[] CLIENT_ID = new byte[] {4, 5, 6};
-    private static final byte[] SERVER_ID = new byte[] {7, 8, 9};
 
     @Test
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
@@ -52,51 +49,25 @@ public class PakeClientKeyManagerParametersTest {
 
     @Test
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
-    public void testBuilder_withClientId() {
+    public void testBuilder_withEndpoints() {
         PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
                                     .addMessageComponent("password", PASSWORD.clone())
                                     .build();
+        PakeEndpoints endpoints = new PakeEndpoints(new byte[] {4, 5, 6}, new byte[] {7, 8, 9});
         PakeClientKeyManagerParameters params = new PakeClientKeyManagerParameters.Builder()
-                                                        .setClientId(CLIENT_ID.clone())
+                                                        .setEndpoints(endpoints)
                                                         .addOption(option)
                                                         .build();
-        assertArrayEquals(CLIENT_ID, params.getClientId());
-        assertNull(params.getServerId());
+        assertEquals(endpoints.getIdClient(), params.getClientId());
+        assertEquals(endpoints.getIdServer(), params.getServerId());
         assertEquals(1, params.getOptions().size());
         assertArrayEquals(PASSWORD, params.getOptions().get(0).getMessageComponent("password"));
     }
 
-    @Test
-    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
-    public void testBuilder_withServerId() {
-        PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
-                                    .addMessageComponent("password", PASSWORD.clone())
-                                    .build();
-        PakeClientKeyManagerParameters params = new PakeClientKeyManagerParameters.Builder()
-                                                        .setServerId(SERVER_ID.clone())
-                                                        .addOption(option)
-                                                        .build();
-        assertNull(params.getClientId());
-        assertArrayEquals(SERVER_ID, params.getServerId());
-        assertEquals(1, params.getOptions().size());
-        assertArrayEquals(PASSWORD, params.getOptions().get(0).getMessageComponent("password"));
-    }
-
-    @Test
+    @Test(expected = NullPointerException.class)
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testBuilder_nullEndpoints() {
-        PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
-                                    .addMessageComponent("password", PASSWORD.clone())
-                                    .build();
-        PakeClientKeyManagerParameters params = new PakeClientKeyManagerParameters.Builder()
-                                                        .setClientId(null)
-                                                        .setServerId(null)
-                                                        .addOption(option)
-                                                        .build();
-        assertNull(params.getClientId());
-        assertNull(params.getServerId());
-        assertEquals(1, params.getOptions().size());
-        assertArrayEquals(PASSWORD, params.getOptions().get(0).getMessageComponent("password"));
+        new PakeClientKeyManagerParameters.Builder().setEndpoints(null);
     }
 
     @Test(expected = InvalidParameterException.class)
@@ -113,7 +84,7 @@ public class PakeClientKeyManagerParametersTest {
 
     @Test(expected = InvalidParameterException.class)
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
-    public void testBuilder_duplicateOptionAlgorithms() {
+    public void testBuilder_duplicateOptionNames() {
         PakeOption option1 = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
                                      .addMessageComponent("password", PASSWORD.clone())
                                      .build();
@@ -135,31 +106,5 @@ public class PakeClientKeyManagerParametersTest {
         List<PakeOption> options = params.getOptions();
         options.clear(); // Try to modify the returned list
         assertEquals(1, params.getOptions().size()); // The original list should be unchanged
-    }
-
-    @Test
-    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
-    public void testBuilder_spake2PlusPrerelease_w0Withoutw1() {
-        PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
-                                    .addMessageComponent("w0", PASSWORD.clone())
-                                    .addMessageComponent("registration_record", PASSWORD.clone())
-                                    .build();
-        PakeClientKeyManagerParameters.Builder builder =
-                new PakeClientKeyManagerParameters.Builder();
-        assertThrows(InvalidParameterException.class, () -> builder.addOption(option));
-    }
-
-    @Test
-    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
-    public void testBuilder_spake2PlusPrerelease_w0Withw1() {
-        PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
-                                    .addMessageComponent("w0", PASSWORD.clone())
-                                    .addMessageComponent("w1", PASSWORD.clone())
-                                    .build();
-        PakeClientKeyManagerParameters params =
-                new PakeClientKeyManagerParameters.Builder().addOption(option).build();
-        assertEquals(1, params.getOptions().size());
-        assertArrayEquals(PASSWORD, params.getOptions().get(0).getMessageComponent("w0"));
-        assertArrayEquals(PASSWORD, params.getOptions().get(0).getMessageComponent("w1"));
     }
 }

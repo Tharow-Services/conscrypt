@@ -36,7 +36,7 @@ public class PakeOptionTest {
         PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
                                     .addMessageComponent("password", new byte[] {1, 2, 3})
                                     .build();
-        assertEquals("SPAKE2PLUS_PRERELEASE", option.getAlgorithm());
+        assertEquals("SPAKE2PLUS_PRERELEASE", option.getName());
         assertNotNull(option.getMessageComponent("password"));
     }
 
@@ -47,7 +47,7 @@ public class PakeOptionTest {
                                     .addMessageComponent("w0", new byte[] {1, 2, 3})
                                     .addMessageComponent("w1", new byte[] {4, 5, 6})
                                     .build();
-        assertEquals("SPAKE2PLUS_PRERELEASE", option.getAlgorithm());
+        assertEquals("SPAKE2PLUS_PRERELEASE", option.getName());
         assertNotNull(option.getMessageComponent("w0"));
         assertNotNull(option.getMessageComponent("w1"));
     }
@@ -60,20 +60,20 @@ public class PakeOptionTest {
                         .addMessageComponent("w0", new byte[] {1, 2, 3})
                         .addMessageComponent("registration_record", new byte[] {4, 5, 6})
                         .build();
-        assertEquals("SPAKE2PLUS_PRERELEASE", option.getAlgorithm());
+        assertEquals("SPAKE2PLUS_PRERELEASE", option.getName());
         assertNotNull(option.getMessageComponent("w0"));
         assertNotNull(option.getMessageComponent("registration_record"));
     }
 
     @Test(expected = InvalidParameterException.class)
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
-    public void testBuilder_invalidAlgorithm() {
+    public void testBuilder_invalidName() {
         new PakeOption.Builder(null);
     }
 
     @Test(expected = InvalidParameterException.class)
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
-    public void testBuilder_emptyAlgorithm() {
+    public void testBuilder_emptyName() {
         new PakeOption.Builder("");
     }
 
