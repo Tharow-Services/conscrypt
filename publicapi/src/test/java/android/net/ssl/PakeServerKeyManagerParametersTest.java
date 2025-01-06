@@ -28,7 +28,6 @@ import org.junit.runners.JUnit4;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -97,9 +96,8 @@ public class PakeServerKeyManagerParametersTest {
                         .setOptions(CLIENT_ID_1, SERVER_ID_1, List.of(option1))
                         .build();
 
-        PakeServerKeyManagerParameters.Link nonExistingLink =
-                new PakeServerKeyManagerParameters.Link(CLIENT_ID_2, SERVER_ID_2);
-        assertThrows(InvalidParameterException.class, () -> params.getOptions(nonExistingLink));
+        assertThrows(
+                InvalidParameterException.class, () -> params.getOptions(CLIENT_ID_2, SERVER_ID_2));
     }
 
     @Test
@@ -114,14 +112,16 @@ public class PakeServerKeyManagerParametersTest {
                         .setOptions(CLIENT_ID_2, SERVER_ID_2, List.of(option2))
                         .build();
 
-        PakeServerKeyManagerParameters.Link link1 =
-                new PakeServerKeyManagerParameters.Link(CLIENT_ID_1, SERVER_ID_1);
-        PakeServerKeyManagerParameters.Link link2 =
-                new PakeServerKeyManagerParameters.Link(CLIENT_ID_2, SERVER_ID_2);
-        Set<PakeServerKeyManagerParameters.Link> expectedLinks = new HashSet<>();
-        expectedLinks.add(link1);
-        expectedLinks.add(link2);
-        assertEquals(expectedLinks, params.getLinks());
+        for (PakeServerKeyManagerParameters.Link link : params.getLinks()) {
+            if (CLIENT_ID_1.equals(link.getClientId())) {
+                assertEquals(SERVER_ID_1, link.getServerId());
+                assertEquals(option1, params.getOptions(link).get(0));
+            } else {
+                assertEquals(CLIENT_ID_2, link.getClientId());
+                assertEquals(SERVER_ID_2, link.getServerId());
+                assertEquals(option2, params.getOptions(link).get(0));
+            }
+        }
     }
 
     @Test
@@ -142,9 +142,7 @@ public class PakeServerKeyManagerParametersTest {
                 new PakeServerKeyManagerParameters.Builder()
                         .setOptions(CLIENT_ID_1, SERVER_ID_1, List.of(option))
                         .build();
-        PakeServerKeyManagerParameters.Link link =
-                new PakeServerKeyManagerParameters.Link(CLIENT_ID_1, SERVER_ID_1);
-        assertEquals(option, params.getOptions(link).get(0));
+        assertEquals(option, params.getOptions(CLIENT_ID_1, SERVER_ID_1).get(0));
     }
 
     private static PakeOption createOption(String algorithm, String... keys) {

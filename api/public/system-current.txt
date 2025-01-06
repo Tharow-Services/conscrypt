@@ -39,7 +39,6 @@ package android.net.ssl {
   }
 
   @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public static final class PakeServerKeyManagerParameters.Link {
-    ctor public PakeServerKeyManagerParameters.Link(@Nullable byte[], @Nullable byte[]);
     method @Nullable public byte[] getClientId();
     method @Nullable public byte[] getServerId();
   }
