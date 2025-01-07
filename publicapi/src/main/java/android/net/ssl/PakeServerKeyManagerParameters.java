@@ -192,12 +192,12 @@ public final class PakeServerKeyManagerParameters implements ManagerFactoryParam
             for (PakeOption option : options) {
                 // Servers must have both "w0" and "registration_record" for
                 // SPAKE2PLUS_PRERELEASE.
-                if (option.getAlgorithm().equals("SPAKE2PLUS_PRERELEASE")
-                        && option.getMessageComponent("w0") != null
-                        && option.getMessageComponent("registration_record") == null) {
-                    throw new InvalidParameterException(
-                            "SPAKE2PLUS_PRERELEASE needs registration_record when w0 is "
-                            + "present");
+                if (option.getAlgorithm().equals("SPAKE2PLUS_PRERELEASE")) {
+                    if ((option.getMessageComponent("w0") == null)
+                            != (option.getMessageComponent("registration_record") == null)) {
+                        throw new InvalidParameterException(
+                                "SPAKE2PLUS_PRERELEASE needs both w0 and registration_record present");
+                    }
                 }
 
                 // Check that options are not duplicated.
