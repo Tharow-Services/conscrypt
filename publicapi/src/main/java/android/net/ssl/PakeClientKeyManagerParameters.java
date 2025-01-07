@@ -151,11 +151,11 @@ public final class PakeClientKeyManagerParameters implements ManagerFactoryParam
             // For SPAKE2PLUS_PRERELEASE, clients, if using "w0" and "w1" for proving, must have
             // both of them together. PakeOption already validates other parts, like the usage of
             // "password", or that not all of "w0", "w1" and "registration_record" are present.
-            if (option.getAlgorithm().equals("SPAKE2PLUS_PRERELEASE")
-                    && option.getMessageComponent("w0") != null
-                    && option.getMessageComponent("w1") == null) {
-                throw new InvalidParameterException(
-                        "SPAKE2PLUS_PRERELEASE client needs w1 when w0 is present");
+            if (option.getAlgorithm().equals("SPAKE2PLUS_PRERELEASE")) {
+                if ((option.getMessageComponent("w0") != null) != (option.getMessageComponent("w1") != null)) {
+                    throw new InvalidParameterException(
+                            "SPAKE2PLUS_PRERELEASE client needs both w1 and w0 present");
+                }
             }
 
             for (PakeOption existingOption : options) {
