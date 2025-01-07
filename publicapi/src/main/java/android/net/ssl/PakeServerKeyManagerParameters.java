@@ -74,10 +74,9 @@ public final class PakeServerKeyManagerParameters implements ManagerFactoryParam
     }
 
     /**
-     * Returns an unmodifiable list of PAKE options for the given {@link Link}.
+     * Returns an unmodifiable list of PAKE options for the given link.
      *
-     * @param link The link for which to retrieve the options. Should have been obtained through
-     *             {@link #getLinks}.
+     * @param link The link for which to retrieve the options.
      * @return An unmodifiable list of PAKE options for the given link.
      */
     public @NonNull List<PakeOption> getOptions(@NonNull Link link) {
@@ -118,7 +117,7 @@ public final class PakeServerKeyManagerParameters implements ManagerFactoryParam
          * @param clientId The client identifier for the link.
          * @param serverId The server identifier for the link.
          */
-        private Link(@Nullable byte[] clientId, @Nullable byte[] serverId) {
+        public Link(@Nullable byte[] clientId, @Nullable byte[] serverId) {
             this.clientId = clientId;
             this.serverId = serverId;
         }
