@@ -39,6 +39,11 @@ import java.util.Map;
 @SystemApi
 @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
 public final class PakeOption {
+    // Required length of the password verifier parameters
+    private static final int W_LENGTH = 32;
+    // Required length of the registration_record parameter
+    private static final int REGISTRATION_RECORD_LENGTH = 65;
+
     /**
      * The algorithm of the PAKE algorithm.
      */
@@ -54,7 +59,11 @@ public final class PakeOption {
 
     private PakeOption(String algorithm, Map<String, byte[]> messageComponents) {
         this.algorithm = algorithm;
-        this.messageComponents = Collections.unmodifiableMap(new HashMap<>(messageComponents));
+        Map<String, byte[]> copy = new HashMap<>(messageComponents.size());
+        for (Map.Entry<String, byte[]> entry : messageComponents.entrySet()) {
+            copy.put(entry.getKey(), entry.getValue().clone());
+        }
+        this.messageComponents = Collections.unmodifiableMap(copy);
     }
 
     /**
@@ -142,6 +151,21 @@ public final class PakeOption {
             //  - password
             //  - w0 and w1 (for Client)
             //  - w0 and registration_record (for Server)
+            if (messageComponents.containsKey("w0")) {
+                if (messageComponents.get("w0").length != W_LENGTH) {
+                    throw new InvalidParameterException("w0 must be " + W_LENGTH + " bytes.");
+                }
+            }
+            if (messageComponents.containsKey("w1")) {
+                if (messageComponents.get("w1").length != W_LENGTH) {
+                    throw new InvalidParameterException("w1 must be " + W_LENGTH + " bytes.");
+                }
+            }
+            if (messageComponents.containsKey("registration_record")) {
+                if (messageComponents.get("registration_record").length != REGISTRATION_RECORD_LENGTH) {
+                    throw new InvalidParameterException("registration_record must be " + REGISTRATION_RECORD_LENGTH + " bytes.");
+                }
+            }
             if (messageComponents.containsKey("password")) {
                 if (messageComponents.containsKey("w0") || messageComponents.containsKey("w1")
                         || messageComponents.containsKey("registration_record")) {
