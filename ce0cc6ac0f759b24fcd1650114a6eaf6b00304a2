@@ -41,6 +41,48 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "31b72e46_f18901de",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-07T17:38:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52ca1e5c_e3663dac",
+      "revId": "ce0cc6ac0f759b24fcd1650114a6eaf6b00304a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8b0022f_d6d5151b",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-07T17:38:59Z",
+      "side": 1,
+      "message": "That\u0027s for password and ids. It doesnt specify the lengths of password verifiers and registration records, but https://boringssl-review.googlesource.com/c/boringssl/+/72427 enforces the 32 and 63 byte sizes. I can change these if those change.",
+      "parentUuid": "c6aaac6a_9292b574",
+      "range": {
+        "startLine": 42,
+        "startChar": 40,
+        "endLine": 42,
+        "endChar": 42
+      },
+      "revId": "ce0cc6ac0f759b24fcd1650114a6eaf6b00304a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1ec6b51_3c54bf25",
@@ -54,6 +96,24 @@
       "writtenOn": "2025-01-07T16:30:48Z",
       "side": 1,
       "message": "I think you need to copy the byte[] values here to guarentee immutability.",
+      "revId": "ce0cc6ac0f759b24fcd1650114a6eaf6b00304a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96456e7e_8d48b19a",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-07T17:38:59Z",
+      "side": 1,
+      "message": "Like so?",
+      "parentUuid": "b1ec6b51_3c54bf25",
       "revId": "ce0cc6ac0f759b24fcd1650114a6eaf6b00304a2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
