@@ -22,6 +22,30 @@
       },
       "revId": "6ada82c15c4a28e77e6015eb67908814c7ac31a9",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23001778_166383cf",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-07T15:53:55Z",
+      "side": 1,
+      "message": "No, because just passing in the password is also a valid option.",
+      "parentUuid": "32356d8c_f7038ca0",
+      "range": {
+        "startLine": 196,
+        "startChar": 24,
+        "endLine": 197,
+        "endChar": 90
+      },
+      "revId": "6ada82c15c4a28e77e6015eb67908814c7ac31a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
