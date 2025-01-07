@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "32356d8c_f7038ca0",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1047684
+      },
+      "writtenOn": "2025-01-07T15:52:51Z",
+      "side": 1,
+      "message": "When none of \"w0\" and \"registration_record\" is present, it doesn\u0027t seem to throw exception?",
+      "range": {
+        "startLine": 196,
+        "startChar": 24,
+        "endLine": 197,
+        "endChar": 90
+      },
+      "revId": "6ada82c15c4a28e77e6015eb67908814c7ac31a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
