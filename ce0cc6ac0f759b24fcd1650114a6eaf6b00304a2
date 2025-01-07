@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c6aaac6a_9292b574",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-07T16:30:48Z",
+      "side": 1,
+      "message": "Unless I\u0027m misreading https://chris-wood.github.io/draft-bmw-tls-pake13/draft-bmw-tls-pake13.html#name-client-behavior these can be 2^16 -1 bytes",
+      "range": {
+        "startLine": 42,
+        "startChar": 40,
+        "endLine": 42,
+        "endChar": 42
+      },
+      "revId": "ce0cc6ac0f759b24fcd1650114a6eaf6b00304a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "52ca1e5c_e3663dac",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-07T16:30:48Z",
+      "side": 1,
+      "message": "I guess we can\u0027t really move these to the Spake2+ validator, but maybe comment them for clarity.",
+      "revId": "ce0cc6ac0f759b24fcd1650114a6eaf6b00304a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1ec6b51_3c54bf25",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-07T16:30:48Z",
+      "side": 1,
+      "message": "I think you need to copy the byte[] values here to guarentee immutability.",
+      "revId": "ce0cc6ac0f759b24fcd1650114a6eaf6b00304a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
