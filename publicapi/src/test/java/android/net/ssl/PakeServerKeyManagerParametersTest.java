@@ -40,12 +40,17 @@ public class PakeServerKeyManagerParametersTest {
     private static final byte[] CLIENT_ID_2 = new byte[] {7, 8, 9};
     private static final byte[] SERVER_ID_2 = new byte[] {10, 11, 12};
     private static final byte[] PASSWORD_BYTES = new byte[] {1, 2, 3};
+    private static final byte[] W_VALID = new byte[32];
+    private static final byte[] REGISTRATION_RECORD_VALID = new byte[65];
 
     @Test
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testBuilder_valid() {
         PakeOption option1 = createOption("SPAKE2PLUS_PRERELEASE", "password");
-        PakeOption option2 = createOption("SPAKE2PLUS_PRERELEASE", "w0", "registration_record");
+        PakeOption option2 = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                                    .addMessageComponent("w0", W_VALID.clone())
+                                    .addMessageComponent("registration_record", REGISTRATION_RECORD_VALID.clone())
+                                    .build();
 
         PakeServerKeyManagerParameters params =
                 new PakeServerKeyManagerParameters.Builder()
@@ -106,7 +111,10 @@ public class PakeServerKeyManagerParametersTest {
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testGetLinks() {
         PakeOption option1 = createOption("SPAKE2PLUS_PRERELEASE", "password");
-        PakeOption option2 = createOption("SPAKE2PLUS_PRERELEASE", "w0", "registration_record");
+        PakeOption option2 = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                                    .addMessageComponent("w0", W_VALID.clone())
+                                    .addMessageComponent("registration_record", REGISTRATION_RECORD_VALID.clone())
+                                    .build();
 
         PakeServerKeyManagerParameters params =
                 new PakeServerKeyManagerParameters.Builder()
@@ -129,7 +137,10 @@ public class PakeServerKeyManagerParametersTest {
     @Test
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testBuilder_spake2PlusPrerelease_w0WithoutRegistrationRecord() {
-        PakeOption option = createOption("SPAKE2PLUS_PRERELEASE", "w0", "w1");
+        PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                                    .addMessageComponent("w0", W_VALID.clone())
+                                    .addMessageComponent("w1", W_VALID.clone())
+                                    .build();
         assertThrows(InvalidParameterException.class,
                 ()
                         -> new PakeServerKeyManagerParameters.Builder().setOptions(
@@ -139,12 +150,33 @@ public class PakeServerKeyManagerParametersTest {
     @Test
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testBuilder_spake2PlusPrerelease_w0WithRegistrationRecord() {
-        PakeOption option = createOption("SPAKE2PLUS_PRERELEASE", "w0", "registration_record");
+        PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                                    .addMessageComponent("w0", W_VALID.clone())
+                                    .addMessageComponent("registration_record", REGISTRATION_RECORD_VALID.clone())
+                                    .build();
         PakeServerKeyManagerParameters params =
                 new PakeServerKeyManagerParameters.Builder()
                         .setOptions(CLIENT_ID_1, SERVER_ID_1, List.of(option))
                         .build();
         assertEquals(option, params.getOptions(CLIENT_ID_1, SERVER_ID_1).get(0));
+    }
+
+    @Test
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_spake2PlusPrerelease_w0Invalid() {
+        assertThrows(InvalidParameterException.class, () ->  new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                                    .addMessageComponent("w0", PASSWORD_BYTES.clone())
+                                    .addMessageComponent("registration_record", REGISTRATION_RECORD_VALID.clone())
+                                    .build());
+    }
+
+    @Test
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_spake2PlusPrerelease_registrationRecordInvalid() {
+        assertThrows(InvalidParameterException.class, () ->  new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                                    .addMessageComponent("w0", W_VALID.clone())
+                                    .addMessageComponent("registration_record", PASSWORD_BYTES.clone())
+                                    .build());
     }
 
     private static PakeOption createOption(String algorithm, String... keys) {

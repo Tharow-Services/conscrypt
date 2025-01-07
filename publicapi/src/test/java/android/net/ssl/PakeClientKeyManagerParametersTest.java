@@ -35,6 +35,8 @@ public class PakeClientKeyManagerParametersTest {
     private static final byte[] PASSWORD = new byte[] {1, 2, 3};
     private static final byte[] CLIENT_ID = new byte[] {4, 5, 6};
     private static final byte[] SERVER_ID = new byte[] {7, 8, 9};
+    private static final byte[] W_VALID = new byte[32];
+    private static final byte[] W_INVALID = new byte[] {10, 11, 12};
 
     @Test
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
@@ -118,8 +120,8 @@ public class PakeClientKeyManagerParametersTest {
                                      .addMessageComponent("password", PASSWORD.clone())
                                      .build();
         PakeOption option2 = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
-                                     .addMessageComponent("w0", new byte[] {4, 5, 6})
-                                     .addMessageComponent("w1", new byte[] {7, 8, 9})
+                                     .addMessageComponent("w0", W_VALID.clone())
+                                     .addMessageComponent("w1", W_VALID.clone())
                                      .build();
         new PakeClientKeyManagerParameters.Builder().addOption(option1).addOption(option2).build();
     }
@@ -141,7 +143,7 @@ public class PakeClientKeyManagerParametersTest {
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testBuilder_spake2PlusPrerelease_w0Withoutw1() {
         PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
-                                    .addMessageComponent("w0", PASSWORD.clone())
+                                    .addMessageComponent("w0", W_VALID.clone())
                                     .addMessageComponent("registration_record", PASSWORD.clone())
                                     .build();
         PakeClientKeyManagerParameters.Builder builder =
@@ -153,13 +155,32 @@ public class PakeClientKeyManagerParametersTest {
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testBuilder_spake2PlusPrerelease_w0Withw1() {
         PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
-                                    .addMessageComponent("w0", PASSWORD.clone())
-                                    .addMessageComponent("w1", PASSWORD.clone())
+                                    .addMessageComponent("w0", W_VALID.clone())
+                                    .addMessageComponent("w1", W_VALID.clone())
                                     .build();
         PakeClientKeyManagerParameters params =
                 new PakeClientKeyManagerParameters.Builder().addOption(option).build();
         assertEquals(1, params.getOptions().size());
-        assertArrayEquals(PASSWORD, params.getOptions().get(0).getMessageComponent("w0"));
-        assertArrayEquals(PASSWORD, params.getOptions().get(0).getMessageComponent("w1"));
+        assertArrayEquals(W_VALID, params.getOptions().get(0).getMessageComponent("w0"));
+        assertArrayEquals(W_VALID, params.getOptions().get(0).getMessageComponent("w1"));
+    }
+
+    @Test
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_spake2PlusPrerelease_w1Invalid() {
+        assertThrows(InvalidParameterException.class, () -> new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                                    .addMessageComponent("w0", W_VALID.clone())
+                                    .addMessageComponent("w1", W_INVALID.clone())
+                                    .build());
+    }
+
+
+    @Test
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_spake2PlusPrerelease_w0Invalid() {
+        assertThrows(InvalidParameterException.class, () -> new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                                    .addMessageComponent("w0", W_INVALID.clone())
+                                    .addMessageComponent("w1", W_VALID.clone())
+                                    .build());
     }
 }
