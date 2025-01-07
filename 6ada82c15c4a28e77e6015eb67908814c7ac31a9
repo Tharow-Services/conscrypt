@@ -42,6 +42,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "76174f2a_3b7735ea",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+        "patchSetId": 7
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-07T16:19:36Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e144aff_2c270b8c",
+      "range": {
+        "startLine": 157,
+        "startChar": 57,
+        "endLine": 157,
+        "endChar": 58
+      },
+      "revId": "6ada82c15c4a28e77e6015eb67908814c7ac31a9",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "32356d8c_f7038ca0",
