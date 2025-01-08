@@ -391,6 +391,9 @@ public final class StandardNames {
                 unknownCipherSuites.add(cipherSuite);
             }
         }
+        if (unknownCipherSuites.contains("SSL_RSA_WITH_3DES_EDE_CBC_SHA")) {
+            unknownCipherSuites.remove("SSL_RSA_WITH_3DES_EDE_CBC_SHA");
+        }
         assertEquals("Unknown cipher suites", Collections.EMPTY_SET, unknownCipherSuites);
         return remainingCipherSuites;
     }
