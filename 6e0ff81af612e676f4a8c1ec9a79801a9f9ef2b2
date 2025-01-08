@@ -1,0 +1,273 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3eee34b_0a67fe92",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "Do we need to do any further validation here, e.g. to catch any regressions due to changes in Spake2PlusKeyManager?",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2af6336c_8e5e9d7b",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "Not internal only, we\u0027re using standard algorithm types here. 😊",
+      "range": {
+        "startLine": 541,
+        "startChar": 22,
+        "endLine": 541,
+        "endChar": 45
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d381734_6080ea48",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "This is kind of messy and forces the findFirst* methods to allow nulls.  Maybe do the initialisation. the same way as for x509 and psk, i.e. in the else branches of `if (kms \u003d\u003d null)` etc, then add a method to check whether the combinations are valid which can be called after the initialisation.",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 28
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "00566bdd_3a2ad771",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "Set spake2PlusKeyManager to null here for clarity",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "760331d0_43172ac5",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "Set spake2PlusTrustManager to null here for clarity.",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "249f260a_bbb826b3",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "Let\u0027s not make these arguments Nullable, see comment above about initialisation.",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 652,
+        "endChar": 0
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07830534_4d216a18",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "nit: shoould be a space before `km`",
+      "range": {
+        "startLine": 654,
+        "startChar": 45,
+        "endLine": 654,
+        "endChar": 47
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b1be5147_6c2220a3",
+        "filename": "common/src/main/java/org/conscrypt/Spake2PlusTrustManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "Missing copyright.",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4ee44cb6_aced8b62",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/KeyManagerFactoryTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "Why?  Most of this test should still pass with the PAKE manager factory.  Might need some small adaptions, e.g. to ensure we don\u0027t try and pass in KeyStoreBuilderParameters.\n\nShould also add the PAKE equivalent of test_X509KeyManager below and call it for PAKE.",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 18
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "169c2aa6_48feedc2",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "nit: Shouldn\u0027t need this as you\u0027re using `getServerSocketFactory().createServerSocket()`.",
+      "range": {
+        "startLine": 1153,
+        "startChar": 0,
+        "endLine": 1153,
+        "endChar": 39
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c48e631_5d07e91c",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "Close the sockets, or use try-woth-resources.",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "34bf2e0c_7e00cfa5",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/TrustManagerFactoryTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "Again, we need to adapt the tests, not skip them.",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b24aaa8c_abe4b09c",
+        "filename": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:33:47Z",
+      "side": 1,
+      "message": "There seems to be a serious conflict here.  This implies a single SSLContext can have multiple PAKE key managers, but the code in SSLParamsImpl assumes a single key manager in many places.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 64
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
