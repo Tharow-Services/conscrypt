@@ -400,6 +400,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "1fa0e136_bf71e4d7",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/KeyManagerFactoryTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T14:30:23Z",
+      "side": 1,
+      "message": "Tests for this are already in PakeManagerFactoriesTest, but I;ll work on extending this class in a follow up.",
+      "parentUuid": "4ee44cb6_aced8b62",
+      "range": {
+        "startLine": 110,
+        "startChar": 12,
+        "endLine": 110,
+        "endChar": 18
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "169c2aa6_48feedc2",
@@ -505,6 +529,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "00b371f6_581b7e36",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/TrustManagerFactoryTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T14:30:23Z",
+      "side": 1,
+      "message": "I\u0027ll work on this in a follow up.",
+      "parentUuid": "34bf2e0c_7e00cfa5",
+      "range": {
+        "startLine": 87,
+        "startChar": 12,
+        "endLine": 87,
+        "endChar": 18
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b24aaa8c_abe4b09c",
@@ -518,6 +566,54 @@
       "writtenOn": "2025-01-08T12:33:47Z",
       "side": 1,
       "message": "There seems to be a serious conflict here.  This implies a single SSLContext can have multiple PAKE key managers, but the code in SSLParamsImpl assumes a single key manager in many places.",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 64
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79b2b60d_306a8fa4",
+        "filename": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T14:30:23Z",
+      "side": 1,
+      "message": "Done. Added some checking within PakeServerKeyParams to ensure we\u0027re not dealing wiht multiple Spake2+ contexts.",
+      "parentUuid": "b24aaa8c_abe4b09c",
+      "range": {
+        "startLine": 124,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 64
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79000033_3a629057",
+        "filename": "platform/src/main/java/org/conscrypt/PakeKeyManagerFactory.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T14:30:23Z",
+      "side": 1,
+      "message": "Done. I\u0027ll add a check within the params to ensure this is not done.",
+      "parentUuid": "b24aaa8c_abe4b09c",
       "range": {
         "startLine": 124,
         "startChar": 0,
