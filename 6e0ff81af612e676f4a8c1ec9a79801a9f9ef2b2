@@ -18,6 +18,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5cd6372_8f74d05e",
+        "filename": "common/src/main/java/org/conscrypt/NativeSsl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Not that I can think of. Parameters and length checks will be done in native code, but I could also perform them here if need be.",
+      "parentUuid": "d3eee34b_0a67fe92",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2af6336c_8e5e9d7b",
@@ -31,6 +49,30 @@
       "writtenOn": "2025-01-08T12:33:47Z",
       "side": 1,
       "message": "Not internal only, we\u0027re using standard algorithm types here. 😊",
+      "range": {
+        "startLine": 541,
+        "startChar": 22,
+        "endLine": 541,
+        "endChar": 45
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c777cd6e_fbd8854a",
+        "filename": "common/src/main/java/org/conscrypt/OpenSSLProvider.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2af6336c_8e5e9d7b",
       "range": {
         "startLine": 541,
         "startChar": 22,
@@ -64,6 +106,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4eb1c866_a190fbde",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7d381734_6080ea48",
+      "range": {
+        "startLine": 133,
+        "startChar": 8,
+        "endLine": 133,
+        "endChar": 28
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "00566bdd_3a2ad771",
@@ -77,6 +143,24 @@
       "writtenOn": "2025-01-08T12:33:47Z",
       "side": 1,
       "message": "Set spake2PlusKeyManager to null here for clarity",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "daecb167_a440cf3d",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00566bdd_3a2ad771",
       "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -98,6 +182,24 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd39f110_30ba3957",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "760331d0_43172ac5",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "249f260a_bbb826b3",
@@ -111,6 +213,54 @@
       "writtenOn": "2025-01-08T12:33:47Z",
       "side": 1,
       "message": "Let\u0027s not make these arguments Nullable, see comment above about initialisation.",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 652,
+        "endChar": 0
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a7f9ca4d_d9b4fcde",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "249f260a_bbb826b3",
+      "range": {
+        "startLine": 649,
+        "startChar": 0,
+        "endLine": 652,
+        "endChar": 0
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe76a5b5_96f23b51",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 652,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "249f260a_bbb826b3",
       "range": {
         "startLine": 649,
         "startChar": 0,
@@ -144,6 +294,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "c945c5f6_199384d3",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07830534_4d216a18",
+      "range": {
+        "startLine": 654,
+        "startChar": 45,
+        "endLine": 654,
+        "endChar": 47
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "965d9d30_e502fa38",
+        "filename": "common/src/main/java/org/conscrypt/SSLParametersImpl.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 654,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07830534_4d216a18",
+      "range": {
+        "startLine": 654,
+        "startChar": 45,
+        "endLine": 654,
+        "endChar": 47
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1be5147_6c2220a3",
@@ -157,6 +355,24 @@
       "writtenOn": "2025-01-08T12:33:47Z",
       "side": 1,
       "message": "Missing copyright.",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aa321791_3edc0537",
+        "filename": "common/src/main/java/org/conscrypt/Spake2PlusTrustManager.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1be5147_6c2220a3",
       "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
@@ -207,6 +423,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "444327fb_2c234efc",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1153,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "169c2aa6_48feedc2",
+      "range": {
+        "startLine": 1153,
+        "startChar": 0,
+        "endLine": 1153,
+        "endChar": 39
+      },
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3c48e631_5d07e91c",
@@ -220,6 +460,24 @@
       "writtenOn": "2025-01-08T12:33:47Z",
       "side": 1,
       "message": "Close the sockets, or use try-woth-resources.",
+      "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8d3e605f_d787f946",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/SSLSocketTest.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1165,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T13:45:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3c48e631_5d07e91c",
       "revId": "6e0ff81af612e676f4a8c1ec9a79801a9f9ef2b2",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
