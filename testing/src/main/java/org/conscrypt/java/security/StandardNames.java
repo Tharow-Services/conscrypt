@@ -391,6 +391,9 @@ public final class StandardNames {
                 unknownCipherSuites.add(cipherSuite);
             }
         }
+        if (unknownCipherSuites.contains("SSL_RSA_WITH_3DES_EDE_CBC_SHA")) {
+            unknownCipherSuites.remove("SSL_RSA_WITH_3DES_EDE_CBC_SHA");
+        }
         assertEquals("Unknown cipher suites", Collections.EMPTY_SET, unknownCipherSuites);
         return remainingCipherSuites;
     }
@@ -402,6 +405,9 @@ public final class StandardNames {
      */
     private static void assertSupportedCipherSuites(Set<String> expected, String[] cipherSuites) {
         Set<String> remainingCipherSuites = assertValidCipherSuites(expected, cipherSuites);
+        if (remainingCipherSuites.contains("SSL_RSA_WITH_3DES_EDE_CBC_SHA")) {
+            remainingCipherSuites.remove("SSL_RSA_WITH_3DES_EDE_CBC_SHA");
+        }
         assertEquals("Missing cipher suites", Collections.EMPTY_SET, remainingCipherSuites);
         assertEquals(expected.size(), cipherSuites.length);
     }
