@@ -1,0 +1,134 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "df56ac87_acda3800",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-08T10:57:54Z",
+      "side": 1,
+      "message": "I find this phrasing less accurate than the old check and error message. In truth you would only end up here if w0 is not null (because if w0 was null and w1 wasn\u0027t it would be caught by PakeOption).",
+      "fixSuggestions": [
+        {
+          "fixId": "a8f69033_2687be2f",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 155,
+                "startChar": 0,
+                "endLine": 156,
+                "endChar": 0
+              },
+              "replacement": "                if (option.getMessageComponent(\"w0\") !\u003d null \u0026\u0026 option.getMessageComponent(\"w1\") \u003d\u003d null) {\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+              "range": {
+                "startLine": 157,
+                "startChar": 0,
+                "endLine": 158,
+                "endChar": 0
+              },
+              "replacement": "                            \"SPAKE2PLUS_PRERELEASE client needs both w0 and w1 present if w0 is present\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9c4a4c7e1a88959efccc461a5e431c3eeb9cf260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0c4f30c2_dd987fc7",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-08T10:57:54Z",
+      "side": 1,
+      "message": "nit: If you want to clone the values, it\u0027s better to do that in the builder. Otherwise between setting them there and cloning here they could be changed.",
+      "revId": "9c4a4c7e1a88959efccc461a5e431c3eeb9cf260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7ef2aa04_9fd573dd",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-08T10:57:54Z",
+      "side": 1,
+      "message": "These should be inside the `else if (messageComponents.containsKey(\"w0\"))` clause below. Then maybe you can merge the w1 and registration_record length checks with the ones there.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 13
+      },
+      "revId": "9c4a4c7e1a88959efccc461a5e431c3eeb9cf260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4111cd82_b648db51",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-08T10:57:54Z",
+      "side": 1,
+      "message": "I find this phrasing less accurate than the old check and error message. In truth you would only end up here if w0 is not null (because if w0 was null and registration_record wasn\u0027t it would be caught by PakeOption).",
+      "fixSuggestions": [
+        {
+          "fixId": "15bf53ba_9ddf23d3",
+          "description": "prompt_to_edit API",
+          "replacements": [
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 196,
+                "startChar": 0,
+                "endLine": 198,
+                "endChar": 0
+              },
+              "replacement": "                    if (option.getMessageComponent(\"w0\") \u003d\u003d null) {\n"
+            },
+            {
+              "path": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+              "range": {
+                "startLine": 199,
+                "startChar": 0,
+                "endLine": 200,
+                "endChar": 0
+              },
+              "replacement": "                                \"SPAKE2PLUS_PRERELEASE needs w0 present\");\n"
+            }
+          ]
+        }
+      ],
+      "revId": "9c4a4c7e1a88959efccc461a5e431c3eeb9cf260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
