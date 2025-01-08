@@ -51,6 +51,24 @@
       "parentUuid": "08e55dc1_5fc63854",
       "revId": "5a3b31321d8cb0b9fcd63ca084d53e82a3ec0178",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e258f01c_036b6b4d",
+        "filename": "repackaged/common/src/main/java/com/android/org/conscrypt/NativeCrypto.java",
+        "patchSetId": 4
+      },
+      "lineNbr": 1115,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T12:43:08Z",
+      "side": 1,
+      "message": "Making these flaggable has exposed something of a conflict.  The flags are read and used in Conscrypt.newProviderBuilder() when creating a Conscrypt `Provider` instance but the actual values are static. So if an app (or more likely a test!) creates two instances then \"last one wins\".\n\nThat\u0027s somewhat orthogonal to this issue, which turned out there were some Conscrypt static methods that can get called before any instance is created.\n\nSo agree, I think these arrays should be initialised in \u003cclinit\u003e to the \"default default\" values in the various Platform.java files, and then potentially re-initialised whenever an instance is created.\n\nAlso agree the names could use some love but I didn\u0027t want to block earlier reviews.",
+      "parentUuid": "e6445444_83c6d136",
+      "revId": "5a3b31321d8cb0b9fcd63ca084d53e82a3ec0178",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
