@@ -24,6 +24,54 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a78dc343_2651b681",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T12:11:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3bdf2eb_90a6aa94",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 67
+      },
+      "revId": "f69b21c669204651661bffda9ae71e5b0db3b185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c31450b_ac1dfd98",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T12:11:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3bdf2eb_90a6aa94",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 66,
+        "endChar": 67
+      },
+      "revId": "f69b21c669204651661bffda9ae71e5b0db3b185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c99f84d_04b853a8",
@@ -37,6 +85,24 @@
       "writtenOn": "2025-01-08T11:42:09Z",
       "side": 1,
       "message": "nit: This is just an else since we check that one of `w1` and `registration_record` is present. You can write ` else { // messageComponents.containsKey(\"registration_record\")`.",
+      "revId": "f69b21c669204651661bffda9ae71e5b0db3b185",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c685704_1ce6e9db",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 11
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T12:11:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1c99f84d_04b853a8",
       "revId": "f69b21c669204651661bffda9ae71e5b0db3b185",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
