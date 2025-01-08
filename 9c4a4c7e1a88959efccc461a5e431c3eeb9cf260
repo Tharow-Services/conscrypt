@@ -48,6 +48,24 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "0fdded90_05306d99",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeClientKeyManagerParameters.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T11:06:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df56ac87_acda3800",
+      "revId": "9c4a4c7e1a88959efccc461a5e431c3eeb9cf260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "0c4f30c2_dd987fc7",
         "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
         "patchSetId": 10
@@ -76,6 +94,30 @@
       "writtenOn": "2025-01-08T10:57:54Z",
       "side": 1,
       "message": "These should be inside the `else if (messageComponents.containsKey(\"w0\"))` clause below. Then maybe you can merge the w1 and registration_record length checks with the ones there.",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 13
+      },
+      "revId": "9c4a4c7e1a88959efccc461a5e431c3eeb9cf260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1afd8e7d_e44dd0bb",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T11:06:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7ef2aa04_9fd573dd",
       "range": {
         "startLine": 154,
         "startChar": 0,
@@ -127,6 +169,42 @@
           ]
         }
       ],
+      "revId": "9c4a4c7e1a88959efccc461a5e431c3eeb9cf260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0b0d03d7_d09c3a84",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T11:06:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4111cd82_b648db51",
+      "revId": "9c4a4c7e1a88959efccc461a5e431c3eeb9cf260",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6855596e_770f408b",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-08T11:06:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4111cd82_b648db51",
       "revId": "9c4a4c7e1a88959efccc461a5e431c3eeb9cf260",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
