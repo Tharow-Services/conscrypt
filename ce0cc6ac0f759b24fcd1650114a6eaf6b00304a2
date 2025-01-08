@@ -83,6 +83,30 @@
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "695c67b3_8045ade9",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeOption.java",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-08T11:12:54Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "b8b0022f_d6d5151b",
+      "range": {
+        "startLine": 42,
+        "startChar": 40,
+        "endLine": 42,
+        "endChar": 42
+      },
+      "revId": "ce0cc6ac0f759b24fcd1650114a6eaf6b00304a2",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b1ec6b51_3c54bf25",
