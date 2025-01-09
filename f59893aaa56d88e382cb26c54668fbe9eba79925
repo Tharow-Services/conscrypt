@@ -16,6 +16,24 @@
       "message": "It\u0027s better if you have this check closer to where you require that only 1 SPAKE2+ option is available. It should also be well documented why this is happening. Also, finally, instead of failing, could you just pick the first one found?",
       "revId": "f59893aaa56d88e382cb26c54668fbe9eba79925",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "89939f72_58a2f7f7",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1893966
+      },
+      "writtenOn": "2025-01-09T17:07:22Z",
+      "side": 1,
+      "message": "I can\u0027t do it closer to that because I can\u0027t add exceptions to an overriden function. I\u0027ve reverted this check for the time being (so we\u0027ll effectively ignore any extra links), and added a comment expressing that for setOptions.",
+      "parentUuid": "a6358e36_d07bbc6a",
+      "revId": "f59893aaa56d88e382cb26c54668fbe9eba79925",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
