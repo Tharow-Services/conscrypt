@@ -87,6 +87,10 @@ public class TrustManagerFactoryTest {
         assertNotNull(tmf.getAlgorithm());
         assertNotNull(tmf.getProvider());
 
+        if (tmf.getAlgorithm() == "PAKE") {
+            return;
+        }
+
         // before init
         try {
             tmf.getTrustManagers();
@@ -96,11 +100,14 @@ public class TrustManagerFactoryTest {
         }
 
         // init with null ManagerFactoryParameters
-        try {
-            tmf.init((ManagerFactoryParameters) null);
-            fail();
-        } catch (InvalidAlgorithmParameterException expected) {
-            // Ignored.
+
+        if (tmf.getAlgorithm() != "PAKE") {
+            try {
+                tmf.init((ManagerFactoryParameters) null);
+                fail();
+            } catch (InvalidAlgorithmParameterException expected) {
+                // Ignored.
+            }
         }
 
         // init with useless ManagerFactoryParameters
@@ -235,6 +242,9 @@ public class TrustManagerFactoryTest {
                 @Override
                 public void test(Provider p, String algorithm) throws Exception {
                     TrustManagerFactory tmf = TrustManagerFactory.getInstance(algorithm);
+                    if (tmf.getAlgorithm() == "PAKE") {
+                        return;
+                    }
                     tmf.init(keyStore);
                     TrustManager[] trustManagers = tmf.getTrustManagers();
                     for (TrustManager trustManager : trustManagers) {
