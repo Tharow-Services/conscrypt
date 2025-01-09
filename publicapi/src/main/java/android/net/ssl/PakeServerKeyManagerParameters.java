@@ -172,6 +172,7 @@ public final class PakeServerKeyManagerParameters implements ManagerFactoryParam
 
         /**
          * Adds PAKE options for the given client and server IDs.
+         * Only the first link for SPAKE2PLUS_PRERELEASE will be used.
          *
          * @param clientId The client ID.
          * @param serverId The server ID.
