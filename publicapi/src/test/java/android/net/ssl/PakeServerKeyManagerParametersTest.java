@@ -47,6 +47,7 @@ public class PakeServerKeyManagerParametersTest {
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testBuilder_valid() {
         PakeOption option1 = createOption("SPAKE2PLUS_PRERELEASE", "password");
+        PakeOption option2 = createOption("SOMETHING_ELSE", "w0", "registration_record");
         PakeOption option2 = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
                                     .addMessageComponent("w0", W_VALID.clone())
                                     .addMessageComponent("registration_record", REGISTRATION_RECORD_VALID.clone())
@@ -111,6 +112,7 @@ public class PakeServerKeyManagerParametersTest {
     @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
     public void testGetLinks() {
         PakeOption option1 = createOption("SPAKE2PLUS_PRERELEASE", "password");
+        PakeOption option2 = createOption("SOMETHING_ELSE", "w0", "registration_record");
         PakeOption option2 = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
                                     .addMessageComponent("w0", W_VALID.clone())
                                     .addMessageComponent("registration_record", REGISTRATION_RECORD_VALID.clone())
@@ -159,6 +161,17 @@ public class PakeServerKeyManagerParametersTest {
                         .setOptions(CLIENT_ID_1, SERVER_ID_1, List.of(option))
                         .build();
         assertEquals(option, params.getOptions(CLIENT_ID_1, SERVER_ID_1).get(0));
+    }
+
+    @Test(expected = InvalidParameterException.class)
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_multipleSpake2PlusPrerelease_() {
+        PakeOption option = createOption("SPAKE2PLUS_PRERELEASE", "w0", "registration_record");
+        PakeServerKeyManagerParameters params =
+                new PakeServerKeyManagerParameters.Builder()
+                        .setOptions(CLIENT_ID_1, SERVER_ID_1, List.of(option))
+                        .setOptions(CLIENT_ID_2, SERVER_ID_2, List.of(option))
+                        .build();
     }
 
     private static PakeOption createOption(String algorithm, String... keys) {
