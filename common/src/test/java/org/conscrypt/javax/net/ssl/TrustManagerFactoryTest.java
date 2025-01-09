@@ -39,6 +39,7 @@ import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 import org.bouncycastle.asn1.x509.KeyPurposeId;
 import org.conscrypt.Conscrypt;
+import org.conscrypt.Spake2PlusTrustManager;
 import org.conscrypt.java.security.StandardNames;
 import org.conscrypt.java.security.TestKeyStore;
 import org.junit.Test;
@@ -92,11 +93,17 @@ public class TrustManagerFactoryTest {
         }
 
         // init with null ManagerFactoryParameters
-        try {
+
+        if (tmf.getAlgorithm() != "PAKE") {
+            try {
+                tmf.init((ManagerFactoryParameters) null);
+                fail();
+            } catch (InvalidAlgorithmParameterException expected) {
+                // Ignored.
+            }
+        } else {
             tmf.init((ManagerFactoryParameters) null);
-            fail();
-        } catch (InvalidAlgorithmParameterException expected) {
-            // Ignored.
+            test_TrustManagerFactory_getTrustManagers(tmf);
         }
 
         // init with useless ManagerFactoryParameters
@@ -138,8 +145,10 @@ public class TrustManagerFactoryTest {
         test_TrustManagerFactory_getTrustManagers(tmf);
 
         // init with specific key store
-        tmf.init(getTestKeyStore().keyStore);
-        test_TrustManagerFactory_getTrustManagers(tmf);
+        if (tmf.getAlgorithm() != "PAKE") {
+            tmf.init(getTestKeyStore().keyStore);
+            test_TrustManagerFactory_getTrustManagers(tmf);
+        }
     }
 
     private void test_TrustManagerFactory_getTrustManagers(TrustManagerFactory tmf)
@@ -152,7 +161,15 @@ public class TrustManagerFactoryTest {
             if (trustManager instanceof X509TrustManager) {
                 test_X509TrustManager(tmf.getProvider(), (X509TrustManager) trustManager);
             }
+            if (trustManager instanceof Spake2PlusTrustManager) {
+                test_pakeTrustManager((Spake2PlusTrustManager) trustManager);
+            }
         }
+    }
+
+    private void test_pakeTrustManager(Spake2PlusTrustManager tm) throws Exception {
+        tm.checkClientTrusted();
+        tm.checkServerTrusted();
     }
 
     private void test_X509TrustManager(Provider p, X509TrustManager tm) throws Exception {
@@ -231,6 +248,9 @@ public class TrustManagerFactoryTest {
                 @Override
                 public void test(Provider p, String algorithm) throws Exception {
                     TrustManagerFactory tmf = TrustManagerFactory.getInstance(algorithm);
+                    if (tmf.getAlgorithm() == "PAKE") {
+                        return;
+                    }
                     tmf.init(keyStore);
                     TrustManager[] trustManagers = tmf.getTrustManagers();
                     for (TrustManager trustManager : trustManagers) {
