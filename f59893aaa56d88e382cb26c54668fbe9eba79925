@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6358e36_d07bbc6a",
+        "filename": "publicapi/src/main/java/android/net/ssl/PakeServerKeyManagerParameters.java",
+        "patchSetId": 10
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-09T15:29:47Z",
+      "side": 1,
+      "message": "It\u0027s better if you have this check closer to where you require that only 1 SPAKE2+ option is available. It should also be well documented why this is happening. Also, finally, instead of failing, could you just pick the first one found?",
+      "revId": "f59893aaa56d88e382cb26c54668fbe9eba79925",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
