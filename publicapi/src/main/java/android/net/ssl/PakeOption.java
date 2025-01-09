@@ -39,6 +39,11 @@ import java.util.Map;
 @SystemApi
 @FlaggedApi(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
 public final class PakeOption {
+    // Required length of the password verifier parameters
+    private static final int W_LENGTH = 32;
+    // Required length of the registration_record parameter
+    private static final int REGISTRATION_RECORD_LENGTH = 65;
+
     /**
      * The algorithm of the PAKE algorithm.
      */
@@ -113,7 +118,7 @@ public final class PakeOption {
             if (key == null || key.isEmpty()) {
                 throw new InvalidParameterException("Key cannot be null or empty.");
             }
-            messageComponents.put(key, value);
+            messageComponents.put(key, value.clone());
             return this;
         }
 
@@ -149,15 +154,26 @@ public final class PakeOption {
                             "For SPAKE2+, 'password' must be exclusive.");
                 }
             } else if (messageComponents.containsKey("w0")) {
+                if (messageComponents.get("w0").length != W_LENGTH) {
+                    throw new InvalidParameterException("w0 must be " + W_LENGTH + " bytes.");
+                }
                 if (!messageComponents.containsKey("w1")
                         && !messageComponents.containsKey("registration_record")) {
                     throw new InvalidParameterException("For SPAKE2+, 'w0' must be present with "
                             + "either 'w1' or 'registration_record'.");
                 }
-                if (messageComponents.containsKey("w1")
-                        && messageComponents.containsKey("registration_record")) {
-                    throw new InvalidParameterException(
-                            "For SPAKE2+, 'w1' and 'registration_record' cannot both be present.");
+                if (messageComponents.containsKey("w1")) {
+                    if (messageComponents.containsKey("registration_record")) {
+                        throw new InvalidParameterException(
+                                "For SPAKE2+, 'w1' and 'registration_record' cannot both be present.");
+                    }
+                    if (messageComponents.get("w1").length != W_LENGTH) {
+                        throw new InvalidParameterException("w1 must be " + W_LENGTH + " bytes.");
+                    }
+                } else { // messageComponents.containsKey("registration_record")
+                    if (messageComponents.get("registration_record").length != REGISTRATION_RECORD_LENGTH) {
+                        throw new InvalidParameterException("registration_record must be " + REGISTRATION_RECORD_LENGTH + " bytes.");
+                    }
                 }
             } else {
                 throw new InvalidParameterException(
