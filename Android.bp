@@ -612,6 +612,7 @@ java_library {
         "//build/make/tools/signapk",
         "//tools/apksig",
         "//external/robolectric:__subpackages__",
+        "//vendor:__subpackages__",
     ],
     device_supported: false,
     host_supported: true,

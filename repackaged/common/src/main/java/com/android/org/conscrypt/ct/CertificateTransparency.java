@@ -19,6 +19,7 @@ package com.android.org.conscrypt.ct;
 
 import com.android.org.conscrypt.Internal;
 import com.android.org.conscrypt.Platform;
+import com.android.org.conscrypt.metrics.CertificateTransparencyVerificationReason;
 import com.android.org.conscrypt.metrics.StatsLog;
 
 import java.security.cert.CertificateException;
@@ -55,7 +56,7 @@ public class CertificateTransparency {
         return Platform.isCTVerificationRequired(host);
     }
 
-    public int reasonCTVerificationRequired(String host) {
+    public CertificateTransparencyVerificationReason reasonCTVerificationRequired(String host) {
         return Platform.reasonCTVerificationRequired(host);
     }
 
