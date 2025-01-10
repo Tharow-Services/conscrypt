@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -450,11 +451,24 @@ public final class StandardNames {
         assertSupportedProtocols(SSL_SOCKET_PROTOCOLS, protocols);
     }
 
+    private static final List<String> OPTIONAL_CIPHER_SUITES = Arrays.asList(
+            "SSL_RSA_WITH_3DES_EDE_CBC_SHA"
+    );
+
     /**
-     * Assert that the provided list of cipher suites contains only the supported cipher suites.
+     * Assert that the provided list of cipher suites matches the supported list.
      */
-    public static void assertValidCipherSuites(String[] cipherSuites) {
-        assertValidCipherSuites(CIPHER_SUITES, cipherSuites);
+    public static void assertSupportedCipherSuites(String[] cipherSuites) {
+        List<String> filteredCipherSuites = new ArrayList<>();
+        for (String cipherSuite : cipherSuites) {
+            if (OPTIONAL_CIPHER_SUITES.contains(cipherSuite)) {
+                continue;
+            }
+            filteredCipherSuites.add(cipherSuite);
+        }
+        String[] filteredCipherSuitesArray = new String[filteredCipherSuites.size()];
+        filteredCipherSuites.toArray(filteredCipherSuitesArray);
+        assertSupportedCipherSuites(CIPHER_SUITES, filteredCipherSuitesArray);
     }
 
     /**
