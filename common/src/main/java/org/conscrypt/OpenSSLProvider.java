@@ -544,6 +544,17 @@ public final class OpenSSLProvider extends Provider {
         put("Alg.Alias.ConscryptHpke.DHKEM_X25519_HKDF_SHA256_HKDF_SHA256_AES_256_GCM",
                 "DHKEM_X25519_HKDF_SHA256/HKDF_SHA256/AES_256_GCM");
         put("ConscryptHpke.DHKEM_X25519_HKDF_SHA256/HKDF_SHA256/CHACHA20POLY1305",
+<<<<<<< PATCH SET (7b2ef8 Add Spake parameter plumbing to Conscrypt)
+            PREFIX + "HpkeImpl$X25519_CHACHA20");
+
+        /* === PAKE === */
+        if (Platform.isPakeSupported()) {
+            put("TrustManagerFactory.PAKE", PREFIX + "PakeTrustManagerFactory");
+            put("KeyManagerFactory.PAKE", PREFIX + "PakeKeyManagerFactory");
+        }
+||||||| BASE
+            PREFIX + "HpkeImpl$X25519_CHACHA20");
+=======
                 baseClass + "$X25519_CHACHA20");
         put("Alg.Alias.ConscryptHpke.DHKEM_X25519_HKDF_SHA256_HKDF_SHA256_GhpkeCHACHA20POLY1305",
                 "DHKEM_X25519_HKDF_SHA256/HKDF_SHA256/CHACHA20POLY1305");
@@ -556,6 +567,7 @@ public final class OpenSSLProvider extends Provider {
             return false;
         }
         return true;
+>>>>>>> BASE      (bcdf55 Merge "Return an Android platform compatible HPKE SPI where )
     }
 
     private void putMacImplClass(String algorithm, String className) {
