@@ -225,6 +225,18 @@ public final class PakeServerKeyManagerParameters implements ManagerFactoryParam
             if (links.isEmpty()) {
                 throw new InvalidParameterException("At least one link must be provided.");
             }
+            int spake2PlusCounter = 0;
+            for (Link link : links.keySet()) {
+                for (PakeOption option : links.get(link)) {
+                    if (option.getAlgorithm().equals("SPAKE2PLUS_PRERELEASE")) {
+                        spake2PlusCounter++;
+                    }
+                    if (spake2PlusCounter > 1) {
+                        throw new InvalidParameterException(
+                                "Only one SPAKE2PLUS_PRERELEASE client-server pair is allowed.");
+                    }
+                }
+            }
             return new PakeServerKeyManagerParameters(links);
         }
     }

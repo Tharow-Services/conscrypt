@@ -992,6 +992,11 @@ public final class NativeCrypto {
             "TLS_PSK_WITH_AES_256_CBC_SHA",
     };
 
+    /** TLS-SPAKE */
+    static final String[] DEFAULT_SPAKE_CIPHER_SUITES = new String[] {
+            "TLS1_3_NAMED_PAKE_SPAKE2PLUSV1",
+    };
+
     static String[] getSupportedCipherSuites() {
         return SSLUtils.concat(SUPPORTED_TLS_1_3_CIPHER_SUITES, SUPPORTED_TLS_1_2_CIPHER_SUITES.clone());
     }
@@ -1237,6 +1242,11 @@ public final class NativeCrypto {
                 continue;
             }
             if (SUPPORTED_TLS_1_2_CIPHER_SUITES_SET.contains(cipherSuites[i])) {
+                continue;
+            }
+            // Not sure if we need to do this for SPAKE, but the SPAKE cipher suite
+            // not registered at the moment.
+            if (DEFAULT_SPAKE_CIPHER_SUITES[0] == cipherSuites[i]) {
                 continue;
             }
 

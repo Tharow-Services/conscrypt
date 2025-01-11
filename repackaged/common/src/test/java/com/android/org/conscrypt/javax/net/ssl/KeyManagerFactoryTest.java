@@ -17,11 +17,16 @@
 
 package com.android.org.conscrypt.javax.net.ssl;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
+import android.net.ssl.PakeClientKeyManagerParameters;
+import android.net.ssl.PakeOption;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,6 +56,8 @@ import javax.net.ssl.X509ExtendedKeyManager;
 import javax.net.ssl.X509KeyManager;
 import com.android.org.conscrypt.KeyManagerFactoryImpl;
 import com.android.org.conscrypt.TestUtils;
+import com.android.org.conscrypt.PakeKeyManagerFactory;
+import com.android.org.conscrypt.Spake2PlusKeyManager;
 import com.android.org.conscrypt.java.security.StandardNames;
 import com.android.org.conscrypt.java.security.TestKeyStore;
 import org.junit.Before;
@@ -149,6 +156,11 @@ public class KeyManagerFactoryTest {
             }
         }
 
+        if (kmf.getAlgorithm() == "PAKE") {
+            test_pakeKeyManagerFactory(kmf);
+            return;
+        }
+
         // init with null for default behavior
         kmf.init(null, null);
         test_KeyManagerFactory_getKeyManagers(kmf, true);
@@ -157,6 +169,32 @@ public class KeyManagerFactoryTest {
         kmf.init(getTestKeyStore().keyStore, getTestKeyStore().storePassword);
         test_KeyManagerFactory_getKeyManagers(kmf, false);
     }
+
+    private void test_pakeKeyManagerFactory(KeyManagerFactory kmf) throws Exception {
+        assertThrows(KeyStoreException.class, () -> kmf.init(null, null));
+        byte[] password = new byte[] {1, 2, 3};
+        PakeOption option =
+                new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
+                        .addMessageComponent("password", password)
+                        .build();
+
+        PakeClientKeyManagerParameters params =
+                new PakeClientKeyManagerParameters.Builder()
+                        .setClientId(new byte[] {4, 5, 6})
+                        .setServerId(new byte[] {5, 6, 7})
+                        .addOption(option)
+                        .build();
+        kmf.init(params);
+
+        KeyManager[] keyManagers = kmf.getKeyManagers();
+        assertEquals(1, keyManagers.length);
+
+        Spake2PlusKeyManager keyManager = (Spake2PlusKeyManager) keyManagers[0];
+        assertArrayEquals(password, keyManager.getPassword());
+        assertArrayEquals(new byte[] {4, 5, 6}, keyManager.getIdProver());
+        assertArrayEquals(new byte[] {7, 8, 9}, keyManager.getIdVerifier());
+    }
+
 
     private void test_KeyManagerFactory_getKeyManagers(KeyManagerFactory kmf, boolean empty)
             throws Exception {

@@ -538,6 +538,12 @@ public final class OpenSSLProvider extends Provider {
                 PREFIX + "HpkeImpl$X25519_AES_256");
         put("ConscryptHpke.DHKEM_X25519_HKDF_SHA256/HKDF_SHA256/CHACHA20POLY1305",
                 PREFIX + "HpkeImpl$X25519_CHACHA20");
+
+        /* === PAKE === */
+        if (Platform.isPakeSupported()) {
+            put("TrustManagerFactory.PAKE", PREFIX + "PakeTrustManagerFactory");
+            put("KeyManagerFactory.PAKE", PREFIX + "PakeKeyManagerFactory");
+        }
     }
 
     private void putMacImplClass(String algorithm, String className) {

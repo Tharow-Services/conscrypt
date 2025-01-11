@@ -161,6 +161,17 @@ public class PakeServerKeyManagerParametersTest {
         assertEquals(option, params.getOptions(CLIENT_ID_1, SERVER_ID_1).get(0));
     }
 
+    @Test(expected = InvalidParameterException.class)
+    @RequiresFlagsEnabled(com.android.org.conscrypt.flags.Flags.FLAG_SPAKE2PLUS_API)
+    public void testBuilder_multipleSpake2PlusPrerelease_() {
+        PakeOption option = createOption("SPAKE2PLUS_PRERELEASE", "w0", "registration_record");
+        PakeServerKeyManagerParameters params =
+                new PakeServerKeyManagerParameters.Builder()
+                        .setOptions(CLIENT_ID_1, SERVER_ID_1, List.of(option))
+                        .setOptions(CLIENT_ID_2, SERVER_ID_2, List.of(option))
+                        .build();
+    }
+
     private static PakeOption createOption(String algorithm, String... keys) {
         PakeOption.Builder builder = new PakeOption.Builder(algorithm);
         for (String key : keys) {
