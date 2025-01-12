@@ -1841,6 +1841,112 @@ public class SSLSocketVersionCompatibilityTest {
         }
     }
 
+<<<<<<< HEAD   (48b5a3 Merge "Add vendor visibility for conscrypt-unbundled" into m)
+||||||| BASE
+//  @TargetSdkVersion(35)
+    @Test
+    public void test_SSLSocket_SSLv3Unsupported_35() throws Exception {
+        assumeFalse(isTlsV1Filtered());
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        assertThrows(IllegalArgumentException.class,
+                () -> client.setEnabledProtocols(new String[] {"SSLv3"}));
+        assertThrows(IllegalArgumentException.class,
+                () -> client.setEnabledProtocols(new String[] {"SSL"}));
+    }
+
+//  @TargetSdkVersion(34)
+    @Test
+    @Ignore("For platform CTS only")
+    public void test_SSLSocket_SSLv3Unsupported_34() throws Exception {
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        // For app compatibility, SSLv3 is stripped out when setting only.
+        client.setEnabledProtocols(new String[] {"SSLv3"});
+        assertEquals(0, client.getEnabledProtocols().length);
+        try {
+            client.setEnabledProtocols(new String[] {"SSL"});
+            fail("SSLSocket should not support SSL protocol");
+        } catch (IllegalArgumentException expected) {
+            // Ignored.
+        }
+    }
+
+//  @TargetSdkVersion(34)
+    @Test
+    @Ignore("For platform CTS only")
+    public void test_TLSv1Filtered_34() throws Exception {
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"});
+        assertEquals(1, client.getEnabledProtocols().length);
+        assertEquals("TLSv1.2", client.getEnabledProtocols()[0]);
+    }
+
+//  @TargetSdkVersion(35)
+    @Test
+    public void test_TLSv1Filtered_35() throws Exception {
+        assumeTrue(isTlsV1Filtered());
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        assertThrows(IllegalArgumentException.class, () ->
+            client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"}));
+    }
+
+=======
+//  @TargetSdkVersion(34)
+    @Test
+    @Ignore("For platform CTS only")
+    public void test_SSLSocket_SSLv3Unsupported_34() throws Exception {
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        // For app compatibility, SSLv3 is stripped out when setting only.
+        client.setEnabledProtocols(new String[] {"SSLv3"});
+        assertEquals(0, client.getEnabledProtocols().length);
+        try {
+            client.setEnabledProtocols(new String[] {"SSL"});
+            fail("SSLSocket should not support SSL protocol");
+        } catch (IllegalArgumentException expected) {
+            // Ignored.
+        }
+    }
+
+//  @TargetSdkVersion(34)
+    @Test
+    @Ignore("For platform CTS only")
+    public void test_TLSv1Filtered_34() throws Exception {
+        TestSSLContext context = new TestSSLContext.Builder()
+                .clientProtocol(clientVersion)
+                .serverProtocol(serverVersion)
+                .build();
+        final SSLSocket client =
+                (SSLSocket) context.clientContext.getSocketFactory().createSocket();
+        client.setEnabledProtocols(new String[] {"TLSv1", "TLSv1.1", "TLSv1.2"});
+        assertEquals(1, client.getEnabledProtocols().length);
+        assertEquals("TLSv1.2", client.getEnabledProtocols()[0]);
+    }
+
+>>>>>>> BRANCH (effcd1 C++ standards should apply to all platforms..... (#1283))
     @Test
     public void test_TLSv1Unsupported_notEnabled() {
         assumeTrue(!isTlsV1Supported());
