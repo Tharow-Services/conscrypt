@@ -17,13 +17,14 @@
 
 package com.android.org.conscrypt.ct;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import com.android.org.conscrypt.OpenSSLKey;
 import com.android.org.conscrypt.metrics.NoopStatsLog;
-
-import junit.framework.TestCase;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -75,6 +76,7 @@ public class LogStoreImplTest extends TestCase {
         }
     };
 
+    @Test
     public void test_loadValidLogList() throws Exception {
         // clang-format off
         String content = "" +
@@ -174,6 +176,7 @@ public class LogStoreImplTest extends TestCase {
                 metrics.states.get(0), LogStore.State.COMPLIANT);
     }
 
+    @Test
     public void test_loadMalformedLogList() throws Exception {
         FakeStatsLog metrics = new FakeStatsLog();
         String content = "}}";
@@ -187,6 +190,7 @@ public class LogStoreImplTest extends TestCase {
                 metrics.states.get(0), LogStore.State.MALFORMED);
     }
 
+    @Test
     public void test_loadMissingLogList() throws Exception {
         FakeStatsLog metrics = new FakeStatsLog();
         File logList = new File("does_not_exist");

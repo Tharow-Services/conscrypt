@@ -77,7 +77,7 @@ public final class StatsLogImpl implements StatsLog {
         CipherSuite suite = CipherSuite.forName(cipherSuite);
 
         write(TLS_HANDSHAKE_REPORTED, success, proto.getId(), suite.getId(), (int) duration,
-                Platform.getStatsSource().getId(), Platform.getUids());
+                Platform.getStatsSource(), Platform.getUids());
     }
 
     private static int logStoreStateToMetricsState(LogStore.State state) {
@@ -139,7 +139,7 @@ public final class StatsLogImpl implements StatsLog {
     }
 
     private void write(int atomId, boolean success, int protocol, int cipherSuite, int duration,
-            int source, int[] uids) {
+            com.android.org.conscrypt.metrics.Source source, int[] uids) {
         e.execute(new Runnable() {
             @Override
             public void run() {
