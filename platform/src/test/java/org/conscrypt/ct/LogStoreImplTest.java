@@ -19,10 +19,13 @@ package org.conscrypt.ct;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import org.conscrypt.OpenSSLKey;
 import org.conscrypt.metrics.NoopStatsLog;
+
+import junit.framework.TestCase;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;

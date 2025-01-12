@@ -87,6 +87,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
+import org.conscrypt.NativeCrypto;
 
 /**
  * Platform-specific methods for OpenJDK.
@@ -99,7 +100,7 @@ final public class Platform {
     private static final Method GET_CURVE_NAME_METHOD;
     static boolean DEPRECATED_TLS_V1 = true;
     static boolean ENABLED_TLS_V1 = false;
-    private static boolean FILTERED_TLS_V1 = true;
+    private static boolean FILTERED_TLS_V1 = false;
 
     static {
         NativeCrypto.setTlsV1DeprecationStatus(DEPRECATED_TLS_V1, ENABLED_TLS_V1);
