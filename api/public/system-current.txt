@@ -1,37 +1,46 @@
 // Signature format: 2.0
 package android.net.ssl {
 
-  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public class SpakeKeyManagerParameters implements javax.net.ssl.ManagerFactoryParameters {
-    method @NonNull public byte[] getContext();
-    method @NonNull public byte[] getIdProver();
-    method @NonNull public byte[] getIdVerifier();
-    method @NonNull public byte[] getPassword();
-    field public static final byte[] UNSET;
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public final class PakeClientKeyManagerParameters implements javax.net.ssl.ManagerFactoryParameters {
+    method @Nullable public byte[] getClientId();
+    method @NonNull public java.util.List<android.net.ssl.PakeOption> getOptions();
+    method @Nullable public byte[] getServerId();
   }
 
-  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public abstract static class SpakeKeyManagerParameters.Builder {
-    ctor protected SpakeKeyManagerParameters.Builder(@NonNull byte[]);
-    method @NonNull public abstract android.net.ssl.SpakeKeyManagerParameters build();
-    method @NonNull protected android.net.ssl.SpakeKeyManagerParameters doBuild(android.net.ssl.SpakeKeyManagerParameters);
-    method @NonNull public android.net.ssl.SpakeKeyManagerParameters.Builder setContext(@NonNull byte[]);
-    method @NonNull public android.net.ssl.SpakeKeyManagerParameters.Builder setIdProver(@NonNull byte[]);
-    method @NonNull public android.net.ssl.SpakeKeyManagerParameters.Builder setIdVerifier(@NonNull byte[]);
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public static final class PakeClientKeyManagerParameters.Builder {
+    ctor public PakeClientKeyManagerParameters.Builder();
+    method @NonNull public android.net.ssl.PakeClientKeyManagerParameters.Builder addOption(@NonNull android.net.ssl.PakeOption);
+    method @NonNull public android.net.ssl.PakeClientKeyManagerParameters build();
+    method @NonNull public android.net.ssl.PakeClientKeyManagerParameters.Builder setClientId(@Nullable byte[]);
+    method @NonNull public android.net.ssl.PakeClientKeyManagerParameters.Builder setServerId(@Nullable byte[]);
   }
 
-  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public static final class SpakeKeyManagerParameters.Prover extends android.net.ssl.SpakeKeyManagerParameters {
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public final class PakeOption {
+    method @NonNull public String getAlgorithm();
+    method @Nullable public byte[] getMessageComponent(@NonNull String);
   }
 
-  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public static final class SpakeKeyManagerParameters.Prover.Builder extends android.net.ssl.SpakeKeyManagerParameters.Builder {
-    ctor public SpakeKeyManagerParameters.Prover.Builder(@NonNull byte[]);
-    method @NonNull public android.net.ssl.SpakeKeyManagerParameters.Prover build();
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public static final class PakeOption.Builder {
+    ctor public PakeOption.Builder(@NonNull String);
+    method @NonNull public android.net.ssl.PakeOption.Builder addMessageComponent(@NonNull String, @Nullable byte[]);
+    method @NonNull public android.net.ssl.PakeOption build();
   }
 
-  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public static final class SpakeKeyManagerParameters.Verifier extends android.net.ssl.SpakeKeyManagerParameters {
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public final class PakeServerKeyManagerParameters implements javax.net.ssl.ManagerFactoryParameters {
+    method @NonNull public java.util.Set<android.net.ssl.PakeServerKeyManagerParameters.Link> getLinks();
+    method @NonNull public java.util.List<android.net.ssl.PakeOption> getOptions(@NonNull android.net.ssl.PakeServerKeyManagerParameters.Link);
+    method @NonNull public java.util.List<android.net.ssl.PakeOption> getOptions(@Nullable byte[], @Nullable byte[]);
   }
 
-  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public static final class SpakeKeyManagerParameters.Verifier.Builder extends android.net.ssl.SpakeKeyManagerParameters.Builder {
-    ctor public SpakeKeyManagerParameters.Verifier.Builder(@NonNull byte[]);
-    method @NonNull public android.net.ssl.SpakeKeyManagerParameters.Verifier build();
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public static final class PakeServerKeyManagerParameters.Builder {
+    ctor public PakeServerKeyManagerParameters.Builder();
+    method @NonNull public android.net.ssl.PakeServerKeyManagerParameters build();
+    method @NonNull public android.net.ssl.PakeServerKeyManagerParameters.Builder setOptions(@Nullable byte[], @Nullable byte[], @NonNull java.util.List<android.net.ssl.PakeOption>);
+  }
+
+  @FlaggedApi("com.android.org.conscrypt.flags.spake2plus_api") public static final class PakeServerKeyManagerParameters.Link {
+    method @Nullable public byte[] getClientId();
+    method @Nullable public byte[] getServerId();
   }
 
 }
