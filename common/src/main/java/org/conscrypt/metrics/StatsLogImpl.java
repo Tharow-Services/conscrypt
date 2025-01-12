@@ -73,7 +73,13 @@ public final class StatsLogImpl implements StatsLog {
         CipherSuite suite = CipherSuite.forName(cipherSuite);
 
         write(TLS_HANDSHAKE_REPORTED, success, proto.getId(), suite.getId(), (int) duration,
+<<<<<<< HEAD   (48b5a3 Merge "Add vendor visibility for conscrypt-unbundled" into m)
                 Platform.getStatsSource().getId(), Platform.getUids());
+||||||| BASE
+                Platform.getStatsSource().ordinal(), Platform.getUids());
+=======
+                Platform.getStatsSource(), Platform.getUids());
+>>>>>>> BRANCH (effcd1 C++ standards should apply to all platforms..... (#1283))
     }
 
     private static int logStoreStateToMetricsState(LogStore.State state) {
@@ -135,7 +141,7 @@ public final class StatsLogImpl implements StatsLog {
     }
 
     private void write(int atomId, boolean success, int protocol, int cipherSuite, int duration,
-            int source, int[] uids) {
+            org.conscrypt.metrics.Source source, int[] uids) {
         e.execute(new Runnable() {
             @Override
             public void run() {
@@ -152,6 +158,7 @@ public final class StatsLogImpl implements StatsLog {
             public void run() {
                 ConscryptStatsLog.write(atomId, status, loadedCompatVersion,
                         minCompatVersionAvailable, majorVersion, minorVersion);
+<<<<<<< HEAD   (48b5a3 Merge "Add vendor visibility for conscrypt-unbundled" into m)
             }
         });
     }
@@ -165,6 +172,16 @@ public final class StatsLogImpl implements StatsLog {
                 ConscryptStatsLog.write(atomId, verificationResult, verificationReason,
                         policyCompatVersion, majorVersion, minorVersion, numEmbeddedScts,
                         numOcspScts, numTlsScts);
+||||||| BASE
+                builder.writeInt(status);
+                builder.writeInt(loadedCompatVersion);
+                builder.writeInt(minCompatVersionAvailable);
+                builder.writeInt(majorVersion);
+                builder.writeInt(minorVersion);
+                builder.usePooledBuffer();
+                ReflexiveStatsLog.write(builder.build());
+=======
+>>>>>>> BRANCH (effcd1 C++ standards should apply to all platforms..... (#1283))
             }
         });
     }
