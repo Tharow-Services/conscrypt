@@ -75,7 +75,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509ExtendedTrustManager;
 import javax.net.ssl.X509TrustManager;
-
+import libcore.net.NetworkSecurityPolicy;
+import org.conscrypt.NativeCrypto;
 import sun.security.x509.AlgorithmId;
 
 @Internal

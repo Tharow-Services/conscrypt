@@ -70,6 +70,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.StandardConstants;
 import javax.net.ssl.X509TrustManager;
+import org.conscrypt.NativeCrypto;
 
 /**
  * Platform-specific methods for unbundled Android.
