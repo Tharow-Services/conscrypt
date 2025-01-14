@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2bdd1504_3e8cc3b7",
+        "filename": "common/src/test/java/org/conscrypt/javax/net/ssl/TrustManagerFactoryTest.java",
+        "patchSetId": 5
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1863710
+      },
+      "writtenOn": "2025-01-14T17:23:12Z",
+      "side": 1,
+      "message": "Do you need to assert something here?",
+      "revId": "a07ef7bdef0a75496c9ab4bbf96217244e7dd563",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    }
+  ]
+}
