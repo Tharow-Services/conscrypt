@@ -666,6 +666,35 @@ public final class NativeCrypto {
     @android.compat.annotation.UnsupportedAppUsage
     static native int X509_supported_extension(long x509ExtensionRef);
 
+    // --- SPAKE ---------------------------------------------------------------
+
+    static native void SSL_CTX_set_spake_credential(
+            byte[] context,
+            byte[] pw_array,
+            byte[] id_prover_array,
+            byte[] id_verifier_array,
+            boolean is_client,
+            NativeSsl ssl_holder)
+        throws SSLException, InvalidAlgorithmParameterException;
+
+    static native void SSL_CTX_set_spake_credential_client(
+            byte[] context,
+            byte[] w0_array,
+            byte[] w1_array,
+            byte[] id_prover_array,
+            byte[] id_verifier_array,
+            NativeSsl ssl_holder)
+        throws SSLException, InvalidAlgorithmParameterException;
+
+    static native void SSL_CTX_set_spake_credential_server(
+            byte[] context,
+            byte[] w0_array,
+            byte[] registration_record_array,
+            byte[] id_prover_array,
+            byte[] id_verifier_array,
+            NativeSsl ssl_holder)
+        throws SSLException, InvalidAlgorithmParameterException;
+
     // --- ASN1_TIME -----------------------------------------------------------
 
     @android.compat.annotation.UnsupportedAppUsage

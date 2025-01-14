@@ -520,6 +520,15 @@ int throwSSLExceptionWithSslErrors(JNIEnv* env, SSL* ssl, int sslErrorCode, cons
         case SSL_ERROR_WANT_ACCEPT:
             sslErrorStr = "SSL_ERROR_WANT_ACCEPT occurred. You should never see this.";
             break;
+        case SSL_R_PASSWORD_VERIFIER_WRONG_SIZE:
+            sslErrorStr = "SSL_R_PASSWORD_VERIFIER_WRONG_SIZE occurred";
+            break;
+        case SSL_R_NO_PAKE_MATCH:
+            sslErrorStr = "SSL_R_NO_PAKE_MATCH occurred";
+            break;
+        case SSL_R_PAKE_AND_KEY_SHARE_NOT_ALLOWED:
+            sslErrorStr = "SSL_R_PAKE_AND_KEY_SHARE_NOT_ALLOWED occurred";
+            break;
         default:
             sslErrorStr = "Unknown SSL error";
     }
@@ -581,6 +590,8 @@ int throwSSLExceptionWithSslErrors(JNIEnv* env, SSL* ssl, int sslErrorCode, cons
     int ret;
     if (sslErrorCode == SSL_ERROR_SSL) {
         ret = throwSSLProtocolExceptionStr(env, allocStr);
+    } else if (sslErrorCode == SSL_R_PASSWORD_VERIFIER_WRONG_SIZE) {
+        ret = throwInvalidAlgorithmParameterException(env, allocStr);
     } else {
         ret = actualThrow(env, allocStr);
     }
