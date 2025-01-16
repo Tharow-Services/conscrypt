@@ -520,6 +520,27 @@ int throwSSLExceptionWithSslErrors(JNIEnv* env, SSL* ssl, int sslErrorCode, cons
         case SSL_ERROR_WANT_ACCEPT:
             sslErrorStr = "SSL_ERROR_WANT_ACCEPT occurred. You should never see this.";
             break;
+        case INVALID_SPAKE2PLUSV1_VALUE:
+            sslErrorStr = "INVALID_SPAKE2PLUSV1_VALUE occurred";
+            break;
+        case NO_PAKE_MATCH:
+            sslErrorStr = "NO_PAKE_MATCH occurred";
+            break;
+        case PAKE_AND_KEY_SHARE_NOT_ALLOWED:
+            sslErrorStr = "PAKE_AND_KEY_SHARE_NOT_ALLOWED occurred";
+            break;
+        case PAKE_EXHAUSTED:
+            sslErrorStr = "PAKE_EXHAUSTED occurred";
+            break;
+        case PASSWORD_VERIFIER_WRONG_SIZE:
+            sslErrorStr = "PASSWORD_VERIFIER_WRONG_SIZE occurred";
+            break;
+        case PEER_NOT_CONFIGURED_WITH_PAKE:
+            sslErrorStr = "PEER_NOT_CONFIGURED_WITH_PAKE occurred";
+            break;
+        case PEER_PAKE_MISMATCH:
+            sslErrorStr = "PEER_PAKE_MISMATCH occurred";
+            break;
         default:
             sslErrorStr = "Unknown SSL error";
     }
@@ -581,6 +602,8 @@ int throwSSLExceptionWithSslErrors(JNIEnv* env, SSL* ssl, int sslErrorCode, cons
     int ret;
     if (sslErrorCode == SSL_ERROR_SSL) {
         ret = throwSSLProtocolExceptionStr(env, allocStr);
+    } else if (sslErrorCode == PASSWORD_VERIFIER_WRONG_SIZE) {
+        ret = throwInvalidAlgorithmParameterException(env, allocStr);
     } else {
         ret = actualThrow(env, allocStr);
     }

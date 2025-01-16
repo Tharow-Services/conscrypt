@@ -102,8 +102,6 @@ final class NativeSsl {
         byte[] registrationRecordArray = spakeKeyManager.getRegistrationRecord();
         boolean isClient = spakeKeyManager.isClient();
 
-        // TODO: uncomment this once the native code is ready.
-        /*
         if (pwArray != null) {
             NativeCrypto.SSL_CTX_set_spake_credential(
                 context, pwArray, idProverArray,
@@ -117,7 +115,6 @@ final class NativeSsl {
                 context, w0Array, registrationRecordArray,
                 idProverArray, idVerifierArray, this);
         }
-        */
     }
 
     void offerToResumeSession(long sslSessionNativePointer) throws SSLException {
