@@ -34,6 +34,24 @@
       "parentUuid": "0ac08142_7f16036f",
       "revId": "6ce949ac60b0de328a2b5a881b9c0604cb64d8fb",
       "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "06fd44fb_0373cc61",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1334152
+      },
+      "writtenOn": "2025-01-16T13:23:59Z",
+      "side": 1,
+      "message": "We can pick it up from Github - nothing in the platform tracks these thread names by default.",
+      "parentUuid": "01c0270c_1fc6d9e6",
+      "revId": "6ce949ac60b0de328a2b5a881b9c0604cb64d8fb",
+      "serverId": "85c56323-6fa9-3386-8a01-6480fb634889"
     }
   ]
 }
