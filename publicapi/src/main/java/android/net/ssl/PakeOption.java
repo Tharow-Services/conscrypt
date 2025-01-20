@@ -41,8 +41,8 @@ import java.util.Map;
 public final class PakeOption {
     // Required length of the password verifier parameters
     private static final int W_LENGTH = 32;
-    // Required length of the registration_record parameter
-    private static final int REGISTRATION_RECORD_LENGTH = 65;
+    // Required length of the L parameter
+    private static final int L_LENGTH = 65;
 
     /**
      * The algorithm of the PAKE algorithm.
@@ -146,10 +146,10 @@ public final class PakeOption {
             // For SPAKE2+ one of the following is present exclusively:
             //  - password
             //  - w0 and w1 (for Client)
-            //  - w0 and registration_record (for Server)
+            //  - w0 and L (for Server)
             if (messageComponents.containsKey("password")) {
                 if (messageComponents.containsKey("w0") || messageComponents.containsKey("w1")
-                        || messageComponents.containsKey("registration_record")) {
+                        || messageComponents.containsKey("L")) {
                     throw new InvalidParameterException(
                             "For SPAKE2+, 'password' must be exclusive.");
                 }
@@ -157,28 +157,27 @@ public final class PakeOption {
                 if (messageComponents.get("w0").length != W_LENGTH) {
                     throw new InvalidParameterException("w0 must be " + W_LENGTH + " bytes.");
                 }
-                if (!messageComponents.containsKey("w1")
-                        && !messageComponents.containsKey("registration_record")) {
+                if (!messageComponents.containsKey("w1") && !messageComponents.containsKey("L")) {
                     throw new InvalidParameterException("For SPAKE2+, 'w0' must be present with "
-                            + "either 'w1' or 'registration_record'.");
+                            + "either 'w1' or 'L'.");
                 }
                 if (messageComponents.containsKey("w1")) {
-                    if (messageComponents.containsKey("registration_record")) {
+                    if (messageComponents.containsKey("L")) {
                         throw new InvalidParameterException(
-                                "For SPAKE2+, 'w1' and 'registration_record' cannot both be present.");
+                                "For SPAKE2+, 'w1' and 'L' cannot both be present.");
                     }
                     if (messageComponents.get("w1").length != W_LENGTH) {
                         throw new InvalidParameterException("w1 must be " + W_LENGTH + " bytes.");
                     }
-                } else { // messageComponents.containsKey("registration_record")
-                    if (messageComponents.get("registration_record").length != REGISTRATION_RECORD_LENGTH) {
-                        throw new InvalidParameterException("registration_record must be " + REGISTRATION_RECORD_LENGTH + " bytes.");
+                } else { // messageComponents.containsKey("L")
+                    if (messageComponents.get("L").length != L_LENGTH) {
+                        throw new InvalidParameterException("L must be " + L_LENGTH + " bytes.");
                     }
                 }
             } else {
                 throw new InvalidParameterException(
                         "For SPAKE2+, one of 'password', 'w0' with 'w1', or 'w0' with "
-                        + "'registration_record' must be present.");
+                        + "'L' must be present.");
             }
         }
     }

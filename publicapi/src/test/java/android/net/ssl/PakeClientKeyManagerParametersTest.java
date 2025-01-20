@@ -143,7 +143,7 @@ public class PakeClientKeyManagerParametersTest {
     public void testBuilder_spake2PlusPrerelease_w0Withoutw1() {
         PakeOption option = new PakeOption.Builder("SPAKE2PLUS_PRERELEASE")
                                     .addMessageComponent("w0", W_VALID.clone())
-                                    .addMessageComponent("registration_record", new byte[65])
+                                    .addMessageComponent("L", new byte[65])
                                     .build();
         PakeClientKeyManagerParameters.Builder builder =
                 new PakeClientKeyManagerParameters.Builder();
